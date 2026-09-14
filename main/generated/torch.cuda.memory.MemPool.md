@@ -1,6 +1,6 @@
 # MemPool
 
-*class*torch.cuda.memory.MemPool(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/cuda/memory.py#L1387)
+*class*torch.cuda.memory.MemPool(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/cuda/memory.py#L1387)
 
 MemPool represents a pool of memory in a caching allocator. Currently,
 it's just the ID of the pool object maintained in the CUDACachingAllocator.
@@ -12,17 +12,17 @@ torch._C._cuda_CUDAAllocator object that can be used to
 define how memory gets allocated in the pool. If `allocator`
 is `None` (default), memory allocation follows the default/
 current configuration of the CUDACachingAllocator.
-- **use_on_oom** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - a bool that indicates if this pool can be used
+- **use_on_oom** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - a bool that indicates if this pool can be used
 as a last resort if a memory allocation outside of the pool fails due
 to Out Of Memory. This is False by default.
-- **no_split** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - a bool that indicates if this pool should not split a segment.
+- **no_split** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - a bool that indicates if this pool should not split a segment.
 This is False by default.
 
-*property*id*: [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[int](https://docs.python.org/3/library/functions.html#int), [int](https://docs.python.org/3/library/functions.html#int)]*
+*property*id*: [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[int](https://docs.python.org/3/builtins/functions.html#int), [int](https://docs.python.org/3/builtins/functions.html#int)]*
 
 Returns the ID of this pool as a tuple of two ints.
 
-snapshot(*include_traces=True*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/cuda/memory.py#L1422)
+snapshot(*include_traces=True*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/cuda/memory.py#L1422)
 
 Return a snapshot of the CUDA memory allocator pool state across all
 devices.
@@ -41,10 +41,10 @@ Note
 See [Memory management](../notes/cuda.html#cuda-memory-management) for more details about GPU memory
 management.
 
-use_count()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/cuda/memory.py#L1418)
+use_count()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/cuda/memory.py#L1418)
 
 Returns the reference count of this pool.
 
 Return type:
 
-[int](https://docs.python.org/3/library/functions.html#int)
+[int](https://docs.python.org/3/builtins/functions.html#int)

@@ -1,6 +1,6 @@
 # PerAxis
 
-*class*torch.ao.quantization.observer.PerAxis(*axis*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/ao/quantization/observer.py#L1724)
+*class*torch.ao.quantization.observer.PerAxis(*axis*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/ao/quantization/observer.py#L1724)
 
 Represents per-axis granularity in quantization.
 
@@ -13,4 +13,4 @@ Giving a total of 8 quantization parameters.
 
 Variables:
 
-**axis** ([*int*](https://docs.python.org/3/library/functions.html#int)) - The axis along which reduction is performed.
+**axis** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - The axis along which reduction is performed.

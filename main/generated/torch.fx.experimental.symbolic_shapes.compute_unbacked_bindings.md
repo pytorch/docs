@@ -1,6 +1,6 @@
 # torch.fx.experimental.symbolic_shapes.compute_unbacked_bindings
 
-torch.fx.experimental.symbolic_shapes.compute_unbacked_bindings(*shape_env*, *example_value*, *old_example_value=None*, *peek=False*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/experimental/symbolic_shapes.py#L1435)
+torch.fx.experimental.symbolic_shapes.compute_unbacked_bindings(*shape_env*, *example_value*, *old_example_value=None*, *peek=False*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/experimental/symbolic_shapes.py#L1435)
 
 After having run fake tensor propagation and producing example_value
 result, traverse example_value looking for freshly bound unbacked
@@ -16,4 +16,4 @@ real_tensor_prop_unbacked_vals is promptly populated when propagate_real_tensors
 
 Return type:
 
-[dict](https://docs.python.org/3/library/stdtypes.html#dict)[*Symbol*, [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[*KeyEntry*, ...]] | None
+[dict](https://docs.python.org/3/builtins/stdtypes.html#dict)[*Symbol*, [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[*KeyEntry*, ...]] | None

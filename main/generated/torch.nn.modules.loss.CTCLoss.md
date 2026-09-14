@@ -1,6 +1,6 @@
 # CTCLoss
 
-*class*torch.nn.modules.loss.CTCLoss(*blank=0*, *reduction='mean'*, *zero_infinity=False*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/loss.py#L2151)
+*class*torch.nn.modules.loss.CTCLoss(*blank=0*, *reduction='mean'*, *zero_infinity=False*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/loss.py#L2151)
 
 The Connectionist Temporal Classification loss.
 
@@ -11,13 +11,13 @@ limits the length of the target sequence such that it must be ≤\leq≤ the inp
 
 Parameters:
 
-- **blank** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - blank label. Default 000.
-- **reduction** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**optional*) - Specifies the reduction to apply to the output:
+- **blank** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - blank label. Default 000.
+- **reduction** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**optional*) - Specifies the reduction to apply to the output:
 `'none'` | `'mean'` | `'sum'`. `'none'`: no reduction will be applied,
 `'mean'`: the output losses will be divided by the target lengths and
 then the mean over the batch is taken, `'sum'`: the output losses will be summed.
 Default: `'mean'`
-- **zero_infinity** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - Whether to zero infinite losses and the associated gradients.
+- **zero_infinity** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - Whether to zero infinite losses and the associated gradients.
 Default: `False`
 Infinite losses mainly occur when the inputs are too short
 to be aligned to the targets.
@@ -155,7 +155,7 @@ a performance cost) by setting `torch.backends.cudnn.deterministic =
 True`.
 Please see the notes on [Reproducibility](../notes/randomness.html) for background.
 
-forward(*log_probs*, *targets*, *input_lengths*, *target_lengths*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/loss.py#L2313)
+forward(*log_probs*, *targets*, *input_lengths*, *target_lengths*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/loss.py#L2313)
 
 Runs the forward pass.
 

@@ -76,23 +76,23 @@ through `torch.hub.list()`, show docstring and examples through
 `torch.hub.help()` and load the pre-trained models using
 `torch.hub.load()`.
 
-torch.hub.list(*github*, *force_reload=False*, *skip_validation=False*, *trust_repo='check'*, *verbose=True*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/hub.py#L459)
+torch.hub.list(*github*, *force_reload=False*, *skip_validation=False*, *trust_repo='check'*, *verbose=True*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/hub.py#L459)
 
 List all callable entrypoints available in the repo specified by `github`.
 
 Parameters:
 
-- **github** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - a string with format "repo_owner/repo_name[:ref]" with an optional
+- **github** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - a string with format "repo_owner/repo_name[:ref]" with an optional
 ref (tag or branch). If `ref` is not specified, the default branch is assumed to be `main` if
 it exists, and otherwise `master`.
 Example: 'pytorch/vision:0.10'
-- **force_reload** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - whether to discard the existing cache and force a fresh download.
+- **force_reload** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - whether to discard the existing cache and force a fresh download.
 Default is `False`.
-- **skip_validation** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - if `False`, torchhub will check that the branch or commit
+- **skip_validation** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - if `False`, torchhub will check that the branch or commit
 specified by the `github` argument properly belongs to the repo owner. This will make
 requests to the GitHub API; you can specify a non-default GitHub token by setting the
 `GITHUB_TOKEN` environment variable. Default is `False`.
-- **trust_repo** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*or*[*str*](https://docs.python.org/3/library/stdtypes.html#str)) -
+- **trust_repo** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*or*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) -
 
 `"check"`, `True` or `False`.
 This parameter was introduced in v1.12 and helps ensuring that users
@@ -107,7 +107,7 @@ trusted repos in the cache. If it is not present in that list, the
 behaviour will fall back onto the `trust_repo=False` option.
 
 Default is `"check"`.
-- **verbose** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If `False`, mute messages about hitting
+- **verbose** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If `False`, mute messages about hitting
 local caches. Note that the message about first download cannot be
 muted. Default is `True`.
 
@@ -117,7 +117,7 @@ The available callables entrypoint
 
 Return type:
 
-[list](https://docs.python.org/3/library/stdtypes.html#list)
+[list](https://docs.python.org/3/builtins/stdtypes.html#list)
 
 Example
 
@@ -125,24 +125,24 @@ Example
 >>> entrypoints = torch.hub.list("pytorch/vision", force_reload=True)
 ```
 
-torch.hub.help(*github*, *model*, *force_reload=False*, *skip_validation=False*, *trust_repo='check'*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/hub.py#L526)
+torch.hub.help(*github*, *model*, *force_reload=False*, *skip_validation=False*, *trust_repo='check'*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/hub.py#L526)
 
 Show the docstring of entrypoint `model`.
 
 Parameters:
 
-- **github** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - a string with format <repo_owner/repo_name[:ref]> with an optional
+- **github** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - a string with format <repo_owner/repo_name[:ref]> with an optional
 ref (a tag or a branch). If `ref` is not specified, the default branch is assumed
 to be `main` if it exists, and otherwise `master`.
 Example: 'pytorch/vision:0.10'
-- **model** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - a string of entrypoint name defined in repo's `hubconf.py`
-- **force_reload** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - whether to discard the existing cache and force a fresh download.
+- **model** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - a string of entrypoint name defined in repo's `hubconf.py`
+- **force_reload** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - whether to discard the existing cache and force a fresh download.
 Default is `False`.
-- **skip_validation** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - if `False`, torchhub will check that the ref
+- **skip_validation** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - if `False`, torchhub will check that the ref
 specified by the `github` argument properly belongs to the repo owner. This will make
 requests to the GitHub API; you can specify a non-default GitHub token by setting the
 `GITHUB_TOKEN` environment variable. Default is `False`.
-- **trust_repo** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*or*[*str*](https://docs.python.org/3/library/stdtypes.html#str)) -
+- **trust_repo** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*or*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) -
 
 `"check"`, `True` or `False`.
 This parameter was introduced in v1.12 and helps ensuring that users
@@ -164,7 +164,7 @@ Example
 >>> print(torch.hub.help("pytorch/vision", "resnet18", force_reload=True))
 ```
 
-torch.hub.load(*repo_or_dir*, *model*, **args*, *source='github'*, *trust_repo='check'*, *force_reload=False*, *verbose=True*, *skip_validation=False*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/hub.py#L576)
+torch.hub.load(*repo_or_dir*, *model*, **args*, *source='github'*, *trust_repo='check'*, *force_reload=False*, *verbose=True*, *skip_validation=False*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/hub.py#L576)
 
 Load a model from a github repo or a local directory.
 
@@ -180,17 +180,17 @@ path to a local directory.
 
 Parameters:
 
-- **repo_or_dir** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - If `source` is 'github',
+- **repo_or_dir** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - If `source` is 'github',
 this should correspond to a github repo with format `repo_owner/repo_name[:ref]` with
 an optional ref (tag or branch), for example 'pytorch/vision:0.10'. If `ref` is not specified,
 the default branch is assumed to be `main` if it exists, and otherwise `master`.
 If `source` is 'local' then it should be a path to a local directory.
-- **model** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - the name of a callable (entrypoint) defined in the
+- **model** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - the name of a callable (entrypoint) defined in the
 repo/dir's `hubconf.py`.
 - ***args** (*optional*) - the corresponding args for callable `model`.
-- **source** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**optional*) - 'github' or 'local'. Specifies how
+- **source** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**optional*) - 'github' or 'local'. Specifies how
 `repo_or_dir` is to be interpreted. Default is 'github'.
-- **trust_repo** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*or*[*str*](https://docs.python.org/3/library/stdtypes.html#str)) -
+- **trust_repo** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*or*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) -
 
 `"check"`, `True` or `False`.
 This parameter was introduced in v1.12 and helps ensuring that users
@@ -205,14 +205,14 @@ trusted repos in the cache. If it is not present in that list, the
 behaviour will fall back onto the `trust_repo=False` option.
 
 Default is `"check"`.
-- **force_reload** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - whether to force a fresh download of
+- **force_reload** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - whether to force a fresh download of
 the github repo unconditionally. Does not have any effect if
 `source = 'local'`. Default is `False`.
-- **verbose** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If `False`, mute messages about hitting
+- **verbose** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If `False`, mute messages about hitting
 local caches. Note that the message about first download cannot be
 muted. Does not have any effect if `source = 'local'`.
 Default is `True`.
-- **skip_validation** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - if `False`, torchhub will check that the branch or commit
+- **skip_validation** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - if `False`, torchhub will check that the branch or commit
 specified by the `github` argument properly belongs to the repo owner. This will make
 requests to the GitHub API; you can specify a non-default GitHub token by setting the
 `GITHUB_TOKEN` environment variable. Default is `False`.
@@ -236,17 +236,17 @@ Example
 >>> model = torch.hub.load(path, "resnet50", weights="ResNet50_Weights.DEFAULT")
 ```
 
-torch.hub.download_url_to_file(*url*, *dst*, *hash_prefix=None*, *progress=True*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/hub.py#L707)
+torch.hub.download_url_to_file(*url*, *dst*, *hash_prefix=None*, *progress=True*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/hub.py#L707)
 
 Download object at the given URL to a local path.
 
 Parameters:
 
-- **url** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - URL of the object to download
-- **dst** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - Full path where object will be saved, e.g. `/tmp/temporary_file`
-- **hash_prefix** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**optional*) - If not None, the SHA256 downloaded file should start with `hash_prefix`.
+- **url** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - URL of the object to download
+- **dst** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - Full path where object will be saved, e.g. `/tmp/temporary_file`
+- **hash_prefix** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**optional*) - If not None, the SHA256 downloaded file should start with `hash_prefix`.
 Default: None
-- **progress** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - whether or not to display a progress bar to stderr
+- **progress** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - whether or not to display a progress bar to stderr
 Default: True
 
 Example
@@ -258,7 +258,7 @@ Example
 ... )
 ```
 
-torch.hub.load_state_dict_from_url(*url*, *model_dir=None*, *map_location=None*, *progress=True*, *check_hash=False*, *file_name=None*, *weights_only=False*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/hub.py#L829)
+torch.hub.load_state_dict_from_url(*url*, *model_dir=None*, *map_location=None*, *progress=True*, *check_hash=False*, *file_name=None*, *weights_only=False*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/hub.py#L829)
 
 Loads the Torch serialized object at the given URL.
 
@@ -272,23 +272,23 @@ The default value of `model_dir` is `<hub_dir>/checkpoints` where
 
 Parameters:
 
-- **url** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - URL of the object to download
-- **model_dir** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**optional*) - directory in which to save the object
+- **url** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - URL of the object to download
+- **model_dir** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**optional*) - directory in which to save the object
 - **map_location** (*optional*) - a function or a dict specifying how to remap storage locations (see torch.load)
-- **progress** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - whether or not to display a progress bar to stderr.
+- **progress** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - whether or not to display a progress bar to stderr.
 Default: True
-- **check_hash** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If True, the filename part of the URL should follow the naming convention
+- **check_hash** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If True, the filename part of the URL should follow the naming convention
 `filename-<sha256>.ext` where `<sha256>` is the first eight or more
 digits of the SHA256 hash of the contents of the file. The hash is used to
 ensure unique names and to verify the contents of the file.
 Default: False
-- **file_name** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**optional*) - name for the downloaded file. Filename from `url` will be used if not set.
-- **weights_only** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If True, only weights will be loaded and no complex pickled objects.
+- **file_name** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**optional*) - name for the downloaded file. Filename from `url` will be used if not set.
+- **weights_only** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If True, only weights will be loaded and no complex pickled objects.
 Recommended for untrusted sources. See [`load()`](generated/torch.load.html#torch.load) for more details.
 
 Return type:
 
-[dict](https://docs.python.org/3/library/stdtypes.html#dict)[[str](https://docs.python.org/3/library/stdtypes.html#str), [*Any*](https://docs.python.org/3/library/typing.html#typing.Any)]
+[dict](https://docs.python.org/3/builtins/stdtypes.html#dict)[[str](https://docs.python.org/3/builtins/stdtypes.html#str), [*Any*](https://docs.python.org/3/library/typing.html#typing.Any)]
 
 Example
 
@@ -321,7 +321,7 @@ The locations are used in the order of
 - `$XDG_CACHE_HOME/torch/hub`, if environment variable `XDG_CACHE_HOME` is set.
 - `~/.cache/torch/hub`
 
-torch.hub.get_dir()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/hub.py#L427)
+torch.hub.get_dir()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/hub.py#L427)
 
 Get the Torch Hub cache directory used for storing downloaded models & weights.
 
@@ -333,15 +333,15 @@ variable is not set.
 
 Return type:
 
-[str](https://docs.python.org/3/library/stdtypes.html#str)
+[str](https://docs.python.org/3/builtins/stdtypes.html#str)
 
-torch.hub.set_dir(*d*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/hub.py#L448)
+torch.hub.set_dir(*d*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/hub.py#L448)
 
 Optionally set the Torch Hub directory used to save downloaded models & weights.
 
 Parameters:
 
-**d** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - path to a local folder to save downloaded models & weights.
+**d** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - path to a local folder to save downloaded models & weights.
 
 ### Caching logic
 

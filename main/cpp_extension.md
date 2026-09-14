@@ -1,6 +1,6 @@
 # torch.utils.cpp_extension
 
-torch.utils.cpp_extension.CppExtension(*name*, *sources*, **args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/utils/cpp_extension.py#L1435)
+torch.utils.cpp_extension.CppExtension(*name*, *sources*, **args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/utils/cpp_extension.py#L1435)
 
 Create a `setuptools.Extension` for C++.
 
@@ -48,7 +48,7 @@ Example
 ... })
 ```
 
-torch.utils.cpp_extension.CUDAExtension(*name*, *sources*, **args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/utils/cpp_extension.py#L1505)
+torch.utils.cpp_extension.CUDAExtension(*name*, *sources*, **args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/utils/cpp_extension.py#L1505)
 
 Create a `setuptools.Extension` for CUDA/C++.
 
@@ -172,7 +172,7 @@ Example
 ... 'nvcc': ['-O2', '-rdc=true']})
 ```
 
-torch.utils.cpp_extension.SyclExtension(*name*, *sources*, **args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/utils/cpp_extension.py#L1702)
+torch.utils.cpp_extension.SyclExtension(*name*, *sources*, **args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/utils/cpp_extension.py#L1702)
 
 Creates a `setuptools.Extension` for SYCL/C++.
 
@@ -231,7 +231,7 @@ slower the building process will be, as it will build a separate kernel image fo
 
 Note: Ninja is required to build SyclExtension.
 
-torch.utils.cpp_extension.BuildExtension(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/utils/cpp_extension.py#L791)
+torch.utils.cpp_extension.BuildExtension(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/utils/cpp_extension.py#L791)
 
 A custom `setuptools` build extension .
 
@@ -258,7 +258,7 @@ extension. This may use up too many resources on some systems. One
 can control the number of workers by setting the MAX_JOBS environment
 variable to a non-negative number.
 
-torch.utils.cpp_extension.load(*name*, *sources*, *extra_cflags=None*, *extra_cuda_cflags=None*, *extra_sycl_cflags=None*, *extra_ldflags=None*, *extra_include_paths=None*, *build_directory=None*, *verbose=False*, *with_cuda=None*, *with_sycl=None*, *is_python_module=True*, *is_standalone=False*, *keep_intermediates=True*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/utils/cpp_extension.py#L1880)
+torch.utils.cpp_extension.load(*name*, *sources*, *extra_cflags=None*, *extra_cuda_cflags=None*, *extra_sycl_cflags=None*, *extra_ldflags=None*, *extra_include_paths=None*, *build_directory=None*, *verbose=False*, *with_cuda=None*, *with_sycl=None*, *is_python_module=True*, *is_standalone=False*, *keep_intermediates=True*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/utils/cpp_extension.py#L1880)
 
 Load a PyTorch C++ extension just-in-time (JIT).
 
@@ -306,7 +306,7 @@ Parameters:
 
 - **name** - The name of the extension to build. This MUST be the same as the
 name of the pybind11 module!
-- **sources** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*|*[*list*](https://docs.python.org/3/library/stdtypes.html#list)*[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*]*) - A list of relative or absolute paths to C++ source files.
+- **sources** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*|*[*list*](https://docs.python.org/3/builtins/stdtypes.html#list)*[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*]*) - A list of relative or absolute paths to C++ source files.
 - **extra_cflags** - optional list of compiler flags to forward to the build.
 - **extra_cuda_cflags** - optional list of compiler flags to forward to nvcc
 when building CUDA sources.
@@ -317,12 +317,12 @@ compiler when building SYCL sources.
 to the build.
 - **build_directory** - optional path to use as build workspace.
 - **verbose** - If `True`, turns on verbose logging of load steps.
-- **with_cuda** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*|**None*) - Determines whether CUDA headers and libraries are added to
+- **with_cuda** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*|**None*) - Determines whether CUDA headers and libraries are added to
 the build. If set to `None` (default), this value is
 automatically determined based on the existence of `.cu` or
 `.cuh` in `sources`. Set it to True` to force CUDA headers
 and libraries to be included.
-- **with_sycl** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*|**None*) - Determines whether SYCL headers and libraries are added to
+- **with_sycl** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*|**None*) - Determines whether SYCL headers and libraries are added to
 the build. If set to `None` (default), this value is
 automatically determined based on the existence of `.sycl` in
 `sources`. Set it to True` to force SYCL headers and
@@ -363,7 +363,7 @@ Example
 ... verbose=True)
 ```
 
-torch.utils.cpp_extension.load_inline(*name*, *cpp_sources*, *cuda_sources=None*, *sycl_sources=None*, *functions=None*, *extra_cflags=None*, *extra_cuda_cflags=None*, *extra_sycl_cflags=None*, *extra_ldflags=None*, *extra_include_paths=None*, *build_directory=None*, *verbose=False*, *with_cuda=None*, *with_sycl=None*, *is_python_module=True*, *with_pytorch_error_handling=True*, *keep_intermediates=True*, *use_pch=False*, *no_implicit_headers=False*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/utils/cpp_extension.py#L2162)
+torch.utils.cpp_extension.load_inline(*name*, *cpp_sources*, *cuda_sources=None*, *sycl_sources=None*, *functions=None*, *extra_cflags=None*, *extra_cuda_cflags=None*, *extra_sycl_cflags=None*, *extra_ldflags=None*, *extra_include_paths=None*, *build_directory=None*, *verbose=False*, *with_cuda=None*, *with_sycl=None*, *is_python_module=True*, *with_pytorch_error_handling=True*, *keep_intermediates=True*, *use_pch=False*, *no_implicit_headers=False*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/utils/cpp_extension.py#L2162)
 
 Load a PyTorch C++ extension just-in-time (JIT) from string sources.
 
@@ -465,13 +465,13 @@ the extension. This may use up too many resources on some systems. One
 can control the number of workers by setting the MAX_JOBS environment
 variable to a non-negative number.
 
-torch.utils.cpp_extension.include_paths(*device_type='cpu'*, *torch_include_dirs=True*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/utils/cpp_extension.py#L1783)
+torch.utils.cpp_extension.include_paths(*device_type='cpu'*, *torch_include_dirs=True*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/utils/cpp_extension.py#L1783)
 
 Get the include paths required to build a C++ or CUDA or SYCL extension.
 
 Parameters:
 
-**device_type** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - Defaults to "cpu".
+**device_type** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - Defaults to "cpu".
 
 Returns:
 
@@ -479,15 +479,15 @@ A list of include path strings.
 
 Return type:
 
-[list](https://docs.python.org/3/library/stdtypes.html#list)[[str](https://docs.python.org/3/library/stdtypes.html#str)]
+[list](https://docs.python.org/3/builtins/stdtypes.html#list)[[str](https://docs.python.org/3/builtins/stdtypes.html#str)]
 
-torch.utils.cpp_extension.get_compiler_abi_compatibility_and_version(*compiler*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/utils/cpp_extension.py#L628)
+torch.utils.cpp_extension.get_compiler_abi_compatibility_and_version(*compiler*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/utils/cpp_extension.py#L628)
 
 Determine if the given compiler is ABI-compatible with PyTorch alongside its version.
 
 Parameters:
 
-**compiler** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - The compiler executable name to check (e.g. `g++`).
+**compiler** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - The compiler executable name to check (e.g. `g++`).
 Must be executable in a shell process.
 
 Returns:
@@ -497,16 +497,16 @@ followed by a TorchVersion string that contains the compiler version separated b
 
 Return type:
 
-[tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[bool](https://docs.python.org/3/library/functions.html#bool), *TorchVersion*]
+[tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[bool](https://docs.python.org/3/builtins/functions.html#bool), *TorchVersion*]
 
-torch.utils.cpp_extension.verify_ninja_availability()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/utils/cpp_extension.py#L2625)
+torch.utils.cpp_extension.verify_ninja_availability()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/utils/cpp_extension.py#L2625)
 
 Raise `RuntimeError` if [ninja](https://ninja-build.org/) build system is not available on the system, does nothing otherwise.
 
-torch.utils.cpp_extension.is_ninja_available()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/utils/cpp_extension.py#L2615)
+torch.utils.cpp_extension.is_ninja_available()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/utils/cpp_extension.py#L2615)
 
 Return `True` if the [ninja](https://ninja-build.org/) build system is available on the system, `False` otherwise.
 
 Return type:
 
-[bool](https://docs.python.org/3/library/functions.html#bool)
+[bool](https://docs.python.org/3/builtins/functions.html#bool)

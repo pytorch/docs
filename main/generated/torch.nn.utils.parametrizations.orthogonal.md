@@ -1,6 +1,6 @@
 # torch.nn.utils.parametrizations.orthogonal
 
-torch.nn.utils.parametrizations.orthogonal(*module*, *name='weight'*, *orthogonal_map=None*, ***, *use_trivialization=True*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/utils/parametrizations.py#L193)
+torch.nn.utils.parametrizations.orthogonal(*module*, *name='weight'*, *orthogonal_map=None*, ***, *use_trivialization=True*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/utils/parametrizations.py#L193)
 
 Apply an orthogonal or unitary parametrization to a matrix or a batch of matrices.
 
@@ -54,10 +54,10 @@ in [`register_parametrization()`](torch.nn.utils.parametrize.register_parametriz
 Parameters:
 
 - **module** ([*nn.Module*](torch.nn.Module.html#torch.nn.Module)) - module on which to register the parametrization.
-- **name** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**optional*) - name of the tensor to make orthogonal. Default: `"weight"`.
-- **orthogonal_map** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**optional*) - One of the following: `"matrix_exp"`, `"cayley"`, `"householder"`.
+- **name** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**optional*) - name of the tensor to make orthogonal. Default: `"weight"`.
+- **orthogonal_map** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**optional*) - One of the following: `"matrix_exp"`, `"cayley"`, `"householder"`.
 Default: `"matrix_exp"` if the matrix is square or complex, `"householder"` otherwise.
-- **use_trivialization** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - whether to use the dynamic trivialization framework.
+- **use_trivialization** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - whether to use the dynamic trivialization framework.
 Default: `True`.
 
 Returns:

@@ -1,6 +1,6 @@
 # torch.linalg.matrix_rank
 
-torch.linalg.matrix_rank(*A*, ***, *atol=None*, *rtol=None*, *hermitian=False*, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/linalg/__init__.py#L1263)
+torch.linalg.matrix_rank(*A*, ***, *atol=None*, *rtol=None*, *hermitian=False*, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/linalg/__init__.py#L1263)
 
 Computes the numerical rank of a matrix.
 
@@ -41,15 +41,15 @@ When inputs are on a CUDA device, this function synchronizes that device with th
 Parameters:
 
 - **A** ([*Tensor*](../tensors.html#torch.Tensor)) - tensor of shape (*, m, n) where * is zero or more batch dimensions.
-- **tol** ([*float*](https://docs.python.org/3/library/functions.html#float)*,*[*Tensor*](../tensors.html#torch.Tensor)*,**optional*) - [NumPy Compat] Alias for `atol`. Default: None.
+- **tol** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*,*[*Tensor*](../tensors.html#torch.Tensor)*,**optional*) - [NumPy Compat] Alias for `atol`. Default: None.
 
 Keyword Arguments:
 
-- **atol** ([*float*](https://docs.python.org/3/library/functions.html#float)*,*[*Tensor*](../tensors.html#torch.Tensor)*,**optional*) - the absolute tolerance value. When None it's considered to be zero.
+- **atol** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*,*[*Tensor*](../tensors.html#torch.Tensor)*,**optional*) - the absolute tolerance value. When None it's considered to be zero.
 Default: None.
-- **rtol** ([*float*](https://docs.python.org/3/library/functions.html#float)*,*[*Tensor*](../tensors.html#torch.Tensor)*,**optional*) - the relative tolerance value. See above for the value it takes when None.
+- **rtol** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*,*[*Tensor*](../tensors.html#torch.Tensor)*,**optional*) - the relative tolerance value. See above for the value it takes when None.
 Default: None.
-- **hermitian** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - indicates whether `A` is Hermitian if complex
+- **hermitian** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - indicates whether `A` is Hermitian if complex
 or symmetric if real. Default: False.
 - **out** ([*Tensor*](../tensors.html#torch.Tensor)*,**optional*) - output tensor. Ignored if None. Default: None.
 

@@ -1,6 +1,6 @@
 # Parameter
 
-*class*torch.nn.parameter.Parameter(*data=None*, *requires_grad=True*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/parameter.py#L30)
+*class*torch.nn.parameter.Parameter(*data=None*, *requires_grad=True*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/parameter.py#L30)
 
 A kind of Tensor that is to be considered a module parameter.
 
@@ -16,7 +16,7 @@ temporaries would get registered too.
 Parameters:
 
 - **data** ([*Tensor*](../tensors.html#torch.Tensor)) - parameter tensor.
-- **requires_grad** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - if the parameter requires gradient. Note that
+- **requires_grad** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - if the parameter requires gradient. Note that
 the torch.no_grad() context does NOT affect the default behavior of
 Parameter creation-the Parameter will still have requires_grad=True in
 `no_grad` mode. See [Locally disabling gradient computation](../notes/autograd.html#locally-disable-grad-doc) for more

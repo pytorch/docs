@@ -1,6 +1,6 @@
 # Hardsigmoid
 
-*class*torch.nn.modules.activation.Hardsigmoid(*inplace=False*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/activation.py#L364)
+*class*torch.nn.modules.activation.Hardsigmoid(*inplace=False*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/activation.py#L364)
 
 Applies the Hardsigmoid function element-wise.
 
@@ -15,7 +15,7 @@ Hardsigmoid(x)={0if x≤−3,1if x≥+3,x/6+1/2otherwise\text{Hardsigmoid}(x) = 
 Hardsigmoid(x)=⎩⎨⎧​01x/6+1/2​if x≤−3,if x≥+3,otherwise​
 Parameters:
 
-**inplace** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - can optionally do the operation in-place. Default: `False`
+**inplace** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - can optionally do the operation in-place. Default: `False`
 
 Shape:
 
@@ -32,7 +32,7 @@ Examples:
 >>> output = m(input)
 ```
 
-forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/activation.py#L400)
+forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/activation.py#L400)
 
 Runs the forward pass.
 

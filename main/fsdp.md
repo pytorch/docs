@@ -1,6 +1,6 @@
 # FullyShardedDataParallel
 
-*class*torch.distributed.fsdp.FullyShardedDataParallel(*module*, *process_group=None*, *sharding_strategy=None*, *cpu_offload=None*, *auto_wrap_policy=None*, *backward_prefetch=BackwardPrefetch.BACKWARD_PRE*, *mixed_precision=None*, *ignored_modules=None*, *param_init_fn=None*, *device_id=None*, *sync_module_states=False*, *forward_prefetch=False*, *limit_all_gathers=True*, *use_orig_params=False*, *ignored_states=None*, *device_mesh=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/fsdp/fully_sharded_data_parallel.py#L118)
+*class*torch.distributed.fsdp.FullyShardedDataParallel(*module*, *process_group=None*, *sharding_strategy=None*, *cpu_offload=None*, *auto_wrap_policy=None*, *backward_prefetch=BackwardPrefetch.BACKWARD_PRE*, *mixed_precision=None*, *ignored_modules=None*, *param_init_fn=None*, *device_id=None*, *sync_module_states=False*, *forward_prefetch=False*, *limit_all_gathers=True*, *use_orig_params=False*, *ignored_states=None*, *device_mesh=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/fsdp/fully_sharded_data_parallel.py#L118)
 
 A wrapper for sharding module parameters across data parallel workers.
 
@@ -121,7 +121,7 @@ for details. (Default: `FULL_SHARD`)
 - **cpu_offload** (*Optional**[**CPUOffload**]*) - This configures CPU offloading. If this is set to `None`, then
 no CPU offloading happens. See `CPUOffload` for details.
 (Default: `None`)
-- **auto_wrap_policy** (*Optional**[**Union**[**Callable**[**[*[*nn.Module*](generated/torch.nn.Module.html#torch.nn.Module)*,*[*bool*](https://docs.python.org/3/library/functions.html#bool)*,*[*int*](https://docs.python.org/3/library/functions.html#int)*]**,*[*bool*](https://docs.python.org/3/library/functions.html#bool)*]**,**ModuleWrapPolicy**,**CustomPolicy**]**]*) -
+- **auto_wrap_policy** (*Optional**[**Union**[**Callable**[**[*[*nn.Module*](generated/torch.nn.Module.html#torch.nn.Module)*,*[*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,*[*int*](https://docs.python.org/3/builtins/functions.html#int)*]**,*[*bool*](https://docs.python.org/3/builtins/functions.html#bool)*]**,**ModuleWrapPolicy**,**CustomPolicy**]**]*) -
 
 This specifies a policy to apply FSDP to submodules of `module`,
 which is needed for communication and computation overlap and thus
@@ -207,7 +207,7 @@ Example:
 >>> # Will initialize via deferred_init.materialize_module().
 >>> fsdp_model = FSDP(module, auto_wrap_policy=size_based_auto_wrap_policy)
 ```
-- **device_id** (*Optional**[**Union**[*[*int*](https://docs.python.org/3/library/functions.html#int)*,*[*torch.device*](tensor_attributes.html#torch.device)*]**]*) - An `int` or
+- **device_id** (*Optional**[**Union**[*[*int*](https://docs.python.org/3/builtins/functions.html#int)*,*[*torch.device*](tensor_attributes.html#torch.device)*]**]*) - An `int` or
 `torch.device` giving the CUDA device on which FSDP
 initialization takes place, including the module initialization
 if needed and the parameter sharding. This should be specified to
@@ -215,20 +215,20 @@ improve initialization speed if `module` is on CPU. If the
 default CUDA device was set (e.g. via `torch.cuda.set_device`),
 then the user may pass `torch.cuda.current_device` to this.
 (Default: `None`)
-- **sync_module_states** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If `True`, then each FSDP module will
+- **sync_module_states** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - If `True`, then each FSDP module will
 broadcast module parameters and buffers from rank 0 to ensure that
 they are replicated across ranks (adding communication overhead to
 this constructor). This can help load `state_dict` checkpoints
 via `load_state_dict` in a memory efficient way. See
 `FullStateDictConfig` for an example of this. (Default:
 `False`)
-- **forward_prefetch** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If `True`, then FSDP *explicitly* prefetches
+- **forward_prefetch** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - If `True`, then FSDP *explicitly* prefetches
 the next forward-pass all-gather before the current forward
 computation. This is only useful for CPU-bound workloads, in which
 case issuing the next all-gather earlier may improve overlap. This
 should only be used for static-graph models since the prefetching
 follows the first iteration's execution order. (Default: `False`)
-- **limit_all_gathers** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If `True`, then FSDP explicitly
+- **limit_all_gathers** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - If `True`, then FSDP explicitly
 synchronizes the CPU thread to ensure GPU memory usage from only
 *two* consecutive FSDP instances (the current instance running
 computation and the next instance whose all-gather is prefetched).
@@ -238,7 +238,7 @@ refer to this feature as the "rate limiter". This flag should only
 be set to `False` for specific CPU-bound workloads with low
 memory pressure in which case the CPU thread can aggressively issue
 all kernels without concern for the GPU memory usage.
-- **use_orig_params** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - Setting this to `True` has FSDP use
+- **use_orig_params** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Setting this to `True` has FSDP use
 `module` 's original parameters. FSDP exposes those original
 parameters to the user via `nn.Module.named_parameters()`
 instead of FSDP's internal `FlatParameter` s. This means
@@ -272,7 +272,7 @@ of a tuple of process groups. For 2D FSDP + TP, users are required to pass in
 device_mesh instead of process_group. For more DeviceMesh info, please visit:
 [https://pytorch.org/tutorials/recipes/distributed_device_mesh.html](https://pytorch.org/tutorials/recipes/distributed_device_mesh.html)
 
-apply(*fn*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/fsdp/fully_sharded_data_parallel.py#L569)
+apply(*fn*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/fsdp/fully_sharded_data_parallel.py#L569)
 
 Apply `fn` recursively to every submodule (as returned by `.children()`) as well as self.
 
@@ -293,15 +293,15 @@ self
 Return type:
 [Module](generated/torch.nn.Module.html#torch.nn.Module)
 
-check_is_root()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/fsdp/fully_sharded_data_parallel.py#L542)
+check_is_root()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/fsdp/fully_sharded_data_parallel.py#L542)
 
 Check if this instance is a root FSDP module.
 
 Return type:
 
-[bool](https://docs.python.org/3/library/functions.html#bool)
+[bool](https://docs.python.org/3/builtins/functions.html#bool)
 
-clip_grad_norm_(*max_norm*, *norm_type=2.0*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/fsdp/fully_sharded_data_parallel.py#L1073)
+clip_grad_norm_(*max_norm*, *norm_type=2.0*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/fsdp/fully_sharded_data_parallel.py#L1073)
 
 Clip the gradient norm of all parameters.
 
@@ -310,8 +310,8 @@ gradients are modified in-place.
 
 Parameters:
 
-- **max_norm** ([*float*](https://docs.python.org/3/library/functions.html#float)*or*[*int*](https://docs.python.org/3/library/functions.html#int)) - max norm of the gradients
-- **norm_type** ([*float*](https://docs.python.org/3/library/functions.html#float)*or*[*int*](https://docs.python.org/3/library/functions.html#int)) - type of the used p-norm. Can be `'inf'`
+- **max_norm** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*or*[*int*](https://docs.python.org/3/builtins/functions.html#int)) - max norm of the gradients
+- **norm_type** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*or*[*int*](https://docs.python.org/3/builtins/functions.html#int)) - type of the used p-norm. Can be `'inf'`
 for infinity norm.
 
 Returns:
@@ -343,7 +343,7 @@ Warning
 This needs to be called on all ranks since it uses
 collective communications.
 
-*static*flatten_sharded_optim_state_dict(*sharded_optim_state_dict*, *model*, *optim*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/fsdp/fully_sharded_data_parallel.py#L1555)
+*static*flatten_sharded_optim_state_dict(*sharded_optim_state_dict*, *model*, *optim*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/fsdp/fully_sharded_data_parallel.py#L1555)
 
 Flatten a sharded optimizer state-dict.
 
@@ -354,7 +354,7 @@ be all-gather calls on each rank to gather `ShardedTensor` s.
 
 Parameters:
 
-- **sharded_optim_state_dict** (*Dict**[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**Any**]*) - Optimizer state dict
+- **sharded_optim_state_dict** (*Dict**[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**Any**]*) - Optimizer state dict
 corresponding to the unflattened parameters and holding the
 sharded optimizer state.
 - **model** ([*torch.nn.Module*](generated/torch.nn.Module.html#torch.nn.Module)) - Refer to `shard_full_optim_state_dict()`.
@@ -367,9 +367,9 @@ Refer to `shard_full_optim_state_dict()`.
 
 Return type:
 
-[dict](https://docs.python.org/3/library/stdtypes.html#dict)[[str](https://docs.python.org/3/library/stdtypes.html#str), [*Any*](https://docs.python.org/3/library/typing.html#typing.Any)]
+[dict](https://docs.python.org/3/builtins/stdtypes.html#dict)[[str](https://docs.python.org/3/builtins/stdtypes.html#str), [*Any*](https://docs.python.org/3/library/typing.html#typing.Any)]
 
-forward(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/fsdp/fully_sharded_data_parallel.py#L835)
+forward(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/fsdp/fully_sharded_data_parallel.py#L835)
 
 Run the forward pass for the wrapped module, inserting FSDP-specific pre- and post-forward sharding logic.
 
@@ -377,7 +377,7 @@ Return type:
 
 [*Any*](https://docs.python.org/3/library/typing.html#typing.Any)
 
-*static*fsdp_modules(*module*, *root_only=False*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/fsdp/fully_sharded_data_parallel.py#L546)
+*static*fsdp_modules(*module*, *root_only=False*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/fsdp/fully_sharded_data_parallel.py#L546)
 
 Return all nested FSDP instances.
 
@@ -387,7 +387,7 @@ Parameters:
 
 - **module** ([*torch.nn.Module*](generated/torch.nn.Module.html#torch.nn.Module)) - Root module, which may or may not be an
 `FSDP` module.
-- **root_only** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - Whether to return only FSDP root modules.
+- **root_only** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Whether to return only FSDP root modules.
 (Default: `False`)
 
 Returns:
@@ -399,12 +399,12 @@ Return type:
 
 List[FullyShardedDataParallel]
 
-*static*full_optim_state_dict(*model*, *optim*, *optim_input=None*, *rank0_only=True*, *group=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/fsdp/fully_sharded_data_parallel.py#L1376)
+*static*full_optim_state_dict(*model*, *optim*, *optim_input=None*, *rank0_only=True*, *group=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/fsdp/fully_sharded_data_parallel.py#L1376)
 
 Return the full optimizer state-dict.
 
 Consolidates the full optimizer state on rank 0 and returns it
-as a [`dict`](https://docs.python.org/3/library/stdtypes.html#dict) following the convention of
+as a [`dict`](https://docs.python.org/3/builtins/stdtypes.html#dict) following the convention of
 [`torch.optim.Optimizer.state_dict()`](generated/torch.optim.Optimizer.state_dict.html#torch.optim.Optimizer.state_dict), i.e. with keys `"state"`
 and `"param_groups"`. The flattened parameters in `FSDP` modules
 contained in `model` are mapped back to their unflattened parameters.
@@ -412,7 +412,7 @@ contained in `model` are mapped back to their unflattened parameters.
 This needs to be called on all ranks since it uses
 collective communications. However, if `rank0_only=True`, then
 the state dict is only populated on rank 0, and all other ranks
-return an empty [`dict`](https://docs.python.org/3/library/stdtypes.html#dict).
+return an empty [`dict`](https://docs.python.org/3/builtins/stdtypes.html#dict).
 
 Unlike `torch.optim.Optimizer.state_dict()`, this method
 uses full parameter names as keys instead of parameter IDs.
@@ -430,12 +430,12 @@ Parameters:
 were passed into the optimizer `optim`.
 - **optim** ([*torch.optim.Optimizer*](optim.html#torch.optim.Optimizer)) - Optimizer for `model` 's
 parameters.
-- **optim_input** (*Optional**[**Union**[**List**[**Dict**[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**Any**]**]**,**Iterable**[**torch.nn.Parameter**]**]**]*) - Input passed into the optimizer `optim` representing either a
-[`list`](https://docs.python.org/3/library/stdtypes.html#list) of parameter groups or an iterable of parameters;
+- **optim_input** (*Optional**[**Union**[**List**[**Dict**[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**Any**]**]**,**Iterable**[**torch.nn.Parameter**]**]**]*) - Input passed into the optimizer `optim` representing either a
+[`list`](https://docs.python.org/3/builtins/stdtypes.html#list) of parameter groups or an iterable of parameters;
 if `None`, then this method assumes the input was
 `model.parameters()`. This argument is deprecated, and there
 is no need to pass it in anymore. (Default: `None`)
-- **rank0_only** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If `True`, saves the populated [`dict`](https://docs.python.org/3/library/stdtypes.html#dict)
+- **rank0_only** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - If `True`, saves the populated [`dict`](https://docs.python.org/3/builtins/stdtypes.html#dict)
 only on rank 0; if `False`, saves it on all ranks. (Default:
 `True`)
 - **group** (*dist.ProcessGroup*) - Model's process group or `None` if using
@@ -443,17 +443,17 @@ the default process group. (Default: `None`)
 
 Returns:
 
-A [`dict`](https://docs.python.org/3/library/stdtypes.html#dict) containing the optimizer state for
+A [`dict`](https://docs.python.org/3/builtins/stdtypes.html#dict) containing the optimizer state for
 `model` 's original unflattened parameters and including keys
 "state" and "param_groups" following the convention of
 [`torch.optim.Optimizer.state_dict()`](generated/torch.optim.Optimizer.state_dict.html#torch.optim.Optimizer.state_dict). If `rank0_only=True`,
-then nonzero ranks return an empty [`dict`](https://docs.python.org/3/library/stdtypes.html#dict).
+then nonzero ranks return an empty [`dict`](https://docs.python.org/3/builtins/stdtypes.html#dict).
 
 Return type:
 
-Dict[[str](https://docs.python.org/3/library/stdtypes.html#str), Any]
+Dict[[str](https://docs.python.org/3/builtins/stdtypes.html#str), Any]
 
-*static*get_state_dict_type(*module*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/fsdp/fully_sharded_data_parallel.py#L753)
+*static*get_state_dict_type(*module*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/fsdp/fully_sharded_data_parallel.py#L753)
 
 Get the state_dict_type and the corresponding configurations for the FSDP modules rooted at `module`.
 
@@ -477,7 +477,7 @@ Return type:
 
 Return the wrapped module.
 
-named_buffers(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/fsdp/fully_sharded_data_parallel.py#L975)
+named_buffers(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/fsdp/fully_sharded_data_parallel.py#L975)
 
 Return an iterator over module buffers, yielding both the name of the buffer and the buffer itself.
 
@@ -486,9 +486,9 @@ when inside the `summon_full_params()` context manager.
 
 Return type:
 
-[*Iterator*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterator)[[tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[str](https://docs.python.org/3/library/stdtypes.html#str), [*Tensor*](tensors.html#torch.Tensor)]]
+[*Iterator*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterator)[[tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[str](https://docs.python.org/3/builtins/stdtypes.html#str), [*Tensor*](tensors.html#torch.Tensor)]]
 
-named_parameters(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/fsdp/fully_sharded_data_parallel.py#L994)
+named_parameters(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/fsdp/fully_sharded_data_parallel.py#L994)
 
 Return an iterator over module parameters, yielding both the name of the parameter and the parameter itself.
 
@@ -497,9 +497,9 @@ when inside the `summon_full_params()` context manager.
 
 Return type:
 
-[*Iterator*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterator)[[tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[str](https://docs.python.org/3/library/stdtypes.html#str), [*Parameter*](generated/torch.nn.parameter.Parameter.html#torch.nn.parameter.Parameter)]]
+[*Iterator*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterator)[[tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[str](https://docs.python.org/3/builtins/stdtypes.html#str), [*Parameter*](generated/torch.nn.parameter.Parameter.html#torch.nn.parameter.Parameter)]]
 
-no_sync()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/fsdp/fully_sharded_data_parallel.py#L1033)
+no_sync()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/fsdp/fully_sharded_data_parallel.py#L1033)
 
 Disable gradient synchronizations across FSDP instances.
 
@@ -525,7 +525,7 @@ Return type:
 
 [*Generator*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Generator)
 
-*static*optim_state_dict(*model*, *optim*, *optim_state_dict=None*, *group=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/fsdp/fully_sharded_data_parallel.py#L1796)
+*static*optim_state_dict(*model*, *optim*, *optim_state_dict=None*, *group=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/fsdp/fully_sharded_data_parallel.py#L1796)
 
 Transform the state-dict of an optimizer corresponding to a sharded model.
 
@@ -585,7 +585,7 @@ Parameters:
 were passed into the optimizer `optim`.
 - **optim** ([*torch.optim.Optimizer*](optim.html#torch.optim.Optimizer)) - Optimizer for `model` 's
 parameters.
-- **optim_state_dict** (*Dict**[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**Any**]*) - the target optimizer state_dict to
+- **optim_state_dict** (*Dict**[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**Any**]*) - the target optimizer state_dict to
 transform. If the value is None, optim.state_dict() will be used. (
 Default: `None`)
 - **group** (*dist.ProcessGroup*) - Model's process group across which parameters
@@ -594,15 +594,15 @@ Default: `None`)
 
 Returns:
 
-A [`dict`](https://docs.python.org/3/library/stdtypes.html#dict) containing the optimizer state for
+A [`dict`](https://docs.python.org/3/builtins/stdtypes.html#dict) containing the optimizer state for
 `model`. The sharding of the optimizer state is based on
 `state_dict_type`.
 
 Return type:
 
-Dict[[str](https://docs.python.org/3/library/stdtypes.html#str), Any]
+Dict[[str](https://docs.python.org/3/builtins/stdtypes.html#str), Any]
 
-*static*optim_state_dict_to_load(*model*, *optim*, *optim_state_dict*, *is_named_optimizer=False*, *load_directly=False*, *group=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/fsdp/fully_sharded_data_parallel.py#L1892)
+*static*optim_state_dict_to_load(*model*, *optim*, *optim_state_dict*, *is_named_optimizer=False*, *load_directly=False*, *group=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/fsdp/fully_sharded_data_parallel.py#L1892)
 
 Convert an optimizer state-dict so that it can be loaded into the optimizer associated with the FSDP model.
 
@@ -655,11 +655,11 @@ Parameters:
 were passed into the optimizer `optim`.
 - **optim** ([*torch.optim.Optimizer*](optim.html#torch.optim.Optimizer)) - Optimizer for `model` 's
 parameters.
-- **optim_state_dict** (*Dict**[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**Any**]*) - The optimizer states to be loaded.
-- **is_named_optimizer** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - Is this optimizer a NamedOptimizer or
+- **optim_state_dict** (*Dict**[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**Any**]*) - The optimizer states to be loaded.
+- **is_named_optimizer** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Is this optimizer a NamedOptimizer or
 KeyedOptimizer. Only set to True if `optim` is TorchRec's
 KeyedOptimizer or torch.distributed's NamedOptimizer.
-- **load_directly** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If this is set to True, this API will also
+- **load_directly** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - If this is set to True, this API will also
 call optim.load_state_dict(result) before returning the result.
 Otherwise, users are responsible to call `optim.load_state_dict()`
 (Default: `False`)
@@ -669,9 +669,9 @@ Default: `None`)
 
 Return type:
 
-[dict](https://docs.python.org/3/library/stdtypes.html#dict)[[str](https://docs.python.org/3/library/stdtypes.html#str), [*Any*](https://docs.python.org/3/library/typing.html#typing.Any)]
+[dict](https://docs.python.org/3/builtins/stdtypes.html#dict)[[str](https://docs.python.org/3/builtins/stdtypes.html#str), [*Any*](https://docs.python.org/3/library/typing.html#typing.Any)]
 
-register_comm_hook(*state*, *hook*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/fsdp/fully_sharded_data_parallel.py#L1982)
+register_comm_hook(*state*, *hook*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/fsdp/fully_sharded_data_parallel.py#L1982)
 
 Register a communication hook.
 
@@ -689,7 +689,7 @@ and only once.
 
 Parameters:
 
-- **state** ([*object*](https://docs.python.org/3/library/functions.html#object)) -
+- **state** ([*object*](https://docs.python.org/3/builtins/functions.html#object)) -
 
 Passed to the hook to maintain any state information during the training process.
 Examples include error feedback in gradient compression,
@@ -714,7 +714,7 @@ In both cases, callable performs all necessary processing and returns `None`.
 Callables with signature 1 are expected to handle gradient communication for a NO_SHARD case.
 Callables with signature 2 are expected to handle gradient communication for sharded cases.
 
-*static*rekey_optim_state_dict(*optim_state_dict*, *optim_state_key_type*, *model*, *optim_input=None*, *optim=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/fsdp/fully_sharded_data_parallel.py#L1673)
+*static*rekey_optim_state_dict(*optim_state_dict*, *optim_state_key_type*, *model*, *optim_input=None*, *optim=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/fsdp/fully_sharded_data_parallel.py#L1673)
 
 Re-keys the optimizer state dict `optim_state_dict` to use the key type `optim_state_key_type`.
 
@@ -752,9 +752,9 @@ parameter keys specified by `optim_state_key_type`.
 
 Return type:
 
-Dict[[str](https://docs.python.org/3/library/stdtypes.html#str), Any]
+Dict[[str](https://docs.python.org/3/builtins/stdtypes.html#str), Any]
 
-*static*scatter_full_optim_state_dict(*full_optim_state_dict*, *model*, *optim_input=None*, *optim=None*, *group=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/fsdp/fully_sharded_data_parallel.py#L1594)
+*static*scatter_full_optim_state_dict(*full_optim_state_dict*, *model*, *optim_input=None*, *optim=None*, *group=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/fsdp/fully_sharded_data_parallel.py#L1594)
 
 Scatter the full optimizer state dict from rank 0 to all other ranks.
 
@@ -791,15 +791,15 @@ communication cost.
 
 Parameters:
 
-- **full_optim_state_dict** (*Optional**[**Dict**[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**Any**]**]*) - Optimizer state
+- **full_optim_state_dict** (*Optional**[**Dict**[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**Any**]**]*) - Optimizer state
 dict corresponding to the unflattened parameters and holding
 the full non-sharded optimizer state if on rank 0; the argument
 is ignored on nonzero ranks.
 - **model** ([*torch.nn.Module*](generated/torch.nn.Module.html#torch.nn.Module)) - Root module (which may or may not be a
 `FullyShardedDataParallel` instance) whose parameters
 correspond to the optimizer state in `full_optim_state_dict`.
-- **optim_input** (*Optional**[**Union**[**List**[**Dict**[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**Any**]**]**,**Iterable**[**torch.nn.Parameter**]**]**]*) - Input passed into the optimizer representing either a
-[`list`](https://docs.python.org/3/library/stdtypes.html#list) of parameter groups or an iterable of parameters;
+- **optim_input** (*Optional**[**Union**[**List**[**Dict**[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**Any**]**]**,**Iterable**[**torch.nn.Parameter**]**]**]*) - Input passed into the optimizer representing either a
+[`list`](https://docs.python.org/3/builtins/stdtypes.html#list) of parameter groups or an iterable of parameters;
 if `None`, then this method assumes the input was
 `model.parameters()`. This argument is deprecated, and there
 is no need to pass it in anymore. (Default: `None`)
@@ -817,9 +817,9 @@ restricted to only include this rank's part of the optimizer state.
 
 Return type:
 
-Dict[[str](https://docs.python.org/3/library/stdtypes.html#str), Any]
+Dict[[str](https://docs.python.org/3/builtins/stdtypes.html#str), Any]
 
-*static*set_state_dict_type(*module*, *state_dict_type*, *state_dict_config=None*, *optim_state_dict_config=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/fsdp/fully_sharded_data_parallel.py#L626)
+*static*set_state_dict_type(*module*, *state_dict_type*, *state_dict_config=None*, *optim_state_dict_config=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/fsdp/fully_sharded_data_parallel.py#L626)
 
 Set the `state_dict_type` of all the descendant FSDP modules of the target module.
 
@@ -873,7 +873,7 @@ Return type:
 
 *StateDictSettings*
 
-*static*shard_full_optim_state_dict(*full_optim_state_dict*, *model*, *optim_input=None*, *optim=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/fsdp/fully_sharded_data_parallel.py#L1481)
+*static*shard_full_optim_state_dict(*full_optim_state_dict*, *model*, *optim_input=None*, *optim=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/fsdp/fully_sharded_data_parallel.py#L1481)
 
 Shard a full optimizer state-dict.
 
@@ -911,14 +911,14 @@ communication cost.
 
 Parameters:
 
-- **full_optim_state_dict** (*Dict**[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**Any**]*) - Optimizer state dict
+- **full_optim_state_dict** (*Dict**[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**Any**]*) - Optimizer state dict
 corresponding to the unflattened parameters and holding the
 full non-sharded optimizer state.
 - **model** ([*torch.nn.Module*](generated/torch.nn.Module.html#torch.nn.Module)) - Root module (which may or may not be a
 `FullyShardedDataParallel` instance) whose parameters
 correspond to the optimizer state in `full_optim_state_dict`.
-- **optim_input** (*Optional**[**Union**[**List**[**Dict**[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**Any**]**]**,**Iterable**[**torch.nn.Parameter**]**]**]*) - Input passed into the optimizer representing either a
-[`list`](https://docs.python.org/3/library/stdtypes.html#list) of parameter groups or an iterable of parameters;
+- **optim_input** (*Optional**[**Union**[**List**[**Dict**[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**Any**]**]**,**Iterable**[**torch.nn.Parameter**]**]**]*) - Input passed into the optimizer representing either a
+[`list`](https://docs.python.org/3/builtins/stdtypes.html#list) of parameter groups or an iterable of parameters;
 if `None`, then this method assumes the input was
 `model.parameters()`. This argument is deprecated, and there
 is no need to pass it in anymore. (Default: `None`)
@@ -934,9 +934,9 @@ restricted to only include this rank's part of the optimizer state.
 
 Return type:
 
-Dict[[str](https://docs.python.org/3/library/stdtypes.html#str), Any]
+Dict[[str](https://docs.python.org/3/builtins/stdtypes.html#str), Any]
 
-*static*sharded_optim_state_dict(*model*, *optim*, *group=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/fsdp/fully_sharded_data_parallel.py#L1447)
+*static*sharded_optim_state_dict(*model*, *optim*, *group=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/fsdp/fully_sharded_data_parallel.py#L1447)
 
 Return the optimizer state-dict in its sharded form.
 
@@ -954,9 +954,9 @@ cannot be directly used by the regular `optim.load_state_dict`.
 
 Return type:
 
-[dict](https://docs.python.org/3/library/stdtypes.html#dict)[[str](https://docs.python.org/3/library/stdtypes.html#str), [*Any*](https://docs.python.org/3/library/typing.html#typing.Any)]
+[dict](https://docs.python.org/3/builtins/stdtypes.html#dict)[[str](https://docs.python.org/3/builtins/stdtypes.html#str), [*Any*](https://docs.python.org/3/library/typing.html#typing.Any)]
 
-*static*state_dict_type(*module*, *state_dict_type*, *state_dict_config=None*, *optim_state_dict_config=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/fsdp/fully_sharded_data_parallel.py#L790)
+*static*state_dict_type(*module*, *state_dict_type*, *state_dict_config=None*, *optim_state_dict_config=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/fsdp/fully_sharded_data_parallel.py#L790)
 
 Set the `state_dict_type` of all the descendant FSDP modules of the target module.
 
@@ -987,7 +987,7 @@ Return type:
 
 [*Generator*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Generator)
 
-*static*summon_full_params(*module*, *recurse=True*, *writeback=True*, *rank0_only=False*, *offload_to_cpu=False*, *with_grads=False*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/fsdp/fully_sharded_data_parallel.py#L862)
+*static*summon_full_params(*module*, *recurse=True*, *writeback=True*, *rank0_only=False*, *offload_to_cpu=False*, *with_grads=False*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/fsdp/fully_sharded_data_parallel.py#L862)
 
 Expose full params for FSDP instances with this context manager.
 
@@ -1043,12 +1043,12 @@ CPU OOM. It is recommended to use `offload_to_cpu` with
 
 Parameters:
 
-- **recurse** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**Optional*) - recursively summon all params for nested
+- **recurse** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**Optional*) - recursively summon all params for nested
 FSDP instances (default: True).
-- **writeback** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**Optional*) - if `False`, modifications to params are
+- **writeback** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**Optional*) - if `False`, modifications to params are
 discarded after the context manager exits;
 disabling this can be slightly more efficient (default: True)
-- **rank0_only** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**Optional*) - if `True`, full parameters are
+- **rank0_only** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**Optional*) - if `True`, full parameters are
 materialized on only global rank 0. This means that within the
 context, only rank 0 will have full parameters and the other
 ranks will have sharded parameters. Note that setting
@@ -1056,13 +1056,13 @@ ranks will have sharded parameters. Note that setting
 as model parameter shapes will be different across ranks
 within the context, and writing to them can lead to
 inconsistency across ranks when the context is exited.
-- **offload_to_cpu** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**Optional*) - If `True`, full parameters are
+- **offload_to_cpu** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**Optional*) - If `True`, full parameters are
 offloaded to CPU. Note that this offloading currently only
 occurs if the parameter is sharded (which is only not the case
 for world_size = 1 or `NO_SHARD` config). It is recommended
 to use `offload_to_cpu` with `rank0_only=True` to avoid
 redundant copies of model parameters being offloaded to the same CPU memory.
-- **with_grads** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**Optional*) - If `True`, gradients are also
+- **with_grads** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**Optional*) - If `True`, gradients are also
 unsharded with the parameters. Currently, this is only
 supported when passing `use_orig_params=True` to the FSDP
 constructor and `offload_to_cpu=False` to this method.
@@ -1072,7 +1072,7 @@ Return type:
 
 [*Generator*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Generator)
 
-*class*torch.distributed.fsdp.BackwardPrefetch(*value*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/fsdp/api.py#L72)
+*class*torch.distributed.fsdp.BackwardPrefetch(*value*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/fsdp/api.py#L72)
 
 This configures explicit backward prefetching, which improves throughput by
 enabling communication and computation overlap in the backward pass at the
@@ -1102,7 +1102,7 @@ same per-device NCCL stream, which implies that the relative order in which
 the collectives are issued matters for overlapping. The two backward
 prefetching values correspond to different issue orders.
 
-*class*torch.distributed.fsdp.ShardingStrategy(*value*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/fsdp/api.py#L32)
+*class*torch.distributed.fsdp.ShardingStrategy(*value*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/fsdp/api.py#L32)
 
 This specifies the sharding strategy to be used for distributed training by
 `FullyShardedDataParallel`.
@@ -1134,7 +1134,7 @@ nodes. This is like `HYBRID_SHARD`, except this may provide even higher throughp
 since the unsharded parameters are not freed after the forward pass, saving the
 all-gathers in the pre-backward.
 
-*class*torch.distributed.fsdp.MixedPrecision(*param_dtype=None*, *reduce_dtype=None*, *buffer_dtype=None*, *keep_low_precision_grads=False*, *cast_forward_inputs=False*, *cast_root_forward_inputs=True*, *_module_classes_to_ignore=(<class 'torch.nn.modules.batchnorm._BatchNorm'>*, *)*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/fsdp/api.py#L111)
+*class*torch.distributed.fsdp.MixedPrecision(*param_dtype=None*, *reduce_dtype=None*, *buffer_dtype=None*, *keep_low_precision_grads=False*, *cast_forward_inputs=False*, *cast_root_forward_inputs=True*, *_module_classes_to_ignore=(<class 'torch.nn.modules.batchnorm._BatchNorm'>*, *)*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/fsdp/api.py#L111)
 
 This configures FSDP-native mixed precision training.
 
@@ -1159,24 +1159,24 @@ buffers. FSDP does not shard buffers. Rather, FSDP casts them to
 dtype thereafter. For model checkpointing, the buffers are saved
 in full precision except for `LOCAL_STATE_DICT`. (Default:
 `None`)
-- **keep_low_precision_grads** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If `False`, then FSDP upcasts
+- **keep_low_precision_grads** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - If `False`, then FSDP upcasts
 gradients to full precision after the backward pass in preparation
 for the optimizer step. If `True`, then FSDP keeps the gradients
 in the dtype used for gradient reduction, which can save memory if
 using a custom optimizer that supports running in low precision.
 (Default: `False`)
-- **cast_forward_inputs** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If `True`, then this FSDP module casts
+- **cast_forward_inputs** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - If `True`, then this FSDP module casts
 its forward args and kwargs to `param_dtype`. This is to ensure
 that parameter and input dtypes match for forward computation, as
 required by many ops. This may need to be set to `True` when only
 applying mixed precision to some but not all FSDP modules, in which
 case a mixed-precision FSDP submodule needs to recast its inputs.
 (Default: `False`)
-- **cast_root_forward_inputs** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If `True`, then the root FSDP module
+- **cast_root_forward_inputs** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - If `True`, then the root FSDP module
 casts its forward args and kwargs to `param_dtype`, overriding
 the value of `cast_forward_inputs`. For non-root FSDP modules,
 this does not do anything. (Default: `True`)
-- **_module_classes_to_ignore** ([*collections.abc.Sequence*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence)*[*[*type*](https://docs.python.org/3/library/functions.html#type)*[*[*torch.nn.modules.module.Module*](generated/torch.nn.Module.html#torch.nn.Module)*]**]*) - (Sequence[Type[nn.Module]]): This specifies
+- **_module_classes_to_ignore** ([*collections.abc.Sequence*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence)*[*[*type*](https://docs.python.org/3/builtins/functions.html#type)*[*[*torch.nn.modules.module.Module*](generated/torch.nn.Module.html#torch.nn.Module)*]**]*) - (Sequence[Type[nn.Module]]): This specifies
 module classes to ignore for mixed precision when using an
 `auto_wrap_policy`: Modules of these classes will have FSDP
 applied to them separately with mixed precision disabled (meaning
@@ -1256,18 +1256,18 @@ different `MixedPrecision` ran its forward first, then `model[1]`
 would incorrectly see `float16` activations instead of `bfloat16`
 ones.
 
-*class*torch.distributed.fsdp.CPUOffload(*offload_params=False*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/fsdp/api.py#L229)
+*class*torch.distributed.fsdp.CPUOffload(*offload_params=False*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/fsdp/api.py#L229)
 
 This configures CPU offloading.
 
 Variables:
 
-**offload_params** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - This specifies whether to offload parameters to
+**offload_params** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - This specifies whether to offload parameters to
 CPU when not involved in computation. If `True`, then this
 offloads gradients to CPU as well, meaning that the optimizer step
 runs on CPU.
 
-*class*torch.distributed.fsdp.StateDictConfig(*offload_to_cpu=False*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/fsdp/api.py#L275)
+*class*torch.distributed.fsdp.StateDictConfig(*offload_to_cpu=False*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/fsdp/api.py#L275)
 
 `StateDictConfig` is the base class for all `state_dict` configuration
 classes. Users should instantiate a child class (e.g.
@@ -1276,11 +1276,11 @@ corresponding `state_dict` type supported by FSDP.
 
 Variables:
 
-**offload_to_cpu** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If `True`, then FSDP offloads the state dict
+**offload_to_cpu** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - If `True`, then FSDP offloads the state dict
 values to CPU, and if `False`, then FSDP keeps them on GPU.
 (Default: `False`)
 
-*class*torch.distributed.fsdp.FullStateDictConfig(*offload_to_cpu=False*, *rank0_only=False*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/fsdp/api.py#L292)
+*class*torch.distributed.fsdp.FullStateDictConfig(*offload_to_cpu=False*, *rank0_only=False*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/fsdp/api.py#L292)
 
 `FullStateDictConfig` is a config class meant to be used with
 `StateDictType.FULL_STATE_DICT`. We recommend enabling both
@@ -1315,18 +1315,18 @@ follows:
 
 Variables:
 
-**rank0_only** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If `True`, then only rank 0 saves the full state
+**rank0_only** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - If `True`, then only rank 0 saves the full state
 dict, and nonzero ranks save an empty dict. If `False`, then all
 ranks save the full state dict. (Default: `False`)
 
-*class*torch.distributed.fsdp.ShardedStateDictConfig(*offload_to_cpu=False*, *_use_dtensor=False*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/fsdp/api.py#L339)
+*class*torch.distributed.fsdp.ShardedStateDictConfig(*offload_to_cpu=False*, *_use_dtensor=False*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/fsdp/api.py#L339)
 
 `ShardedStateDictConfig` is a config class meant to be used with
 `StateDictType.SHARDED_STATE_DICT`.
 
 Variables:
 
-**_use_dtensor** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If `True`, then FSDP saves the state dict values
+**_use_dtensor** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - If `True`, then FSDP saves the state dict values
 as `DTensor`, and if `False`, then FSDP saves them as
 `ShardedTensor`. (Default: `False`)
 
@@ -1336,9 +1336,9 @@ Warning
 and it is used by FSDP to determine the type of state dict values. Users should not
 manually modify `_use_dtensor`.
 
-*class*torch.distributed.fsdp.LocalStateDictConfig(*offload_to_cpu: [bool](https://docs.python.org/3/library/functions.html#bool) = False*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/fsdp/api.py#L334)
+*class*torch.distributed.fsdp.LocalStateDictConfig(*offload_to_cpu: [bool](https://docs.python.org/3/builtins/functions.html#bool) = False*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/fsdp/api.py#L334)
 
-*class*torch.distributed.fsdp.OptimStateDictConfig(*offload_to_cpu=True*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/fsdp/api.py#L358)
+*class*torch.distributed.fsdp.OptimStateDictConfig(*offload_to_cpu=True*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/fsdp/api.py#L358)
 
 `OptimStateDictConfig` is the base class for all `optim_state_dict`
 configuration classes. Users should instantiate a child class (e.g.
@@ -1347,27 +1347,27 @@ corresponding `optim_state_dict` type supported by FSDP.
 
 Variables:
 
-**offload_to_cpu** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If `True`, then FSDP offloads the state dict's
+**offload_to_cpu** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - If `True`, then FSDP offloads the state dict's
 tensor values to CPU, and if `False`, then FSDP keeps them on the
 original device (which is GPU unless parameter CPU offloading is
 enabled). (Default: `True`)
 
-*class*torch.distributed.fsdp.FullOptimStateDictConfig(*offload_to_cpu=True*, *rank0_only=False*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/fsdp/api.py#L376)
+*class*torch.distributed.fsdp.FullOptimStateDictConfig(*offload_to_cpu=True*, *rank0_only=False*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/fsdp/api.py#L376)
 
 Variables:
 
-**rank0_only** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If `True`, then only rank 0 saves the full state
+**rank0_only** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - If `True`, then only rank 0 saves the full state
 dict, and nonzero ranks save an empty dict. If `False`, then all
 ranks save the full state dict. (Default: `False`)
 
-*class*torch.distributed.fsdp.ShardedOptimStateDictConfig(*offload_to_cpu=True*, *_use_dtensor=False*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/fsdp/api.py#L393)
+*class*torch.distributed.fsdp.ShardedOptimStateDictConfig(*offload_to_cpu=True*, *_use_dtensor=False*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/fsdp/api.py#L393)
 
 `ShardedOptimStateDictConfig` is a config class meant to be used with
 `StateDictType.SHARDED_STATE_DICT`.
 
 Variables:
 
-**_use_dtensor** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If `True`, then FSDP saves the state dict values
+**_use_dtensor** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - If `True`, then FSDP saves the state dict values
 as `DTensor`, and if `False`, then FSDP saves them as
 `ShardedTensor`. (Default: `False`)
 
@@ -1377,11 +1377,11 @@ Warning
 and it is used by FSDP to determine the type of state dict values. Users should not
 manually modify `_use_dtensor`.
 
-*class*torch.distributed.fsdp.LocalOptimStateDictConfig(*offload_to_cpu: [bool](https://docs.python.org/3/library/functions.html#bool) = False*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/fsdp/api.py#L388)
+*class*torch.distributed.fsdp.LocalOptimStateDictConfig(*offload_to_cpu: [bool](https://docs.python.org/3/builtins/functions.html#bool) = False*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/fsdp/api.py#L388)
 
-*class*torch.distributed.fsdp.StateDictSettings(*state_dict_type: torch.distributed.fsdp.api.StateDictType*, *state_dict_config: torch.distributed.fsdp.api.StateDictConfig*, *optim_state_dict_config: torch.distributed.fsdp.api.OptimStateDictConfig*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/fsdp/api.py#L412)
+*class*torch.distributed.fsdp.StateDictSettings(*state_dict_type: torch.distributed.fsdp.api.StateDictType*, *state_dict_config: torch.distributed.fsdp.api.StateDictConfig*, *optim_state_dict_config: torch.distributed.fsdp.api.OptimStateDictConfig*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/fsdp/api.py#L412)
 
-torch.distributed.fsdp.wrap.always_wrap_policy(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/fsdp/wrap.py#L117)
+torch.distributed.fsdp.wrap.always_wrap_policy(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/fsdp/wrap.py#L117)
 
 A simple recursive wrap policy that always returns `True`. This means
 that every submodule is wrapped by the wrapper class in
@@ -1389,9 +1389,9 @@ that every submodule is wrapped by the wrapper class in
 
 Return type:
 
-[bool](https://docs.python.org/3/library/functions.html#bool)
+[bool](https://docs.python.org/3/builtins/functions.html#bool)
 
-torch.distributed.fsdp.wrap.enable_wrap(***, *wrapper_cls*, ***wrapper_kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/fsdp/wrap.py#L400)
+torch.distributed.fsdp.wrap.enable_wrap(***, *wrapper_cls*, ***wrapper_kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/fsdp/wrap.py#L400)
 
 Context manager to wrap modules using a wrapper.
 
@@ -1421,7 +1421,7 @@ Return type:
 
 [*Generator*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Generator)[None, None, None]
 
-torch.distributed.fsdp.wrap.lambda_auto_wrap_policy(*module*, *recurse*, *nonwrapped_numel*, *lambda_fn*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/fsdp/wrap.py#L270)
+torch.distributed.fsdp.wrap.lambda_auto_wrap_policy(*module*, *recurse*, *nonwrapped_numel*, *lambda_fn*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/fsdp/wrap.py#L270)
 
 A convenient auto wrap policy to wrap submodules based on an arbitrary user
 function. If `lambda_fn(submodule) == True`, the submodule will be wrapped as
@@ -1434,36 +1434,36 @@ The first three parameters are required by `_recursive_wrap()`.
 Parameters:
 
 - **module** ([*nn.Module*](generated/torch.nn.Module.html#torch.nn.Module)) - Current module being considered.
-- **recurse** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If `False`, then this function must decide whether
+- **recurse** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - If `False`, then this function must decide whether
 `module` should be wrapped as an FSDP instance or not. If
 `True`, then the function is still recursing down the module
 tree as a part of the DFS.
-- **nonwrapped_numel** ([*int*](https://docs.python.org/3/library/functions.html#int)) - Parameter numel not yet wrapped.
-- **lambda_fn** (*Callable**[**[*[*nn.Module*](generated/torch.nn.Module.html#torch.nn.Module)*]**,*[*bool*](https://docs.python.org/3/library/functions.html#bool)*]*) - If this returns `True`, then
+- **nonwrapped_numel** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Parameter numel not yet wrapped.
+- **lambda_fn** (*Callable**[**[*[*nn.Module*](generated/torch.nn.Module.html#torch.nn.Module)*]**,*[*bool*](https://docs.python.org/3/builtins/functions.html#bool)*]*) - If this returns `True`, then
 this module will be wrapped.
 
 Return type:
 
-[bool](https://docs.python.org/3/library/functions.html#bool)
+[bool](https://docs.python.org/3/builtins/functions.html#bool)
 
-torch.distributed.fsdp.wrap.size_based_auto_wrap_policy(*module*, *recurse*, *nonwrapped_numel*, *min_num_params=100000000*, *force_leaf_modules=None*, *exclude_wrap_modules=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/fsdp/wrap.py#L341)
+torch.distributed.fsdp.wrap.size_based_auto_wrap_policy(*module*, *recurse*, *nonwrapped_numel*, *min_num_params=100000000*, *force_leaf_modules=None*, *exclude_wrap_modules=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/fsdp/wrap.py#L341)
 
 A size-based auto wrap policy.
 
 Parameters:
 
 - **module** ([*nn.Module*](generated/torch.nn.Module.html#torch.nn.Module)) - Current module being considered.
-- **recurse** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If `False`, then this function must decide whether
+- **recurse** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - If `False`, then this function must decide whether
 `module` should be wrapped as an FSDP instance or not. If
 `True`, then the function is still recursing down the module
 tree as a part of the DFS.
-- **nonwrapped_numel** ([*int*](https://docs.python.org/3/library/functions.html#int)) - Parameter numel not yet wrapped.
-- **min_num_params** ([*int*](https://docs.python.org/3/library/functions.html#int)) - Customizable policy input that controls the size
+- **nonwrapped_numel** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Parameter numel not yet wrapped.
+- **min_num_params** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Customizable policy input that controls the size
 threshold over which a module is ready to be wrapped. This is in
 units of numel.
-- **force_leaf_modules** (*Optional**[*[*set*](https://docs.python.org/3/library/stdtypes.html#set)*[*[*type*](https://docs.python.org/3/library/functions.html#type)*[*[*nn.Module*](generated/torch.nn.Module.html#torch.nn.Module)*]**]**]*) - Set of module types to keep
+- **force_leaf_modules** (*Optional**[*[*set*](https://docs.python.org/3/builtins/stdtypes.html#set)*[*[*type*](https://docs.python.org/3/builtins/functions.html#type)*[*[*nn.Module*](generated/torch.nn.Module.html#torch.nn.Module)*]**]**]*) - Set of module types to keep
 as leaves, i.e. their children will never be wrapped.
-- **exclude_wrap_modules** (*Optional**[*[*set*](https://docs.python.org/3/library/stdtypes.html#set)*[*[*type*](https://docs.python.org/3/library/functions.html#type)*[*[*nn.Module*](generated/torch.nn.Module.html#torch.nn.Module)*]**]**]*) - Set of module types to be
+- **exclude_wrap_modules** (*Optional**[*[*set*](https://docs.python.org/3/builtins/stdtypes.html#set)*[*[*type*](https://docs.python.org/3/builtins/functions.html#type)*[*[*nn.Module*](generated/torch.nn.Module.html#torch.nn.Module)*]**]**]*) - Set of module types to be
 excluded in wrapping.
 
 Returns:
@@ -1472,9 +1472,9 @@ Whether `module` should be wrapped.
 
 Return type:
 
-[bool](https://docs.python.org/3/library/functions.html#bool)
+[bool](https://docs.python.org/3/builtins/functions.html#bool)
 
-torch.distributed.fsdp.wrap.transformer_auto_wrap_policy(*module*, *recurse*, *nonwrapped_numel*, *transformer_layer_cls*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/fsdp/wrap.py#L298)
+torch.distributed.fsdp.wrap.transformer_auto_wrap_policy(*module*, *recurse*, *nonwrapped_numel*, *transformer_layer_cls*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/fsdp/wrap.py#L298)
 
 See `_module_wrap_policy()`, where `transformer_layer_cls` is the
 same as `module_classes`. Note that shared parameters must be wrapped in
@@ -1483,9 +1483,9 @@ embeddings into the same FSDP instance for transformer models.
 
 Return type:
 
-[bool](https://docs.python.org/3/library/functions.html#bool)
+[bool](https://docs.python.org/3/builtins/functions.html#bool)
 
-torch.distributed.fsdp.wrap.wrap(*module*, ***wrap_overrides*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/fsdp/wrap.py#L436)
+torch.distributed.fsdp.wrap.wrap(*module*, ***wrap_overrides*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/fsdp/wrap.py#L436)
 
 Annotate that a module should be wrapped. Annotated modules will only be
 wrapped if inside of an `enable_wrap()` context manager. This allows

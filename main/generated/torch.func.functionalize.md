@@ -1,6 +1,6 @@
 # torch.func.functionalize
 
-torch.func.functionalize(*func*, ***, *remove='mutations'*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/_functorch/eager_transforms.py#L1603)
+torch.func.functionalize(*func*, ***, *remove='mutations'*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/_functorch/eager_transforms.py#L1603)
 
 functionalize is a transform that can be used to remove (intermediate)
 mutations and aliasing from a function, while preserving the function's
@@ -20,7 +20,7 @@ mutations or aliasing operators.
 Parameters:
 
 - **func** (*Callable**[**...**,**Any**]*) - A Python function that takes one or more arguments.
-- **remove** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - An optional string argument, that takes on either
+- **remove** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - An optional string argument, that takes on either
 the value 'mutations' or 'mutations_and_views'.
 If 'mutations' is passed in then all mutating operators
 will be replaced with their non-mutating equivalents.

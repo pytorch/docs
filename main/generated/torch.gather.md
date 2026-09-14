@@ -22,12 +22,12 @@ without further error checking.
 Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - the source tensor
-- **dim** ([*int*](https://docs.python.org/3/library/functions.html#int)) - the axis along which to index
+- **dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - the axis along which to index
 - **index** (*LongTensor*) - the indices of elements to gather
 
 Keyword Arguments:
 
-- **sparse_grad** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If `True`, gradient w.r.t. `input` will be a sparse tensor.
+- **sparse_grad** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If `True`, gradient w.r.t. `input` will be a sparse tensor.
 - **out** ([*Tensor*](../tensors.html#torch.Tensor)*,**optional*) - the destination tensor
 
 Example:

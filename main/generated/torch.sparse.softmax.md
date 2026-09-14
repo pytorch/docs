@@ -1,6 +1,6 @@
 # torch.sparse.softmax
 
-torch.sparse.softmax(*input*, *dim*, ***, *dtype=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/sparse/__init__.py#L287)
+torch.sparse.softmax(*input*, *dim*, ***, *dtype=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/sparse/__init__.py#L287)
 
 Applies a softmax function.
 
@@ -19,7 +19,7 @@ that the elements lie in the range [0, 1] and sum to 1.
 Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - input
-- **dim** ([*int*](https://docs.python.org/3/library/functions.html#int)) - A dimension along which softmax will be computed.
+- **dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - A dimension along which softmax will be computed.
 - **dtype** ([`torch.dtype`](../tensor_attributes.html#torch.dtype), optional) - the desired data type
 of returned tensor. If specified, the input tensor is
 casted to `dtype` before the operation is

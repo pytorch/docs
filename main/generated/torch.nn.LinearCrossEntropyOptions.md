@@ -1,6 +1,6 @@
 # LinearCrossEntropyOptions
 
-*class*torch.nn.LinearCrossEntropyOptions(*allow_retain_graph=False*, *batch_chunk_size=None*, *chunking_method='auto'*, *acc_policy='auto'*, *acc_dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/linear_cross_entropy_options.py#L29)
+*class*torch.nn.LinearCrossEntropyOptions(*allow_retain_graph=False*, *batch_chunk_size=None*, *chunking_method='auto'*, *acc_policy='auto'*, *acc_dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/linear_cross_entropy_options.py#L29)
 
 Configuration for the chunked implementation of
 `linear_cross_entropy()`.
@@ -22,7 +22,7 @@ Chunking is a win when `num_batches >= in_features` and
 `num_classes > in_features`; below that, the reference path is
 cheaper.
 
-acc_dtype*: [dtype](../tensor_attributes.html#torch.dtype) | [None](https://docs.python.org/3/library/constants.html#None)*
+acc_dtype*: [dtype](../tensor_attributes.html#torch.dtype) | [None](https://docs.python.org/3/builtins/constants.html#None)*
 
 Dtype for internal accumulation. `None` resolves at call time
 to `torch.float32` under `acc_policy="auto"` with fp16/bf16
@@ -60,7 +60,7 @@ The precision difference between `"compact"` and `"accurate"` is
 visible only when `acc_dtype` differs from the input dtype;
 `"compact"` saves memory in both regimes.
 
-allow_retain_graph*: [bool](https://docs.python.org/3/library/functions.html#bool)*
+allow_retain_graph*: [bool](https://docs.python.org/3/builtins/functions.html#bool)*
 
 Allow `retain_graph=True` on backward. Applies only to the scalar
 reductions (`"mean"` / `"sum"`).
@@ -82,7 +82,7 @@ the scalar reductions because the default-mode second-backward guard
 relies on a ctx mutation Dynamo doesn't preserve; the wrapper warns on
 the promotion.
 
-batch_chunk_size*: [int](https://docs.python.org/3/library/functions.html#int) | [None](https://docs.python.org/3/library/constants.html#None)*
+batch_chunk_size*: [int](https://docs.python.org/3/builtins/functions.html#int) | [None](https://docs.python.org/3/builtins/constants.html#None)*
 
 Batch rows per chunk. The op loops over
 `ceil(num_batches / batch_chunk_size)` chunks; smaller values cut
@@ -90,7 +90,7 @@ peak memory but launch more kernels. Default `None` means a single
 chunk. Cannot be combined with `chunking_method` - if both are
 set and disagree, `ValueError` is raised.
 
-chunking_method*: [str](https://docs.python.org/3/library/stdtypes.html#str) | [None](https://docs.python.org/3/library/constants.html#None)*
+chunking_method*: [str](https://docs.python.org/3/builtins/stdtypes.html#str) | [None](https://docs.python.org/3/builtins/constants.html#None)*
 
 Heuristic for picking `batch_chunk_size`.
 

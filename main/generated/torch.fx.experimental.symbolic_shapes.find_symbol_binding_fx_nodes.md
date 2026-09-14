@@ -1,6 +1,6 @@
 # torch.fx.experimental.symbolic_shapes.find_symbol_binding_fx_nodes
 
-torch.fx.experimental.symbolic_shapes.find_symbol_binding_fx_nodes(*graph*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/experimental/symbolic_shapes.py#L1150)
+torch.fx.experimental.symbolic_shapes.find_symbol_binding_fx_nodes(*graph*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/experimental/symbolic_shapes.py#L1150)
 
 Find all nodes in an FX graph that bind sympy Symbols.
 
@@ -18,4 +18,4 @@ A dictionary mapping from sympy Symbols to their binding FX nodes
 
 Return type:
 
-[dict](https://docs.python.org/3/library/stdtypes.html#dict)[*Symbol*, [*Node*](../fx.html#torch.fx.Node)]
+[dict](https://docs.python.org/3/builtins/stdtypes.html#dict)[*Symbol*, [*Node*](../fx.html#torch.fx.Node)]

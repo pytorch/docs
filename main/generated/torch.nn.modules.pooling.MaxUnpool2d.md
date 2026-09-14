@@ -1,6 +1,6 @@
 # MaxUnpool2d
 
-*class*torch.nn.modules.pooling.MaxUnpool2d(*kernel_size*, *stride=None*, *padding=0*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/pooling.py#L407)
+*class*torch.nn.modules.pooling.MaxUnpool2d(*kernel_size*, *stride=None*, *padding=0*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/pooling.py#L407)
 
 Computes a partial inverse of [`MaxPool2d`](torch.nn.modules.pooling.MaxPool2d.html#torch.nn.modules.pooling.MaxPool2d).
 
@@ -25,10 +25,10 @@ See the Inputs and Example below.
 
 Parameters:
 
-- **kernel_size** ([*int*](https://docs.python.org/3/library/functions.html#int)*or*[*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)) - Size of the max pooling window.
-- **stride** ([*int*](https://docs.python.org/3/library/functions.html#int)*or*[*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)) - Stride of the max pooling window.
+- **kernel_size** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*or*[*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)) - Size of the max pooling window.
+- **stride** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*or*[*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)) - Stride of the max pooling window.
 It is set to `kernel_size` by default.
-- **padding** ([*int*](https://docs.python.org/3/library/functions.html#int)*or*[*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)) - Padding that was added to the input
+- **padding** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*or*[*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)) - Padding that was added to the input
 
 Inputs:
 
@@ -79,7 +79,7 @@ tensor([[[[ 0., 0., 0., 0., 0.],
  [ 0., 17., 0., 19., 0.]]]])
 ```
 
-forward(*input*, *indices*, *output_size=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/pooling.py#L494)
+forward(*input*, *indices*, *output_size=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/pooling.py#L494)
 
 Runs the forward pass.
 

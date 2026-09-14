@@ -1,8 +1,8 @@
 # MultiheadAttention
 
-*class*torch.ao.nn.quantizable.modules.activation.MultiheadAttention(*embed_dim*, *num_heads*, *dropout=0.0*, *bias=True*, *add_bias_kv=False*, *add_zero_attn=False*, *kdim=None*, *vdim=None*, *batch_first=False*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/ao/nn/quantizable/modules/activation.py#L13)
+*class*torch.ao.nn.quantizable.modules.activation.MultiheadAttention(*embed_dim*, *num_heads*, *dropout=0.0*, *bias=True*, *add_bias_kv=False*, *add_zero_attn=False*, *kdim=None*, *vdim=None*, *batch_first=False*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/ao/nn/quantizable/modules/activation.py#L13)
 
-dequantize()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/ao/nn/quantizable/modules/activation.py#L198)
+dequantize()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/ao/nn/quantizable/modules/activation.py#L198)
 
 Utility to convert the quantized MHA back to float.
 
@@ -10,7 +10,7 @@ The motivation for this is that it is not trivial to convert the weights
 from the format that is used in the quantized version back to the
 float.
 
-forward(*query*, *key*, *value*, *key_padding_mask=None*, *need_weights=True*, *attn_mask=None*, *average_attn_weights=True*, *is_causal=False*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/ao/nn/quantizable/modules/activation.py#L297)
+forward(*query*, *key*, *value*, *key_padding_mask=None*, *need_weights=True*, *attn_mask=None*, *average_attn_weights=True*, *is_causal=False*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/ao/nn/quantizable/modules/activation.py#L297)
 
 Note::
 
@@ -28,13 +28,13 @@ See "Attention Is All You Need" for more details.
 - **key_padding_mask** ([*Tensor*](../tensors.html#torch.Tensor)*|**None*) - if provided, specified padding elements in the key will
 be ignored by the attention. When given a binary mask and a value is True,
 the corresponding value on the attention layer will be ignored.
-- **need_weights** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - output attn_output_weights.
+- **need_weights** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - output attn_output_weights.
 - **attn_mask** ([*Tensor*](../tensors.html#torch.Tensor)*|**None*) - 2D or 3D mask that prevents attention to certain positions. A 2D mask will be broadcasted for all
 the batches while a 3D mask allows to specify a different mask for the entries of each batch.
 
 Return type:
 
-[tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[*Tensor*](../tensors.html#torch.Tensor), [*Tensor*](../tensors.html#torch.Tensor) | None]
+[tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[*Tensor*](../tensors.html#torch.Tensor), [*Tensor*](../tensors.html#torch.Tensor) | None]
 
 Shape:
 

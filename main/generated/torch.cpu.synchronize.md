@@ -1,11 +1,11 @@
 # torch.cpu.synchronize
 
-torch.cpu.synchronize(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/cpu/__init__.py#L126)
+torch.cpu.synchronize(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/cpu/__init__.py#L126)
 
 Waits for all kernels in all streams on the CPU device to complete.
 
 Parameters:
 
-**device** ([*torch.device*](../tensor_attributes.html#torch.device)*or*[*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - ignored, there's only one CPU device.
+**device** ([*torch.device*](../tensor_attributes.html#torch.device)*or*[*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - ignored, there's only one CPU device.
 
 N.B. This function only exists to facilitate device-agnostic code.

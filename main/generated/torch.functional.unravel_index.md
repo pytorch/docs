@@ -1,6 +1,6 @@
 # torch.functional.unravel_index
 
-torch.functional.unravel_index(*indices*, *shape*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/functional.py#L1957)
+torch.functional.unravel_index(*indices*, *shape*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/functional.py#L1957)
 
 Converts a tensor of flat indices into a tuple of coordinate tensors that
 index into an arbitrary tensor of the specified shape.
@@ -10,7 +10,7 @@ Parameters:
 - **indices** ([*Tensor*](../tensors.html#torch.Tensor)) - An integer tensor containing indices into the
 flattened version of an arbitrary tensor of shape `shape`.
 All elements must be in the range `[0, prod(shape) - 1]`.
-- **shape** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**sequence**of**ints**, or*[*torch.Size*](../size.html#torch.Size)) - The shape of the arbitrary
+- **shape** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**sequence**of**ints**, or*[*torch.Size*](../size.html#torch.Size)) - The shape of the arbitrary
 tensor. All elements must be non-negative.
 
 Returns:
@@ -22,7 +22,7 @@ flat indices given by `indices`.
 
 Return type:
 
-[tuple](https://docs.python.org/3/library/stdtypes.html#tuple) of Tensors
+[tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple) of Tensors
 
 Example:
 

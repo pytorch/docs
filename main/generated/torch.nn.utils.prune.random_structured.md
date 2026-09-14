@@ -1,6 +1,6 @@
 # torch.nn.utils.prune.random_structured
 
-torch.nn.utils.prune.random_structured(*module*, *name*, *amount*, *dim*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/utils/prune.py#L952)
+torch.nn.utils.prune.random_structured(*module*, *name*, *amount*, *dim*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/utils/prune.py#L952)
 
 Prune tensor by removing random channels along the specified dimension.
 
@@ -19,13 +19,13 @@ original (unpruned) parameter is stored in a new parameter named
 Parameters:
 
 - **module** ([*nn.Module*](torch.nn.Module.html#torch.nn.Module)) - module containing the tensor to prune
-- **name** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - parameter name within `module` on which pruning
+- **name** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - parameter name within `module` on which pruning
 will act.
-- **amount** ([*int*](https://docs.python.org/3/library/functions.html#int)*or*[*float*](https://docs.python.org/3/library/functions.html#float)) - quantity of parameters to prune.
+- **amount** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*or*[*float*](https://docs.python.org/3/builtins/functions.html#float)) - quantity of parameters to prune.
 If `float`, should be between 0.0 and 1.0 and represent the
 fraction of parameters to prune. If `int`, it represents the
 absolute number of parameters to prune.
-- **dim** ([*int*](https://docs.python.org/3/library/functions.html#int)) - index of the dim along which we define channels to prune.
+- **dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - index of the dim along which we define channels to prune.
 
 Returns:
 

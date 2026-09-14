@@ -8,8 +8,8 @@ Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - float tensor to quantize
 - **scales** ([*Tensor*](../tensors.html#torch.Tensor)) - float 1D tensor of scales to use, size should match `input.size(axis)`
-- **zero_points** ([*int*](https://docs.python.org/3/library/functions.html#int)) - integer 1D tensor of offset to use, size should match `input.size(axis)`
-- **axis** ([*int*](https://docs.python.org/3/library/functions.html#int)) - dimension on which apply per-channel quantization
+- **zero_points** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - integer 1D tensor of offset to use, size should match `input.size(axis)`
+- **axis** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - dimension on which apply per-channel quantization
 - **dtype** ([`torch.dtype`](../tensor_attributes.html#torch.dtype)) - the desired data type of returned tensor.
 Has to be one of the quantized dtypes: `torch.quint8`, `torch.qint8`, `torch.qint32`
 

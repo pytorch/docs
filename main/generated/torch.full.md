@@ -7,7 +7,7 @@ tensor's dtype is inferred from `fill_value`.
 
 Parameters:
 
-- **size** ([*int*](https://docs.python.org/3/library/functions.html#int)*...*) - a list, tuple, or [`torch.Size`](../size.html#torch.Size) of integers defining the
+- **size** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*...*) - a list, tuple, or [`torch.Size`](../size.html#torch.Size) of integers defining the
 shape of the output tensor.
 - **fill_value** (*Scalar*) - the value to fill the output tensor with.
 
@@ -22,7 +22,7 @@ Default: `torch.strided`.
 Default: if `None`, uses the current device for the default tensor type
 (see [`torch.set_default_device()`](torch.set_default_device.html#torch.set_default_device)). [`device`](../tensor_attributes.html#torch.device) will be the CPU
 for CPU tensor types and the current CUDA device for CUDA tensor types.
-- **requires_grad** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If autograd should record operations on the
+- **requires_grad** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If autograd should record operations on the
 returned tensor. Default: `False`.
 
 Example:

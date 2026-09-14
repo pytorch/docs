@@ -1,6 +1,6 @@
 # torch.functional.stft
 
-torch.functional.stft(*input*, *n_fft*, *hop_length=None*, *win_length=None*, *window=None*, *center=True*, *pad_mode='reflect'*, *normalized=False*, *onesided=None*, *return_complex=None*, *align_to_window=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/functional.py#L507)
+torch.functional.stft(*input*, *n_fft*, *hop_length=None*, *win_length=None*, *window=None*, *center=True*, *pad_mode='reflect'*, *normalized=False*, *onesided=None*, *return_complex=None*, *align_to_window=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/functional.py#L507)
 
 Short-time Fourier transform (STFT).
 
@@ -87,25 +87,25 @@ Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - the input tensor of shape (B?, L) where B? is an optional
 batch dimension
-- **n_fft** ([*int*](https://docs.python.org/3/library/functions.html#int)) - size of Fourier transform
-- **hop_length** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - the distance between neighboring sliding window
+- **n_fft** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - size of Fourier transform
+- **hop_length** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - the distance between neighboring sliding window
 frames. Default: `None` (treated as equal to `floor(n_fft / 4)`)
-- **win_length** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - the size of window frame and STFT filter.
+- **win_length** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - the size of window frame and STFT filter.
 Default: `None` (treated as equal to `n_fft`)
 - **window** ([*Tensor*](../tensors.html#torch.Tensor)*,**optional*) - the optional window function.
 Shape must be 1d and <= n_fft
 Default: `None` (treated as window of all 111 s)
-- **center** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - whether to pad `input` on both sides so
+- **center** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - whether to pad `input` on both sides so
 that the ttt-th frame is centered at time t×hop_lengtht \times \text{hop\_length}t×hop_length.
 Default: `True`
-- **pad_mode** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**optional*) - controls the padding method used when
+- **pad_mode** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**optional*) - controls the padding method used when
 `center` is `True`. Default: `"reflect"`
-- **normalized** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - controls whether to return the normalized STFT results
+- **normalized** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - controls whether to return the normalized STFT results
 Default: `False`
-- **onesided** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - controls whether to return half of results to
+- **onesided** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - controls whether to return half of results to
 avoid redundancy for real inputs.
 Default: `True` for real `input` and `window`, `False` otherwise.
-- **return_complex** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) -
+- **return_complex** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) -
 
 whether to return a complex tensor, or
 a real tensor with an extra last dimension for the real and

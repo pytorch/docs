@@ -1,6 +1,6 @@
 # torch.fx.passes.pass_manager.loop_pass
 
-torch.fx.passes.pass_manager.loop_pass(*base_pass*, *n_iter=None*, *predicate=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/passes/pass_manager.py#L86)
+torch.fx.passes.pass_manager.loop_pass(*base_pass*, *n_iter=None*, *predicate=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/passes/pass_manager.py#L86)
 
 Convenience wrapper for passes which need to be applied multiple times.
 
@@ -9,8 +9,8 @@ Exactly one of n_iter`or `predicate must be specified.
 Parameters:
 
 - **base_pass** (*Callable**[**Object**,**Object**]*) - pass to be applied in loop
-- **n_iter** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - number of times to loop pass
-- **predicate** (*Callable**[**Object**,*[*bool*](https://docs.python.org/3/library/functions.html#bool)*]**,**optional*) -
+- **n_iter** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - number of times to loop pass
+- **predicate** (*Callable**[**Object**,*[*bool*](https://docs.python.org/3/builtins/functions.html#bool)*]**,**optional*) -
 
 Return type:
 

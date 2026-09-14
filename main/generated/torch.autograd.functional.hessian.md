@@ -1,6 +1,6 @@
 # torch.autograd.functional.hessian
 
-torch.autograd.functional.hessian(*func*, *inputs*, *create_graph=False*, *strict=False*, *vectorize=False*, *outer_jacobian_strategy='reverse-mode'*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/autograd/functional.py#L856)
+torch.autograd.functional.hessian(*func*, *inputs*, *create_graph=False*, *strict=False*, *vectorize=False*, *outer_jacobian_strategy='reverse-mode'*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/autograd/functional.py#L856)
 
 Compute the Hessian of a given scalar function.
 
@@ -8,16 +8,16 @@ Parameters:
 
 - **func** (*function*) - a Python function that takes Tensor inputs and returns
 a Tensor with a single element.
-- **inputs** ([*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*of**Tensors**or*[*Tensor*](../tensors.html#torch.Tensor)) - inputs to the function `func`.
-- **create_graph** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If `True`, the Hessian will be computed in
+- **inputs** ([*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*of**Tensors**or*[*Tensor*](../tensors.html#torch.Tensor)) - inputs to the function `func`.
+- **create_graph** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If `True`, the Hessian will be computed in
 a differentiable manner. Note that when `strict` is `False`, the result can not
 require gradients or be disconnected from the inputs.
 Defaults to `False`.
-- **strict** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If `True`, an error will be raised when we detect that there exists an input
+- **strict** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If `True`, an error will be raised when we detect that there exists an input
 such that all the outputs are independent of it. If `False`, we return a Tensor of zeros as the
 hessian for said inputs, which is the expected mathematical value.
 Defaults to `False`.
-- **vectorize** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - This feature is experimental.
+- **vectorize** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - This feature is experimental.
 Please consider using [`torch.func.hessian()`](torch.func.hessian.html#torch.func.hessian)
 instead if you are looking for something less experimental and more performant.
 When computing the hessian, usually we invoke
@@ -30,7 +30,7 @@ being incomplete, there may be performance cliffs. Please
 use torch._C._debug_only_display_vmap_fallback_warnings(True)
 to show any performance warnings and file us issues if
 warnings exist for your use case. Defaults to `False`.
-- **outer_jacobian_strategy** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**optional*) - The Hessian is computed by
+- **outer_jacobian_strategy** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**optional*) - The Hessian is computed by
 computing the Jacobian of a Jacobian. The inner Jacobian is always
 computed in reverse-mode AD. Setting strategy to `"forward-mode"`
 or `"reverse-mode"` determines whether the outer Jacobian will be
@@ -50,7 +50,7 @@ dtype and device as the corresponding `i`th input.
 
 Return type:
 
-Hessian ([Tensor](../tensors.html#torch.Tensor) or a tuple of [tuple](https://docs.python.org/3/library/stdtypes.html#tuple) of Tensors)
+Hessian ([Tensor](../tensors.html#torch.Tensor) or a tuple of [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple) of Tensors)
 
 Example
 

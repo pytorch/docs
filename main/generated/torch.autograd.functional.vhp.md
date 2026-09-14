@@ -1,6 +1,6 @@
 # torch.autograd.functional.vhp
 
-torch.autograd.functional.vhp(*func*, *inputs*, *v=None*, *create_graph=False*, *strict=False*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/autograd/functional.py#L997)
+torch.autograd.functional.vhp(*func*, *inputs*, *v=None*, *create_graph=False*, *strict=False*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/autograd/functional.py#L997)
 
 Compute the dot product between vector `v` and Hessian of a given scalar function at a specified point.
 
@@ -8,18 +8,18 @@ Parameters:
 
 - **func** (*function*) - a Python function that takes Tensor inputs and returns
 a Tensor with a single element.
-- **inputs** ([*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*of**Tensors**or*[*Tensor*](../tensors.html#torch.Tensor)) - inputs to the function `func`.
-- **v** ([*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*of**Tensors**or*[*Tensor*](../tensors.html#torch.Tensor)) - The vector for which the vector Hessian
+- **inputs** ([*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*of**Tensors**or*[*Tensor*](../tensors.html#torch.Tensor)) - inputs to the function `func`.
+- **v** ([*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*of**Tensors**or*[*Tensor*](../tensors.html#torch.Tensor)) - The vector for which the vector Hessian
 product is computed. Must be the same size as the input of
 `func`. This argument is optional when `func`'s input contains
 a single element and (if it is not provided) will be set as a
 Tensor containing a single `1`.
-- **create_graph** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If `True`, both the output and result
+- **create_graph** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If `True`, both the output and result
 will be computed in a differentiable way. Note that when `strict`
 is `False`, the result can not require gradients or be
 disconnected from the inputs.
 Defaults to `False`.
-- **strict** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If `True`, an error will be raised when we
+- **strict** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If `True`, an error will be raised when we
 detect that there exists an input such that all the outputs are
 independent of it. If `False`, we return a Tensor of zeros as the
 vhp for said inputs, which is the expected mathematical value.
@@ -36,7 +36,7 @@ same shape as the inputs.
 
 Return type:
 
-output ([tuple](https://docs.python.org/3/library/stdtypes.html#tuple))
+output ([tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple))
 
 Example
 

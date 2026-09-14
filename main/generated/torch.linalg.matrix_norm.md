@@ -1,6 +1,6 @@
 # torch.linalg.matrix_norm
 
-torch.linalg.matrix_norm(*A*, *ord='fro'*, *dim=(-2, -1)*, *keepdim=False*, ***, *dtype=None*, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/linalg/__init__.py#L1570)
+torch.linalg.matrix_norm(*A*, *ord='fro'*, *dim=(-2, -1)*, *keepdim=False*, ***, *dtype=None*, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/linalg/__init__.py#L1570)
 
 Computes a matrix norm.
 
@@ -31,9 +31,9 @@ Parameters:
 - **A** ([*Tensor*](../tensors.html#torch.Tensor)) - tensor with two or more dimensions. By default its
 shape is interpreted as (*, m, n) where * is zero or more
 batch dimensions, but this behavior can be controlled using `dim`.
-- **ord** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**inf**,**-inf**,**'fro'**,**'nuc'**,**optional*) - order of norm. Default: 'fro'
-- **dim** (*Tuple**[*[*int*](https://docs.python.org/3/library/functions.html#int)*,*[*int*](https://docs.python.org/3/library/functions.html#int)*]**,**optional*) - dimensions over which to compute the norm. Default: (-2, -1)
-- **keepdim** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If set to True, the reduced dimensions are retained
+- **ord** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**inf**,**-inf**,**'fro'**,**'nuc'**,**optional*) - order of norm. Default: 'fro'
+- **dim** (*Tuple**[*[*int*](https://docs.python.org/3/builtins/functions.html#int)*,*[*int*](https://docs.python.org/3/builtins/functions.html#int)*]**,**optional*) - dimensions over which to compute the norm. Default: (-2, -1)
+- **keepdim** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If set to True, the reduced dimensions are retained
 in the result as dimensions with size one. Default: False
 
 Keyword Arguments:

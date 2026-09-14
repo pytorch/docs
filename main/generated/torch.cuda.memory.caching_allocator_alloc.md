@@ -1,6 +1,6 @@
 # torch.cuda.memory.caching_allocator_alloc
 
-torch.cuda.memory.caching_allocator_alloc(*size*, *device=None*, *stream=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/cuda/memory.py#L104)
+torch.cuda.memory.caching_allocator_alloc(*size*, *device=None*, *stream=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/cuda/memory.py#L104)
 
 Perform a memory allocation using the CUDA memory allocator.
 
@@ -11,10 +11,10 @@ frameworks. Allocated memory is released through
 
 Parameters:
 
-- **size** ([*int*](https://docs.python.org/3/library/functions.html#int)) - number of bytes to be allocated.
-- **device** ([*torch.device*](../tensor_attributes.html#torch.device)*or*[*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - selected device. If it is
+- **size** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - number of bytes to be allocated.
+- **device** ([*torch.device*](../tensor_attributes.html#torch.device)*or*[*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - selected device. If it is
 `None` the default CUDA device is used.
-- **stream** ([*torch.cuda.Stream*](torch.cuda.Stream_class.html#torch.cuda.Stream)*or*[*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - selected stream. If is `None` then
+- **stream** ([*torch.cuda.Stream*](torch.cuda.Stream_class.html#torch.cuda.Stream)*or*[*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - selected stream. If is `None` then
 the default stream for the selected device is used.
 
 Note

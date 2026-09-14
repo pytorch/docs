@@ -1,6 +1,6 @@
 # torch.nn.functional.embedding_bag
 
-torch.nn.functional.embedding_bag(*input*, *weight*, *offsets=None*, *max_norm=None*, *norm_type=2*, *scale_grad_by_freq=False*, *mode='mean'*, *sparse=False*, *per_sample_weights=None*, *include_last_offset=False*, *padding_idx=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/functional.py#L2624)
+torch.nn.functional.embedding_bag(*input*, *weight*, *offsets=None*, *max_norm=None*, *norm_type=2*, *scale_grad_by_freq=False*, *mode='mean'*, *sparse=False*, *per_sample_weights=None*, *include_last_offset=False*, *padding_idx=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/functional.py#L2624)
 
 Compute sums, means or maxes of bags of embeddings.
 
@@ -18,28 +18,28 @@ Parameters:
 and number of columns equal to the embedding size
 - **offsets** (*LongTensor**,**optional*) - Only used when `input` is 1D. `offsets` determines
 the starting index position of each bag (sequence) in `input`.
-- **max_norm** ([*float*](https://docs.python.org/3/library/functions.html#float)*,**optional*) - If given, each embedding vector with norm larger than `max_norm`
+- **max_norm** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*,**optional*) - If given, each embedding vector with norm larger than `max_norm`
 is renormalized to have norm `max_norm`.
 Note: this will modify `weight` in-place.
-- **norm_type** ([*float*](https://docs.python.org/3/library/functions.html#float)*,**optional*) - The `p` in the `p`-norm to compute for the `max_norm` option.
+- **norm_type** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*,**optional*) - The `p` in the `p`-norm to compute for the `max_norm` option.
 Default `2`.
-- **scale_grad_by_freq** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - if given, this will scale gradients by the inverse of frequency of
+- **scale_grad_by_freq** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - if given, this will scale gradients by the inverse of frequency of
 the words in the mini-batch. Default `False`.
 Note: this option is not supported when `mode="max"`.
-- **mode** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**optional*) - `"sum"`, `"mean"` or `"max"`. Specifies the way to reduce the bag.
+- **mode** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**optional*) - `"sum"`, `"mean"` or `"max"`. Specifies the way to reduce the bag.
 Default: `"mean"`
-- **sparse** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - if `True`, gradient w.r.t. `weight` will be a sparse tensor. See Notes under
+- **sparse** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - if `True`, gradient w.r.t. `weight` will be a sparse tensor. See Notes under
 [`torch.nn.Embedding`](torch.nn.Embedding.html#torch.nn.Embedding) for more details regarding sparse gradients.
 Note: this option is not supported when `mode="max"`.
 - **per_sample_weights** ([*Tensor*](../tensors.html#torch.Tensor)*,**optional*) - a tensor of float / double weights, or None
 to indicate all weights should be taken to be 1. If specified, `per_sample_weights`
 must have exactly the same shape as input and is treated as having the same
 `offsets`, if those are not None.
-- **include_last_offset** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - if `True`, the size of offsets is equal to the number of bags + 1.
+- **include_last_offset** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - if `True`, the size of offsets is equal to the number of bags + 1.
 The last element is the size of the input, or the ending index position
 of the last bag (sequence). This matches the CSR format. Ignored when
 input is 2D. Default `False`.
-- **padding_idx** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - If specified, the entries at `padding_idx` do not contribute to the
+- **padding_idx** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - If specified, the entries at `padding_idx` do not contribute to the
 gradient; therefore, the embedding vector at `padding_idx` is not updated
 during training, i.e. it remains as a fixed "pad". Note that the embedding
 vector at `padding_idx` is excluded from the reduction.

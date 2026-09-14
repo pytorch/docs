@@ -7,7 +7,7 @@ Returns a view of the original tensor `input` with its dimensions permuted.
 Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - the input tensor.
-- **dims** ([*torch.Size*](../size.html#torch.Size)*,*[*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*of*[*int*](https://docs.python.org/3/library/functions.html#int)*or*[*list*](https://docs.python.org/3/library/stdtypes.html#list)*of*[*int*](https://docs.python.org/3/library/functions.html#int)) - the desired ordering of dimensions.
+- **dims** ([*torch.Size*](../size.html#torch.Size)*,*[*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*of*[*int*](https://docs.python.org/3/builtins/functions.html#int)*or*[*list*](https://docs.python.org/3/builtins/stdtypes.html#list)*of*[*int*](https://docs.python.org/3/builtins/functions.html#int)) - the desired ordering of dimensions.
 
 Example
 

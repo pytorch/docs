@@ -221,7 +221,7 @@ The original name of the node in the PyTorch FX graph that produced this value i
 
 ## API Reference
 
-torch.onnx.export(*model*, *args=()*, *f=None*, ***, *kwargs=None*, *verbose=None*, *input_names=None*, *output_names=None*, *opset_version=None*, *dynamo=True*, *external_data=True*, *dynamic_shapes=None*, *custom_translation_table=None*, *report=False*, *optimize=True*, *verify=False*, *profile=False*, *dump_exported_program=False*, *artifacts_dir='.'*, *export_params=True*, *keep_initializers_as_inputs=False*, *dynamic_axes=None*, *training=<TrainingMode.EVAL: 0>*, *operator_export_type=<OperatorExportTypes.ONNX: 0>*, *do_constant_folding=True*, *custom_opsets=None*, *export_modules_as_functions=False*, *autograd_inlining=True*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/onnx/__init__.py#L65)
+torch.onnx.export(*model*, *args=()*, *f=None*, ***, *kwargs=None*, *verbose=None*, *input_names=None*, *output_names=None*, *opset_version=None*, *dynamo=True*, *external_data=True*, *dynamic_shapes=None*, *custom_translation_table=None*, *report=False*, *optimize=True*, *verify=False*, *profile=False*, *dump_exported_program=False*, *artifacts_dir='.'*, *export_params=True*, *keep_initializers_as_inputs=False*, *dynamic_axes=None*, *training=<TrainingMode.EVAL: 0>*, *operator_export_type=<OperatorExportTypes.ONNX: 0>*, *do_constant_folding=True*, *custom_opsets=None*, *export_modules_as_functions=False*, *autograd_inlining=True*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/onnx/__init__.py#L65)
 
 Exports a model into ONNX format.
 
@@ -241,57 +241,57 @@ The exporter tries the following strategies to get an ExportedProgram for conver
 Parameters:
 
 - **model** ([*torch.nn.Module*](generated/torch.nn.Module.html#torch.nn.Module)*|*[*torch.export.ExportedProgram*](user_guide/torch_compiler/export/api_reference.html#torch.export.ExportedProgram)*|**torch.jit.ScriptModule**|**torch.jit.ScriptFunction*) - The model to be exported.
-- **args** ([*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*[**Any**,**...**]*) - Example positional inputs. Any non-Tensor arguments will be hard-coded into the
+- **args** ([*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*[**Any**,**...**]*) - Example positional inputs. Any non-Tensor arguments will be hard-coded into the
 exported model; any Tensor arguments will become inputs of the exported model,
 in the order they occur in the tuple.
-- **f** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*|*[*os.PathLike*](https://docs.python.org/3/library/os.html#os.PathLike)*|**None*) - Path to the output ONNX model file. E.g. "model.onnx". This argument is kept for
+- **f** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*|*[*os.PathLike*](https://docs.python.org/3/library/os.html#os.PathLike)*|**None*) - Path to the output ONNX model file. E.g. "model.onnx". This argument is kept for
 backward compatibility. It is recommended to leave unspecified (None)
 and use the returned `torch.onnx.ONNXProgram` to serialize the model
 to a file instead.
-- **kwargs** ([*dict*](https://docs.python.org/3/library/stdtypes.html#dict)*[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**Any**]**|**None*) - Optional example keyword inputs.
-- **verbose** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*|**None*) - Whether to enable verbose logging.
-- **input_names** (*Sequence**[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*]**|**None*) - names to assign to the input nodes of the graph, in order.
-- **output_names** (*Sequence**[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*]**|**None*) - names to assign to the output nodes of the graph, in order.
+- **kwargs** ([*dict*](https://docs.python.org/3/builtins/stdtypes.html#dict)*[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**Any**]**|**None*) - Optional example keyword inputs.
+- **verbose** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*|**None*) - Whether to enable verbose logging.
+- **input_names** (*Sequence**[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*]**|**None*) - names to assign to the input nodes of the graph, in order.
+- **output_names** (*Sequence**[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*]**|**None*) - names to assign to the output nodes of the graph, in order.
 These are labels only and do not affect the order of outputs. If the model
 returns a dictionary, outputs are flattened in the dictionary's iteration
 order regardless of the names specified here.
-- **opset_version** ([*int*](https://docs.python.org/3/library/functions.html#int)*|**None*) - The version of the
+- **opset_version** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*|**None*) - The version of the
 [default (ai.onnx) opset](https://github.com/onnx/onnx/blob/master/docs/Operators.md)
 to target. You should set `opset_version` according to the supported opset versions
 of the runtime backend or compiler you want to run the exported model with.
 Leave as default (`None`) to use the recommended version, or refer to
 the ONNX operators documentation for more information.
-- **dynamo** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - Whether to export the model with `torch.export` ExportedProgram instead of TorchScript.
-- **external_data** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - Whether to save the model weights as an external data file.
+- **dynamo** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Whether to export the model with `torch.export` ExportedProgram instead of TorchScript.
+- **external_data** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Whether to save the model weights as an external data file.
 This is required for models with large weights that exceed the ONNX file size limit (2GB).
 When False, the weights are saved in the ONNX file with the model architecture.
-- **dynamic_shapes** ([*dict*](https://docs.python.org/3/library/stdtypes.html#dict)*[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**Any**]**|*[*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*[**Any**,**...**]**|*[*list*](https://docs.python.org/3/library/stdtypes.html#list)*[**Any**]**|**None*) - A dictionary or a tuple of dynamic shapes for the model inputs. Refer to
+- **dynamic_shapes** ([*dict*](https://docs.python.org/3/builtins/stdtypes.html#dict)*[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**Any**]**|*[*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*[**Any**,**...**]**|*[*list*](https://docs.python.org/3/builtins/stdtypes.html#list)*[**Any**]**|**None*) - A dictionary or a tuple of dynamic shapes for the model inputs. Refer to
 [`torch.export.export()`](user_guide/torch_compiler/export/api_reference.html#torch.export.export) for more details. This is only used (and preferred) when dynamo is True.
 Note that dynamic_shapes is designed to be used when the model is exported with dynamo=True, while
 dynamic_axes is used when dynamo=False.
-- **custom_translation_table** ([*dict*](https://docs.python.org/3/library/stdtypes.html#dict)*[**Callable**,**Callable**]**|**None*) - A dictionary of custom decompositions for operators in the model.
+- **custom_translation_table** ([*dict*](https://docs.python.org/3/builtins/stdtypes.html#dict)*[**Callable**,**Callable**]**|**None*) - A dictionary of custom decompositions for operators in the model.
 The dictionary should have the callable target in the fx Node as the key (e.g. `torch.ops.aten.stft.default`),
 and the value should be a function that builds that graph using ONNX Script. This option
 is only valid when dynamo is True.
-- **report** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - Whether to generate a markdown report for the export process. This option
+- **report** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Whether to generate a markdown report for the export process. This option
 is only valid when dynamo is True.
-- **optimize** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - Whether to optimize the exported model. This option
+- **optimize** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Whether to optimize the exported model. This option
 is only valid when dynamo is True. Default is True.
-- **verify** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - Whether to verify the exported model using ONNX Runtime. This option
+- **verify** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Whether to verify the exported model using ONNX Runtime. This option
 is only valid when dynamo is True.
-- **profile** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - Whether to profile the export process. This option
+- **profile** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Whether to profile the export process. This option
 is only valid when dynamo is True.
-- **dump_exported_program** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - Whether to dump the [`torch.export.ExportedProgram`](user_guide/torch_compiler/export/api_reference.html#torch.export.ExportedProgram) to a file.
+- **dump_exported_program** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Whether to dump the [`torch.export.ExportedProgram`](user_guide/torch_compiler/export/api_reference.html#torch.export.ExportedProgram) to a file.
 This is useful for debugging the exporter. This option is only valid when dynamo is True.
-- **artifacts_dir** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*|*[*os.PathLike*](https://docs.python.org/3/library/os.html#os.PathLike)) - The directory to save the debugging artifacts like the report and the serialized
+- **artifacts_dir** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*|*[*os.PathLike*](https://docs.python.org/3/library/os.html#os.PathLike)) - The directory to save the debugging artifacts like the report and the serialized
 exported program. This option is only valid when dynamo is True.
-- **export_params** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) -
+- **export_params** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) -
 
 **When ``f`` is specified**: If false, parameters (weights) will not be exported.
 
 You can also leave it unspecified and use the returned `torch.onnx.ONNXProgram`
 to control how initializers are treated when serializing the model.
-- **keep_initializers_as_inputs** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) -
+- **keep_initializers_as_inputs** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) -
 
 **When ``f`` is specified**: If True, all the
 initializers (typically corresponding to model weights) in the
@@ -305,7 +305,7 @@ Set it to False if the weights are static to allow for better optimizations
 
 You can also leave it unspecified and use the returned `torch.onnx.ONNXProgram`
 to control how initializers are treated when serializing the model.
-- **dynamic_axes** (*Mapping**[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**Mapping**[*[*int*](https://docs.python.org/3/library/functions.html#int)*,*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*]**]**|**Mapping**[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**Sequence**[*[*int*](https://docs.python.org/3/library/functions.html#int)*]**]**|**None*) -
+- **dynamic_axes** (*Mapping**[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**Mapping**[*[*int*](https://docs.python.org/3/builtins/functions.html#int)*,*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*]**]**|**Mapping**[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**Sequence**[*[*int*](https://docs.python.org/3/builtins/functions.html#int)*]**]**|**None*) -
 
 Deprecated: Prefer specifying `dynamic_shapes` when `dynamo=True`.
 
@@ -399,10 +399,10 @@ output {
 ```
 - **training** (*_C_onnx.TrainingMode*) - Deprecated option. Instead, set the training mode of the model before exporting.
 - **operator_export_type** (*_C_onnx.OperatorExportTypes*) - Deprecated option. Only ONNX is supported.
-- **do_constant_folding** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - Deprecated option.
-- **custom_opsets** (*Mapping**[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*,*[*int*](https://docs.python.org/3/library/functions.html#int)*]**|**None*) - Deprecated option.
-- **export_modules_as_functions** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*|**Collection**[*[*type*](https://docs.python.org/3/library/functions.html#type)*[*[*torch.nn.Module*](generated/torch.nn.Module.html#torch.nn.Module)*]**]*) - Deprecated option.
-- **autograd_inlining** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - Deprecated option.
+- **do_constant_folding** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Deprecated option.
+- **custom_opsets** (*Mapping**[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,*[*int*](https://docs.python.org/3/builtins/functions.html#int)*]**|**None*) - Deprecated option.
+- **export_modules_as_functions** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*|**Collection**[*[*type*](https://docs.python.org/3/builtins/functions.html#type)*[*[*torch.nn.Module*](generated/torch.nn.Module.html#torch.nn.Module)*]**]*) - Deprecated option.
+- **autograd_inlining** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Deprecated option.
 
 Returns:
 
@@ -433,7 +433,7 @@ Variables:
 - **model** - The ONNX model as an ONNX IR model object.
 - **exported_program** - The exported program that produced the ONNX model.
 
-apply_weights(*state_dict*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/onnx/_internal/exporter/_onnx_program.py#L391)
+apply_weights(*state_dict*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/onnx/_internal/exporter/_onnx_program.py#L391)
 
 Apply the weights from the specified state dict to the ONNX model.
 
@@ -441,9 +441,9 @@ Use this method to replace FakeTensors or other weights.
 
 Parameters:
 
-**state_dict** ([*dict*](https://docs.python.org/3/library/stdtypes.html#dict)*[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*,*[*Tensor*](tensors.html#torch.Tensor)*]*) - The state dict containing the weights to apply to the ONNX model.
+**state_dict** ([*dict*](https://docs.python.org/3/builtins/stdtypes.html#dict)*[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,*[*Tensor*](tensors.html#torch.Tensor)*]*) - The state dict containing the weights to apply to the ONNX model.
 
-call_reference(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/onnx/_internal/exporter/_onnx_program.py#L263)
+call_reference(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/onnx/_internal/exporter/_onnx_program.py#L263)
 
 Run the ONNX model using the reference backend.
 
@@ -451,7 +451,7 @@ Return type:
 
 [*Sequence*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence)[[*Tensor*](tensors.html#torch.Tensor)]
 
-compute_values(*value_names*, *args=()*, *kwargs=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/onnx/_internal/exporter/_onnx_program.py#L279)
+compute_values(*value_names*, *args=()*, *kwargs=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/onnx/_internal/exporter/_onnx_program.py#L279)
 
 Compute the values of the specified names in the ONNX model.
 
@@ -460,7 +460,7 @@ The values are returned as a dictionary mapping names to tensors.
 
 Parameters:
 
-**value_names** ([*Sequence*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence)*[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*]*) - The names of the values to compute.
+**value_names** ([*Sequence*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence)*[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*]*) - The names of the values to compute.
 
 Returns:
 
@@ -470,13 +470,13 @@ Return type:
 
 [*Sequence*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence)[[*Tensor*](tensors.html#torch.Tensor)]
 
-initialize_inference_session(*initializer=<function _ort_session_initializer>*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/onnx/_internal/exporter/_onnx_program.py#L413)
+initialize_inference_session(*initializer=<function _ort_session_initializer>*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/onnx/_internal/exporter/_onnx_program.py#L413)
 
 Initialize the ONNX Runtime inference session.
 
 Parameters:
 
-**initializer** (*Callable**[**[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*|*[*bytes*](https://docs.python.org/3/library/stdtypes.html#bytes)*]**,**ort.InferenceSession**]*) - The function to initialize the ONNX Runtime inference
+**initializer** (*Callable**[**[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*|*[*bytes*](https://docs.python.org/3/builtins/stdtypes.html#bytes)*]**,**ort.InferenceSession**]*) - The function to initialize the ONNX Runtime inference
 session with the specified model. By default, it uses the
 `_ort_session_initializer()` function.
 
@@ -484,20 +484,20 @@ session with the specified model. By default, it uses the
 
 Return the ONNX `ModelProto` object.
 
-optimize()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/onnx/_internal/exporter/_onnx_program.py#L316)
+optimize()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/onnx/_internal/exporter/_onnx_program.py#L316)
 
 Optimize the ONNX model.
 
 This method optimizes the ONNX model by performing constant folding and
 eliminating redundancies in the graph. The optimization is done in-place.
 
-release()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/onnx/_internal/exporter/_onnx_program.py#L443)
+release()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/onnx/_internal/exporter/_onnx_program.py#L443)
 
 Release the inference session.
 
 You may call this method to release the resources used by the inference session.
 
-rename_axes(*rename_mapping*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/onnx/_internal/exporter/_onnx_program.py#L456)
+rename_axes(*rename_mapping*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/onnx/_internal/exporter/_onnx_program.py#L456)
 
 Rename axes in a model according to the specified rename mapping.
 
@@ -515,7 +515,7 @@ onnx_program.rename_axes(rename_mapping)
 
 Parameters:
 
-**rename_mapping** ([*dict*](https://docs.python.org/3/library/stdtypes.html#dict)*[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*|**SymbolicDim**,*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*]*) -
+**rename_mapping** ([*dict*](https://docs.python.org/3/builtins/stdtypes.html#dict)*[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*|**SymbolicDim**,*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*]*) -
 
 A dictionary mapping old axes to new axis names.
 Keys can be either:
@@ -526,7 +526,7 @@ Keys can be either:
 
 Values must be strings representing the new axis names.
 
-save(*destination*, ***, *include_initializers=True*, *keep_initializers_as_inputs=False*, *external_data=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/onnx/_internal/exporter/_onnx_program.py#L324)
+save(*destination*, ***, *include_initializers=True*, *keep_initializers_as_inputs=False*, *external_data=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/onnx/_internal/exporter/_onnx_program.py#L324)
 
 Save the ONNX model to the specified destination.
 
@@ -552,16 +552,16 @@ inference and want to minimize the size of the saved model.
 
 Parameters:
 
-- **destination** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*|*[*PathLike*](https://docs.python.org/3/library/os.html#os.PathLike)) - The path to save the ONNX model to.
-- **include_initializers** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - Whether to include the initializers in the saved model.
-- **keep_initializers_as_inputs** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - Whether to keep the initializers as inputs in the saved model.
+- **destination** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*|*[*PathLike*](https://docs.python.org/3/library/os.html#os.PathLike)) - The path to save the ONNX model to.
+- **include_initializers** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Whether to include the initializers in the saved model.
+- **keep_initializers_as_inputs** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Whether to keep the initializers as inputs in the saved model.
 If True, the initializers are added as inputs to the model which means they can be overwritten.
 by providing the initializers as model inputs.
-- **external_data** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*|**None*) - Whether to save the weights as external data in a separate file.
+- **external_data** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*|**None*) - Whether to save the weights as external data in a separate file.
 
 Raises:
 
-[**TypeError**](https://docs.python.org/3/library/exceptions.html#TypeError) - If `external_data` is `True` and `destination` is not a file path.
+[**TypeError**](https://docs.python.org/3/builtins/exceptions.html#TypeError) - If `external_data` is `True` and `destination` is not a file path.
 
 *class*torch.onnx.ExportableModule(**args*, ***kwargs*)
 
@@ -603,7 +603,7 @@ onnx_program = exportable_module.to_onnx()
 onnx_program = torch.onnx.export(exportable_module)
 ```
 
-dynamic_shapes()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/onnx/_internal/exporter/_exportable_module.py#L85)
+dynamic_shapes()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/onnx/_internal/exporter/_exportable_module.py#L85)
 
 Return dynamic shape specifications for the model's inputs.
 
@@ -643,7 +643,7 @@ Return type:
 
 [*Any*](https://docs.python.org/3/library/typing.html#typing.Any)
 
-*abstract*example_arguments()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/onnx/_internal/exporter/_exportable_module.py#L55)
+*abstract*example_arguments()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/onnx/_internal/exporter/_exportable_module.py#L55)
 
 Return example arguments for the model's forward method.
 
@@ -675,7 +675,7 @@ Return type:
 
 A tuple containing
 
-input_names()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/onnx/_internal/exporter/_exportable_module.py#L119)
+input_names()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/onnx/_internal/exporter/_exportable_module.py#L119)
 
 Return names for the model's input tensors.
 
@@ -706,9 +706,9 @@ forward method.
 
 Return type:
 
-Sequence[[str](https://docs.python.org/3/library/stdtypes.html#str)] | None
+Sequence[[str](https://docs.python.org/3/builtins/stdtypes.html#str)] | None
 
-output_names()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/onnx/_internal/exporter/_exportable_module.py#L146)
+output_names()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/onnx/_internal/exporter/_exportable_module.py#L146)
 
 Return names for the model's output tensors.
 
@@ -739,9 +739,9 @@ For models returning multiple outputs, provide a name for each output.
 
 Return type:
 
-Sequence[[str](https://docs.python.org/3/library/stdtypes.html#str)] | None
+Sequence[[str](https://docs.python.org/3/builtins/stdtypes.html#str)] | None
 
-to_onnx(***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/onnx/_internal/exporter/_exportable_module.py#L173)
+to_onnx(***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/onnx/_internal/exporter/_exportable_module.py#L173)
 
 Export the module to ONNX format.
 
@@ -770,13 +770,13 @@ Return type:
 
 *ONNXProgram*
 
-torch.onnx.is_in_onnx_export()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/onnx/__init__.py#L359)
+torch.onnx.is_in_onnx_export()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/onnx/__init__.py#L359)
 
 Returns whether it is in the middle of ONNX export.
 
 Return type:
 
-[bool](https://docs.python.org/3/library/functions.html#bool)
+[bool](https://docs.python.org/3/builtins/functions.html#bool)
 
 *class*torch.onnx.OnnxExporterError
 
@@ -790,7 +790,7 @@ export arguments.
 
 Parameters:
 
-**value_if_missing** ([*dict*](https://docs.python.org/3/library/stdtypes.html#dict)*[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*|*[*int*](https://docs.python.org/3/library/functions.html#int)*,**Any**]**|**None*) - If an argument is missing,
+**value_if_missing** ([*dict*](https://docs.python.org/3/builtins/stdtypes.html#dict)*[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*|*[*int*](https://docs.python.org/3/builtins/functions.html#int)*,**Any**]**|**None*) - If an argument is missing,
 a default value will be taken in this dictionary,
 this is used when after the prefill step, an argument
 disappears (such as pixel_values) and another one
@@ -875,7 +875,7 @@ with observer(pipe.model):
 
 New in version 2.11.0.
 
-check_discrepancies(*onnx_program*, *atol=0.0001*, *rtol=0.1*, *progress_bar=False*, *initializer=<function _ort_session_initializer>*, *skip_none=True*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/onnx/_internal/exporter/_input_observer.py#L1114)
+check_discrepancies(*onnx_program*, *atol=0.0001*, *rtol=0.1*, *progress_bar=False*, *initializer=<function _ort_session_initializer>*, *skip_none=True*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/onnx/_internal/exporter/_input_observer.py#L1114)
 
 Computes the discrepancies between the saved inputs and outputs
 with the saved onnx model.
@@ -883,13 +883,13 @@ with the saved onnx model.
 Parameters:
 
 - **onnx_program** (*torch.onnx.ONNXProgram*) - Exported Model to verify.
-- **atol** ([*float*](https://docs.python.org/3/library/functions.html#float)) - Absolute tolerance, recommended values, 1e-4 for float, 1e-2 for float16.
-- **rtol** ([*float*](https://docs.python.org/3/library/functions.html#float)) - Relative tolerance.
-- **progress_bar** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - Shows a progress bar (requires tqdm).
-- **initializer** (*Callable**[**[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*|*[*bytes*](https://docs.python.org/3/library/stdtypes.html#bytes)*]**,**ort.InferenceSession**]*) - The function called to initialize the ONNX Runtime inference
+- **atol** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - Absolute tolerance, recommended values, 1e-4 for float, 1e-2 for float16.
+- **rtol** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - Relative tolerance.
+- **progress_bar** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Shows a progress bar (requires tqdm).
+- **initializer** (*Callable**[**[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*|*[*bytes*](https://docs.python.org/3/builtins/stdtypes.html#bytes)*]**,**ort.InferenceSession**]*) - The function called to initialize the ONNX Runtime inference
 session with the specified model. By default, it uses the
 _ort_session_initializer function.
-- **skip_none** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - Does not check discrepancies when an output is None.
+- **skip_none** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Does not check discrepancies when an output is None.
 
 Returns:
 
@@ -897,24 +897,24 @@ A list of dictionaries, ready to be consumed by a dataframe.
 
 Return type:
 
-[list](https://docs.python.org/3/library/stdtypes.html#list)[[dict](https://docs.python.org/3/library/stdtypes.html#dict)[[str](https://docs.python.org/3/library/stdtypes.html#str), [str](https://docs.python.org/3/library/stdtypes.html#str) | [int](https://docs.python.org/3/library/functions.html#int) | [float](https://docs.python.org/3/library/functions.html#float) | [bool](https://docs.python.org/3/library/functions.html#bool)]]
+[list](https://docs.python.org/3/builtins/stdtypes.html#list)[[dict](https://docs.python.org/3/builtins/stdtypes.html#dict)[[str](https://docs.python.org/3/builtins/stdtypes.html#str), [str](https://docs.python.org/3/builtins/stdtypes.html#str) | [int](https://docs.python.org/3/builtins/functions.html#int) | [float](https://docs.python.org/3/builtins/functions.html#float) | [bool](https://docs.python.org/3/builtins/functions.html#bool)]]
 
 The function catches exceptions, it shows the error in the returned
 summary.
 
-infer_arguments(*index_or_args_or_kwargs=None*, *flat=False*, *as_args_kwargs=False*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/onnx/_internal/exporter/_input_observer.py#L1035)
+infer_arguments(*index_or_args_or_kwargs=None*, *flat=False*, *as_args_kwargs=False*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/onnx/_internal/exporter/_input_observer.py#L1035)
 
 Infers arguments based on the collected tensors.
 
 Parameters:
 
-- **index_or_args_or_kwargs** ([*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*[*[*Any*](https://docs.python.org/3/library/typing.html#typing.Any)*]**|*[*dict*](https://docs.python.org/3/library/stdtypes.html#dict)*[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*,*[*Any*](https://docs.python.org/3/library/typing.html#typing.Any)*]**|*[*int*](https://docs.python.org/3/library/functions.html#int)*|**None*) - If missing, the method selects one set of inputs
+- **index_or_args_or_kwargs** ([*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*[*[*Any*](https://docs.python.org/3/library/typing.html#typing.Any)*]**|*[*dict*](https://docs.python.org/3/builtins/stdtypes.html#dict)*[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,*[*Any*](https://docs.python.org/3/library/typing.html#typing.Any)*]**|*[*int*](https://docs.python.org/3/builtins/functions.html#int)*|**None*) - If missing, the method selects one set of inputs
 among the available ones, usually the set of inputs containing
 with the highest number of tensors.
 It then replaces None values and missing tensors with empty tensors.
 If not missing, it can be an integer to fetch one of the stored set
 or some inputs.
-- **flat** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If True, it returns a flattened list of tensors,
+- **flat** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - If True, it returns a flattened list of tensors,
 if False, it returns a tuple or a dictionary preserving
 the nested structures. The flat version is used internally.
 It produces a single list of tensors easier to process or modify
@@ -922,7 +922,7 @@ rather than a nested structure holding the same tensors.
 The original structure can be restored with
 `torch.utils._pytree.tree_unflatten(flat_list, self.aligned_spec)`.
 This mechanism is used to replace None values by empty tensors.
-- **as_args_kwargs** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If True, the method always returns (args, kwargs),
+- **as_args_kwargs** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - If True, the method always returns (args, kwargs),
 otherwise, it returns either a tuple (only args) or a dictionary
 (only kwargs) or raises an exception if it cannot do so.
 
@@ -932,9 +932,9 @@ Inferred arguments, every optional tensor is replaced by an empty tensor.
 
 Return type:
 
-[list](https://docs.python.org/3/library/stdtypes.html#list)[[*Tensor*](tensors.html#torch.Tensor) | None] | [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[*Tensor*](tensors.html#torch.Tensor), ...] | [dict](https://docs.python.org/3/library/stdtypes.html#dict)[[str](https://docs.python.org/3/library/stdtypes.html#str), [*Tensor*](tensors.html#torch.Tensor)] | [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[list](https://docs.python.org/3/library/stdtypes.html#list)[[*Tensor*](tensors.html#torch.Tensor)] | [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[*Tensor*](tensors.html#torch.Tensor), ...], [dict](https://docs.python.org/3/library/stdtypes.html#dict)[[str](https://docs.python.org/3/library/stdtypes.html#str), [*Tensor*](tensors.html#torch.Tensor)]]
+[list](https://docs.python.org/3/builtins/stdtypes.html#list)[[*Tensor*](tensors.html#torch.Tensor) | None] | [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[*Tensor*](tensors.html#torch.Tensor), ...] | [dict](https://docs.python.org/3/builtins/stdtypes.html#dict)[[str](https://docs.python.org/3/builtins/stdtypes.html#str), [*Tensor*](tensors.html#torch.Tensor)] | [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[list](https://docs.python.org/3/builtins/stdtypes.html#list)[[*Tensor*](tensors.html#torch.Tensor)] | [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[*Tensor*](tensors.html#torch.Tensor), ...], [dict](https://docs.python.org/3/builtins/stdtypes.html#dict)[[str](https://docs.python.org/3/builtins/stdtypes.html#str), [*Tensor*](tensors.html#torch.Tensor)]]
 
-infer_dynamic_shapes(*set_batch_dimension_for=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/onnx/_internal/exporter/_input_observer.py#L1011)
+infer_dynamic_shapes(*set_batch_dimension_for=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/onnx/_internal/exporter/_input_observer.py#L1011)
 
 Infers dynamic shapes. Most of the time, models do support a batch dimension
 but this batch dimension has the same value for every input sample.
@@ -944,7 +944,7 @@ set of inputs referenced by their name (str) or their position (int).
 
 Parameters:
 
-**set_batch_dimension_for** ([*set*](https://docs.python.org/3/library/stdtypes.html#set)*[*[*int*](https://docs.python.org/3/library/functions.html#int)*|*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*]**|*[*bool*](https://docs.python.org/3/library/functions.html#bool)*|**None*) - A set of input
+**set_batch_dimension_for** ([*set*](https://docs.python.org/3/builtins/stdtypes.html#set)*[*[*int*](https://docs.python.org/3/builtins/functions.html#int)*|*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*]**|*[*bool*](https://docs.python.org/3/builtins/functions.html#bool)*|**None*) - A set of input
 identifiers (by position as `int` or by name as `str`) for
 which the first dimension should be treated as a dynamic batch
 dimension. If `None`, no dimensions are explicitly marked as
@@ -952,12 +952,12 @@ dynamic.
 
 Return type:
 
-[tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[dict](https://docs.python.org/3/library/stdtypes.html#dict)[[int](https://docs.python.org/3/library/functions.html#int), [*Any*](https://docs.python.org/3/library/typing.html#typing.Any)] | None, ...] | [dict](https://docs.python.org/3/library/stdtypes.html#dict)[[str](https://docs.python.org/3/library/stdtypes.html#str), [dict](https://docs.python.org/3/library/stdtypes.html#dict)[[int](https://docs.python.org/3/library/functions.html#int), [*Any*](https://docs.python.org/3/library/typing.html#typing.Any)] | None]
+[tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[dict](https://docs.python.org/3/builtins/stdtypes.html#dict)[[int](https://docs.python.org/3/builtins/functions.html#int), [*Any*](https://docs.python.org/3/library/typing.html#typing.Any)] | None, ...] | [dict](https://docs.python.org/3/builtins/stdtypes.html#dict)[[str](https://docs.python.org/3/builtins/stdtypes.html#str), [dict](https://docs.python.org/3/builtins/stdtypes.html#dict)[[int](https://docs.python.org/3/builtins/functions.html#int), [*Any*](https://docs.python.org/3/library/typing.html#typing.Any)] | None]
 
-num_obs()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/onnx/_internal/exporter/_input_observer.py#L936)
+num_obs()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/onnx/_internal/exporter/_input_observer.py#L936)
 
 Returns the number of stored set of inputs.
 
 Return type:
 
-[int](https://docs.python.org/3/library/functions.html#int)
+[int](https://docs.python.org/3/builtins/functions.html#int)

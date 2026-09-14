@@ -76,7 +76,7 @@ Example
 >>> current_state = g_cuda.graphsafe_get_state()
 ```
 
-graphsafe_set_state(*state*) → [None](https://docs.python.org/3/library/constants.html#None)
+graphsafe_set_state(*state*) → [None](https://docs.python.org/3/builtins/constants.html#None)
 
 Sets the state of the generator to the specified state in a manner that is safe for use in graph capture.
 This method is crucial for ensuring that the generator's state can be captured in the CUDA graph.
@@ -94,7 +94,7 @@ Example
 >>> g_cuda.graphsafe_set_state(current_state)
 ```
 
-initial_seed() → [int](https://docs.python.org/3/library/functions.html#int)
+initial_seed() → [int](https://docs.python.org/3/builtins/functions.html#int)
 
 Returns the initial seed for generating random numbers.
 
@@ -112,7 +112,7 @@ Sets the seed for generating random numbers. Returns a torch.Generator object. A
 
 Parameters:
 
-**seed** ([*int*](https://docs.python.org/3/library/functions.html#int)) - The desired seed. Value must be within the inclusive range
+**seed** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - The desired seed. Value must be within the inclusive range
 [-0x8000_0000_0000_0000, 0xffff_ffff_ffff_ffff]. Otherwise, a RuntimeError
 is raised. Negative inputs are remapped to positive values with the formula
 0xffff_ffff_ffff_ffff + seed.
@@ -132,7 +132,7 @@ Example:
 >>> g_cpu.manual_seed(2147483647)
 ```
 
-philox_state(*increment*) → [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), [Tensor](../tensors.html#torch.Tensor), [Tensor](../tensors.html#torch.Tensor)]
+philox_state(*increment*) → [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), [Tensor](../tensors.html#torch.Tensor), [Tensor](../tensors.html#torch.Tensor)]
 
 Reserves `increment` values from this generator's Philox4x32-10 stream and
 returns the reserved position as `(seed, offset, intragraph_offset)`, three
@@ -185,7 +185,7 @@ graph is destroyed.
 
 Parameters:
 
-**increment** ([*int*](https://docs.python.org/3/library/functions.html#int)) - Number of Philox outputs to reserve. Must be
+**increment** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Number of Philox outputs to reserve. Must be
 non-negative and at most `2**64 - 1`; the offset it advances
 wraps modulo `2**64` (under graph capture, where the intragraph
 offset starts at 0, the total reserved within one graph must stay
@@ -202,7 +202,7 @@ reservation's position within the capturing graph (0 outside capture).
 
 Return type:
 
-[tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), [Tensor](../tensors.html#torch.Tensor), [Tensor](../tensors.html#torch.Tensor)]
+[tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), [Tensor](../tensors.html#torch.Tensor), [Tensor](../tensors.html#torch.Tensor)]
 
 Example
 
@@ -211,7 +211,7 @@ Example
 >>> seed, offset, intragraph = g_cuda.philox_state(4)
 ```
 
-seed() → [int](https://docs.python.org/3/library/functions.html#int)
+seed() → [int](https://docs.python.org/3/builtins/functions.html#int)
 
 Gets a non-deterministic random number from std::random_device or the current
 time and uses it to seed a Generator.

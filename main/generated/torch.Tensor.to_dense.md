@@ -7,7 +7,7 @@ Creates a strided copy of `self` if `self` is not a strided tensor, otherwise re
 Keyword Arguments:
 
 - **{dtype}** -
-- **masked_grad** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If set to `True` (default) and
+- **masked_grad** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If set to `True` (default) and
 `self` has a sparse layout then the backward of
 `to_dense()` returns `grad.sparse_mask(self)`.
 

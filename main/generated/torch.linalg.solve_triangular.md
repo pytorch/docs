@@ -1,6 +1,6 @@
 # torch.linalg.solve_triangular
 
-torch.linalg.solve_triangular(*A*, *B*, ***, *upper*, *left=True*, *unitriangular=False*, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/linalg/__init__.py#L2365)
+torch.linalg.solve_triangular(*A*, *B*, ***, *upper*, *left=True*, *unitriangular=False*, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/linalg/__init__.py#L2365)
 
 Computes the solution of a triangular system of linear equations with a unique solution.
 
@@ -47,9 +47,9 @@ where * is zero or more batch dimensions.
 
 Keyword Arguments:
 
-- **upper** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - whether `A` is an upper or lower triangular matrix.
-- **left** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - whether to solve the system AX=BAX=BAX=B or XA=BXA = BXA=B. Default: True.
-- **unitriangular** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - if True, the diagonal elements of `A` are assumed to be
+- **upper** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - whether `A` is an upper or lower triangular matrix.
+- **left** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - whether to solve the system AX=BAX=BAX=B or XA=BXA = BXA=B. Default: True.
+- **unitriangular** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - if True, the diagonal elements of `A` are assumed to be
 all equal to 1. Default: False.
 - **out** ([*Tensor*](../tensors.html#torch.Tensor)*,**optional*) - output tensor. B may be passed as out and the result is computed in-place on B.
 Ignored if None. Default: None.

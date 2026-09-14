@@ -1,6 +1,6 @@
 # torch.fx.experimental.graph_gradual_typechecker.get_parameter
 
-torch.fx.experimental.graph_gradual_typechecker.get_parameter(*traced*, *target*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/experimental/graph_gradual_typechecker.py#L1009)
+torch.fx.experimental.graph_gradual_typechecker.get_parameter(*traced*, *target*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/experimental/graph_gradual_typechecker.py#L1009)
 
 Returns the parameter given by `target` if it exists,
 otherwise throws an error.
@@ -11,7 +11,7 @@ correctly specify `target`.
 
 Parameters:
 
-**target** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - The fully-qualified string name of the Parameter
+**target** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - The fully-qualified string name of the Parameter
 to look for. (See `get_submodule` for how to specify a
 fully-qualified string.)
 
@@ -25,6 +25,6 @@ torch.nn.Parameter
 
 Raises:
 
-[**AttributeError**](https://docs.python.org/3/library/exceptions.html#AttributeError) - If the target string references an invalid
+[**AttributeError**](https://docs.python.org/3/builtins/exceptions.html#AttributeError) - If the target string references an invalid
  path or resolves to something that is not an
  `nn.Parameter`

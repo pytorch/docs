@@ -19,5 +19,5 @@ Setting `force` to `True` can be a useful shorthand.
 
 Parameters:
 
-**force** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - if `True`, the ndarray may be a copy of the tensor
+**force** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - if `True`, the ndarray may be a copy of the tensor
 instead of always sharing memory, defaults to `False`.

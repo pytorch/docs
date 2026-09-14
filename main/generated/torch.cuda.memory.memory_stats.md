@@ -1,6 +1,6 @@
 # torch.cuda.memory.memory_stats
 
-torch.cuda.memory.memory_stats(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/cuda/memory.py#L243)
+torch.cuda.memory.memory_stats(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/cuda/memory.py#L243)
 
 Return a dictionary of CUDA memory allocator statistics for a given device.
 
@@ -86,13 +86,13 @@ their stringified elements with `"_"`, so `(0, 1)` becomes `"0_1"`.
 
 Parameters:
 
-**device** ([*torch.device*](../tensor_attributes.html#torch.device)*or*[*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - selected device. Returns
+**device** ([*torch.device*](../tensor_attributes.html#torch.device)*or*[*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - selected device. Returns
 statistics for the current device, given by [`current_device()`](torch.cuda.current_device.html#torch.cuda.current_device),
 if `device` is `None` (default).
 
 Return type:
 
-[dict](https://docs.python.org/3/library/stdtypes.html#dict)[[str](https://docs.python.org/3/library/stdtypes.html#str), [*Any*](https://docs.python.org/3/library/typing.html#typing.Any)]
+[dict](https://docs.python.org/3/builtins/stdtypes.html#dict)[[str](https://docs.python.org/3/builtins/stdtypes.html#str), [*Any*](https://docs.python.org/3/library/typing.html#typing.Any)]
 
 Note
 

@@ -54,7 +54,7 @@ implementations of the parent `api.PContext` class.
 
 ## Starting Multiple Workers
 
-torch.distributed.elastic.multiprocessing.start_processes(*name*, *entrypoint*, *args*, *envs*, *logs_specs*, *log_line_prefixes=None*, *start_method='spawn'*, *numa_options=None*, *duplicate_stdout_filters=None*, *duplicate_stderr_filters=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/elastic/multiprocessing/__init__.py#L103)
+torch.distributed.elastic.multiprocessing.start_processes(*name*, *entrypoint*, *args*, *envs*, *logs_specs*, *log_line_prefixes=None*, *start_method='spawn'*, *numa_options=None*, *duplicate_stdout_filters=None*, *duplicate_stderr_filters=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/elastic/multiprocessing/__init__.py#L103)
 
 Start `n` copies of `entrypoint` processes with the provided options.
 
@@ -148,21 +148,21 @@ start_processes(
 
 Parameters:
 
-- **name** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - a human readable short name that describes what the processes are
+- **name** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - a human readable short name that describes what the processes are
 (used as header when tee'ing stdout/stderr outputs)
-- **entrypoint** ([*Callable*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)*|*[*str*](https://docs.python.org/3/library/stdtypes.html#str)) - either a `Callable` (function) or `cmd` (binary)
-- **args** ([*dict*](https://docs.python.org/3/library/stdtypes.html#dict)*[*[*int*](https://docs.python.org/3/library/functions.html#int)*,*[*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*]*) - arguments to each replica
-- **envs** ([*dict*](https://docs.python.org/3/library/stdtypes.html#dict)*[*[*int*](https://docs.python.org/3/library/functions.html#int)*,*[*dict*](https://docs.python.org/3/library/stdtypes.html#dict)*[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*,*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*]**]*) - env vars to each replica
+- **entrypoint** ([*Callable*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)*|*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - either a `Callable` (function) or `cmd` (binary)
+- **args** ([*dict*](https://docs.python.org/3/builtins/stdtypes.html#dict)*[*[*int*](https://docs.python.org/3/builtins/functions.html#int)*,*[*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*]*) - arguments to each replica
+- **envs** ([*dict*](https://docs.python.org/3/builtins/stdtypes.html#dict)*[*[*int*](https://docs.python.org/3/builtins/functions.html#int)*,*[*dict*](https://docs.python.org/3/builtins/stdtypes.html#dict)*[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*]**]*) - env vars to each replica
 - **log_dir** - directory used to write log files
-- **start_method** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - multiprocessing start method (spawn, fork, forkserver)
+- **start_method** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - multiprocessing start method (spawn, fork, forkserver)
 ignored for binaries
 - **logs_specs** (*LogsSpecs*) - defines `log_dir`, `redirects`, and `tee`.
 inside `logs_specs`:
 - redirects: which std streams to redirect to a log file
 - tee: which std streams to redirect + print to console
 - **local_ranks_filter** - which ranks' logs to print to console
-- **duplicate_stdout_filters** ([*list*](https://docs.python.org/3/library/stdtypes.html#list)*[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*]**|**None*) - filters for the duplicated stdout logs
-- **duplicate_stderr_filters** ([*list*](https://docs.python.org/3/library/stdtypes.html#list)*[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*]**|**None*) - filters for the duplicated stderr logs
+- **duplicate_stdout_filters** ([*list*](https://docs.python.org/3/builtins/stdtypes.html#list)*[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*]**|**None*) - filters for the duplicated stdout logs
+- **duplicate_stderr_filters** ([*list*](https://docs.python.org/3/builtins/stdtypes.html#list)*[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*]**|**None*) - filters for the duplicated stderr logs
 
 Return type:
 
@@ -170,7 +170,7 @@ Return type:
 
 ## Process Context
 
-*class*torch.distributed.elastic.multiprocessing.api.PContext(*name*, *entrypoint*, *args*, *envs*, *logs_specs*, *log_line_prefixes=None*, *duplicate_stdout_filters=None*, *duplicate_stderr_filters=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/elastic/multiprocessing/api.py#L444)
+*class*torch.distributed.elastic.multiprocessing.api.PContext(*name*, *entrypoint*, *args*, *envs*, *logs_specs*, *log_line_prefixes=None*, *duplicate_stdout_filters=None*, *duplicate_stderr_filters=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/elastic/multiprocessing/api.py#L444)
 
 The base class that standardizes operations over a set of processes that are launched via different mechanisms.
 
@@ -184,22 +184,22 @@ tee is implemented as a redirect + tail -f <stdout/stderr.log>
 
 Parameters:
 
-- **duplicate_stdout_filters** ([*list*](https://docs.python.org/3/library/stdtypes.html#list)*[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*]**|**None*) - If non-empty, duplicates stdouts specified in `logs_specs`'s `tee`
+- **duplicate_stdout_filters** ([*list*](https://docs.python.org/3/builtins/stdtypes.html#list)*[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*]**|**None*) - If non-empty, duplicates stdouts specified in `logs_specs`'s `tee`
 to a file containing only lines that match _any_ of the filter strings.
 The log file is aggregated across all ranks selected by `tee`.
-- **duplicate_stderr_filters** ([*list*](https://docs.python.org/3/library/stdtypes.html#list)*[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*]**|**None*) - If non-empty, duplicates stderrs specified in `logs_specs`'s `tee`
+- **duplicate_stderr_filters** ([*list*](https://docs.python.org/3/builtins/stdtypes.html#list)*[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*]**|**None*) - If non-empty, duplicates stderrs specified in `logs_specs`'s `tee`
 to a file containing only lines that match _any_ of the filter strings.
 The log file is aggregated across all ranks selected by `tee`.
 
-*class*torch.distributed.elastic.multiprocessing.api.MultiprocessContext(*name*, *entrypoint*, *args*, *envs*, *start_method*, *logs_specs*, *log_line_prefixes=None*, *numa_options=None*, *duplicate_stdout_filters=None*, *duplicate_stderr_filters=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/elastic/multiprocessing/api.py#L711)
+*class*torch.distributed.elastic.multiprocessing.api.MultiprocessContext(*name*, *entrypoint*, *args*, *envs*, *start_method*, *logs_specs*, *log_line_prefixes=None*, *numa_options=None*, *duplicate_stdout_filters=None*, *duplicate_stderr_filters=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/elastic/multiprocessing/api.py#L711)
 
 `PContext` holding worker processes invoked as a function.
 
-*class*torch.distributed.elastic.multiprocessing.api.SubprocessContext(*name*, *entrypoint*, *args*, *envs*, *logs_specs*, *log_line_prefixes=None*, *numa_options=None*, *duplicate_stdout_filters=None*, *duplicate_stderr_filters=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/elastic/multiprocessing/api.py#L917)
+*class*torch.distributed.elastic.multiprocessing.api.SubprocessContext(*name*, *entrypoint*, *args*, *envs*, *logs_specs*, *log_line_prefixes=None*, *numa_options=None*, *duplicate_stdout_filters=None*, *duplicate_stderr_filters=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/elastic/multiprocessing/api.py#L917)
 
 `PContext` holding worker processes invoked as a binary.
 
-*class*torch.distributed.elastic.multiprocessing.api.RunProcsResult(*return_values=<factory>*, *failures=<factory>*, *stdouts=<factory>*, *stderrs=<factory>*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/elastic/multiprocessing/api.py#L421)
+*class*torch.distributed.elastic.multiprocessing.api.RunProcsResult(*return_values=<factory>*, *failures=<factory>*, *stdouts=<factory>*, *stderrs=<factory>*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/elastic/multiprocessing/api.py#L421)
 
 Results of a completed run of processes started with `start_processes()`. Returned by `PContext`.
 
@@ -210,14 +210,14 @@ Note the following:
 3. `stdouts` - path to stdout.log (empty string if no redirect)
 4. `stderrs` - path to stderr.log (empty string if no redirect)
 
-*class*torch.distributed.elastic.multiprocessing.api.DefaultLogsSpecs(*log_dir=None*, *redirects=Std.NONE*, *tee=Std.NONE*, *local_ranks_filter=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/elastic/multiprocessing/api.py#L245)
+*class*torch.distributed.elastic.multiprocessing.api.DefaultLogsSpecs(*log_dir=None*, *redirects=Std.NONE*, *tee=Std.NONE*, *local_ranks_filter=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/elastic/multiprocessing/api.py#L245)
 
 Default LogsSpecs implementation:
 
 - log_dir will be created if it doesn't exist
 - Generates nested folders for each attempt and rank.
 
-reify(*envs*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/elastic/multiprocessing/api.py#L283)
+reify(*envs*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/elastic/multiprocessing/api.py#L283)
 
 Uses following scheme to build log destination paths:
 
@@ -231,25 +231,25 @@ Return type:
 
 *LogsDest*
 
-*class*torch.distributed.elastic.multiprocessing.api.LogsDest(*stdouts=<factory>*, *stderrs=<factory>*, *tee_stdouts=<factory>*, *tee_stderrs=<factory>*, *error_files=<factory>*, *filtered_stdout=<factory>*, *filtered_stderr=<factory>*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/elastic/multiprocessing/api.py#L183)
+*class*torch.distributed.elastic.multiprocessing.api.LogsDest(*stdouts=<factory>*, *stderrs=<factory>*, *tee_stdouts=<factory>*, *tee_stderrs=<factory>*, *error_files=<factory>*, *filtered_stdout=<factory>*, *filtered_stderr=<factory>*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/elastic/multiprocessing/api.py#L183)
 
 For each log type, holds mapping of local rank ids to file paths.
 
-*class*torch.distributed.elastic.multiprocessing.api.LogsSpecs(*log_dir=None*, *redirects=Std.NONE*, *tee=Std.NONE*, *local_ranks_filter=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/elastic/multiprocessing/api.py#L198)
+*class*torch.distributed.elastic.multiprocessing.api.LogsSpecs(*log_dir=None*, *redirects=Std.NONE*, *tee=Std.NONE*, *local_ranks_filter=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/elastic/multiprocessing/api.py#L198)
 
 Defines logs processing and redirection for each worker process.
 
 Parameters:
 
-- **log_dir** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*|**None*) - Base directory where logs will be written.
-- **redirects** (*Std**|*[*dict*](https://docs.python.org/3/library/stdtypes.html#dict)*[*[*int*](https://docs.python.org/3/library/functions.html#int)*,**Std**]*) - Streams to redirect to files. Pass a single `Std`
+- **log_dir** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*|**None*) - Base directory where logs will be written.
+- **redirects** (*Std**|*[*dict*](https://docs.python.org/3/builtins/stdtypes.html#dict)*[*[*int*](https://docs.python.org/3/builtins/functions.html#int)*,**Std**]*) - Streams to redirect to files. Pass a single `Std`
 enum to redirect for all workers, or a mapping keyed
 by local_rank to selectively redirect.
-- **tee** (*Std**|*[*dict*](https://docs.python.org/3/library/stdtypes.html#dict)*[*[*int*](https://docs.python.org/3/library/functions.html#int)*,**Std**]*) - Streams to duplicate to stdout/stderr.
+- **tee** (*Std**|*[*dict*](https://docs.python.org/3/builtins/stdtypes.html#dict)*[*[*int*](https://docs.python.org/3/builtins/functions.html#int)*,**Std**]*) - Streams to duplicate to stdout/stderr.
 Pass a single `Std` enum to duplicate streams for all workers,
 or a mapping keyed by local_rank to selectively duplicate.
 
-*abstract*reify(*envs*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/elastic/multiprocessing/api.py#L227)
+*abstract*reify(*envs*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/elastic/multiprocessing/api.py#L227)
 
 Given the environment variables, builds destination of log files for each of the local ranks.
 

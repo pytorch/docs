@@ -1,6 +1,6 @@
 # CosineEmbeddingLoss
 
-*class*torch.nn.modules.loss.CosineEmbeddingLoss(*margin=0.0*, *size_average=None*, *reduce=None*, *reduction='mean'*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/loss.py#L1671)
+*class*torch.nn.modules.loss.CosineEmbeddingLoss(*margin=0.0*, *size_average=None*, *reduce=None*, *reduction='mean'*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/loss.py#L1671)
 
 Creates a criterion that measures the loss given input tensors
 x1x_1x1​, x2x_2x2​ and a Tensor label yyy with values 1 or -1.
@@ -19,19 +19,19 @@ loss(x,y)={1−cos⁡(x1,x2),if y=1max⁡(0,cos⁡(x1,x2)−margin),if y=−1\te
 loss(x,y)={1−cos(x1​,x2​),max(0,cos(x1​,x2​)−margin),​if y=1if y=−1​
 Parameters:
 
-- **margin** ([*float*](https://docs.python.org/3/library/functions.html#float)*,**optional*) - Should be a number from −1-1−1 to 111,
+- **margin** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*,**optional*) - Should be a number from −1-1−1 to 111,
 000 to 0.50.50.5 is suggested. If `margin` is missing, the
 default value is 000.
-- **size_average** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - Deprecated (see `reduction`). By default,
+- **size_average** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - Deprecated (see `reduction`). By default,
 the losses are averaged over each loss element in the batch. Note that for
 some losses, there are multiple elements per sample. If the field `size_average`
 is set to `False`, the losses are instead summed for each minibatch. Ignored
 when `reduce` is `False`. Default: `True`
-- **reduce** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - Deprecated (see `reduction`). By default, the
+- **reduce** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - Deprecated (see `reduction`). By default, the
 losses are averaged or summed over observations for each minibatch depending
 on `size_average`. When `reduce` is `False`, returns a loss per
 batch element instead and ignores `size_average`. Default: `True`
-- **reduction** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**optional*) - Specifies the reduction to apply to the output:
+- **reduction** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**optional*) - Specifies the reduction to apply to the output:
 `'none'` | `'mean'` | `'sum'`. `'none'`: no reduction will be applied,
 `'mean'`: the sum of the output will be divided by the number of
 elements in the output, `'sum'`: the output will be summed. Note: `size_average`
@@ -56,7 +56,7 @@ Examples
 >>> output.backward()
 ```
 
-forward(*input1*, *input2*, *target*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/loss.py#L1736)
+forward(*input1*, *input2*, *target*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/loss.py#L1736)
 
 Runs the forward pass.
 

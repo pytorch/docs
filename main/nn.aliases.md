@@ -226,7 +226,7 @@ The following are aliases to their counterparts in `torch.nn` in the `torch.nn.m
 
 ## torch.nn.modules.utils
 
-torch.nn.modules.utils.consume_prefix_in_state_dict_if_present(*state_dict*, *prefix*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/utils.py#L48)
+torch.nn.modules.utils.consume_prefix_in_state_dict_if_present(*state_dict*, *prefix*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/utils.py#L48)
 
 Strip the prefix in state_dict in place, if any.
 
@@ -239,7 +239,7 @@ consume_prefix_in_state_dict_if_present(state_dict, "module.") before calling
 Parameters:
 
 - **state_dict** (*OrderedDict*) - a state-dict to be loaded to the model.
-- **prefix** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - prefix.
+- **prefix** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - prefix.
 
 ## torch.nn.utils
 

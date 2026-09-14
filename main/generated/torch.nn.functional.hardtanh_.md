@@ -1,5 +1,5 @@
 # torch.nn.functional.hardtanh_
 
-torch.nn.functional.hardtanh_(*input*, *min_val=-1.*, *max_val=1.*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/functional.py#L1843)
+torch.nn.functional.hardtanh_(*input*, *min_val=-1.*, *max_val=1.*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/functional.py#L1843)
 
 In-place version of [`hardtanh()`](torch.nn.functional.hardtanh.html#torch.nn.functional.hardtanh).

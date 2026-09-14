@@ -1,6 +1,6 @@
 # Buffer
 
-*class*torch.nn.parameter.Buffer(*data=None*, ***, *persistent=True*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/parameter.py#L249)
+*class*torch.nn.parameter.Buffer(*data=None*, ***, *persistent=True*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/parameter.py#L249)
 
 A kind of Tensor that should not be considered a model
 parameter. For example, BatchNorm's `running_mean` is not a parameter, but is part of the module's state.
@@ -15,5 +15,5 @@ the [`register_buffer()`](torch.nn.Module.html#torch.nn.Module.register_buffer) 
 Parameters:
 
 - **data** ([*Tensor*](../tensors.html#torch.Tensor)) - buffer tensor.
-- **persistent** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - whether the buffer is part of the module's
+- **persistent** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - whether the buffer is part of the module's
 `state_dict`. Default: `True`

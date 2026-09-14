@@ -1,6 +1,6 @@
 # torch.accelerator.current_device_idx
 
-torch.accelerator.current_device_idx()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/accelerator/__init__.py#L135)
+torch.accelerator.current_device_idx()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/accelerator/__init__.py#L135)
 
 (Deprecated) Return the index of a currently selected device for the current [accelerator](../torch.html#accelerators).
 
@@ -10,7 +10,7 @@ the index of a currently selected device.
 
 Return type:
 
-[int](https://docs.python.org/3/library/functions.html#int)
+[int](https://docs.python.org/3/builtins/functions.html#int)
 
 Warning
 

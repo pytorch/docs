@@ -1,6 +1,6 @@
 # torch.nn.functional.binary_cross_entropy_with_logits
 
-torch.nn.functional.binary_cross_entropy_with_logits(*input*, *target*, *weight=None*, *size_average=None*, *reduce=None*, *reduction='mean'*, *pos_weight=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/functional.py#L3634)
+torch.nn.functional.binary_cross_entropy_with_logits(*input*, *target*, *weight=None*, *size_average=None*, *reduce=None*, *reduction='mean'*, *pos_weight=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/functional.py#L3634)
 
 Compute Binary Cross Entropy between target and input logits.
 
@@ -13,9 +13,9 @@ Parameters:
 - **weight** ([*Tensor*](../tensors.html#torch.Tensor)*,**optional*) - a manual rescaling weight. If provided, the dimension
 of weight supports [broadcasting to a common shape](../notes/broadcasting.html#broadcasting-semantics)
 with respect to the input (and target) shape.
-- **size_average** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - Deprecated (see `reduction`).
-- **reduce** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - Deprecated (see `reduction`).
-- **reduction** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**optional*) - Specifies the reduction to apply to the output:
+- **size_average** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - Deprecated (see `reduction`).
+- **reduce** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - Deprecated (see `reduction`).
+- **reduction** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**optional*) - Specifies the reduction to apply to the output:
 `'none'` | `'mean'` | `'sum'`. `'none'`: no reduction will be applied,
 `'mean'`: the sum of the output will be divided by the number of
 elements in the output, `'sum'`: the output will be summed. Note: `size_average`

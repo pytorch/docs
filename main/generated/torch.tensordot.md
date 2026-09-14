@@ -1,6 +1,6 @@
 # torch.tensordot
 
-torch.tensordot(*a*, *b*, *dims=2*, *out=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/functional.py#L1306)
+torch.tensordot(*a*, *b*, *dims=2*, *out=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/functional.py#L1306)
 
 Returns a contraction of a and b over multiple dimensions.
 
@@ -10,7 +10,7 @@ Parameters:
 
 - **a** ([*Tensor*](../tensors.html#torch.Tensor)) - Left tensor to contract
 - **b** ([*Tensor*](../tensors.html#torch.Tensor)) - Right tensor to contract
-- **dims** ([*int*](https://docs.python.org/3/library/functions.html#int)*or**Tuple**[**List**[*[*int*](https://docs.python.org/3/library/functions.html#int)*]**,**List**[*[*int*](https://docs.python.org/3/library/functions.html#int)*]**] or**List**[**List**[*[*int*](https://docs.python.org/3/library/functions.html#int)*]**]**containing two lists**or*[*Tensor*](../tensors.html#torch.Tensor)) - number of dimensions to
+- **dims** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*or**Tuple**[**List**[*[*int*](https://docs.python.org/3/builtins/functions.html#int)*]**,**List**[*[*int*](https://docs.python.org/3/builtins/functions.html#int)*]**] or**List**[**List**[*[*int*](https://docs.python.org/3/builtins/functions.html#int)*]**]**containing two lists**or*[*Tensor*](../tensors.html#torch.Tensor)) - number of dimensions to
 contract or explicit lists of dimensions for `a` and
 `b` respectively
 

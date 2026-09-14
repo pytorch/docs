@@ -6,7 +6,7 @@ All the functions in this module are intended to be used to initialize neural
 network parameters, so they all run in [`torch.no_grad()`](generated/torch.no_grad.html#torch.no_grad) mode and will not
 be taken into account by autograd.
 
-torch.nn.init.calculate_gain(*nonlinearity*, *param=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/init.py#L173)
+torch.nn.init.calculate_gain(*nonlinearity*, *param=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/init.py#L173)
 
 Return the recommended gain value for the given nonlinearity function.
 
@@ -34,11 +34,11 @@ effect for more stable gradient flow in rectangular layers.
 Parameters:
 
 - **nonlinearity** ([*Literal*](https://docs.python.org/3/library/typing.html#typing.Literal)*[**'linear'**,**'conv1d'**,**'conv2d'**,**'conv3d'**,**'conv_transpose1d'**,**'conv_transpose2d'**,**'conv_transpose3d'**,**'sigmoid'**,**'tanh'**,**'relu'**,**'leaky_relu'**,**'selu'**]*) - the non-linear function (nn.functional name)
-- **param** ([*int*](https://docs.python.org/3/library/functions.html#int)*|*[*float*](https://docs.python.org/3/library/functions.html#float)*|**None*) - optional parameter for the non-linear function
+- **param** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*|*[*float*](https://docs.python.org/3/builtins/functions.html#float)*|**None*) - optional parameter for the non-linear function
 
 Return type:
 
-[float](https://docs.python.org/3/library/functions.html#float)
+[float](https://docs.python.org/3/builtins/functions.html#float)
 
 Examples
 
@@ -48,7 +48,7 @@ Examples
 ... ) # leaky_relu with negative_slope=0.2
 ```
 
-torch.nn.init.uniform_(*tensor*, *a=0.0*, *b=1.0*, *generator=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/init.py#L247)
+torch.nn.init.uniform_(*tensor*, *a=0.0*, *b=1.0*, *generator=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/init.py#L247)
 
 Fill the input Tensor with values drawn from the uniform distribution.
 
@@ -57,8 +57,8 @@ U(a,b)\mathcal{U}(a, b)U(a,b).
 Parameters:
 
 - **tensor** ([*Tensor*](tensors.html#torch.Tensor)) - an n-dimensional torch.Tensor
-- **a** ([*float*](https://docs.python.org/3/library/functions.html#float)) - the lower bound of the uniform distribution
-- **b** ([*float*](https://docs.python.org/3/library/functions.html#float)) - the upper bound of the uniform distribution
+- **a** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - the lower bound of the uniform distribution
+- **b** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - the upper bound of the uniform distribution
 - **generator** ([*Generator*](generated/torch.Generator.html#torch.Generator)*|**None*) - the torch Generator to sample from (default: None)
 
 Return type:
@@ -72,7 +72,7 @@ Examples
 >>> nn.init.uniform_(w)
 ```
 
-torch.nn.init.normal_(*tensor*, *mean=0.0*, *std=1.0*, *generator=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/init.py#L274)
+torch.nn.init.normal_(*tensor*, *mean=0.0*, *std=1.0*, *generator=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/init.py#L274)
 
 Fill the input Tensor with values drawn from the normal distribution.
 
@@ -81,8 +81,8 @@ N(mean,std2)\mathcal{N}(\text{mean}, \text{std}^2)N(mean,std2).
 Parameters:
 
 - **tensor** ([*Tensor*](tensors.html#torch.Tensor)) - an n-dimensional torch.Tensor
-- **mean** ([*float*](https://docs.python.org/3/library/functions.html#float)) - the mean of the normal distribution
-- **std** ([*float*](https://docs.python.org/3/library/functions.html#float)) - the standard deviation of the normal distribution
+- **mean** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - the mean of the normal distribution
+- **std** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - the standard deviation of the normal distribution
 - **generator** ([*Generator*](generated/torch.Generator.html#torch.Generator)*|**None*) - the torch Generator to sample from (default: None)
 
 Return type:
@@ -96,14 +96,14 @@ Examples
 >>> nn.init.normal_(w)
 ```
 
-torch.nn.init.constant_(*tensor*, *val*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/init.py#L337)
+torch.nn.init.constant_(*tensor*, *val*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/init.py#L337)
 
 Fill the input Tensor with the value val\text{val}val.
 
 Parameters:
 
 - **tensor** ([*Tensor*](tensors.html#torch.Tensor)) - an n-dimensional torch.Tensor
-- **val** ([*float*](https://docs.python.org/3/library/functions.html#float)) - the value to fill the tensor with
+- **val** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - the value to fill the tensor with
 
 Return type:
 
@@ -116,7 +116,7 @@ Examples
 >>> nn.init.constant_(w, 0.3)
 ```
 
-torch.nn.init.ones_(*tensor*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/init.py#L355)
+torch.nn.init.ones_(*tensor*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/init.py#L355)
 
 Fill the input Tensor with the scalar value 1.
 
@@ -135,7 +135,7 @@ Examples
 >>> nn.init.ones_(w)
 ```
 
-torch.nn.init.zeros_(*tensor*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/init.py#L368)
+torch.nn.init.zeros_(*tensor*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/init.py#L368)
 
 Fill the input Tensor with the scalar value 0.
 
@@ -154,7 +154,7 @@ Examples
 >>> nn.init.zeros_(w)
 ```
 
-torch.nn.init.eye_(*tensor*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/init.py#L381)
+torch.nn.init.eye_(*tensor*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/init.py#L381)
 
 Fill the 2-dimensional input Tensor with the identity matrix.
 
@@ -176,7 +176,7 @@ Examples
 >>> nn.init.eye_(w)
 ```
 
-torch.nn.init.dirac_(*tensor*, *groups=1*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/init.py#L402)
+torch.nn.init.dirac_(*tensor*, *groups=1*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/init.py#L402)
 
 Fill the {3, 4, 5}-dimensional input Tensor with the Dirac delta function.
 
@@ -187,7 +187,7 @@ of groups>1, each group of channels preserves identity
 Parameters:
 
 - **tensor** ([*Tensor*](tensors.html#torch.Tensor)) - a {3, 4, 5}-dimensional torch.Tensor
-- **groups** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - number of groups in the conv layer (default: 1)
+- **groups** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - number of groups in the conv layer (default: 1)
 
 Return type:
 
@@ -202,7 +202,7 @@ Examples
 >>> nn.init.dirac_(w, 3)
 ```
 
-torch.nn.init.xavier_uniform_(*tensor*, *gain=1.0*, *generator=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/init.py#L479)
+torch.nn.init.xavier_uniform_(*tensor*, *gain=1.0*, *generator=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/init.py#L479)
 
 Fill the input Tensor with values using a Xavier uniform distribution.
 
@@ -220,7 +220,7 @@ Also known as Glorot initialization.
 Parameters:
 
 - **tensor** ([*Tensor*](tensors.html#torch.Tensor)) - an n-dimensional torch.Tensor
-- **gain** ([*float*](https://docs.python.org/3/library/functions.html#float)) - an optional scaling factor
+- **gain** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - an optional scaling factor
 - **generator** ([*Generator*](generated/torch.Generator.html#torch.Generator)*|**None*) - the torch Generator to sample from (default: None)
 
 Return type:
@@ -234,7 +234,7 @@ Examples
 >>> nn.init.xavier_uniform_(w, gain=nn.init.calculate_gain("relu"))
 ```
 
-torch.nn.init.xavier_normal_(*tensor*, *gain=1.0*, *generator=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/init.py#L512)
+torch.nn.init.xavier_normal_(*tensor*, *gain=1.0*, *generator=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/init.py#L512)
 
 Fill the input Tensor with values using a Xavier normal distribution.
 
@@ -251,7 +251,7 @@ Also known as Glorot initialization.
 Parameters:
 
 - **tensor** ([*Tensor*](tensors.html#torch.Tensor)) - an n-dimensional torch.Tensor
-- **gain** ([*float*](https://docs.python.org/3/library/functions.html#float)) - an optional scaling factor
+- **gain** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - an optional scaling factor
 - **generator** ([*Generator*](generated/torch.Generator.html#torch.Generator)*|**None*) - the torch Generator to sample from (default: None)
 
 Return type:
@@ -265,7 +265,7 @@ Examples
 >>> nn.init.xavier_normal_(w)
 ```
 
-torch.nn.init.kaiming_uniform_(*tensor*, *a=0*, *mode='fan_in'*, *nonlinearity='leaky_relu'*, *generator=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/init.py#L554)
+torch.nn.init.kaiming_uniform_(*tensor*, *a=0*, *mode='fan_in'*, *nonlinearity='leaky_relu'*, *generator=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/init.py#L554)
 
 Fill the input Tensor with values using a Kaiming uniform distribution.
 
@@ -283,7 +283,7 @@ Also known as He initialization.
 Parameters:
 
 - **tensor** ([*Tensor*](tensors.html#torch.Tensor)) - an n-dimensional torch.Tensor
-- **a** ([*float*](https://docs.python.org/3/library/functions.html#float)) - the negative slope of the rectifier used after this layer (only
+- **a** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - the negative slope of the rectifier used after this layer (only
 used with `'leaky_relu'`)
 - **mode** ([*Literal*](https://docs.python.org/3/library/typing.html#typing.Literal)*[**'fan_in'**,**'fan_out'**]*) - either `'fan_in'` (default) or `'fan_out'`. Choosing `'fan_in'`
 preserves the magnitude of the variance of the weights in the
@@ -313,7 +313,7 @@ This is important for correct initialization.
 If you plan to use `x @ w`, where `w.shape = [fan_in, fan_out]`,
 pass in a transposed weight matrix, i.e. `nn.init.kaiming_uniform_(w.T, ...)`.
 
-torch.nn.init.kaiming_normal_(*tensor*, *a=0*, *mode='fan_in'*, *nonlinearity='leaky_relu'*, *generator=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/init.py#L619)
+torch.nn.init.kaiming_normal_(*tensor*, *a=0*, *mode='fan_in'*, *nonlinearity='leaky_relu'*, *generator=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/init.py#L619)
 
 Fill the input Tensor with values using a Kaiming normal distribution.
 
@@ -331,7 +331,7 @@ Also known as He initialization.
 Parameters:
 
 - **tensor** ([*Tensor*](tensors.html#torch.Tensor)) - an n-dimensional torch.Tensor
-- **a** ([*float*](https://docs.python.org/3/library/functions.html#float)) - the negative slope of the rectifier used after this layer (only
+- **a** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - the negative slope of the rectifier used after this layer (only
 used with `'leaky_relu'`)
 - **mode** ([*Literal*](https://docs.python.org/3/library/typing.html#typing.Literal)*[**'fan_in'**,**'fan_out'**]*) - either `'fan_in'` (default) or `'fan_out'`. Choosing `'fan_in'`
 preserves the magnitude of the variance of the weights in the
@@ -361,7 +361,7 @@ This is important for correct initialization.
 If you plan to use `x @ w`, where `w.shape = [fan_in, fan_out]`,
 pass in a transposed weight matrix, i.e. `nn.init.kaiming_normal_(w.T, ...)`.
 
-torch.nn.init.trunc_normal_(*tensor*, *mean=0.0*, *std=1.0*, *a=-2.0*, *b=2.0*, *generator=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/init.py#L301)
+torch.nn.init.trunc_normal_(*tensor*, *mean=0.0*, *std=1.0*, *a=-2.0*, *b=2.0*, *generator=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/init.py#L301)
 
 Fill the input Tensor with values drawn from a truncated normal distribution.
 
@@ -379,10 +379,10 @@ quantization artifacts.
 Parameters:
 
 - **tensor** ([*Tensor*](tensors.html#torch.Tensor)) - an n-dimensional torch.Tensor
-- **mean** ([*float*](https://docs.python.org/3/library/functions.html#float)) - the mean of the normal distribution
-- **std** ([*float*](https://docs.python.org/3/library/functions.html#float)) - the standard deviation of the normal distribution
-- **a** ([*float*](https://docs.python.org/3/library/functions.html#float)) - the minimum cutoff value
-- **b** ([*float*](https://docs.python.org/3/library/functions.html#float)) - the maximum cutoff value
+- **mean** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - the mean of the normal distribution
+- **std** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - the standard deviation of the normal distribution
+- **a** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - the minimum cutoff value
+- **b** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - the maximum cutoff value
 - **generator** ([*Generator*](generated/torch.Generator.html#torch.Generator)*|**None*) - the torch Generator to sample from (default: None)
 
 Return type:
@@ -396,7 +396,7 @@ Examples
 >>> nn.init.trunc_normal_(w)
 ```
 
-torch.nn.init.orthogonal_(*tensor*, *gain=1*, *generator=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/init.py#L672)
+torch.nn.init.orthogonal_(*tensor*, *gain=1*, *generator=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/init.py#L672)
 
 Fill the input Tensor with a (semi) orthogonal matrix.
 
@@ -408,7 +408,7 @@ trailing dimensions are flattened.
 Parameters:
 
 - **tensor** ([*Tensor*](tensors.html#torch.Tensor)) - an n-dimensional torch.Tensor, where n≥2n \geq 2n≥2
-- **gain** ([*float*](https://docs.python.org/3/library/functions.html#float)) - optional scaling factor
+- **gain** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - optional scaling factor
 - **generator** ([*Generator*](generated/torch.Generator.html#torch.Generator)*|**None*) - the torch Generator to sample from (default: None)
 
 Return type:
@@ -422,7 +422,7 @@ Examples
 >>> nn.init.orthogonal_(w)
 ```
 
-torch.nn.init.sparse_(*tensor*, *sparsity*, *std=0.01*, *generator=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/init.py#L723)
+torch.nn.init.sparse_(*tensor*, *sparsity*, *std=0.01*, *generator=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/init.py#L723)
 
 Fill the 2D input Tensor as a sparse matrix.
 
@@ -433,8 +433,8 @@ Hessian-free optimization - Martens, J. (2010).
 Parameters:
 
 - **tensor** ([*Tensor*](tensors.html#torch.Tensor)) - an n-dimensional torch.Tensor
-- **sparsity** ([*float*](https://docs.python.org/3/library/functions.html#float)) - The fraction of elements in each column to be set to zero
-- **std** ([*float*](https://docs.python.org/3/library/functions.html#float)) - the standard deviation of the normal distribution used to generate
+- **sparsity** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - The fraction of elements in each column to be set to zero
+- **std** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - the standard deviation of the normal distribution used to generate
 the non-zero values
 - **generator** ([*Generator*](generated/torch.Generator.html#torch.Generator)*|**None*) - the torch Generator to sample from (default: None)
 

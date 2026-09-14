@@ -1,6 +1,6 @@
 # torch.functional.unique
 
-torch.functional.unique(*input*, *sorted=True*, *return_inverse=False*, *return_counts=False*, *dim=None*) → [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), [Tensor](../tensors.html#torch.Tensor), [Tensor](../tensors.html#torch.Tensor)][[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/_jit_internal.py#L627)
+torch.functional.unique(*input*, *sorted=True*, *return_inverse=False*, *return_counts=False*, *dim=None*) → [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), [Tensor](../tensors.html#torch.Tensor), [Tensor](../tensors.html#torch.Tensor)][[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/_jit_internal.py#L627)
 
 Returns the unique elements of the input tensor.
 
@@ -19,13 +19,13 @@ Sorting could be slow, so if your input tensor is already sorted, it is recommen
 Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - the input tensor
-- **sorted** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - Whether to sort the unique elements in ascending order
+- **sorted** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Whether to sort the unique elements in ascending order
 before returning as output.
-- **return_inverse** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - Whether to also return the indices for where
+- **return_inverse** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Whether to also return the indices for where
 elements in the original input ended up in the returned unique list.
-- **return_counts** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - Whether to also return the counts for each unique
+- **return_counts** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Whether to also return the counts for each unique
 element.
-- **dim** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - the dimension to operate upon. If `None`, the
+- **dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - the dimension to operate upon. If `None`, the
 unique of the flattened input is returned. Otherwise, each of the
 tensors indexed by the given dimension is treated as one of the
 elements to apply the unique operation upon. **Important:** when `dim`

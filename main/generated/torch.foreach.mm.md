@@ -1,6 +1,6 @@
 # torch.foreach.mm
 
-torch.foreach.mm(*inputs: TensorList*, *mat2: TensorList*, */*) → [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...][[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/foreach/__init__.py#L1656)
+torch.foreach.mm(*inputs: TensorList*, *mat2: TensorList*, */*) → [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...][[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/foreach/__init__.py#L1656)
 
 Multiplies corresponding matrices from `inputs` and `mat2` using
 [`torch.mm()`](torch.mm.html#torch.mm). This is semantically equivalent to applying
@@ -15,8 +15,8 @@ There is no in-place `torch.foreach.mm_` operation.
 
 Parameters:
 
-- **inputs** ([*list*](https://docs.python.org/3/library/stdtypes.html#list)*or*[*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*of*[*Tensor*](../tensors.html#torch.Tensor)) - first matrices.
-- **mat2** ([*list*](https://docs.python.org/3/library/stdtypes.html#list)*or*[*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*of*[*Tensor*](../tensors.html#torch.Tensor)) - second matrices.
+- **inputs** ([*list*](https://docs.python.org/3/builtins/stdtypes.html#list)*or*[*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*of*[*Tensor*](../tensors.html#torch.Tensor)) - first matrices.
+- **mat2** ([*list*](https://docs.python.org/3/builtins/stdtypes.html#list)*or*[*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*of*[*Tensor*](../tensors.html#torch.Tensor)) - second matrices.
 
 Returns:
 

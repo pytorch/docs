@@ -80,7 +80,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.15.0a0+gitea89e4e )">
+<meta name="llm:version" content="main (2.15.0a0+gitb8bd7cf )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -186,7 +186,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+gitea89e4e )');
+  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+gitb8bd7cf )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3591,7 +3591,7 @@ document.write(`
 <h1>torch.func.vjp<a class="headerlink" href="#torch-func-vjp" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.func.vjp">
-<span class="sig-prename descclassname"><span class="pre">torch.func.</span></span><span class="sig-name descname"><span class="pre">vjp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">primals</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_aux</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/_functorch/eager_transforms.py#L238"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.func.vjp" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.func.</span></span><span class="sig-name descname"><span class="pre">vjp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">primals</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_aux</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/_functorch/eager_transforms.py#L238"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.func.vjp" title="Link to this definition">#</a></dt>
 <dd><p>Standing for the vector-Jacobian product, returns a tuple containing the
 results of <code class="docutils literal notranslate"><span class="pre">func</span></code> applied to <code class="docutils literal notranslate"><span class="pre">primals</span></code> and a function that, when
 given <code class="docutils literal notranslate"><span class="pre">cotangents</span></code>, computes the reverse-mode Jacobian of <code class="docutils literal notranslate"><span class="pre">func</span></code> with
@@ -3604,7 +3604,7 @@ return one or more Tensors.</p></li>
 <li><p><strong>primals</strong> (<em>Tensors</em>) – Positional arguments to <code class="docutils literal notranslate"><span class="pre">func</span></code> that must all be
 Tensors. The returned function will also be computing the
 derivative with respect to these arguments</p></li>
-<li><p><strong>has_aux</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Flag indicating that <code class="docutils literal notranslate"><span class="pre">func</span></code> returns a
+<li><p><strong>has_aux</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Flag indicating that <code class="docutils literal notranslate"><span class="pre">func</span></code> returns a
 <code class="docutils literal notranslate"><span class="pre">(output,</span> <span class="pre">aux)</span></code> tuple where the first element is the output of
 the function to be differentiated and the second element is
 other auxiliary objects that will not be differentiated.
@@ -3620,7 +3620,7 @@ to the returned function. If <code class="docutils literal notranslate"><span cl
 The returned <code class="docutils literal notranslate"><span class="pre">vjp_fn</span></code> function will return a tuple of each VJP.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)">tuple</a>[Any, Callable[…, Any]] | <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)">tuple</a>[Any, Callable[…, Any], Any]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)">tuple</a>[Any, Callable[…, Any]] | <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)">tuple</a>[Any, Callable[…, Any], Any]</p>
 </dd>
 </dl>
 <p>When used in simple cases, <a class="reference internal" href="#torch.func.vjp" title="torch.func.vjp"><code class="xref py py-func docutils literal notranslate"><span class="pre">vjp()</span></code></a> behaves the same as <a class="reference internal" href="torch.func.grad.html#torch.func.grad" title="torch.func.grad"><code class="xref py py-func docutils literal notranslate"><span class="pre">grad()</span></code></a></p>

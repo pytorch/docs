@@ -1,8 +1,8 @@
 # torch.optim.Optimizer.state_dict
 
-Optimizer.state_dict()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/optim/optimizer.py#L709)
+Optimizer.state_dict()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/optim/optimizer.py#L709)
 
-Return the state of the optimizer as a [`dict`](https://docs.python.org/3/library/stdtypes.html#dict).
+Return the state of the optimizer as a [`dict`](https://docs.python.org/3/builtins/stdtypes.html#dict).
 
 It contains two entries:
 
@@ -57,4 +57,4 @@ A returned state dict might look something like:
 
 Return type:
 
-[dict](https://docs.python.org/3/library/stdtypes.html#dict)[[str](https://docs.python.org/3/library/stdtypes.html#str), [*Any*](https://docs.python.org/3/library/typing.html#typing.Any)]
+[dict](https://docs.python.org/3/builtins/stdtypes.html#dict)[[str](https://docs.python.org/3/builtins/stdtypes.html#str), [*Any*](https://docs.python.org/3/library/typing.html#typing.Any)]

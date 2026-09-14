@@ -1,6 +1,6 @@
 # torch.foreach.clone
 
-torch.foreach.clone(*inputs: TensorList*, */*, ***, *memory_format: [memory_format](../tensor_attributes.html#torch.memory_format) | [None](https://docs.python.org/3/library/constants.html#None) = None*) → [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...][[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/foreach/__init__.py#L1534)
+torch.foreach.clone(*inputs: TensorList*, */*, ***, *memory_format: [memory_format](../tensor_attributes.html#torch.memory_format) | [None](https://docs.python.org/3/builtins/constants.html#None) = None*) → [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...][[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/foreach/__init__.py#L1534)
 
 Clones every tensor in `inputs`.
 
@@ -13,7 +13,7 @@ inputs; otherwise the operation falls back to per-tensor execution.
 
 Parameters:
 
-- **inputs** ([*list*](https://docs.python.org/3/library/stdtypes.html#list)*or*[*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*of*[*Tensor*](../tensors.html#torch.Tensor)) - tensors to clone.
+- **inputs** ([*list*](https://docs.python.org/3/builtins/stdtypes.html#list)*or*[*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*of*[*Tensor*](../tensors.html#torch.Tensor)) - tensors to clone.
 - **memory_format** ([`torch.memory_format`](../tensor_attributes.html#torch.memory_format), optional) - desired memory
 format. If `None`, the input memory format is preserved. Default: `None`.
 

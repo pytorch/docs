@@ -11,4 +11,4 @@ See [`torch.reshape()`](torch.reshape.html#torch.reshape)
 
 Parameters:
 
-**shape** ([*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*of**ints**or*[*int*](https://docs.python.org/3/library/functions.html#int)*...*) - the desired shape
+**shape** ([*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*of**ints**or*[*int*](https://docs.python.org/3/builtins/functions.html#int)*...*) - the desired shape

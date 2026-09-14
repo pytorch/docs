@@ -1,6 +1,6 @@
 # AvgPool1d
 
-*class*torch.nn.modules.pooling.AvgPool1d(*kernel_size*, *stride=None*, *padding=0*, *ceil_mode=False*, *count_include_pad=True*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/pooling.py#L595)
+*class*torch.nn.modules.pooling.AvgPool1d(*kernel_size*, *stride=None*, *padding=0*, *ceil_mode=False*, *count_include_pad=True*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/pooling.py#L595)
 
 Applies a 1D average pooling over an input signal composed of several input planes.
 
@@ -28,11 +28,11 @@ an `int` or a one-element tuple.
 
 Parameters:
 
-- **kernel_size** ([*int*](https://docs.python.org/3/library/functions.html#int)*|*[*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*[*[*int*](https://docs.python.org/3/library/functions.html#int)*]*) - the size of the window
-- **stride** ([*int*](https://docs.python.org/3/library/functions.html#int)*|*[*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*[*[*int*](https://docs.python.org/3/library/functions.html#int)*]*) - the stride of the window. Default value is `kernel_size`
-- **padding** ([*int*](https://docs.python.org/3/library/functions.html#int)*|*[*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*[*[*int*](https://docs.python.org/3/library/functions.html#int)*]*) - implicit zero padding to be added on both sides
-- **ceil_mode** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - when True, will use ceil instead of floor to compute the output shape
-- **count_include_pad** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - when True, will include the zero-padding in the averaging calculation
+- **kernel_size** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*|*[*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*[*[*int*](https://docs.python.org/3/builtins/functions.html#int)*]*) - the size of the window
+- **stride** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*|*[*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*[*[*int*](https://docs.python.org/3/builtins/functions.html#int)*]*) - the stride of the window. Default value is `kernel_size`
+- **padding** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*|*[*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*[*[*int*](https://docs.python.org/3/builtins/functions.html#int)*]*) - implicit zero padding to be added on both sides
+- **ceil_mode** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - when True, will use ceil instead of floor to compute the output shape
+- **count_include_pad** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - when True, will include the zero-padding in the averaging calculation
 
 Shape:
 
@@ -57,7 +57,7 @@ Examples:
 tensor([[[2., 4., 6.]]])
 ```
 
-forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/pooling.py#L668)
+forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/pooling.py#L668)
 
 Runs the forward pass.
 

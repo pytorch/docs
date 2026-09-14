@@ -1,6 +1,6 @@
 # torch.nn.functional.torch.nn.parallel.data_parallel
 
-torch.nn.parallel.data_parallel(*module*, *inputs*, *device_ids=None*, *output_device=None*, *dim=0*, *module_kwargs=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/parallel/data_parallel.py#L221)
+torch.nn.parallel.data_parallel(*module*, *inputs*, *device_ids=None*, *output_device=None*, *dim=0*, *module_kwargs=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/parallel/data_parallel.py#L221)
 
 Evaluate module(input) in parallel across the GPUs given in device_ids.
 
@@ -10,8 +10,8 @@ Parameters:
 
 - **module** ([*Module*](torch.nn.Module.html#torch.nn.Module)) - the module to evaluate in parallel
 - **inputs** ([*Tensor*](../tensors.html#torch.Tensor)) - inputs to the module
-- **device_ids** ([*list*](https://docs.python.org/3/library/stdtypes.html#list)*of*[*int*](https://docs.python.org/3/library/functions.html#int)*or*[*torch.device*](../tensor_attributes.html#torch.device)) - GPU ids on which to replicate module
-- **output_device** ([*list*](https://docs.python.org/3/library/stdtypes.html#list)*of*[*int*](https://docs.python.org/3/library/functions.html#int)*or*[*torch.device*](../tensor_attributes.html#torch.device)) - GPU location of the output Use -1 to indicate the CPU.
+- **device_ids** ([*list*](https://docs.python.org/3/builtins/stdtypes.html#list)*of*[*int*](https://docs.python.org/3/builtins/functions.html#int)*or*[*torch.device*](../tensor_attributes.html#torch.device)) - GPU ids on which to replicate module
+- **output_device** ([*list*](https://docs.python.org/3/builtins/stdtypes.html#list)*of*[*int*](https://docs.python.org/3/builtins/functions.html#int)*or*[*torch.device*](../tensor_attributes.html#torch.device)) - GPU location of the output Use -1 to indicate the CPU.
 (default: device_ids[0])
 
 Returns:

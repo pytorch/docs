@@ -1,10 +1,10 @@
 # torch.foreach.addcmul
 
-torch.foreach.addcmul(*inputs: TensorList*, *tensor1: TensorList*, *tensor2: TensorList*, */*, ***, *value: ScalarList*) → [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...][[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/foreach/__init__.py#L1223)
+torch.foreach.addcmul(*inputs: TensorList*, *tensor1: TensorList*, *tensor2: TensorList*, */*, ***, *value: ScalarList*) → [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...][[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/foreach/__init__.py#L1223)
 
-torch.foreach.addcmul(*inputs: TensorList*, *tensor1: TensorList*, *tensor2: TensorList*, */*, ***, *value: [Tensor](../tensors.html#torch.Tensor)*) → [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...]
+torch.foreach.addcmul(*inputs: TensorList*, *tensor1: TensorList*, *tensor2: TensorList*, */*, ***, *value: [Tensor](../tensors.html#torch.Tensor)*) → [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...]
 
-torch.foreach.addcmul(*inputs: TensorList*, *tensor1: TensorList*, *tensor2: TensorList*, */*, ***, *value: Scalar = 1*) → [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...]
+torch.foreach.addcmul(*inputs: TensorList*, *tensor1: TensorList*, *tensor2: TensorList*, */*, ***, *value: Scalar = 1*) → [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...]
 
 Applies [`torch.addcmul()`](torch.addcmul.html#torch.addcmul) to corresponding tensors from the three input
 lists.
@@ -22,10 +22,10 @@ CPU tensor containing one scalar per list position.
 
 Parameters:
 
-- **inputs** ([*list*](https://docs.python.org/3/library/stdtypes.html#list)*or*[*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*of*[*Tensor*](../tensors.html#torch.Tensor)) - tensors to transform.
-- **tensor1** ([*list*](https://docs.python.org/3/library/stdtypes.html#list)*or*[*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*of*[*Tensor*](../tensors.html#torch.Tensor)) - first multiplicative or divisive operands.
-- **tensor2** ([*list*](https://docs.python.org/3/library/stdtypes.html#list)*or*[*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*of*[*Tensor*](../tensors.html#torch.Tensor)) - second multiplicative or divisive operands.
-- **value** (*Number**,*[*list*](https://docs.python.org/3/library/stdtypes.html#list)*or*[*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*of**Number**, or*[*Tensor*](../tensors.html#torch.Tensor)*,**optional*) - scale values.
+- **inputs** ([*list*](https://docs.python.org/3/builtins/stdtypes.html#list)*or*[*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*of*[*Tensor*](../tensors.html#torch.Tensor)) - tensors to transform.
+- **tensor1** ([*list*](https://docs.python.org/3/builtins/stdtypes.html#list)*or*[*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*of*[*Tensor*](../tensors.html#torch.Tensor)) - first multiplicative or divisive operands.
+- **tensor2** ([*list*](https://docs.python.org/3/builtins/stdtypes.html#list)*or*[*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*of*[*Tensor*](../tensors.html#torch.Tensor)) - second multiplicative or divisive operands.
+- **value** (*Number**,*[*list*](https://docs.python.org/3/builtins/stdtypes.html#list)*or*[*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*of**Number**, or*[*Tensor*](../tensors.html#torch.Tensor)*,**optional*) - scale values.
 Default: `1`.
 
 Returns:

@@ -1,6 +1,6 @@
 # torch.optim.Optimizer.register_state_dict_post_hook
 
-Optimizer.register_state_dict_post_hook(*hook*, *prepend=False*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/optim/optimizer.py#L675)
+Optimizer.register_state_dict_post_hook(*hook*, *prepend=False*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/optim/optimizer.py#L675)
 
 Register a state dict post-hook which will be called after [`state_dict()`](torch.optim.Optimizer.state_dict.html#torch.optim.Optimizer.state_dict) is called.
 
@@ -18,7 +18,7 @@ on the `state_dict` before it is returned.
 Parameters:
 
 - **hook** (*Callable*) - The user defined hook to be registered.
-- **prepend** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If True, the provided post `hook` will be fired before
+- **prepend** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - If True, the provided post `hook` will be fired before
 all the already registered post-hooks on `state_dict`. Otherwise,
 the provided `hook` will be fired after all the already registered
 post-hooks. (default: False)

@@ -1,6 +1,6 @@
 # torch.func.jvp
 
-torch.func.jvp(*func*, *primals*, *tangents*, ***, *strict=False*, *has_aux=False*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/_functorch/eager_transforms.py#L1093)
+torch.func.jvp(*func*, *primals*, *tangents*, ***, *strict=False*, *has_aux=False*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/_functorch/eager_transforms.py#L1093)
 
 Standing for the Jacobian-vector product, returns a tuple containing
 the output of func(*primals) and the "Jacobian of `func` evaluated at
@@ -16,7 +16,7 @@ derivative with respect to these arguments
 - **tangents** (*Tensors*) - The "vector" for which Jacobian-vector-product is
 computed. Must be the same structure and sizes as the inputs to
 `func`.
-- **has_aux** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - Flag indicating that `func` returns a
+- **has_aux** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Flag indicating that `func` returns a
 `(output, aux)` tuple where the first element is the output of
 the function to be differentiated and the second element is
 other auxiliary objects that will not be differentiated.
@@ -30,7 +30,7 @@ If `has_aux is True`, then instead returns a `(output, jvp_out, aux)` tuple.
 
 Return type:
 
-[tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[Any, Any] | [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[Any, Any, Any]
+[tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[Any, Any] | [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[Any, Any, Any]
 
 Note
 

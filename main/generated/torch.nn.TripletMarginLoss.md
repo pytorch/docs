@@ -1,6 +1,6 @@
 # TripletMarginLoss
 
-*class*torch.nn.TripletMarginLoss(*margin=1.0*, *p=2.0*, *eps=1e-06*, *swap=False*, *size_average=None*, *reduce=None*, *reduction='mean'*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/loss.py#L1906)
+*class*torch.nn.TripletMarginLoss(*margin=1.0*, *p=2.0*, *eps=1e-06*, *swap=False*, *size_average=None*, *reduce=None*, *reduction='mean'*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/loss.py#L1906)
 
 Creates a criterion that measures the triplet loss given an input
 tensors x1x1x1, x2x2x2, x3x3x3 and a margin with a value greater than 000.
@@ -33,22 +33,22 @@ triplet margin loss for input tensors using a custom distance function.
 
 Parameters:
 
-- **margin** ([*float*](https://docs.python.org/3/library/functions.html#float)*,**optional*) - Default: 111.
-- **p** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - The norm degree for pairwise distance. Default: 222.
-- **eps** ([*float*](https://docs.python.org/3/library/functions.html#float)*,**optional*) - Small constant for numerical stability. Default: 1e−61e-61e−6.
-- **swap** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - The distance swap is described in detail in the paper
+- **margin** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*,**optional*) - Default: 111.
+- **p** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - The norm degree for pairwise distance. Default: 222.
+- **eps** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*,**optional*) - Small constant for numerical stability. Default: 1e−61e-61e−6.
+- **swap** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - The distance swap is described in detail in the paper
 Learning shallow convolutional feature descriptors with triplet losses by
 V. Balntas, E. Riba et al. Default: `False`.
-- **size_average** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - Deprecated (see `reduction`). By default,
+- **size_average** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - Deprecated (see `reduction`). By default,
 the losses are averaged over each loss element in the batch. Note that for
 some losses, there are multiple elements per sample. If the field `size_average`
 is set to `False`, the losses are instead summed for each minibatch. Ignored
 when `reduce` is `False`. Default: `True`
-- **reduce** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - Deprecated (see `reduction`). By default, the
+- **reduce** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - Deprecated (see `reduction`). By default, the
 losses are averaged or summed over observations for each minibatch depending
 on `size_average`. When `reduce` is `False`, returns a loss per
 batch element instead and ignores `size_average`. Default: `True`
-- **reduction** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**optional*) - Specifies the reduction to apply to the output:
+- **reduction** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**optional*) - Specifies the reduction to apply to the output:
 `'none'` | `'mean'` | `'sum'`. `'none'`: no reduction will be applied,
 `'mean'`: the sum of the output will be divided by the number of
 elements in the output, `'sum'`: the output will be summed. Note: `size_average`
@@ -72,7 +72,7 @@ Examples:
 >>> output.backward()
 ```
 
-forward(*anchor*, *positive*, *negative*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/loss.py#L2002)
+forward(*anchor*, *positive*, *negative*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/loss.py#L2002)
 
 Runs the forward pass.
 

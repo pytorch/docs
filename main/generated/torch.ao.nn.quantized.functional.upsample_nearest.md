@@ -1,6 +1,6 @@
 # upsample_nearest
 
-*class*torch.ao.nn.quantized.functional.upsample_nearest(*input*, *size=None*, *scale_factor=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/ao/nn/quantized/functional.py#L762)
+*class*torch.ao.nn.quantized.functional.upsample_nearest(*input*, *size=None*, *scale_factor=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/ao/nn/quantized/functional.py#L762)
 
 Upsamples the input, using nearest neighbours' pixel values.
 
@@ -21,6 +21,6 @@ Only 2D inputs are supported
 Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - quantized input
-- **size** ([*int*](https://docs.python.org/3/library/functions.html#int)*or**Tuple**[*[*int*](https://docs.python.org/3/library/functions.html#int)*,*[*int*](https://docs.python.org/3/library/functions.html#int)*] or**Tuple**[*[*int*](https://docs.python.org/3/library/functions.html#int)*,*[*int*](https://docs.python.org/3/library/functions.html#int)*,*[*int*](https://docs.python.org/3/library/functions.html#int)*]*) - output spatial
+- **size** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*or**Tuple**[*[*int*](https://docs.python.org/3/builtins/functions.html#int)*,*[*int*](https://docs.python.org/3/builtins/functions.html#int)*] or**Tuple**[*[*int*](https://docs.python.org/3/builtins/functions.html#int)*,*[*int*](https://docs.python.org/3/builtins/functions.html#int)*,*[*int*](https://docs.python.org/3/builtins/functions.html#int)*]*) - output spatial
 size.
-- **scale_factor** ([*int*](https://docs.python.org/3/library/functions.html#int)) - multiplier for spatial size. Has to be an integer.
+- **scale_factor** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - multiplier for spatial size. Has to be an integer.

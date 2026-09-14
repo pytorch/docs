@@ -11,7 +11,7 @@ Parameters:
 - **stride** (`list of int`, optional) - the stride of the sliding window
 - **padding** (`list of int`, optional) - padding to be added on both sides, must be >= 0 and <= kernel_size / 2
 - **dilation** (`list of int`, optional) - The stride between elements within a sliding window, must be > 0. Default 1
-- **ceil_mode** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If True, will use ceil instead of floor to compute the output shape.
+- **ceil_mode** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If True, will use ceil instead of floor to compute the output shape.
 Defaults to False.
 
 Returns:

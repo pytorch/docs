@@ -11,11 +11,11 @@ Parameters:
 
 Keyword Arguments:
 
-- **size** ([*int*](https://docs.python.org/3/library/functions.html#int)) - the size of non-zero elements expected to be included in the out
+- **size** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - the size of non-zero elements expected to be included in the out
 tensor. Pad the out tensor with fill_value if the size is larger
 than total number of non-zero elements, truncate out tensor if size
 is smaller. The size must be a non-negative integer.
-- **fill_value** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - the value to fill the output tensor with when size is larger
+- **fill_value** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - the value to fill the output tensor with when size is larger
 than the total number of non-zero elements. Default is -1 to represent
 invalid index.
 

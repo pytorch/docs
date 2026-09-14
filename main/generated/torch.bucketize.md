@@ -21,9 +21,9 @@ Parameters:
 
 Keyword Arguments:
 
-- **out_int32** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - indicate the output data type. torch.int32 if True, torch.int64 otherwise.
+- **out_int32** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - indicate the output data type. torch.int32 if True, torch.int64 otherwise.
 Default value is False, i.e. default output data type is torch.int64.
-- **right** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - determines the behavior for values in `boundaries`. See the table above.
+- **right** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - determines the behavior for values in `boundaries`. See the table above.
 - **out** ([*Tensor*](../tensors.html#torch.Tensor)*,**optional*) - the output tensor, must be the same size as `input` if provided.
 
 Example:

@@ -23,10 +23,10 @@ defines the sequence of bin edges including the rightmost edge.
 
 Keyword Arguments:
 
-- **range** ([*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*of*[*float*](https://docs.python.org/3/library/functions.html#float)) - Defines the range of the bins.
+- **range** ([*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*of*[*float*](https://docs.python.org/3/builtins/functions.html#float)) - Defines the range of the bins.
 - **weight** ([*Tensor*](../tensors.html#torch.Tensor)) - If provided, weight should have the same shape as input. Each value in
 input contributes its associated weight towards its bin's result.
-- **density** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If False, the result will contain the count (or total weight) in each bin.
+- **density** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - If False, the result will contain the count (or total weight) in each bin.
 If True, the result is the value of the probability density function over the bins,
 normalized such that the integral over the range of the bins is 1.
 - **out** ([*Tensor*](../tensors.html#torch.Tensor)*,**optional*) - the output tensor. (tuple, optional): The result tuple of two output tensors (hist, bin_edges).

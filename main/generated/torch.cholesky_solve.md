@@ -28,7 +28,7 @@ where ∗*∗ is zero or more batch dimensions
 - **L** ([*Tensor*](../tensors.html#torch.Tensor)) - tensor of shape (*, n, n) where * is zero or more batch dimensions
 consisting of lower or upper triangular Cholesky decompositions of
 symmetric or Hermitian positive-definite matrices.
-- **upper** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - flag that indicates whether LLL is lower triangular
+- **upper** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - flag that indicates whether LLL is lower triangular
 or upper triangular. Default: `False`.
 
 Keyword Arguments:

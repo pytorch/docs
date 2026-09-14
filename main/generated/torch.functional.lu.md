@@ -1,6 +1,6 @@
 # torch.functional.lu
 
-torch.functional.lu(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/_jit_internal.py#L627)
+torch.functional.lu(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/_jit_internal.py#L627)
 
 Computes the LU factorization of a matrix or batches of matrices
 `A`. Returns a tuple containing the LU factorization and
@@ -53,11 +53,11 @@ the gradient will be numerically unstable as it depends on the computation of L�
 Parameters:
 
 - **A** ([*Tensor*](../tensors.html#torch.Tensor)) - the tensor to factor of size (∗,m,n)(*, m, n)(∗,m,n)
-- **pivot** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - Whether to compute the LU decomposition with partial pivoting, or the regular LU
+- **pivot** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - Whether to compute the LU decomposition with partial pivoting, or the regular LU
 decomposition. `pivot`= False not supported on CPU. Default: True.
-- **get_infos** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - if set to `True`, returns an info IntTensor.
+- **get_infos** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - if set to `True`, returns an info IntTensor.
 Default: `False`
-- **out** ([*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*,**optional*) - optional output tuple. If `get_infos` is `True`,
+- **out** ([*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*,**optional*) - optional output tuple. If `get_infos` is `True`,
 then the elements in the tuple are Tensor, IntTensor,
 and IntTensor. If `get_infos` is `False`, then the
 elements in the tuple are Tensor, IntTensor. Default: `None`

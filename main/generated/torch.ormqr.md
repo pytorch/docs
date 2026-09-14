@@ -33,8 +33,8 @@ Parameters:
 and mn equals to m or n depending on the `left`.
 - **tau** ([*Tensor*](../tensors.html#torch.Tensor)) - tensor of shape (*, min(mn, k)) where * is zero or more batch dimensions.
 - **other** ([*Tensor*](../tensors.html#torch.Tensor)) - tensor of shape (*, m, n) where * is zero or more batch dimensions.
-- **left** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - controls the order of multiplication.
-- **transpose** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - controls whether the matrix Q is conjugate transposed or not.
+- **left** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - controls the order of multiplication.
+- **transpose** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - controls whether the matrix Q is conjugate transposed or not.
 
 Keyword Arguments:
 

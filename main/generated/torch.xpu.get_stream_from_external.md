@@ -1,6 +1,6 @@
 # torch.xpu.get_stream_from_external
 
-torch.xpu.get_stream_from_external(*data_ptr*, *device=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/xpu/__init__.py#L668)
+torch.xpu.get_stream_from_external(*data_ptr*, *device=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/xpu/__init__.py#L668)
 
 Return a [`Stream`](torch.xpu.Stream_class.html#torch.xpu.Stream) from an external SYCL queue.
 
@@ -16,8 +16,8 @@ being used. The different SYCL queue pointers will result in distinct
 
 Parameters:
 
-- **data_ptr** ([*int*](https://docs.python.org/3/library/functions.html#int)) - Integer representation of the sycl::queue* value passed externally.
-- **device** ([*torch.device*](../tensor_attributes.html#torch.device)*or*[*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - the device where the queue was originally created.
+- **data_ptr** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Integer representation of the sycl::queue* value passed externally.
+- **device** ([*torch.device*](../tensor_attributes.html#torch.device)*or*[*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - the device where the queue was originally created.
 It is the user responsibility to ensure the device is specified correctly.
 
 Return type:

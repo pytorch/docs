@@ -1,6 +1,6 @@
 # torch.any
 
-torch.any(*input: [Tensor](../tensors.html#torch.Tensor)*, ***, *out: [Tensor](../tensors.html#torch.Tensor) | [None](https://docs.python.org/3/library/constants.html#None)*) → [Tensor](../tensors.html#torch.Tensor)
+torch.any(*input: [Tensor](../tensors.html#torch.Tensor)*, ***, *out: [Tensor](../tensors.html#torch.Tensor) | [None](https://docs.python.org/3/builtins/constants.html#None)*) → [Tensor](../tensors.html#torch.Tensor)
 
 Tests if any element in `input` evaluates to True.
 
@@ -46,9 +46,9 @@ output tensor having 1 (or `len(dim)`) fewer dimension(s).
 Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - the input tensor.
-- **dim** ([*int*](https://docs.python.org/3/library/functions.html#int)*or*[*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*of**ints**,**optional*) - the dimension or dimensions to reduce.
+- **dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*or*[*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*of**ints**,**optional*) - the dimension or dimensions to reduce.
 If `None`, all dimensions are reduced.
-- **keepdim** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - whether the output tensor has `dim` retained or not. Default: `False`.
+- **keepdim** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - whether the output tensor has `dim` retained or not. Default: `False`.
 
 Keyword Arguments:
 

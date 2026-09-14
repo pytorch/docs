@@ -1,6 +1,6 @@
 # torch.fft.hfft2
 
-torch.fft.hfft2(*input*, *s=None*, *dim=(-2, -1)*, *norm=None*, ***, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fft/__init__.py#L931)
+torch.fft.hfft2(*input*, *s=None*, *dim=(-2, -1)*, *norm=None*, ***, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fft/__init__.py#L931)
 
 Computes the 2-dimensional discrete Fourier transform of a Hermitian symmetric
 `input` signal. Equivalent to [`hfftn()`](torch.fft.hfftn.html#torch.fft.hfftn) but only
@@ -19,16 +19,16 @@ s defaults to even output size = 2 * (last_dim_size - 1)
 Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - the input tensor
-- **s** (*Tuple**[*[*int*](https://docs.python.org/3/library/functions.html#int)*]**,**optional*) - Signal size in the transformed dimensions.
+- **s** (*Tuple**[*[*int*](https://docs.python.org/3/builtins/functions.html#int)*]**,**optional*) - Signal size in the transformed dimensions.
 If given, each dimension `dim[i]` will either be zero-padded or
 trimmed to the length `s[i]` before computing the Hermitian FFT.
 If a length `-1` is specified, no padding is done in that dimension.
 Defaults to even output in the last dimension:
 `s[-1] = 2*(input.size(dim[-1]) - 1)`.
-- **dim** (*Tuple**[*[*int*](https://docs.python.org/3/library/functions.html#int)*]**,**optional*) - Dimensions to be transformed.
+- **dim** (*Tuple**[*[*int*](https://docs.python.org/3/builtins/functions.html#int)*]**,**optional*) - Dimensions to be transformed.
 The last dimension must be the half-Hermitian compressed dimension.
 Default: last two dimensions.
-- **norm** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**optional*) -
+- **norm** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**optional*) -
 
 Normalization mode. For the forward transform
 (`hfft2()`), these correspond to:

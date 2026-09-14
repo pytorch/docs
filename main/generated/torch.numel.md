@@ -1,6 +1,6 @@
 # torch.numel
 
-torch.numel(*input: [Tensor](../tensors.html#torch.Tensor)*) → [int](https://docs.python.org/3/library/functions.html#int)
+torch.numel(*input: [Tensor](../tensors.html#torch.Tensor)*) → [int](https://docs.python.org/3/builtins/functions.html#int)
 
 Returns the total number of elements in the `input` tensor.
 

@@ -16,7 +16,7 @@ Python torch.library and/or C++ TORCH_LIBRARY APIs. Also, if your operator suppo
 training, use [`torch.autograd.gradcheck()`](autograd.html#module-torch.autograd.gradcheck) to test that the gradients are
 mathematically correct.
 
-torch.library.opcheck(*op*, *args*, *kwargs=None*, ***, *test_utils=('test_schema', 'test_autograd_registration', 'test_faketensor', 'test_aot_dispatch_dynamic')*, *raise_exception=True*, *atol=None*, *rtol=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/library.py#L1798)
+torch.library.opcheck(*op*, *args*, *kwargs=None*, ***, *test_utils=('test_schema', 'test_autograd_registration', 'test_faketensor', 'test_aot_dispatch_dynamic')*, *raise_exception=True*, *atol=None*, *rtol=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/library.py#L1798)
 
 Given an operator and some sample arguments, tests if the operator is
 registered correctly.
@@ -69,25 +69,25 @@ Parameters:
 - **op** (*OpOverload**|**OpOverloadPacket**|**CustomOpDef*) - The operator. Must either be a function decorated with
 `torch.library.custom_op()` or an OpOverload/OpOverloadPacket
 found in torch.ops.* (e.g. torch.ops.aten.sin, torch.ops.mylib.foo)
-- **args** ([*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*[*[*Any*](https://docs.python.org/3/library/typing.html#typing.Any)*,**...**]*) - The args to the operator
-- **kwargs** ([*dict*](https://docs.python.org/3/library/stdtypes.html#dict)*[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*,*[*Any*](https://docs.python.org/3/library/typing.html#typing.Any)*]**|**None*) - The kwargs to the operator
-- **test_utils** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*|*[*Sequence*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence)*[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*]*) - Tests that we should run. Default: all of them.
+- **args** ([*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*[*[*Any*](https://docs.python.org/3/library/typing.html#typing.Any)*,**...**]*) - The args to the operator
+- **kwargs** ([*dict*](https://docs.python.org/3/builtins/stdtypes.html#dict)*[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,*[*Any*](https://docs.python.org/3/library/typing.html#typing.Any)*]**|**None*) - The kwargs to the operator
+- **test_utils** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*|*[*Sequence*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence)*[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*]*) - Tests that we should run. Default: all of them.
 Example: ("test_schema", "test_faketensor")
-- **raise_exception** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If we should raise an exception on the first
+- **raise_exception** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - If we should raise an exception on the first
 error. If False, we will return a dict with information
 on if each test passed or not.
-- **rtol** (*Optional**[*[*float*](https://docs.python.org/3/library/functions.html#float)*]*) - Relative tolerance for floating point comparisons.
+- **rtol** (*Optional**[*[*float*](https://docs.python.org/3/builtins/functions.html#float)*]*) - Relative tolerance for floating point comparisons.
 If specified `atol` must also be specified.
 If omitted, default values based on the `dtype` are selected
 (see the table in [`torch.testing.assert_close()`](testing.html#torch.testing.assert_close)).
-- **atol** (*Optional**[*[*float*](https://docs.python.org/3/library/functions.html#float)*]*) - Absolute tolerance for floating point comparisons.
+- **atol** (*Optional**[*[*float*](https://docs.python.org/3/builtins/functions.html#float)*]*) - Absolute tolerance for floating point comparisons.
 If specified `rtol` must also be specified.
 If omitted, default values based on the `dtype` are selected
 (see the table in [`torch.testing.assert_close()`](testing.html#torch.testing.assert_close)).
 
 Return type:
 
-[dict](https://docs.python.org/3/library/stdtypes.html#dict)[[str](https://docs.python.org/3/library/stdtypes.html#str), [str](https://docs.python.org/3/library/stdtypes.html#str)]
+[dict](https://docs.python.org/3/builtins/stdtypes.html#dict)[[str](https://docs.python.org/3/builtins/stdtypes.html#str), [str](https://docs.python.org/3/builtins/stdtypes.html#str)]
 
 Warning
 
@@ -263,7 +263,7 @@ with which inputs. `custom_op` therefore supports the conventional in-place and
 `out=` aliasing patterns directly, but does not model arbitrary view or alias
 relationships.
 
-torch.library.custom_op(*name*, *fn=None*, */*, ***, *mutates_args*, *device_types=None*, *schema=None*, *tags=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/_library/custom_ops.py#L66)
+torch.library.custom_op(*name*, *fn=None*, */*, ***, *mutates_args*, *device_types=None*, *schema=None*, *tags=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/_library/custom_ops.py#L66)
 
 Wraps a function into custom operator.
 
@@ -278,21 +278,21 @@ with PyTorch's various subsystems.
 
 Parameters:
 
-- **name** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - A name for the custom op that looks like "{namespace}::{name}",
+- **name** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - A name for the custom op that looks like "{namespace}::{name}",
 e.g. "mylib::my_linear". The name is used as the op's stable identifier
 in PyTorch subsystems (e.g. torch.export, FX graphs).
 To avoid name collisions, please use your project name as the namespace;
 e.g. all custom ops in pytorch/fbgemm use "fbgemm" as the namespace.
-- **mutates_args** (*Iterable**[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*] or**"unknown"*) - The names of args that the function mutates.
+- **mutates_args** (*Iterable**[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*] or**"unknown"*) - The names of args that the function mutates.
 This MUST be accurate, otherwise, the behavior is undefined. If "unknown",
 it pessimistically assumes that all inputs to the operator are being mutated.
-- **device_types** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*|**None**|**Sequence**[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*]*) - The device type(s) the function
+- **device_types** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*|**None**|**Sequence**[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*]*) - The device type(s) the function
 is valid for. If no device type is provided, then the function
 is used as the default implementation for all device types.
 Examples: "cpu", "cuda".
 When registering a device-specific implementation for an operator that accepts no Tensors,
 we require the operator to have a "device: torch.device argument".
-- **schema** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*|**None*) - A schema string for the operator. If None
+- **schema** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*|**None*) - A schema string for the operator. If None
 (recommended) we'll infer a schema for the operator from its type
 annotations. We recommend letting us infer a schema unless you
 have a specific reason not to.
@@ -306,7 +306,7 @@ custom ops do not support autograd.
 
 Return type:
 
-[*Callable*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)[[[*Callable*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)[[...], [object](https://docs.python.org/3/library/functions.html#object)]], CustomOpDef] | *CustomOpDef*
+[*Callable*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)[[[*Callable*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)[[...], [object](https://docs.python.org/3/builtins/functions.html#object)]], CustomOpDef] | *CustomOpDef*
 
 The following types are supported for the wrapped function's input parameters:
 
@@ -430,7 +430,7 @@ Examples::
 >>> out = weighted_sum([x, y], [0.3, 0.7])
 ```
 
-torch.library.triton_op(*name*, *fn=None*, */*, ***, *mutates_args*, *schema=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/_library/triton.py#L296)
+torch.library.triton_op(*name*, *fn=None*, */*, ***, *mutates_args*, *schema=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/_library/triton.py#L296)
 
 Create a custom operator whose implementation is backed by 1+ triton kernels.
 
@@ -458,15 +458,15 @@ must be wrapped in a call to `torch.library.wrap_triton()`.
 
 Parameters:
 
-- **name** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - A name for the custom op that looks like "{namespace}::{name}",
+- **name** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - A name for the custom op that looks like "{namespace}::{name}",
 e.g. "mylib::my_linear". The name is used as the op's stable identifier
 in PyTorch subsystems (e.g. torch.export, FX graphs).
 To avoid name collisions, please use your project name as the namespace;
 e.g. all custom ops in pytorch/fbgemm use "fbgemm" as the namespace.
-- **mutates_args** (*Iterable**[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*] or**"unknown"*) - The names of args that the function mutates.
+- **mutates_args** (*Iterable**[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*] or**"unknown"*) - The names of args that the function mutates.
 This MUST be accurate, otherwise, the behavior is undefined. If "unknown",
 it pessimistically assumes that all inputs to the operator are being mutated.
-- **schema** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*|**None*) - A schema string for the operator. If None
+- **schema** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*|**None*) - A schema string for the operator. If None
 (recommended) we'll infer a schema for the operator from its type
 annotations. We recommend letting us infer a schema unless you
 have a specific reason not to.
@@ -525,7 +525,7 @@ Example:
 >>> assert torch.allclose(z, x + y)
 ```
 
-torch.library.wrap_triton(*triton_kernel*, */*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/_library/triton.py#L534)
+torch.library.wrap_triton(*triton_kernel*, */*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/_library/triton.py#L534)
 
 Allows capture of a triton kernel into a graph via make_fx or
 non-strict `torch.export`.
@@ -599,7 +599,7 @@ Use the `register.*` methods, such as `torch.library.register_kernel()` and
 for any operators (they may have been created using `torch.library.custom_op()` or
 via PyTorch's C++ operator registration APIs).
 
-torch.library.register_kernel(*op*, *device_types*, *func=None*, */*, ***, *lib=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/library.py#L1017)
+torch.library.register_kernel(*op*, *device_types*, *func=None*, */*, ***, *lib=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/library.py#L1017)
 
 Register an implementation for a device type for this operator.
 
@@ -608,8 +608,8 @@ This API may be used as a decorator.
 
 Parameters:
 
-- **op** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*|**OpOverload*) - The operator to register an impl to.
-- **device_types** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*|**None**|**Sequence**[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*]*) - The device_types to register an impl to.
+- **op** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*|**OpOverload*) - The operator to register an impl to.
+- **device_types** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*|**None**|**Sequence**[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*]*) - The device_types to register an impl to.
 If None, we will register to all device types - please only use
 this option if your implementation is truly device-type-agnostic.
 - **func** (*Callable*) - The function to register as the implementation for
@@ -644,7 +644,7 @@ Examples::
 >>> assert torch.allclose(numpy_sin(x_cuda), x_cuda.sin())
 ```
 
-torch.library.register_autocast(*op*, *device_type*, *cast_inputs*, */*, ***, *lib=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/library.py#L1076)
+torch.library.register_autocast(*op*, *device_type*, *cast_inputs*, */*, ***, *lib=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/library.py#L1076)
 
 Register an autocast dispatch rule for this custom op.
 
@@ -653,8 +653,8 @@ See `torch.amp.is_autocast_available()` for details.
 
 Parameters:
 
-- **op** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*|**OpOverload*) - The operator to register an autocast dispatch rule to.
-- **device_type** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - Device type to use. 'cuda', 'cpu', 'xpu', or any other device type that supports autocast.
+- **op** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*|**OpOverload*) - The operator to register an autocast dispatch rule to.
+- **device_type** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - Device type to use. 'cuda', 'cpu', 'xpu', or any other device type that supports autocast.
 The type is the same as the type attribute of a [`torch.device`](tensor_attributes.html#torch.device).
 Thus, you may obtain the device type of a tensor using Tensor.device.type.
 - **cast_inputs** ([`torch.dtype`](tensor_attributes.html#torch.dtype)) - When custom op runs in an autocast-enabled region,
@@ -683,7 +683,7 @@ Examples::
 >>> assert y.dtype == torch.float16
 ```
 
-torch.library.register_autograd(*op*, *backward*, */*, ***, *setup_context=None*, *lib=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/library.py#L1322)
+torch.library.register_autograd(*op*, *backward*, */*, ***, *setup_context=None*, *lib=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/library.py#L1322)
 
 Register a backward formula for this custom op.
 
@@ -782,7 +782,7 @@ Examples
 >>> assert torch.allclose(grad_x, torch.full_like(x, 3.14))
 ```
 
-torch.library.register_fake(*op*, *func=None*, */*, ***, *lib=None*, *_stacklevel=1*, *allow_override=True*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/library.py#L1159)
+torch.library.register_fake(*op*, *func=None*, */*, ***, *lib=None*, *_stacklevel=1*, *allow_override=True*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/library.py#L1159)
 
 Register a FakeTensor implementation ("fake impl") for this operator.
 
@@ -812,7 +812,7 @@ Parameters:
 - **op_name** - Operator name (along with the overload) or OpOverload object.
 - **func** ([*Callable*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)*|**None*) - Fake tensor implementation.
 - **lib** (*Optional**[**Library**]*) - Library to register the fake tensor to.
-- **allow_override** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - Flag controlling if we want to override an
+- **allow_override** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Flag controlling if we want to override an
 existing registered fake impl. This is on by default;
 pass `False` to error if the operator already has a
 fake impl. This also only applies if the custom operator
@@ -878,7 +878,7 @@ Examples
 >>> assert torch.allclose(trace(x), torch.ops.mylib.custom_nonzero(x))
 ```
 
-torch.library.register_vmap(*op*, *func=None*, */*, ***, *lib=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/library.py#L1525)
+torch.library.register_vmap(*op*, *func=None*, */*, ***, *lib=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/library.py#L1525)
 
 Register a vmap implementation to support [`torch.vmap()`](generated/torch.vmap.html#torch.vmap) for this custom op.
 
@@ -961,12 +961,12 @@ That is, `grad(vmap(op))` should be replaceable with a `grad(map(op))`.
 If your custom operator has any custom behavior in the backward pass, please
 keep this in mind.
 
-torch.library.impl_abstract(*qualname*, *func=None*, ***, *lib=None*, *_stacklevel=1*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/library.py#L973)
+torch.library.impl_abstract(*qualname*, *func=None*, ***, *lib=None*, *_stacklevel=1*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/library.py#L973)
 
 This API was renamed to `torch.library.register_fake()` in PyTorch 2.4.
 Please use that instead.
 
-torch.library.get_ctx()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/library.py#L1707)
+torch.library.get_ctx()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/library.py#L1707)
 
 get_ctx() returns the current AbstractImplCtx object.
 
@@ -977,7 +977,7 @@ Return type:
 
 *FakeImplCtx*
 
-torch.library.register_torch_dispatch(*op*, *torch_dispatch_class*, *func=None*, */*, ***, *lib=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/library.py#L1457)
+torch.library.register_torch_dispatch(*op*, *torch_dispatch_class*, *func=None*, */*, ***, *lib=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/library.py#L1457)
 
 Registers a torch_dispatch rule for the given operator and `torch_dispatch_class`.
 
@@ -1024,7 +1024,7 @@ Examples
 >>> assert torch.allclose(y, x + 1)
 ```
 
-torch.library.infer_schema(*prototype_function*, */*, ***, *mutates_args*, *op_name=None*, *tags=()*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/_library/infer_schema.py#L23)
+torch.library.infer_schema(*prototype_function*, */*, ***, *mutates_args*, *op_name=None*, *tags=()*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/_library/infer_schema.py#L23)
 
 Parses the schema of a given function with type hints. The schema is inferred from the
 function's type hints, and can be used to define a new operator.
@@ -1043,10 +1043,10 @@ Callers (e.g. the custom ops API) are responsible for checking these assumptions
 Parameters:
 
 - **prototype_function** ([*Callable*](https://docs.python.org/3/library/typing.html#typing.Callable)) - The function from which to infer a schema for from its type annotations.
-- **op_name** (*Optional**[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*]*) - The name of the operator in the schema. If `name` is None, then the
+- **op_name** (*Optional**[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*]*) - The name of the operator in the schema. If `name` is None, then the
 name is not included in the inferred schema. Note that the input schema to
 `torch.library.Library.define` requires an operator name.
-- **mutates_args** (*"unknown"**|**Iterable**[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*]*) - The arguments that are mutated in the function.
+- **mutates_args** (*"unknown"**|**Iterable**[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*]*) - The arguments that are mutated in the function.
 - **tags** ([*Tag*](torch.html#torch.Tag)*|**Sequence**[*[*Tag*](torch.html#torch.Tag)*]**|**None*) - one or more tags to apply to the
 inferred schema. Use `torch.Tag.inplace` or `torch.Tag.out` to
 infer the conventional aliasing for those operator kinds.
@@ -1057,7 +1057,7 @@ The inferred schema.
 
 Return type:
 
-[str](https://docs.python.org/3/library/stdtypes.html#str)
+[str](https://docs.python.org/3/builtins/stdtypes.html#str)
 
 Example
 
@@ -1072,7 +1072,7 @@ foo(Tensor x) -> Tensor
 (Tensor x) -> Tensor
 ```
 
-*class*torch._library.custom_ops.CustomOpDef(*namespace*, *name*, *schema*, *fn*, *tags=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/_library/custom_ops.py#L272)
+*class*torch._library.custom_ops.CustomOpDef(*namespace*, *name*, *schema*, *fn*, *tags=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/_library/custom_ops.py#L272)
 
 CustomOpDef is a wrapper around a function that turns it into a custom op.
 
@@ -1082,7 +1082,7 @@ custom op.
 You should not instantiate CustomOpDef directly; instead, use the
 `torch.library.custom_op()` API.
 
-set_kernel_enabled(*device_type*, *enabled=True*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/_library/custom_ops.py#L322)
+set_kernel_enabled(*device_type*, *enabled=True*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/_library/custom_ops.py#L322)
 
 Disable or re-enable an already registered kernel for this custom operator.
 
@@ -1094,8 +1094,8 @@ If a kernel is first disabled and then registered, it is disabled until enabled 
 
 Parameters:
 
-- **device_type** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - The device type to disable/enable the kernel for.
-- **disable** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - Whether to disable or enable the kernel.
+- **device_type** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - The device type to disable/enable the kernel for.
+- **disable** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Whether to disable or enable the kernel.
 
 Example
 
@@ -1120,7 +1120,7 @@ Example
 >>> print(f(inp)) # tensor([0.]) with CPU kernel disabled
 ```
 
-torch.library.get_kernel(*op*, *dispatch_key*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/library.py#L1716)
+torch.library.get_kernel(*op*, *dispatch_key*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/library.py#L1716)
 
 Returns the computed kernel for a given operator and dispatch key.
 
@@ -1133,9 +1133,9 @@ that calls into the original kernel for certain cases.
 
 Parameters:
 
-- **op** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*|**OpOverload**|**CustomOpDef*) - Operator name (along with the overload) or OpOverload object
+- **op** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*|**OpOverload**|**CustomOpDef*) - Operator name (along with the overload) or OpOverload object
 Can be a string (e.g., "aten::add.Tensor"), an OpOverload, or a CustomOpDef.
-- **dispatch_key** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*|**torch.DispatchKey*) - The dispatch key to get the kernel for.
+- **dispatch_key** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*|**torch.DispatchKey*) - The dispatch key to get the kernel for.
 Can be a string (e.g., "CPU", "CUDA") or a DispatchKey enum value.
 
 Returns:
@@ -1150,7 +1150,7 @@ torch._C._SafeKernelFunction
 
 Raises:
 
-[**RuntimeError**](https://docs.python.org/3/library/exceptions.html#RuntimeError) - If the operator does not exist.
+[**RuntimeError**](https://docs.python.org/3/builtins/exceptions.html#RuntimeError) - If the operator does not exist.
 
 Example
 
@@ -1200,7 +1200,7 @@ The low-level operator registration APIs and the PyTorch Dispatcher are a compli
 
 A tutorial that walks you through some examples on how to use this API is available on [Google Colab](https://colab.research.google.com/drive/1RRhSfk7So3Cn02itzLWE9K4Fam-8U011?usp=sharing).
 
-*class*torch.library.Library(*ns*, *kind*, *dispatch_key=''*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/library.py#L212)
+*class*torch.library.Library(*ns*, *kind*, *dispatch_key=''*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/library.py#L212)
 
 A class to create libraries that can be used to register new operators or
 override operators in existing libraries from Python.
@@ -1219,7 +1219,7 @@ Parameters:
 - **kind** - "DEF", "IMPL", "FRAGMENT"
 - **dispatch_key** - PyTorch dispatch key (default: "")
 
-define(*schema*, *alias_analysis=''*, ***, *tags=()*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/library.py#L272)
+define(*schema*, *alias_analysis=''*, ***, *tags=()*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/library.py#L272)
 
 Defines a new operator and its semantics in the ns namespace.
 
@@ -1244,7 +1244,7 @@ Example:
 >>> my_lib.define("sum(Tensor self) -> Tensor")
 ```
 
-fallback(*fn*, *dispatch_key=''*, ***, *with_keyset=False*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/library.py#L551)
+fallback(*fn*, *dispatch_key=''*, ***, *with_keyset=False*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/library.py#L551)
 
 Registers the function implementation as the fallback for the given key.
 
@@ -1269,7 +1269,7 @@ Example:
 >>> my_lib.fallback(fallback_kernel, "Autocast")
 ```
 
-impl(*op_name*, *fn*, *dispatch_key=''*, ***, *with_keyset=False*, *allow_override=True*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/library.py#L441)
+impl(*op_name*, *fn*, *dispatch_key=''*, ***, *with_keyset=False*, *allow_override=True*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/library.py#L441)
 
 Registers the function implementation for an operator defined in the library.
 
@@ -1296,7 +1296,7 @@ Example::
 >>> my_lib.impl("div.Tensor", div_cpu, "CPU")
 ```
 
-register_symm_mem_args(*op_name*, *arg_names*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/library.py#L518)
+register_symm_mem_args(*op_name*, *arg_names*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/library.py#L518)
 
 Registers which arguments require symmetric memory allocation for an operator.
 
@@ -1323,11 +1323,11 @@ Example::
 >>> my_lib.register_symm_mem_args("one_shot_all_reduce", ["input"])
 ```
 
-torch.library.fallthrough_kernel()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/library.py#L60)
+torch.library.fallthrough_kernel()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/library.py#L60)
 
 A dummy function to pass to `Library.impl` in order to register a fallthrough.
 
-torch.library.define(*qualname*, *schema*, ***, *lib=None*, *tags=()*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/library.py#L694)
+torch.library.define(*qualname*, *schema*, ***, *lib=None*, *tags=()*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/library.py#L694)
 
 torch.library.define(*lib*, *schema*, *alias_analysis=''*)
 
@@ -1345,13 +1345,13 @@ you must then perform the second step by calling various
 
 Parameters:
 
-- **qualname** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - The qualified name for the operator. Should be
+- **qualname** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - The qualified name for the operator. Should be
 a string that looks like "namespace::name", e.g. "aten::sin".
 Operators in PyTorch need a namespace to
 avoid name collisions; a given operator may only be created once.
 If you are writing a Python library, we recommend the namespace to
 be the name of your top-level module.
-- **schema** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - The schema of the operator. E.g. "(Tensor x) -> Tensor"
+- **schema** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - The schema of the operator. E.g. "(Tensor x) -> Tensor"
 for an op that accepts one Tensor and returns one Tensor. It does
 not contain the operator name (that is passed in `qualname`).
 - **lib** (*Optional**[**Library**]*) - If provided, the lifetime of this operator
@@ -1381,13 +1381,13 @@ Example::
 >>> assert torch.allclose(y, x.sin())
 ```
 
-torch.library.impl(*lib*, *name*, *dispatch_key=''*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/library.py#L804)
+torch.library.impl(*lib*, *name*, *dispatch_key=''*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/library.py#L804)
 
-torch.library.impl(*qualname: [str](https://docs.python.org/3/library/stdtypes.html#str)*, *types: [str](https://docs.python.org/3/library/stdtypes.html#str) | Sequence[[str](https://docs.python.org/3/library/stdtypes.html#str)]*, *func: [None](https://docs.python.org/3/library/constants.html#None) = None*, ***, *lib: Library | [None](https://docs.python.org/3/library/constants.html#None) = None*) → Callable[[Callable[..., [object](https://docs.python.org/3/library/functions.html#object)]], [None](https://docs.python.org/3/library/constants.html#None)]
+torch.library.impl(*qualname: [str](https://docs.python.org/3/builtins/stdtypes.html#str)*, *types: [str](https://docs.python.org/3/builtins/stdtypes.html#str) | Sequence[[str](https://docs.python.org/3/builtins/stdtypes.html#str)]*, *func: [None](https://docs.python.org/3/builtins/constants.html#None) = None*, ***, *lib: Library | [None](https://docs.python.org/3/builtins/constants.html#None) = None*) → Callable[[Callable[..., [object](https://docs.python.org/3/builtins/functions.html#object)]], [None](https://docs.python.org/3/builtins/constants.html#None)]
 
-torch.library.impl(*qualname: [str](https://docs.python.org/3/library/stdtypes.html#str)*, *types: [str](https://docs.python.org/3/library/stdtypes.html#str) | Sequence[[str](https://docs.python.org/3/library/stdtypes.html#str)]*, *func: Callable[..., [object](https://docs.python.org/3/library/functions.html#object)]*, ***, *lib: Library | [None](https://docs.python.org/3/library/constants.html#None) = None*) → [None](https://docs.python.org/3/library/constants.html#None)
+torch.library.impl(*qualname: [str](https://docs.python.org/3/builtins/stdtypes.html#str)*, *types: [str](https://docs.python.org/3/builtins/stdtypes.html#str) | Sequence[[str](https://docs.python.org/3/builtins/stdtypes.html#str)]*, *func: Callable[..., [object](https://docs.python.org/3/builtins/functions.html#object)]*, ***, *lib: Library | [None](https://docs.python.org/3/builtins/constants.html#None) = None*) → [None](https://docs.python.org/3/builtins/constants.html#None)
 
-torch.library.impl(*lib: Library*, *name: [str](https://docs.python.org/3/library/stdtypes.html#str)*, *dispatch_key: [str](https://docs.python.org/3/library/stdtypes.html#str) = ''*) → Callable[[Callable[_P, _T]], Callable[_P, _T]]
+torch.library.impl(*lib: Library*, *name: [str](https://docs.python.org/3/builtins/stdtypes.html#str)*, *dispatch_key: [str](https://docs.python.org/3/builtins/stdtypes.html#str) = ''*) → Callable[[Callable[_P, _T]], Callable[_P, _T]]
 
 Register an implementation for a device type for this operator.
 
@@ -1404,8 +1404,8 @@ Some valid types are: "cpu", "cuda", "xla", "mps", "ipu", "xpu".
 
 Parameters:
 
-- **qualname** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - Should be a string that looks like "namespace::operator_name".
-- **types** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*|**Sequence**[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*]*) - The device types to register an impl to.
+- **qualname** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - Should be a string that looks like "namespace::operator_name".
+- **types** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*|**Sequence**[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*]*) - The device types to register an impl to.
 - **lib** (*Optional**[**Library**]*) - If provided, the lifetime of this registration
 will be tied to the lifetime of the Library object.
 

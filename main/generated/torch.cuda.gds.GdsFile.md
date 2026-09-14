@@ -1,6 +1,6 @@
 # GdsFile
 
-*class*torch.cuda.gds.GdsFile(*filename*, *flags*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/cuda/gds.py#L96)
+*class*torch.cuda.gds.GdsFile(*filename*, *flags*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/cuda/gds.py#L96)
 
 Wrapper around cuFile.
 
@@ -11,8 +11,8 @@ for more details.
 
 Parameters:
 
-- **filename** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - Name of the file to open.
-- **flags** ([*int*](https://docs.python.org/3/library/functions.html#int)) - Flags to pass to `os.open` when opening the file. `os.O_DIRECT` will
+- **filename** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - Name of the file to open.
+- **flags** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Flags to pass to `os.open` when opening the file. `os.O_DIRECT` will
 be added automatically.
 
 Example:
@@ -33,13 +33,13 @@ True
 True
 ```
 
-deregister_handle()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/cuda/gds.py#L151)
+deregister_handle()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/cuda/gds.py#L151)
 
 Deregisters file descriptor from cuFile Driver.
 
 This is a wrapper around `cuFileHandleDeregister`.
 
-load_storage(*storage*, *offset=0*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/cuda/gds.py#L161)
+load_storage(*storage*, *offset=0*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/cuda/gds.py#L161)
 
 Loads data from the file into the storage.
 
@@ -49,15 +49,15 @@ will be loaded from the file at `offset` into the storage.
 Parameters:
 
 - **storage** (*Storage*) - Storage to load data into.
-- **offset** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - Offset into the file to start loading from. (Default: 0)
+- **offset** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - Offset into the file to start loading from. (Default: 0)
 
-register_handle()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/cuda/gds.py#L142)
+register_handle()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/cuda/gds.py#L142)
 
 Registers file descriptor to cuFile Driver.
 
 This is a wrapper around `cuFileHandleRegister`.
 
-save_storage(*storage*, *offset=0*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/cuda/gds.py#L175)
+save_storage(*storage*, *offset=0*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/cuda/gds.py#L175)
 
 Saves data from the storage into the file.
 
@@ -67,4 +67,4 @@ will be written to the file at `offset`.
 Parameters:
 
 - **storage** (*Storage*) - Storage to save data from.
-- **offset** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - Offset into the file to start saving to. (Default: 0)
+- **offset** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - Offset into the file to start saving to. (Default: 0)

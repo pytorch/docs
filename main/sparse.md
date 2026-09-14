@@ -305,7 +305,7 @@ You can accelerate the linear layers in your model if the weights are already se
 >>> linear.weight = nn.Parameter(to_sparse_semi_structured(linear.weight.masked_fill(~mask, 0)))
 ```
 
-torch.sparse.semi_structured.to_sparse_semi_structured(*original_tensor*, *transposed=False*, *alg_id=0*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/sparse/semi_structured.py#L310)
+torch.sparse.semi_structured.to_sparse_semi_structured(*original_tensor*, *transposed=False*, *alg_id=0*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/sparse/semi_structured.py#L310)
 
 This function converts a dense tensor into a sparse semi-structured tensor.
 It will return a SparseSemiStructuredTensor, a subclass of torch.Tensor.
@@ -318,8 +318,8 @@ _DTYPE_TO_SHAPE_CONSTRAINTS for each dtype (float32, float16, bfloat16, int8).
 Parameters:
 
 - **original_tensor** ([*Tensor*](tensors.html#torch.Tensor)) - the dense tensor to convert
-- **transposed** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - deprecated arg to be removed in another release. Do not use.
-- **alg_id** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - the algorithm id to use for cuSPARSELt matmul. Defaults to 0.
+- **transposed** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - deprecated arg to be removed in another release. Do not use.
+- **alg_id** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - the algorithm id to use for cuSPARSELt matmul. Defaults to 0.
 Can be obtained via `torch._cslt_sparse_mm_search`.
 
 Returns:

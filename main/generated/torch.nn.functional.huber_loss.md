@@ -1,6 +1,6 @@
 # torch.nn.functional.huber_loss
 
-torch.nn.functional.huber_loss(*input*, *target*, *reduction='mean'*, *delta=1.0*, *weight=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/functional.py#L4105)
+torch.nn.functional.huber_loss(*input*, *target*, *reduction='mean'*, *delta=1.0*, *weight=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/functional.py#L4105)
 
 Compute the Huber loss, with optional weighting.
 
@@ -16,11 +16,11 @@ Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - Predicted values.
 - **target** ([*Tensor*](../tensors.html#torch.Tensor)) - Ground truth values.
-- **reduction** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**optional*) - Specifies the reduction to apply to the output:
+- **reduction** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**optional*) - Specifies the reduction to apply to the output:
 'none' | 'mean' | 'sum'. 'mean': the mean of the output is taken.
 'sum': the output will be summed. 'none': no reduction will be applied.
 Default: 'mean'.
-- **delta** ([*float*](https://docs.python.org/3/library/functions.html#float)*,**optional*) - The threshold at which to change between delta-scaled L1 and L2 loss. Default: 1.0.
+- **delta** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*,**optional*) - The threshold at which to change between delta-scaled L1 and L2 loss. Default: 1.0.
 - **weight** ([*Tensor*](../tensors.html#torch.Tensor)*,**optional*) - Weights for each sample. Default: None.
 
 Returns:

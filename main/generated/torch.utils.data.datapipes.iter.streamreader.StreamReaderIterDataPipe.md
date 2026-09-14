@@ -1,6 +1,6 @@
 # StreamReaderIterDataPipe
 
-*class*torch.utils.data.datapipes.iter.streamreader.StreamReaderIterDataPipe(*datapipe*, *chunk=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/utils/data/datapipes/iter/streamreader.py#L11)
+*class*torch.utils.data.datapipes.iter.streamreader.StreamReaderIterDataPipe(*datapipe*, *chunk=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/utils/data/datapipes/iter/streamreader.py#L11)
 
 Given IO streams and their label names, yield bytes with label name as tuple.
 
@@ -8,8 +8,8 @@ Given IO streams and their label names, yield bytes with label name as tuple.
 
 Parameters:
 
-- **datapipe** (*IterDataPipe**[*[*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*,*[*IOBase*](https://docs.python.org/3/library/io.html#io.IOBase)*]**]*) - Iterable DataPipe provides label/URL and byte stream
-- **chunk** ([*int*](https://docs.python.org/3/library/functions.html#int)*|**None*) - Number of bytes to be read from stream per iteration.
+- **datapipe** (*IterDataPipe**[*[*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,*[*IOBase*](https://docs.python.org/3/library/io.html#io.IOBase)*]**]*) - Iterable DataPipe provides label/URL and byte stream
+- **chunk** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*|**None*) - Number of bytes to be read from stream per iteration.
 If `None`, all bytes will be read until the EOF.
 
 Example
@@ -22,7 +22,7 @@ Example
 [('alphabet', 'a'), ('alphabet', 'b'), ('alphabet', 'c'), ('alphabet', 'd'), ('alphabet', 'e')]
 ```
 
-reset()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/utils/data/datapipes/datapipe.py#L233)
+reset()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/utils/data/datapipes/datapipe.py#L233)
 
 Reset the IterDataPipe to the initial state.
 

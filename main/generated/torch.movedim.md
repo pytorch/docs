@@ -11,8 +11,8 @@ their original order and appear at the positions not specified in `destination`.
 Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - the input tensor.
-- **source** ([*int*](https://docs.python.org/3/library/functions.html#int)*or*[*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*of**ints*) - Original positions of the dims to move. These must be unique.
-- **destination** ([*int*](https://docs.python.org/3/library/functions.html#int)*or*[*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*of**ints*) - Destination positions for each of the original dims. These must also be unique.
+- **source** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*or*[*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*of**ints*) - Original positions of the dims to move. These must be unique.
+- **destination** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*or*[*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*of**ints*) - Destination positions for each of the original dims. These must also be unique.
 
 Examples:
 

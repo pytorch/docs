@@ -1,6 +1,6 @@
 # AdaptiveMaxPool1d
 
-*class*torch.nn.AdaptiveMaxPool1d(*output_size*, *return_indices=False*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/pooling.py#L1317)
+*class*torch.nn.AdaptiveMaxPool1d(*output_size*, *return_indices=False*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/pooling.py#L1317)
 
 Applies a 1D adaptive max pooling over an input signal composed of several input planes.
 
@@ -9,8 +9,8 @@ The number of output features is equal to the number of input planes.
 
 Parameters:
 
-- **output_size** ([*int*](https://docs.python.org/3/library/functions.html#int)*|*[*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*[*[*int*](https://docs.python.org/3/library/functions.html#int)*]*) - the target output size LoutL_{out}Lout​.
-- **return_indices** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - if `True`, will return the indices along with the outputs.
+- **output_size** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*|*[*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*[*[*int*](https://docs.python.org/3/builtins/functions.html#int)*]*) - the target output size LoutL_{out}Lout​.
+- **return_indices** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - if `True`, will return the indices along with the outputs.
 Useful to pass to nn.MaxUnpool1d. Default: `False`
 
 Shape:
@@ -28,6 +28,6 @@ Examples
 >>> output = m(input)
 ```
 
-forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/pooling.py#L1343)
+forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/pooling.py#L1343)
 
 Runs the forward pass.

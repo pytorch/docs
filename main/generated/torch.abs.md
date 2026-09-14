@@ -1,6 +1,6 @@
 # torch.abs
 
-torch.abs(*input: [Tensor](../tensors.html#torch.Tensor)*, ***, *out: [Tensor](../tensors.html#torch.Tensor) | [None](https://docs.python.org/3/library/constants.html#None)*) → [Tensor](../tensors.html#torch.Tensor)
+torch.abs(*input: [Tensor](../tensors.html#torch.Tensor)*, ***, *out: [Tensor](../tensors.html#torch.Tensor) | [None](https://docs.python.org/3/builtins/constants.html#None)*) → [Tensor](../tensors.html#torch.Tensor)
 
 Computes the absolute value of each element in `input`.
 

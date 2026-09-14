@@ -1,6 +1,6 @@
 # torch.linalg.ldl_factor
 
-torch.linalg.ldl_factor(*A*, ***, *hermitian=False*, *out=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/linalg/__init__.py#L914)
+torch.linalg.ldl_factor(*A*, ***, *hermitian=False*, *out=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/linalg/__init__.py#L914)
 
 Computes a compact representation of the LDL factorization of a Hermitian or symmetric (possibly indefinite) matrix.
 
@@ -29,9 +29,9 @@ consisting of symmetric or Hermitian matrices.
 
 Keyword Arguments:
 
-- **hermitian** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - whether to consider the input to be Hermitian or symmetric.
+- **hermitian** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - whether to consider the input to be Hermitian or symmetric.
 For real-valued matrices, this switch has no effect. Default: False.
-- **out** ([*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*,**optional*) - tuple of two tensors to write the output to. Ignored if None. Default: None.
+- **out** ([*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*,**optional*) - tuple of two tensors to write the output to. Ignored if None. Default: None.
 
 Returns:
 

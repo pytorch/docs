@@ -1,6 +1,6 @@
 # torch.msort
 
-torch.msort(*input: [Tensor](../tensors.html#torch.Tensor)*, ***, *out: [Tensor](../tensors.html#torch.Tensor) | [None](https://docs.python.org/3/library/constants.html#None)*) → [Tensor](../tensors.html#torch.Tensor)
+torch.msort(*input: [Tensor](../tensors.html#torch.Tensor)*, ***, *out: [Tensor](../tensors.html#torch.Tensor) | [None](https://docs.python.org/3/builtins/constants.html#None)*) → [Tensor](../tensors.html#torch.Tensor)
 
 Sorts the elements of the `input` tensor along its first dimension
 in ascending order by value.

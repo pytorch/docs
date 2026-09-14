@@ -9,11 +9,11 @@ returned tensor and `input` tensor share the same underlying storage.
 Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - the tensor to narrow
-- **dim** ([*int*](https://docs.python.org/3/library/functions.html#int)) - the dimension along which to narrow
-- **start** ([*int*](https://docs.python.org/3/library/functions.html#int)*or*[*Tensor*](../tensors.html#torch.Tensor)) - index of the element to start the narrowed dimension
+- **dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - the dimension along which to narrow
+- **start** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*or*[*Tensor*](../tensors.html#torch.Tensor)) - index of the element to start the narrowed dimension
 from. Can be negative, which means indexing from the end of dim. If
 Tensor, it must be an 0-dim integral Tensor (bools not allowed)
-- **length** ([*int*](https://docs.python.org/3/library/functions.html#int)) - length of the narrowed dimension, must be weakly positive
+- **length** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - length of the narrowed dimension, must be weakly positive
 
 Example:
 

@@ -1,6 +1,6 @@
 # torch.linalg.tensorsolve
 
-torch.linalg.tensorsolve(*A*, *B*, *dims=None*, ***, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/linalg/__init__.py#L2799)
+torch.linalg.tensorsolve(*A*, *B*, *dims=None*, ***, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/linalg/__init__.py#L2799)
 
 Computes the solution X to the system torch.tensordot(A, X) = B.
 
@@ -30,7 +30,7 @@ Parameters:
 prod(`A`.shape[:`B`.ndim]) ==
 prod(`A`.shape[`B`.ndim:]).
 - **B** ([*Tensor*](../tensors.html#torch.Tensor)) - tensor of shape `A`.shape[:`B`.ndim].
-- **dims** (*Tuple**[*[*int*](https://docs.python.org/3/library/functions.html#int)*]**,**optional*) - dimensions of `A` to be moved.
+- **dims** (*Tuple**[*[*int*](https://docs.python.org/3/builtins/functions.html#int)*]**,**optional*) - dimensions of `A` to be moved.
 If None, no dimensions are moved. Default: None.
 
 Keyword Arguments:
@@ -39,7 +39,7 @@ Keyword Arguments:
 
 Raises:
 
-[**RuntimeError**](https://docs.python.org/3/library/exceptions.html#RuntimeError) - if the reshaped `A`.view(m, m) with m as above is not
+[**RuntimeError**](https://docs.python.org/3/builtins/exceptions.html#RuntimeError) - if the reshaped `A`.view(m, m) with m as above is not
  invertible or the product of the first `ind` dimensions is not equal
  to the product of the rest of the dimensions.
 

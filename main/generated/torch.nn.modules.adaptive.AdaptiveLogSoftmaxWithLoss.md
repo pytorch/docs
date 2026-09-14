@@ -1,6 +1,6 @@
 # AdaptiveLogSoftmaxWithLoss
 
-*class*torch.nn.modules.adaptive.AdaptiveLogSoftmaxWithLoss(*in_features*, *n_classes*, *cutoffs*, *div_value=4.0*, *head_bias=False*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/adaptive.py#L21)
+*class*torch.nn.modules.adaptive.AdaptiveLogSoftmaxWithLoss(*in_features*, *n_classes*, *cutoffs*, *div_value=4.0*, *head_bias=False*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/adaptive.py#L21)
 
 Efficient softmax approximation.
 
@@ -66,12 +66,12 @@ method can be used.
 
 Parameters:
 
-- **in_features** ([*int*](https://docs.python.org/3/library/functions.html#int)) - Number of features in the input tensor
-- **n_classes** ([*int*](https://docs.python.org/3/library/functions.html#int)) - Number of classes in the dataset
+- **in_features** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Number of features in the input tensor
+- **n_classes** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Number of classes in the dataset
 - **cutoffs** (*Sequence*) - Cutoffs used to assign targets to their buckets
-- **div_value** ([*float*](https://docs.python.org/3/library/functions.html#float)*,**optional*) - value used as an exponent to compute sizes
+- **div_value** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*,**optional*) - value used as an exponent to compute sizes
 of the clusters. Default: 4.0
-- **head_bias** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If `True`, adds a bias term to the 'head' of the
+- **head_bias** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If `True`, adds a bias term to the 'head' of the
 adaptive softmax. Default: `False`
 
 Returns:
@@ -92,7 +92,7 @@ Shape:
 - output1: (N)(N)(N) or ()()()
 - output2: `Scalar`
 
-forward(*input_*, *target_*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/adaptive.py#L186)
+forward(*input_*, *target_*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/adaptive.py#L186)
 
 Runs the forward pass.
 
@@ -100,7 +100,7 @@ Return type:
 
 *_ASMoutput*
 
-log_prob(*input*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/adaptive.py#L286)
+log_prob(*input*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/adaptive.py#L286)
 
 Compute log probabilities for all n_classes\texttt{n\_classes}n_classes.
 
@@ -123,7 +123,7 @@ Shape:
 - Input: (N,in_features)(N, \texttt{in\_features})(N,in_features)
 - Output: (N,n_classes)(N, \texttt{n\_classes})(N,n_classes)
 
-predict(*input*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/adaptive.py#L305)
+predict(*input*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/adaptive.py#L305)
 
 Return the class with the highest probability for each example in the input minibatch.
 
@@ -146,6 +146,6 @@ Shape:
 - Input: (N,in_features)(N, \texttt{in\_features})(N,in_features)
 - Output: (N)(N)(N)
 
-reset_parameters()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/adaptive.py#L177)
+reset_parameters()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/adaptive.py#L177)
 
 Resets parameters based on their initialization used in `__init__`.

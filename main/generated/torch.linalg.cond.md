@@ -1,6 +1,6 @@
 # torch.linalg.cond
 
-torch.linalg.cond(*A*, *p=None*, ***, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/linalg/__init__.py#L1938)
+torch.linalg.cond(*A*, *p=None*, ***, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/linalg/__init__.py#L1938)
 
 Computes the condition number of a matrix with respect to a matrix norm.
 
@@ -62,7 +62,7 @@ Parameters:
 - **A** ([*Tensor*](../tensors.html#torch.Tensor)) - tensor of shape (*, m, n) where * is zero or more batch dimensions
 for `p` in (2, -2), and of shape (*, n, n) where every matrix
 is invertible for `p` in ('fro', 'nuc', inf, -inf, 1, -1).
-- **p** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**inf**,**-inf**,**'fro'**,**'nuc'**,**optional*) - the type of the matrix norm to use in the computations (see above). Default: None
+- **p** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**inf**,**-inf**,**'fro'**,**'nuc'**,**optional*) - the type of the matrix norm to use in the computations (see above). Default: None
 
 Keyword Arguments:
 
@@ -74,7 +74,7 @@ A real-valued tensor, even when `A` is complex.
 
 Raises:
 
-[**RuntimeError**](https://docs.python.org/3/library/exceptions.html#RuntimeError) - if `p` is one of ('fro', 'nuc', inf, -inf, 1, -1)
+[**RuntimeError**](https://docs.python.org/3/builtins/exceptions.html#RuntimeError) - if `p` is one of ('fro', 'nuc', inf, -inf, 1, -1)
  and the `A` matrix or any matrix in the batch `A` is not square
  or invertible.
 

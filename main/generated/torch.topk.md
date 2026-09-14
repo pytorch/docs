@@ -24,16 +24,16 @@ and may vary across different invocations.
 Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - the input tensor.
-- **k** ([*int*](https://docs.python.org/3/library/functions.html#int)) - the k in "top-k"
-- **dim** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - the dimension to sort along
-- **largest** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - controls whether to return largest or
+- **k** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - the k in "top-k"
+- **dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - the dimension to sort along
+- **largest** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - controls whether to return largest or
 smallest elements
-- **sorted** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - controls whether to return the elements
+- **sorted** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - controls whether to return the elements
 in sorted order
 
 Keyword Arguments:
 
-**out** ([*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*,**optional*) - the output tuple of (Tensor, LongTensor) that can be
+**out** ([*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*,**optional*) - the output tuple of (Tensor, LongTensor) that can be
 optionally given to be used as output buffers
 
 Example:

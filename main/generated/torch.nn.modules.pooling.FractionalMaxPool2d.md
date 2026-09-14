@@ -1,6 +1,6 @@
 # FractionalMaxPool2d
 
-*class*torch.nn.modules.pooling.FractionalMaxPool2d(*kernel_size*, *output_size=None*, *output_ratio=None*, *return_indices=False*, *_random_samples=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/pooling.py#L913)
+*class*torch.nn.modules.pooling.FractionalMaxPool2d(*kernel_size*, *output_size=None*, *output_ratio=None*, *return_indices=False*, *_random_samples=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/pooling.py#L913)
 
 Applies a 2D fractional max pooling over an input signal composed of several input planes.
 
@@ -16,16 +16,16 @@ Exactly one of `output_size` or `output_ratio` must be defined.
 
 Parameters:
 
-- **kernel_size** ([*int*](https://docs.python.org/3/library/functions.html#int)*|*[*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*[*[*int*](https://docs.python.org/3/library/functions.html#int)*,*[*int*](https://docs.python.org/3/library/functions.html#int)*]*) - the size of the window to take a max over.
+- **kernel_size** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*|*[*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*[*[*int*](https://docs.python.org/3/builtins/functions.html#int)*,*[*int*](https://docs.python.org/3/builtins/functions.html#int)*]*) - the size of the window to take a max over.
 Can be a single number k (for a square kernel of k x k) or a tuple (kh, kw)
-- **output_size** ([*int*](https://docs.python.org/3/library/functions.html#int)*|*[*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*[*[*int*](https://docs.python.org/3/library/functions.html#int)*,*[*int*](https://docs.python.org/3/library/functions.html#int)*]*) - the target output size of the image of the form oH x oW.
+- **output_size** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*|*[*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*[*[*int*](https://docs.python.org/3/builtins/functions.html#int)*,*[*int*](https://docs.python.org/3/builtins/functions.html#int)*]*) - the target output size of the image of the form oH x oW.
 Can be a tuple (oH, oW) or a single number oH for a square image oH x oH.
 Note that we must have kH+oH−1<=HinkH + oH - 1 <= H_{in}kH+oH−1<=Hin​ and kW+oW−1<=WinkW + oW - 1 <= W_{in}kW+oW−1<=Win​
-- **output_ratio** ([*float*](https://docs.python.org/3/library/functions.html#float)*|*[*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*[*[*float*](https://docs.python.org/3/library/functions.html#float)*,*[*float*](https://docs.python.org/3/library/functions.html#float)*]*) - If one wants to have an output size as a ratio of the input size, this option can be given.
+- **output_ratio** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*|*[*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*[*[*float*](https://docs.python.org/3/builtins/functions.html#float)*,*[*float*](https://docs.python.org/3/builtins/functions.html#float)*]*) - If one wants to have an output size as a ratio of the input size, this option can be given.
 This has to be a number or tuple in the range (0, 1).
 Note that we must have kH+(output_ratio_H∗Hin)−1<=HinkH + (output\_ratio\_H * H_{in}) - 1 <= H_{in}kH+(output_ratio_H∗Hin​)−1<=Hin​
 and kW+(output_ratio_W∗Win)−1<=WinkW + (output\_ratio\_W * W_{in}) - 1 <= W_{in}kW+(output_ratio_W∗Win​)−1<=Win​
-- **return_indices** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - if `True`, will return the indices along with the outputs.
+- **return_indices** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - if `True`, will return the indices along with the outputs.
 Useful to pass to `nn.MaxUnpool2d()`. Default: `False`
 
 Shape:

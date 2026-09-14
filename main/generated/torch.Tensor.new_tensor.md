@@ -31,11 +31,11 @@ Keyword Arguments:
 Default: if None, same [`torch.dtype`](../tensor_attributes.html#torch.dtype) as this tensor.
 - **device** ([`torch.device`](../tensor_attributes.html#torch.device), optional) - the desired device of returned tensor.
 Default: if None, same [`torch.device`](../tensor_attributes.html#torch.device) as this tensor.
-- **requires_grad** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If autograd should record operations on the
+- **requires_grad** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If autograd should record operations on the
 returned tensor. Default: `False`.
 - **layout** ([`torch.layout`](../tensor_attributes.html#torch.layout), optional) - the desired layout of returned Tensor.
 Default: `torch.strided`.
-- **pin_memory** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If set, returned tensor would be allocated in
+- **pin_memory** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If set, returned tensor would be allocated in
 the pinned memory. Works only for CPU tensors. Default: `False`.
 
 Example:

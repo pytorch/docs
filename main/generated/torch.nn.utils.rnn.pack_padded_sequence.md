@@ -1,6 +1,6 @@
 # torch.nn.utils.rnn.pack_padded_sequence
 
-torch.nn.utils.rnn.pack_padded_sequence(*input*, *lengths*, *batch_first=False*, *enforce_sorted=True*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/utils/rnn.py#L258)
+torch.nn.utils.rnn.pack_padded_sequence(*input*, *lengths*, *batch_first=False*, *enforce_sorted=True*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/utils/rnn.py#L258)
 
 Packs a Tensor containing padded sequences of variable length.
 
@@ -27,11 +27,11 @@ a [`PackedSequence`](torch.nn.utils.rnn.PackedSequence.html#torch.nn.utils.rnn.P
 Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - padded batch of variable length sequences.
-- **lengths** ([*Tensor*](../tensors.html#torch.Tensor)*or*[*list*](https://docs.python.org/3/library/stdtypes.html#list)*(*[*int*](https://docs.python.org/3/library/functions.html#int)*)*) - list of sequence lengths of each batch
+- **lengths** ([*Tensor*](../tensors.html#torch.Tensor)*or*[*list*](https://docs.python.org/3/builtins/stdtypes.html#list)*(*[*int*](https://docs.python.org/3/builtins/functions.html#int)*)*) - list of sequence lengths of each batch
 element (must be on the CPU if provided as a tensor).
-- **batch_first** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - if `True`, the input is expected in `B x T x *`
+- **batch_first** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - if `True`, the input is expected in `B x T x *`
 format, `T x B x *` otherwise. Default: `False`.
-- **enforce_sorted** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - if `True`, the input is expected to
+- **enforce_sorted** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - if `True`, the input is expected to
 contain sequences sorted by length in a decreasing order. If
 `False`, the input will get sorted unconditionally. Default: `True`.
 

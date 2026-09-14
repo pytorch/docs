@@ -19,7 +19,7 @@ d1,d2d_{1}, d_{2}d1​,d2​ are the dimensions of the matrix.
 Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - the input tensor.
-- **diagonal** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - the diagonal to consider
+- **diagonal** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - the diagonal to consider
 
 Keyword Arguments:
 

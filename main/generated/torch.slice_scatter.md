@@ -10,10 +10,10 @@ Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - the input tensor.
 - **src** ([*Tensor*](../tensors.html#torch.Tensor)) - The tensor to embed into `input`
-- **dim** ([*int*](https://docs.python.org/3/library/functions.html#int)) - the dimension to insert the slice into
-- **start** (*Optional**[*[*int*](https://docs.python.org/3/library/functions.html#int)*]*) - the start index of where to insert the slice
-- **end** (*Optional**[*[*int*](https://docs.python.org/3/library/functions.html#int)*]*) - the end index of where to insert the slice
-- **step** ([*int*](https://docs.python.org/3/library/functions.html#int)) - the how many elements to skip in
+- **dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - the dimension to insert the slice into
+- **start** (*Optional**[*[*int*](https://docs.python.org/3/builtins/functions.html#int)*]*) - the start index of where to insert the slice
+- **end** (*Optional**[*[*int*](https://docs.python.org/3/builtins/functions.html#int)*]*) - the end index of where to insert the slice
+- **step** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - the how many elements to skip in
 
 Example:
 

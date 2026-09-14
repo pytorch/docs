@@ -11,7 +11,7 @@ See [`PixelUnshuffle`](torch.nn.PixelUnshuffle.html#torch.nn.PixelUnshuffle) for
 Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - the input tensor
-- **downscale_factor** ([*int*](https://docs.python.org/3/library/functions.html#int)) - factor to increase spatial resolution by
+- **downscale_factor** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - factor to increase spatial resolution by
 
 Examples:
 

@@ -1,6 +1,6 @@
 # SparseSemiStructuredTensorCUSPARSELT
 
-*class*torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT(*shape*, *packed*, *meta*, *packed_t*, *meta_t*, *compressed_swizzled_bitmask*, *fuse_transpose_cusparselt=False*, *alg_id_cusparselt=0*, *requires_grad=False*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/sparse/semi_structured.py#L549)
+*class*torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT(*shape*, *packed*, *meta*, *packed_t*, *meta_t*, *compressed_swizzled_bitmask*, *fuse_transpose_cusparselt=False*, *alg_id_cusparselt=0*, *requires_grad=False*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/sparse/semi_structured.py#L549)
 
 The cuSPARSELt backend expects the specified elements and the metadata to be stored in a single tensor:
 packed = [ specified elements of original tensor | metadata ]
@@ -311,7 +311,7 @@ atanh_(*other*) → [Tensor](../tensors.html#torch.Tensor)
 
 In-place version of `atanh()`
 
-backward(*gradient=None*, *retain_graph=None*, *create_graph=False*, *inputs=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/_tensor.py#L566)
+backward(*gradient=None*, *retain_graph=None*, *create_graph=False*, *inputs=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/_tensor.py#L566)
 
 Computes the gradient of current tensor wrt graph leaves.
 
@@ -344,14 +344,14 @@ Parameters:
 - **gradient** ([*Tensor*](../tensors.html#torch.Tensor)*,**optional*) - The gradient of the function
 being differentiated w.r.t. `self`.
 This argument can be omitted if `self` is a scalar. Defaults to `None`.
-- **retain_graph** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If `False`, the graph used to compute the grads will be freed;
+- **retain_graph** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If `False`, the graph used to compute the grads will be freed;
 If `True`, it will be retained. The default is `None`, in which case the value is inferred from `create_graph`
 (i.e., the graph is retained only when higher-order derivative tracking is requested). Note that in nearly all cases
 setting this option to True is not needed and often can be worked around in a much more efficient way.
-- **create_graph** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If `True`, graph of the derivative will
+- **create_graph** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If `True`, graph of the derivative will
 be constructed, allowing to compute higher order derivative
 products. Defaults to `False`.
-- **inputs** (*Sequence**[*[*Tensor*](../tensors.html#torch.Tensor)*] or*[*dict*](https://docs.python.org/3/library/stdtypes.html#dict)*[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*,*[*Tensor*](../tensors.html#torch.Tensor)*]**,**optional*) - Inputs w.r.t. which
+- **inputs** (*Sequence**[*[*Tensor*](../tensors.html#torch.Tensor)*] or*[*dict*](https://docs.python.org/3/builtins/stdtypes.html#dict)*[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,*[*Tensor*](../tensors.html#torch.Tensor)*]**,**optional*) - Inputs w.r.t. which
 the gradient will be accumulated into `.grad`. All other tensors will be
 ignored. If not provided, the gradient is accumulated into all the leaf
 Tensors that were used to compute the `tensors`. A dict of tensors
@@ -603,7 +603,7 @@ conj_physical_() → [Tensor](../tensors.html#torch.Tensor)
 
 In-place version of `conj_physical()`
 
-const_data_ptr() → [int](https://docs.python.org/3/library/functions.html#int)
+const_data_ptr() → [int](https://docs.python.org/3/builtins/functions.html#int)
 
 Returns the address of the first element of `self` tensor.
 
@@ -639,7 +639,7 @@ different device.
 Parameters:
 
 - **src** ([*Tensor*](../tensors.html#torch.Tensor)) - the source tensor to copy from
-- **non_blocking** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - if `True` and this copy is between CPU and GPU,
+- **non_blocking** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - if `True` and this copy is between CPU and GPU,
 the copy may occur asynchronously with respect to the host. For other
 cases, this argument has no effect. Default: `False`
 
@@ -730,7 +730,7 @@ Parameters:
 
 - **device** ([`torch.device`](../tensor_attributes.html#torch.device), optional) - The destination GPU device.
 Defaults to the current CUDA device.
-- **non_blocking** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If `True` and the source is in pinned memory,
+- **non_blocking** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If `True` and the source is in pinned memory,
 the copy will be asynchronous with respect to the host.
 Otherwise, the argument has no effect. Default: `False`.
 - **memory_format** ([`torch.memory_format`](../tensor_attributes.html#torch.memory_format), optional) - the desired memory format of
@@ -760,7 +760,7 @@ cumsum_(*dim*, *dtype=None*) → [Tensor](../tensors.html#torch.Tensor)
 
 In-place version of `cumsum()`
 
-data_ptr() → [int](https://docs.python.org/3/library/functions.html#int)
+data_ptr() → [int](https://docs.python.org/3/builtins/functions.html#int)
 
 Returns the address of the first element of `self` tensor.
 
@@ -779,7 +779,7 @@ deg2rad_() → [Tensor](../tensors.html#torch.Tensor)
 
 In-place version of `deg2rad()`
 
-dense_dim() → [int](https://docs.python.org/3/library/functions.html#int)
+dense_dim() → [int](https://docs.python.org/3/builtins/functions.html#int)
 
 Return the number of dense dimensions in a [sparse tensor](../sparse.html#sparse-docs) `self`.
 
@@ -856,11 +856,11 @@ digamma_() → [Tensor](../tensors.html#torch.Tensor)
 
 In-place version of `digamma()`
 
-dim() → [int](https://docs.python.org/3/library/functions.html#int)
+dim() → [int](https://docs.python.org/3/builtins/functions.html#int)
 
 Returns the number of dimensions of `self` tensor.
 
-dim_order(*ambiguity_check=False*) → [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/_tensor.py#L1383)
+dim_order(*ambiguity_check=False*) → [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/_tensor.py#L1383)
 
 Returns the uniquely determined tuple of int describing the dim order or
 physical layout of `self`.
@@ -877,7 +877,7 @@ Otherwise, it will raise TypeError.
 
 Parameters:
 
-**ambiguity_check** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*or**List**[*[*torch.memory_format*](../tensor_attributes.html#torch.memory_format)*]*) - The check method for ambiguity of dim order.
+**ambiguity_check** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*or**List**[*[*torch.memory_format*](../tensor_attributes.html#torch.memory_format)*]*) - The check method for ambiguity of dim order.
 
 Examples:
 
@@ -947,7 +947,7 @@ dsplit(*split_size_or_sections*) → List of Tensors
 
 See [`torch.dsplit()`](torch.dsplit.html#torch.dsplit)
 
-element_size() → [int](https://docs.python.org/3/library/functions.html#int)
+element_size() → [int](https://docs.python.org/3/builtins/functions.html#int)
 
 Returns the size in bytes of an individual element.
 
@@ -968,7 +968,7 @@ eq_(*other*) → [Tensor](../tensors.html#torch.Tensor)
 
 In-place version of `eq()`
 
-equal(*other*) → [bool](https://docs.python.org/3/library/functions.html#bool)
+equal(*other*) → [bool](https://docs.python.org/3/builtins/functions.html#bool)
 
 See [`torch.equal()`](torch.equal.html#torch.equal)
 
@@ -1038,7 +1038,7 @@ materialize the expanded values. For example, changing dtype after
 
 Parameters:
 
-***size** ([*torch.Size*](../size.html#torch.Size)*or*[*int*](https://docs.python.org/3/library/functions.html#int)*...*) - the desired expanded size
+***size** ([*torch.Size*](../size.html#torch.Size)*or*[*int*](https://docs.python.org/3/builtins/functions.html#int)*...*) - the desired expanded size
 
 Warning
 
@@ -1111,7 +1111,7 @@ This function modifies the input tensor in-place, and returns the input tensor.
 Parameters:
 
 - **fill_value** (*Scalar*) - the fill value
-- **wrap** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - the diagonal 'wrapped' after N columns for tall matrices. Default: `False`
+- **wrap** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - the diagonal 'wrapped' after N columns for tall matrices. Default: `False`
 
 Example:
 
@@ -1427,7 +1427,7 @@ tensor([(0.3100+0.3553j), (-0.5445-0.7896j), (-1.6492-0.0633j), (-0.0638-0.8119j
 tensor([ 0.3553, -0.7896, -0.0633, -0.8119])
 ```
 
-index(*positions*, *dims*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/_tensor.py#L627)
+index(*positions*, *dims*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/_tensor.py#L627)
 
 Index a regular tensor by binding specified positions to dims.
 
@@ -1472,7 +1472,7 @@ This operation may behave nondeterministically when given tensors on a CUDA devi
 
 Parameters:
 
-- **dim** ([*int*](https://docs.python.org/3/library/functions.html#int)) - dimension along which to index
+- **dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - dimension along which to index
 - **index** ([*Tensor*](../tensors.html#torch.Tensor)) - indices of `self` to add to,
 should have dtype either torch.int64 or torch.int32
 - **source** ([*Tensor*](../tensors.html#torch.Tensor)) - the tensor containing values to add
@@ -1524,7 +1524,7 @@ is nondeterministic since it depends on which copy occurs last.
 
 Parameters:
 
-- **dim** ([*int*](https://docs.python.org/3/library/functions.html#int)) - dimension along which to index
+- **dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - dimension along which to index
 - **index** (*LongTensor*) - indices of `tensor` to select from
 - **tensor** ([*Tensor*](../tensors.html#torch.Tensor)) - the tensor containing values to copy
 
@@ -1553,9 +1553,9 @@ selecting the indices in the order given in `index`.
 
 Parameters:
 
-- **dim** ([*int*](https://docs.python.org/3/library/functions.html#int)) - dimension along which to index
+- **dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - dimension along which to index
 - **index** (*LongTensor*) - indices of `self` tensor to fill in
-- **value** ([*float*](https://docs.python.org/3/library/functions.html#float)) - the value to fill with
+- **value** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - the value to fill with
 
 Example:
 
@@ -1585,9 +1585,9 @@ contain duplicate elements.
 
 Parameters:
 
-- **indices** ([*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*of**LongTensor*) - tensors used to index into self.
+- **indices** ([*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*of**LongTensor*) - tensors used to index into self.
 - **values** ([*Tensor*](../tensors.html#torch.Tensor)) - tensor of same dtype as self.
-- **accumulate** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - whether to accumulate into self
+- **accumulate** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - whether to accumulate into self
 
 index_reduce_(*dim*, *index*, *source*, *reduce*, ***, *include_self=True*) → [Tensor](../tensors.html#torch.Tensor)
 
@@ -1627,16 +1627,16 @@ This function is in beta and may change in the near future.
 
 Parameters:
 
-- **dim** ([*int*](https://docs.python.org/3/library/functions.html#int)) - dimension along which to index
+- **dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - dimension along which to index
 - **index** ([*Tensor*](../tensors.html#torch.Tensor)) - indices of `self` to accumulate into,
 should have dtype either torch.int64 or torch.int32
 - **source** (*FloatTensor*) - the tensor containing values to accumulate
-- **reduce** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - the reduction operation to apply
+- **reduce** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - the reduction operation to apply
 (`"prod"`, `"mean"`, `"amax"`, `"amin"`)
 
 Keyword Arguments:
 
-**include_self** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - whether the elements from the `self` tensor are
+**include_self** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - whether the elements from the `self` tensor are
 included in the reduction
 
 Example:
@@ -1713,13 +1713,13 @@ Parameters:
 
 - **device** ([`torch.device`](../tensor_attributes.html#torch.device), optional) - The destination IPU device.
 Defaults to the current IPU device.
-- **non_blocking** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If `True` and the source is in pinned memory,
+- **non_blocking** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If `True` and the source is in pinned memory,
 the copy will be asynchronous with respect to the host.
 Otherwise, the argument has no effect. Default: `False`.
 - **memory_format** ([`torch.memory_format`](../tensor_attributes.html#torch.memory_format), optional) - the desired memory format of
 returned Tensor. Default: `torch.preserve_format`.
 
-is_coalesced() → [bool](https://docs.python.org/3/library/functions.html#bool)
+is_coalesced() → [bool](https://docs.python.org/3/builtins/functions.html#bool)
 
 Returns `True` if `self` is a [sparse COO tensor](../sparse.html#sparse-coo-docs) that is coalesced, `False` otherwise.
 
@@ -1729,15 +1729,15 @@ Throws an error if `self` is not a sparse COO tensor.
 
 See `coalesce()` and [uncoalesced tensors](../sparse.html#sparse-uncoalesced-coo-docs).
 
-is_complex() → [bool](https://docs.python.org/3/library/functions.html#bool)
+is_complex() → [bool](https://docs.python.org/3/builtins/functions.html#bool)
 
 Returns True if the data type of `self` is a complex data type.
 
-is_conj() → [bool](https://docs.python.org/3/library/functions.html#bool)
+is_conj() → [bool](https://docs.python.org/3/builtins/functions.html#bool)
 
 Returns True if the conjugate bit of `self` is set to true.
 
-is_contiguous(*memory_format=torch.contiguous_format*) → [bool](https://docs.python.org/3/library/functions.html#bool)
+is_contiguous(*memory_format=torch.contiguous_format*) → [bool](https://docs.python.org/3/builtins/functions.html#bool)
 
 Returns True if `self` tensor is contiguous in memory in the order specified
 by memory format.
@@ -1755,11 +1755,11 @@ is_cuda
 
 Is `True` if the Tensor is stored on the GPU, `False` otherwise.
 
-is_floating_point() → [bool](https://docs.python.org/3/library/functions.html#bool)
+is_floating_point() → [bool](https://docs.python.org/3/builtins/functions.html#bool)
 
 Returns True if the data type of `self` is a floating point data type.
 
-is_inference() → [bool](https://docs.python.org/3/library/functions.html#bool)
+is_inference() → [bool](https://docs.python.org/3/builtins/functions.html#bool)
 
 See [`torch.is_inference()`](torch.is_inference.html#torch.is_inference)
 
@@ -1815,7 +1815,7 @@ is_mps
 
 Is `True` if the Tensor is stored on the MPS device, `False` otherwise.
 
-is_neg() → [bool](https://docs.python.org/3/library/functions.html#bool)
+is_neg() → [bool](https://docs.python.org/3/builtins/functions.html#bool)
 
 Returns True if the negative bit of `self` is set to true.
 
@@ -1828,18 +1828,18 @@ is_quantized
 
 Is `True` if the Tensor is quantized, `False` otherwise.
 
-is_set_to(*tensor*) → [bool](https://docs.python.org/3/library/functions.html#bool)
+is_set_to(*tensor*) → [bool](https://docs.python.org/3/builtins/functions.html#bool)
 
 Returns True if both tensors are pointing to the exact same memory (same
 storage, offset, size and stride).
 
-is_shared()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/_tensor.py#L829)
+is_shared()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/_tensor.py#L829)
 
 Checks if tensor is in shared memory.
 
 This is always `True` for CUDA tensors.
 
-is_signed() → [bool](https://docs.python.org/3/library/functions.html#bool)
+is_signed() → [bool](https://docs.python.org/3/builtins/functions.html#bool)
 
 Returns True if the data type of `self` is a signed data type.
 
@@ -1887,7 +1887,7 @@ isreal() → [Tensor](../tensors.html#torch.Tensor)
 
 See [`torch.isreal()`](torch.isreal.html#torch.isreal)
 
-istft(*n_fft*, *hop_length=None*, *win_length=None*, *window=None*, *center=True*, *normalized=False*, *onesided=None*, *length=None*, *return_complex=False*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/_tensor.py#L999)
+istft(*n_fft*, *hop_length=None*, *win_length=None*, *window=None*, *center=True*, *normalized=False*, *onesided=None*, *length=None*, *return_complex=False*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/_tensor.py#L999)
 
 See [`torch.istft()`](torch.istft.html#torch.istft)
 
@@ -2095,7 +2095,7 @@ lt_(*other*) → [Tensor](../tensors.html#torch.Tensor)
 
 In-place version of `lt()`.
 
-lu(*pivot=True*, *get_infos=False*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/_tensor.py#L934)
+lu(*pivot=True*, *get_infos=False*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/_tensor.py#L934)
 
 See [`torch.lu()`](torch.lu.html#torch.lu)
 
@@ -2139,7 +2139,7 @@ tensor.
 Parameters:
 
 - **mask** (*BoolTensor*) - the boolean mask
-- **value** ([*float*](https://docs.python.org/3/library/functions.html#float)) - the value to fill in with
+- **value** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - the value to fill in with
 
 masked_scatter(*mask*, *tensor*) → [Tensor](../tensors.html#torch.Tensor)
 
@@ -2250,7 +2250,7 @@ mode(*dim=None*, *keepdim=False*)
 
 See [`torch.mode()`](torch.mode.html#torch.mode)
 
-module_load(*other*, *assign=False*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/_tensor.py#L851)
+module_load(*other*, *assign=False*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/_tensor.py#L851)
 
 Defines how to transform `other` when loading it into `self` in `load_state_dict()`.
 
@@ -2270,7 +2270,7 @@ if `assign` is `False` or `other.detach()` if `assign` is `True`.
 Parameters:
 
 - **other** ([*Tensor*](../tensors.html#torch.Tensor)) - value in state dict with key corresponding to `self`
-- **assign** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - the assign argument passed to `nn.Module.load_state_dict()`
+- **assign** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - the assign argument passed to `nn.Module.load_state_dict()`
 
 moveaxis(*source*, *destination*) → [Tensor](../tensors.html#torch.Tensor)
 
@@ -2295,7 +2295,7 @@ Parameters:
 
 - **device** ([`torch.device`](../tensor_attributes.html#torch.device), optional) - The destination MTIA device.
 Defaults to the current MTIA device.
-- **non_blocking** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If `True` and the source is in pinned memory,
+- **non_blocking** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If `True` and the source is in pinned memory,
 the copy will be asynchronous with respect to the host.
 Otherwise, the argument has no effect. Default: `False`.
 - **memory_format** ([`torch.memory_format`](../tensor_attributes.html#torch.memory_format), optional) - the desired memory format of
@@ -2375,7 +2375,7 @@ ndim
 
 Alias for `dim()`
 
-ndimension() → [int](https://docs.python.org/3/library/functions.html#int)
+ndimension() → [int](https://docs.python.org/3/builtins/functions.html#int)
 
 Alias for `dim()`
 
@@ -2403,7 +2403,7 @@ negative_() → [Tensor](../tensors.html#torch.Tensor)
 
 In-place version of `negative()`
 
-nelement() → [int](https://docs.python.org/3/library/functions.html#int)
+nelement() → [int](https://docs.python.org/3/builtins/functions.html#int)
 
 Alias for `numel()`
 
@@ -2415,7 +2415,7 @@ By default, the returned Tensor has the same [`torch.dtype`](../tensor_attribute
 
 Parameters:
 
-**size** ([*int*](https://docs.python.org/3/library/functions.html#int)*...*) - a list, tuple, or [`torch.Size`](../size.html#torch.Size) of integers defining the
+**size** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*...*) - a list, tuple, or [`torch.Size`](../size.html#torch.Size) of integers defining the
 shape of the output tensor.
 
 Keyword Arguments:
@@ -2424,11 +2424,11 @@ Keyword Arguments:
 Default: if None, same [`torch.dtype`](../tensor_attributes.html#torch.dtype) as this tensor.
 - **device** ([`torch.device`](../tensor_attributes.html#torch.device), optional) - the desired device of returned tensor.
 Default: if None, same [`torch.device`](../tensor_attributes.html#torch.device) as this tensor.
-- **requires_grad** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If autograd should record operations on the
+- **requires_grad** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If autograd should record operations on the
 returned tensor. Default: `False`.
 - **layout** ([`torch.layout`](../tensor_attributes.html#torch.layout), optional) - the desired layout of returned Tensor.
 Default: `torch.strided`.
-- **pin_memory** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If set, returned tensor would be allocated in
+- **pin_memory** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If set, returned tensor would be allocated in
 the pinned memory. Works only for CPU tensors. Default: `False`.
 
 Example:
@@ -2448,7 +2448,7 @@ uninitialized data. By default, the returned Tensor has the same
 
 Parameters:
 
-**size** ([*int*](https://docs.python.org/3/library/functions.html#int)*...*) - a list, tuple, or [`torch.Size`](../size.html#torch.Size) of integers defining the
+**size** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*...*) - a list, tuple, or [`torch.Size`](../size.html#torch.Size) of integers defining the
 shape of the output tensor.
 
 Keyword Arguments:
@@ -2457,11 +2457,11 @@ Keyword Arguments:
 Default: if None, same [`torch.dtype`](../tensor_attributes.html#torch.dtype) as this tensor.
 - **device** ([`torch.device`](../tensor_attributes.html#torch.device), optional) - the desired device of returned tensor.
 Default: if None, same [`torch.device`](../tensor_attributes.html#torch.device) as this tensor.
-- **requires_grad** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If autograd should record operations on the
+- **requires_grad** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If autograd should record operations on the
 returned tensor. Default: `False`.
 - **layout** ([`torch.layout`](../tensor_attributes.html#torch.layout), optional) - the desired layout of returned Tensor.
 Default: `torch.strided`.
-- **pin_memory** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If set, returned tensor would be allocated in
+- **pin_memory** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If set, returned tensor would be allocated in
 the pinned memory. Works only for CPU tensors. Default: `False`.
 
 Example:
@@ -2489,11 +2489,11 @@ Keyword Arguments:
 Default: if None, same [`torch.dtype`](../tensor_attributes.html#torch.dtype) as this tensor.
 - **device** ([`torch.device`](../tensor_attributes.html#torch.device), optional) - the desired device of returned tensor.
 Default: if None, same [`torch.device`](../tensor_attributes.html#torch.device) as this tensor.
-- **requires_grad** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If autograd should record operations on the
+- **requires_grad** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If autograd should record operations on the
 returned tensor. Default: `False`.
 - **layout** ([`torch.layout`](../tensor_attributes.html#torch.layout), optional) - the desired layout of returned Tensor.
 Default: `torch.strided`.
-- **pin_memory** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If set, returned tensor would be allocated in
+- **pin_memory** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If set, returned tensor would be allocated in
 the pinned memory. Works only for CPU tensors. Default: `False`.
 
 Example:
@@ -2514,7 +2514,7 @@ By default, the returned Tensor has the same [`torch.dtype`](../tensor_attribute
 
 Parameters:
 
-**size** ([*int*](https://docs.python.org/3/library/functions.html#int)*...*) - a list, tuple, or [`torch.Size`](../size.html#torch.Size) of integers defining the
+**size** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*...*) - a list, tuple, or [`torch.Size`](../size.html#torch.Size) of integers defining the
 shape of the output tensor.
 
 Keyword Arguments:
@@ -2523,11 +2523,11 @@ Keyword Arguments:
 Default: if None, same [`torch.dtype`](../tensor_attributes.html#torch.dtype) as this tensor.
 - **device** ([`torch.device`](../tensor_attributes.html#torch.device), optional) - the desired device of returned tensor.
 Default: if None, same [`torch.device`](../tensor_attributes.html#torch.device) as this tensor.
-- **requires_grad** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If autograd should record operations on the
+- **requires_grad** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If autograd should record operations on the
 returned tensor. Default: `False`.
 - **layout** ([`torch.layout`](../tensor_attributes.html#torch.layout), optional) - the desired layout of returned Tensor.
 Default: `torch.strided`.
-- **pin_memory** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If set, returned tensor would be allocated in
+- **pin_memory** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If set, returned tensor would be allocated in
 the pinned memory. Works only for CPU tensors. Default: `False`.
 
 Example:
@@ -2570,11 +2570,11 @@ Keyword Arguments:
 Default: if None, same [`torch.dtype`](../tensor_attributes.html#torch.dtype) as this tensor.
 - **device** ([`torch.device`](../tensor_attributes.html#torch.device), optional) - the desired device of returned tensor.
 Default: if None, same [`torch.device`](../tensor_attributes.html#torch.device) as this tensor.
-- **requires_grad** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If autograd should record operations on the
+- **requires_grad** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If autograd should record operations on the
 returned tensor. Default: `False`.
 - **layout** ([`torch.layout`](../tensor_attributes.html#torch.layout), optional) - the desired layout of returned Tensor.
 Default: `torch.strided`.
-- **pin_memory** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If set, returned tensor would be allocated in
+- **pin_memory** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If set, returned tensor would be allocated in
 the pinned memory. Works only for CPU tensors. Default: `False`.
 
 Example:
@@ -2595,7 +2595,7 @@ By default, the returned Tensor has the same [`torch.dtype`](../tensor_attribute
 
 Parameters:
 
-**size** ([*int*](https://docs.python.org/3/library/functions.html#int)*...*) - a list, tuple, or [`torch.Size`](../size.html#torch.Size) of integers defining the
+**size** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*...*) - a list, tuple, or [`torch.Size`](../size.html#torch.Size) of integers defining the
 shape of the output tensor.
 
 Keyword Arguments:
@@ -2604,11 +2604,11 @@ Keyword Arguments:
 Default: if None, same [`torch.dtype`](../tensor_attributes.html#torch.dtype) as this tensor.
 - **device** ([`torch.device`](../tensor_attributes.html#torch.device), optional) - the desired device of returned tensor.
 Default: if None, same [`torch.device`](../tensor_attributes.html#torch.device) as this tensor.
-- **requires_grad** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If autograd should record operations on the
+- **requires_grad** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If autograd should record operations on the
 returned tensor. Default: `False`.
 - **layout** ([`torch.layout`](../tensor_attributes.html#torch.layout), optional) - the desired layout of returned Tensor.
 Default: `torch.strided`.
-- **pin_memory** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If set, returned tensor would be allocated in
+- **pin_memory** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If set, returned tensor would be allocated in
 the pinned memory. Works only for CPU tensors. Default: `False`.
 
 Example:
@@ -2636,7 +2636,7 @@ nonzero_static(***, *size*, *fill_value=-1*) → LongTensor
 
 See [`torch.nonzero_static()`](torch.nonzero_static.html#torch.nonzero_static)
 
-norm(*p='fro'*, *dim=None*, *keepdim=False*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/_tensor.py#L890)
+norm(*p='fro'*, *dim=None*, *keepdim=False*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/_tensor.py#L890)
 
 See [`torch.linalg.norm()`](torch.linalg.norm.html#torch.linalg.norm)
 
@@ -2653,7 +2653,7 @@ not_equal_(*other*) → [Tensor](../tensors.html#torch.Tensor)
 
 In-place version of `not_equal()`.
 
-numel() → [int](https://docs.python.org/3/library/functions.html#int)
+numel() → [int](https://docs.python.org/3/builtins/functions.html#int)
 
 See [`torch.numel()`](torch.numel.html#torch.numel)
 
@@ -2676,7 +2676,7 @@ Setting `force` to `True` can be a useful shorthand.
 
 Parameters:
 
-**force** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - if `True`, the ndarray may be a copy of the tensor
+**force** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - if `True`, the ndarray may be a copy of the tensor
 instead of always sharing memory, defaults to `False`.
 
 orgqr(*input2*) → [Tensor](../tensors.html#torch.Tensor)
@@ -2697,7 +2697,7 @@ Returns a view of the tensor with its dimensions permuted.
 
 Parameters:
 
-**dims** ([*torch.Size*](../size.html#torch.Size)*,*[*int*](https://docs.python.org/3/library/functions.html#int)*...**,*[*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*of*[*int*](https://docs.python.org/3/library/functions.html#int)*or*[*list*](https://docs.python.org/3/library/stdtypes.html#list)*of*[*int*](https://docs.python.org/3/library/functions.html#int)) - the desired ordering of dimensions.
+**dims** ([*torch.Size*](../size.html#torch.Size)*,*[*int*](https://docs.python.org/3/builtins/functions.html#int)*...**,*[*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*of*[*int*](https://docs.python.org/3/builtins/functions.html#int)*or*[*list*](https://docs.python.org/3/builtins/stdtypes.html#list)*of*[*int*](https://docs.python.org/3/builtins/functions.html#int)) - the desired ordering of dimensions.
 
 Example
 
@@ -2742,7 +2742,7 @@ prod(*dim=None*, *keepdim=False*, *dtype=None*) → [Tensor](../tensors.html#tor
 
 See [`torch.prod()`](torch.prod.html#torch.prod)
 
-*classmethod*prune_dense_static_sort(*original_tensor*, *algorithm=''*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/sparse/semi_structured.py#L590)
+*classmethod*prune_dense_static_sort(*original_tensor*, *algorithm=''*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/sparse/semi_structured.py#L590)
 
 This function does the same thing as described in SparseSemiStructuredCUTLASS, but uses the cuSPARSELt metadata
 layout and sparse matmul.
@@ -2806,7 +2806,7 @@ Parameters:
 
 - **index** (*LongTensor*) - the indices into self
 - **source** ([*Tensor*](../tensors.html#torch.Tensor)) - the tensor containing values to copy from
-- **accumulate** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - whether to accumulate into self. Default: `False`
+- **accumulate** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - whether to accumulate into self. Default: `False`
 
 Example:
 
@@ -2818,7 +2818,7 @@ tensor([[ 4, 9, 5],
  [ 10, 7, 8]])
 ```
 
-q_per_channel_axis() → [int](https://docs.python.org/3/library/functions.html#int)
+q_per_channel_axis() → [int](https://docs.python.org/3/builtins/functions.html#int)
 
 Given a Tensor quantized by linear (affine) per-channel quantization,
 returns the index of dimension on which per-channel quantization is applied.
@@ -2837,12 +2837,12 @@ returns a tensor of zero_points of the underlying quantizer. It has the number o
 elements that matches the corresponding dimensions (from q_per_channel_axis) of
 the tensor.
 
-q_scale() → [float](https://docs.python.org/3/library/functions.html#float)
+q_scale() → [float](https://docs.python.org/3/builtins/functions.html#float)
 
 Given a Tensor quantized by linear(affine) quantization,
 returns the scale of the underlying quantizer().
 
-q_zero_point() → [int](https://docs.python.org/3/library/functions.html#int)
+q_zero_point() → [int](https://docs.python.org/3/builtins/functions.html#int)
 
 Given a Tensor quantized by linear(affine) quantization,
 returns the zero_point of the underlying quantizer().
@@ -2979,7 +2979,7 @@ necessary (as you are keeping `x` live for longer.) For a concrete
 example of how this guidance can be applied in practice, see this post:
 [FSDP and CUDACachingAllocator](https://dev-discuss.pytorch.org/t/fsdp-cudacachingallocator-an-outsider-newb-perspective/1486).
 
-register_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/_tensor.py#L655)
+register_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/_tensor.py#L655)
 
 Registers a backward hook.
 
@@ -3017,7 +3017,7 @@ Example:
 >>> h.remove() # removes the hook
 ```
 
-register_post_accumulate_grad_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/_tensor.py#L707)
+register_post_accumulate_grad_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/_tensor.py#L707)
 
 Registers a backward hook that runs after grad accumulation.
 
@@ -3093,7 +3093,7 @@ For the operator similar to numpy.repeat, see [`torch.repeat_interleave()`](torc
 
 Parameters:
 
-**repeat** ([*torch.Size*](../size.html#torch.Size)*,*[*int*](https://docs.python.org/3/library/functions.html#int)*...**,*[*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*of*[*int*](https://docs.python.org/3/library/functions.html#int)*or*[*list*](https://docs.python.org/3/library/stdtypes.html#list)*of*[*int*](https://docs.python.org/3/library/functions.html#int)) - The number of times to repeat this tensor along each dimension
+**repeat** ([*torch.Size*](../size.html#torch.Size)*,*[*int*](https://docs.python.org/3/builtins/functions.html#int)*...**,*[*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*of*[*int*](https://docs.python.org/3/builtins/functions.html#int)*or*[*list*](https://docs.python.org/3/builtins/stdtypes.html#list)*of*[*int*](https://docs.python.org/3/builtins/functions.html#int)) - The number of times to repeat this tensor along each dimension
 
 Example:
 
@@ -3134,7 +3134,7 @@ begin to record operations on `tensor`.
 
 Parameters:
 
-**requires_grad** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If autograd should record operations on this tensor.
+**requires_grad** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - If autograd should record operations on this tensor.
 Default: `True`.
 
 Example:
@@ -3167,7 +3167,7 @@ See [`torch.reshape()`](torch.reshape.html#torch.reshape)
 
 Parameters:
 
-**shape** ([*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*of**ints**or*[*int*](https://docs.python.org/3/library/functions.html#int)*...*) - the desired shape
+**shape** ([*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*of**ints**or*[*int*](https://docs.python.org/3/builtins/functions.html#int)*...*) - the desired shape
 
 reshape_as(*other*) → [Tensor](../tensors.html#torch.Tensor)
 
@@ -3211,7 +3211,7 @@ value.
 
 Parameters:
 
-- **sizes** ([*torch.Size*](../size.html#torch.Size)*or*[*int*](https://docs.python.org/3/library/functions.html#int)*...*) - the desired size
+- **sizes** ([*torch.Size*](../size.html#torch.Size)*or*[*int*](https://docs.python.org/3/builtins/functions.html#int)*...*) - the desired size
 - **memory_format** ([`torch.memory_format`](../tensor_attributes.html#torch.memory_format), optional) - the desired memory format of
 Tensor. Default: `torch.contiguous_format`. Note that memory format of
 `self` is going to be unaffected if `self.size()` matches `sizes`.
@@ -3244,7 +3244,7 @@ resolve_neg() → [Tensor](../tensors.html#torch.Tensor)
 
 See [`torch.resolve_neg()`](torch.resolve_neg.html#torch.resolve_neg)
 
-retain_grad() → [None](https://docs.python.org/3/library/constants.html#None)
+retain_grad() → [None](https://docs.python.org/3/builtins/constants.html#None)
 
 Enables this Tensor to have their `grad` populated during
 `backward()`. This is a no-op for leaf tensors.
@@ -3348,7 +3348,7 @@ instead for more reduction options.
 
 Parameters:
 
-- **dim** ([*int*](https://docs.python.org/3/library/functions.html#int)) - the axis along which to index
+- **dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - the axis along which to index
 - **index** (*LongTensor*) - the indices of elements to scatter, can be either empty
 or of the same dimensionality as `src`. When empty, the operation
 returns `self` unchanged.
@@ -3356,7 +3356,7 @@ returns `self` unchanged.
 
 Keyword Arguments:
 
-**reduce** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**optional*) - reduction operation to apply, can be either
+**reduce** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**optional*) - reduction operation to apply, can be either
 `'add'` or `'multiply'`.
 
 Example:
@@ -3395,7 +3395,7 @@ with the `src` tensor filled entirely with `value`.
 
 Parameters:
 
-- **dim** ([*int*](https://docs.python.org/3/library/functions.html#int)) - the axis along which to index
+- **dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - the axis along which to index
 - **index** (*LongTensor*) - the indices of elements to scatter, can be either empty
 or of the same dimensionality as `src`. When empty, the operation
 returns `self` unchanged.
@@ -3403,7 +3403,7 @@ returns `self` unchanged.
 
 Keyword Arguments:
 
-**reduce** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**optional*) - reduction operation to apply, can be either
+**reduce** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**optional*) - reduction operation to apply, can be either
 `'add'` or `'multiply'`.
 
 Example:
@@ -3455,7 +3455,7 @@ The backward pass is implemented only for `src.shape == index.shape`.
 
 Parameters:
 
-- **dim** ([*int*](https://docs.python.org/3/library/functions.html#int)) - the axis along which to index
+- **dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - the axis along which to index
 - **index** (*LongTensor*) - the indices of elements to scatter and add, can be
 either empty or of the same dimensionality as `src`. When empty, the
 operation returns `self` unchanged.
@@ -3521,12 +3521,12 @@ This function is in beta and may change in the near future.
 
 Parameters:
 
-- **dim** ([*int*](https://docs.python.org/3/library/functions.html#int)) - the axis along which to index
+- **dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - the axis along which to index
 - **index** (*LongTensor*) - the indices of elements to scatter and reduce.
 - **src** ([*Tensor*](../tensors.html#torch.Tensor)) - the source elements to scatter and reduce
-- **reduce** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - the reduction operation to apply for non-unique indices
+- **reduce** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - the reduction operation to apply for non-unique indices
 (`"sum"`, `"prod"`, `"mean"`, `"amax"`, `"amin"`)
-- **include_self** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - whether elements from the `self` tensor are
+- **include_self** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - whether elements from the `self` tensor are
 included in the reduction
 
 Example:
@@ -3567,9 +3567,9 @@ storage, offset, size, and stride.
 Parameters:
 
 - **source** ([*Tensor*](../tensors.html#torch.Tensor)*or**Storage*) - the tensor or storage to use
-- **storage_offset** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - the offset in the storage
+- **storage_offset** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - the offset in the storage
 - **size** ([*torch.Size*](../size.html#torch.Size)*,**optional*) - the desired size. Defaults to the size of the source.
-- **stride** ([*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*,**optional*) - the desired stride. Defaults to C-contiguous strides.
+- **stride** ([*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*,**optional*) - the desired stride. Defaults to C-contiguous strides.
 
 sgn() → [Tensor](../tensors.html#torch.Tensor)
 
@@ -3595,7 +3595,7 @@ torch.Size([3, 4, 5])
 torch.Size([3, 4, 5])
 ```
 
-share_memory_()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/_tensor.py#L838)
+share_memory_()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/_tensor.py#L838)
 
 Moves the underlying storage to shared memory.
 
@@ -3660,12 +3660,12 @@ In-place version of `sinh()`
 size(*dim=None*) → torch.Size or int
 
 Returns the size of the `self` tensor. If `dim` is not specified,
-the returned value is a [`torch.Size`](../size.html#torch.Size), a subclass of [`tuple`](https://docs.python.org/3/library/stdtypes.html#tuple).
+the returned value is a [`torch.Size`](../size.html#torch.Size), a subclass of [`tuple`](https://docs.python.org/3/builtins/stdtypes.html#tuple).
 If `dim` is specified, returns an int holding the size of that dimension.
 
 Parameters:
 
-**dim** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - The dimension for which to retrieve the size.
+**dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - The dimension for which to retrieve the size.
 
 Example:
 
@@ -3697,7 +3697,7 @@ sort(*dim=-1*, *descending=False*)
 
 See [`torch.sort()`](torch.sort.html#torch.sort)
 
-sparse_dim() → [int](https://docs.python.org/3/library/functions.html#int)
+sparse_dim() → [int](https://docs.python.org/3/builtins/functions.html#int)
 
 Return the number of sparse dimensions in a [sparse tensor](../sparse.html#sparse-docs) `self`.
 
@@ -3785,8 +3785,8 @@ Parameters:
 - **size** ([*torch.Size*](../size.html#torch.Size)) - the desired size. If `self` is non-empty
 sparse tensor, the desired size cannot be smaller than the
 original size.
-- **sparse_dim** ([*int*](https://docs.python.org/3/library/functions.html#int)) - the number of sparse dimensions
-- **dense_dim** ([*int*](https://docs.python.org/3/library/functions.html#int)) - the number of dense dimensions
+- **sparse_dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - the number of sparse dimensions
+- **dense_dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - the number of dense dimensions
 
 sparse_resize_and_clear_(*size*, *sparse_dim*, *dense_dim*) → [Tensor](../tensors.html#torch.Tensor)
 
@@ -3796,10 +3796,10 @@ size and the number of sparse and dense dimensions.
 Parameters:
 
 - **size** ([*torch.Size*](../size.html#torch.Size)) - the desired size.
-- **sparse_dim** ([*int*](https://docs.python.org/3/library/functions.html#int)) - the number of sparse dimensions
-- **dense_dim** ([*int*](https://docs.python.org/3/library/functions.html#int)) - the number of dense dimensions
+- **sparse_dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - the number of sparse dimensions
+- **dense_dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - the number of dense dimensions
 
-split(*split_size*, *dim=0*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/_tensor.py#L1056)
+split(*split_size*, *dim=0*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/_tensor.py#L1056)
 
 See [`torch.split()`](torch.split.html#torch.split)
 
@@ -3835,7 +3835,7 @@ std(*dim=None*, ***, *correction=1*, *keepdim=False*) → [Tensor](../tensors.ht
 
 See [`torch.std()`](torch.std.html#torch.std)
 
-stft(*n_fft*, *hop_length=None*, *win_length=None*, *window=None*, *center=True*, *pad_mode='reflect'*, *normalized=False*, *onesided=None*, *return_complex=None*, *align_to_window=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/_tensor.py#L950)
+stft(*n_fft*, *hop_length=None*, *win_length=None*, *window=None*, *center=True*, *pad_mode='reflect'*, *normalized=False*, *onesided=None*, *return_complex=None*, *align_to_window=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/_tensor.py#L950)
 
 See [`torch.stft()`](torch.stft.html#torch.stft)
 
@@ -3844,7 +3844,7 @@ Warning
 This function changed signature at version 0.4.1. Calling with
 the previous signature may cause error or return incorrect result.
 
-storage() → [torch.TypedStorage](../storage.html#torch.TypedStorage)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/_tensor.py#L290)
+storage() → [torch.TypedStorage](../storage.html#torch.TypedStorage)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/_tensor.py#L290)
 
 Returns the underlying `TypedStorage`.
 
@@ -3854,7 +3854,7 @@ Warning
 `UntypedStorage` will be the only storage class. To access the
 `UntypedStorage` directly, use `Tensor.untyped_storage()`.
 
-storage_offset() → [int](https://docs.python.org/3/library/functions.html#int)
+storage_offset() → [int](https://docs.python.org/3/builtins/functions.html#int)
 
 Returns `self` tensor's offset in the underlying storage in terms of
 number of storage elements (not bytes).
@@ -3869,7 +3869,7 @@ Example:
 3
 ```
 
-storage_type() → [type](https://docs.python.org/3/library/functions.html#type)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/_tensor.py#L1342)
+storage_type() → [type](https://docs.python.org/3/builtins/functions.html#type)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/_tensor.py#L1342)
 
 Returns the type of the underlying storage.
 
@@ -3884,7 +3884,7 @@ the particular dimension `dim`.
 
 Parameters:
 
-**dim** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - the desired dimension in which stride is required
+**dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - the desired dimension in which stride is required
 
 Example:
 
@@ -3925,7 +3925,7 @@ Sum `this` tensor to `size`.
 
 Parameters:
 
-**size** ([*int*](https://docs.python.org/3/library/functions.html#int)*...*) - a sequence of integers defining the shape of the output tensor.
+**size** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*...*) - a sequence of integers defining the shape of the output tensor.
 
 svd(*some=True*, *compute_uv=True*)
 
@@ -4102,7 +4102,7 @@ Returns a sparse copy of the tensor. PyTorch supports sparse tensors in
 
 Parameters:
 
-**sparseDims** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - the number of sparse dimensions to include in the new sparse tensor
+**sparseDims** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - the number of sparse dimensions to include in the new sparse tensor
 
 Example:
 
@@ -4150,7 +4150,7 @@ of the resulting BSR or BSC tensor. For other layouts,
 specifying the block size that is not `None` will result in a
 RuntimeError exception. A block size must be a tuple of length
 two such that its items evenly divide the two sparse dimensions.
-- **dense_dim** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - Number of dense dimensions of the
+- **dense_dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - Number of dense dimensions of the
 resulting CSR, CSC, BSR or BSC tensor. This argument should be
 used only if `self` is a strided tensor, and must be a
 value between 0 and dimension of `self` tensor minus two.
@@ -4197,7 +4197,7 @@ Parameters:
 of the resulting BSC tensor. A block size must be a tuple of
 length two such that its items evenly divide the two sparse
 dimensions.
-- **dense_dim** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - Number of dense dimensions of the
+- **dense_dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - Number of dense dimensions of the
 resulting BSC tensor. This argument should be used only if
 `self` is a strided tensor, and must be a value between 0
 and dimension of `self` tensor minus two.
@@ -4244,7 +4244,7 @@ Parameters:
 of the resulting BSR tensor. A block size must be a tuple of
 length two such that its items evenly divide the two sparse
 dimensions.
-- **dense_dim** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - Number of dense dimensions of the
+- **dense_dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - Number of dense dimensions of the
 resulting BSR tensor. This argument should be used only if
 `self` is a strided tensor, and must be a value between 0
 and dimension of `self` tensor minus two.
@@ -4277,7 +4277,7 @@ tensor(crow_indices=tensor([0, 2, 3]),
  layout=torch.sparse_bsr)
 ```
 
-to_sparse_coo()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/_tensor.py#L1370)
+to_sparse_coo()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/_tensor.py#L1370)
 
 Convert a tensor to [coordinate format](../sparse.html#sparse-coo-docs).
 
@@ -4300,7 +4300,7 @@ dimensions and self.dim() - 2 - dense_dim batch dimension.
 
 Parameters:
 
-**dense_dim** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - Number of dense dimensions of the
+**dense_dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - Number of dense dimensions of the
 resulting CSC tensor. This argument should be used only if
 `self` is a strided tensor, and must be a value between 0
 and dimension of `self` tensor minus two.
@@ -4336,7 +4336,7 @@ and self.dim() - 2 - dense_dim batch dimension.
 
 Parameters:
 
-**dense_dim** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - Number of dense dimensions of the
+**dense_dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - Number of dense dimensions of the
 resulting CSR tensor. This argument should be used only if
 `self` is a strided tensor, and must be a value between 0
 and dimension of `self` tensor minus two.
@@ -4444,7 +4444,7 @@ original object is returned.
 Parameters:
 
 - **dtype** ([*dtype*](../tensor_attributes.html#torch.dtype)*or**string*) - The desired type
-- **non_blocking** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If `True`, and the source is in pinned memory
+- **non_blocking** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - If `True`, and the source is in pinned memory
 and destination is on the GPU or vice versa, the copy is performed
 asynchronously with respect to the host. Otherwise, the argument
 has no effect.
@@ -4466,7 +4466,7 @@ unbind(*dim=0*) → seq
 
 See [`torch.unbind()`](torch.unbind.html#torch.unbind)
 
-unflatten(*dim*, *sizes*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/_tensor.py#L1355)
+unflatten(*dim*, *sizes*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/_tensor.py#L1355)
 
 See [`torch.unflatten()`](torch.unflatten.html#torch.unflatten).
 
@@ -4485,9 +4485,9 @@ An additional dimension of size `size` is appended in the returned tensor.
 
 Parameters:
 
-- **dimension** ([*int*](https://docs.python.org/3/library/functions.html#int)) - dimension in which unfolding happens
-- **size** ([*int*](https://docs.python.org/3/library/functions.html#int)) - the size of each slice that is unfolded
-- **step** ([*int*](https://docs.python.org/3/library/functions.html#int)) - the step between each slice
+- **dimension** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - dimension in which unfolding happens
+- **size** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - the size of each slice that is unfolded
+- **step** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - the step between each slice
 
 Example:
 
@@ -4517,13 +4517,13 @@ f(x)=1to−fromf(x) = \dfrac{1}{\text{to} - \text{from}}
 
 f(x)=to−from1​
 
-unique(*sorted=True*, *return_inverse=False*, *return_counts=False*, *dim=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/_tensor.py#L1077)
+unique(*sorted=True*, *return_inverse=False*, *return_counts=False*, *dim=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/_tensor.py#L1077)
 
 Returns the unique elements of the input tensor.
 
 See [`torch.unique()`](torch.unique.html#torch.unique)
 
-unique_consecutive(*return_inverse=False*, *return_counts=False*, *dim=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/_tensor.py#L1100)
+unique_consecutive(*return_inverse=False*, *return_counts=False*, *dim=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/_tensor.py#L1100)
 
 Eliminates all but the first element from every consecutive group of equivalent elements.
 
@@ -4594,7 +4594,7 @@ returns a view if the shapes are compatible, and copies (equivalent to calling
 
 Parameters:
 
-**shape** ([*torch.Size*](../size.html#torch.Size)*or*[*int*](https://docs.python.org/3/library/functions.html#int)*...*) - the desired size
+**shape** ([*torch.Size*](../size.html#torch.Size)*or*[*int*](https://docs.python.org/3/builtins/functions.html#int)*...*) - the desired size
 
 Example:
 
@@ -4749,7 +4749,7 @@ Parameters:
 
 - **device** ([`torch.device`](../tensor_attributes.html#torch.device), optional) - The destination XPU device.
 Defaults to the current XPU device.
-- **non_blocking** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If `True` and the source is in pinned memory,
+- **non_blocking** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If `True` and the source is in pinned memory,
 the copy will be asynchronous with respect to the host.
 Otherwise, the argument has no effect. Default: `False`.
 - **memory_format** ([`torch.memory_format`](../tensor_attributes.html#torch.memory_format), optional) - the desired memory format of

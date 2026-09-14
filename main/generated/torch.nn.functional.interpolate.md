@@ -1,6 +1,6 @@
 # torch.nn.functional.interpolate
 
-torch.nn.functional.interpolate(*input*, *size=None*, *scale_factor=None*, *mode='nearest'*, *align_corners=None*, *recompute_scale_factor=None*, *antialias=False*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/functional.py#L5001)
+torch.nn.functional.interpolate(*input*, *size=None*, *scale_factor=None*, *mode='nearest'*, *align_corners=None*, *recompute_scale_factor=None*, *antialias=False*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/functional.py#L5001)
 
 Down/up samples the input.
 
@@ -21,13 +21,13 @@ bilinear, bicubic (4D-only), trilinear (5D-only), lanczos (4D-only, CPU only), a
 Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - the input tensor
-- **size** ([*int*](https://docs.python.org/3/library/functions.html#int)*or**Tuple**[*[*int*](https://docs.python.org/3/library/functions.html#int)*] or**Tuple**[*[*int*](https://docs.python.org/3/library/functions.html#int)*,*[*int*](https://docs.python.org/3/library/functions.html#int)*] or**Tuple**[*[*int*](https://docs.python.org/3/library/functions.html#int)*,*[*int*](https://docs.python.org/3/library/functions.html#int)*,*[*int*](https://docs.python.org/3/library/functions.html#int)*]*) - output spatial size.
-- **scale_factor** ([*float*](https://docs.python.org/3/library/functions.html#float)*or**Tuple**[*[*float*](https://docs.python.org/3/library/functions.html#float)*]*) - multiplier for spatial size. If scale_factor is a tuple,
+- **size** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*or**Tuple**[*[*int*](https://docs.python.org/3/builtins/functions.html#int)*] or**Tuple**[*[*int*](https://docs.python.org/3/builtins/functions.html#int)*,*[*int*](https://docs.python.org/3/builtins/functions.html#int)*] or**Tuple**[*[*int*](https://docs.python.org/3/builtins/functions.html#int)*,*[*int*](https://docs.python.org/3/builtins/functions.html#int)*,*[*int*](https://docs.python.org/3/builtins/functions.html#int)*]*) - output spatial size.
+- **scale_factor** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*or**Tuple**[*[*float*](https://docs.python.org/3/builtins/functions.html#float)*]*) - multiplier for spatial size. If scale_factor is a tuple,
 its length has to match the number of spatial dimensions; input.dim() - 2.
-- **mode** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - algorithm used for upsampling:
+- **mode** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - algorithm used for upsampling:
 `'nearest'` | `'linear'` | `'bilinear'` | `'bicubic'` |
 `'trilinear'` | `'lanczos'` | `'area'` | `'nearest-exact'`. Default: `'nearest'`
-- **align_corners** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - Geometrically, we consider the pixels of the
+- **align_corners** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - Geometrically, we consider the pixels of the
 input and output as squares rather than points.
 If set to `True`, the input and output tensors are aligned by the
 center points of their corner pixels, preserving the values at the corner pixels.
@@ -39,7 +39,7 @@ is `'linear'`, `'bilinear'`, `'bicubic'` or `'trilinear'`.
 Default: `None`. `None` leaves `align_corners` unset for modes
 that do not use it. For modes that use `align_corners`, `None`
 is treated as `False`.
-- **recompute_scale_factor** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - recompute the scale_factor for use in the
+- **recompute_scale_factor** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - recompute the scale_factor for use in the
 interpolation calculation. If recompute_scale_factor is `True`, then
 scale_factor must be passed in and scale_factor is used to compute the
 output size. The computed output size will be used to infer new scales for
@@ -47,7 +47,7 @@ the interpolation. Note that when scale_factor is floating-point, it may differ
 from the recomputed scale_factor due to rounding and precision issues.
 If recompute_scale_factor is `False`, then size or scale_factor will
 be used directly for interpolation. Default: `None`.
-- **antialias** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - flag to apply anti-aliasing. Default: `False`. Using anti-alias
+- **antialias** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - flag to apply anti-aliasing. Default: `False`. Using anti-alias
 option together with `align_corners=False`, interpolation result would match Pillow
 result for downsampling operation. Supported modes: `'bilinear'`, `'bicubic'`, `'lanczos'`.
 

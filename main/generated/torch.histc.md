@@ -13,7 +13,7 @@ Elements lower than min and higher than max and `NaN` elements are ignored.
 Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - the input tensor.
-- **bins** ([*int*](https://docs.python.org/3/library/functions.html#int)) - number of histogram bins
+- **bins** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - number of histogram bins
 - **min** (*Scalar*) - lower end of the range (inclusive)
 - **max** (*Scalar*) - upper end of the range (inclusive)
 

@@ -1,6 +1,6 @@
 # Linear
 
-*class*torch.ao.nn.quantized.Linear(*in_features*, *out_features*, *bias_=True*, *dtype=torch.qint8*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/ao/nn/quantized/modules/linear.py#L117)
+*class*torch.ao.nn.quantized.Linear(*in_features*, *out_features*, *bias_=True*, *dtype=torch.qint8*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/ao/nn/quantized/modules/linear.py#L117)
 
 A quantized linear module with quantized tensor as inputs and outputs.
 We adopt the same interface as torch.nn.Linear, please see
@@ -29,7 +29,7 @@ Examples:
 torch.Size([128, 30])
 ```
 
-*classmethod*from_float(*mod*, *use_precomputed_fake_quant=False*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/ao/nn/quantized/modules/linear.py#L282)
+*classmethod*from_float(*mod*, *use_precomputed_fake_quant=False*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/ao/nn/quantized/modules/linear.py#L282)
 
 Create a quantized module from an observed float module
 
@@ -37,10 +37,10 @@ Parameters:
 
 - **mod** ([*Module*](torch.nn.Module.html#torch.nn.Module)) - a float module, either produced by torch.ao.quantization
 utilities or provided by the user
-- **use_precomputed_fake_quant** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - if True, the module will reuse min/max
+- **use_precomputed_fake_quant** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - if True, the module will reuse min/max
 values from the precomputed fake quant module.
 
-*classmethod*from_reference(*ref_qlinear*, *output_scale*, *output_zero_point*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/ao/nn/quantized/modules/linear.py#L346)
+*classmethod*from_reference(*ref_qlinear*, *output_scale*, *output_zero_point*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/ao/nn/quantized/modules/linear.py#L346)
 
 Create a (fbgemm/qnnpack) quantized module from a reference quantized module
 
@@ -48,5 +48,5 @@ Parameters:
 
 - **ref_qlinear** ([*Module*](torch.nn.Module.html#torch.nn.Module)) - a reference quantized linear module, either produced by torch.ao.quantization
 utilities or provided by the user
-- **output_scale** ([*float*](https://docs.python.org/3/library/functions.html#float)) - scale for output Tensor
-- **output_zero_point** ([*int*](https://docs.python.org/3/library/functions.html#int)) - zero point for output Tensor
+- **output_scale** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - scale for output Tensor
+- **output_zero_point** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - zero point for output Tensor

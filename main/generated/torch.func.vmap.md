@@ -1,6 +1,6 @@
 # torch.func.vmap
 
-torch.func.vmap(*func*, *in_dims=0*, *out_dims=0*, *randomness='error'*, ***, *chunk_size=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/_functorch/apis.py#L67)
+torch.func.vmap(*func*, *in_dims=0*, *out_dims=0*, *randomness='error'*, ***, *chunk_size=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/_functorch/apis.py#L67)
 
 vmap is the vectorizing map; `vmap(func)` returns a new function that
 maps `func` over some dimension of the inputs. Semantically, vmap
@@ -21,22 +21,22 @@ Parameters:
 
 - **func** (*function*) - A Python function that takes one or more arguments.
 Must return one or more Tensors.
-- **in_dims** ([*int*](https://docs.python.org/3/library/functions.html#int)*or**nested structure*) - Specifies which dimension of the
+- **in_dims** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*or**nested structure*) - Specifies which dimension of the
 inputs should be mapped over. `in_dims` should have a
 structure like the inputs. If the `in_dim` for a particular
 input is None, then that indicates there is no map dimension.
 Default: 0.
-- **out_dims** ([*int*](https://docs.python.org/3/library/functions.html#int)*or**Tuple**[*[*int*](https://docs.python.org/3/library/functions.html#int)*]*) - Specifies where the mapped dimension
+- **out_dims** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*or**Tuple**[*[*int*](https://docs.python.org/3/builtins/functions.html#int)*]*) - Specifies where the mapped dimension
 should appear in the outputs. If `out_dims` is a Tuple, then
 it should have one element per output. Default: 0.
-- **randomness** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - Specifies whether the randomness in this
+- **randomness** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - Specifies whether the randomness in this
 vmap should be the same or different across batches. If 'different',
 the randomness for each batch will be different. If 'same', the
 randomness will be the same across batches. If 'error', any calls to
 random functions will error. Default: 'error'. WARNING: this flag
 only applies to random PyTorch operations and does not apply to
 Python's random module or numpy randomness.
-- **chunk_size** (*None**or*[*int*](https://docs.python.org/3/library/functions.html#int)) - If None (default), apply a single vmap over inputs.
+- **chunk_size** (*None**or*[*int*](https://docs.python.org/3/builtins/functions.html#int)) - If None (default), apply a single vmap over inputs.
 If not None, then compute the vmap `chunk_size` samples at a time.
 Note that `chunk_size=1` is equivalent to computing the vmap with a for-loop.
 If you run into memory issues computing the vmap, please try a non-None chunk_size.

@@ -1,6 +1,6 @@
 # torch.set_float32_matmul_precision
 
-torch.set_float32_matmul_precision(*precision*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/__init__.py#L2008)
+torch.set_float32_matmul_precision(*precision*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/__init__.py#L2008)
 
 Sets the internal precision of float32 matrix multiplications.
 
@@ -64,4 +64,4 @@ to setting torch.backends.cuda.matmul.allow_tf32 = False.
 
 Parameters:
 
-**precision** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - can be set to "highest" (default), "high", or "medium" (see above).
+**precision** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - can be set to "highest" (default), "high", or "medium" (see above).

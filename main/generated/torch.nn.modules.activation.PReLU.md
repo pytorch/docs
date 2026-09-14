@@ -1,6 +1,6 @@
 # PReLU
 
-*class*torch.nn.modules.activation.PReLU(*num_parameters=1*, *init=0.25*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/activation.py#L1576)
+*class*torch.nn.modules.activation.PReLU(*num_parameters=1*, *init=0.25*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/activation.py#L1576)
 
 Applies the element-wise PReLU function.
 
@@ -33,10 +33,10 @@ no channel dim and the number of channels = 1.
 
 Parameters:
 
-- **num_parameters** ([*int*](https://docs.python.org/3/library/functions.html#int)) - number of aaa to learn.
+- **num_parameters** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - number of aaa to learn.
 Although it takes an int as input, there is only two values are legitimate:
 1, or the number of channels at input. Default: 1
-- **init** ([*float*](https://docs.python.org/3/library/functions.html#float)) - the initial value of aaa. Default: 0.25
+- **init** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - the initial value of aaa. Default: 0.25
 
 Shape:
 
@@ -58,15 +58,15 @@ Examples:
 >>> output = m(input)
 ```
 
-extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/activation.py#L1651)
+extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/activation.py#L1651)
 
 Return the extra representation of the module.
 
 Return type:
 
-[str](https://docs.python.org/3/library/stdtypes.html#str)
+[str](https://docs.python.org/3/builtins/stdtypes.html#str)
 
-forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/activation.py#L1645)
+forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/activation.py#L1645)
 
 Runs the forward pass.
 
@@ -74,6 +74,6 @@ Return type:
 
 [*Tensor*](../tensors.html#torch.Tensor)
 
-reset_parameters()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/activation.py#L1639)
+reset_parameters()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/activation.py#L1639)
 
 Resets parameters based on their initialization used in `__init__`.

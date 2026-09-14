@@ -1,6 +1,6 @@
 # Fold
 
-*class*torch.nn.modules.fold.Fold(*output_size*, *kernel_size*, *dilation=1*, *padding=0*, *stride=1*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/fold.py#L11)
+*class*torch.nn.modules.fold.Fold(*output_size*, *kernel_size*, *dilation=1*, *padding=0*, *stride=1*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/fold.py#L11)
 
 Combines an array of sliding local blocks into a large containing tensor.
 
@@ -40,15 +40,15 @@ It is harder to describe, but this [link](https://github.com/vdumoulin/conv_arit
 
 Parameters:
 
-- **output_size** ([*int*](https://docs.python.org/3/library/functions.html#int)*or*[*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)) - the shape of the spatial dimensions of the
+- **output_size** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*or*[*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)) - the shape of the spatial dimensions of the
 output (i.e., `output.sizes()[2:]`)
-- **kernel_size** ([*int*](https://docs.python.org/3/library/functions.html#int)*or*[*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)) - the size of the sliding blocks
-- **dilation** ([*int*](https://docs.python.org/3/library/functions.html#int)*or*[*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*,**optional*) - a parameter that controls the
+- **kernel_size** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*or*[*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)) - the size of the sliding blocks
+- **dilation** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*or*[*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*,**optional*) - a parameter that controls the
 stride of elements within the
 neighborhood. Default: 1
-- **padding** ([*int*](https://docs.python.org/3/library/functions.html#int)*or*[*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*,**optional*) - implicit zero padding to be added on
+- **padding** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*or*[*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*,**optional*) - implicit zero padding to be added on
 both sides of input. Default: 0
-- **stride** ([*int*](https://docs.python.org/3/library/functions.html#int)*or*[*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)) - the stride of the sliding blocks in the input
+- **stride** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*or*[*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)) - the stride of the sliding blocks in the input
 spatial dimensions. Default: 1
 
 - If `output_size`, `kernel_size`, `dilation`,
@@ -115,15 +115,15 @@ Examples:
 torch.Size([1, 3, 4, 5])
 ```
 
-extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/fold.py#L162)
+extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/fold.py#L162)
 
 Return the extra representation of the module.
 
 Return type:
 
-[str](https://docs.python.org/3/library/stdtypes.html#str)
+[str](https://docs.python.org/3/builtins/stdtypes.html#str)
 
-forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/fold.py#L149)
+forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/fold.py#L149)
 
 Runs the forward pass.
 

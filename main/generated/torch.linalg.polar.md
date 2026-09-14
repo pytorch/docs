@@ -1,6 +1,6 @@
 # torch.linalg.polar
 
-torch.linalg.polar(*A*, ***, *out=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/linalg/__init__.py#L2968)
+torch.linalg.polar(*A*, ***, *out=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/linalg/__init__.py#L2968)
 
 Computes the polar decomposition of a matrix.
 
@@ -52,7 +52,7 @@ more batch dimensions.
 
 Keyword Arguments:
 
-**out** ([*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*,**optional*) - output tuple of two tensors. Ignored if None. Default: None.
+**out** ([*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*,**optional*) - output tuple of two tensors. Ignored if None. Default: None.
 
 Returns:
 

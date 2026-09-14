@@ -80,7 +80,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.15.0a0+gitea89e4e )">
+<meta name="llm:version" content="main (2.15.0a0+gitb8bd7cf )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -186,7 +186,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+gitea89e4e )');
+  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+gitb8bd7cf )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3619,7 +3619,7 @@ document.write(`
 <h1>torch.linalg.matrix_rank<a class="headerlink" href="#torch-linalg-matrix-rank" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.linalg.matrix_rank">
-<span class="sig-prename descclassname"><span class="pre">torch.linalg.</span></span><span class="sig-name descname"><span class="pre">matrix_rank</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">A</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rtol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hermitian</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><span class="pre">Tensor</span></a></span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/linalg/__init__.py#L1263"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.linalg.matrix_rank" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.linalg.</span></span><span class="sig-name descname"><span class="pre">matrix_rank</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">A</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rtol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hermitian</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><span class="pre">Tensor</span></a></span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/linalg/__init__.py#L1263"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.linalg.matrix_rank" title="Link to this definition">#</a></dt>
 <dd><p>Computes the numerical rank of a matrix.</p>
 <p>The matrix rank is computed as the number of singular values
 (or eigenvalues in absolute value when <code class="xref py py-attr docutils literal notranslate"><span class="pre">hermitian</span></code><cite>= True</cite>)
@@ -3654,16 +3654,16 @@ When inputs are on a CUDA device, this function synchronizes that device with th
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>A</strong> (<a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a>) – tensor of shape <cite>(*, m, n)</cite> where <cite>*</cite> is zero or more batch dimensions.</p></li>
-<li><p><strong>tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>, </em><a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a><em>, </em><em>optional</em>) – [NumPy Compat] Alias for <code class="xref py py-attr docutils literal notranslate"><span class="pre">atol</span></code>. Default: <cite>None</cite>.</p></li>
+<li><p><strong>tol</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>, </em><a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a><em>, </em><em>optional</em>) – [NumPy Compat] Alias for <code class="xref py py-attr docutils literal notranslate"><span class="pre">atol</span></code>. Default: <cite>None</cite>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>atol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>, </em><a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a><em>, </em><em>optional</em>) – the absolute tolerance value. When <cite>None</cite> it’s considered to be zero.
+<li><p><strong>atol</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>, </em><a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a><em>, </em><em>optional</em>) – the absolute tolerance value. When <cite>None</cite> it’s considered to be zero.
 Default: <cite>None</cite>.</p></li>
-<li><p><strong>rtol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>, </em><a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a><em>, </em><em>optional</em>) – the relative tolerance value. See above for the value it takes when <cite>None</cite>.
+<li><p><strong>rtol</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>, </em><a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a><em>, </em><em>optional</em>) – the relative tolerance value. See above for the value it takes when <cite>None</cite>.
 Default: <cite>None</cite>.</p></li>
-<li><p><strong>hermitian</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – indicates whether <code class="xref py py-attr docutils literal notranslate"><span class="pre">A</span></code> is Hermitian if complex
+<li><p><strong>hermitian</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – indicates whether <code class="xref py py-attr docutils literal notranslate"><span class="pre">A</span></code> is Hermitian if complex
 or symmetric if real. Default: <cite>False</cite>.</p></li>
 <li><p><strong>out</strong> (<a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a><em>, </em><em>optional</em>) – output tensor. Ignored if <cite>None</cite>. Default: <cite>None</cite>.</p></li>
 </ul>

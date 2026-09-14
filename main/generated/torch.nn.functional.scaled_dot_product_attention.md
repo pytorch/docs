@@ -1,6 +1,6 @@
 # torch.nn.functional.scaled_dot_product_attention
 
-torch.nn.functional.scaled_dot_product_attention()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/functional.py#L6379)
+torch.nn.functional.scaled_dot_product_attention()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/functional.py#L6379)
 
 scaled_dot_product_attention(query, key, value, attn_mask=None, dropout_p=0.0,
 
@@ -133,14 +133,14 @@ Parameters:
 which is (N,...,Hq,L,S)(N,..., Hq, L, S)(N,...,Hq,L,S). Two types of masks are supported.
 A boolean mask where a value of True indicates that the element *should* take part in attention.
 A float mask of the same type as query, key, value that is added to the attention score.
-- **dropout_p** ([*float*](https://docs.python.org/3/library/functions.html#float)) - Dropout probability; if greater than 0.0, dropout is applied
-- **is_causal** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If set to true, the attention masking is a lower triangular matrix when the mask is a
+- **dropout_p** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - Dropout probability; if greater than 0.0, dropout is applied
+- **is_causal** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - If set to true, the attention masking is a lower triangular matrix when the mask is a
 square matrix. The attention masking has the form of the upper left causal bias due to the alignment
 (see [`torch.nn.attention.bias.CausalBias`](torch.nn.attention.bias.CausalBias.html#torch.nn.attention.bias.CausalBias)) when the mask is a non-square matrix.
 An error is thrown if both attn_mask and is_causal are set.
 - **scale** (*optional python:float**,**keyword-only*) - Scaling factor applied prior to softmax. If None, the default value is set
 to 1E\frac{1}{\sqrt{E}}E​1​.
-- **enable_gqa** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If set to True, Grouped Query Attention (GQA) is enabled, by default it is set to False.
+- **enable_gqa** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - If set to True, Grouped Query Attention (GQA) is enabled, by default it is set to False.
 
 Returns:
 

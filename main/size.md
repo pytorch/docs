@@ -1,7 +1,7 @@
 # torch.Size
 
 `torch.Size` is the result type of a call to [`torch.Tensor.size()`](generated/torch.Tensor.size.html#torch.Tensor.size). It describes the size of all dimensions
-of the original tensor. As a subclass of [`tuple`](https://docs.python.org/3/library/stdtypes.html#tuple), it supports common sequence operations like indexing and
+of the original tensor. As a subclass of [`tuple`](https://docs.python.org/3/builtins/stdtypes.html#tuple), it supports common sequence operations like indexing and
 length.
 
 Example:
@@ -29,7 +29,7 @@ Return first index of value.
 
 Raises ValueError if the value is not present.
 
-numel() → [int](https://docs.python.org/3/library/functions.html#int)
+numel() → [int](https://docs.python.org/3/builtins/functions.html#int)
 
 Returns the number of elements a [`torch.Tensor`](tensors.html#torch.Tensor) with the given size would contain.
 

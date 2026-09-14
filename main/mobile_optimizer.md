@@ -10,18 +10,18 @@ all-new on-device inference library. You can also review
 documentation on [XNNPACK](https://pytorch.org/executorch/stable/backends-xnnpack.html)
 and [Vulkan](https://pytorch.org/executorch/stable/native-delegates-executorch-vulkan-delegate.html) delegates.
 
-torch.utils.mobile_optimizer.optimize_for_mobile(*script_module*, *optimization_blocklist=None*, *preserved_methods=None*, *backend='CPU'*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/utils/mobile_optimizer.py#L15)
+torch.utils.mobile_optimizer.optimize_for_mobile(*script_module*, *optimization_blocklist=None*, *preserved_methods=None*, *backend='CPU'*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/utils/mobile_optimizer.py#L15)
 
 Optimize a torch script module for mobile deployment.
 
 Parameters:
 
 - **script_module** (*ScriptModule*) - An instance of torch script module with type of ScriptModule.
-- **optimization_blocklist** ([*set*](https://docs.python.org/3/library/stdtypes.html#set)*[**_MobileOptimizerType**]**|**None*) - A set with type of MobileOptimizerType. When set is not passed,
+- **optimization_blocklist** ([*set*](https://docs.python.org/3/builtins/stdtypes.html#set)*[**_MobileOptimizerType**]**|**None*) - A set with type of MobileOptimizerType. When set is not passed,
 optimization method will run all the optimizer pass; otherwise, optimizer
 method will run the optimization pass that is not included inside optimization_blocklist.
-- **preserved_methods** ([*list*](https://docs.python.org/3/library/stdtypes.html#list)*[**AnyStr**]**|**None*) - A list of methods that needed to be preserved when freeze_module pass is invoked
-- **backend** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - Device type to use for running the result model ('CPU'(default), 'Vulkan' or 'Metal').
+- **preserved_methods** ([*list*](https://docs.python.org/3/builtins/stdtypes.html#list)*[**AnyStr**]**|**None*) - A list of methods that needed to be preserved when freeze_module pass is invoked
+- **backend** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - Device type to use for running the result model ('CPU'(default), 'Vulkan' or 'Metal').
 
 Returns:
 
@@ -31,7 +31,7 @@ Return type:
 
 *RecursiveScriptModule*
 
-torch.utils.mobile_optimizer.generate_mobile_module_lints(*script_module*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/utils/mobile_optimizer.py#L76)
+torch.utils.mobile_optimizer.generate_mobile_module_lints(*script_module*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/utils/mobile_optimizer.py#L76)
 
 Generate a list of lints for a given torch script module.
 

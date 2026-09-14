@@ -1,6 +1,6 @@
 # torch.autograd.gradcheck.gradcheck
 
-torch.autograd.gradcheck.gradcheck(*func*, *inputs*, ***, *eps=1e-06*, *atol=1e-05*, *rtol=0.001*, *raise_exception=True*, *nondet_tol=0.0*, *check_undefined_grad=True*, *check_grad_dtypes=False*, *check_batched_grad=False*, *check_batched_forward_grad=False*, *check_forward_ad=False*, *check_backward_ad=True*, *fast_mode=False*, *masked=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/autograd/gradcheck.py#L2014)
+torch.autograd.gradcheck.gradcheck(*func*, *inputs*, ***, *eps=1e-06*, *atol=1e-05*, *rtol=0.001*, *raise_exception=True*, *nondet_tol=0.0*, *check_undefined_grad=True*, *check_grad_dtypes=False*, *check_batched_grad=False*, *check_batched_forward_grad=False*, *check_forward_ad=False*, *check_backward_ad=True*, *fast_mode=False*, *masked=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/autograd/gradcheck.py#L2014)
 
 Check gradients computed via small finite differences against analytical
 gradients wrt tensors in `inputs` that are of floating point or complex type
@@ -43,31 +43,31 @@ Parameters:
 
 - **func** (*function*) - a Python function that takes Tensor inputs and returns
 a Tensor or a tuple of Tensors
-- **inputs** ([*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*of*[*Tensor*](../tensors.html#torch.Tensor)*or*[*Tensor*](../tensors.html#torch.Tensor)) - inputs to the function
-- **eps** ([*float*](https://docs.python.org/3/library/functions.html#float)*,**optional*) - perturbation for finite differences
-- **atol** ([*float*](https://docs.python.org/3/library/functions.html#float)*,**optional*) - absolute tolerance
-- **rtol** ([*float*](https://docs.python.org/3/library/functions.html#float)*,**optional*) - relative tolerance
-- **raise_exception** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - indicating whether to raise an exception if
+- **inputs** ([*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*of*[*Tensor*](../tensors.html#torch.Tensor)*or*[*Tensor*](../tensors.html#torch.Tensor)) - inputs to the function
+- **eps** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*,**optional*) - perturbation for finite differences
+- **atol** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*,**optional*) - absolute tolerance
+- **rtol** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*,**optional*) - relative tolerance
+- **raise_exception** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - indicating whether to raise an exception if
 the check fails. The exception gives more information about the
 exact nature of the failure. This is helpful when debugging gradchecks.
-- **nondet_tol** ([*float*](https://docs.python.org/3/library/functions.html#float)*,**optional*) - tolerance for non-determinism. When running
+- **nondet_tol** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*,**optional*) - tolerance for non-determinism. When running
 identical inputs through the differentiation, the results must either match
 exactly (default, 0.0) or be within this tolerance.
-- **check_undefined_grad** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - if `True`, check if undefined output grads
+- **check_undefined_grad** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - if `True`, check if undefined output grads
 are supported and treated as zeros, for `Tensor` outputs.
-- **check_batched_grad** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - if `True`, check if we can compute
+- **check_batched_grad** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - if `True`, check if we can compute
 batched gradients using prototype vmap support. Defaults to False.
-- **check_batched_forward_grad** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - if `True`, checks if we can compute
+- **check_batched_forward_grad** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - if `True`, checks if we can compute
 batched forward gradients using forward ad and prototype vmap support. Defaults to `False`.
-- **check_forward_ad** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - if `True`, check that the gradients computed with forward
+- **check_forward_ad** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - if `True`, check that the gradients computed with forward
 mode AD match the numerical ones. Defaults to `False`.
-- **check_backward_ad** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - if `False`, do not perform any checks that rely on
+- **check_backward_ad** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - if `False`, do not perform any checks that rely on
 backward mode AD to be implemented. Defaults to `True`.
-- **fast_mode** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - Fast mode for gradcheck and gradgradcheck is currently only
+- **fast_mode** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - Fast mode for gradcheck and gradgradcheck is currently only
 implemented for R to R functions. If none of the inputs and outputs are complex
 a faster implementation of gradcheck that no longer computes the entire jacobian
 is run; otherwise, we fall back to the slow implementation.
-- **masked** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - if `True`, the gradients of unspecified elements of
+- **masked** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - if `True`, the gradients of unspecified elements of
 sparse tensors are ignored. Defaults to `False`.
 
 Returns:
@@ -76,4 +76,4 @@ Returns:
 
 Return type:
 
-[bool](https://docs.python.org/3/library/functions.html#bool)
+[bool](https://docs.python.org/3/builtins/functions.html#bool)

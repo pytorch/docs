@@ -1,6 +1,6 @@
 # torch.nn.functional.pad
 
-torch.nn.functional.pad(*input*, *pad*, *mode='constant'*, *value=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/functional.py#L5773)
+torch.nn.functional.pad(*input*, *pad*, *mode='constant'*, *value=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/functional.py#L5773)
 
 Pads tensor.
 
@@ -40,11 +40,11 @@ Please see the notes on [Reproducibility](../notes/randomness.html) for backgrou
 Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - N-dimensional tensor
-- **pad** ([*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)) - m-elements tuple, where
+- **pad** ([*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)) - m-elements tuple, where
 m2≤\frac{m}{2} \leq2m​≤ input dimensions and mmm is even.
-- **mode** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - `'constant'`, `'reflect'`, `'replicate'` or `'circular'`.
+- **mode** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - `'constant'`, `'reflect'`, `'replicate'` or `'circular'`.
 Default: `'constant'`
-- **value** ([*float*](https://docs.python.org/3/library/functions.html#float)*|**None*) - fill value for `'constant'` padding. Default: `0`
+- **value** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*|**None*) - fill value for `'constant'` padding. Default: `0`
 
 Return type:
 

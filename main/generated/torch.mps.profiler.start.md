@@ -1,6 +1,6 @@
 # torch.mps.profiler.start
 
-torch.mps.profiler.start(*mode='interval'*, *wait_until_completed=False*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/mps/profiler.py#L21)
+torch.mps.profiler.start(*mode='interval'*, *wait_until_completed=False*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/mps/profiler.py#L21)
 
 Start OS Signpost tracing from MPS backend.
 
@@ -9,12 +9,12 @@ XCode Instruments Logging tool.
 
 Parameters:
 
-- **mode** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - OS Signpost tracing mode could be "interval", "event",
+- **mode** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - OS Signpost tracing mode could be "interval", "event",
 or both "interval,event".
 The interval mode traces the duration of execution of the operations,
 whereas event mode marks the completion of executions.
 See document [Recording Performance Data](https://developer.apple.com/documentation/os/logging/recording_performance_data) for more info.
-- **wait_until_completed** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - Waits until the MPS Stream complete
+- **wait_until_completed** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Waits until the MPS Stream complete
 executing each encoded GPU operation. This helps generating single
 dispatches on the trace's timeline.
 Note that enabling this option would affect the performance negatively.

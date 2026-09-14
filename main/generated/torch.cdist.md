@@ -1,6 +1,6 @@
 # torch.cdist
 
-torch.cdist(*x1*, *x2*, *p=2.0*, *compute_mode='use_mm_for_euclid_dist_if_necessary'*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/functional.py#L1483)
+torch.cdist(*x1*, *x2*, *p=2.0*, *compute_mode='use_mm_for_euclid_dist_if_necessary'*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/functional.py#L1483)
 
 Computes the batched p-norm distance between each pair of the two collections of row vectors.
 
@@ -13,9 +13,9 @@ where PPP is the number of points and MMM is the feature dimension.
 The shape can be D1′×D2′×⋯×Dm′×R×MD_1' \times D_2' \times \cdots \times D_m' \times R \times MD1′​×D2′​×⋯×Dm′​×R×M,
 where RRR is the number of points and MMM is the feature dimension,
 which should match the feature dimension of x1.
-- **p** ([*float*](https://docs.python.org/3/library/functions.html#float)) - p value for the p-norm distance to calculate between each vector pair
+- **p** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - p value for the p-norm distance to calculate between each vector pair
 ∈[0,∞]\in [0, \infty]∈[0,∞].
-- **compute_mode** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - 'use_mm_for_euclid_dist_if_necessary' - will use matrix multiplication approach to calculate
+- **compute_mode** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - 'use_mm_for_euclid_dist_if_necessary' - will use matrix multiplication approach to calculate
 euclidean distance (p = 2) if P > 25 or R > 25
 'use_mm_for_euclid_dist' - will always use matrix multiplication approach to calculate
 euclidean distance (p = 2)

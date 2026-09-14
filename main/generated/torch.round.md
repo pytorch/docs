@@ -29,7 +29,7 @@ See also
 Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - the input tensor.
-- **decimals** ([*int*](https://docs.python.org/3/library/functions.html#int)) - Number of decimal places to round to (default: 0).
+- **decimals** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Number of decimal places to round to (default: 0).
 If decimals is negative, it specifies the number of positions
 to the left of the decimal point.
 

@@ -1,6 +1,6 @@
 # torch.nn.functional.dropout3d
 
-torch.nn.functional.dropout3d(*input*, *p=0.5*, *training=True*, *inplace=False*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/functional.py#L1635)
+torch.nn.functional.dropout3d(*input*, *p=0.5*, *training=True*, *inplace=False*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/functional.py#L1635)
 
 Randomly zero out entire channels (a channel is a 3D feature map).
 
@@ -13,9 +13,9 @@ See [`Dropout3d`](torch.nn.Dropout3d.html#torch.nn.Dropout3d) for details.
 
 Parameters:
 
-- **p** ([*float*](https://docs.python.org/3/library/functions.html#float)) - probability of a channel to be zeroed. Default: 0.5
-- **training** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - apply dropout if is `True`. Default: `True`
-- **inplace** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If set to `True`, will do this operation in-place. Default: `False`
+- **p** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - probability of a channel to be zeroed. Default: 0.5
+- **training** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - apply dropout if is `True`. Default: `True`
+- **inplace** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - If set to `True`, will do this operation in-place. Default: `False`
 
 Return type:
 

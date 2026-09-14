@@ -1,6 +1,6 @@
 # LazyInstanceNorm1d
 
-*class*torch.nn.modules.instancenorm.LazyInstanceNorm1d(*eps=1e-05*, *momentum=0.1*, *affine=True*, *track_running_stats=True*, *device=None*, *dtype=None*, ***, *bias=True*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/instancenorm.py#L215)
+*class*torch.nn.modules.instancenorm.LazyInstanceNorm1d(*eps=1e-05*, *momentum=0.1*, *affine=True*, *track_running_stats=True*, *device=None*, *dtype=None*, ***, *bias=True*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/instancenorm.py#L215)
 
 A [`torch.nn.InstanceNorm1d`](torch.nn.InstanceNorm1d.html#torch.nn.InstanceNorm1d) module with lazy initialization of the `num_features` argument.
 
@@ -14,12 +14,12 @@ Parameters:
 
 - **num_features** - CCC from an expected input of size
 (N,C,L)(N, C, L)(N,C,L) or (C,L)(C, L)(C,L)
-- **eps** ([*float*](https://docs.python.org/3/library/functions.html#float)) - a value added to the denominator for numerical stability. Default: 1e-5
-- **momentum** ([*float*](https://docs.python.org/3/library/functions.html#float)*|**None*) - the value used for the running_mean and running_var computation. Default: 0.1
-- **affine** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - a boolean value that when set to `True`, this module has
+- **eps** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - a value added to the denominator for numerical stability. Default: 1e-5
+- **momentum** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*|**None*) - the value used for the running_mean and running_var computation. Default: 0.1
+- **affine** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - a boolean value that when set to `True`, this module has
 learnable affine parameters, initialized the same way as done for batch normalization.
 Default: `False`
-- **track_running_stats** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - a boolean value that when set to `True`, this
+- **track_running_stats** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - a boolean value that when set to `True`, this
 module tracks the running mean and variance, and when set to `False`,
 this module does not track such statistics and always uses batch
 statistics in both training and eval modes. Default: `False`
@@ -31,6 +31,6 @@ Shape:
 - Input: (N,C,L)(N, C, L)(N,C,L) or (C,L)(C, L)(C,L)
 - Output: (N,C,L)(N, C, L)(N,C,L) or (C,L)(C, L)(C,L) (same shape as input)
 
-cls_to_become[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/instancenorm.py#L136)
+cls_to_become[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/instancenorm.py#L136)
 
 alias of [`InstanceNorm1d`](torch.nn.modules.instancenorm.InstanceNorm1d.html#torch.nn.modules.instancenorm.InstanceNorm1d)

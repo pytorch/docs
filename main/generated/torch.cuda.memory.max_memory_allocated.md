@@ -1,6 +1,6 @@
 # torch.cuda.memory.max_memory_allocated
 
-torch.cuda.memory.max_memory_allocated(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/cuda/memory.py#L543)
+torch.cuda.memory.max_memory_allocated(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/cuda/memory.py#L543)
 
 Return the maximum GPU memory occupied by tensors in bytes for a given device.
 
@@ -12,13 +12,13 @@ training loop.
 
 Parameters:
 
-**device** ([*torch.device*](../tensor_attributes.html#torch.device)*or*[*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - selected device. Returns
+**device** ([*torch.device*](../tensor_attributes.html#torch.device)*or*[*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - selected device. Returns
 statistic for the current device, given by [`current_device()`](torch.cuda.current_device.html#torch.cuda.current_device),
 if `device` is `None` (default).
 
 Return type:
 
-[int](https://docs.python.org/3/library/functions.html#int)
+[int](https://docs.python.org/3/builtins/functions.html#int)
 
 Note
 

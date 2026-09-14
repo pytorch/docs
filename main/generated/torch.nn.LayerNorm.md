@@ -1,6 +1,6 @@
 # LayerNorm
 
-*class*torch.nn.LayerNorm(*normalized_shape*, *eps=1e-05*, *elementwise_affine=True*, *bias=True*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/normalization.py#L105)
+*class*torch.nn.LayerNorm(*normalized_shape*, *eps=1e-05*, *elementwise_affine=True*, *bias=True*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/normalization.py#L105)
 
 Applies Layer Normalization over a mini-batch of inputs.
 
@@ -32,7 +32,7 @@ evaluation modes.
 
 Parameters:
 
-- **normalized_shape** ([*int*](https://docs.python.org/3/library/functions.html#int)*or*[*list*](https://docs.python.org/3/library/stdtypes.html#list)*or*[*torch.Size*](../size.html#torch.Size)) -
+- **normalized_shape** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*or*[*list*](https://docs.python.org/3/builtins/stdtypes.html#list)*or*[*torch.Size*](../size.html#torch.Size)) -
 
 input shape from an expected input
 of size
@@ -44,11 +44,11 @@ of size
 
 If a single integer is used, it is treated as a singleton list, and this module will
 normalize over the last dimension which is expected to be of that specific size.
-- **eps** ([*float*](https://docs.python.org/3/library/functions.html#float)) - a value added to the denominator for numerical stability. Default: 1e-5
-- **elementwise_affine** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - a boolean value that when set to `True`, this module
+- **eps** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - a value added to the denominator for numerical stability. Default: 1e-5
+- **elementwise_affine** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - a boolean value that when set to `True`, this module
 has learnable per-element affine parameters initialized to ones (for weights)
 and zeros (for biases). Default: `True`
-- **bias** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If set to `False`, the layer will not learn an additive bias (only relevant if
+- **bias** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - If set to `False`, the layer will not learn an additive bias (only relevant if
 `elementwise_affine` is `True`). Default: `True`
 
 Variables:

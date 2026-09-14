@@ -1,6 +1,6 @@
 # torch.nn.functional.grid_sample
 
-torch.nn.functional.grid_sample(*input*, *grid*, *mode='bilinear'*, *padding_mode='zeros'*, *align_corners=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/functional.py#L5509)
+torch.nn.functional.grid_sample(*input*, *grid*, *mode='bilinear'*, *padding_mode='zeros'*, *align_corners=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/functional.py#L5509)
 
 Compute grid sample.
 
@@ -62,15 +62,15 @@ Parameters:
 or (N,C,Din,Hin,Win)(N, C, D_\text{in}, H_\text{in}, W_\text{in})(N,C,Din​,Hin​,Win​) (5-D case)
 - **grid** ([*Tensor*](../tensors.html#torch.Tensor)) - flow-field of shape (N,Hout,Wout,2)(N, H_\text{out}, W_\text{out}, 2)(N,Hout​,Wout​,2) (4-D case)
 or (N,Dout,Hout,Wout,3)(N, D_\text{out}, H_\text{out}, W_\text{out}, 3)(N,Dout​,Hout​,Wout​,3) (5-D case)
-- **mode** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - interpolation mode to calculate output values
+- **mode** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - interpolation mode to calculate output values
 `'bilinear'` | `'nearest'` | `'bicubic'`. Default: `'bilinear'`
 Note: `mode='bicubic'` supports only 4-D input.
 When `mode='bilinear'` and the input is 5-D, the interpolation mode
 used internally will actually be trilinear. However, when the input is 4-D,
 the interpolation mode will legitimately be bilinear.
-- **padding_mode** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - padding mode for outside grid values
+- **padding_mode** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - padding mode for outside grid values
 `'zeros'` | `'border'` | `'reflection'`. Default: `'zeros'`
-- **align_corners** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - Geometrically, we consider the pixels of the
+- **align_corners** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - Geometrically, we consider the pixels of the
 input as squares rather than points.
 If set to `True`, the extrema (`-1` and `1`) are considered as referring
 to the center points of the input's corner pixels. If set to `False`, they

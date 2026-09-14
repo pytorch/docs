@@ -10,7 +10,7 @@ Tensor Parallelism APIs are experimental and subject to change.
 
 The entrypoint to parallelize your `nn.Module` using Tensor Parallelism is:
 
-torch.distributed.tensor.parallel.parallelize_module(*module*, *device_mesh=None*, *parallelize_plan=None*, ***, *src_data_rank=0*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/tensor/parallel/api.py#L14)
+torch.distributed.tensor.parallel.parallelize_module(*module*, *device_mesh=None*, *parallelize_plan=None*, ***, *src_data_rank=0*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/tensor/parallel/api.py#L14)
 
 Apply Tensor Parallelism in PyTorch by parallelizing modules or sub-modules based on a user-specified plan.
 
@@ -36,7 +36,7 @@ specified, the call will do nothing at the moment.
 
 Keyword Arguments:
 
-**src_data_rank** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - the rank of the source data for the logical/global tensor, it is used by
+**src_data_rank** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - the rank of the source data for the logical/global tensor, it is used by
 `distribute_tensor()` to scatter/broadcast the shards/replicas to other ranks. By default,
 we use `group_rank=0` on each DeviceMesh dimension as the source data to preserve the single-device
 semantic. If passing `None` explicitly, `parallelize_module()` simply uses its local data instead
@@ -68,7 +68,7 @@ For complex module architecture like Attention, MLP layers, we recommend composi
 different ParallelStyles together (i.e. `ColwiseParallel` and `RowwiseParallel`) and pass
 as a parallelize_plan, to achieve the desired sharding computation.
 
-torch.distributed.tensor.parallel.api.parallelize_module(*module*, *device_mesh=None*, *parallelize_plan=None*, ***, *src_data_rank=0*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/tensor/parallel/api.py#L14)
+torch.distributed.tensor.parallel.api.parallelize_module(*module*, *device_mesh=None*, *parallelize_plan=None*, ***, *src_data_rank=0*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/tensor/parallel/api.py#L14)
 
 Apply Tensor Parallelism in PyTorch by parallelizing modules or sub-modules based on a user-specified plan.
 
@@ -94,7 +94,7 @@ specified, the call will do nothing at the moment.
 
 Keyword Arguments:
 
-**src_data_rank** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - the rank of the source data for the logical/global tensor, it is used by
+**src_data_rank** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - the rank of the source data for the logical/global tensor, it is used by
 `distribute_tensor()` to scatter/broadcast the shards/replicas to other ranks. By default,
 we use `group_rank=0` on each DeviceMesh dimension as the source data to preserve the single-device
 semantic. If passing `None` explicitly, `parallelize_module()` simply uses its local data instead
@@ -128,7 +128,7 @@ as a parallelize_plan, to achieve the desired sharding computation.
 
 Tensor Parallelism supports the following parallel styles:
 
-*class*torch.distributed.tensor.parallel.ColwiseParallel(***, *input_layouts=None*, *output_layouts=None*, *use_local_output=True*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/tensor/parallel/style.py#L45)
+*class*torch.distributed.tensor.parallel.ColwiseParallel(***, *input_layouts=None*, *output_layouts=None*, *use_local_output=True*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/tensor/parallel/style.py#L45)
 
 Partition a compatible nn.Module in a column-wise fashion. Currently supports nn.Linear and nn.Embedding.
 Users can compose it together with RowwiseParallel to achieve the sharding of more complicated modules.
@@ -140,7 +140,7 @@ Keyword Arguments:
 become a DTensor. If not specified, we assume the input tensor to be replicated.
 - **output_layouts** ([*Placement*](distributed.tensor.html#torch.distributed.tensor.placement_types.Placement)*,**optional*) - The DTensor layout of the output for the nn.Module, this is used to ensure the output of the nn.Module
 with the user desired layout. If not specified, the output tensor is sharded on the last dimension.
-- **use_local_output** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - Whether to use local [`torch.Tensor`](tensors.html#torch.Tensor) instead of `DTensor` for the module output, default: True.
+- **use_local_output** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - Whether to use local [`torch.Tensor`](tensors.html#torch.Tensor) instead of `DTensor` for the module output, default: True.
 
 Returns:
 
@@ -168,7 +168,7 @@ By default `ColwiseParallel` output is sharded on the last dimension if the `out
 specified, if there're operators that require specific tensor shape (i.e. before the paired `RowwiseParallel`),
 keep in mind that if the output is sharded the operator might need to be adjusted to the sharded size.
 
-*class*torch.distributed.tensor.parallel.RowwiseParallel(***, *input_layouts=None*, *output_layouts=None*, *use_local_output=True*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/tensor/parallel/style.py#L186)
+*class*torch.distributed.tensor.parallel.RowwiseParallel(***, *input_layouts=None*, *output_layouts=None*, *use_local_output=True*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/tensor/parallel/style.py#L186)
 
 Partition a compatible nn.Module in a row-wise fashion. Currently supports nn.Linear and nn.Embedding.
 Users can compose it with ColwiseParallel to achieve the sharding of more complicated modules.
@@ -180,7 +180,7 @@ Keyword Arguments:
 become a DTensor. If not specified, we assume the input tensor to be sharded on the last dimension.
 - **output_layouts** ([*Placement*](distributed.tensor.html#torch.distributed.tensor.placement_types.Placement)*,**optional*) - The DTensor layout of the output for the nn.Module, this is used to ensure the output of the nn.Module
 with the user desired layout. If not specified, the output tensor is replicated.
-- **use_local_output** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - Whether to use local [`torch.Tensor`](tensors.html#torch.Tensor) instead of `DTensor` for the module output, default: True.
+- **use_local_output** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - Whether to use local [`torch.Tensor`](tensors.html#torch.Tensor) instead of `DTensor` for the module output, default: True.
 
 Returns:
 
@@ -202,7 +202,7 @@ Example::
 >>> ...
 ```
 
-*class*torch.distributed.tensor.parallel.SequenceParallel(***, *sequence_dim=1*, *use_local_output=False*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/tensor/parallel/style.py#L339)
+*class*torch.distributed.tensor.parallel.SequenceParallel(***, *sequence_dim=1*, *use_local_output=False*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/tensor/parallel/style.py#L339)
 
 SequenceParallel replicates a compatible `nn.Module` parameters and runs the sharded computation with
 input sharded on the sequence dimension. This currently supports `nn.LayerNorm`, `nn.Dropout`, and the
@@ -220,9 +220,9 @@ The output of the `nn.Module` will be sharded on the sequence dimension.
 
 Keyword Arguments:
 
-- **sequence_dim** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - The sequence dimension of the input tensor for the `nn.Module`, this is used to annotate the input tensor to
+- **sequence_dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - The sequence dimension of the input tensor for the `nn.Module`, this is used to annotate the input tensor to
 become a DTensor that is sharded on the sequence dimension, default: 1.
-- **use_local_output** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - Whether to use local [`torch.Tensor`](tensors.html#torch.Tensor) instead of `DTensor` for the module output, default: False.
+- **use_local_output** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - Whether to use local [`torch.Tensor`](tensors.html#torch.Tensor) instead of `DTensor` for the module output, default: False.
 
 Returns:
 
@@ -256,7 +256,7 @@ and perform necessary layout redistributions, without distribute the module
 parameters to DTensors, the following `ParallelStyle` s can be used in
 the `parallelize_plan` when calling `parallelize_module`:
 
-*class*torch.distributed.tensor.parallel.PrepareModuleInput(***, *input_layouts=None*, *desired_input_layouts=None*, *input_kwarg_layouts=None*, *desired_input_kwarg_layouts=None*, *use_local_output=False*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/tensor/parallel/style.py#L442)
+*class*torch.distributed.tensor.parallel.PrepareModuleInput(***, *input_layouts=None*, *desired_input_layouts=None*, *input_kwarg_layouts=None*, *desired_input_kwarg_layouts=None*, *use_local_output=False*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/tensor/parallel/style.py#L442)
 
 Configure the nn.Module's inputs to convert the input tensors of the nn.Module to DTensors at runtime according to
 `input_layouts`, and perform layout redistribution according to the `desired_input_layouts`.
@@ -268,12 +268,12 @@ DTensors. If some inputs are not torch.Tensor or no need to convert to DTensors,
 as a placeholder. default: None.
 - **desired_input_layouts** (*Union**[*[*Placement*](distributed.tensor.html#torch.distributed.tensor.placement_types.Placement)*,**Tuple**[**Optional**[*[*Placement*](distributed.tensor.html#torch.distributed.tensor.placement_types.Placement)*]**]**]*) - The desired DTensor layout of input tensors for the nn.Module, this is used to ensure the inputs of the nn.Module
 have the desired DTensor layouts. This argument needs to have the same length with `input_layouts`. default: None.
-- **input_kwarg_layouts** (*Dict**[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*,*[*Placement*](distributed.tensor.html#torch.distributed.tensor.placement_types.Placement)*]*) - The DTensor layouts of input kwargs for the nn.Module, this is used to convert the input kwarg tensors to DTensors.
+- **input_kwarg_layouts** (*Dict**[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,*[*Placement*](distributed.tensor.html#torch.distributed.tensor.placement_types.Placement)*]*) - The DTensor layouts of input kwargs for the nn.Module, this is used to convert the input kwarg tensors to DTensors.
 default: None
 - **desired_input_kwarg_layouts** - (Dict[str, Placement]):
 The desired DTensor layout of input kwargs for the nn.Module, this is used to ensure the inputs of the nn.Module
 have the desired DTensor layouts. default: None.
-- **use_local_output** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - Whether to use local [`torch.Tensor`](tensors.html#torch.Tensor) instead of `DTensor` for the module inputs, default: False.
+- **use_local_output** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - Whether to use local [`torch.Tensor`](tensors.html#torch.Tensor) instead of `DTensor` for the module inputs, default: False.
 
 Returns:
 
@@ -302,7 +302,7 @@ Example::
 >>> )
 ```
 
-*class*torch.distributed.tensor.parallel.PrepareModuleOutput(***, *output_layouts*, *desired_output_layouts*, *use_local_output=True*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/tensor/parallel/style.py#L607)
+*class*torch.distributed.tensor.parallel.PrepareModuleOutput(***, *output_layouts*, *desired_output_layouts*, *use_local_output=True*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/tensor/parallel/style.py#L607)
 
 Configure the nn.Module's outputs to convert the output tensors of the nn.Module to DTensors at runtime according to
 `output_layouts`, and perform layout redistribution according to the `desired_output_layouts`.
@@ -314,7 +314,7 @@ DTensors if they are [`torch.Tensor`](tensors.html#torch.Tensor). If some output
 `None` need to be specified as a placeholder.
 - **desired_output_layouts** (*Union**[*[*Placement*](distributed.tensor.html#torch.distributed.tensor.placement_types.Placement)*,**Tuple**[*[*Placement*](distributed.tensor.html#torch.distributed.tensor.placement_types.Placement)*]**]*) - The desired DTensor layouts of output tensors for the nn.Module, this is used to ensure the outputs of the nn.Module
 have the desired DTensor layouts.
-- **use_local_output** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - Whether to use local [`torch.Tensor`](tensors.html#torch.Tensor) instead of `DTensor` for the module outputs, default: True.
+- **use_local_output** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - Whether to use local [`torch.Tensor`](tensors.html#torch.Tensor) instead of `DTensor` for the module outputs, default: True.
 
 Returns:
 
@@ -341,7 +341,7 @@ Example::
 >>> )
 ```
 
-*class*torch.distributed.tensor.parallel.PrepareModuleInputOutput(***, *input_layouts=None*, *desired_input_layouts=None*, *input_kwarg_layouts=None*, *desired_input_kwarg_layouts=None*, *use_local_input=False*, *output_layouts*, *desired_output_layouts*, *use_local_output=True*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/tensor/parallel/style.py#L717)
+*class*torch.distributed.tensor.parallel.PrepareModuleInputOutput(***, *input_layouts=None*, *desired_input_layouts=None*, *input_kwarg_layouts=None*, *desired_input_kwarg_layouts=None*, *use_local_input=False*, *output_layouts*, *desired_output_layouts*, *use_local_output=True*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/tensor/parallel/style.py#L717)
 
 Configure the nn.Module's inputs (and outputs) to convert the input tensors (and output tensors, respectively) of the nn.Module
 to DTensors at runtime according to `input_layouts` (and output_layouts, respectively), and perform layout redistribution
@@ -355,18 +355,18 @@ DTensors. If some inputs are not torch.Tensor or no need to convert to DTensors,
 as a placeholder. default: None.
 - **desired_input_layouts** (*Union**[*[*Placement*](distributed.tensor.html#torch.distributed.tensor.placement_types.Placement)*,**Tuple**[**Optional**[*[*Placement*](distributed.tensor.html#torch.distributed.tensor.placement_types.Placement)*]**]**]*) - The desired DTensor layout of input tensors for the nn.Module, this is used to ensure the inputs of the nn.Module
 have the desired DTensor layouts. This argument needs to have the same length with `input_layouts`. default: None.
-- **input_kwarg_layouts** (*Dict**[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*,*[*Placement*](distributed.tensor.html#torch.distributed.tensor.placement_types.Placement)*]*) - The DTensor layouts of input kwargs for the nn.Module, this is used to convert the input kwarg tensors to DTensors.
+- **input_kwarg_layouts** (*Dict**[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,*[*Placement*](distributed.tensor.html#torch.distributed.tensor.placement_types.Placement)*]*) - The DTensor layouts of input kwargs for the nn.Module, this is used to convert the input kwarg tensors to DTensors.
 default: None
 - **desired_input_kwarg_layouts** - (Dict[str, Placement]):
 The desired DTensor layout of input kwargs for the nn.Module, this is used to ensure the inputs of the nn.Module
 have the desired DTensor layouts. default: None.
-- **use_local_input** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - Whether to use local [`torch.Tensor`](tensors.html#torch.Tensor) instead of `DTensor` for the module inputs, default: False.
+- **use_local_input** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - Whether to use local [`torch.Tensor`](tensors.html#torch.Tensor) instead of `DTensor` for the module inputs, default: False.
 - **output_layouts** (*Union**[*[*Placement*](distributed.tensor.html#torch.distributed.tensor.placement_types.Placement)*,**Tuple**[*[*Placement*](distributed.tensor.html#torch.distributed.tensor.placement_types.Placement)*]**]*) - The DTensor layouts of output tensors for the nn.Module, this is used to convert the output tensors to
 DTensors if they are [`torch.Tensor`](tensors.html#torch.Tensor). If some outputs are not torch.Tensor or no need to convert to DTensors,
 `None` need to be specified as a placeholder.
 - **desired_output_layouts** (*Union**[*[*Placement*](distributed.tensor.html#torch.distributed.tensor.placement_types.Placement)*,**Tuple**[*[*Placement*](distributed.tensor.html#torch.distributed.tensor.placement_types.Placement)*]**]*) - The desired DTensor layouts of output tensors for the nn.Module, this is used to ensure the outputs of the nn.Module
 have the desired DTensor layouts.
-- **use_local_output** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - Whether to use local [`torch.Tensor`](tensors.html#torch.Tensor) instead of `DTensor` for the module outputs, default: True.
+- **use_local_output** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - Whether to use local [`torch.Tensor`](tensors.html#torch.Tensor) instead of `DTensor` for the module outputs, default: True.
 
 Returns:
 
@@ -412,7 +412,7 @@ sharding for the entire model (i.e. Attention and MLP).
 
 Parallelized cross-entropy loss computation (loss parallelism), is supported via the following context manager:
 
-torch.distributed.tensor.parallel.loss_parallel()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/tensor/parallel/loss.py#L30)
+torch.distributed.tensor.parallel.loss_parallel()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/tensor/parallel/loss.py#L30)
 
 A context manager that enables loss parallelism, where efficient parallelized loss computation
 can be performed when the input is sharded on the class dimension. Currently only the cross-entropy
@@ -508,7 +508,7 @@ Warning
 The loss_parallel API is experimental and subject to change.
 ```
 
-torch.distributed.tensor.parallel.loss.loss_parallel()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/tensor/parallel/loss.py#L30)
+torch.distributed.tensor.parallel.loss.loss_parallel()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/tensor/parallel/loss.py#L30)
 
 A context manager that enables loss parallelism, where efficient parallelized loss computation
 can be performed when the input is sharded on the class dimension. Currently only the cross-entropy
@@ -598,7 +598,7 @@ In practice, it is usually the output of a TP module.
 >>> ...
 ```
 
-torch.distributed.tensor.parallel.input_reshard.input_reshard(*module*, *tp_device_mesh*, *input_reshard_dim=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/tensor/parallel/input_reshard.py#L15)
+torch.distributed.tensor.parallel.input_reshard.input_reshard(*module*, *tp_device_mesh*, *input_reshard_dim=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/tensor/parallel/input_reshard.py#L15)
 
 Register hooks to an nn.Module for input resharding, enabling sharding and restoration during backward computation.
 
@@ -613,7 +613,7 @@ Parameters:
 - **module** (`nn.Module`) - Module to be registered with input resharding.
 - **tp_device_mesh** (`DeviceMesh`) - Object which describes the mesh topology
 of devices for Tensor Parallel.
-- **input_reshard_dim** (*Optional**[*[*int*](https://docs.python.org/3/library/functions.html#int)*]*) - The dimension of where we perform the sharding
+- **input_reshard_dim** (*Optional**[*[*int*](https://docs.python.org/3/builtins/functions.html#int)*]*) - The dimension of where we perform the sharding
 of input. If set None, there is no sharding of input.
 Default: None
 

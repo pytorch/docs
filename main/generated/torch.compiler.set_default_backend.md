@@ -1,6 +1,6 @@
 # torch.compiler.set_default_backend
 
-torch.compiler.set_default_backend(*backend*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/compiler/__init__.py#L357)
+torch.compiler.set_default_backend(*backend*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/compiler/__init__.py#L357)
 
 Set the default backend for `torch.compile` when no `backend` argument is specified.
 
@@ -8,7 +8,7 @@ Passing `None` resets the default back to `"inductor"`.
 
 Parameters:
 
-**backend** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*|*[*Callable*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)*[**[**...**]**,*[*Any*](https://docs.python.org/3/library/typing.html#typing.Any)*]**|**None*) - A backend name (string), a callable backend, or `None`.
+**backend** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*|*[*Callable*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)*[**[**...**]**,*[*Any*](https://docs.python.org/3/library/typing.html#typing.Any)*]**|**None*) - A backend name (string), a callable backend, or `None`.
 
 Example:
 

@@ -1,6 +1,6 @@
 # torch.nn.utils.prune.ln_structured
 
-torch.nn.utils.prune.ln_structured(*module*, *name*, *amount*, *n*, *dim*, *importance_scores=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/utils/prune.py#L991)
+torch.nn.utils.prune.ln_structured(*module*, *name*, *amount*, *n*, *dim*, *importance_scores=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/utils/prune.py#L991)
 
 Prune tensor by removing channels with the lowest L`n`-norm along the specified dimension.
 
@@ -19,15 +19,15 @@ original (unpruned) parameter is stored in a new parameter named
 Parameters:
 
 - **module** ([*nn.Module*](torch.nn.Module.html#torch.nn.Module)) - module containing the tensor to prune
-- **name** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - parameter name within `module` on which pruning
+- **name** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - parameter name within `module` on which pruning
 will act.
-- **amount** ([*int*](https://docs.python.org/3/library/functions.html#int)*or*[*float*](https://docs.python.org/3/library/functions.html#float)) - quantity of parameters to prune.
+- **amount** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*or*[*float*](https://docs.python.org/3/builtins/functions.html#float)) - quantity of parameters to prune.
 If `float`, should be between 0.0 and 1.0 and represent the
 fraction of parameters to prune. If `int`, it represents the
 absolute number of parameters to prune.
-- **n** ([*int*](https://docs.python.org/3/library/functions.html#int)*,*[*float*](https://docs.python.org/3/library/functions.html#float)*,**inf**,**-inf**,**'fro'**,**'nuc'*) - See documentation of valid
+- **n** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,*[*float*](https://docs.python.org/3/builtins/functions.html#float)*,**inf**,**-inf**,**'fro'**,**'nuc'*) - See documentation of valid
 entries for argument `p` in [`torch.norm()`](torch.norm.html#torch.norm).
-- **dim** ([*int*](https://docs.python.org/3/library/functions.html#int)) - index of the dim along which we define channels to prune.
+- **dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - index of the dim along which we define channels to prune.
 - **importance_scores** ([*torch.Tensor*](../tensors.html#torch.Tensor)) - tensor of importance scores (of same
 shape as module parameter) used to compute mask for pruning.
 The values in this tensor indicate the importance of the corresponding

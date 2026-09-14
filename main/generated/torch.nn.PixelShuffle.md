@@ -1,6 +1,6 @@
 # PixelShuffle
 
-*class*torch.nn.PixelShuffle(*upscale_factor*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/pixelshuffle.py#L10)
+*class*torch.nn.PixelShuffle(*upscale_factor*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/pixelshuffle.py#L10)
 
 Rearrange elements in a tensor according to an upscaling factor.
 
@@ -16,7 +16,7 @@ by Shi et al. (2016) for more details.
 
 Parameters:
 
-**upscale_factor** ([*int*](https://docs.python.org/3/library/functions.html#int)) - factor to increase spatial resolution by
+**upscale_factor** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - factor to increase spatial resolution by
 
 Shape:
 
@@ -43,15 +43,15 @@ Examples:
 torch.Size([1, 1, 12, 12])
 ```
 
-extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/pixelshuffle.py#L64)
+extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/pixelshuffle.py#L64)
 
 Return the extra representation of the module.
 
 Return type:
 
-[str](https://docs.python.org/3/library/stdtypes.html#str)
+[str](https://docs.python.org/3/builtins/stdtypes.html#str)
 
-forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/pixelshuffle.py#L58)
+forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/pixelshuffle.py#L58)
 
 Runs the forward pass.
 

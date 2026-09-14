@@ -598,9 +598,9 @@ communicator for the process group if it doesn't already exist.
 
 ## API Reference
 
-torch.distributed._symmetric_memory.empty(**size: _int*, *dtype: _dtype | [None](https://docs.python.org/3/library/constants.html#None) = None*, *device: _device | [None](https://docs.python.org/3/library/constants.html#None) = None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/_symmetric_memory/__init__.py#L2185)
+torch.distributed._symmetric_memory.empty(**size: _int*, *dtype: _dtype | [None](https://docs.python.org/3/builtins/constants.html#None) = None*, *device: _device | [None](https://docs.python.org/3/builtins/constants.html#None) = None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/_symmetric_memory/__init__.py#L2185)
 
-torch.distributed._symmetric_memory.empty(*size: Sequence[_int]*, ***, *dtype: _dtype | [None](https://docs.python.org/3/library/constants.html#None) = None*, *device: _device | [None](https://docs.python.org/3/library/constants.html#None) = None*) → [Tensor](tensors.html#torch.Tensor)
+torch.distributed._symmetric_memory.empty(*size: Sequence[_int]*, ***, *dtype: _dtype | [None](https://docs.python.org/3/builtins/constants.html#None) = None*, *device: _device | [None](https://docs.python.org/3/builtins/constants.html#None) = None*) → [Tensor](tensors.html#torch.Tensor)
 
 Similar to [`torch.empty()`](generated/torch.empty.html#torch.empty). The returned tensor can be used by
 `torch._distributed._symmetric_memory.rendezvous()` to establish a
@@ -615,7 +615,7 @@ rather than allocating in hot code paths.
 
 Parameters:
 
-**size** ([*int*](https://docs.python.org/3/library/functions.html#int)*...*) - a sequence of integers defining the shape of the output tensor.
+**size** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*...*) - a sequence of integers defining the shape of the output tensor.
 Can be a variable number of arguments or a collection like a list or tuple.
 
 Keyword Arguments:
@@ -628,7 +628,7 @@ Default: if `None`, uses the current device for the default tensor type
 for CPU tensor types, the current CUDA device for CUDA tensor types,
 and the current XPU device for XPU tensor types.
 
-torch.distributed._symmetric_memory.rendezvous(*tensor*, *group*) → _SymmetricMemory[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/_symmetric_memory/__init__.py#L2250)
+torch.distributed._symmetric_memory.rendezvous(*tensor*, *group*) → _SymmetricMemory[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/_symmetric_memory/__init__.py#L2250)
 
 Establish a symmetric memory tensor among participating processes. This is
 a collective operation.
@@ -654,7 +654,7 @@ Return type:
 
 _SymmetricMemory
 
-torch.distributed._symmetric_memory.get(*dst*, *hdl*, *peer*, *offset=0*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/_symmetric_memory/__init__.py#L2436)
+torch.distributed._symmetric_memory.get(*dst*, *hdl*, *peer*, *offset=0*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/_symmetric_memory/__init__.py#L2436)
 
 Copy `dst.numel()` elements starting at `offset` from `peer`'s
 symmetric allocation into local `dst` using one-sided symmetric memory
@@ -674,11 +674,11 @@ Parameters:
 - **dst** ([*Tensor*](tensors.html#torch.Tensor)) - local destination tensor.
 - **hdl** (*SymmetricMemory*) - handle whose peer allocation is the remote
 source.
-- **peer** ([*int*](https://docs.python.org/3/library/functions.html#int)) - rank to copy from.
-- **offset** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - element offset into the peer allocation to
+- **peer** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - rank to copy from.
+- **offset** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - element offset into the peer allocation to
 start reading from. Defaults to `0`.
 
-torch.distributed._symmetric_memory.is_nvshmem_available() → [bool](https://docs.python.org/3/library/functions.html#bool)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/_symmetric_memory/__init__.py#L2278)
+torch.distributed._symmetric_memory.is_nvshmem_available() → [bool](https://docs.python.org/3/builtins/functions.html#bool)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/_symmetric_memory/__init__.py#L2278)
 
 Check if NVSHMEM (CUDA) or rocSHMEM (ROCm) is available in the current
 build and usable at runtime. On ROCm, rocSHMEM `VERSION` must be at
@@ -686,9 +686,9 @@ least 3.3.0 (see `rocshmem/rocshmem.hpp`).
 
 Return type:
 
-[bool](https://docs.python.org/3/library/functions.html#bool)
+[bool](https://docs.python.org/3/builtins/functions.html#bool)
 
-torch.distributed._symmetric_memory.set_backend(*name*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/_symmetric_memory/__init__.py#L2296)
+torch.distributed._symmetric_memory.set_backend(*name*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/_symmetric_memory/__init__.py#L2296)
 
 Set the backend for symmetric memory allocation. This is a global setting
 and affects all subsequent calls to
@@ -697,10 +697,10 @@ cannot be changed once a symmetric memory tensor has been allocated.
 
 Parameters:
 
-**backend** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - the backend for symmetric memory allocation. Currently,
+**backend** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - the backend for symmetric memory allocation. Currently,
 only "NVSHMEM", "CUDA", "NCCL" are supported.
 
-torch.distributed._symmetric_memory.get_backend(*device*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/_symmetric_memory/__init__.py#L2310)
+torch.distributed._symmetric_memory.get_backend(*device*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/_symmetric_memory/__init__.py#L2310)
 
 Get the backend for symmetric memory allocation for a given device. If not
 found, return None.
@@ -711,9 +711,9 @@ Parameters:
 
 Return type:
 
-[str](https://docs.python.org/3/library/stdtypes.html#str) | None
+[str](https://docs.python.org/3/builtins/stdtypes.html#str) | None
 
-torch.distributed._symmetric_memory.get_mem_pool(*device*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/_symmetric_memory/__init__.py#L2380)
+torch.distributed._symmetric_memory.get_mem_pool(*device*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/_symmetric_memory/__init__.py#L2380)
 
 Get the symmetric memory pool for a given device. If not found, create a new
 pool.
@@ -743,7 +743,7 @@ Example:
 >>> tensor = torch.ops.symm_mem.one_shot_all_reduce(tensor, "sum", group_name)
 ```
 
-torch.distributed._symmetric_memory.is_symm_mem_tensor(*tensor*) → [bool](https://docs.python.org/3/library/functions.html#bool)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/_symmetric_memory/__init__.py#L2618)
+torch.distributed._symmetric_memory.is_symm_mem_tensor(*tensor*) → [bool](https://docs.python.org/3/builtins/functions.html#bool)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/_symmetric_memory/__init__.py#L2618)
 
 Returns `True` if `tensor` was allocated via symmetric memory
 (i.e. via `torch.distributed._symmetric_memory.empty()` or
@@ -757,9 +757,9 @@ Parameters:
 
 Return type:
 
-[bool](https://docs.python.org/3/library/functions.html#bool)
+[bool](https://docs.python.org/3/builtins/functions.html#bool)
 
-torch.distributed._symmetric_memory.set_signal_pad_size(*size*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/_symmetric_memory/__init__.py#L2332)
+torch.distributed._symmetric_memory.set_signal_pad_size(*size*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/_symmetric_memory/__init__.py#L2332)
 
 Set the signal pad size for future symmetric memory allocations.
 
@@ -774,7 +774,7 @@ The size cannot be changed after allocations have been performed.
 
 Parameters:
 
-**size** ([*int*](https://docs.python.org/3/library/functions.html#int)) - the signal pad size in bytes. The size should be
+**size** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - the signal pad size in bytes. The size should be
 proportional to the number of blocks launched and the world size.
 
 Example:
@@ -784,7 +784,7 @@ Example:
 >>> torch.distributed._symmetric_memory.set_signal_pad_size(1024 * 1024) # 1MB
 ```
 
-torch.distributed._symmetric_memory.get_signal_pad_size()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/_symmetric_memory/__init__.py#L2357)
+torch.distributed._symmetric_memory.get_signal_pad_size()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/_symmetric_memory/__init__.py#L2357)
 
 Get the current signal pad size for symmetric memory allocations.
 
@@ -797,7 +797,7 @@ the signal pad size in bytes.
 
 Return type:
 
-[int](https://docs.python.org/3/library/functions.html#int)
+[int](https://docs.python.org/3/builtins/functions.html#int)
 
 Example:
 
@@ -813,7 +813,7 @@ Note
 The following ops are hosted in the `torch.ops.symm_mem` namespace. You can call
 them directly via `torch.ops.symm_mem.<op_name>`.
 
-torch.distributed._symmetric_memory.reduce_scatter_offset(*input*, *out*, *group*, ***, *dim*, *offsets*, *dst_ranks*, *red_op='sum'*) → [None](https://docs.python.org/3/library/constants.html#None)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/_symmetric_memory/__init__.py#L2543)
+torch.distributed._symmetric_memory.reduce_scatter_offset(*input*, *out*, *group*, ***, *dim*, *offsets*, *dst_ranks*, *red_op='sum'*) → [None](https://docs.python.org/3/builtins/constants.html#None)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/_symmetric_memory/__init__.py#L2543)
 
 Simultaneously reduce N blocks of a 2-D `input` tensor from a symmetric
 memory buffer, routing each block to a specific destination rank. Only
@@ -840,18 +840,18 @@ Parameters:
 
 - **input** ([*Tensor*](tensors.html#torch.Tensor)) - 2-D tensor allocated via symmetric memory (innermost
 dimension must be contiguous).
-- **out** ([*list*](https://docs.python.org/3/library/stdtypes.html#list)*[*[*Tensor*](tensors.html#torch.Tensor)*]*) - Output tensors for this rank's owned blocks. Must
+- **out** ([*list*](https://docs.python.org/3/builtins/stdtypes.html#list)*[*[*Tensor*](tensors.html#torch.Tensor)*]*) - Output tensors for this rank's owned blocks. Must
 have length equal to the number of blocks owned by this rank (i.e.
 the count of `i` where `dst_ranks[i] == my_rank`). Each
 `out[j]` must be contiguous with the same dtype as `input`.
-- **group** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - The name of the `ProcessGroup` to perform the operation on.
-- **dim** ([*int*](https://docs.python.org/3/library/functions.html#int)) - Dimension along which blocks are defined (0 or 1).
-- **offsets** ([*list*](https://docs.python.org/3/library/stdtypes.html#list)*[*[*int*](https://docs.python.org/3/library/functions.html#int)*]**|**None*) - Inclusive prefix-sum of block sizes along
+- **group** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - The name of the `ProcessGroup` to perform the operation on.
+- **dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Dimension along which blocks are defined (0 or 1).
+- **offsets** ([*list*](https://docs.python.org/3/builtins/stdtypes.html#list)*[*[*int*](https://docs.python.org/3/builtins/functions.html#int)*]**|**None*) - Inclusive prefix-sum of block sizes along
 `dim`, length N. If not provided, `input.size(dim)` is divided
 into equal-size blocks based on the size of the `group`.
-- **dst_ranks** ([*list*](https://docs.python.org/3/library/stdtypes.html#list)*[*[*int*](https://docs.python.org/3/library/functions.html#int)*]**|**None*) - Destination rank for each block. If not
+- **dst_ranks** ([*list*](https://docs.python.org/3/builtins/stdtypes.html#list)*[*[*int*](https://docs.python.org/3/builtins/functions.html#int)*]**|**None*) - Destination rank for each block. If not
 provided, blocks are distributed round-robin across ranks.
-- **red_op** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - Reduction operation; currently only `'sum'` is supported.
+- **red_op** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - Reduction operation; currently only `'sum'` is supported.
 
 Example:
 
@@ -868,7 +868,7 @@ Example:
 >>> symm_mem.reduce_scatter_offset(buf, out, group_name, dim=1, offsets=offsets, dst_ranks=dst_ranks)
 ```
 
-torch.ops.symm_mem.multimem_all_reduce_(*input: [Tensor](tensors.html#torch.Tensor)*, *reduce_op: [str](https://docs.python.org/3/library/stdtypes.html#str)*, *group_name: [str](https://docs.python.org/3/library/stdtypes.html#str)*) → [Tensor](tensors.html#torch.Tensor)
+torch.ops.symm_mem.multimem_all_reduce_(*input: [Tensor](tensors.html#torch.Tensor)*, *reduce_op: [str](https://docs.python.org/3/builtins/stdtypes.html#str)*, *group_name: [str](https://docs.python.org/3/builtins/stdtypes.html#str)*) → [Tensor](tensors.html#torch.Tensor)
 
 Performs a multimem all-reduce operation on the input tensor. This operation
 requires hardware support for multimem operations. On NVIDIA GPUs, NVLink
@@ -886,10 +886,10 @@ one dedicated stream using `stream.wait_stream()` / `current_stream.wait_stream(
 Parameters:
 
 - **input** ([*Tensor*](tensors.html#torch.Tensor)) - Input tensor to perform all-reduce on. Must be symmetric.
-- **reduce_op** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - Reduction operation to perform. Currently only "sum" is supported.
-- **group_name** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - Name of the group to perform all-reduce on.
+- **reduce_op** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - Reduction operation to perform. Currently only "sum" is supported.
+- **group_name** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - Name of the group to perform all-reduce on.
 
-torch.ops.symm_mem.multimem_all_gather_out(*input: [Tensor](tensors.html#torch.Tensor)*, *group_name: [str](https://docs.python.org/3/library/stdtypes.html#str)*, *out: [Tensor](tensors.html#torch.Tensor)*) → [Tensor](tensors.html#torch.Tensor)
+torch.ops.symm_mem.multimem_all_gather_out(*input: [Tensor](tensors.html#torch.Tensor)*, *group_name: [str](https://docs.python.org/3/builtins/stdtypes.html#str)*, *out: [Tensor](tensors.html#torch.Tensor)*) → [Tensor](tensors.html#torch.Tensor)
 
 Performs a multimem all-gather operation on the input tensor. This operation requires hardware support for multimem operations. On NVIDIA GPUs, NVLink SHARP is required.
 
@@ -901,10 +901,10 @@ CUDA stream. See `multimem_all_reduce_()` for details.
 Parameters:
 
 - **input** ([*Tensor*](tensors.html#torch.Tensor)) - Input tensor to perform all-gather on.
-- **group_name** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - Name of the group to perform all-gather on.
+- **group_name** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - Name of the group to perform all-gather on.
 - **out** ([*Tensor*](tensors.html#torch.Tensor)) - Output tensor to store the result of the all-gather operation. Must be symmetric.
 
-torch.ops.symm_mem.one_shot_all_reduce(*input: [Tensor](tensors.html#torch.Tensor)*, *reduce_op: [str](https://docs.python.org/3/library/stdtypes.html#str)*, *group_name: [str](https://docs.python.org/3/library/stdtypes.html#str)*) → [Tensor](tensors.html#torch.Tensor)
+torch.ops.symm_mem.one_shot_all_reduce(*input: [Tensor](tensors.html#torch.Tensor)*, *reduce_op: [str](https://docs.python.org/3/builtins/stdtypes.html#str)*, *group_name: [str](https://docs.python.org/3/builtins/stdtypes.html#str)*) → [Tensor](tensors.html#torch.Tensor)
 
 Performs a one-shot all-reduce operation on the input tensor.
 
@@ -916,10 +916,10 @@ CUDA stream. See `multimem_all_reduce_()` for details.
 Parameters:
 
 - **input** ([*Tensor*](tensors.html#torch.Tensor)) - Input tensor to perform all-reduce on. Must be symmetric.
-- **reduce_op** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - Reduction operation to perform. Currently only "sum" is supported.
-- **group_name** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - Name of the group to perform all-reduce on.
+- **reduce_op** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - Reduction operation to perform. Currently only "sum" is supported.
+- **group_name** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - Name of the group to perform all-reduce on.
 
-torch.ops.symm_mem.one_shot_all_reduce_out(*input: [Tensor](tensors.html#torch.Tensor)*, *reduce_op: [str](https://docs.python.org/3/library/stdtypes.html#str)*, *group_name: [str](https://docs.python.org/3/library/stdtypes.html#str)*, *out: [Tensor](tensors.html#torch.Tensor)*) → [Tensor](tensors.html#torch.Tensor)
+torch.ops.symm_mem.one_shot_all_reduce_out(*input: [Tensor](tensors.html#torch.Tensor)*, *reduce_op: [str](https://docs.python.org/3/builtins/stdtypes.html#str)*, *group_name: [str](https://docs.python.org/3/builtins/stdtypes.html#str)*, *out: [Tensor](tensors.html#torch.Tensor)*) → [Tensor](tensors.html#torch.Tensor)
 
 Performs a one-shot all-reduce operation based on the input tensor and writes the result to the output tensor.
 
@@ -931,11 +931,11 @@ CUDA stream. See `multimem_all_reduce_()` for details.
 Parameters:
 
 - **input** ([*Tensor*](tensors.html#torch.Tensor)) - Input tensor to perform all-reduce on. Must be symmetric.
-- **reduce_op** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - Reduction operation to perform. Currently only "sum" is supported.
-- **group_name** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - Name of the group to perform all-reduce on.
+- **reduce_op** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - Reduction operation to perform. Currently only "sum" is supported.
+- **group_name** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - Name of the group to perform all-reduce on.
 - **out** ([*Tensor*](tensors.html#torch.Tensor)) - Output tensor to store the result of the all-reduce operation. Can be a regular tensor.
 
-torch.ops.symm_mem.two_shot_all_reduce_(*input: [Tensor](tensors.html#torch.Tensor)*, *reduce_op: [str](https://docs.python.org/3/library/stdtypes.html#str)*, *group_name: [str](https://docs.python.org/3/library/stdtypes.html#str)*) → [Tensor](tensors.html#torch.Tensor)
+torch.ops.symm_mem.two_shot_all_reduce_(*input: [Tensor](tensors.html#torch.Tensor)*, *reduce_op: [str](https://docs.python.org/3/builtins/stdtypes.html#str)*, *group_name: [str](https://docs.python.org/3/builtins/stdtypes.html#str)*) → [Tensor](tensors.html#torch.Tensor)
 
 Performs a two-shot all-reduce operation on the input tensor.
 
@@ -947,10 +947,10 @@ CUDA stream. See `multimem_all_reduce_()` for details.
 Parameters:
 
 - **input** ([*Tensor*](tensors.html#torch.Tensor)) - Input tensor to perform all-reduce on. Must be symmetric.
-- **reduce_op** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - Reduction operation to perform. Currently only "sum" is supported.
-- **group_name** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - Name of the group to perform all-reduce on.
+- **reduce_op** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - Reduction operation to perform. Currently only "sum" is supported.
+- **group_name** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - Name of the group to perform all-reduce on.
 
-torch.ops.symm_mem.nvshmem_broadcast(*input: [Tensor](tensors.html#torch.Tensor)*, *root: [int](https://docs.python.org/3/library/functions.html#int)*, *group_name: [str](https://docs.python.org/3/library/stdtypes.html#str)*) → [Tensor](tensors.html#torch.Tensor)
+torch.ops.symm_mem.nvshmem_broadcast(*input: [Tensor](tensors.html#torch.Tensor)*, *root: [int](https://docs.python.org/3/builtins/functions.html#int)*, *group_name: [str](https://docs.python.org/3/builtins/stdtypes.html#str)*) → [Tensor](tensors.html#torch.Tensor)
 
 Broadcasts the input tensor from the root rank to all ranks in the group
 using NVSHMEM, in place. This op is host/stream-initiated and works both
@@ -961,10 +961,10 @@ The operation is issued on the current CUDA stream and returns input.
 Parameters:
 
 - **input** ([*Tensor*](tensors.html#torch.Tensor)) - Tensor to broadcast (on the root) or receive into (on other ranks). Must be symmetric.
-- **root** ([*int*](https://docs.python.org/3/library/functions.html#int)) - Rank within the group that holds the source data. Must be smaller than the group size.
-- **group_name** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - Name of the group to perform the broadcast on.
+- **root** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Rank within the group that holds the source data. Must be smaller than the group size.
+- **group_name** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - Name of the group to perform the broadcast on.
 
-torch.ops.symm_mem.nvshmem_put(*tensor: [Tensor](tensors.html#torch.Tensor)*, *peer: [int](https://docs.python.org/3/library/functions.html#int)*) → [None](https://docs.python.org/3/library/constants.html#None)
+torch.ops.symm_mem.nvshmem_put(*tensor: [Tensor](tensors.html#torch.Tensor)*, *peer: [int](https://docs.python.org/3/builtins/functions.html#int)*) → [None](https://docs.python.org/3/builtins/constants.html#None)
 
 Performs a one-sided, host/stream-initiated put over NVSHMEM: copies the
 local tensor into the same symmetric allocation on peer. Works both
@@ -976,9 +976,9 @@ so you must provide your own synchronization (e.g. nvshmem_put_with_signal
 Parameters:
 
 - **tensor** ([*Tensor*](tensors.html#torch.Tensor)) - Symmetric, contiguous tensor whose data is sent, and which also names the destination allocation on the peer.
-- **peer** ([*int*](https://docs.python.org/3/library/functions.html#int)) - Rank to send the data to. Must be smaller than the world size.
+- **peer** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Rank to send the data to. Must be smaller than the world size.
 
-torch.ops.symm_mem.nvshmem_get(*tensor: [Tensor](tensors.html#torch.Tensor)*, *peer: [int](https://docs.python.org/3/library/functions.html#int)*) → [None](https://docs.python.org/3/library/constants.html#None)
+torch.ops.symm_mem.nvshmem_get(*tensor: [Tensor](tensors.html#torch.Tensor)*, *peer: [int](https://docs.python.org/3/builtins/functions.html#int)*) → [None](https://docs.python.org/3/builtins/constants.html#None)
 
 Performs a one-sided, host/stream-initiated get over NVSHMEM: copies the data
 from the same symmetric allocation on peer into the local tensor. Works
@@ -988,9 +988,9 @@ stream.
 Parameters:
 
 - **tensor** ([*Tensor*](tensors.html#torch.Tensor)) - Symmetric, contiguous tensor that receives the data, and which also names the source allocation on the peer.
-- **peer** ([*int*](https://docs.python.org/3/library/functions.html#int)) - Rank to read the data from. Must be smaller than the world size.
+- **peer** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Rank to read the data from. Must be smaller than the world size.
 
-torch.ops.symm_mem.nvshmem_get_out(*dst: [Tensor](tensors.html#torch.Tensor)*, *hdl: SymmetricMemory*, *offset: [int](https://docs.python.org/3/library/functions.html#int)*, *size: [int](https://docs.python.org/3/library/functions.html#int)*, *peer: [int](https://docs.python.org/3/library/functions.html#int)*) → [None](https://docs.python.org/3/library/constants.html#None)
+torch.ops.symm_mem.nvshmem_get_out(*dst: [Tensor](tensors.html#torch.Tensor)*, *hdl: SymmetricMemory*, *offset: [int](https://docs.python.org/3/builtins/functions.html#int)*, *size: [int](https://docs.python.org/3/builtins/functions.html#int)*, *peer: [int](https://docs.python.org/3/builtins/functions.html#int)*) → [None](https://docs.python.org/3/builtins/constants.html#None)
 
 Low-level, host/stream-initiated get that copies size elements starting at
 element offset from the peer's symmetric allocation (the one backing hdl)
@@ -1002,11 +1002,11 @@ Parameters:
 
 - **dst** ([*Tensor*](tensors.html#torch.Tensor)) - Local CUDA tensor to receive the data. Must be contiguous, on the same device as hdl, and hold at least size elements.
 - **hdl** (*SymmetricMemory*) - Handle returned by rendezvous, identifying the peer's symmetric allocation to read from.
-- **offset** ([*int*](https://docs.python.org/3/library/functions.html#int)) - Starting element (in dst's dtype) within the peer allocation. Must be non-negative.
-- **size** ([*int*](https://docs.python.org/3/library/functions.html#int)) - Number of elements to copy. Must be non-negative.
-- **peer** ([*int*](https://docs.python.org/3/library/functions.html#int)) - Rank to read the data from. Must be a valid rank in the group.
+- **offset** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Starting element (in dst's dtype) within the peer allocation. Must be non-negative.
+- **size** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Number of elements to copy. Must be non-negative.
+- **peer** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Rank to read the data from. Must be a valid rank in the group.
 
-torch.ops.symm_mem.nvshmem_put_with_signal(*tensor: [Tensor](tensors.html#torch.Tensor)*, *sigpad: [Tensor](tensors.html#torch.Tensor)*, *signal: [int](https://docs.python.org/3/library/functions.html#int)*, *peer: [int](https://docs.python.org/3/library/functions.html#int)*) → [None](https://docs.python.org/3/library/constants.html#None)
+torch.ops.symm_mem.nvshmem_put_with_signal(*tensor: [Tensor](tensors.html#torch.Tensor)*, *sigpad: [Tensor](tensors.html#torch.Tensor)*, *signal: [int](https://docs.python.org/3/builtins/functions.html#int)*, *peer: [int](https://docs.python.org/3/builtins/functions.html#int)*) → [None](https://docs.python.org/3/builtins/constants.html#None)
 
 Performs a one-sided put of tensor to the same symmetric allocation on
 peer, and atomically sets the peer's signal location sigpad to signal
@@ -1017,10 +1017,10 @@ Parameters:
 
 - **tensor** ([*Tensor*](tensors.html#torch.Tensor)) - Symmetric tensor whose data is sent, and which also names the destination allocation on the peer.
 - **sigpad** ([*Tensor*](tensors.html#torch.Tensor)) - Symmetric signal pad on the peer to set once the transfer completes.
-- **signal** ([*int*](https://docs.python.org/3/library/functions.html#int)) - Value to set the peer's sigpad to.
-- **peer** ([*int*](https://docs.python.org/3/library/functions.html#int)) - Rank to send the data to.
+- **signal** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Value to set the peer's sigpad to.
+- **peer** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Rank to send the data to.
 
-torch.ops.symm_mem.nvshmem_wait_for_signal(*sigpad: [Tensor](tensors.html#torch.Tensor)*, *signal: [int](https://docs.python.org/3/library/functions.html#int)*, *peer: [int](https://docs.python.org/3/library/functions.html#int)*) → [None](https://docs.python.org/3/library/constants.html#None)
+torch.ops.symm_mem.nvshmem_wait_for_signal(*sigpad: [Tensor](tensors.html#torch.Tensor)*, *signal: [int](https://docs.python.org/3/builtins/functions.html#int)*, *peer: [int](https://docs.python.org/3/builtins/functions.html#int)*) → [None](https://docs.python.org/3/builtins/constants.html#None)
 
 Blocks the current CUDA stream until the local signal location sigpad
 equals signal. Typically paired with nvshmem_put_with_signal on the
@@ -1029,10 +1029,10 @@ sender side to wait for incoming data.
 Parameters:
 
 - **sigpad** ([*Tensor*](tensors.html#torch.Tensor)) - Local signal pad to poll.
-- **signal** ([*int*](https://docs.python.org/3/library/functions.html#int)) - Value to wait for.
-- **peer** ([*int*](https://docs.python.org/3/library/functions.html#int)) - Reserved for future use.
+- **signal** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Value to wait for.
+- **peer** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Reserved for future use.
 
-torch.ops.symm_mem.nvshmem_all_to_all(*input: [Tensor](tensors.html#torch.Tensor)*, *out: [Tensor](tensors.html#torch.Tensor)*, *group_name: [str](https://docs.python.org/3/library/stdtypes.html#str)*) → [Tensor](tensors.html#torch.Tensor)
+torch.ops.symm_mem.nvshmem_all_to_all(*input: [Tensor](tensors.html#torch.Tensor)*, *out: [Tensor](tensors.html#torch.Tensor)*, *group_name: [str](https://docs.python.org/3/builtins/stdtypes.html#str)*) → [Tensor](tensors.html#torch.Tensor)
 
 Performs an equal-split all-to-all operation using NVSHMEM. Unlike the
 pointer-based collectives, this op is host/stream-initiated and runs over the
@@ -1048,9 +1048,9 @@ Parameters:
 
 - **input** ([*Tensor*](tensors.html#torch.Tensor)) - Input tensor to perform all-to-all on. Must be symmetric and contiguous. Its number of elements must be divisible by the group size.
 - **out** ([*Tensor*](tensors.html#torch.Tensor)) - Output tensor to store the result of the all-to-all operation. Must be symmetric and contiguous, and have the same number of elements and dtype as input.
-- **group_name** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - Name of the group to perform all-to-all on.
+- **group_name** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - Name of the group to perform all-to-all on.
 
-torch.ops.symm_mem.all_to_all_vdev(*input: [Tensor](tensors.html#torch.Tensor)*, *out: [Tensor](tensors.html#torch.Tensor)*, *in_splits: [Tensor](tensors.html#torch.Tensor)*, *out_splits_offsets: [Tensor](tensors.html#torch.Tensor)*, *group_name: [str](https://docs.python.org/3/library/stdtypes.html#str)*) → [None](https://docs.python.org/3/library/constants.html#None)
+torch.ops.symm_mem.all_to_all_vdev(*input: [Tensor](tensors.html#torch.Tensor)*, *out: [Tensor](tensors.html#torch.Tensor)*, *in_splits: [Tensor](tensors.html#torch.Tensor)*, *out_splits_offsets: [Tensor](tensors.html#torch.Tensor)*, *group_name: [str](https://docs.python.org/3/builtins/stdtypes.html#str)*) → [None](https://docs.python.org/3/builtins/constants.html#None)
 
 Performs an all-to-all-v operation using NVSHMEM, with split information provided on device.
 
@@ -1060,9 +1060,9 @@ Parameters:
 - **out** ([*Tensor*](tensors.html#torch.Tensor)) - Output tensor to store the result of the all-to-all operation. Must be symmetric.
 - **in_splits** ([*Tensor*](tensors.html#torch.Tensor)) - Tensor containing splits of data to send to each peer. Must be symmetric. Must be of size (group_size,). The splits are in the unit of elements in the 1st dimension.
 - **out_splits_offsets** ([*Tensor*](tensors.html#torch.Tensor)) - Tensor containing the splits and offsets of data received from each peer. Must be symmetric. Must be of size (2, group_size). The rows are (in order): output splits and output offsets.
-- **group_name** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - Name of the group to perform all-to-all on.
+- **group_name** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - Name of the group to perform all-to-all on.
 
-torch.ops.symm_mem.all_to_all_vdev_2d(*input: Tensor*, *out: Tensor*, *in_splits: Tensor*, *out_splits_offsets: Tensor*, *group_name: str*[, *major_align: int = None*]) → [None](https://docs.python.org/3/library/constants.html#None)
+torch.ops.symm_mem.all_to_all_vdev_2d(*input: Tensor*, *out: Tensor*, *in_splits: Tensor*, *out_splits_offsets: Tensor*, *group_name: str*[, *major_align: int = None*]) → [None](https://docs.python.org/3/builtins/constants.html#None)
 
 Perform a 2D all-to-all-v operation using NVSHMEM, with split information provided on device. In Mixture of Experts models, this operation can be used to dispatch tokens.
 
@@ -1072,8 +1072,8 @@ Parameters:
 - **out** ([*Tensor*](tensors.html#torch.Tensor)) - Output tensor to store the result of the all-to-all operation. Must be symmetric.
 - **in_splits** ([*Tensor*](tensors.html#torch.Tensor)) - Tensor containing the splits of data to send to each expert. Must be symmetric. Must be of size (group_size * ne,), where ne is the number of experts per rank. The splits are in the unit of elements in the 1st dimension.
 - **out_splits_offsets** ([*Tensor*](tensors.html#torch.Tensor)) - Tensor containing the splits and offsets of data received from each peer. Must be symmetric. Must be of size (2, group_size * ne). The rows are (in order): output splits and output offsets.
-- **group_name** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - Name of the group to perform all-to-all on.
-- **major_align** ([*int*](https://docs.python.org/3/library/functions.html#int)) - Optional alignment for the major dimension of the output chunk for each expert. If not provided, the alignment is assumed to be 1. Any alignment adjustment will be reflected in the output offsets.
+- **group_name** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - Name of the group to perform all-to-all on.
+- **major_align** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Optional alignment for the major dimension of the output chunk for each expert. If not provided, the alignment is assumed to be 1. Any alignment adjustment will be reflected in the output offsets.
 
 A 2D AllToAllv shuffle is illustrated below:
 (world_size = 2, ne = 2, total number of experts = 4):
@@ -1100,7 +1100,7 @@ Note: since cutlass does not support empty bins, we set the aligned length
 to major_align if it is 0. See
 [pytorch/pytorch#152668](https://github.com/pytorch/pytorch/issues/152668).
 
-torch.ops.symm_mem.all_to_all_vdev_2d_offset(*Tensor input*, *Tensor out*, *Tensor in_splits_offsets*, *Tensor out_splits_offsets*, *str group_name*) → [None](https://docs.python.org/3/library/constants.html#None)
+torch.ops.symm_mem.all_to_all_vdev_2d_offset(*Tensor input*, *Tensor out*, *Tensor in_splits_offsets*, *Tensor out_splits_offsets*, *str group_name*) → [None](https://docs.python.org/3/builtins/constants.html#None)
 
 Perform a 2D AllToAllv shuffle operation, with input split and offset
 information provided on device. The input offsets are not required to be
@@ -1119,9 +1119,9 @@ Parameters:
 - **out** ([*Tensor*](tensors.html#torch.Tensor)) - Output tensor to store the result of the all-to-all operation. Must be symmetric.
 - **in_splits_offsets** ([*Tensor*](tensors.html#torch.Tensor)) - Tensor containing the splits and offsets of data to send to each expert. Must be symmetric. Must be of size (2, group_size * ne), where ne is the number of experts. The rows are (in order): input splits and input offsets. The splits are in the unit of elements in the 1st dimension.
 - **out_splits_offsets** ([*Tensor*](tensors.html#torch.Tensor)) - Tensor containing the splits and offsets of data received from each peer. Must be symmetric. Must be of size (2, group_size * ne). The rows are (in order): output splits and output offsets.
-- **group_name** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - Name of the group to perform all-to-all on.
+- **group_name** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - Name of the group to perform all-to-all on.
 
-torch.ops.symm_mem.tile_reduce(*in_tile: Tensor*, *out_tile: Tensor*, *root: int*, *group_name: str*[, *reduce_op: str = 'sum'*]) → [None](https://docs.python.org/3/library/constants.html#None)
+torch.ops.symm_mem.tile_reduce(*in_tile: Tensor*, *out_tile: Tensor*, *root: int*, *group_name: str*[, *reduce_op: str = 'sum'*]) → [None](https://docs.python.org/3/builtins/constants.html#None)
 
 Reduces a 2D tile from all ranks to a specified root rank within a process group.
 
@@ -1129,9 +1129,9 @@ Parameters:
 
 - **in_tile** ([*Tensor*](tensors.html#torch.Tensor)) - Input 2D tensor to be reduced. Must be symmetrically allocated.
 - **out_tile** ([*Tensor*](tensors.html#torch.Tensor)) - Output 2D tensor to contain the result of the reduction. Must be symmetric and have the same shape, dtype, and device as in_tile.
-- **root** ([*int*](https://docs.python.org/3/library/functions.html#int)) - The rank of the process in the specified group that will receive the reduced result.
-- **group_name** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - The name of the symmetric memory process group to perform the reduction in.
-- **reduce_op** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - The reduction operation to perform. Currently, only `"sum"` is supported. Defaults to `"sum"`.
+- **root** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - The rank of the process in the specified group that will receive the reduced result.
+- **group_name** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - The name of the symmetric memory process group to perform the reduction in.
+- **reduce_op** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - The reduction operation to perform. Currently, only `"sum"` is supported. Defaults to `"sum"`.
 
 This function reduces in_tile tensors from all members of the group, writing the result to out_tile at the root rank. All ranks must participate and provide the same group_name and tensor shapes.
 
@@ -1149,7 +1149,7 @@ Example:
 >>> torch.ops.symm_mem.tile_reduce(in_tile, out_tile, root=0, group_name)
 ```
 
-torch.ops.symm_mem.multi_root_tile_reduce(*in_tiles: list[Tensor], out_tile: Tensor, roots: list[int], group_name: str, [reduce_op: str = 'sum']*) → [None](https://docs.python.org/3/library/constants.html#None)
+torch.ops.symm_mem.multi_root_tile_reduce(*in_tiles: list[Tensor], out_tile: Tensor, roots: list[int], group_name: str, [reduce_op: str = 'sum']*) → [None](https://docs.python.org/3/builtins/constants.html#None)
 
 Perform multiple tile reductions concurrently, with each tile reduced to a separate root.
 

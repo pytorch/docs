@@ -1,6 +1,6 @@
 # KinetoStepTracker
 
-*class*torch.autograd.profiler.KinetoStepTracker[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/autograd/profiler.py#L1317)
+*class*torch.autograd.profiler.KinetoStepTracker[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/autograd/profiler.py#L1317)
 
 Provides an abstraction for incrementing the step count globally.
 
@@ -42,23 +42,23 @@ We only call the kineto step() function when global count increments.
 NOTE: Please do not use the KinetoStepTracker in modules beside the Optimizer
 for now. The result could be incorrect increments of the step count.
 
-*classmethod*current_step()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/autograd/profiler.py#L1401)
+*classmethod*current_step()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/autograd/profiler.py#L1401)
 
 Get the latest step for any requester
 
 Return type:
 
-[int](https://docs.python.org/3/library/functions.html#int)
+[int](https://docs.python.org/3/builtins/functions.html#int)
 
-*classmethod*erase_step_count(*requester*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/autograd/profiler.py#L1369)
+*classmethod*erase_step_count(*requester*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/autograd/profiler.py#L1369)
 
 Remove a given requester.
 
 Return type:
 
-[bool](https://docs.python.org/3/library/functions.html#bool)
+[bool](https://docs.python.org/3/builtins/functions.html#bool)
 
-*classmethod*increment_step(*requester*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/autograd/profiler.py#L1376)
+*classmethod*increment_step(*requester*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/autograd/profiler.py#L1376)
 
 Increments the step count for the requester.
 
@@ -67,8 +67,8 @@ trigger the _kineto_step() returns global step count
 
 Return type:
 
-[int](https://docs.python.org/3/library/functions.html#int)
+[int](https://docs.python.org/3/builtins/functions.html#int)
 
-*classmethod*init_step_count(*requester*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/autograd/profiler.py#L1362)
+*classmethod*init_step_count(*requester*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/autograd/profiler.py#L1362)
 
 Initialize for a given requester.

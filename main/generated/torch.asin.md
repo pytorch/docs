@@ -1,6 +1,6 @@
 # torch.asin
 
-torch.asin(*input: [Tensor](../tensors.html#torch.Tensor)*, ***, *out: [Tensor](../tensors.html#torch.Tensor) | [None](https://docs.python.org/3/library/constants.html#None)*) → [Tensor](../tensors.html#torch.Tensor)
+torch.asin(*input: [Tensor](../tensors.html#torch.Tensor)*, ***, *out: [Tensor](../tensors.html#torch.Tensor) | [None](https://docs.python.org/3/builtins/constants.html#None)*) → [Tensor](../tensors.html#torch.Tensor)
 
 Returns a new tensor with the arcsine of the elements (in radians) in the `input` tensor.
 

@@ -12,9 +12,9 @@ Parameters:
 - **bias** ([*Tensor*](../tensors.html#torch.Tensor)) - float tensor that corresponds to the beta, size C
 - **mean** ([*Tensor*](../tensors.html#torch.Tensor)) - float mean value in batch normalization, size C
 - **var** ([*Tensor*](../tensors.html#torch.Tensor)) - float tensor for variance, size C
-- **eps** ([*float*](https://docs.python.org/3/library/functions.html#float)) - a value added to the denominator for numerical stability.
-- **output_scale** ([*float*](https://docs.python.org/3/library/functions.html#float)) - output quantized tensor scale
-- **output_zero_point** ([*int*](https://docs.python.org/3/library/functions.html#int)) - output quantized tensor zero_point
+- **eps** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - a value added to the denominator for numerical stability.
+- **output_scale** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - output quantized tensor scale
+- **output_zero_point** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - output quantized tensor zero_point
 
 Returns:
 

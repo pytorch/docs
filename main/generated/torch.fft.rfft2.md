@@ -1,6 +1,6 @@
 # torch.fft.rfft2
 
-torch.fft.rfft2(*input*, *s=None*, *dim=(-2, -1)*, *norm=None*, ***, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fft/__init__.py#L488)
+torch.fft.rfft2(*input*, *s=None*, *dim=(-2, -1)*, *norm=None*, ***, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fft/__init__.py#L488)
 
 Computes the 2-dimensional discrete Fourier transform of real `input`.
 Equivalent to [`rfftn()`](torch.fft.rfftn.html#torch.fft.rfftn) but FFTs only the last two dimensions by default.
@@ -18,14 +18,14 @@ However it only supports powers of 2 signal length in every transformed dimensio
 Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - the input tensor
-- **s** (*Tuple**[*[*int*](https://docs.python.org/3/library/functions.html#int)*]**,**optional*) - Signal size in the transformed dimensions.
+- **s** (*Tuple**[*[*int*](https://docs.python.org/3/builtins/functions.html#int)*]**,**optional*) - Signal size in the transformed dimensions.
 If given, each dimension `dim[i]` will either be zero-padded or
 trimmed to the length `s[i]` before computing the real FFT.
 If a length `-1` is specified, no padding is done in that dimension.
 Default: `s = [input.size(d) for d in dim]`
-- **dim** (*Tuple**[*[*int*](https://docs.python.org/3/library/functions.html#int)*]**,**optional*) - Dimensions to be transformed.
+- **dim** (*Tuple**[*[*int*](https://docs.python.org/3/builtins/functions.html#int)*]**,**optional*) - Dimensions to be transformed.
 Default: last two dimensions.
-- **norm** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**optional*) -
+- **norm** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**optional*) -
 
 Normalization mode. For the forward transform
 (`rfft2()`), these correspond to:

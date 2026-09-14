@@ -15,9 +15,9 @@ An additional dimension of size [`size`](torch.Tensor.size.html#torch.Tensor.siz
 
 Parameters:
 
-- **dimension** ([*int*](https://docs.python.org/3/library/functions.html#int)) - dimension in which unfolding happens
-- **size** ([*int*](https://docs.python.org/3/library/functions.html#int)) - the size of each slice that is unfolded
-- **step** ([*int*](https://docs.python.org/3/library/functions.html#int)) - the step between each slice
+- **dimension** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - dimension in which unfolding happens
+- **size** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - the size of each slice that is unfolded
+- **step** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - the step between each slice
 
 Example:
 

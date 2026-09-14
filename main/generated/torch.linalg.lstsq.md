@@ -1,6 +1,6 @@
 # torch.linalg.lstsq
 
-torch.linalg.lstsq(*A*, *B*, *rcond=None*, ***, *driver=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/linalg/__init__.py#L1078)
+torch.linalg.lstsq(*A*, *B*, *rcond=None*, ***, *driver=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/linalg/__init__.py#L1078)
 
 Computes a solution to the least squares problem of a system of linear equations.
 
@@ -74,13 +74,13 @@ Parameters:
 
 - **A** ([*Tensor*](../tensors.html#torch.Tensor)) - lhs tensor of shape (*, m, n) where * is zero or more batch dimensions.
 - **B** ([*Tensor*](../tensors.html#torch.Tensor)) - rhs tensor of shape (*, m, k) where * is zero or more batch dimensions.
-- **rcond** ([*float*](https://docs.python.org/3/library/functions.html#float)*,**optional*) - used to determine the effective rank of `A`.
+- **rcond** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*,**optional*) - used to determine the effective rank of `A`.
 If `rcond`= None, `rcond` is set to the machine
 precision of the dtype of `A` times max(m, n). Default: None.
 
 Keyword Arguments:
 
-**driver** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**optional*) - name of the LAPACK/MAGMA method to be used.
+**driver** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**optional*) - name of the LAPACK/MAGMA method to be used.
 If None, 'gelsy' is used for CPU inputs and 'gels' for CUDA inputs.
 Default: None.
 

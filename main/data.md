@@ -410,7 +410,7 @@ for batch_ndx, sample in enumerate(loader):
  print(sample.tgt.is_pinned())
 ```
 
-*class*torch.utils.data.DataLoader(*dataset*, *batch_size=1*, *shuffle=None*, *sampler=None*, *batch_sampler=None*, *num_workers=0*, *collate_fn=None*, *pin_memory=False*, *drop_last=False*, *timeout=0*, *worker_init_fn=None*, *multiprocessing_context=None*, *generator=None*, ***, *prefetch_factor=None*, *persistent_workers=False*, *pin_memory_device=''*, *in_order=True*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/utils/data/dataloader.py#L149)
+*class*torch.utils.data.DataLoader(*dataset*, *batch_size=1*, *shuffle=None*, *sampler=None*, *batch_sampler=None*, *num_workers=0*, *collate_fn=None*, *pin_memory=False*, *drop_last=False*, *timeout=0*, *worker_init_fn=None*, *multiprocessing_context=None*, *generator=None*, ***, *prefetch_factor=None*, *persistent_workers=False*, *pin_memory_device=''*, *in_order=True*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/utils/data/dataloader.py#L149)
 
 Data loader combines a dataset and a sampler, and provides an iterable over the given dataset.
 
@@ -423,9 +423,9 @@ See `torch.utils.data` documentation page for more details.
 Parameters:
 
 - **dataset** (*Dataset*) - dataset from which to load the data.
-- **batch_size** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - how many samples per batch to load
+- **batch_size** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - how many samples per batch to load
 (default: `1`).
-- **shuffle** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - set to `True` to have the data reshuffled
+- **shuffle** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - set to `True` to have the data reshuffled
 at every epoch (default: `False`).
 - **sampler** (*Sampler**or**Iterable**,**optional*) - defines the strategy to draw
 samples from the dataset. Can be any `Iterable` with `__len__`
@@ -434,17 +434,17 @@ implemented. If specified, `shuffle` must not be specified.
 returns a batch of indices at a time. Mutually exclusive with
 `batch_size`, `shuffle`, [`sampler`](utils.html#module-torch.utils.data.sampler),
 and `drop_last`.
-- **num_workers** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - how many subprocesses to use for data
+- **num_workers** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - how many subprocesses to use for data
 loading. `0` means that the data will be loaded in the main process.
 (default: `0`)
 - **collate_fn** (*Callable**,**optional*) - merges a list of samples to form a
 mini-batch of Tensor(s). Used when using batched loading from a
 map-style dataset.
-- **pin_memory** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If `True`, the data loader will copy Tensors
+- **pin_memory** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If `True`, the data loader will copy Tensors
 into device/CUDA pinned memory before returning them. If your data elements
 are a custom type, or your `collate_fn` returns a batch that is a custom type,
 see the example below.
-- **drop_last** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - set to `True` to drop the last incomplete batch,
+- **drop_last** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - set to `True` to drop the last incomplete batch,
 if the dataset size is not divisible by the batch size. If `False` and
 the size of dataset is not divisible by the batch size, then the last batch
 will be smaller. (default: `False`)
@@ -453,7 +453,7 @@ from workers. Should always be non-negative. (default: `0`)
 - **worker_init_fn** (*Callable**,**optional*) - If not `None`, this will be called on each
 worker subprocess with the worker id (an int in `[0, num_workers - 1]`) as
 input, after seeding and before data loading. (default: `None`)
-- **multiprocessing_context** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*or**multiprocessing.context.BaseContext**,**optional*) - If
+- **multiprocessing_context** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*or**multiprocessing.context.BaseContext**,**optional*) - If
 `None`, the default
 [multiprocessing context](https://docs.python.org/3/library/multiprocessing.html#contexts-and-start-methods) # noqa: D401
 of your operating system will
@@ -461,17 +461,17 @@ be used. (default: `None`)
 - **generator** ([*torch.Generator*](generated/torch.Generator.html#torch.Generator)*,**optional*) - If not `None`, this RNG will be used
 by RandomSampler to generate random indexes and multiprocessing to generate
 `base_seed` for workers. (default: `None`)
-- **prefetch_factor** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional**,**keyword-only arg*) - Number of batches loaded
+- **prefetch_factor** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional**,**keyword-only arg*) - Number of batches loaded
 in advance by each worker. `2` means there will be a total of
 2 * num_workers batches prefetched across all workers. (default value depends
 on the set value for num_workers. If value of num_workers=0 default is `None`.
 Otherwise, if value of `num_workers > 0` default is `2`).
-- **persistent_workers** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If `True`, the data loader will not shut down
+- **persistent_workers** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If `True`, the data loader will not shut down
 the worker processes after a dataset has been consumed once. This allows to
 maintain the workers Dataset instances alive. (default: `False`)
-- **pin_memory_device** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**optional*) - Deprecated, the current [accelerator](torch.html#accelerators)
+- **pin_memory_device** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**optional*) - Deprecated, the current [accelerator](torch.html#accelerators)
 will be used as the device if `pin_memory=True`.
-- **in_order** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If `False`, the data loader will not enforce that batches
+- **in_order** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If `False`, the data loader will not enforce that batches
 are returned in a first-in, first-out order. Only applies when `num_workers > 0`. (default: `True`)
 
 Warning
@@ -511,7 +511,7 @@ Warning
 Setting in_order to False can harm reproducibility and may lead to a skewed data
 distribution being fed to the trainer in cases with imbalanced data.
 
-*class*torch.utils.data.Dataset[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/utils/data/dataset.py#L39)
+*class*torch.utils.data.Dataset[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/utils/data/dataset.py#L39)
 
 An abstract class representing a `Dataset`.
 
@@ -531,7 +531,7 @@ Note
 sampler that yields integral indices. To make it work with a map-style
 dataset with non-integral indices/keys, a custom sampler must be provided.
 
-*class*torch.utils.data.IterableDataset[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/utils/data/dataset.py#L73)
+*class*torch.utils.data.IterableDataset[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/utils/data/dataset.py#L73)
 
 An iterable Dataset.
 
@@ -638,7 +638,7 @@ Example 2: splitting workload across all workers using `worker_init_fn`:
 [3, 4, 5, 6]
 ```
 
-*class*torch.utils.data.TensorDataset(**tensors*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/utils/data/dataset.py#L189)
+*class*torch.utils.data.TensorDataset(**tensors*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/utils/data/dataset.py#L189)
 
 Dataset wrapping tensors.
 
@@ -648,7 +648,7 @@ Parameters:
 
 ***tensors** ([*Tensor*](tensors.html#torch.Tensor)) - tensors that have the same size of the first dimension.
 
-*class*torch.utils.data.StackDataset(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/utils/data/dataset.py#L212)
+*class*torch.utils.data.StackDataset(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/utils/data/dataset.py#L212)
 
 Dataset as a stacking of multiple datasets.
 
@@ -670,7 +670,7 @@ Parameters:
 - ***args** (*Dataset*) - Datasets for stacking returned as tuple.
 - ****kwargs** (*Dataset*) - Datasets for stacking returned as dict.
 
-*class*torch.utils.data.ConcatDataset(*datasets*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/utils/data/dataset.py#L299)
+*class*torch.utils.data.ConcatDataset(*datasets*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/utils/data/dataset.py#L299)
 
 Dataset as a concatenation of multiple datasets.
 
@@ -680,7 +680,7 @@ Parameters:
 
 **datasets** (*sequence*) - List of datasets to be concatenated
 
-*class*torch.utils.data.ChainDataset(*datasets*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/utils/data/dataset.py#L356)
+*class*torch.utils.data.ChainDataset(*datasets*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/utils/data/dataset.py#L356)
 
 Dataset for chaining multiple `IterableDataset` s.
 
@@ -692,7 +692,7 @@ Parameters:
 
 **datasets** (*iterable**of**IterableDataset*) - datasets to be chained together
 
-*class*torch.utils.data.Subset(*dataset*, *indices*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/utils/data/dataset.py#L386)
+*class*torch.utils.data.Subset(*dataset*, *indices*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/utils/data/dataset.py#L386)
 
 Subset of a dataset at specified indices.
 
@@ -718,7 +718,7 @@ Parameters:
 - **dataset** (*Dataset*) - The whole Dataset
 - **indices** (*sequence*) - Indices in the whole set selected for subset
 
-torch.utils.data._utils.collate.collate(*batch*, ***, *collate_fn_map=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/utils/data/_utils/collate.py#L118)
+torch.utils.data._utils.collate.collate(*batch*, ***, *collate_fn_map=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/utils/data/_utils/collate.py#L118)
 
 General collate function that handles collection type of element within each batch.
 
@@ -728,7 +728,7 @@ provides default collate functions for tensors, numpy arrays, numbers and string
 Parameters:
 
 - **batch** - a single batch to be collated
-- **collate_fn_map** ([*dict*](https://docs.python.org/3/library/stdtypes.html#dict)*[*[*type*](https://docs.python.org/3/library/functions.html#type)*|*[*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*[*[*type*](https://docs.python.org/3/library/functions.html#type)*,**...**]**,*[*Callable*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)*]**|**None*) - Optional dictionary mapping from element type to the corresponding collate function.
+- **collate_fn_map** ([*dict*](https://docs.python.org/3/builtins/stdtypes.html#dict)*[*[*type*](https://docs.python.org/3/builtins/functions.html#type)*|*[*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*[*[*type*](https://docs.python.org/3/builtins/functions.html#type)*,**...**]**,*[*Callable*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)*]**|**None*) - Optional dictionary mapping from element type to the corresponding collate function.
 If the element type isn't present in this dictionary,
 this function will go through each key of the dictionary in the insertion order to
 invoke the corresponding collate function if the element type is a subclass of the key.
@@ -751,7 +751,7 @@ Note
 Each collate function requires a positional argument for batch and a keyword argument
 for the dictionary of collate functions as collate_fn_map.
 
-torch.utils.data.default_collate(*batch*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/utils/data/_utils/collate.py#L340)
+torch.utils.data.default_collate(*batch*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/utils/data/_utils/collate.py#L340)
 
 Take in a batch of data and put the elements within the batch into a tensor with an additional outer dimension - batch size.
 
@@ -815,7 +815,7 @@ Point(x=tensor([0, 1]), y=tensor([0, 1]))
 >>> default_collate(batch) # Handle `CustomType` automatically
 ```
 
-torch.utils.data.default_convert(*data*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/utils/data/_utils/collate.py#L23)
+torch.utils.data.default_convert(*data*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/utils/data/_utils/collate.py#L23)
 
 Convert each NumPy array element into a [`torch.Tensor`](tensors.html#torch.Tensor).
 
@@ -851,7 +851,7 @@ Point(x=tensor(0), y=tensor(0))
 [tensor([0, 1]), tensor([2, 3])]
 ```
 
-torch.utils.data.get_worker_info()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/utils/data/_utils/worker.py#L99)
+torch.utils.data.get_worker_info()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/utils/data/_utils/worker.py#L99)
 
 Returns the information about the current
 `DataLoader` iterator worker process.
@@ -883,7 +883,7 @@ Return type:
 
 *WorkerInfo* | None
 
-torch.utils.data.dataset.random_split(*dataset*, *lengths*, *generator=<torch._C.Generator object>*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/utils/data/dataset.py#L449)
+torch.utils.data.dataset.random_split(*dataset*, *lengths*, *generator=<torch._C.Generator object>*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/utils/data/dataset.py#L449)
 
 Randomly split a dataset into non-overlapping new datasets of given lengths.
 
@@ -914,9 +914,9 @@ Parameters:
 
 Return type:
 
-[list](https://docs.python.org/3/library/stdtypes.html#list)[*Subset*[*_T*]]
+[list](https://docs.python.org/3/builtins/stdtypes.html#list)[*Subset*[*_T*]]
 
-*class*torch.utils.data.Sampler[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/utils/data/sampler.py#L28)
+*class*torch.utils.data.Sampler[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/utils/data/sampler.py#L28)
 
 Base class for all Samplers.
 
@@ -958,7 +958,7 @@ The `__len__()` method isn't strictly required by
 `DataLoader`, but is expected in any
 calculation involving the length of a `DataLoader`.
 
-*class*torch.utils.data.SequentialSampler(*data_source*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/utils/data/sampler.py#L97)
+*class*torch.utils.data.SequentialSampler(*data_source*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/utils/data/sampler.py#L97)
 
 Samples elements sequentially, always in the same order.
 
@@ -966,7 +966,7 @@ Parameters:
 
 **data_source** (*Sized*) - data source to sample from. Must implement __len__.
 
-*class*torch.utils.data.RandomSampler(*data_source*, *replacement=False*, *num_samples=None*, *generator=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/utils/data/sampler.py#L116)
+*class*torch.utils.data.RandomSampler(*data_source*, *replacement=False*, *num_samples=None*, *generator=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/utils/data/sampler.py#L116)
 
 Samples elements randomly. If without replacement, then sample from a shuffled dataset.
 
@@ -975,11 +975,11 @@ If with replacement, then user can specify `num_samples` to draw.
 Parameters:
 
 - **data_source** (*Sized*) - data source to sample from. Must implement __len__.
-- **replacement** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - samples are drawn on-demand with replacement if `True`, default=``False``
-- **num_samples** ([*int*](https://docs.python.org/3/library/functions.html#int)) - number of samples to draw, default=`len(dataset)`.
+- **replacement** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - samples are drawn on-demand with replacement if `True`, default=``False``
+- **num_samples** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - number of samples to draw, default=`len(dataset)`.
 - **generator** ([*Generator*](generated/torch.Generator.html#torch.Generator)) - Generator used in sampling.
 
-*class*torch.utils.data.SubsetRandomSampler(*indices*, *generator=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/utils/data/sampler.py#L191)
+*class*torch.utils.data.SubsetRandomSampler(*indices*, *generator=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/utils/data/sampler.py#L191)
 
 Samples elements randomly from a given list of indices, without replacement.
 
@@ -988,15 +988,15 @@ Parameters:
 - **indices** (*sequence*) - a sequence of indices
 - **generator** ([*Generator*](generated/torch.Generator.html#torch.Generator)) - Generator used in sampling.
 
-*class*torch.utils.data.WeightedRandomSampler(*weights*, *num_samples*, *replacement=True*, *generator=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/utils/data/sampler.py#L213)
+*class*torch.utils.data.WeightedRandomSampler(*weights*, *num_samples*, *replacement=True*, *generator=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/utils/data/sampler.py#L213)
 
 Samples elements from `[0,..,len(weights)-1]` with given probabilities (weights).
 
 Parameters:
 
 - **weights** (*sequence*) - a sequence of weights, not necessary summing up to one
-- **num_samples** ([*int*](https://docs.python.org/3/library/functions.html#int)) - number of samples to draw
-- **replacement** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - if `True`, samples are drawn with replacement.
+- **num_samples** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - number of samples to draw
+- **replacement** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - if `True`, samples are drawn with replacement.
 If not, they are drawn without replacement, which means that when a
 sample index is drawn for a row, it cannot be drawn again for that row.
 - **generator** ([*Generator*](generated/torch.Generator.html#torch.Generator)) - Generator used in sampling.
@@ -1018,15 +1018,15 @@ Example
 [0, 1, 4, 3, 2]
 ```
 
-*class*torch.utils.data.BatchSampler(*sampler*, *batch_size*, *drop_last*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/utils/data/sampler.py#L286)
+*class*torch.utils.data.BatchSampler(*sampler*, *batch_size*, *drop_last*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/utils/data/sampler.py#L286)
 
 Wraps another sampler to yield a mini-batch of indices.
 
 Parameters:
 
 - **sampler** (*Sampler**or**Iterable*) - Base sampler. Can be any iterable object
-- **batch_size** ([*int*](https://docs.python.org/3/library/functions.html#int)) - Size of mini-batch.
-- **drop_last** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If `True`, the sampler will drop the last batch if
+- **batch_size** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Size of mini-batch.
+- **drop_last** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - If `True`, the sampler will drop the last batch if
 its size would be less than `batch_size`
 
 Example
@@ -1044,7 +1044,7 @@ Example
 [[0, 1, 2], [3, 4, 5], [6, 7, 8]]
 ```
 
-*class*torch.utils.data.distributed.DistributedSampler(*dataset*, *num_replicas=None*, *rank=None*, *shuffle=True*, *seed=0*, *drop_last=False*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/utils/data/distributed.py#L17)
+*class*torch.utils.data.distributed.DistributedSampler(*dataset*, *num_replicas=None*, *rank=None*, *shuffle=True*, *seed=0*, *drop_last=False*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/utils/data/distributed.py#L17)
 
 Sampler that restricts data loading to a subset of the dataset.
 
@@ -1062,18 +1062,18 @@ returns the same elements in the same order.
 Parameters:
 
 - **dataset** (*Dataset*) - Dataset used for sampling.
-- **num_replicas** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - Number of processes participating in
+- **num_replicas** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - Number of processes participating in
 distributed training. By default, `world_size` is retrieved from the
 current distributed group.
-- **rank** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - Rank of the current process within `num_replicas`.
+- **rank** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - Rank of the current process within `num_replicas`.
 By default, `rank` is retrieved from the current distributed
 group.
-- **shuffle** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If `True` (default), sampler will shuffle the
+- **shuffle** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If `True` (default), sampler will shuffle the
 indices.
-- **seed** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - random seed used to shuffle the sampler if
+- **seed** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - random seed used to shuffle the sampler if
 `shuffle=True`. This number should be identical across all
 processes in the distributed group. Default: `0`.
-- **drop_last** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - if `True`, then the sampler will drop the
+- **drop_last** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - if `True`, then the sampler will drop the
 tail of the data to make it evenly divisible across the number of
 replicas. If `False`, the sampler will add extra indices to make
 the data evenly divisible across the replicas. Default: `False`.
@@ -1097,7 +1097,7 @@ Example:
 ... train(loader)
 ```
 
-torch.utils.data.graph.traverse(*datapipe*, *only_datapipe=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/utils/data/graph.py#L109)
+torch.utils.data.graph.traverse(*datapipe*, *only_datapipe=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/utils/data/graph.py#L109)
 
 Traverse the DataPipes and their attributes to extract the DataPipe graph.
 
@@ -1113,7 +1113,7 @@ This function is deprecated. Please use traverse_dps instead.
 Parameters:
 
 - **datapipe** (*IterDataPipe**|**MapDataPipe*) - the end DataPipe of the graph
-- **only_datapipe** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*|**None*) - If `False` (default), all attributes of each DataPipe are traversed.
+- **only_datapipe** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*|**None*) - If `False` (default), all attributes of each DataPipe are traversed.
 This argument is deprecated and will be removed after the next release.
 
 Returns:
@@ -1123,9 +1123,9 @@ and values are tuples of DataPipe instance and the sub-graph
 
 Return type:
 
-[dict](https://docs.python.org/3/library/stdtypes.html#dict)[[int](https://docs.python.org/3/library/functions.html#int), [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[*IterDataPipe* | *MapDataPipe*, DataPipeGraph]]
+[dict](https://docs.python.org/3/builtins/stdtypes.html#dict)[[int](https://docs.python.org/3/builtins/functions.html#int), [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[*IterDataPipe* | *MapDataPipe*, DataPipeGraph]]
 
-torch.utils.data.graph.traverse_dps(*datapipe*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/utils/data/graph.py#L91)
+torch.utils.data.graph.traverse_dps(*datapipe*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/utils/data/graph.py#L91)
 
 Traverse the DataPipes and their attributes to extract the DataPipe graph.
 
@@ -1144,9 +1144,9 @@ and values are tuples of DataPipe instance and the sub-graph
 
 Return type:
 
-[dict](https://docs.python.org/3/library/stdtypes.html#dict)[[int](https://docs.python.org/3/library/functions.html#int), [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[*IterDataPipe* | *MapDataPipe*, DataPipeGraph]]
+[dict](https://docs.python.org/3/builtins/stdtypes.html#dict)[[int](https://docs.python.org/3/builtins/functions.html#int), [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[*IterDataPipe* | *MapDataPipe*, DataPipeGraph]]
 
-torch.utils.data.datapipes.utils.decoder.basichandlers(*extension*, *data*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/utils/data/datapipes/utils/decoder.py#L32)
+torch.utils.data.datapipes.utils.decoder.basichandlers(*extension*, *data*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/utils/data/datapipes/utils/decoder.py#L32)
 
 Transforms raw data (byte stream) into python objects.
 
@@ -1155,7 +1155,7 @@ the corresponding extension.
 
 Parameters:
 
-- **extension** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - The file extension
+- **extension** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - The file extension
 - **data** (*byte stream*) - Data to load into a python object.
 
 Returns:
@@ -1166,7 +1166,7 @@ supporting the extension.
 
 Return type:
 
-[object](https://docs.python.org/3/library/functions.html#object)
+[object](https://docs.python.org/3/builtins/functions.html#object)
 
 Example
 
@@ -1186,7 +1186,7 @@ The transformation of data for extensions are:
 - pickle, pyd: pickle loaded data
 - pt: torch loaded data
 
-torch.utils.data.datapipes.utils.decoder.handle_extension(*extensions*, *f*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/utils/data/datapipes/utils/decoder.py#L115)
+torch.utils.data.datapipes.utils.decoder.handle_extension(*extensions*, *f*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/utils/data/datapipes/utils/decoder.py#L115)
 
 Return a decoder handler function for the list of extensions.
 
@@ -1198,7 +1198,7 @@ Examples:
 handle_extension("jpg jpeg", my_decode_jpg) # invoked for any file.jpg
 handle_extension("seg.jpg", special_case_jpg) # invoked only for file.seg.jpg
 
-torch.utils.data.datapipes.utils.common.validate_input_col(*fn*, *input_col*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/utils/data/datapipes/utils/common.py#L28)
+torch.utils.data.datapipes.utils.common.validate_input_col(*fn*, *input_col*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/utils/data/datapipes/utils/common.py#L28)
 
 Check that function used in a callable datapipe works with the input column.
 
@@ -1228,11 +1228,11 @@ greater than or equal to the number of positional arguments.
 Parameters:
 
 - **fn** ([*Callable*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)) - The function to check.
-- **input_col** ([*int*](https://docs.python.org/3/library/functions.html#int)*|*[*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*|*[*list*](https://docs.python.org/3/library/stdtypes.html#list)*|**None*) - The input column to check.
+- **input_col** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*|*[*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*|*[*list*](https://docs.python.org/3/builtins/stdtypes.html#list)*|**None*) - The input column to check.
 
 Raises:
 
-[**ValueError**](https://docs.python.org/3/library/exceptions.html#ValueError) - If the function is not compatible with the input column.
+[**ValueError**](https://docs.python.org/3/builtins/exceptions.html#ValueError) - If the function is not compatible with the input column.
 
 | [`StreamReaderIterDataPipe`](generated/torch.utils.data.datapipes.iter.streamreader.StreamReaderIterDataPipe.html#torch.utils.data.datapipes.iter.streamreader.StreamReaderIterDataPipe) | Given IO streams and their label names, yield bytes with label name as tuple. |
 | --- | --- |

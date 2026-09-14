@@ -1,13 +1,13 @@
 # HistogramObserver
 
-*class*torch.ao.quantization.observer.HistogramObserver(*bins=2048*, *dtype=torch.quint8*, *qscheme=torch.per_tensor_affine*, *reduce_range=False*, *quant_min=None*, *quant_max=None*, *factory_kwargs=None*, *eps=1.1920928955078125e-07*, *is_dynamic=False*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/ao/quantization/observer.py#L987)
+*class*torch.ao.quantization.observer.HistogramObserver(*bins=2048*, *dtype=torch.quint8*, *qscheme=torch.per_tensor_affine*, *reduce_range=False*, *quant_min=None*, *quant_max=None*, *factory_kwargs=None*, *eps=1.1920928955078125e-07*, *is_dynamic=False*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/ao/quantization/observer.py#L987)
 
 The module records the running histogram of tensor values along with
 min/max values. `calculate_qparams` will calculate scale and zero_point.
 
 Parameters:
 
-- **bins** ([*int*](https://docs.python.org/3/library/functions.html#int)) - Number of bins to use for the histogram
+- **bins** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Number of bins to use for the histogram
 - **dtype** ([*dtype*](../tensor_attributes.html#torch.dtype)) - dtype argument to the quantize node needed to implement the
 reference model spec
 - **qscheme** - Quantization scheme to be used

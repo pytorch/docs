@@ -1,6 +1,6 @@
 # torch.linalg.cholesky_ex
 
-torch.linalg.cholesky_ex(*A*, ***, *upper=False*, *check_errors=False*, *out=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/linalg/__init__.py#L148)
+torch.linalg.cholesky_ex(*A*, ***, *upper=False*, *check_errors=False*, *out=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/linalg/__init__.py#L148)
 
 Computes the Cholesky decomposition of a complex Hermitian or real
 symmetric positive-definite matrix.
@@ -43,11 +43,11 @@ Parameters:
 
 Keyword Arguments:
 
-- **upper** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - whether to return an upper triangular matrix.
+- **upper** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - whether to return an upper triangular matrix.
 The tensor returned with upper=True is the conjugate transpose of the tensor
 returned with upper=False.
-- **check_errors** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - controls whether to check the content of `infos`. Default: False.
-- **out** ([*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*,**optional*) - tuple of two tensors to write the output to. Ignored if None. Default: None.
+- **check_errors** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - controls whether to check the content of `infos`. Default: False.
+- **out** ([*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*,**optional*) - tuple of two tensors to write the output to. Ignored if None. Default: None.
 
 Examples:
 

@@ -1,6 +1,6 @@
 # ReplicationPad2d
 
-*class*torch.nn.modules.padding.ReplicationPad2d(*padding*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/padding.py#L590)
+*class*torch.nn.modules.padding.ReplicationPad2d(*padding*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/padding.py#L590)
 
 Pads the input tensor using replication of the input boundary.
 
@@ -8,7 +8,7 @@ For N-dimensional padding, use [`torch.nn.functional.pad()`](torch.nn.functional
 
 Parameters:
 
-**padding** ([*int*](https://docs.python.org/3/library/functions.html#int)*,*[*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)) - the size of the padding. If it is int, uses the same
+**padding** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,*[*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)) - the size of the padding. If it is int, uses the same
 padding in all boundaries. If a 4-tuple, uses (padding_left\text{padding\_left}padding_left,
 padding_right\text{padding\_right}padding_right, padding_top\text{padding\_top}padding_top, padding_bottom\text{padding\_bottom}padding_bottom)
 Note that the output dimensions must remain positive.

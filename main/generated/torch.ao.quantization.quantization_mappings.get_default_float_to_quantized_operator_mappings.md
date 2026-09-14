@@ -1,7 +1,7 @@
 # get_default_float_to_quantized_operator_mappings
 
-*class*torch.ao.quantization.quantization_mappings.get_default_float_to_quantized_operator_mappings[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/ao/quantization/quantization_mappings.py#L339)
+*class*torch.ao.quantization.quantization_mappings.get_default_float_to_quantized_operator_mappings[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/ao/quantization/quantization_mappings.py#L339)
 
 Return type:
 
-[dict](https://docs.python.org/3/library/stdtypes.html#dict)[[*Callable*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable) | [str](https://docs.python.org/3/library/stdtypes.html#str), [*Callable*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)]
+[dict](https://docs.python.org/3/builtins/stdtypes.html#dict)[[*Callable*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable) | [str](https://docs.python.org/3/builtins/stdtypes.html#str), [*Callable*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)]

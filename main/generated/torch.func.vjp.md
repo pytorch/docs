@@ -1,6 +1,6 @@
 # torch.func.vjp
 
-torch.func.vjp(*func*, **primals*, *has_aux=False*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/_functorch/eager_transforms.py#L238)
+torch.func.vjp(*func*, **primals*, *has_aux=False*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/_functorch/eager_transforms.py#L238)
 
 Standing for the vector-Jacobian product, returns a tuple containing the
 results of `func` applied to `primals` and a function that, when
@@ -14,7 +14,7 @@ return one or more Tensors.
 - **primals** (*Tensors*) - Positional arguments to `func` that must all be
 Tensors. The returned function will also be computing the
 derivative with respect to these arguments
-- **has_aux** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - Flag indicating that `func` returns a
+- **has_aux** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Flag indicating that `func` returns a
 `(output, aux)` tuple where the first element is the output of
 the function to be differentiated and the second element is
 other auxiliary objects that will not be differentiated.
@@ -31,7 +31,7 @@ The returned `vjp_fn` function will return a tuple of each VJP.
 
 Return type:
 
-[tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[Any, Callable[..., Any]] | [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[Any, Callable[..., Any], Any]
+[tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[Any, Callable[..., Any]] | [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[Any, Callable[..., Any], Any]
 
 When used in simple cases, `vjp()` behaves the same as [`grad()`](torch.func.grad.html#torch.func.grad)
 

@@ -1,6 +1,6 @@
 # torch.prod
 
-torch.prod(*input: [Tensor](../tensors.html#torch.Tensor)*, ***, *dtype: _dtype | [None](https://docs.python.org/3/library/constants.html#None)*) → [Tensor](../tensors.html#torch.Tensor)
+torch.prod(*input: [Tensor](../tensors.html#torch.Tensor)*, ***, *dtype: _dtype | [None](https://docs.python.org/3/builtins/constants.html#None)*) → [Tensor](../tensors.html#torch.Tensor)
 
 Returns the product of all elements in the `input` tensor.
 
@@ -37,9 +37,9 @@ the output tensor having 1 fewer dimension than `input`.
 Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - the input tensor.
-- **dim** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - the dimension to reduce.
+- **dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - the dimension to reduce.
 If `None`, all dimensions are reduced.
-- **keepdim** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - whether the output tensor has `dim` retained or not. Default: `False`.
+- **keepdim** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - whether the output tensor has `dim` retained or not. Default: `False`.
 
 Keyword Arguments:
 

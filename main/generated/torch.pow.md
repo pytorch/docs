@@ -26,7 +26,7 @@ and `exponent` must be [broadcastable](../notes/broadcasting.html#broadcasting-s
 Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - the input tensor.
-- **exponent** ([*float*](https://docs.python.org/3/library/functions.html#float)*or**tensor*) - the exponent value
+- **exponent** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*or**tensor*) - the exponent value
 
 Keyword Arguments:
 
@@ -63,7 +63,7 @@ outi=selfexponenti\text{out}_i = \text{self} ^ {\text{exponent}_i}
 outi​=selfexponenti​
 Parameters:
 
-- **self** ([*float*](https://docs.python.org/3/library/functions.html#float)) - the scalar base value for the power operation
+- **self** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - the scalar base value for the power operation
 - **exponent** ([*Tensor*](../tensors.html#torch.Tensor)) - the exponent tensor
 
 Keyword Arguments:

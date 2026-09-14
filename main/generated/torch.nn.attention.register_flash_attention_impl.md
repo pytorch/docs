@@ -1,6 +1,6 @@
 # torch.nn.attention.register_flash_attention_impl
 
-torch.nn.attention.register_flash_attention_impl(*impl*, ***, *register_fn*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/attention/_registry.py#L28)
+torch.nn.attention.register_flash_attention_impl(*impl*, ***, *register_fn*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/attention/_registry.py#L28)
 
 Register the callable that activates a flash attention impl.
 
@@ -12,7 +12,7 @@ to activate a registered implementation.
 
 Parameters:
 
-- **impl** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*|*[*Literal*](https://docs.python.org/3/library/typing.html#typing.Literal)*[**'FA3'**,**'FA4'**]*) - Implementation identifier (e.g., `"FA4"`).
+- **impl** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*|*[*Literal*](https://docs.python.org/3/library/typing.html#typing.Literal)*[**'FA3'**,**'FA4'**]*) - Implementation identifier (e.g., `"FA4"`).
 - **register_fn** ([*Callable*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)*[**[**...**]**,**FlashAttentionHandle**|**None**]*) - Callable that performs the actual dispatcher registration.
 This function will be invoked by [`activate_flash_attention_impl()`](torch.nn.attention.activate_flash_attention_impl.html#torch.nn.attention.activate_flash_attention_impl)
 and should register custom kernels with the PyTorch dispatcher.

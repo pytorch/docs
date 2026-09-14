@@ -30,7 +30,7 @@ Below is a diagram of an agent that manages a local group of workers.
 This section describes the high-level classes and concepts that
 are relevant to understanding the role of the `agent` in torchelastic.
 
-*class*torch.distributed.elastic.agent.server.ElasticAgent[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/elastic/agent/server/api.py#L393)
+*class*torch.distributed.elastic.agent.server.ElasticAgent[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/elastic/agent/server/api.py#L393)
 
 An agent process responsible for managing one or more worker processes.
 
@@ -65,7 +65,7 @@ group_result = agent.run()
  return group_result.return_values[0] # return rank 0's results
 ```
 
-*abstract*get_worker_group(*role='default'*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/elastic/agent/server/api.py#L443)
+*abstract*get_worker_group(*role='default'*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/elastic/agent/server/api.py#L443)
 
 Return the `WorkerGroup` for the given `role`.
 
@@ -78,7 +78,7 @@ Return type:
 
 *WorkerGroup*
 
-*abstract*run(*role='default'*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/elastic/agent/server/api.py#L428)
+*abstract*run(*role='default'*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/elastic/agent/server/api.py#L428)
 
 Run the agent.
 
@@ -97,7 +97,7 @@ Return type:
 
 *RunResult*
 
-*class*torch.distributed.elastic.agent.server.WorkerSpec(*role*, *local_world_size*, *rdzv_handler*, *fn=None*, *entrypoint=None*, *args=()*, *max_restarts=3*, *monitor_interval=0.1*, *master_port=None*, *master_addr=None*, *local_addr=None*, *event_log_handler='null'*, *numa_options=None*, *duplicate_stdout_filters=None*, *duplicate_stderr_filters=None*, *virtual_local_rank=False*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/elastic/agent/server/api.py#L49)
+*class*torch.distributed.elastic.agent.server.WorkerSpec(*role*, *local_world_size*, *rdzv_handler*, *fn=None*, *entrypoint=None*, *args=()*, *max_restarts=3*, *monitor_interval=0.1*, *master_port=None*, *master_addr=None*, *local_addr=None*, *event_log_handler='null'*, *numa_options=None*, *duplicate_stdout_filters=None*, *duplicate_stderr_filters=None*, *virtual_local_rank=False*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/elastic/agent/server/api.py#L49)
 
 Blueprint information about a particular type of worker.
 
@@ -107,17 +107,17 @@ that is each node runs the same number of workers for a particular spec.
 
 Parameters:
 
-- **role** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - user-defined role for the workers with this spec
-- **local_world_size** ([*int*](https://docs.python.org/3/library/functions.html#int)) - number local workers to run
+- **role** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - user-defined role for the workers with this spec
+- **local_world_size** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - number local workers to run
 - **fn** ([*Callable*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)*|**None*) - (deprecated use entrypoint instead)
-- **entrypoint** ([*Callable*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)*|*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*|**None*) - worker function or command
-- **args** ([*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)) - arguments to pass to `entrypoint`
+- **entrypoint** ([*Callable*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)*|*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*|**None*) - worker function or command
+- **args** ([*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)) - arguments to pass to `entrypoint`
 - **rdzv_handler** ([*RendezvousHandler*](rendezvous.html#torch.distributed.elastic.rendezvous.RendezvousHandler)) - handles rdzv for this set of workers
-- **max_restarts** ([*int*](https://docs.python.org/3/library/functions.html#int)) - number of max retries for the workers
-- **monitor_interval** ([*float*](https://docs.python.org/3/library/functions.html#float)) - monitor status of workers every `n` seconds
-- **master_port** ([*int*](https://docs.python.org/3/library/functions.html#int)*|**None*) - fixed port to run the c10d store on rank 0
+- **max_restarts** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - number of max retries for the workers
+- **monitor_interval** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - monitor status of workers every `n` seconds
+- **master_port** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*|**None*) - fixed port to run the c10d store on rank 0
 if not specified then will choose a random free port
-- **master_addr** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*|**None*) - fixed master_addr to run the c10d store on rank 0
+- **master_addr** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*|**None*) - fixed master_addr to run the c10d store on rank 0
 if not specified then will choose hostname on agent rank 0
 - **redirects** - redirect std streams to a file,
 selectively redirect for a particular
@@ -125,25 +125,25 @@ local rank by passing a map
 - **tee** - tees the specified std stream(s) to console + file,
 selectively tee for a particular local rank by passing a map,
 takes precedence over `redirects` settings.
-- **event_log_handler** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - name of the event logging handler as registered in
+- **event_log_handler** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - name of the event logging handler as registered in
 [elastic/events/handlers.py](https://docs.pytorch.org/docs/stable/elastic/events.html).
-- **duplicate_stdout_filters** ([*list*](https://docs.python.org/3/library/stdtypes.html#list)*[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*]**|**None*) - If non-empty, duplicates stdout to a file containing only lines
+- **duplicate_stdout_filters** ([*list*](https://docs.python.org/3/builtins/stdtypes.html#list)*[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*]**|**None*) - If non-empty, duplicates stdout to a file containing only lines
 that match _any_ of the filter strings.
-- **duplicate_stderr_filters** ([*list*](https://docs.python.org/3/library/stdtypes.html#list)*[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*]**|**None*) - If non-empty, duplicates stderr to a file containing only lines
+- **duplicate_stderr_filters** ([*list*](https://docs.python.org/3/builtins/stdtypes.html#list)*[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*]**|**None*) - If non-empty, duplicates stderr to a file containing only lines
 that match _any_ of the filter strings.
-- **virtual_local_rank** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - Enable virtual local rank mode for workers (defaults to False).
+- **virtual_local_rank** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Enable virtual local rank mode for workers (defaults to False).
 When enabled, LOCAL_RANK is set to 0 for all workers and
 CUDA_VISIBLE_DEVICES is adjusted so each worker accesses its
 assigned GPU at device index 0.
 
-get_entrypoint_name()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/elastic/agent/server/api.py#L124)
+get_entrypoint_name()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/elastic/agent/server/api.py#L124)
 
 Get the entry point name.
 
 If the entrypoint is a function (e.g. `Callable`) returns its `__qualname__`
 else if the entrypoint is a binary (e.g. `str`), returns the binary name.
 
-*class*torch.distributed.elastic.agent.server.WorkerState(*value*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/elastic/agent/server/api.py#L212)
+*class*torch.distributed.elastic.agent.server.WorkerState(*value*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/elastic/agent/server/api.py#L212)
 
 A state of the `WorkerGroup`.
 
@@ -179,7 +179,7 @@ exceptions during state change events on the agent. The agent is not
 expected to recover worker groups in `UNKNOWN` state and is better off
 self terminating and allowing the job manager to retry the node.
 
-*static*is_running(*state*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/elastic/agent/server/api.py#L255)
+*static*is_running(*state*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/elastic/agent/server/api.py#L255)
 
 Return the state of the Worker.
 
@@ -190,9 +190,9 @@ True if the worker state represents workers still running
 
 Return type:
 
-[bool](https://docs.python.org/3/library/functions.html#bool)
+[bool](https://docs.python.org/3/builtins/functions.html#bool)
 
-*class*torch.distributed.elastic.agent.server.Worker(*local_rank*, *global_rank=-1*, *role_rank=-1*, *world_size=-1*, *role_world_size=-1*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/elastic/agent/server/api.py#L138)
+*class*torch.distributed.elastic.agent.server.Worker(*local_rank*, *global_rank=-1*, *role_rank=-1*, *world_size=-1*, *role_world_size=-1*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/elastic/agent/server/api.py#L138)
 
 A worker instance.
 
@@ -208,13 +208,13 @@ agent it could be encoded as `host:port (string)`.
 Parameters:
 
 - **id** (*Any*) - uniquely identifies a worker (interpreted by the agent)
-- **local_rank** ([*int*](https://docs.python.org/3/library/functions.html#int)) - local rank of the worker
-- **global_rank** ([*int*](https://docs.python.org/3/library/functions.html#int)) - global rank of the worker
-- **role_rank** ([*int*](https://docs.python.org/3/library/functions.html#int)) - rank of the worker across all workers that have the same role
-- **world_size** ([*int*](https://docs.python.org/3/library/functions.html#int)) - number of workers (globally)
-- **role_world_size** ([*int*](https://docs.python.org/3/library/functions.html#int)) - number of workers that have the same role
+- **local_rank** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - local rank of the worker
+- **global_rank** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - global rank of the worker
+- **role_rank** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - rank of the worker across all workers that have the same role
+- **world_size** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - number of workers (globally)
+- **role_world_size** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - number of workers that have the same role
 
-*class*torch.distributed.elastic.agent.server.WorkerGroup(*spec*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/elastic/agent/server/api.py#L266)
+*class*torch.distributed.elastic.agent.server.WorkerGroup(*spec*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/elastic/agent/server/api.py#L266)
 
 A set of `Worker` instances.
 
@@ -225,7 +225,7 @@ group contains cross instance workers or not depends on the implementation of th
 
 Below are the agent implementations provided by torchelastic.
 
-*class*torch.distributed.elastic.agent.server.local_elastic_agent.LocalElasticAgent(*spec*, *logs_specs*, *start_method='spawn'*, *exit_barrier_timeout=300*, *log_line_prefix_template=None*, *shutdown_timeout=30*, *health_check_server=None*, *uninterruptible_state_timeout=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/elastic/agent/server/local_elastic_agent.py#L118)
+*class*torch.distributed.elastic.agent.server.local_elastic_agent.LocalElasticAgent(*spec*, *logs_specs*, *start_method='spawn'*, *exit_barrier_timeout=300*, *log_line_prefix_template=None*, *shutdown_timeout=30*, *health_check_server=None*, *uninterruptible_state_timeout=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/elastic/agent/server/local_elastic_agent.py#L118)
 
 An implementation of `torchelastic.agent.server.ElasticAgent` that handles host-local workers.
 
@@ -322,14 +322,14 @@ we recommend you extend `SimpleElasticAgent` instead, which provides
 most of the scaffolding and leaves you with a few specific abstract methods
 to implement.
 
-*class*torch.distributed.elastic.agent.server.SimpleElasticAgent(*spec*, *exit_barrier_timeout=300*, *shutdown_timeout=30*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/elastic/agent/server/api.py#L455)
+*class*torch.distributed.elastic.agent.server.SimpleElasticAgent(*spec*, *exit_barrier_timeout=300*, *shutdown_timeout=30*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/elastic/agent/server/api.py#L455)
 
 An `ElasticAgent` that manages one particular type of worker role.
 
 An `ElasticAgent` that manages workers (`WorkerGroup`) for a single `WorkerSpec`
 such as one particular type of worker role.
 
-_assign_worker_ranks(*store*, *group_rank*, *group_world_size*, *spec*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/elastic/agent/server/api.py#L584)
+_assign_worker_ranks(*store*, *group_rank*, *group_world_size*, *spec*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/elastic/agent/server/api.py#L584)
 
 Determine proper ranks for worker processes.
 
@@ -363,9 +363,9 @@ Time complexity: each worker O(1), rank0 O(n), overall O(n)
 
 Return type:
 
-[list](https://docs.python.org/3/library/stdtypes.html#list)[*Worker*]
+[list](https://docs.python.org/3/builtins/stdtypes.html#list)[*Worker*]
 
-_exit_barrier()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/elastic/agent/server/api.py#L976)
+_exit_barrier()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/elastic/agent/server/api.py#L976)
 
 Define a barrier that keeps the agent process alive until all workers finish.
 
@@ -374,7 +374,7 @@ executing their local workers (either successfully or not). This
 acts as a safety guard against user scripts that terminate at different
 times.
 
-_initialize_workers(*worker_group*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/elastic/agent/server/api.py#L694)
+_initialize_workers(*worker_group*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/elastic/agent/server/api.py#L694)
 
 Start a fresh set of workers for the worker_group.
 
@@ -386,7 +386,7 @@ Optimistically sets the state of the worker group that
 just started as `HEALTHY` and delegates the actual monitoring
 of state to `_monitor_workers()` method
 
-*abstract*_monitor_workers(*worker_group*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/elastic/agent/server/api.py#L498)
+*abstract*_monitor_workers(*worker_group*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/elastic/agent/server/api.py#L498)
 
 Check on the workers for the `worker_group`.
 
@@ -396,27 +396,27 @@ Return type:
 
 *RunResult*
 
-_rendezvous(*worker_group*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/elastic/agent/server/api.py#L518)
+_rendezvous(*worker_group*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/elastic/agent/server/api.py#L518)
 
 Run rendezvous for the workers specified by the worker spec.
 
 Assigns workers a new global rank and world size.
 Updates the rendezvous store for the worker group.
 
-_restart_workers(*worker_group*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/elastic/agent/server/api.py#L729)
+_restart_workers(*worker_group*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/elastic/agent/server/api.py#L729)
 
 Restart (stops, rendezvous, starts) all local workers in the group.
 
-*abstract*_shutdown(*death_sig=Signals.SIGTERM*, *timeout=30*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/elastic/agent/server/api.py#L506)
+*abstract*_shutdown(*death_sig=Signals.SIGTERM*, *timeout=30*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/elastic/agent/server/api.py#L506)
 
 Clean up any resources that were allocated during the agent's work.
 
 Parameters:
 
 - **death_sig** ([*Signals*](https://docs.python.org/3/library/signal.html#signal.Signals)) - Signal to send to the child process, SIGTERM is default
-- **timeout** ([*int*](https://docs.python.org/3/library/functions.html#int)) - Time to wait for graceful shutdown before sending SIGKILL
+- **timeout** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Time to wait for graceful shutdown before sending SIGKILL
 
-*abstract*_start_workers(*worker_group*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/elastic/agent/server/api.py#L479)
+*abstract*_start_workers(*worker_group*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/elastic/agent/server/api.py#L479)
 
 Start `worker_group.spec.local_world_size` number of workers.
 
@@ -425,9 +425,9 @@ Returns a map of `local_rank` to worker `id`.
 
 Return type:
 
-[dict](https://docs.python.org/3/library/stdtypes.html#dict)[[int](https://docs.python.org/3/library/functions.html#int), [*Any*](https://docs.python.org/3/library/typing.html#typing.Any)]
+[dict](https://docs.python.org/3/builtins/stdtypes.html#dict)[[int](https://docs.python.org/3/builtins/functions.html#int), [*Any*](https://docs.python.org/3/library/typing.html#typing.Any)]
 
-*abstract*_stop_workers(*worker_group*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/elastic/agent/server/api.py#L488)
+*abstract*_stop_workers(*worker_group*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/elastic/agent/server/api.py#L488)
 
 Stop all workers in the given worker group.
 
@@ -435,7 +435,7 @@ Implementers must deal with workers in all states defined by
 `WorkerState`. That is, it must gracefully handle stopping
 non-existent workers, unhealthy (stuck) workers, etc.
 
-*class*torch.distributed.elastic.agent.server.api.RunResult(*state*, *return_values=<factory>*, *failures=<factory>*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/elastic/agent/server/api.py#L355)
+*class*torch.distributed.elastic.agent.server.api.RunResult(*state*, *return_values=<factory>*, *failures=<factory>*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/elastic/agent/server/api.py#L355)
 
 Return results of the worker executions.
 
@@ -484,26 +484,26 @@ Adding interface for health check server which can be extended by starting tcp/h
 server on the specified port number.
 Additionally, health check server will have callback to check watchdog is alive.
 
-*class*torch.distributed.elastic.agent.server.health_check_server.HealthCheckServer(*alive_callback*, *port*, *timeout*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/elastic/agent/server/health_check_server.py#L19)
+*class*torch.distributed.elastic.agent.server.health_check_server.HealthCheckServer(*alive_callback*, *port*, *timeout*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/elastic/agent/server/health_check_server.py#L19)
 
 Interface for health check monitoring server, which can be extended
 by starting tcp/http server on the specified port.
 
 Parameters:
 
-- **alive_callback** ([*Callable*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)*[**[**]**,*[*int*](https://docs.python.org/3/library/functions.html#int)*]*) - Callable[[], int], callback to last progress time of agent
-- **port** ([*int*](https://docs.python.org/3/library/functions.html#int)) - int, port number to start tcp/http server
-- **timeout** ([*int*](https://docs.python.org/3/library/functions.html#int)) - int, timeout seconds to decide agent is alive/dead
+- **alive_callback** ([*Callable*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)*[**[**]**,*[*int*](https://docs.python.org/3/builtins/functions.html#int)*]*) - Callable[[], int], callback to last progress time of agent
+- **port** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - int, port number to start tcp/http server
+- **timeout** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - int, timeout seconds to decide agent is alive/dead
 
-start()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/elastic/agent/server/health_check_server.py#L44)
+start()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/elastic/agent/server/health_check_server.py#L44)
 
 Unsupported functionality for PyTorch, doesn't start any health check server
 
-stop()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/elastic/agent/server/health_check_server.py#L50)
+stop()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/elastic/agent/server/health_check_server.py#L50)
 
 Function to stop health check server
 
-torch.distributed.elastic.agent.server.health_check_server.create_healthcheck_server(*alive_callback*, *port*, *timeout*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/elastic/agent/server/health_check_server.py#L61)
+torch.distributed.elastic.agent.server.health_check_server.create_healthcheck_server(*alive_callback*, *port*, *timeout*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/elastic/agent/server/health_check_server.py#L61)
 
 creates health check server object
 

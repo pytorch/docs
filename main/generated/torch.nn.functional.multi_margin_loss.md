@@ -1,6 +1,6 @@
 # torch.nn.functional.multi_margin_loss
 
-torch.nn.functional.multi_margin_loss(*input*, *target*, *p=1*, *margin=1.0*, *weight=None*, *size_average=None*, *reduce=None*, *reduction='mean'*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/functional.py#L4633)
+torch.nn.functional.multi_margin_loss(*input*, *target*, *p=1*, *margin=1.0*, *weight=None*, *size_average=None*, *reduce=None*, *reduction='mean'*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/functional.py#L4633)
 
 Compute the multi margin loss, with optional weighting.
 
@@ -10,12 +10,12 @@ Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - Predicted values.
 - **target** ([*Tensor*](../tensors.html#torch.Tensor)) - Ground truth values.
-- **p** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - Has a default value of 1. 1 and 2 are the only supported values.
-- **margin** ([*float*](https://docs.python.org/3/library/functions.html#float)*,**optional*) - Margin for multi margin loss. Has a default value of 1.
+- **p** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - Has a default value of 1. 1 and 2 are the only supported values.
+- **margin** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*,**optional*) - Margin for multi margin loss. Has a default value of 1.
 - **weight** ([*Tensor*](../tensors.html#torch.Tensor)*,**optional*) - Weights for each sample. Default: None.
-- **size_average** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - Deprecated (see `reduction`).
-- **reduce** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - Deprecated (see `reduction`).
-- **reduction** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**optional*) - Specifies the reduction to apply to the output:
+- **size_average** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - Deprecated (see `reduction`).
+- **reduce** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - Deprecated (see `reduction`).
+- **reduction** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**optional*) - Specifies the reduction to apply to the output:
 'none' | 'mean' | 'sum'. 'mean': the mean of the output is taken.
 'sum': the output will be summed. 'none': no reduction will be applied.
 Default: 'mean'.

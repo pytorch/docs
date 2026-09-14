@@ -1,6 +1,6 @@
 # torch.func.jacfwd
 
-torch.func.jacfwd(*func*, *argnums=0*, *has_aux=False*, ***, *randomness='error'*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/_functorch/eager_transforms.py#L1256)
+torch.func.jacfwd(*func*, *argnums=0*, *has_aux=False*, ***, *randomness='error'*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/_functorch/eager_transforms.py#L1256)
 
 Computes the Jacobian of `func` with respect to the arg(s) at index
 `argnum` using forward-mode autodiff
@@ -9,15 +9,15 @@ Parameters:
 
 - **func** (*function*) - A Python function that takes one or more arguments,
 one of which must be a Tensor, and returns one or more Tensors
-- **argnums** ([*int*](https://docs.python.org/3/library/functions.html#int)*or*[*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*[*[*int*](https://docs.python.org/3/library/functions.html#int)*,**...**]*) - Optional, integer or tuple of integers,
+- **argnums** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*or*[*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*[*[*int*](https://docs.python.org/3/builtins/functions.html#int)*,**...**]*) - Optional, integer or tuple of integers,
 saying which arguments to get the Jacobian with respect to.
 Default: 0.
-- **has_aux** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - Flag indicating that `func` returns a
+- **has_aux** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Flag indicating that `func` returns a
 `(output, aux)` tuple where the first element is the output of
 the function to be differentiated and the second element is
 auxiliary objects that will not be differentiated.
 Default: False.
-- **randomness** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - Flag indicating what type of randomness to use.
+- **randomness** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - Flag indicating what type of randomness to use.
 See [`vmap()`](torch.func.vmap.html#torch.func.vmap) for more detail. Allowed: "different", "same", "error".
 Default: "error"
 

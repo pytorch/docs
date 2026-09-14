@@ -1,6 +1,6 @@
 # torch.nn.utils.prune.global_unstructured
 
-torch.nn.utils.prune.global_unstructured(*parameters*, *pruning_method*, *importance_scores=None*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/utils/prune.py#L1038)
+torch.nn.utils.prune.global_unstructured(*parameters*, *pruning_method*, *importance_scores=None*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/utils/prune.py#L1038)
 
 Globally prunes tensors corresponding to all parameters in `parameters` by applying the specified `pruning_method`.
 
@@ -21,7 +21,7 @@ type `nn.Module`, and name must be a string.
 - **pruning_method** (*function*) - a valid pruning function from this module,
 or a custom one implemented by the user that satisfies the
 implementation guidelines and has `PRUNING_TYPE='unstructured'`.
-- **importance_scores** ([*dict*](https://docs.python.org/3/library/stdtypes.html#dict)) - a dictionary mapping (module, name) tuples to
+- **importance_scores** ([*dict*](https://docs.python.org/3/builtins/stdtypes.html#dict)) - a dictionary mapping (module, name) tuples to
 the corresponding parameter's importance scores tensor. The tensor
 should be the same shape as the parameter, and is used for computing
 mask for pruning.
@@ -36,7 +36,7 @@ absolute number of parameters to prune.
 
 Raises:
 
-[**TypeError**](https://docs.python.org/3/library/exceptions.html#TypeError) - if `PRUNING_TYPE != 'unstructured'`
+[**TypeError**](https://docs.python.org/3/builtins/exceptions.html#TypeError) - if `PRUNING_TYPE != 'unstructured'`
 
 Note
 

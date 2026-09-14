@@ -1,6 +1,6 @@
 # torch.nn.functional.upsample
 
-torch.nn.functional.upsample(*input*, *size=None*, *scale_factor=None*, *mode='nearest'*, *align_corners=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/functional.py#L4856)
+torch.nn.functional.upsample(*input*, *size=None*, *scale_factor=None*, *mode='nearest'*, *align_corners=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/functional.py#L4856)
 
 Upsample input.
 
@@ -30,12 +30,12 @@ bilinear, bicubic (4D-only), trilinear (5D-only), lanczos (4D-only)
 Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - the input tensor
-- **size** ([*int*](https://docs.python.org/3/library/functions.html#int)*or**Tuple**[*[*int*](https://docs.python.org/3/library/functions.html#int)*] or**Tuple**[*[*int*](https://docs.python.org/3/library/functions.html#int)*,*[*int*](https://docs.python.org/3/library/functions.html#int)*] or**Tuple**[*[*int*](https://docs.python.org/3/library/functions.html#int)*,*[*int*](https://docs.python.org/3/library/functions.html#int)*,*[*int*](https://docs.python.org/3/library/functions.html#int)*]*) - output spatial size.
-- **scale_factor** ([*float*](https://docs.python.org/3/library/functions.html#float)*or**Tuple**[*[*float*](https://docs.python.org/3/library/functions.html#float)*]*) - multiplier for spatial size. Has to match input size if it is a tuple.
-- **mode** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - algorithm used for upsampling:
+- **size** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*or**Tuple**[*[*int*](https://docs.python.org/3/builtins/functions.html#int)*] or**Tuple**[*[*int*](https://docs.python.org/3/builtins/functions.html#int)*,*[*int*](https://docs.python.org/3/builtins/functions.html#int)*] or**Tuple**[*[*int*](https://docs.python.org/3/builtins/functions.html#int)*,*[*int*](https://docs.python.org/3/builtins/functions.html#int)*,*[*int*](https://docs.python.org/3/builtins/functions.html#int)*]*) - output spatial size.
+- **scale_factor** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*or**Tuple**[*[*float*](https://docs.python.org/3/builtins/functions.html#float)*]*) - multiplier for spatial size. Has to match input size if it is a tuple.
+- **mode** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - algorithm used for upsampling:
 `'nearest'` | `'linear'` | `'bilinear'` | `'bicubic'` |
 `'trilinear'` | `'lanczos'`. Default: `'nearest'`
-- **align_corners** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - Geometrically, we consider the pixels of the
+- **align_corners** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - Geometrically, we consider the pixels of the
 input and output as squares rather than points.
 If set to `True`, the input and output tensors are aligned by the
 center points of their corner pixels, preserving the values at the corner pixels.

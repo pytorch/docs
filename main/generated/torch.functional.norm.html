@@ -80,7 +80,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.15.0a0+gitea89e4e )">
+<meta name="llm:version" content="main (2.15.0a0+gitb8bd7cf )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -186,7 +186,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+gitea89e4e )');
+  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+gitb8bd7cf )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -4282,7 +4282,7 @@ document.write(`
 <h1>torch.functional.norm<a class="headerlink" href="#torch-functional-norm" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.functional.norm">
-<span class="sig-prename descclassname"><span class="pre">torch.functional.</span></span><span class="sig-name descname"><span class="pre">norm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'fro'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keepdim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/functional.py#L1734"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.functional.norm" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.functional.</span></span><span class="sig-name descname"><span class="pre">norm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'fro'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keepdim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/functional.py#L1734"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.functional.norm" title="Link to this definition">#</a></dt>
 <dd><p>Returns the matrix norm or vector norm of a given tensor.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -4304,7 +4304,7 @@ absolute value of each element. If the input is complex and neither
 <code class="xref py py-attr docutils literal notranslate"><span class="pre">dtype</span></code> nor <code class="xref py py-attr docutils literal notranslate"><span class="pre">out</span></code> is specified, the result’s data type will
 be the corresponding floating point type (e.g. float if <code class="xref py py-attr docutils literal notranslate"><span class="pre">input</span></code> is
 complexfloat).</p></li>
-<li><p><strong>p</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>, </em><em>inf</em><em>, </em><em>-inf</em><em>, </em><em>'fro'</em><em>, </em><em>'nuc'</em><em>, </em><em>optional</em>) – <p>the order of norm. Default: <code class="docutils literal notranslate"><span class="pre">'fro'</span></code>
+<li><p><strong>p</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>, </em><em>inf</em><em>, </em><em>-inf</em><em>, </em><em>'fro'</em><em>, </em><em>'nuc'</em><em>, </em><em>optional</em>) – <p>the order of norm. Default: <code class="docutils literal notranslate"><span class="pre">'fro'</span></code>
 The following norms can be calculated:</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
@@ -4338,12 +4338,12 @@ except when <code class="xref py py-attr docutils literal notranslate"><span cla
 case Frobenius norm throws an error.</p>
 <p>Nuclear norm can only be calculated across exactly two dimensions.</p>
 </p></li>
-<li><p><strong>dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a><em> of </em><em>ints</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em> of </em><em>ints</em><em>, </em><em>optional</em>) – Specifies which dimension or dimensions of <code class="xref py py-attr docutils literal notranslate"><span class="pre">input</span></code> to
+<li><p><strong>dim</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a><em> of </em><em>ints</em><em>, </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em> of </em><em>ints</em><em>, </em><em>optional</em>) – Specifies which dimension or dimensions of <code class="xref py py-attr docutils literal notranslate"><span class="pre">input</span></code> to
 calculate the norm across. If <code class="xref py py-attr docutils literal notranslate"><span class="pre">dim</span></code> is <code class="docutils literal notranslate"><span class="pre">None</span></code>, the norm will
 be calculated across all dimensions of <code class="xref py py-attr docutils literal notranslate"><span class="pre">input</span></code>. If the norm
 type indicated by <code class="xref py py-attr docutils literal notranslate"><span class="pre">p</span></code> does not support the specified number of
 dimensions, an error will occur.</p></li>
-<li><p><strong>keepdim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – whether the output tensors have <code class="xref py py-attr docutils literal notranslate"><span class="pre">dim</span></code>
+<li><p><strong>keepdim</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – whether the output tensors have <code class="xref py py-attr docutils literal notranslate"><span class="pre">dim</span></code>
 retained or not. Ignored if <code class="xref py py-attr docutils literal notranslate"><span class="pre">dim</span></code> = <code class="docutils literal notranslate"><span class="pre">None</span></code> and
 <code class="xref py py-attr docutils literal notranslate"><span class="pre">out</span></code> = <code class="docutils literal notranslate"><span class="pre">None</span></code>. Default: <code class="docutils literal notranslate"><span class="pre">False</span></code></p></li>
 <li><p><strong>out</strong> (<a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a><em>, </em><em>optional</em>) – the output tensor. Ignored if

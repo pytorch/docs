@@ -1,13 +1,13 @@
 # torch.cuda.comm.broadcast
 
-torch.cuda.comm.broadcast(*tensor*, *devices=None*, ***, *out=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/parallel/comm.py#L16)
+torch.cuda.comm.broadcast(*tensor*, *devices=None*, ***, *out=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/parallel/comm.py#L16)
 
 Broadcasts a tensor to specified GPU devices.
 
 Parameters:
 
 - **tensor** ([*Tensor*](../tensors.html#torch.Tensor)) - tensor to broadcast. Can be on CPU or GPU.
-- **devices** (*Iterable**[*[*torch.device*](../tensor_attributes.html#torch.device)*,*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*or*[*int*](https://docs.python.org/3/library/functions.html#int)*]**,**optional*) - an iterable of
+- **devices** (*Iterable**[*[*torch.device*](../tensor_attributes.html#torch.device)*,*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*or*[*int*](https://docs.python.org/3/builtins/functions.html#int)*]**,**optional*) - an iterable of
 GPU devices, among which to broadcast.
 - **out** (*Sequence**[*[*Tensor*](../tensors.html#torch.Tensor)*]**,**optional**,**keyword-only*) - the GPU tensors to
 store output results.

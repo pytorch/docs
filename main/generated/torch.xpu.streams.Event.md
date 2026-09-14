@@ -1,6 +1,6 @@
 # Event
 
-*class*torch.xpu.streams.Event(*enable_timing=False*, *blocking=False*, *interprocess=False*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/xpu/streams.py#L106)
+*class*torch.xpu.streams.Event(*enable_timing=False*, *blocking=False*, *interprocess=False*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/xpu/streams.py#L106)
 
 Wrapper around a XPU event.
 
@@ -13,13 +13,13 @@ event. However, streams on any device can wait on the event.
 
 Parameters:
 
-- **enable_timing** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - indicates if the event should measure time
+- **enable_timing** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - indicates if the event should measure time
 (default: `False`)
-- **blocking** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - unused and reserved (default: `False`)
-- **interprocess** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - indicates if the event should be shareable
+- **blocking** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - unused and reserved (default: `False`)
+- **interprocess** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - indicates if the event should be shareable
 between processes (default: `False`)
 
-elapsed_time(*end_event*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/xpu/streams.py#L159)
+elapsed_time(*end_event*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/xpu/streams.py#L159)
 
 Return the time elapsed.
 
@@ -30,14 +30,14 @@ Parameters:
 
 **end_event** (*Event*) - the end event.
 
-*classmethod*from_ipc_handle(*device*, *ipc_handle*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/xpu/streams.py#L192)
+*classmethod*from_ipc_handle(*device*, *ipc_handle*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/xpu/streams.py#L192)
 
 Reconstruct an event from an IPC handle on the given device.
 
 Parameters:
 
-- **device** ([*torch.device*](../tensor_attributes.html#torch.device)*,*[*int*](https://docs.python.org/3/library/functions.html#int)*, or*[*str*](https://docs.python.org/3/library/stdtypes.html#str)) - the device on which to open the handle.
-- **ipc_handle** ([*bytes*](https://docs.python.org/3/library/stdtypes.html#bytes)) - the IPC handle returned by `ipc_handle()`.
+- **device** ([*torch.device*](../tensor_attributes.html#torch.device)*,*[*int*](https://docs.python.org/3/builtins/functions.html#int)*, or*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - the device on which to open the handle.
+- **ipc_handle** ([*bytes*](https://docs.python.org/3/builtins/stdtypes.html#bytes)) - the IPC handle returned by `ipc_handle()`.
 
 Returns:
 
@@ -47,7 +47,7 @@ Return type:
 
 Event
 
-ipc_handle()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/xpu/streams.py#L178)
+ipc_handle()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/xpu/streams.py#L178)
 
 Return an IPC handle of this event.
 
@@ -66,9 +66,9 @@ in another process to reconstruct this event.
 
 Return type:
 
-[bytes](https://docs.python.org/3/library/stdtypes.html#bytes)
+[bytes](https://docs.python.org/3/builtins/stdtypes.html#bytes)
 
-query()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/xpu/streams.py#L150)
+query()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/xpu/streams.py#L150)
 
 Check if all work currently captured by event has completed.
 
@@ -79,9 +79,9 @@ completed.
 
 Return type:
 
-[bool](https://docs.python.org/3/library/functions.html#bool)
+[bool](https://docs.python.org/3/builtins/functions.html#bool)
 
-record(*stream=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/xpu/streams.py#L129)
+record(*stream=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/xpu/streams.py#L129)
 
 Record the event in a given stream.
 
@@ -90,14 +90,14 @@ Parameters:
 **stream** ([*Stream*](torch.xpu.streams.Stream.html#torch.xpu.streams.Stream)*,*[*torch.Stream*](torch.Stream.html#torch.Stream)*,**optional*) - Uses `torch.xpu.current_stream()` if no stream is specified.
 The stream's device must match the event's device.
 
-synchronize()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/xpu/streams.py#L170)
+synchronize()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/xpu/streams.py#L170)
 
 Wait for the event to complete.
 
 Waits until the completion of all work currently captured in this event.
 This prevents the CPU thread from proceeding until the event completes.
 
-wait(*stream=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/xpu/streams.py#L140)
+wait(*stream=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/xpu/streams.py#L140)
 
 Make all future work submitted to the given stream wait for this event.
 

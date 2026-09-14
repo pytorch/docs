@@ -1,6 +1,6 @@
 # torch.fx.experimental.migrate_gradual_types.constraint_transformation.gen_broadcasting_constraints
 
-torch.fx.experimental.migrate_gradual_types.constraint_transformation.gen_broadcasting_constraints(*e1*, *e2*, *e11*, *e12*, *i*, *counter*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/experimental/migrate_gradual_types/constraint_transformation.py#L1391)
+torch.fx.experimental.migrate_gradual_types.constraint_transformation.gen_broadcasting_constraints(*e1*, *e2*, *e11*, *e12*, *i*, *counter*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/experimental/migrate_gradual_types/constraint_transformation.py#L1391)
 
 Simulates broadcasting on e1 and e2 and returns the results
 respectively in e11 and e12. Because of gradual types,
@@ -19,4 +19,4 @@ Returns: Simplified broadcasting constraints
 
 Return type:
 
-[tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[*Constraint*, *Constraint*, *Constraint*, [list](https://docs.python.org/3/library/stdtypes.html#list)[*BinConstraintD*], [int](https://docs.python.org/3/library/functions.html#int)]
+[tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[*Constraint*, *Constraint*, *Constraint*, [list](https://docs.python.org/3/builtins/stdtypes.html#list)[*BinConstraintD*], [int](https://docs.python.org/3/builtins/functions.html#int)]

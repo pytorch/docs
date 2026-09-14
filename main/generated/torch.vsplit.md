@@ -15,7 +15,7 @@ This function is based on NumPy's [`numpy.vsplit()`](https://numpy.org/doc/stabl
 Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - tensor to split.
-- **indices_or_sections** ([*int*](https://docs.python.org/3/library/functions.html#int)*or*[*list*](https://docs.python.org/3/library/stdtypes.html#list)*or*[*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*of**ints*) - See argument in [`torch.tensor_split()`](torch.tensor_split.html#torch.tensor_split).
+- **indices_or_sections** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*or*[*list*](https://docs.python.org/3/builtins/stdtypes.html#list)*or*[*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*of**ints*) - See argument in [`torch.tensor_split()`](torch.tensor_split.html#torch.tensor_split).
 
 Example:
 

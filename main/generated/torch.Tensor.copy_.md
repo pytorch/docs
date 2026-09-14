@@ -12,7 +12,7 @@ different device.
 Parameters:
 
 - **src** ([*Tensor*](../tensors.html#torch.Tensor)) - the source tensor to copy from
-- **non_blocking** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - if `True` and this copy is between CPU and GPU,
+- **non_blocking** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - if `True` and this copy is between CPU and GPU,
 the copy may occur asynchronously with respect to the host. For other
 cases, this argument has no effect. Default: `False`
 

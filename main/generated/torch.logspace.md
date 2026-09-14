@@ -19,10 +19,10 @@ From PyTorch 1.11 logspace requires the steps argument. Use steps=100 to restore
 
 Parameters:
 
-- **start** ([*float*](https://docs.python.org/3/library/functions.html#float)*or*[*Tensor*](../tensors.html#torch.Tensor)) - the starting value for the set of points. If Tensor, it must be 0-dimensional
-- **end** ([*float*](https://docs.python.org/3/library/functions.html#float)*or*[*Tensor*](../tensors.html#torch.Tensor)) - the ending value for the set of points. If Tensor, it must be 0-dimensional
-- **steps** ([*int*](https://docs.python.org/3/library/functions.html#int)) - size of the constructed tensor
-- **base** ([*float*](https://docs.python.org/3/library/functions.html#float)*,**optional*) - base of the logarithm function. Default: `10.0`.
+- **start** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*or*[*Tensor*](../tensors.html#torch.Tensor)) - the starting value for the set of points. If Tensor, it must be 0-dimensional
+- **end** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*or*[*Tensor*](../tensors.html#torch.Tensor)) - the ending value for the set of points. If Tensor, it must be 0-dimensional
+- **steps** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - size of the constructed tensor
+- **base** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*,**optional*) - base of the logarithm function. Default: `10.0`.
 
 Keyword Arguments:
 
@@ -37,7 +37,7 @@ Default: `torch.strided`.
 Default: if `None`, uses the current device for the default tensor type
 (see [`torch.set_default_device()`](torch.set_default_device.html#torch.set_default_device)). [`device`](../tensor_attributes.html#torch.device) will be the CPU
 for CPU tensor types and the current CUDA device for CUDA tensor types.
-- **requires_grad** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If autograd should record operations on the
+- **requires_grad** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If autograd should record operations on the
 returned tensor. Default: `False`.
 
 Example:

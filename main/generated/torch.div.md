@@ -25,7 +25,7 @@ Parameters:
 
 Keyword Arguments:
 
-- **rounding_mode** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**optional*) -
+- **rounding_mode** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**optional*) -
 
 Type of rounding applied to the result:
 

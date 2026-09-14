@@ -1,6 +1,6 @@
 # torch.fft.hfftn
 
-torch.fft.hfftn(*input*, *s=None*, *dim=None*, *norm=None*, ***, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fft/__init__.py#L1068)
+torch.fft.hfftn(*input*, *s=None*, *dim=None*, *norm=None*, ***, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fft/__init__.py#L1068)
 
 Computes the n-dimensional discrete Fourier transform of a Hermitian symmetric
 `input` signal.
@@ -43,16 +43,16 @@ s defaults to even output size = 2 * (last_dim_size - 1)
 Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - the input tensor
-- **s** (*Tuple**[*[*int*](https://docs.python.org/3/library/functions.html#int)*]**,**optional*) - Signal size in the transformed dimensions.
+- **s** (*Tuple**[*[*int*](https://docs.python.org/3/builtins/functions.html#int)*]**,**optional*) - Signal size in the transformed dimensions.
 If given, each dimension `dim[i]` will either be zero-padded or
 trimmed to the length `s[i]` before computing the real FFT.
 If a length `-1` is specified, no padding is done in that dimension.
 Defaults to even output in the last dimension:
 `s[-1] = 2*(input.size(dim[-1]) - 1)`.
-- **dim** (*Tuple**[*[*int*](https://docs.python.org/3/library/functions.html#int)*]**,**optional*) - Dimensions to be transformed.
+- **dim** (*Tuple**[*[*int*](https://docs.python.org/3/builtins/functions.html#int)*]**,**optional*) - Dimensions to be transformed.
 The last dimension must be the half-Hermitian compressed dimension.
 Default: all dimensions, or the last `len(s)` dimensions if `s` is given.
-- **norm** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**optional*) -
+- **norm** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**optional*) -
 
 Normalization mode. For the forward transform
 (`hfftn()`), these correspond to:

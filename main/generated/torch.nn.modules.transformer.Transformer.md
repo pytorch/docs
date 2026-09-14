@@ -1,6 +1,6 @@
 # Transformer
 
-*class*torch.nn.modules.transformer.Transformer(*d_model=512*, *nhead=8*, *num_encoder_layers=6*, *num_decoder_layers=6*, *dim_feedforward=2048*, *dropout=0.1*, *activation=<function relu>*, *custom_encoder=None*, *custom_decoder=None*, *layer_norm_eps=1e-05*, *batch_first=False*, *norm_first=False*, *bias=True*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/transformer.py#L58)
+*class*torch.nn.modules.transformer.Transformer(*d_model=512*, *nhead=8*, *num_encoder_layers=6*, *num_decoder_layers=6*, *dim_feedforward=2048*, *dropout=0.1*, *activation=<function relu>*, *custom_encoder=None*, *custom_decoder=None*, *layer_norm_eps=1e-05*, *batch_first=False*, *norm_first=False*, *bias=True*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/transformer.py#L58)
 
 A basic transformer layer.
 
@@ -15,22 +15,22 @@ level libraries from the [PyTorch Ecosystem](https://landscape.pytorch.org/).
 
 Parameters:
 
-- **d_model** ([*int*](https://docs.python.org/3/library/functions.html#int)) - the number of expected features in the encoder/decoder inputs (default=512).
-- **nhead** ([*int*](https://docs.python.org/3/library/functions.html#int)) - the number of heads in the multiheadattention models (default=8).
-- **num_encoder_layers** ([*int*](https://docs.python.org/3/library/functions.html#int)) - the number of sub-encoder-layers in the encoder (default=6).
-- **num_decoder_layers** ([*int*](https://docs.python.org/3/library/functions.html#int)) - the number of sub-decoder-layers in the decoder (default=6).
-- **dim_feedforward** ([*int*](https://docs.python.org/3/library/functions.html#int)) - the dimension of the feedforward network model (default=2048).
-- **dropout** ([*float*](https://docs.python.org/3/library/functions.html#float)) - the dropout value (default=0.1).
-- **activation** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*|*[*Callable*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)*[**[*[*Tensor*](../tensors.html#torch.Tensor)*]**,*[*Tensor*](../tensors.html#torch.Tensor)*]*) - the activation function of encoder/decoder intermediate layer, can be a string
+- **d_model** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - the number of expected features in the encoder/decoder inputs (default=512).
+- **nhead** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - the number of heads in the multiheadattention models (default=8).
+- **num_encoder_layers** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - the number of sub-encoder-layers in the encoder (default=6).
+- **num_decoder_layers** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - the number of sub-decoder-layers in the decoder (default=6).
+- **dim_feedforward** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - the dimension of the feedforward network model (default=2048).
+- **dropout** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - the dropout value (default=0.1).
+- **activation** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*|*[*Callable*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)*[**[*[*Tensor*](../tensors.html#torch.Tensor)*]**,*[*Tensor*](../tensors.html#torch.Tensor)*]*) - the activation function of encoder/decoder intermediate layer, can be a string
 ("relu" or "gelu") or a unary callable. Default: relu
 - **custom_encoder** ([*Any*](https://docs.python.org/3/library/typing.html#typing.Any)*|**None*) - custom encoder (default=None).
 - **custom_decoder** ([*Any*](https://docs.python.org/3/library/typing.html#typing.Any)*|**None*) - custom decoder (default=None).
-- **layer_norm_eps** ([*float*](https://docs.python.org/3/library/functions.html#float)) - the eps value in layer normalization components (default=1e-5).
-- **batch_first** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If `True`, then the input and output tensors are provided
+- **layer_norm_eps** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - the eps value in layer normalization components (default=1e-5).
+- **batch_first** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - If `True`, then the input and output tensors are provided
 as (batch, seq, feature). Default: `False` (seq, batch, feature).
-- **norm_first** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - if `True`, encoder and decoder layers will perform LayerNorms before
+- **norm_first** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - if `True`, encoder and decoder layers will perform LayerNorms before
 other attention and feedforward operations, otherwise after. Default: `False` (after).
-- **bias** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If set to `False`, `Linear` and `LayerNorm` layers will not learn an additive
+- **bias** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - If set to `False`, `Linear` and `LayerNorm` layers will not learn an additive
 bias. Default: `True`.
 
 Examples
@@ -47,7 +47,7 @@ Examples
 Note: A full example to apply nn.Transformer module for the word language model is available in
 [pytorch/examples](https://github.com/pytorch/examples/tree/master/word_language_model)
 
-forward(*src*, *tgt*, *src_mask=None*, *tgt_mask=None*, *memory_mask=None*, *src_key_padding_mask=None*, *tgt_key_padding_mask=None*, *memory_key_padding_mask=None*, *src_is_causal=None*, *tgt_is_causal=None*, *memory_is_causal=False*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/transformer.py#L181)
+forward(*src*, *tgt*, *src_mask=None*, *tgt_mask=None*, *memory_mask=None*, *src_key_padding_mask=None*, *tgt_key_padding_mask=None*, *memory_key_padding_mask=None*, *src_is_causal=None*, *tgt_is_causal=None*, *memory_is_causal=False*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/transformer.py#L181)
 
 Take in and process masked source/target sequences.
 
@@ -68,21 +68,21 @@ Parameters:
 - **src_key_padding_mask** ([*Tensor*](../tensors.html#torch.Tensor)*|**None*) - the Tensor mask for src keys per batch (optional).
 - **tgt_key_padding_mask** ([*Tensor*](../tensors.html#torch.Tensor)*|**None*) - the Tensor mask for tgt keys per batch (optional).
 - **memory_key_padding_mask** ([*Tensor*](../tensors.html#torch.Tensor)*|**None*) - the Tensor mask for memory keys per batch (optional).
-- **src_is_causal** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*|**None*) - If specified, applies a causal mask as `src_mask`.
+- **src_is_causal** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*|**None*) - If specified, applies a causal mask as `src_mask`.
 Default: `None`; try to detect a causal mask.
 Warning:
 `src_is_causal` provides a hint that `src_mask` is
 the causal mask. Providing incorrect hints can result in
 incorrect execution, including forward and backward
 compatibility.
-- **tgt_is_causal** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*|**None*) - If specified, applies a causal mask as `tgt_mask`.
+- **tgt_is_causal** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*|**None*) - If specified, applies a causal mask as `tgt_mask`.
 Default: `None`; try to detect a causal mask.
 Warning:
 `tgt_is_causal` provides a hint that `tgt_mask` is
 the causal mask. Providing incorrect hints can result in
 incorrect execution, including forward and backward
 compatibility.
-- **memory_is_causal** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If specified, applies a causal mask as
+- **memory_is_causal** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - If specified, applies a causal mask as
 `memory_mask`.
 Default: `False`.
 Warning:
@@ -134,7 +134,7 @@ Examples
 ... )
 ```
 
-*static*generate_square_subsequent_mask(*sz*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/transformer.py#L301)
+*static*generate_square_subsequent_mask(*sz*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/transformer.py#L301)
 
 Generate a square causal mask for the sequence.
 

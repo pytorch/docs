@@ -80,7 +80,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.15.0a0+gitea89e4e )">
+<meta name="llm:version" content="main (2.15.0a0+gitb8bd7cf )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -186,7 +186,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+gitea89e4e )');
+  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+gitb8bd7cf )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3635,7 +3635,7 @@ document.write(`
 <h1>FunctionEventAvg<a class="headerlink" href="#functioneventavg" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.autograd.profiler_util.FunctionEventAvg">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.autograd.profiler_util.</span></span><span class="sig-name descname"><span class="pre">FunctionEventAvg</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/autograd/profiler_util.py#L1018"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.profiler_util.FunctionEventAvg" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.autograd.profiler_util.</span></span><span class="sig-name descname"><span class="pre">FunctionEventAvg</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/autograd/profiler_util.py#L1018"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.profiler_util.FunctionEventAvg" title="Link to this definition">#</a></dt>
 <dd><p>Averaged profiling statistics over multiple FunctionEvent objects.</p>
 <p>FunctionEventAvg aggregates statistics from multiple FunctionEvent objects
 with the same key (typically same operation name). This is useful for getting
@@ -3645,30 +3645,30 @@ a profiler’s event list.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Variables<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>key</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Grouping key for the events (typically operation name).</p></li>
-<li><p><strong>count</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Total number of events aggregated.</p></li>
-<li><p><strong>node_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Node identifier for distributed profiling (-1 if not applicable).</p></li>
-<li><p><strong>is_async</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Whether the operations are asynchronous.</p></li>
-<li><p><strong>is_remote</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Whether the operations occurred on a remote node.</p></li>
-<li><p><strong>use_device</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Device type being profiled (“cuda”, “xpu”, etc.).</p></li>
-<li><p><strong>cpu_time_total</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Accumulated total CPU time in microseconds.</p></li>
-<li><p><strong>device_time_total</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Accumulated total device time in microseconds.</p></li>
-<li><p><strong>self_cpu_time_total</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Accumulated self CPU time (excluding children) in microseconds.</p></li>
-<li><p><strong>self_device_time_total</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Accumulated self device time (excluding children) in microseconds.</p></li>
-<li><p><strong>input_shapes</strong> (<em>List</em><em>[</em><em>List</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>]</em><em>]</em>) – Input tensor shapes (requires record_shapes=true).</p></li>
-<li><p><strong>overload_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Operator overload name (requires _ExperimentalConfig(capture_overload_names=True) set).</p></li>
-<li><p><strong>stack</strong> (<em>List</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>]</em>) – Python stack trace where the operation was called (requires with_stack=true).</p></li>
-<li><p><strong>scope</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – at::RecordScope identifier (0=forward, 1=backward, etc.).</p></li>
-<li><p><strong>cpu_memory_usage</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Accumulated CPU memory usage in bytes.</p></li>
-<li><p><strong>device_memory_usage</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Accumulated device memory usage in bytes.</p></li>
-<li><p><strong>self_cpu_memory_usage</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Accumulated self CPU memory usage in bytes.</p></li>
-<li><p><strong>self_device_memory_usage</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Accumulated self device memory usage in bytes.</p></li>
+<li><p><strong>key</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Grouping key for the events (typically operation name).</p></li>
+<li><p><strong>count</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Total number of events aggregated.</p></li>
+<li><p><strong>node_id</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Node identifier for distributed profiling (-1 if not applicable).</p></li>
+<li><p><strong>is_async</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Whether the operations are asynchronous.</p></li>
+<li><p><strong>is_remote</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Whether the operations occurred on a remote node.</p></li>
+<li><p><strong>use_device</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Device type being profiled (“cuda”, “xpu”, etc.).</p></li>
+<li><p><strong>cpu_time_total</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Accumulated total CPU time in microseconds.</p></li>
+<li><p><strong>device_time_total</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Accumulated total device time in microseconds.</p></li>
+<li><p><strong>self_cpu_time_total</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Accumulated self CPU time (excluding children) in microseconds.</p></li>
+<li><p><strong>self_device_time_total</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Accumulated self device time (excluding children) in microseconds.</p></li>
+<li><p><strong>input_shapes</strong> (<em>List</em><em>[</em><em>List</em><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>]</em><em>]</em>) – Input tensor shapes (requires record_shapes=true).</p></li>
+<li><p><strong>overload_name</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Operator overload name (requires _ExperimentalConfig(capture_overload_names=True) set).</p></li>
+<li><p><strong>stack</strong> (<em>List</em><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>]</em>) – Python stack trace where the operation was called (requires with_stack=true).</p></li>
+<li><p><strong>scope</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – at::RecordScope identifier (0=forward, 1=backward, etc.).</p></li>
+<li><p><strong>cpu_memory_usage</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Accumulated CPU memory usage in bytes.</p></li>
+<li><p><strong>device_memory_usage</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Accumulated device memory usage in bytes.</p></li>
+<li><p><strong>self_cpu_memory_usage</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Accumulated self CPU memory usage in bytes.</p></li>
+<li><p><strong>self_device_memory_usage</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Accumulated self device memory usage in bytes.</p></li>
 <li><p><strong>cpu_children</strong> (<em>List</em><em>[</em><a class="reference internal" href="torch.autograd.profiler_util.FunctionEvent.html#torch.autograd.profiler_util.FunctionEvent" title="torch.autograd.profiler_util.FunctionEvent"><em>FunctionEvent</em></a><em>]</em>) – CPU child events.</p></li>
 <li><p><strong>cpu_parent</strong> (<a class="reference internal" href="torch.autograd.profiler_util.FunctionEvent.html#torch.autograd.profiler_util.FunctionEvent" title="torch.autograd.profiler_util.FunctionEvent"><em>FunctionEvent</em></a>) – CPU parent event.</p></li>
 <li><p><strong>device_type</strong> (<em>DeviceType</em>) – Type of device (CPU, CUDA, XPU, PrivateUse1, etc.).</p></li>
-<li><p><strong>is_legacy</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Whether from legacy profiler.</p></li>
-<li><p><strong>flops</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Total floating point operations.</p></li>
-<li><p><strong>is_user_annotation</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Whether this is a user-annotated region.</p></li>
+<li><p><strong>is_legacy</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Whether from legacy profiler.</p></li>
+<li><p><strong>flops</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Total floating point operations.</p></li>
+<li><p><strong>is_user_annotation</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Whether this is a user-annotated region.</p></li>
 </ul>
 </dd>
 </dl>

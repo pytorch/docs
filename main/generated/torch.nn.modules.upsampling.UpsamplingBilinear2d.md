@@ -1,6 +1,6 @@
 # UpsamplingBilinear2d
 
-*class*torch.nn.modules.upsampling.UpsamplingBilinear2d(*size=None*, *scale_factor=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/upsampling.py#L250)
+*class*torch.nn.modules.upsampling.UpsamplingBilinear2d(*size=None*, *scale_factor=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/upsampling.py#L250)
 
 Applies a 2D bilinear upsampling to an input signal composed of several input channels.
 
@@ -11,8 +11,8 @@ When `size` is given, it is the output size of the image (h, w).
 
 Parameters:
 
-- **size** ([*int*](https://docs.python.org/3/library/functions.html#int)*or**Tuple**[*[*int*](https://docs.python.org/3/library/functions.html#int)*,*[*int*](https://docs.python.org/3/library/functions.html#int)*]**,**optional*) - output spatial sizes
-- **scale_factor** ([*float*](https://docs.python.org/3/library/functions.html#float)*or**Tuple**[*[*float*](https://docs.python.org/3/library/functions.html#float)*,*[*float*](https://docs.python.org/3/library/functions.html#float)*]**,**optional*) - multiplier for
+- **size** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*or**Tuple**[*[*int*](https://docs.python.org/3/builtins/functions.html#int)*,*[*int*](https://docs.python.org/3/builtins/functions.html#int)*]**,**optional*) - output spatial sizes
+- **scale_factor** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*or**Tuple**[*[*float*](https://docs.python.org/3/builtins/functions.html#float)*,*[*float*](https://docs.python.org/3/builtins/functions.html#float)*]**,**optional*) - multiplier for
 spatial size.
 
 Warning

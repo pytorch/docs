@@ -1,6 +1,6 @@
 # torch.functional.norm
 
-torch.functional.norm(*input*, *p='fro'*, *dim=None*, *keepdim=False*, *out=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/functional.py#L1734)
+torch.functional.norm(*input*, *p='fro'*, *dim=None*, *keepdim=False*, *out=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/functional.py#L1734)
 
 Returns the matrix norm or vector norm of a given tensor.
 
@@ -24,7 +24,7 @@ absolute value of each element. If the input is complex and neither
 `dtype` nor `out` is specified, the result's data type will
 be the corresponding floating point type (e.g. float if `input` is
 complexfloat).
-- **p** ([*int*](https://docs.python.org/3/library/functions.html#int)*,*[*float*](https://docs.python.org/3/library/functions.html#float)*,**inf**,**-inf**,**'fro'**,**'nuc'**,**optional*) -
+- **p** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,*[*float*](https://docs.python.org/3/builtins/functions.html#float)*,**inf**,**-inf**,**'fro'**,**'nuc'**,**optional*) -
 
 the order of norm. Default: `'fro'`
 The following norms can be calculated:
@@ -45,12 +45,12 @@ except when `dim` is a list of three or more dims, in which
 case Frobenius norm throws an error.
 
 Nuclear norm can only be calculated across exactly two dimensions.
-- **dim** ([*int*](https://docs.python.org/3/library/functions.html#int)*,*[*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*of**ints**,*[*list*](https://docs.python.org/3/library/stdtypes.html#list)*of**ints**,**optional*) - Specifies which dimension or dimensions of `input` to
+- **dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,*[*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*of**ints**,*[*list*](https://docs.python.org/3/builtins/stdtypes.html#list)*of**ints**,**optional*) - Specifies which dimension or dimensions of `input` to
 calculate the norm across. If `dim` is `None`, the norm will
 be calculated across all dimensions of `input`. If the norm
 type indicated by `p` does not support the specified number of
 dimensions, an error will occur.
-- **keepdim** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - whether the output tensors have `dim`
+- **keepdim** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - whether the output tensors have `dim`
 retained or not. Ignored if `dim` = `None` and
 `out` = `None`. Default: `False`
 - **out** ([*Tensor*](../tensors.html#torch.Tensor)*,**optional*) - the output tensor. Ignored if

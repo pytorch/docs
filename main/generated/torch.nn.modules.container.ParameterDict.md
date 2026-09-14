@@ -1,6 +1,6 @@
 # ParameterDict
 
-*class*torch.nn.modules.container.ParameterDict(*parameters=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/container.py#L800)
+*class*torch.nn.modules.container.ParameterDict(*parameters=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/container.py#L800)
 
 Holds parameters in a dictionary.
 
@@ -42,11 +42,11 @@ class MyModule(nn.Module):
  return x
 ```
 
-clear()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/container.py#L910)
+clear()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/container.py#L910)
 
 Remove all items from the ParameterDict.
 
-copy()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/container.py#L886)
+copy()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/container.py#L886)
 
 Return a copy of this [`ParameterDict`](torch.nn.ParameterDict.html#torch.nn.ParameterDict) instance.
 
@@ -54,7 +54,7 @@ Return type:
 
 *ParameterDict*
 
-fromkeys(*keys*, *default=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/container.py#L943)
+fromkeys(*keys*, *default=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/container.py#L943)
 
 Return a new ParameterDict with the keys provided.
 
@@ -67,56 +67,56 @@ Return type:
 
 ParameterDict
 
-get(*key*, *default=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/container.py#L934)
+get(*key*, *default=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/container.py#L934)
 
 Return the parameter associated with key if present. Otherwise return default if provided, None if not.
 
 Parameters:
 
-- **key** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - key to get from the ParameterDict
+- **key** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - key to get from the ParameterDict
 - **default** ([*Parameter*](torch.nn.parameter.Parameter.html#torch.nn.parameter.Parameter)*,**optional*) - value to return if key not present
 
 Return type:
 
 [*Any*](https://docs.python.org/3/library/typing.html#typing.Any)
 
-items()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/container.py#L958)
+items()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/container.py#L958)
 
 Return an iterable of the ParameterDict key/value pairs.
 
 Return type:
 
-Iterable[[tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[str](https://docs.python.org/3/library/stdtypes.html#str), Any]]
+Iterable[[tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[str](https://docs.python.org/3/builtins/stdtypes.html#str), Any]]
 
-keys()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/container.py#L954)
+keys()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/container.py#L954)
 
 Return an iterable of the ParameterDict keys.
 
 Return type:
 
-[*KeysView*](https://docs.python.org/3/library/collections.abc.html#collections.abc.KeysView)[[str](https://docs.python.org/3/library/stdtypes.html#str)]
+[*KeysView*](https://docs.python.org/3/library/collections.abc.html#collections.abc.KeysView)[[str](https://docs.python.org/3/builtins/stdtypes.html#str)]
 
-pop(*key*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/container.py#L915)
+pop(*key*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/container.py#L915)
 
 Remove key from the ParameterDict and return its parameter.
 
 Parameters:
 
-**key** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - key to pop from the ParameterDict
+**key** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - key to pop from the ParameterDict
 
 Return type:
 
 [*Any*](https://docs.python.org/3/library/typing.html#typing.Any)
 
-popitem()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/container.py#L925)
+popitem()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/container.py#L925)
 
 Remove and return the last inserted (key, parameter) pair from the ParameterDict.
 
 Return type:
 
-[tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[str](https://docs.python.org/3/library/stdtypes.html#str), [*Any*](https://docs.python.org/3/library/typing.html#typing.Any)]
+[tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[str](https://docs.python.org/3/builtins/stdtypes.html#str), [*Any*](https://docs.python.org/3/library/typing.html#typing.Any)]
 
-setdefault(*key*, *default=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/container.py#L895)
+setdefault(*key*, *default=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/container.py#L895)
 
 Set the default for a key in the Parameterdict.
 
@@ -126,14 +126,14 @@ default defaults to None.
 
 Parameters:
 
-- **key** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - key to set default for
+- **key** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - key to set default for
 - **default** (*Any*) - the parameter set to the key
 
 Return type:
 
 [*Any*](https://docs.python.org/3/library/typing.html#typing.Any)
 
-update(*parameters*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/container.py#L966)
+update(*parameters*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/container.py#L966)
 
 Update the [`ParameterDict`](torch.nn.ParameterDict.html#torch.nn.ParameterDict) with key-value pairs from `parameters`, overwriting existing keys.
 
@@ -148,7 +148,7 @@ Parameters:
 `Parameter`, or an iterable of
 key-value pairs of type (string, `Parameter`)
 
-values()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/container.py#L962)
+values()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/container.py#L962)
 
 Return an iterable of the ParameterDict values.
 

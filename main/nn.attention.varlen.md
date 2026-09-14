@@ -5,7 +5,7 @@ Variable-length attention implementation using Flash Attention.
 This module provides a high-level Python interface for variable-length attention
 that calls into the optimized Flash Attention kernels.
 
-torch.nn.attention.varlen.varlen_attn(*query*, *key*, *value*, *cu_seq_q*, *cu_seq_k*, *max_q*, *max_k*, ***, *return_aux=None*, *scale=None*, *window_size=(-1, -1)*, *enable_gqa=False*, *seqused_k=None*, *block_table=None*, *num_splits=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/attention/varlen.py#L348)
+torch.nn.attention.varlen.varlen_attn(*query*, *key*, *value*, *cu_seq_q*, *cu_seq_k*, *max_q*, *max_k*, ***, *return_aux=None*, *scale=None*, *window_size=(-1, -1)*, *enable_gqa=False*, *seqused_k=None*, *block_table=None*, *num_splits=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/attention/varlen.py#L348)
 
 Compute variable-length attention using Flash Attention.
 
@@ -23,14 +23,14 @@ Parameters:
 (total_pages,page_size,Hkv,D)(\text{total\_pages}, \text{page\_size}, H_{kv}, D)(total_pages,page_size,Hkv​,D) when `block_table` is provided.
 - **cu_seq_q** ([*Tensor*](tensors.html#torch.Tensor)) - Cumulative sequence positions for queries; shape (N+1,)(N+1,)(N+1,)
 - **cu_seq_k** ([*Tensor*](tensors.html#torch.Tensor)) - Cumulative sequence positions for keys/values; shape (N+1,)(N+1,)(N+1,)
-- **max_q** ([*int*](https://docs.python.org/3/library/functions.html#int)) - Maximum query sequence length in the batch.
-- **max_k** ([*int*](https://docs.python.org/3/library/functions.html#int)) - Maximum key/value sequence length in the batch.
+- **max_q** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Maximum query sequence length in the batch.
+- **max_k** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Maximum key/value sequence length in the batch.
 - **return_aux** (*Optional**[**AuxRequest**]*) - If not None and `return_aux.lse` is True, also returns the logsumexp tensor.
-- **scale** ([*float*](https://docs.python.org/3/library/functions.html#float)*,**optional*) - Positive scaling factor for attention scores.
-- **window_size** ([*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*[*[*int*](https://docs.python.org/3/library/functions.html#int)*,*[*int*](https://docs.python.org/3/library/functions.html#int)*]**,**optional*) - Window size for sliding window attention as (left, right).
+- **scale** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*,**optional*) - Positive scaling factor for attention scores.
+- **window_size** ([*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*[*[*int*](https://docs.python.org/3/builtins/functions.html#int)*,*[*int*](https://docs.python.org/3/builtins/functions.html#int)*]**,**optional*) - Window size for sliding window attention as (left, right).
 Use (-1, -1) for full attention (default), (-1, 0) for causal attention,
 or (W, 0) for causal attention with sliding window of size W.
-- **enable_gqa** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If set to True, enables Grouped Query Attention (GQA)
+- **enable_gqa** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - If set to True, enables Grouped Query Attention (GQA)
 and allows key/value to have fewer heads than query.
 Each KV head is shared by a group of Hq/HkvH_q / H_{kv}Hq​/Hkv​ query heads,
 so HqH_qHq​ must be divisible by HkvH_{kv}Hkv​.
@@ -52,7 +52,7 @@ back to physical pages in this pool.
 
 `seqused_k[i]` tells the kernel how many tokens in sequence *i* are
 actually valid, since the last page is typically only partially filled.
-- **num_splits** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - Number of splits for split-KV. Set to `1`
+- **num_splits** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - Number of splits for split-KV. Set to `1`
 to disable split-KV which enables batch invariance. Split-KV
 parallelizes the key/value sequence dimension across multiple thread
 blocks and combines partial results. The split decision depends
@@ -119,7 +119,7 @@ Example:
 ... )
 ```
 
-torch.nn.attention.varlen.varlen_attn_out(*out*, *query*, *key*, *value*, *cu_seq_q*, *cu_seq_k*, *max_q*, *max_k*, ***, *return_aux=None*, *scale=None*, *window_size=(-1, -1)*, *enable_gqa=False*, *seqused_k=None*, *block_table=None*, *num_splits=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/attention/varlen.py#L614)
+torch.nn.attention.varlen.varlen_attn_out(*out*, *query*, *key*, *value*, *cu_seq_q*, *cu_seq_k*, *max_q*, *max_k*, ***, *return_aux=None*, *scale=None*, *window_size=(-1, -1)*, *enable_gqa=False*, *seqused_k=None*, *block_table=None*, *num_splits=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/attention/varlen.py#L614)
 
 Compute variable-length attention with a pre-allocated output tensor.
 
@@ -129,9 +129,9 @@ backend requires `out` to be 16-byte aligned with a contiguous last dimension.
 
 Return type:
 
-[*Tensor*](tensors.html#torch.Tensor) | [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[*Tensor*](tensors.html#torch.Tensor), [*Tensor*](tensors.html#torch.Tensor)]
+[*Tensor*](tensors.html#torch.Tensor) | [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[*Tensor*](tensors.html#torch.Tensor), [*Tensor*](tensors.html#torch.Tensor)]
 
-*class*torch.nn.attention.varlen.AuxRequest(*lse=False*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/attention/varlen.py#L222)
+*class*torch.nn.attention.varlen.AuxRequest(*lse=False*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/attention/varlen.py#L222)
 
 Request which auxiliary outputs to compute from varlen_attn.
 

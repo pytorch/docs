@@ -1,6 +1,6 @@
 # torch.compiler.set_stance
 
-torch.compiler.set_stance(*stance='default'*, ***, *skip_guard_eval_unsafe=False*, *force_backend=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/compiler/__init__.py#L390)
+torch.compiler.set_stance(*stance='default'*, ***, *skip_guard_eval_unsafe=False*, *force_backend=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/compiler/__init__.py#L390)
 
 Set the current stance of the compiler.
 Can be used as a function, context manager, or decorator.
@@ -49,7 +49,7 @@ the first invocation.
 benefits from activation checkpointing, then compile on subsequent calls. Like
 eager_then_compile, this improves handling of dynamic shapes by avoiding an
 initial static compile.
-- **skip_guard_eval_unsafe** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) -
+- **skip_guard_eval_unsafe** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) -
 
 A flag to run only differentiating guards.
 CAUTION - This flag is unsafe and should only be used if your setup
@@ -65,5 +65,5 @@ of inputs. This assumption means that, after the warmup phase, no
 further recompilations will be necessary. If this assumption fails,
 there is a risk of silently producing incorrect results (hence the
 term "unsafe" in the API name).
-- **force_backend** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*|*[*Callable*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)*[**[**...**]**,*[*Any*](https://docs.python.org/3/library/typing.html#typing.Any)*]**|**None*) - If stance is "default", this argument can be used to force torch.compile
+- **force_backend** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*|*[*Callable*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)*[**[**...**]**,*[*Any*](https://docs.python.org/3/library/typing.html#typing.Any)*]**|**None*) - If stance is "default", this argument can be used to force torch.compile
 to use a specific backend. Otherwise, an error is raised.

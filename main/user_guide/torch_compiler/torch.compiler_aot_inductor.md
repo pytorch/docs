@@ -202,7 +202,7 @@ To enable runtime checks on inputs, set the environment variable `AOTI_RUNTIME_C
 
 ## API Reference
 
-torch._inductor.aoti_compile_and_package(*exported_program*, *_deprecated_unused_args=None*, *_deprecated_unused_kwargs=None*, ***, *package_path=None*, *inductor_configs=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/_inductor/__init__.py#L64)
+torch._inductor.aoti_compile_and_package(*exported_program*, *_deprecated_unused_args=None*, *_deprecated_unused_kwargs=None*, ***, *package_path=None*, *inductor_configs=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/_inductor/__init__.py#L64)
 
 Compiles the exported program with AOTInductor, and packages it into a .pt2
 artifact specified by the input package_path. To load the package, you can
@@ -243,7 +243,7 @@ Parameters:
 
 - **exported_program** ([*ExportedProgram*](export/api_reference.html#torch.export.ExportedProgram)) - An exported program created through a call from torch.export
 - **package_path** (*FileLike**|**None*) - Optional specified path to the generated .pt2 artifact.
-- **inductor_configs** ([*dict*](https://docs.python.org/3/library/stdtypes.html#dict)*[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**Any**]**|**None*) - Optional dictionary of configs to control inductor.
+- **inductor_configs** ([*dict*](https://docs.python.org/3/builtins/stdtypes.html#dict)*[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**Any**]**|**None*) - Optional dictionary of configs to control inductor.
 
 Returns:
 
@@ -251,9 +251,9 @@ Path to the generated artifact
 
 Return type:
 
-[str](https://docs.python.org/3/library/stdtypes.html#str)
+[str](https://docs.python.org/3/builtins/stdtypes.html#str)
 
-torch._inductor.aoti_load_package(*path*, *run_single_threaded=False*, *device_index=-1*, ***, *num_runners=1*, *use_stream_affinity=False*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/_inductor/__init__.py#L257)
+torch._inductor.aoti_load_package(*path*, *run_single_threaded=False*, *device_index=-1*, ***, *num_runners=1*, *use_stream_affinity=False*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/_inductor/__init__.py#L257)
 
 Loads a model from a PT2 package or an extracted PT2 package directory.
 
@@ -270,16 +270,16 @@ compiled_model2 = load_package("my_package.pt2", "model2")
 Parameters:
 
 - **path** (*FileLike*) - Path to the .pt2 package or extracted package directory.
-- **run_single_threaded** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - Whether the model should be run without
+- **run_single_threaded** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Whether the model should be run without
 thread synchronization logic. This is useful to avoid conflicts with
 CUDAGraphs.
-- **device_index** ([*int*](https://docs.python.org/3/library/functions.html#int)) - The index of the device to which the PT2 package is
+- **device_index** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - The index of the device to which the PT2 package is
 to be loaded. By default, device_index=-1 is used, which corresponds
 to the device cuda when using CUDA. Passing device_index=1 would
 load the package to cuda:1, for example.
-- **num_runners** ([*int*](https://docs.python.org/3/library/functions.html#int)) - Number of model instances available for concurrent
+- **num_runners** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Number of model instances available for concurrent
 execution.
-- **use_stream_affinity** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - Whether each non-null device stream should
+- **use_stream_affinity** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Whether each non-null device stream should
 retain a stable model instance. Intended for controlled
 multi-stream benchmarking; this may reduce host-side pipelining.
 

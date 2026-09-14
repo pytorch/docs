@@ -1,6 +1,6 @@
 # AdaptiveAvgPool2d
 
-*class*torch.nn.AdaptiveAvgPool2d(*output_size*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/pooling.py#L1477)
+*class*torch.nn.AdaptiveAvgPool2d(*output_size*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/pooling.py#L1477)
 
 Applies a 2D adaptive average pooling over an input signal composed of several input planes.
 
@@ -9,7 +9,7 @@ The number of output features is equal to the number of input planes.
 
 Parameters:
 
-**output_size** ([*int*](https://docs.python.org/3/library/functions.html#int)*|**None**|*[*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*[*[*int*](https://docs.python.org/3/library/functions.html#int)*|**None**,*[*int*](https://docs.python.org/3/library/functions.html#int)*|**None**]*) - the target output size of the image of the form H x W.
+**output_size** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*|**None**|*[*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*[*[*int*](https://docs.python.org/3/builtins/functions.html#int)*|**None**,*[*int*](https://docs.python.org/3/builtins/functions.html#int)*|**None**]*) - the target output size of the image of the form H x W.
 Can be a tuple (H, W) or a single H for a square image H x H.
 H and W can be either an `int`, or `None` which means the size will
 be the same as that of the input.
@@ -37,7 +37,7 @@ Examples
 >>> output = m(input)
 ```
 
-forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/pooling.py#L1512)
+forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/pooling.py#L1512)
 
 Runs the forward pass.
 

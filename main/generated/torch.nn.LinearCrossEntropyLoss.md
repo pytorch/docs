@@ -1,6 +1,6 @@
 # LinearCrossEntropyLoss
 
-*class*torch.nn.LinearCrossEntropyLoss(*in_features*, *num_classes*, ***, *out_features=()*, *bias=False*, *device=None*, *dtype=None*, *reduction='mean'*, *weight=None*, *ignore_index=None*, *label_smoothing=0.0*, *options=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/loss.py#L1410)
+*class*torch.nn.LinearCrossEntropyLoss(*in_features*, *num_classes*, ***, *out_features=()*, *bias=False*, *device=None*, *dtype=None*, *reduction='mean'*, *weight=None*, *ignore_index=None*, *label_smoothing=0.0*, *options=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/loss.py#L1410)
 
 This criterion computes the cross entropy loss between input,
 linearly transformed to logits, and target.
@@ -9,12 +9,12 @@ See [`CrossEntropyLoss`](torch.nn.CrossEntropyLoss.html#torch.nn.CrossEntropyLos
 
 Parameters:
 
-- **in_features** ([*int*](https://docs.python.org/3/library/functions.html#int)) - Size of each input sample.
-- **num_classes** ([*int*](https://docs.python.org/3/library/functions.html#int)) - Number of classes, CCC.
-- **out_features** ([*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*[*[*int*](https://docs.python.org/3/library/functions.html#int)*]**,**optional*) - specifies dimensions
+- **in_features** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Size of each input sample.
+- **num_classes** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Number of classes, CCC.
+- **out_features** ([*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*[*[*int*](https://docs.python.org/3/builtins/functions.html#int)*]**,**optional*) - specifies dimensions
 (d1,d2,...,dK)(d_1, d_2, ..., d_K)(d1​,d2​,...,dK​) for K-dimensional loss.
 Default: `()`.
-- **bias** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If `True`, the internal [`Linear`](torch.nn.Linear.html#torch.nn.Linear)
+- **bias** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If `True`, the internal [`Linear`](torch.nn.Linear.html#torch.nn.Linear)
 adds a learnable bias to the logits. Logical shape is
 `(C, *out_features)`; storage is flat
 (`self.linear.bias.shape == (C * prod(out_features),)`)
@@ -31,13 +31,13 @@ of linear weight. Default: `None`.
 linear weight. Default: `None`.
 - **weight** ([*Tensor*](../tensors.html#torch.Tensor)*,**optional*) - a manual rescaling weight given to
 each class. If given, has to be a Tensor of size C.
-- **reduction** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**optional*) - Specifies the reduction to apply to
+- **reduction** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**optional*) - Specifies the reduction to apply to
 the output: `'none'` | `'mean'` | `'sum'`.
 `'none'`: no reduction will be applied,
 `'mean'`: the weighted mean of the output is taken,
 `'sum'`: the output will be summed.
 Default: `'mean'`.
-- **ignore_index** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - Specifies a target value that is
+- **ignore_index** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - Specifies a target value that is
 ignored and does not contribute to the input
 gradient. Note that `ignore_index` is only
 applicable when the target contains class indices.
@@ -46,7 +46,7 @@ default value is mapped to -100. Note: the default
 `ignore_index` in
 [`CrossEntropyLoss`](torch.nn.CrossEntropyLoss.html#torch.nn.CrossEntropyLoss) is -100 for both
 target types.
-- **label_smoothing** ([*float*](https://docs.python.org/3/library/functions.html#float)*,**optional*) - A float in [0.0, 1.0].
+- **label_smoothing** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*,**optional*) - A float in [0.0, 1.0].
 Specifies the amount of smoothing when computing the loss,
 where 0.0 means no smoothing. The targets become a mixture
 of the original ground truth and a uniform distribution as
@@ -117,7 +117,7 @@ Examples
 >>> output.backward()
 ```
 
-forward(*input*, *target*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/loss.py#L1580)
+forward(*input*, *target*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/loss.py#L1580)
 
 Runs the forward pass.
 

@@ -43,17 +43,17 @@ in unexpected behavior.
 
 Parameters:
 
-**buffer** ([*object*](https://docs.python.org/3/library/functions.html#object)) - a Python object that exposes the buffer interface.
+**buffer** ([*object*](https://docs.python.org/3/builtins/functions.html#object)) - a Python object that exposes the buffer interface.
 
 Keyword Arguments:
 
 - **dtype** ([`torch.dtype`](../tensor_attributes.html#torch.dtype)) - the desired data type of returned tensor.
-- **count** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - the number of desired elements to be read.
+- **count** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - the number of desired elements to be read.
 If negative, all the elements (until the end of the buffer) will be
 read. Default: -1.
-- **offset** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - the number of bytes to skip at the start of
+- **offset** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - the number of bytes to skip at the start of
 the buffer. Default: 0.
-- **requires_grad** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If autograd should record operations on the
+- **requires_grad** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If autograd should record operations on the
 returned tensor. Default: `False`.
 
 Example:

@@ -1,6 +1,6 @@
 # celu
 
-*class*torch.ao.nn.quantized.functional.celu(*input*, *scale*, *zero_point*, *alpha=1.*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/ao/nn/quantized/functional.py#L542)
+*class*torch.ao.nn.quantized.functional.celu(*input*, *scale*, *zero_point*, *alpha=1.*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/ao/nn/quantized/functional.py#L542)
 
 Applies the quantized CELU function element-wise.
 
@@ -10,7 +10,7 @@ CELU(x)=max(0,x)+min(0,α∗(exp(x/α)−1))
 Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - quantized input
-- **alpha** ([*float*](https://docs.python.org/3/library/functions.html#float)) - the α\alphaα value for the CELU formulation. Default: 1.0
+- **alpha** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - the α\alphaα value for the CELU formulation. Default: 1.0
 
 Return type:
 

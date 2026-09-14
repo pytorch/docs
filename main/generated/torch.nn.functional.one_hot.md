@@ -1,6 +1,6 @@
 # torch.nn.functional.one_hot
 
-torch.nn.functional.one_hot(*tensor*, *num_classes=-1*) → LongTensor[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/functional.py#L5939)
+torch.nn.functional.one_hot(*tensor*, *num_classes=-1*) → LongTensor[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/functional.py#L5939)
 
 Takes LongTensor with index values of shape `(*)` and returns a tensor
 of shape `(*, num_classes)` that have zeros everywhere except where the
@@ -12,7 +12,7 @@ See also [One-hot on Wikipedia](https://en.wikipedia.org/wiki/One-hot) .
 Parameters:
 
 - **tensor** (*LongTensor*) - class values of any shape.
-- **num_classes** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - Total number of classes. If set to -1, the number
+- **num_classes** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - Total number of classes. If set to -1, the number
 of classes will be inferred as one greater than the largest class
 value in the input tensor. Default: -1
 

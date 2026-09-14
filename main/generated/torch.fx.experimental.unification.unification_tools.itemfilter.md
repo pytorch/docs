@@ -1,6 +1,6 @@
 # torch.fx.experimental.unification.unification_tools.itemfilter
 
-torch.fx.experimental.unification.unification_tools.itemfilter(*predicate*, *d*, *factory=<class 'dict'>*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/experimental/unification/unification_tools.py#L199)
+torch.fx.experimental.unification.unification_tools.itemfilter(*predicate*, *d*, *factory=<class 'dict'>*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/experimental/unification/unification_tools.py#L199)
 
 Filter items in dictionary by item
 
@@ -24,4 +24,4 @@ itemmap
 
 Return type:
 
-[dict](https://docs.python.org/3/library/stdtypes.html#dict)[_K, _V]
+[dict](https://docs.python.org/3/builtins/stdtypes.html#dict)[_K, _V]

@@ -1,6 +1,6 @@
 # torch.linalg.lu_solve
 
-torch.linalg.lu_solve(*LU*, *pivots*, *B*, ***, *left=True*, *adjoint=False*, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/linalg/__init__.py#L2565)
+torch.linalg.lu_solve(*LU*, *pivots*, *B*, ***, *left=True*, *adjoint=False*, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/linalg/__init__.py#L2565)
 
 Computes the solution of a square system of linear equations with a unique solution given an LU decomposition.
 
@@ -40,8 +40,8 @@ where * is zero or more batch dimensions as returned by [`lu_factor()`](torch.li
 
 Keyword Arguments:
 
-- **left** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - whether to solve the system AX=BAX=BAX=B or XA=BXA = BXA=B. Default: True.
-- **adjoint** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - whether to solve the system AX=BAX=BAX=B or AHX=BA^{\text{H}}X = BAHX=B. Default: False.
+- **left** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - whether to solve the system AX=BAX=BAX=B or XA=BXA = BXA=B. Default: True.
+- **adjoint** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - whether to solve the system AX=BAX=BAX=B or AHX=BA^{\text{H}}X = BAHX=B. Default: False.
 - **out** ([*Tensor*](../tensors.html#torch.Tensor)*,**optional*) - output tensor. Ignored if None. Default: None.
 
 Examples:

@@ -1,6 +1,6 @@
 # torch.set_flush_denormal
 
-torch.set_flush_denormal(*mode*) → [bool](https://docs.python.org/3/library/functions.html#bool)
+torch.set_flush_denormal(*mode*) → [bool](https://docs.python.org/3/builtins/functions.html#bool)
 
 Disables denormal floating numbers on CPU.
 
@@ -10,7 +10,7 @@ is supported on x86 architectures supporting SSE3 and AArch64 architecture.
 
 Parameters:
 
-**mode** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - Controls whether to enable flush denormal mode or not
+**mode** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Controls whether to enable flush denormal mode or not
 
 Example:
 

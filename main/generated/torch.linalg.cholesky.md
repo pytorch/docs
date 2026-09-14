@@ -1,6 +1,6 @@
 # torch.linalg.cholesky
 
-torch.linalg.cholesky(*A*, ***, *upper=False*, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/linalg/__init__.py#L71)
+torch.linalg.cholesky(*A*, ***, *upper=False*, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/linalg/__init__.py#L71)
 
 Computes the Cholesky decomposition of a complex Hermitian or real symmetric positive-definite matrix.
 
@@ -39,14 +39,14 @@ consisting of symmetric or Hermitian positive-definite matrices.
 
 Keyword Arguments:
 
-- **upper** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - whether to return an upper triangular matrix.
+- **upper** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - whether to return an upper triangular matrix.
 The tensor returned with upper=True is the conjugate transpose of the tensor
 returned with upper=False.
 - **out** ([*Tensor*](../tensors.html#torch.Tensor)*,**optional*) - output tensor. Ignored if None. Default: None.
 
 Raises:
 
-[**RuntimeError**](https://docs.python.org/3/library/exceptions.html#RuntimeError) - if the `A` matrix or any matrix in a batched `A` is not Hermitian
+[**RuntimeError**](https://docs.python.org/3/builtins/exceptions.html#RuntimeError) - if the `A` matrix or any matrix in a batched `A` is not Hermitian
  (resp. symmetric) positive-definite. If `A` is a batch of matrices,
  the error message will include the batch index of the first matrix that fails
  to meet this condition.

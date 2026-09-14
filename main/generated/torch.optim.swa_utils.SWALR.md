@@ -1,6 +1,6 @@
 # SWALR
 
-*class*torch.optim.swa_utils.SWALR(*optimizer*, *swa_lr*, *anneal_epochs=10*, *anneal_strategy='cos'*, *last_epoch=-1*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/optim/swa_utils.py#L430)
+*class*torch.optim.swa_utils.SWALR(*optimizer*, *swa_lr*, *anneal_epochs=10*, *anneal_strategy='cos'*, *last_epoch=-1*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/optim/swa_utils.py#L430)
 
 Anneals the learning rate in each parameter group to a fixed value.
 
@@ -10,14 +10,14 @@ Averaging (SWA) method (see torch.optim.swa_utils.AveragedModel).
 Parameters:
 
 - **optimizer** ([*torch.optim.Optimizer*](../optim.html#torch.optim.Optimizer)) - wrapped optimizer
-- **swa_lrs** ([*float*](https://docs.python.org/3/library/functions.html#float)*or*[*list*](https://docs.python.org/3/library/stdtypes.html#list)) - the learning rate value for all param groups
+- **swa_lrs** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*or*[*list*](https://docs.python.org/3/builtins/stdtypes.html#list)) - the learning rate value for all param groups
 together or separately for each group.
-- **annealing_epochs** ([*int*](https://docs.python.org/3/library/functions.html#int)) - number of epochs in the annealing phase
+- **annealing_epochs** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - number of epochs in the annealing phase
 (default: 10)
-- **annealing_strategy** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - "cos" or "linear"; specifies the annealing
+- **annealing_strategy** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - "cos" or "linear"; specifies the annealing
 strategy: "cos" for cosine annealing, "linear" for linear annealing
 (default: "cos")
-- **last_epoch** ([*int*](https://docs.python.org/3/library/functions.html#int)) - the index of the last epoch (default: -1)
+- **last_epoch** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - the index of the last epoch (default: -1)
 
 The `SWALR` scheduler can be used together with other
 schedulers to switch to a constant learning rate late in the training
@@ -44,27 +44,27 @@ Example
 >>> scheduler.step()
 ```
 
-get_last_lr()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/optim/lr_scheduler.py#L201)
+get_last_lr()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/optim/lr_scheduler.py#L201)
 
 Get the most recent learning rates computed by this scheduler.
 
 Returns:
 
-A [`list`](https://docs.python.org/3/library/stdtypes.html#list) of learning rates with entries
+A [`list`](https://docs.python.org/3/builtins/stdtypes.html#list) of learning rates with entries
 for each of the optimizer's
 `param_groups`, with the same types as
 their `group["lr"]`s.
 
 Return type:
 
-[list](https://docs.python.org/3/library/stdtypes.html#list)[[float](https://docs.python.org/3/library/functions.html#float) | [Tensor](../tensors.html#torch.Tensor)]
+[list](https://docs.python.org/3/builtins/stdtypes.html#list)[[float](https://docs.python.org/3/builtins/functions.html#float) | [Tensor](../tensors.html#torch.Tensor)]
 
 Note
 
 The returned [`Tensor`](../tensors.html#torch.Tensor)s are copies, and never alias
 the optimizer's `group["lr"]`s.
 
-get_lr()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/optim/swa_utils.py#L512)
+get_lr()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/optim/swa_utils.py#L512)
 
 Compute the next learning rate for each of the optimizer's
 `param_groups`.
@@ -76,13 +76,13 @@ fixed at `group["swa_lr"]`.
 
 Returns:
 
-A [`list`](https://docs.python.org/3/library/stdtypes.html#list) of learning rates for each of
+A [`list`](https://docs.python.org/3/builtins/stdtypes.html#list) of learning rates for each of
 the optimizer's `param_groups` with the
 same types as their current `group["lr"]`s.
 
 Return type:
 
-[list](https://docs.python.org/3/library/stdtypes.html#list)[[float](https://docs.python.org/3/library/functions.html#float) | [Tensor](../tensors.html#torch.Tensor)]
+[list](https://docs.python.org/3/builtins/stdtypes.html#list)[[float](https://docs.python.org/3/builtins/functions.html#float) | [Tensor](../tensors.html#torch.Tensor)]
 
 Note
 
@@ -94,33 +94,33 @@ Note
 The returned [`Tensor`](../tensors.html#torch.Tensor)s are copies, and never alias
 the optimizer's `group["lr"]`s.
 
-load_state_dict(*state_dict*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/optim/swa_utils.py#L583)
+load_state_dict(*state_dict*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/optim/swa_utils.py#L583)
 
 Load the scheduler's state.
 
 Parameters:
 
-**state_dict** ([*dict*](https://docs.python.org/3/library/stdtypes.html#dict)) - scheduler state. Should be an object returned
+**state_dict** ([*dict*](https://docs.python.org/3/builtins/stdtypes.html#dict)) - scheduler state. Should be an object returned
 from a call to `state_dict()`.
 
-state_dict()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/optim/swa_utils.py#L570)
+state_dict()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/optim/swa_utils.py#L570)
 
-Return the state of the scheduler as a [`dict`](https://docs.python.org/3/library/stdtypes.html#dict).
+Return the state of the scheduler as a [`dict`](https://docs.python.org/3/builtins/stdtypes.html#dict).
 
 It contains an entry for every variable in self.__dict__ which
 is not the optimizer or anneal_func.
 
 Return type:
 
-[dict](https://docs.python.org/3/library/stdtypes.html#dict)[[str](https://docs.python.org/3/library/stdtypes.html#str), [*Any*](https://docs.python.org/3/library/typing.html#typing.Any)]
+[dict](https://docs.python.org/3/builtins/stdtypes.html#dict)[[str](https://docs.python.org/3/builtins/stdtypes.html#str), [*Any*](https://docs.python.org/3/library/typing.html#typing.Any)]
 
-step(*epoch=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/optim/lr_scheduler.py#L238)
+step(*epoch=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/optim/lr_scheduler.py#L238)
 
 Step the scheduler.
 
 Parameters:
 
-**epoch** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) -
+**epoch** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) -
 
 Deprecated since version 1.4: If provided, sets `last_epoch` to `epoch` and uses
 `_get_closed_form_lr()` if it is available. This is not

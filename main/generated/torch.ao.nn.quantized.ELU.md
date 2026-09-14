@@ -1,6 +1,6 @@
 # ELU
 
-*class*torch.ao.nn.quantized.ELU(*scale*, *zero_point*, *alpha=1.0*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/ao/nn/quantized/modules/activation.py#L89)
+*class*torch.ao.nn.quantized.ELU(*scale*, *zero_point*, *alpha=1.0*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/ao/nn/quantized/modules/activation.py#L89)
 
 This is the quantized equivalent of [`ELU`](torch.nn.ELU.html#torch.nn.ELU).
 
@@ -8,4 +8,4 @@ Parameters:
 
 - **scale** - quantization scale of the output tensor
 - **zero_point** - quantization zero point of the output tensor
-- **alpha** ([*float*](https://docs.python.org/3/library/functions.html#float)) - the alpha constant
+- **alpha** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - the alpha constant

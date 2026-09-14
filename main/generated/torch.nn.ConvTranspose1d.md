@@ -1,6 +1,6 @@
 # ConvTranspose1d
 
-*class*torch.nn.ConvTranspose1d(*in_channels*, *out_channels*, *kernel_size*, *stride=1*, *padding=0*, *output_padding=0*, *groups=1*, *bias=True*, *dilation=1*, *padding_mode='zeros'*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/conv.py#L832)
+*class*torch.nn.ConvTranspose1d(*in_channels*, *out_channels*, *kernel_size*, *stride=1*, *padding=0*, *output_padding=0*, *groups=1*, *bias=True*, *dilation=1*, *padding_mode='zeros'*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/conv.py#L832)
 
 Applies a 1D transposed convolution operator over an input image
 composed of several input planes.
@@ -60,17 +60,17 @@ Please see the notes on [Reproducibility](../notes/randomness.html) for backgrou
 
 Parameters:
 
-- **in_channels** ([*int*](https://docs.python.org/3/library/functions.html#int)) - Number of channels in the input image
-- **out_channels** ([*int*](https://docs.python.org/3/library/functions.html#int)) - Number of channels produced by the convolution
-- **kernel_size** ([*int*](https://docs.python.org/3/library/functions.html#int)*or*[*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)) - Size of the convolving kernel
-- **stride** ([*int*](https://docs.python.org/3/library/functions.html#int)*or*[*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*,**optional*) - Stride of the convolution. Default: 1
-- **padding** ([*int*](https://docs.python.org/3/library/functions.html#int)*or*[*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*,**optional*) - `dilation * (kernel_size - 1) - padding` zero-padding
+- **in_channels** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Number of channels in the input image
+- **out_channels** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Number of channels produced by the convolution
+- **kernel_size** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*or*[*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)) - Size of the convolving kernel
+- **stride** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*or*[*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*,**optional*) - Stride of the convolution. Default: 1
+- **padding** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*or*[*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*,**optional*) - `dilation * (kernel_size - 1) - padding` zero-padding
 will be added to both sides of the input. Default: 0
-- **output_padding** ([*int*](https://docs.python.org/3/library/functions.html#int)*or*[*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*,**optional*) - Additional size added to one side
+- **output_padding** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*or*[*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*,**optional*) - Additional size added to one side
 of the output shape. Default: 0
-- **groups** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - Number of blocked connections from input channels to output channels. Default: 1
-- **bias** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If `True`, adds a learnable bias to the output. Default: `True`
-- **dilation** ([*int*](https://docs.python.org/3/library/functions.html#int)*or*[*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*,**optional*) - Spacing between kernel elements. Default: 1
+- **groups** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - Number of blocked connections from input channels to output channels. Default: 1
+- **bias** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If `True`, adds a learnable bias to the output. Default: `True`
+- **dilation** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*or*[*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*,**optional*) - Spacing between kernel elements. Default: 1
 
 Shape:
 

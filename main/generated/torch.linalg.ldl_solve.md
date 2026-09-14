@@ -1,6 +1,6 @@
 # torch.linalg.ldl_solve
 
-torch.linalg.ldl_solve(*LD*, *pivots*, *B*, ***, *hermitian=False*, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/linalg/__init__.py#L1032)
+torch.linalg.ldl_solve(*LD*, *pivots*, *B*, ***, *hermitian=False*, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/linalg/__init__.py#L1032)
 
 Computes the solution of a system of linear equations using the LDL factorization.
 
@@ -26,9 +26,9 @@ Parameters:
 
 Keyword Arguments:
 
-- **hermitian** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - whether to consider the decomposed matrix to be Hermitian or symmetric.
+- **hermitian** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - whether to consider the decomposed matrix to be Hermitian or symmetric.
 For real-valued matrices, this switch has no effect. Default: False.
-- **out** ([*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*,**optional*) - output tensor. B may be passed as out and the result is computed in-place on B.
+- **out** ([*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*,**optional*) - output tensor. B may be passed as out and the result is computed in-place on B.
 Ignored if None. Default: None.
 
 Examples:

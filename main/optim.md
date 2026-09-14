@@ -36,7 +36,7 @@ optimizer = optim.Adam([('layer0', var1), ('layer1', var2)], lr=0.0001)
 
 `Optimizer` s also support specifying per-parameter options. To do this, instead
 of passing an iterable of `Variable` s, pass in an iterable of
-[`dict`](https://docs.python.org/3/library/stdtypes.html#dict) s. Each of them will define a separate parameter group, and should contain
+[`dict`](https://docs.python.org/3/builtins/stdtypes.html#dict) s. Each of them will define a separate parameter group, and should contain
 a `params` key, containing a list of parameters belonging to it. Other keys
 should match the keyword arguments accepted by the optimizers, and will be used
 as optimization options for this group.
@@ -130,7 +130,7 @@ for input, target in dataset:
 
 ## Base class
 
-*class*torch.optim.Optimizer(*params*, *defaults*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/optim/optimizer.py#L368)
+*class*torch.optim.Optimizer(*params*, *defaults*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/optim/optimizer.py#L368)
 
 Base class for all optimizers.
 
@@ -143,8 +143,8 @@ satisfy those properties are sets and iterators over values of dictionaries.
 Parameters:
 
 - **params** (*iterable*) - an iterable of [`torch.Tensor`](tensors.html#torch.Tensor) s or
-[`dict`](https://docs.python.org/3/library/stdtypes.html#dict) s. Specifies what Tensors should be optimized.
-- **defaults** ([*dict*](https://docs.python.org/3/library/stdtypes.html#dict)*[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*,*[*Any*](https://docs.python.org/3/library/typing.html#typing.Any)*]*) - (dict): a dict containing default values of optimization
+[`dict`](https://docs.python.org/3/builtins/stdtypes.html#dict) s. Specifies what Tensors should be optimized.
+- **defaults** ([*dict*](https://docs.python.org/3/builtins/stdtypes.html#dict)*[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,*[*Any*](https://docs.python.org/3/library/typing.html#typing.Any)*]*) - (dict): a dict containing default values of optimization
 options (used when a parameter group doesn't specify them).
 
 | [`Optimizer.add_param_group`](generated/torch.optim.Optimizer.add_param_group.html#torch.optim.Optimizer.add_param_group) | Add a param group to the `Optimizer` s param_groups. |
@@ -152,7 +152,7 @@ options (used when a parameter group doesn't specify them).
 | [`Optimizer.load_state_dict`](generated/torch.optim.Optimizer.load_state_dict.html#torch.optim.Optimizer.load_state_dict) | Load the optimizer state. |
 | [`Optimizer.register_load_state_dict_pre_hook`](generated/torch.optim.Optimizer.register_load_state_dict_pre_hook.html#torch.optim.Optimizer.register_load_state_dict_pre_hook) | Register a load_state_dict pre-hook which will be called before [`load_state_dict()`](generated/torch.optim.Optimizer.load_state_dict.html#torch.optim.Optimizer.load_state_dict) is called. It should have the following signature::. |
 | [`Optimizer.register_load_state_dict_post_hook`](generated/torch.optim.Optimizer.register_load_state_dict_post_hook.html#torch.optim.Optimizer.register_load_state_dict_post_hook) | Register a load_state_dict post-hook which will be called after [`load_state_dict()`](generated/torch.optim.Optimizer.load_state_dict.html#torch.optim.Optimizer.load_state_dict) is called. It should have the following signature::. |
-| [`Optimizer.state_dict`](generated/torch.optim.Optimizer.state_dict.html#torch.optim.Optimizer.state_dict) | Return the state of the optimizer as a [`dict`](https://docs.python.org/3/library/stdtypes.html#dict). |
+| [`Optimizer.state_dict`](generated/torch.optim.Optimizer.state_dict.html#torch.optim.Optimizer.state_dict) | Return the state of the optimizer as a [`dict`](https://docs.python.org/3/builtins/stdtypes.html#dict). |
 | [`Optimizer.register_state_dict_pre_hook`](generated/torch.optim.Optimizer.register_state_dict_pre_hook.html#torch.optim.Optimizer.register_state_dict_pre_hook) | Register a state dict pre-hook which will be called before [`state_dict()`](generated/torch.optim.Optimizer.state_dict.html#torch.optim.Optimizer.state_dict) is called. |
 | [`Optimizer.register_state_dict_post_hook`](generated/torch.optim.Optimizer.register_state_dict_post_hook.html#torch.optim.Optimizer.register_state_dict_post_hook) | Register a state dict post-hook which will be called after [`state_dict()`](generated/torch.optim.Optimizer.state_dict.html#torch.optim.Optimizer.state_dict) is called. |
 | [`Optimizer.step`](generated/torch.optim.Optimizer.step.html#torch.optim.Optimizer.step) | Perform a single optimization step to update parameter. |
@@ -411,7 +411,7 @@ Use `torch.optim.optimizer.register_optimizer_step_pre_hook()` and
 `torch.optim.optimizer.register_optimizer_step_post_hook()` to register
 hooks that apply to every optimizer instead of one optimizer instance.
 
-torch.optim.optimizer.register_optimizer_step_post_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/optim/optimizer.py#L338)
+torch.optim.optimizer.register_optimizer_step_post_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/optim/optimizer.py#L338)
 
 Register a post hook common to all optimizers.
 
@@ -434,7 +434,7 @@ Return type:
 
 `torch.utils.hooks.RemovableHandle`
 
-torch.optim.optimizer.register_optimizer_step_pre_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/optim/optimizer.py#L318)
+torch.optim.optimizer.register_optimizer_step_pre_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/optim/optimizer.py#L318)
 
 Register a pre hook common to all optimizers.
 
@@ -459,7 +459,7 @@ Return type:
 
 ## Utilities
 
-torch.optim.swap_in_optimizer_params_and_state(*optimizer*, *swapin_parameters*, *swapin_optim_state*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/optim/_stateless.py#L192)
+torch.optim.swap_in_optimizer_params_and_state(*optimizer*, *swapin_parameters*, *swapin_optim_state*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/optim/_stateless.py#L192)
 
 Temporarily replace an optimizer's parameters and state with the
 supplied params and optim states, then restore them on exit.
@@ -478,11 +478,11 @@ Parameters:
 
 - **optimizer** (*Optimizer*) - the live optimizer; its state must already be
 initialized.
-- **swapin_parameters** ([*dict*](https://docs.python.org/3/library/stdtypes.html#dict)*[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*,*[*Tensor*](tensors.html#torch.Tensor)*]*) - tensors to use as parameters during the context,
+- **swapin_parameters** ([*dict*](https://docs.python.org/3/builtins/stdtypes.html#dict)*[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,*[*Tensor*](tensors.html#torch.Tensor)*]*) - tensors to use as parameters during the context,
 provided in the same order as the existing input parameters to
 the optimizer (most commonly in `model.named_parameters()`
 order).
-- **swapin_optim_state** ([*dict*](https://docs.python.org/3/library/stdtypes.html#dict)*[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*,*[*Any*](https://docs.python.org/3/library/typing.html#typing.Any)*]*) - an `optimizer.state_dict()`-shaped dict
+- **swapin_optim_state** ([*dict*](https://docs.python.org/3/builtins/stdtypes.html#dict)*[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,*[*Any*](https://docs.python.org/3/library/typing.html#typing.Any)*]*) - an `optimizer.state_dict()`-shaped dict
 (`{"state": ..., "param_groups": ...}`) holding the state to
 install. `"state"` is keyed by packed integer parameter ids
 and `"param_groups"` mirrors `optimizer.param_groups`,
@@ -953,7 +953,7 @@ We train the model for a total of 300 epochs and start to collect EMA averages i
 | [`swa_utils.get_swa_avg_fn`](generated/torch.optim.swa_utils.get_swa_avg_fn.html#torch.optim.swa_utils.get_swa_avg_fn) | Get the function applying stochastic weight average (SWA) across a single param. |
 | [`swa_utils.get_swa_multi_avg_fn`](generated/torch.optim.swa_utils.get_swa_multi_avg_fn.html#torch.optim.swa_utils.get_swa_multi_avg_fn) | Get the function applying stochastic weight average (SWA) across multiple params. |
 
-torch.optim.swa_utils.get_ema_multi_avg_fn(*decay=0.999*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/optim/swa_utils.py#L42)
+torch.optim.swa_utils.get_ema_multi_avg_fn(*decay=0.999*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/optim/swa_utils.py#L42)
 
 Get the function applying exponential moving average (EMA) across multiple params.
 
@@ -972,7 +972,7 @@ and decay\text{decay}decay is the decay rate (default: 0.999).
 
 Parameters:
 
-**decay** ([*float*](https://docs.python.org/3/library/functions.html#float)) - Decay rate for EMA. Must be in the range [0, 1]. Default: 0.999
+**decay** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - Decay rate for EMA. Must be in the range [0, 1]. Default: 0.999
 
 Returns:
 
@@ -982,7 +982,7 @@ Return type:
 
 Callable
 
-torch.optim.swa_utils.update_bn(*loader*, *model*, *device=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/optim/swa_utils.py#L371)
+torch.optim.swa_utils.update_bn(*loader*, *model*, *device=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/optim/swa_utils.py#L371)
 
 Update BatchNorm running_mean, running_var buffers in the model.
 

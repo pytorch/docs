@@ -10,7 +10,7 @@ Parameters:
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - float tensor or list of tensors to quantize
 - **dtype** ([`torch.dtype`](../tensor_attributes.html#torch.dtype)) - the desired data type of returned tensor.
 Has to be one of the quantized dtypes: `torch.quint8`, `torch.qint8`
-- **reduce_range** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - a flag to indicate whether to reduce the range of quantized
+- **reduce_range** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - a flag to indicate whether to reduce the range of quantized
 - **bit** (*data by 1*) -
 - **hardwares** (*it's required to avoid instruction overflow for some*) -
 

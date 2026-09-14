@@ -1,6 +1,6 @@
 # torch.nn.utils.stateless.functional_call
 
-torch.nn.utils.stateless.functional_call(*module*, *parameters_and_buffers*, *args=None*, *kwargs=None*, ***, *tie_weights=True*, *strict=False*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/utils/stateless.py#L159)
+torch.nn.utils.stateless.functional_call(*module*, *parameters_and_buffers*, *args=None*, *kwargs=None*, ***, *tie_weights=True*, *strict=False*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/utils/stateless.py#L159)
 
 Perform a functional call on the module by replacing the module parameters and buffers with the provided ones.
 
@@ -55,15 +55,15 @@ Example:
 Parameters:
 
 - **module** ([*torch.nn.Module*](torch.nn.Module.html#torch.nn.Module)) - the module to call
-- **parameters_and_buffers** ([*dict*](https://docs.python.org/3/library/stdtypes.html#dict)*of**str and Tensor*) - the parameters that will be used in
+- **parameters_and_buffers** ([*dict*](https://docs.python.org/3/builtins/stdtypes.html#dict)*of**str and Tensor*) - the parameters that will be used in
 the module call.
-- **args** (*Any**or*[*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)) - arguments to be passed to the module call. If not a tuple, considered a single argument.
-- **kwargs** ([*dict*](https://docs.python.org/3/library/stdtypes.html#dict)) - keyword arguments to be passed to the module call
-- **tie_weights** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If True, then parameters and buffers tied in the original model will be treated as
+- **args** (*Any**or*[*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)) - arguments to be passed to the module call. If not a tuple, considered a single argument.
+- **kwargs** ([*dict*](https://docs.python.org/3/builtins/stdtypes.html#dict)) - keyword arguments to be passed to the module call
+- **tie_weights** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If True, then parameters and buffers tied in the original model will be treated as
 tied in the reparameterized version. Therefore, if True and different values are passed for the tied
 parameters and buffers, it will error. If False, it will not respect the originally tied parameters and
 buffers unless the values passed for both weights are the same. Default: True.
-- **strict** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If True, then the parameters and buffers passed in must match the parameters and
+- **strict** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If True, then the parameters and buffers passed in must match the parameters and
 buffers in the original module. Therefore, if True and there are any missing or unexpected keys, it will
 error. Default: False.
 

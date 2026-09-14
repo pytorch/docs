@@ -1,6 +1,6 @@
 # ZeroPad1d
 
-*class*torch.nn.ZeroPad1d(*padding*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/padding.py#L687)
+*class*torch.nn.ZeroPad1d(*padding*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/padding.py#L687)
 
 Pads the input tensor boundaries with zero.
 
@@ -8,7 +8,7 @@ For N-dimensional padding, use [`torch.nn.functional.pad()`](torch.nn.functional
 
 Parameters:
 
-**padding** ([*int*](https://docs.python.org/3/library/functions.html#int)*,*[*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)) - the size of the padding. If it is int, uses the same
+**padding** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,*[*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)) - the size of the padding. If it is int, uses the same
 padding in both boundaries. If a 2-tuple, uses
 (padding_left\text{padding\_left}padding_left, padding_right\text{padding\_right}padding_right)
 
@@ -47,10 +47,10 @@ tensor([[[ 0.0000, 0.0000, 0.0000, 1.6616, 1.4523, -1.1255, 0.0000],
  [ 0.0000, 0.0000, 0.0000, -3.6372, 0.1182, -1.8652, 0.0000]]])
 ```
 
-extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/padding.py#L736)
+extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/padding.py#L736)
 
 Return the extra representation of the module.
 
 Return type:
 
-[str](https://docs.python.org/3/library/stdtypes.html#str)
+[str](https://docs.python.org/3/builtins/stdtypes.html#str)

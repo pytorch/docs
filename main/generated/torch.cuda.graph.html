@@ -80,7 +80,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.15.0a0+gitea89e4e )">
+<meta name="llm:version" content="main (2.15.0a0+gitb8bd7cf )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -186,7 +186,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+gitea89e4e )');
+  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+gitb8bd7cf )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3699,7 +3699,7 @@ document.write(`
 <h1>graph<a class="headerlink" href="#graph" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.cuda.graph">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.cuda.</span></span><span class="sig-name descname"><span class="pre">graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cuda_graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stream</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">capture_error_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'global'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enable_annotations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">annotation_config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check_input_liveness</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/cuda/graphs.py#L1179"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.graph" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.cuda.</span></span><span class="sig-name descname"><span class="pre">graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cuda_graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stream</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">capture_error_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'global'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enable_annotations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">annotation_config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check_input_liveness</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/cuda/graphs.py#L1179"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.graph" title="Link to this definition">#</a></dt>
 <dd><p>Context-manager that captures CUDA work into a <a class="reference internal" href="torch.cuda.CUDAGraph.html#torch.cuda.CUDAGraph" title="torch.cuda.CUDAGraph"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.cuda.CUDAGraph</span></code></a> object for later replay.</p>
 <p>See <a class="reference internal" href="../notes/cuda.html#cuda-graph-semantics"><span class="std std-ref">CUDA Graphs</span></a> for a general introduction,
 detailed use, and constraints.</p>
@@ -3713,12 +3713,12 @@ detailed use, and constraints.</p>
 from the specified pool. See <a class="reference internal" href="../notes/cuda.html#graph-memory-management"><span class="std std-ref">Graph memory management</span></a>.</p></li>
 <li><p><strong>stream</strong> (<a class="reference internal" href="torch.cuda.Stream_class.html#torch.cuda.Stream" title="torch.cuda.Stream"><em>torch.cuda.Stream</em></a><em>, </em><em>optional</em>) – If supplied, will be set as the current stream in the context.
 If not supplied, <code class="docutils literal notranslate"><span class="pre">graph</span></code> sets its own internal side stream as the current stream in the context.</p></li>
-<li><p><strong>capture_error_mode</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – specifies the cudaStreamCaptureMode for the graph capture stream.
+<li><p><strong>capture_error_mode</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – specifies the cudaStreamCaptureMode for the graph capture stream.
 Can be “global”, “thread_local” or “relaxed”. During cuda graph capture, some actions, such as cudaMalloc,
 may be unsafe. “global” will error on actions in other threads, “thread_local” will only error for
 actions in the current thread, and “relaxed” will not error on actions. Do NOT change this setting
 unless you’re familiar with <a class="reference external" href="https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__STREAM.html#group__CUDART__STREAM_1g9d0535d93a214cbf126835257b16ba85">cudaStreamCaptureMode</a></p></li>
-<li><p><strong>enable_annotations</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, enables kernel annotation
+<li><p><strong>enable_annotations</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, enables kernel annotation
 recording on entry and automatically calls
 <code class="xref py py-func docutils literal notranslate"><span class="pre">resolve_pending_annotations()</span></code> before
 the capture ends.  Annotations are <strong>not</strong> cleared on exit so that multiple
@@ -3726,7 +3726,7 @@ graphs in the same workload can accumulate annotations.
 Requires <code class="docutils literal notranslate"><span class="pre">cuda.bindings</span></code> package and cuda-compat &gt;= 13.1 or CUDA driver &gt;= 13.1.
 Requires single-threaded autograd; wrap the capture in
 <code class="docutils literal notranslate"><span class="pre">torch.autograd.grad_mode.set_multithreading_enabled(False)</span></code>.</p></li>
-<li><p><strong>annotation_config</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a><em>, </em><em>optional</em>) – Options for annotation recording, used when
+<li><p><strong>annotation_config</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a><em>, </em><em>optional</em>) – Options for annotation recording, used when
 <code class="docutils literal notranslate"><span class="pre">enable_annotations=True</span></code>. An unrecognized key or value raises. Currently
 supports <code class="docutils literal notranslate"><span class="pre">&quot;backend&quot;</span></code>, which selects how <code class="docutils literal notranslate"><span class="pre">mark_kernels</span></code> scopes discover their
 nodes: <code class="docutils literal notranslate"><span class="pre">&quot;auto&quot;</span></code> (default) uses CUPTI node-creation callbacks when Cuspy
@@ -3736,7 +3736,7 @@ needed – which prevents kineto from initializing, so a later
 <a class="reference internal" href="../profiler.html#torch.profiler.profile" title="torch.profiler.profile"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.profiler.profile</span></code></a> records no GPU activity; <code class="docutils literal notranslate"><span class="pre">&quot;edge_walk&quot;</span></code> forces
 the walk, which cannot see nodes created while the current stream was not yet
 capturing.</p></li>
-<li><p><strong>check_input_liveness</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – <p>If <code class="docutils literal notranslate"><span class="pre">True</span></code>, tracks external tensor inputs during graph capture and
+<li><p><strong>check_input_liveness</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – <p>If <code class="docutils literal notranslate"><span class="pre">True</span></code>, tracks external tensor inputs during graph capture and
 raises an error if any are deallocated before replay. This helps debug “use after free” errors
 where input tensors are garbage collected between capture and replay. Default: <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p>
 <div class="admonition note">

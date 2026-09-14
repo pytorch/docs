@@ -32,21 +32,21 @@ compiled region. See [torch.compile has different autograd semantics](user_guide
 
 ## Autocasting
 
-torch.amp.autocast_mode.is_autocast_available(*device_type*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/amp/autocast_mode.py#L28)
+torch.amp.autocast_mode.is_autocast_available(*device_type*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/amp/autocast_mode.py#L28)
 
 Return a bool indicating if autocast is available on `device_type`.
 
 Parameters:
 
-**device_type** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - Device type to use. Possible values are: 'cuda', 'cpu', 'mtia', 'maia', 'xpu', and so on.
+**device_type** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - Device type to use. Possible values are: 'cuda', 'cpu', 'mtia', 'maia', 'xpu', and so on.
 The type is the same as the type attribute of a [`torch.device`](tensor_attributes.html#torch.device).
 Thus, you may obtain the device type of a tensor using Tensor.device.type.
 
 Return type:
 
-[bool](https://docs.python.org/3/library/functions.html#bool)
+[bool](https://docs.python.org/3/builtins/functions.html#bool)
 
-*class*torch.autocast(*device_type*, *dtype=None*, *enabled=True*, *cache_enabled=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/amp/autocast_mode.py#L52)
+*class*torch.autocast(*device_type*, *dtype=None*, *enabled=True*, *cache_enabled=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/amp/autocast_mode.py#L52)
 
 Instances of `autocast` serve as context managers or decorators that
 allow regions of your script to run in mixed precision.
@@ -216,19 +216,19 @@ must be invoked in that thread. This affects [`torch.nn.DataParallel`](generated
 
 Parameters:
 
-- **device_type** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**required*) - Device type to use. Possible values are: 'cuda', 'cpu', 'mtia', 'maia', 'xpu', and 'hpu'.
+- **device_type** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**required*) - Device type to use. Possible values are: 'cuda', 'cpu', 'mtia', 'maia', 'xpu', and 'hpu'.
 The type is the same as the type attribute of a [`torch.device`](tensor_attributes.html#torch.device).
 Thus, you may obtain the device type of a tensor using Tensor.device.type.
-- **enabled** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - Whether autocasting should be enabled in the region.
+- **enabled** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - Whether autocasting should be enabled in the region.
 Default: `True`
 - **dtype** (*torch_dtype**,**optional*) - Data type for ops run in autocast. It uses the default value
 (`torch.float16` for CUDA and `torch.bfloat16` for CPU), given by
 [`get_autocast_dtype()`](generated/torch.get_autocast_dtype.html#torch.get_autocast_dtype), if [`dtype`](tensor_attributes.html#torch.dtype) is `None`.
 Default: `None`
-- **cache_enabled** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - Whether the weight cache inside autocast should be enabled.
+- **cache_enabled** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - Whether the weight cache inside autocast should be enabled.
 Default: `True`
 
-torch.amp.custom_fwd(*fwd=None*, ***, *device_type*, *cast_inputs=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/amp/autocast_mode.py#L441)
+torch.amp.custom_fwd(*fwd=None*, ***, *device_type*, *cast_inputs=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/amp/autocast_mode.py#L441)
 
 Create a helper decorator for `forward` methods of custom autograd functions.
 
@@ -237,7 +237,7 @@ See the [example page](notes/amp_examples.html#amp-custom-examples) for more det
 
 Parameters:
 
-- **device_type** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - Device type to use. 'cuda', 'cpu', 'mtia', 'maia', 'xpu' and so on.
+- **device_type** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - Device type to use. 'cuda', 'cpu', 'mtia', 'maia', 'xpu' and so on.
 The type is the same as the type attribute of a [`torch.device`](tensor_attributes.html#torch.device).
 Thus, you may obtain the device type of a tensor using Tensor.device.type.
 - **cast_inputs** ([`torch.dtype`](tensor_attributes.html#torch.dtype) or None, optional, default=None) - If not `None`,
@@ -251,7 +251,7 @@ Note
 If the decorated `forward` is called outside an autocast-enabled region,
 `custom_fwd` is a no-op and `cast_inputs` has no effect.
 
-torch.amp.custom_bwd(*bwd=None*, ***, *device_type*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/amp/autocast_mode.py#L500)
+torch.amp.custom_bwd(*bwd=None*, ***, *device_type*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/amp/autocast_mode.py#L500)
 
 Create a helper decorator for backward methods of custom autograd functions.
 
@@ -261,27 +261,27 @@ See the [example page](notes/amp_examples.html#amp-custom-examples) for more det
 
 Parameters:
 
-**device_type** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - Device type to use. 'cuda', 'cpu', 'mtia', 'maia', 'xpu' and so on.
+**device_type** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - Device type to use. 'cuda', 'cpu', 'mtia', 'maia', 'xpu' and so on.
 The type is the same as the type attribute of a [`torch.device`](tensor_attributes.html#torch.device).
 Thus, you may obtain the device type of a tensor using Tensor.device.type.
 
-*class*torch.cuda.amp.autocast(*enabled=True*, *dtype=torch.float16*, *cache_enabled=True*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/cuda/amp/autocast_mode.py#L13)
+*class*torch.cuda.amp.autocast(*enabled=True*, *dtype=torch.float16*, *cache_enabled=True*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/cuda/amp/autocast_mode.py#L13)
 
 See `torch.autocast`.
 
 `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast("cuda", args...)` instead.
 
-torch.cuda.amp.custom_fwd(*fwd=None*, ***, *cast_inputs=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/cuda/amp/autocast_mode.py#L85)
+torch.cuda.amp.custom_fwd(*fwd=None*, ***, *cast_inputs=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/cuda/amp/autocast_mode.py#L85)
 
 `torch.cuda.amp.custom_fwd(args...)` is deprecated. Please use
 `torch.amp.custom_fwd(args..., device_type='cuda')` instead.
 
-torch.cuda.amp.custom_bwd(*bwd*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/cuda/amp/autocast_mode.py#L100)
+torch.cuda.amp.custom_bwd(*bwd*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/cuda/amp/autocast_mode.py#L100)
 
 `torch.cuda.amp.custom_bwd(args...)` is deprecated. Please use
 `torch.amp.custom_bwd(args..., device_type='cuda')` instead.
 
-*class*torch.cpu.amp.autocast(*enabled=True*, *dtype=torch.bfloat16*, *cache_enabled=True*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/cpu/amp/autocast_mode.py#L12)
+*class*torch.cpu.amp.autocast(*enabled=True*, *dtype=torch.bfloat16*, *cache_enabled=True*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/cpu/amp/autocast_mode.py#L12)
 
 See `torch.autocast`.
 `torch.cpu.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast("cpu", args...)` instead.
@@ -310,12 +310,12 @@ representable in the fp16 dynamic range. While one may expect the scale to alway
 GradScaler does NOT make this guarantee to maintain performance. If you encounter NaNs in your loss
 or gradients when running with AMP/fp16, verify your model is compatible.
 
-*class*torch.cuda.amp.GradScaler(*init_scale=65536.0*, *growth_factor=2.0*, *backoff_factor=0.5*, *growth_interval=2000*, *enabled=True*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/cuda/amp/grad_scaler.py#L12)
+*class*torch.cuda.amp.GradScaler(*init_scale=65536.0*, *growth_factor=2.0*, *backoff_factor=0.5*, *growth_interval=2000*, *enabled=True*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/cuda/amp/grad_scaler.py#L12)
 
 See `torch.amp.GradScaler`.
 `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler("cuda", args...)` instead.
 
-*class*torch.cpu.amp.GradScaler(*init_scale=65536.0*, *growth_factor=2.0*, *backoff_factor=0.5*, *growth_interval=2000*, *enabled=True*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/cpu/amp/grad_scaler.py#L9)
+*class*torch.cpu.amp.GradScaler(*init_scale=65536.0*, *growth_factor=2.0*, *backoff_factor=0.5*, *growth_interval=2000*, *enabled=True*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/cpu/amp/grad_scaler.py#L9)
 
 See `torch.amp.GradScaler`.
 `torch.cpu.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler("cpu", args...)` instead.

@@ -1,6 +1,6 @@
 # torch.fft.rfftfreq
 
-torch.fft.rfftfreq(*n*, *d=1.0*, ***, *out=None*, *dtype=None*, *layout=torch.strided*, *device=None*, *requires_grad=False*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fft/__init__.py#L1280)
+torch.fft.rfftfreq(*n*, *d=1.0*, ***, *out=None*, *dtype=None*, *layout=torch.strided*, *device=None*, *requires_grad=False*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fft/__init__.py#L1280)
 
 Computes the sample frequencies for [`rfft()`](torch.fft.rfft.html#torch.fft.rfft) with a signal of size `n`.
 
@@ -22,8 +22,8 @@ either negative or positive. Unlike [`fftfreq()`](torch.fft.fftfreq.html#torch.f
 
 Parameters:
 
-- **n** ([*int*](https://docs.python.org/3/library/functions.html#int)) - the real FFT length
-- **d** ([*float*](https://docs.python.org/3/library/functions.html#float)*,**optional*) - The sampling length scale.
+- **n** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - the real FFT length
+- **d** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*,**optional*) - The sampling length scale.
 The spacing between individual samples of the FFT input.
 The default assumes unit spacing, dividing that result by the actual
 spacing gives the result in physical frequency units.
@@ -39,7 +39,7 @@ Default: `torch.strided`.
 Default: if `None`, uses the current device for the default tensor type
 (see [`torch.set_default_device()`](torch.set_default_device.html#torch.set_default_device)). `device` will be the CPU
 for CPU tensor types and the current CUDA device for CUDA tensor types.
-- **requires_grad** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If autograd should record operations on the
+- **requires_grad** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If autograd should record operations on the
 returned tensor. Default: `False`.
 
 Example

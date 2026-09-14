@@ -1,13 +1,13 @@
 # torch.use_deterministic_algorithms
 
-torch.use_deterministic_algorithms(*mode*, ***, *warn_only=False*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/__init__.py#L1765)
+torch.use_deterministic_algorithms(*mode*, ***, *warn_only=False*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/__init__.py#L1765)
 
 Sets whether PyTorch operations must use "deterministic"
 algorithms. That is, algorithms which, given the same input, and when
 run on the same software and hardware, always produce the same output.
 When enabled, operations will use deterministic algorithms when available,
 and if only nondeterministic algorithms are available they will throw a
-[`RuntimeError`](https://docs.python.org/3/library/exceptions.html#RuntimeError) when called.
+[`RuntimeError`](https://docs.python.org/3/builtins/exceptions.html#RuntimeError) when called.
 
 Note
 
@@ -52,7 +52,7 @@ deterministically when `mode=True`:
 > - [`torch.nn.Embedding`](torch.nn.Embedding.html#torch.nn.Embedding) when attempting to differentiate a CUDA tensor
 
 The following normally-nondeterministic operations will throw a
-[`RuntimeError`](https://docs.python.org/3/library/exceptions.html#RuntimeError) when `mode=True`:
+[`RuntimeError`](https://docs.python.org/3/builtins/exceptions.html#RuntimeError) when `mode=True`:
 
 > - [`torch.nn.AvgPool3d`](torch.nn.AvgPool3d.html#torch.nn.AvgPool3d) when attempting to differentiate a CUDA tensor
 > - [`torch.nn.AdaptiveAvgPool2d`](torch.nn.AdaptiveAvgPool2d.html#torch.nn.AdaptiveAvgPool2d) when attempting to differentiate a CUDA tensor
@@ -139,13 +139,13 @@ a single memory location, and the order of writes is not guaranteed.
 
 Parameters:
 
-**mode** ([`bool`](https://docs.python.org/3/library/functions.html#bool)) - If True, makes potentially nondeterministic
+**mode** ([`bool`](https://docs.python.org/3/builtins/functions.html#bool)) - If True, makes potentially nondeterministic
 operations switch to a deterministic algorithm or throw a runtime
 error. If False, allows nondeterministic operations.
 
 Keyword Arguments:
 
-**warn_only** ([`bool`](https://docs.python.org/3/library/functions.html#bool), optional) - If True, operations that do not
+**warn_only** ([`bool`](https://docs.python.org/3/builtins/functions.html#bool), optional) - If True, operations that do not
 have a deterministic implementation will throw a warning instead of
 an error. Default: `False`
 

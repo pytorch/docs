@@ -37,10 +37,10 @@ Parameters:
 ∗*∗ is zero of more batch dimensions
 - **A** ([*Tensor*](../tensors.html#torch.Tensor)) - the input triangular coefficient matrix of size (∗,m,m)(*, m, m)(∗,m,m)
 where ∗*∗ is zero or more batch dimensions
-- **upper** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - whether AAA is upper or lower triangular. Default: `True`.
-- **transpose** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - solves op(A)X = b where op(A) = A^T if this flag is `True`,
+- **upper** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - whether AAA is upper or lower triangular. Default: `True`.
+- **transpose** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - solves op(A)X = b where op(A) = A^T if this flag is `True`,
 and op(A) = A if it is `False`. Default: `False`.
-- **unitriangular** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - whether AAA is unit triangular.
+- **unitriangular** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - whether AAA is unit triangular.
 If True, the diagonal elements of AAA are assumed to be
 1 and not referenced from AAA. Default: `False`.
 

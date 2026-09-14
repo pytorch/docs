@@ -1,6 +1,6 @@
 # GroupNorm
 
-*class*torch.nn.GroupNorm(*num_groups*, *num_channels*, *eps=1e-05*, *affine=True*, *device=None*, *dtype=None*, ***, *bias=True*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/normalization.py#L239)
+*class*torch.nn.GroupNorm(*num_groups*, *num_channels*, *eps=1e-05*, *affine=True*, *device=None*, *dtype=None*, ***, *bias=True*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/normalization.py#L239)
 
 Applies Group Normalization over a mini-batch of inputs.
 
@@ -25,13 +25,13 @@ evaluation modes.
 
 Parameters:
 
-- **num_groups** ([*int*](https://docs.python.org/3/library/functions.html#int)) - number of groups to separate the channels into
-- **num_channels** ([*int*](https://docs.python.org/3/library/functions.html#int)) - number of channels expected in input
-- **eps** ([*float*](https://docs.python.org/3/library/functions.html#float)) - a value added to the denominator for numerical stability. Default: 1e-5
-- **affine** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - a boolean value that when set to `True`, this module
+- **num_groups** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - number of groups to separate the channels into
+- **num_channels** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - number of channels expected in input
+- **eps** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - a value added to the denominator for numerical stability. Default: 1e-5
+- **affine** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - a boolean value that when set to `True`, this module
 has learnable per-channel affine parameters initialized to ones (for weights)
 and zeros (for biases). Default: `True`
-- **bias** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If set to `False`, the layer will not learn an additive bias (only relevant if
+- **bias** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - If set to `False`, the layer will not learn an additive bias (only relevant if
 `affine` is `True`). Default: `True`
 
 Shape:

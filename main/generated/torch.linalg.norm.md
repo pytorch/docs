@@ -1,6 +1,6 @@
 # torch.linalg.norm
 
-torch.linalg.norm(*input*, *ord=None*, *dim=None*, *keepdim=False*, ***, *out=None*, *dtype=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/linalg/__init__.py#L1353)
+torch.linalg.norm(*input*, *ord=None*, *dim=None*, *keepdim=False*, ***, *out=None*, *dtype=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/linalg/__init__.py#L1353)
 
 Computes a vector or matrix norm.
 
@@ -46,11 +46,11 @@ to compute a vector norm over the two dimensions.
 Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - tensor of shape (*, n) or (*, m, n) where * is zero or more batch dimensions
-- **ord** ([*int*](https://docs.python.org/3/library/functions.html#int)*,*[*float*](https://docs.python.org/3/library/functions.html#float)*,**inf**,**-inf**,**'fro'**,**'nuc'**,**optional*) - order of norm. Default: None
-- **dim** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**Tuple**[*[*int*](https://docs.python.org/3/library/functions.html#int)*]**,**optional*) - dimensions over which to compute
+- **ord** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,*[*float*](https://docs.python.org/3/builtins/functions.html#float)*,**inf**,**-inf**,**'fro'**,**'nuc'**,**optional*) - order of norm. Default: None
+- **dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**Tuple**[*[*int*](https://docs.python.org/3/builtins/functions.html#int)*]**,**optional*) - dimensions over which to compute
 the vector or matrix norm. See above for the behavior when `dim`= None.
 Default: None
-- **keepdim** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If set to True, the reduced dimensions are retained
+- **keepdim** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If set to True, the reduced dimensions are retained
 in the result as dimensions with size one. Default: False
 
 Keyword Arguments:

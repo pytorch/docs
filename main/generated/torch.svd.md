@@ -108,13 +108,13 @@ Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - the input tensor of size (*, m, n) where * is zero or more
 batch dimensions consisting of (m, n) matrices.
-- **some** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - controls whether to compute the reduced or full decomposition, and
+- **some** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - controls whether to compute the reduced or full decomposition, and
 consequently, the shape of returned U and V. Default: True.
-- **compute_uv** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - controls whether to compute U and V. Default: True.
+- **compute_uv** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - controls whether to compute U and V. Default: True.
 
 Keyword Arguments:
 
-**out** ([*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*,**optional*) - the output tuple of tensors
+**out** ([*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*,**optional*) - the output tuple of tensors
 
 Example:
 

@@ -139,7 +139,7 @@ There are several useful invariants for `torch.ops.higher_order.switch`:
 
 ## API Reference
 
-torch._higher_order_ops.switch.switch(*index*, *branches*, *operands=()*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/_higher_order_ops/switch.py#L95)
+torch._higher_order_ops.switch.switch(*index*, *branches*, *operands=()*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/_higher_order_ops/switch.py#L95)
 
 Selects and runs one of N branch functions by index.
 
@@ -154,10 +154,10 @@ Equivalent to: `branches[index](*operands)` with index in `[0, len(branches))`.
 
 Parameters:
 
-- **index** (*Union**[*[*int*](https://docs.python.org/3/library/functions.html#int)*,*[*torch.Tensor*](../tensors.html#torch.Tensor)*]*) - An int or single-element integer tensor
+- **index** (*Union**[*[*int*](https://docs.python.org/3/builtins/functions.html#int)*,*[*torch.Tensor*](../tensors.html#torch.Tensor)*]*) - An int or single-element integer tensor
 indicating which branch to run. Out-of-range values are clamped into
 `[0, len(branches))`.
-- **branches** (*Union**[*[*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*[**Callable**,**...**]**,*[*list*](https://docs.python.org/3/library/stdtypes.html#list)*[**Callable**]**]*) - Non-empty sequence of
+- **branches** (*Union**[*[*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*[**Callable**,**...**]**,*[*list*](https://docs.python.org/3/builtins/stdtypes.html#list)*[**Callable**]**]*) - Non-empty sequence of
 callables. Each must accept operands and return the same structure of outputs.
 - **operands** (*Tuple**of**possibly nested dict/list/tuple**of*[*torch.Tensor*](../tensors.html#torch.Tensor)) - Inputs to
 the branch functions. Defaults to ().

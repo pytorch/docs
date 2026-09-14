@@ -1,6 +1,6 @@
 # torch.linalg.eig
 
-torch.linalg.eig(*A*, ***, *out=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/linalg/__init__.py#L474)
+torch.linalg.eig(*A*, ***, *out=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/linalg/__init__.py#L474)
 
 Computes the eigenvalue decomposition of a square matrix if it exists.
 
@@ -79,7 +79,7 @@ consisting of diagonalizable matrices.
 
 Keyword Arguments:
 
-**out** ([*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*,**optional*) - output tuple of two tensors. Ignored if None. Default: None.
+**out** ([*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*,**optional*) - output tuple of two tensors. Ignored if None. Default: None.
 
 Returns:
 

@@ -1,6 +1,6 @@
 # torch.nn.utils.parametrize.transfer_parametrizations_and_params
 
-torch.nn.utils.parametrize.transfer_parametrizations_and_params(*from_module*, *to_module*, *tensor_name=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/utils/parametrize.py#L811)
+torch.nn.utils.parametrize.transfer_parametrizations_and_params(*from_module*, *to_module*, *tensor_name=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/utils/parametrize.py#L811)
 
 Transfer parametrizations and the parameters they parametrize from `from_module` to `to_module`.
 
@@ -12,7 +12,7 @@ Parameters:
 
 - **from_module** ([*nn.Module*](torch.nn.Module.html#torch.nn.Module)) - module to transfer from
 - **to_module** ([*nn.Module*](torch.nn.Module.html#torch.nn.Module)) - module to transfer to
-- **tensor_name** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**optional*) - parameter to transfer
+- **tensor_name** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**optional*) - parameter to transfer
 
 Returns:
 

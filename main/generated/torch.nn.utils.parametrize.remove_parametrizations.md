@@ -1,6 +1,6 @@
 # torch.nn.utils.parametrize.remove_parametrizations
 
-torch.nn.utils.parametrize.remove_parametrizations(*module*, *tensor_name*, *leave_parametrized=True*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/utils/parametrize.py#L696)
+torch.nn.utils.parametrize.remove_parametrizations(*module*, *tensor_name*, *leave_parametrized=True*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/utils/parametrize.py#L696)
 
 Remove the parametrizations on a tensor in a module.
 
@@ -14,8 +14,8 @@ This is only possible when the parametrization depends on just one tensor.
 Parameters:
 
 - **module** ([*nn.Module*](torch.nn.Module.html#torch.nn.Module)) - module from which remove the parametrization
-- **tensor_name** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - name of the parametrization to be removed
-- **leave_parametrized** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - leave the attribute `tensor_name` parametrized.
+- **tensor_name** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - name of the parametrization to be removed
+- **leave_parametrized** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - leave the attribute `tensor_name` parametrized.
 Default: `True`
 
 Returns:
@@ -28,5 +28,5 @@ Return type:
 
 Raises:
 
-- [**ValueError**](https://docs.python.org/3/library/exceptions.html#ValueError) - if `module[tensor_name]` is not parametrized
-- [**ValueError**](https://docs.python.org/3/library/exceptions.html#ValueError) - if `leave_parametrized=False` and the parametrization depends on several tensors
+- [**ValueError**](https://docs.python.org/3/builtins/exceptions.html#ValueError) - if `module[tensor_name]` is not parametrized
+- [**ValueError**](https://docs.python.org/3/builtins/exceptions.html#ValueError) - if `leave_parametrized=False` and the parametrization depends on several tensors

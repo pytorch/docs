@@ -1,6 +1,6 @@
 # torch.linalg.inv_ex
 
-torch.linalg.inv_ex(*A*, ***, *check_errors=False*, *out=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/linalg/__init__.py#L336)
+torch.linalg.inv_ex(*A*, ***, *check_errors=False*, *out=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/linalg/__init__.py#L336)
 
 Computes the inverse of a square matrix if it is invertible.
 
@@ -35,11 +35,11 @@ Parameters:
 
 - **A** ([*Tensor*](../tensors.html#torch.Tensor)) - tensor of shape (*, n, n) where * is zero or more batch dimensions
 consisting of square matrices.
-- **check_errors** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - controls whether to check the content of `info`. Default: False.
+- **check_errors** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - controls whether to check the content of `info`. Default: False.
 
 Keyword Arguments:
 
-**out** ([*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*,**optional*) - tuple of two tensors to write the output to. Ignored if None. Default: None.
+**out** ([*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*,**optional*) - tuple of two tensors to write the output to. Ignored if None. Default: None.
 
 Examples:
 

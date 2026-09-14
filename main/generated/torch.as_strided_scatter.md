@@ -12,9 +12,9 @@ return a view.
 Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - the input tensor.
-- **size** ([*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*or**ints*) - the shape of the output tensor
-- **stride** ([*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*or**ints*) - the stride of the output tensor
-- **storage_offset** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - the offset in the underlying storage of the output tensor
+- **size** ([*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*or**ints*) - the shape of the output tensor
+- **stride** ([*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*or**ints*) - the stride of the output tensor
+- **storage_offset** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - the offset in the underlying storage of the output tensor
 
 Note
 

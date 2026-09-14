@@ -82,7 +82,7 @@ place. To initialize the RPC framework we need to use
 `init_rpc()` which would initialize the RPC
 framework, RRef framework and distributed autograd.
 
-torch.distributed.rpc.init_rpc(*name*, *backend=None*, *rank=-1*, *world_size=None*, *rpc_backend_options=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/rpc/__init__.py#L93)
+torch.distributed.rpc.init_rpc(*name*, *backend=None*, *rank=-1*, *world_size=None*, *rpc_backend_options=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/rpc/__init__.py#L93)
 
 Initializes RPC primitives such as the local RPC agent
 and distributed autograd, which immediately makes the current
@@ -90,7 +90,7 @@ process ready to send and receive RPCs.
 
 Parameters:
 
-- **name** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - a globally unique name of this node. (e.g.,
+- **name** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - a globally unique name of this node. (e.g.,
 `Trainer3`, `ParameterServer2`, `Master`, `Worker1`)
 Name can only contain number, alphabet, underscore, colon,
 and/or dash, and must be shorter than 128 characters.
@@ -98,8 +98,8 @@ and/or dash, and must be shorter than 128 characters.
 implementation. Supported values is
 `BackendType.TENSORPIPE` (the default).
 See Backends for more information.
-- **rank** ([*int*](https://docs.python.org/3/library/functions.html#int)) - a globally unique id/rank of this node.
-- **world_size** ([*int*](https://docs.python.org/3/library/functions.html#int)) - The number of workers in the group.
+- **rank** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - a globally unique id/rank of this node.
+- **world_size** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - The number of workers in the group.
 - **rpc_backend_options** (*RpcBackendOptions**,**optional*) - The options
 passed to the RpcAgent constructor. It must be an agent-specific
 subclass of `RpcBackendOptions`
@@ -112,11 +112,11 @@ meaning that environment variables `MASTER_ADDR` and
 Backends for more information and find which options
 are available.
 
-torch.distributed.rpc.is_available()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/rpc/__init__.py#L24)
+torch.distributed.rpc.is_available()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/rpc/__init__.py#L24)
 
 Return type:
 
-[bool](https://docs.python.org/3/library/functions.html#bool)
+[bool](https://docs.python.org/3/builtins/functions.html#bool)
 
 The following APIs allow users to remotely execute functions as well as create
 references (RRefs) to remote data objects. In these APIs, when passing a
@@ -127,7 +127,7 @@ device lists on source and destination workers do not match. In such cases,
 applications can always explicitly move the input tensors to CPU on the caller
 and move it to the desired devices on the callee if necessary.
 
-torch.distributed.rpc.rpc_sync(*to*, *func*, *args=None*, *kwargs=None*, *timeout=-1.0*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/rpc/api.py#L771)
+torch.distributed.rpc.rpc_sync(*to*, *func*, *args=None*, *kwargs=None*, *timeout=-1.0*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/rpc/api.py#L771)
 
 Make a blocking RPC call to run function `func` on worker `to`. RPC
 messages are sent and received in parallel to execution of Python code. This
@@ -135,14 +135,14 @@ method is thread-safe.
 
 Parameters:
 
-- **to** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*or**WorkerInfo**or*[*int*](https://docs.python.org/3/library/functions.html#int)) - name/rank/`WorkerInfo` of the destination worker.
+- **to** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*or**WorkerInfo**or*[*int*](https://docs.python.org/3/builtins/functions.html#int)) - name/rank/`WorkerInfo` of the destination worker.
 - **func** (*Callable*) - a callable function, such as Python callables, builtin
 operators (e.g. [`add()`](generated/torch.add.html#torch.add)) and annotated
 TorchScript functions.
-- **args** ([*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)) - the argument tuple for the `func` invocation.
-- **kwargs** ([*dict*](https://docs.python.org/3/library/stdtypes.html#dict)) - is a dictionary of keyword arguments for the `func`
+- **args** ([*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)) - the argument tuple for the `func` invocation.
+- **kwargs** ([*dict*](https://docs.python.org/3/builtins/stdtypes.html#dict)) - is a dictionary of keyword arguments for the `func`
 invocation.
-- **timeout** ([*float*](https://docs.python.org/3/library/functions.html#float)*,**optional*) - timeout in seconds to use for this RPC. If
+- **timeout** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*,**optional*) - timeout in seconds to use for this RPC. If
 the RPC does not complete in this amount of
 time, an exception indicating it has
 timed out will be raised. A value of 0
@@ -206,7 +206,7 @@ Below is an example of running a TorchScript function using RPC.
 >>> rpc.shutdown()
 ```
 
-torch.distributed.rpc.rpc_async(*to*, *func*, *args=None*, *kwargs=None*, *timeout=-1.0*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/rpc/api.py#L845)
+torch.distributed.rpc.rpc_async(*to*, *func*, *args=None*, *kwargs=None*, *timeout=-1.0*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/rpc/api.py#L845)
 
 Make a non-blocking RPC call to run function `func` on worker `to`. RPC
 messages are sent and received in parallel to execution of Python code. This
@@ -215,14 +215,14 @@ method is thread-safe. This method will immediately return a
 
 Parameters:
 
-- **to** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*or**WorkerInfo**or*[*int*](https://docs.python.org/3/library/functions.html#int)) - name/rank/`WorkerInfo` of the destination worker.
+- **to** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*or**WorkerInfo**or*[*int*](https://docs.python.org/3/builtins/functions.html#int)) - name/rank/`WorkerInfo` of the destination worker.
 - **func** (*Callable*) - a callable function, such as Python callables, builtin
 operators (e.g. [`add()`](generated/torch.add.html#torch.add)) and annotated
 TorchScript functions.
-- **args** ([*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)) - the argument tuple for the `func` invocation.
-- **kwargs** ([*dict*](https://docs.python.org/3/library/stdtypes.html#dict)) - is a dictionary of keyword arguments for the `func`
+- **args** ([*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)) - the argument tuple for the `func` invocation.
+- **kwargs** ([*dict*](https://docs.python.org/3/builtins/stdtypes.html#dict)) - is a dictionary of keyword arguments for the `func`
 invocation.
-- **timeout** ([*float*](https://docs.python.org/3/library/functions.html#float)*,**optional*) - timeout in seconds to use for this RPC. If
+- **timeout** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*,**optional*) - timeout in seconds to use for this RPC. If
 the RPC does not complete in this amount of
 time, an exception indicating it has
 timed out will be raised. A value of 0
@@ -307,7 +307,7 @@ Below is an example of running a TorchScript function using RPC.
 >>> rpc.shutdown()
 ```
 
-torch.distributed.rpc.remote(*to*, *func*, *args=None*, *kwargs=None*, *timeout=-1.0*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/rpc/api.py#L554)
+torch.distributed.rpc.remote(*to*, *func*, *args=None*, *kwargs=None*, *timeout=-1.0*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/rpc/api.py#L554)
 
 Make a remote call to run `func` on worker `to` and return an
 `RRef` to the result value immediately.
@@ -320,14 +320,14 @@ are no living references to it.
 
 Parameters:
 
-- **to** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*or**WorkerInfo**or*[*int*](https://docs.python.org/3/library/functions.html#int)) - name/rank/`WorkerInfo` of the destination worker.
+- **to** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*or**WorkerInfo**or*[*int*](https://docs.python.org/3/builtins/functions.html#int)) - name/rank/`WorkerInfo` of the destination worker.
 - **func** (*Callable*) - a callable function, such as Python callables, builtin
 operators (e.g. [`add()`](generated/torch.add.html#torch.add)) and annotated
 TorchScript functions.
-- **args** ([*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)) - the argument tuple for the `func` invocation.
-- **kwargs** ([*dict*](https://docs.python.org/3/library/stdtypes.html#dict)) - is a dictionary of keyword arguments for the `func`
+- **args** ([*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)) - the argument tuple for the `func` invocation.
+- **kwargs** ([*dict*](https://docs.python.org/3/builtins/stdtypes.html#dict)) - is a dictionary of keyword arguments for the `func`
 invocation.
-- **timeout** ([*float*](https://docs.python.org/3/library/functions.html#float)*,**optional*) - timeout in seconds for this remote call. If the
+- **timeout** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*,**optional*) - timeout in seconds for this remote call. If the
 creation of this
 `RRef` on worker
 `to` is not successfully processed on this
@@ -414,7 +414,7 @@ Below is an example of running a TorchScript function using RPC.
 >>> rpc.shutdown()
 ```
 
-torch.distributed.rpc.get_worker_info(*worker_name=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/rpc/api.py#L427)
+torch.distributed.rpc.get_worker_info(*worker_name=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/rpc/api.py#L427)
 
 Get `WorkerInfo` of a given worker name.
 Use this `WorkerInfo` to avoid passing an
@@ -422,7 +422,7 @@ expensive string on every invocation.
 
 Parameters:
 
-**worker_name** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - the string name of a worker. If `None`, return the
+**worker_name** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - the string name of a worker. If `None`, return the
 id of the current worker. (default `None`)
 
 Returns:
@@ -431,7 +431,7 @@ Returns:
 `worker_name` or `WorkerInfo` of the
 current worker if `worker_name` is `None`.
 
-torch.distributed.rpc.shutdown(*graceful=True*, *timeout=0*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/rpc/api.py#L326)
+torch.distributed.rpc.shutdown(*graceful=True*, *timeout=0*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/rpc/api.py#L326)
 
 Perform a shutdown of the RPC agent, and then destroy the RPC agent. This
 stops the local agent from accepting outstanding requests, and shuts
@@ -449,7 +449,7 @@ be called after `shutdown()`.
 
 Parameters:
 
-**graceful** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - Whether to do a graceful shutdown or not. If True,
+**graceful** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Whether to do a graceful shutdown or not. If True,
 this will 1) wait until there is no pending system
 messages for `UserRRefs` and delete them; 2) block
 until all local and remote RPC processes have reached
@@ -508,7 +508,7 @@ The name of the worker.
 The RPC package also provides decorators which allow applications to specify
 how a given function should be treated on the callee side.
 
-torch.distributed.rpc.functions.async_execution(*fn*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/rpc/functions.py#L5)
+torch.distributed.rpc.functions.async_execution(*fn*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/rpc/functions.py#L5)
 
 A decorator for a function indicating that the return value of the function
 is guaranteed to be a [`Future`](futures.html#torch.futures.Future) object and this
@@ -674,26 +674,26 @@ This decorator also works with RRef helpers, i.e., .
 >>> print(ret) # prints tensor([4., 4.])
 ```
 
-torch.distributed.rpc.backend_registry.backend_registered(*backend_name*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/rpc/backend_registry.py#L51)
+torch.distributed.rpc.backend_registry.backend_registered(*backend_name*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/rpc/backend_registry.py#L51)
 
 Checks if backend_name is registered as an RPC backend.
 
 Parameters:
 
-**backend_name** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - string to identify the RPC backend.
+**backend_name** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - string to identify the RPC backend.
 
 Returns:
 
 True if the backend has been registered with `register_backend`, else
 False.
 
-torch.distributed.rpc.backend_registry.register_backend(*backend_name*, *construct_rpc_backend_options_handler*, *init_backend_handler*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/rpc/backend_registry.py#L64)
+torch.distributed.rpc.backend_registry.register_backend(*backend_name*, *construct_rpc_backend_options_handler*, *init_backend_handler*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/rpc/backend_registry.py#L64)
 
 Registers a new RPC backend.
 
 Parameters:
 
-- **backend_name** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - backend string to identify the handler.
+- **backend_name** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - backend string to identify the handler.
 - **construct_rpc_backend_options_handler** (*function*) - Handler that is invoked when
 `rpc_backend.construct_rpc_backend_options(**dict)` is called.
 - **init_backend_handler** (*function*) - Handler that is invoked when the
@@ -778,7 +778,7 @@ rpc.init_rpc(
 # omitting init_rpc invocation on worker2
 ```
 
-*class*torch.distributed.rpc.TensorPipeRpcBackendOptions(***, *num_worker_threads=16*, *rpc_timeout=60.0*, *init_method='env://'*, *device_maps=None*, *devices=None*, *_transports=None*, *_channels=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/rpc/options.py#L50)
+*class*torch.distributed.rpc.TensorPipeRpcBackendOptions(***, *num_worker_threads=16*, *rpc_timeout=60.0*, *init_method='env://'*, *device_maps=None*, *devices=None*, *_transports=None*, *_channels=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/rpc/options.py#L50)
 
 The backend options for
 `TensorPipeAgent`, derived from
@@ -786,21 +786,21 @@ The backend options for
 
 Parameters:
 
-- **num_worker_threads** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - The number of threads in the
+- **num_worker_threads** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - The number of threads in the
 thread-pool used by
 `TensorPipeAgent` to execute
 requests (default: 16).
-- **rpc_timeout** ([*float*](https://docs.python.org/3/library/functions.html#float)*,**optional*) - The default timeout, in seconds,
+- **rpc_timeout** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*,**optional*) - The default timeout, in seconds,
 for RPC requests (default: 60 seconds). If the RPC has not
 completed in this timeframe, an exception indicating so will
 be raised. Callers can override this timeout for individual
 RPCs in `rpc_sync()` and
 `rpc_async()` if necessary.
-- **init_method** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**optional*) - The URL to initialize the distributed
+- **init_method** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**optional*) - The URL to initialize the distributed
 store used for rendezvous. It takes any value accepted for the
 same argument of [`init_process_group()`](distributed.html#torch.distributed.init_process_group)
 (default: `env://`).
-- **device_maps** (*Dict**[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**Dict**]**,**optional*) - Device placement mappings from
+- **device_maps** (*Dict**[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**Dict**]**,**optional*) - Device placement mappings from
 this worker to the callee. Key is the callee worker name and value
 the dictionary (`Dict` of `int`, `str`, or `torch.device`)
 that maps this worker's devices to the callee worker's devices.
@@ -837,7 +837,7 @@ A float indicating the timeout to use for all
 RPCs. If an RPC does not complete in this timeframe, it will
 complete with an exception indicating that it has timed out.
 
-set_device_map(*to*, *device_map*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/rpc/options.py#L111)
+set_device_map(*to*, *device_map*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/rpc/options.py#L111)
 
 Set device mapping between each RPC caller and callee pair. This
 function can be called multiple times to incrementally add
@@ -845,8 +845,8 @@ device placement configurations.
 
 Parameters:
 
-- **to** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - Callee name.
-- **device_map** (*Dict**of*[*int*](https://docs.python.org/3/library/functions.html#int)*,*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*, or*[*torch.device*](tensor_attributes.html#torch.device)) - Device placement
+- **to** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - Callee name.
+- **device_map** (*Dict**of*[*int*](https://docs.python.org/3/builtins/functions.html#int)*,*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*, or*[*torch.device*](tensor_attributes.html#torch.device)) - Device placement
 mappings from this worker to the callee. This map must be
 invertible.
 
@@ -885,7 +885,7 @@ Example
 >>> print(rets[1]) # tensor([2., 2.], device='cuda:1')
 ```
 
-set_devices(*devices*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/rpc/options.py#L169)
+set_devices(*devices*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/rpc/options.py#L169)
 
 Set local devices used by the TensorPipe RPC agent. When processing
 CUDA RPC requests, the TensorPipe RPC agent will properly synchronize
@@ -893,7 +893,7 @@ CUDA streams for all devices in this `List`.
 
 Parameters:
 
-**devices** (*List**of*[*int*](https://docs.python.org/3/library/functions.html#int)*,*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*, or*[*torch.device*](tensor_attributes.html#torch.device)) - local devices used by
+**devices** (*List**of*[*int*](https://docs.python.org/3/builtins/functions.html#int)*,*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*, or*[*torch.device*](tensor_attributes.html#torch.device)) - local devices used by
 the TensorPipe RPC agent.
 
 Note
@@ -946,7 +946,7 @@ lead to errors.
 
 Parameters:
 
-- **value** ([*object*](https://docs.python.org/3/library/functions.html#object)) - The value to be wrapped by this RRef.
+- **value** ([*object*](https://docs.python.org/3/builtins/functions.html#object)) - The value to be wrapped by this RRef.
 - **type_hint** (*Type**,**optional*) - Python type that should be passed to
 `TorchScript` compiler as type hint for `value`.
 
@@ -993,7 +993,7 @@ for simplicity. Refer to RPC docs for those details.
 >>> rpc.rpc_sync("worker1", f, args=(rref,))
 ```
 
-backward(*self: torch._C._distributed_rpc.PyRRef*, *dist_autograd_ctx_id: [SupportsInt](https://docs.python.org/3/library/typing.html#typing.SupportsInt) | [SupportsIndex](https://docs.python.org/3/library/typing.html#typing.SupportsIndex) = -1*, *retain_graph: [bool](https://docs.python.org/3/library/functions.html#bool) = False*) → [None](https://docs.python.org/3/library/constants.html#None)
+backward(*self: torch._C._distributed_rpc.PyRRef*, *dist_autograd_ctx_id: [SupportsInt](https://docs.python.org/3/library/typing.html#typing.SupportsInt) | [SupportsIndex](https://docs.python.org/3/library/typing.html#typing.SupportsIndex) = -1*, *retain_graph: [bool](https://docs.python.org/3/builtins/functions.html#bool) = False*) → [None](https://docs.python.org/3/builtins/constants.html#None)
 
 > Runs the backward pass using the RRef as the root of the
 > backward pass. If `dist_autograd_ctx_id` is provided,
@@ -1008,10 +1008,10 @@ backward(*self: torch._C._distributed_rpc.PyRRef*, *dist_autograd_ctx_id: [Suppo
 
 Parameters:
 
-- **dist_autograd_ctx_id** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - The distributed
+- **dist_autograd_ctx_id** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - The distributed
 autograd context id for which we should retrieve the
 gradients (default: -1).
-- **retain_graph** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If `False`, the graph used to
+- **retain_graph** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If `False`, the graph used to
 compute the grad will be freed. Note that in nearly all
 cases setting this option to `True` is not needed and
 often can be worked around in a much more efficient way.
@@ -1026,18 +1026,18 @@ Example::
 >>> rref.backward(context_id)
 ```
 
-confirmed_by_owner(*self: torch._C._distributed_rpc.PyRRef*) → [bool](https://docs.python.org/3/library/functions.html#bool)
+confirmed_by_owner(*self: torch._C._distributed_rpc.PyRRef*) → [bool](https://docs.python.org/3/builtins/functions.html#bool)
 
 Returns whether this `RRef` has been confirmed by the owner.
 `OwnerRRef` always returns true, while `UserRRef` only
 returns true when the owner knows about this `UserRRef`.
 
-is_owner(*self: torch._C._distributed_rpc.PyRRef*) → [bool](https://docs.python.org/3/library/functions.html#bool)
+is_owner(*self: torch._C._distributed_rpc.PyRRef*) → [bool](https://docs.python.org/3/builtins/functions.html#bool)
 
 Returns whether or not the current node is the owner of this
 `RRef`.
 
-local_value(*self: torch._C._distributed_rpc.PyRRef*) → [object](https://docs.python.org/3/library/functions.html#object)
+local_value(*self: torch._C._distributed_rpc.PyRRef*) → [object](https://docs.python.org/3/builtins/functions.html#object)
 
 If the current node is the owner, returns a reference to the
 local value. Otherwise, throws an exception.
@@ -1046,11 +1046,11 @@ owner(*self: torch._C._distributed_rpc.PyRRef*) → torch._C._distributed_rpc.Wo
 
 Returns worker information of the node that owns this `RRef`.
 
-owner_name(*self: torch._C._distributed_rpc.PyRRef*) → [str](https://docs.python.org/3/library/stdtypes.html#str)
+owner_name(*self: torch._C._distributed_rpc.PyRRef*) → [str](https://docs.python.org/3/builtins/stdtypes.html#str)
 
 Returns worker name of the node that owns this `RRef`.
 
-remote(*self: torch._C._distributed_rpc.PyRRef*, *timeout: [SupportsFloat](https://docs.python.org/3/library/typing.html#typing.SupportsFloat) | [SupportsIndex](https://docs.python.org/3/library/typing.html#typing.SupportsIndex) = -1.0*) → [object](https://docs.python.org/3/library/functions.html#object)
+remote(*self: torch._C._distributed_rpc.PyRRef*, *timeout: [SupportsFloat](https://docs.python.org/3/library/typing.html#typing.SupportsFloat) | [SupportsIndex](https://docs.python.org/3/library/typing.html#typing.SupportsIndex) = -1.0*) → [object](https://docs.python.org/3/builtins/functions.html#object)
 
 Create a helper proxy to easily launch a `remote` using
 the owner of the RRef as the destination to run functions on
@@ -1067,7 +1067,7 @@ the following:
 
 Parameters:
 
-**timeout** ([*float*](https://docs.python.org/3/library/functions.html#float)*,**optional*) - Timeout for `rref.remote()`. If
+**timeout** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*,**optional*) - Timeout for `rref.remote()`. If
 the creation of this `RRef`
 is not successfully completed within the timeout, then the
 next time there is an attempt to use the RRef
@@ -1085,7 +1085,7 @@ Example::
 >>> rref.remote().view(1, 4).to_here() # returns tensor([[1., 1., 1., 1.]])
 ```
 
-rpc_async(*self: torch._C._distributed_rpc.PyRRef*, *timeout: [SupportsFloat](https://docs.python.org/3/library/typing.html#typing.SupportsFloat) | [SupportsIndex](https://docs.python.org/3/library/typing.html#typing.SupportsIndex) = -1.0*) → [object](https://docs.python.org/3/library/functions.html#object)
+rpc_async(*self: torch._C._distributed_rpc.PyRRef*, *timeout: [SupportsFloat](https://docs.python.org/3/library/typing.html#typing.SupportsFloat) | [SupportsIndex](https://docs.python.org/3/library/typing.html#typing.SupportsIndex) = -1.0*) → [object](https://docs.python.org/3/builtins/functions.html#object)
 
 Create a helper proxy to easily launch an `rpc_async` using
 the owner of the RRef as the destination to run functions on
@@ -1102,7 +1102,7 @@ the following:
 
 Parameters:
 
-**timeout** ([*float*](https://docs.python.org/3/library/functions.html#float)*,**optional*) - Timeout for `rref.rpc_async()`.
+**timeout** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*,**optional*) - Timeout for `rref.rpc_async()`.
 If the call does not complete within this timeframe, an
 exception indicating so will be raised. If this argument
 is not provided, the default RPC timeout will be used.
@@ -1116,7 +1116,7 @@ Example::
 >>> rref.rpc_async().view(1, 4).wait() # returns tensor([[1., 1., 1., 1.]])
 ```
 
-rpc_sync(*self: torch._C._distributed_rpc.PyRRef*, *timeout: [SupportsFloat](https://docs.python.org/3/library/typing.html#typing.SupportsFloat) | [SupportsIndex](https://docs.python.org/3/library/typing.html#typing.SupportsIndex) = -1.0*) → [object](https://docs.python.org/3/library/functions.html#object)
+rpc_sync(*self: torch._C._distributed_rpc.PyRRef*, *timeout: [SupportsFloat](https://docs.python.org/3/library/typing.html#typing.SupportsFloat) | [SupportsIndex](https://docs.python.org/3/library/typing.html#typing.SupportsIndex) = -1.0*) → [object](https://docs.python.org/3/builtins/functions.html#object)
 
 Create a helper proxy to easily launch an `rpc_sync` using
 the owner of the RRef as the destination to run functions on
@@ -1133,7 +1133,7 @@ the following:
 
 Parameters:
 
-**timeout** ([*float*](https://docs.python.org/3/library/functions.html#float)*,**optional*) - Timeout for `rref.rpc_sync()`.
+**timeout** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*,**optional*) - Timeout for `rref.rpc_sync()`.
 If the call does not complete within this timeframe, an
 exception indicating so will be raised. If this argument
 is not provided, the default RPC timeout will be used.
@@ -1147,7 +1147,7 @@ Example::
 >>> rref.rpc_sync().view(1, 4) # returns tensor([[1., 1., 1., 1.]])
 ```
 
-to_here(*self: torch._C._distributed_rpc.PyRRef*, *timeout: [SupportsFloat](https://docs.python.org/3/library/typing.html#typing.SupportsFloat) | [SupportsIndex](https://docs.python.org/3/library/typing.html#typing.SupportsIndex) = -1.0*) → [object](https://docs.python.org/3/library/functions.html#object)
+to_here(*self: torch._C._distributed_rpc.PyRRef*, *timeout: [SupportsFloat](https://docs.python.org/3/library/typing.html#typing.SupportsFloat) | [SupportsIndex](https://docs.python.org/3/library/typing.html#typing.SupportsIndex) = -1.0*) → [object](https://docs.python.org/3/builtins/functions.html#object)
 
 Blocking call that copies the value of the RRef from the owner
 to the local node and returns it. If the current node is the
@@ -1155,7 +1155,7 @@ owner, returns a reference to the local value.
 
 Parameters:
 
-**timeout** ([*float*](https://docs.python.org/3/library/functions.html#float)*,**optional*) - Timeout for `to_here`. If
+**timeout** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*,**optional*) - Timeout for `to_here`. If
 the call does not complete within this timeframe, an
 exception indicating so will be raised. If this
 argument is not provided, the default RPC timeout
@@ -1190,7 +1190,7 @@ handle to this module and invoke this module similar to a regular nn.Module.
 The invocation however incurs RPC calls to the remote end and can be performed
 asynchronously if needed via additional APIs supported by RemoteModule.
 
-*class*torch.distributed.nn.api.remote_module.RemoteModule(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/nn/api/remote_module.py#L605)
+*class*torch.distributed.nn.api.remote_module.RemoteModule(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/nn/api/remote_module.py#L605)
 
 > A RemoteModule instance can only be created after RPC initialization.
 > 
@@ -1226,7 +1226,7 @@ asynchronously if needed via additional APIs supported by RemoteModule.
 
 Parameters:
 
-- **remote_device** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - Device on the destination worker where we'd like to place this module.
+- **remote_device** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - Device on the destination worker where we'd like to place this module.
 The format should be "<workername>/<device>", where the device field can be parsed as torch.device type.
 E.g., "trainer0/cpu", "trainer0", "ps0/cuda:0".
 In addition, the device field can be optional and the default value is "cpu".
@@ -1285,7 +1285,7 @@ Furthermore, a more practical example that is combined with
 [DistributedDataParallel](https://pytorch.org/docs/stable/nn.html#torch.nn.parallel.DistributedDataParallel) (DDP)
 can be found in this [tutorial](https://pytorch.org/tutorials/advanced/rpc_ddp_tutorial.html).
 
-get_module_rref()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/nn/api/remote_module.py#L296)
+get_module_rref()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/nn/api/remote_module.py#L296)
 
 Return an `RRef` (`RRef[nn.Module]`) pointing to the remote module.
 
@@ -1293,7 +1293,7 @@ Return type:
 
 *RRef*[[*Module*](generated/torch.nn.Module.html#torch.nn.Module)]
 
-remote_parameters(*recurse=True*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/nn/api/remote_module.py#L277)
+remote_parameters(*recurse=True*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/nn/api/remote_module.py#L277)
 
 Return a list of `RRef` pointing to the remote module's parameters.
 
@@ -1302,7 +1302,7 @@ with [`DistributedOptimizer`](distributed.optim.html#torch.distributed.optim.Dis
 
 Parameters:
 
-**recurse** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - if True, then returns parameters of the remote
+**recurse** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - if True, then returns parameters of the remote
 module and all submodules of the remote module. Otherwise,
 returns only parameters that are direct members of the
 remote module.
@@ -1314,7 +1314,7 @@ to remote module's parameters.
 
 Return type:
 
-[list](https://docs.python.org/3/library/stdtypes.html#list)[*RRef*[[*Parameter*](generated/torch.nn.parameter.Parameter.html#torch.nn.parameter.Parameter)]]
+[list](https://docs.python.org/3/builtins/stdtypes.html#list)[*RRef*[[*Parameter*](generated/torch.nn.parameter.Parameter.html#torch.nn.parameter.Parameter)]]
 
 ## Distributed Autograd Framework
 
@@ -1329,7 +1329,7 @@ we record when gradient recording tensors are sent over RPC and during the
 backward pass we use this information to perform a distributed backward pass
 using RPC. For more details see [Distributed Autograd Design](rpc/distributed_autograd.html#distributed-autograd-design).
 
-torch.distributed.autograd.backward(*context_id: [int](https://docs.python.org/3/library/functions.html#int)*, *roots: List[[Tensor](tensors.html#torch.Tensor)]*, *retain_graph=False*) → [None](https://docs.python.org/3/library/constants.html#None)
+torch.distributed.autograd.backward(*context_id: [int](https://docs.python.org/3/builtins/functions.html#int)*, *roots: List[[Tensor](tensors.html#torch.Tensor)]*, *retain_graph=False*) → [None](https://docs.python.org/3/builtins/constants.html#None)
 
 Kicks off the distributed backward pass using the provided roots. This
 currently implements the [FAST mode algorithm](rpc/distributed_autograd.html#fast-mode-algorithm) which
@@ -1350,10 +1350,10 @@ retrieve the accumulated gradients using the
 
 Parameters:
 
-- **context_id** ([*int*](https://docs.python.org/3/library/functions.html#int)) - The autograd context id for which we should retrieve the gradients.
-- **roots** ([*list*](https://docs.python.org/3/library/stdtypes.html#list)) - Tensors which represent the roots of the autograd
+- **context_id** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - The autograd context id for which we should retrieve the gradients.
+- **roots** ([*list*](https://docs.python.org/3/builtins/stdtypes.html#list)) - Tensors which represent the roots of the autograd
 computation. All the tensors should be scalars.
-- **retain_graph** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If False, the graph used to compute the grad
+- **retain_graph** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If False, the graph used to compute the grad
 will be freed. Note that in nearly all cases setting this
 option to True is not needed and often can be worked around
 in a much more efficient way. Usually, you need to set this
@@ -1369,7 +1369,7 @@ Example::
 >>> dist_autograd.backward(context_id, loss)
 ```
 
-*class*torch.distributed.autograd.context[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/autograd/__init__.py#L37)
+*class*torch.distributed.autograd.context[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/autograd/__init__.py#L37)
 
 Context object to wrap forward and backward passes when using
 distributed autograd. The `context_id` generated in the `with`
@@ -1389,7 +1389,7 @@ Example::
 >>> dist_autograd.backward(context_id, [loss])
 ```
 
-torch.distributed.autograd.get_gradients(*context_id: [int](https://docs.python.org/3/library/functions.html#int)*) → Dict[[Tensor](tensors.html#torch.Tensor), [Tensor](tensors.html#torch.Tensor)]
+torch.distributed.autograd.get_gradients(*context_id: [int](https://docs.python.org/3/builtins/functions.html#int)*) → Dict[[Tensor](tensors.html#torch.Tensor), [Tensor](tensors.html#torch.Tensor)]
 
 Retrieves a map from Tensor to the appropriate gradient for that Tensor
 accumulated in the provided context corresponding to the given `context_id`
@@ -1397,7 +1397,7 @@ as part of the distributed autograd backward pass.
 
 Parameters:
 
-**context_id** ([*int*](https://docs.python.org/3/library/functions.html#int)) - The autograd context id for which we should retrieve the
+**context_id** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - The autograd context id for which we should retrieve the
 gradients.
 
 Returns:
@@ -1419,11 +1419,11 @@ Example::
 >>> print(grads[t2])
 ```
 
-torch.distributed.autograd.is_available()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/autograd/__init__.py#L12)
+torch.distributed.autograd.is_available()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/autograd/__init__.py#L12)
 
 Return type:
 
-[bool](https://docs.python.org/3/library/functions.html#bool)
+[bool](https://docs.python.org/3/builtins/functions.html#bool)
 
 More Information about RPC Autograd
 

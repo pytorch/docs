@@ -1,6 +1,6 @@
 # torch.load
 
-torch.load(*f*, *map_location=None*, *pickle_module=pickle*, ***, *weights_only=True*, *mmap=None*, ***pickle_load_args*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/serialization.py#L1315)
+torch.load(*f*, *map_location=None*, *pickle_module=pickle*, ***, *weights_only=True*, *mmap=None*, ***pickle_load_args*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/serialization.py#L1316)
 
 Loads an object saved with [`torch.save()`](torch.save.html#torch.save) from a file.
 
@@ -43,13 +43,13 @@ See [Layout Control](../notes/serialization.html#layout-control) for more advanc
 
 Parameters:
 
-- **f** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*|*[*PathLike*](https://docs.python.org/3/library/os.html#os.PathLike)*[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*]**|*[*IO*](https://docs.python.org/3/library/typing.html#typing.IO)*[*[*bytes*](https://docs.python.org/3/library/stdtypes.html#bytes)*]*) - a file-like object (has to implement `read()`, `readline()`, `tell()`, and `seek()`),
+- **f** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*|*[*PathLike*](https://docs.python.org/3/library/os.html#os.PathLike)*[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*]**|*[*IO*](https://docs.python.org/3/library/typing.html#typing.IO)*[*[*bytes*](https://docs.python.org/3/builtins/stdtypes.html#bytes)*]*) - a file-like object (has to implement `read()`, `readline()`, `tell()`, and `seek()`),
 or a string or os.PathLike object containing a file name
-- **map_location** ([*Callable*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)*[**[**Storage**,*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*]**,**Storage**]**|*[*device*](../tensor_attributes.html#torch.device)*|*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*|*[*dict*](https://docs.python.org/3/library/stdtypes.html#dict)*[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*,*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*]**|**None*) - a function, [`torch.device`](../tensor_attributes.html#torch.device), string or a dict specifying how to remap storage
+- **map_location** ([*Callable*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)*[**[**Storage**,*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*]**,**Storage**]**|*[*device*](../tensor_attributes.html#torch.device)*|*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*|*[*dict*](https://docs.python.org/3/builtins/stdtypes.html#dict)*[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*]**|**None*) - a function, [`torch.device`](../tensor_attributes.html#torch.device), string or a dict specifying how to remap storage
 locations
 - **pickle_module** ([*Any*](https://docs.python.org/3/library/typing.html#typing.Any)*|**None*) - module used for unpickling metadata and objects (has to
 match the `pickle_module` used to serialize file)
-- **weights_only** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*|**None*) - Indicates whether unpickler should be restricted to
+- **weights_only** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*|**None*) - Indicates whether unpickler should be restricted to
 loading only tensors, primitive types, dictionaries
 and any types added via [`torch.serialization.add_safe_globals()`](../notes/serialization.html#torch.serialization.add_safe_globals).
 See [torch.load with weights_only=True](../notes/serialization.html#weights-only) for more details. When `weights_only=True`
@@ -57,7 +57,7 @@ and the checkpoint contains sparse tensors, their invariants (e.g.
 index bounds) are always validated to prevent malformed indices from
 causing out-of-bounds reads later; this is an O(nnz) scan per sparse
 tensor and may be slow for large checkpoints.
-- **mmap** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*|**None*) - Indicates whether the file should be mapped rather than loading all the storages into memory.
+- **mmap** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*|**None*) - Indicates whether the file should be mapped rather than loading all the storages into memory.
 Typically, tensor storages in the file will first be moved from disk to CPU memory, after which they
 are moved to the location that they were tagged with when saving, or specified by `map_location`. This
 second step is a no-op if the final location is CPU. When the `mmap` flag is set, instead of copying the

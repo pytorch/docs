@@ -1,6 +1,6 @@
 # torch.svd_lowrank
 
-torch.svd_lowrank(*A*, *q=6*, *niter=2*, *M=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/_lowrank.py#L85)
+torch.svd_lowrank(*A*, *q=6*, *niter=2*, *M=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/_lowrank.py#L85)
 
 Return the singular value decomposition `(U, S, V)` of a matrix,
 batches of matrices, or a sparse matrix AAA such that
@@ -62,4 +62,4 @@ arXiv:0909.4061 [math.NA; math.PR], 2009 (available at
 
 Return type:
 
-[tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[*Tensor*](../tensors.html#torch.Tensor), [*Tensor*](../tensors.html#torch.Tensor), [*Tensor*](../tensors.html#torch.Tensor)]
+[tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[*Tensor*](../tensors.html#torch.Tensor), [*Tensor*](../tensors.html#torch.Tensor), [*Tensor*](../tensors.html#torch.Tensor)]

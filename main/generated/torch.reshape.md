@@ -16,7 +16,7 @@ dimensions and the number of elements in `input`.
 Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - the tensor to be reshaped
-- **shape** ([*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*of*[*int*](https://docs.python.org/3/library/functions.html#int)) - the new shape
+- **shape** ([*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*of*[*int*](https://docs.python.org/3/builtins/functions.html#int)) - the new shape
 
 Example:
 

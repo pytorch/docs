@@ -1,6 +1,6 @@
 # torch.optim.Optimizer.register_load_state_dict_pre_hook
 
-Optimizer.register_load_state_dict_pre_hook(*hook*, *prepend=False*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/optim/optimizer.py#L834)
+Optimizer.register_load_state_dict_pre_hook(*hook*, *prepend=False*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/optim/optimizer.py#L834)
 
 Register a load_state_dict pre-hook which will be called before
 [`load_state_dict()`](torch.optim.Optimizer.load_state_dict.html#torch.optim.Optimizer.load_state_dict) is called. It should have the
@@ -23,7 +23,7 @@ perform pre-processing before the `load_state_dict` call is made.
 Parameters:
 
 - **hook** (*Callable*) - The user defined hook to be registered.
-- **prepend** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If True, the provided pre `hook` will be fired before
+- **prepend** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - If True, the provided pre `hook` will be fired before
 all the already registered pre-hooks on `load_state_dict`. Otherwise,
 the provided `hook` will be fired after all the already registered
 pre-hooks. (default: False)

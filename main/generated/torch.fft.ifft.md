@@ -1,6 +1,6 @@
 # torch.fft.ifft
 
-torch.fft.ifft(*input*, *n=None*, *dim=-1*, *norm=None*, ***, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fft/__init__.py#L88)
+torch.fft.ifft(*input*, *n=None*, *dim=-1*, *norm=None*, ***, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fft/__init__.py#L88)
 
 Computes the one dimensional inverse discrete Fourier transform of `input`.
 
@@ -12,10 +12,10 @@ However it only supports powers of 2 signal length in every transformed dimensio
 Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - the input tensor
-- **n** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - Signal length. If given, the input will either be zero-padded
+- **n** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - Signal length. If given, the input will either be zero-padded
 or trimmed to this length before computing the IFFT.
-- **dim** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - The dimension along which to take the one dimensional IFFT.
-- **norm** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**optional*) -
+- **dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - The dimension along which to take the one dimensional IFFT.
+- **norm** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**optional*) -
 
 Normalization mode. For the backward transform
 (`ifft()`), these correspond to:

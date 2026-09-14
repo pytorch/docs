@@ -61,14 +61,14 @@ If int, defines the number of equal-width bins for all dimensions.
 
 Keyword Arguments:
 
-- **range** (*sequence**of*[*float*](https://docs.python.org/3/library/functions.html#float)) - Defines the leftmost and rightmost bin edges
+- **range** (*sequence**of*[*float*](https://docs.python.org/3/builtins/functions.html#float)) - Defines the leftmost and rightmost bin edges
 in each dimension.
 - **weight** ([*Tensor*](../tensors.html#torch.Tensor)) - By default, each value in the input has weight 1. If a weight
 tensor is passed, each N-dimensional coordinate in input
 contributes its associated weight towards its bin's result.
 The weight tensor should have the same shape as the `input`
 tensor excluding its innermost dimension N.
-- **density** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If False (default), the result will contain the count (or total weight)
+- **density** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - If False (default), the result will contain the count (or total weight)
 in each bin. If True, each count (weight) is divided by the total count
 (total weight), then divided by the volume of its associated bin.
 

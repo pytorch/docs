@@ -1,6 +1,6 @@
 # torch.cuda.memory.reset_accumulated_memory_stats
 
-torch.cuda.memory.reset_accumulated_memory_stats(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/cuda/memory.py#L362)
+torch.cuda.memory.reset_accumulated_memory_stats(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/cuda/memory.py#L362)
 
 Reset the "accumulated" (historical) stats tracked by the CUDA memory allocator.
 
@@ -10,7 +10,7 @@ the "allocated" and "freed" keys in each individual stat dict, as well as
 
 Parameters:
 
-**device** ([*torch.device*](../tensor_attributes.html#torch.device)*or*[*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - selected device. Returns
+**device** ([*torch.device*](../tensor_attributes.html#torch.device)*or*[*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - selected device. Returns
 statistic for the current device, given by [`current_device()`](torch.cuda.current_device.html#torch.cuda.current_device),
 if `device` is `None` (default).
 

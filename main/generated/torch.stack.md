@@ -13,7 +13,7 @@ See also
 Parameters:
 
 - **tensors** (*sequence**of**Tensors*) - sequence of tensors to concatenate
-- **dim** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - dimension to insert. Has to be between 0 and the number
+- **dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - dimension to insert. Has to be between 0 and the number
 of dimensions of concatenated tensors (inclusive). Default: 0
 
 Keyword Arguments:

@@ -19,7 +19,7 @@ is nondeterministic since it depends on which copy occurs last.
 
 Parameters:
 
-- **dim** ([*int*](https://docs.python.org/3/library/functions.html#int)) - dimension along which to index
+- **dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - dimension along which to index
 - **index** (*LongTensor*) - indices of [`tensor`](torch.tensor.html#torch.tensor) to select from
 - **tensor** ([*Tensor*](../tensors.html#torch.Tensor)) - the tensor containing values to copy
 

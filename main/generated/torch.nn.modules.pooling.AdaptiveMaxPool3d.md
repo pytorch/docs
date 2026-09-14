@@ -1,6 +1,6 @@
 # AdaptiveMaxPool3d
 
-*class*torch.nn.modules.pooling.AdaptiveMaxPool3d(*output_size*, *return_indices=False*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/pooling.py#L1391)
+*class*torch.nn.modules.pooling.AdaptiveMaxPool3d(*output_size*, *return_indices=False*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/pooling.py#L1391)
 
 Applies a 3D adaptive max pooling over an input signal composed of several input planes.
 
@@ -9,12 +9,12 @@ The number of output features is equal to the number of input planes.
 
 Parameters:
 
-- **output_size** ([*int*](https://docs.python.org/3/library/functions.html#int)*|**None**|*[*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*[*[*int*](https://docs.python.org/3/library/functions.html#int)*|**None**,*[*int*](https://docs.python.org/3/library/functions.html#int)*|**None**,*[*int*](https://docs.python.org/3/library/functions.html#int)*|**None**]*) - the target output size of the image of the form Dout×Hout×WoutD_{out} \times H_{out} \times W_{out}Dout​×Hout​×Wout​.
+- **output_size** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*|**None**|*[*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*[*[*int*](https://docs.python.org/3/builtins/functions.html#int)*|**None**,*[*int*](https://docs.python.org/3/builtins/functions.html#int)*|**None**,*[*int*](https://docs.python.org/3/builtins/functions.html#int)*|**None**]*) - the target output size of the image of the form Dout×Hout×WoutD_{out} \times H_{out} \times W_{out}Dout​×Hout​×Wout​.
 Can be a tuple (Dout,Hout,Wout)(D_{out}, H_{out}, W_{out})(Dout​,Hout​,Wout​) or a single
 DoutD_{out}Dout​ for a cube Dout×Dout×DoutD_{out} \times D_{out} \times D_{out}Dout​×Dout​×Dout​.
 DoutD_{out}Dout​, HoutH_{out}Hout​ and WoutW_{out}Wout​ can be either an
 `int`, or `None` which means the size will be the same as that of the input.
-- **return_indices** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - if `True`, will return the indices along with the outputs.
+- **return_indices** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - if `True`, will return the indices along with the outputs.
 Useful to pass to nn.MaxUnpool3d. Default: `False`
 
 Shape:
@@ -40,6 +40,6 @@ Examples
 >>> output = m(input)
 ```
 
-forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/pooling.py#L1430)
+forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/pooling.py#L1430)
 
 Runs the forward pass.

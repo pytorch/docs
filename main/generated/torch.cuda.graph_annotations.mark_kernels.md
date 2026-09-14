@@ -1,6 +1,6 @@
 # torch.cuda.graph_annotations.mark_kernels
 
-torch.cuda.graph_annotations.mark_kernels(*annotation*, ***, *backward=True*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/cuda/_graph_annotations.py#L794)
+torch.cuda.graph_annotations.mark_kernels(*annotation*, ***, *backward=True*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/cuda/_graph_annotations.py#L794)
 
 Context manager that annotates GPU work captured within its scope.
 
@@ -40,11 +40,11 @@ roots when the scope is the first captured work).
 
 Parameters:
 
-- **annotation** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*or*[*dict*](https://docs.python.org/3/library/stdtypes.html#dict)) - Metadata to attach to each captured node.
+- **annotation** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*or*[*dict*](https://docs.python.org/3/builtins/stdtypes.html#dict)) - Metadata to attach to each captured node.
 A string `s` is recorded as `{"name": s}`. Dict values must
 be picklable. The key `"name"` names the region in trace
 tooling; `"stream"` is reserved for stream-lane assignment.
-- **backward** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - Whether to also annotate the backward kernels of
+- **backward** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Whether to also annotate the backward kernels of
 autograd nodes created inside the scope. Default: `True`.
 
 Note

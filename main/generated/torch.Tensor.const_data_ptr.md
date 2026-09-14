@@ -1,6 +1,6 @@
 # torch.Tensor.const_data_ptr
 
-Tensor.const_data_ptr() → [int](https://docs.python.org/3/library/functions.html#int)
+Tensor.const_data_ptr() → [int](https://docs.python.org/3/builtins/functions.html#int)
 
 Returns the address of the first element of `self` tensor.
 

@@ -80,7 +80,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.15.0a0+gitea89e4e )">
+<meta name="llm:version" content="main (2.15.0a0+gitb8bd7cf )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -186,7 +186,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+gitea89e4e )');
+  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+gitb8bd7cf )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3635,7 +3635,7 @@ document.write(`
 <h1>EventList<a class="headerlink" href="#eventlist" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.autograd.profiler_util.EventList">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.autograd.profiler_util.</span></span><span class="sig-name descname"><span class="pre">EventList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/autograd/profiler_util.py#L29"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.profiler_util.EventList" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.autograd.profiler_util.</span></span><span class="sig-name descname"><span class="pre">EventList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/autograd/profiler_util.py#L29"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.profiler_util.EventList" title="Link to this definition">#</a></dt>
 <dd><p>A list of profiling events with helper methods for analysis and visualization.</p>
 <p>EventList extends the standard Python list to provide specialized methods for
 working with profiling events (FunctionEvent or FunctionEventAvg objects).
@@ -3647,17 +3647,17 @@ instantiated directly by users.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>*args</strong> – Standard list arguments.</p></li>
-<li><p><strong>use_device</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – Device type for profiling (“cuda”, “xpu”, etc.).</p></li>
-<li><p><strong>profile_memory</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – Whether memory profiling was enabled. Default: False.</p></li>
-<li><p><strong>with_flops</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – Whether to include FLOP counts. Default: False.</p></li>
+<li><p><strong>use_device</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – Device type for profiling (“cuda”, “xpu”, etc.).</p></li>
+<li><p><strong>profile_memory</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – Whether memory profiling was enabled. Default: False.</p></li>
+<li><p><strong>with_flops</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – Whether to include FLOP counts. Default: False.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Variables<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>_use_device</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Device type being profiled.</p></li>
-<li><p><strong>_profile_memory</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Whether memory profiling is enabled.</p></li>
-<li><p><strong>_with_flops</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Whether FLOP counting is enabled.</p></li>
-<li><p><strong>_tree_built</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Whether the event tree structure has been built.</p></li>
+<li><p><strong>_use_device</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Device type being profiled.</p></li>
+<li><p><strong>_profile_memory</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Whether memory profiling is enabled.</p></li>
+<li><p><strong>_with_flops</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Whether FLOP counting is enabled.</p></li>
+<li><p><strong>_tree_built</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Whether the event tree structure has been built.</p></li>
 </ul>
 </dd>
 </dl>
@@ -3735,12 +3735,12 @@ total_average(): Compute aggregate totals across all events (sums, not averages)
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.autograd.profiler_util.EventList.export_chrome_trace">
-<span class="sig-name descname"><span class="pre">export_chrome_trace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/autograd/profiler_util.py#L288"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.profiler_util.EventList.export_chrome_trace" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">export_chrome_trace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/autograd/profiler_util.py#L288"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.profiler_util.EventList.export_chrome_trace" title="Link to this definition">#</a></dt>
 <dd><p>Export an EventList as a Chrome tracing tools file.</p>
 <p>The checkpoint can be later loaded and inspected under <code class="docutils literal notranslate"><span class="pre">chrome://tracing</span></code> URL.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Path where the trace will be written.</p>
+<dd class="field-odd"><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Path where the trace will be written.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -3766,7 +3766,7 @@ total_average(): Compute aggregate totals across all events (sums, not averages)
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.autograd.profiler_util.EventList.key_averages">
-<span class="sig-name descname"><span class="pre">key_averages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">group_by_input_shapes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_by_stack_n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_by_overload_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_python_functions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/autograd/profiler_util.py#L377"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.profiler_util.EventList.key_averages" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">key_averages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">group_by_input_shapes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_by_stack_n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_by_overload_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_python_functions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/autograd/profiler_util.py#L377"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.profiler_util.EventList.key_averages" title="Link to this definition">#</a></dt>
 <dd><p>Averages all function events over their keys.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -3826,24 +3826,24 @@ ascending or descending, according to their function values.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.autograd.profiler_util.EventList.table">
-<span class="sig-name descname"><span class="pre">table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sort_by</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_src_column_width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">75</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_name_column_width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">55</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_shapes_column_width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">80</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">header</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top_level_events_only</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_unit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/autograd/profiler_util.py#L242"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.profiler_util.EventList.table" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sort_by</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_src_column_width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">75</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_name_column_width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">55</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_shapes_column_width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">80</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">header</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top_level_events_only</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_unit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/autograd/profiler_util.py#L242"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.profiler_util.EventList.table" title="Link to this definition">#</a></dt>
 <dd><p>Print an EventList as a nicely formatted table.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>sort_by</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – Attribute used to sort entries. By default
+<li><p><strong>sort_by</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – Attribute used to sort entries. By default
 they are printed in the same order as they were registered.
 Valid keys include: <code class="docutils literal notranslate"><span class="pre">cpu_time</span></code>, <code class="docutils literal notranslate"><span class="pre">cuda_time</span></code>, <code class="docutils literal notranslate"><span class="pre">xpu_time</span></code>,
 <code class="docutils literal notranslate"><span class="pre">cpu_time_total</span></code>, <code class="docutils literal notranslate"><span class="pre">cuda_time_total</span></code>, <code class="docutils literal notranslate"><span class="pre">xpu_time_total</span></code>,
 <code class="docutils literal notranslate"><span class="pre">cpu_memory_usage</span></code>, <code class="docutils literal notranslate"><span class="pre">cuda_memory_usage</span></code>, <code class="docutils literal notranslate"><span class="pre">xpu_memory_usage</span></code>,
 <code class="docutils literal notranslate"><span class="pre">self_cpu_memory_usage</span></code>, <code class="docutils literal notranslate"><span class="pre">self_cuda_memory_usage</span></code>,
 <code class="docutils literal notranslate"><span class="pre">self_xpu_memory_usage</span></code>, <code class="docutils literal notranslate"><span class="pre">count</span></code>.</p></li>
-<li><p><strong>top_level_events_only</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – Boolean flag to determine the
+<li><p><strong>top_level_events_only</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – Boolean flag to determine the
 selection of events to display. If true, the profiler will only
 display events at top level like top-level invocation of python
 <cite>lstm</cite>, python <cite>add</cite> or other functions, nested events like low-level
 cpu/cuda/xpu ops events are omitted for profiler result readability.</p></li>
-<li><p><strong>time_unit</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – A time unit to be used for all values in the
+<li><p><strong>time_unit</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – A time unit to be used for all values in the
 table. Valid options are: <code class="docutils literal notranslate"><span class="pre">s</span></code>, <code class="docutils literal notranslate"><span class="pre">ms</span></code> and <code class="docutils literal notranslate"><span class="pre">us</span></code>.</p></li>
 </ul>
 </dd>
@@ -3855,7 +3855,7 @@ table. Valid options are: <code class="docutils literal notranslate"><span class
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.autograd.profiler_util.EventList.total_average">
-<span class="sig-name descname"><span class="pre">total_average</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/autograd/profiler_util.py#L455"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.profiler_util.EventList.total_average" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">total_average</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/autograd/profiler_util.py#L455"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.profiler_util.EventList.total_average" title="Link to this definition">#</a></dt>
 <dd><p>Compute aggregate statistics across all events.</p>
 <p>Accumulates statistics from all events into a single FunctionEventAvg object.
 This is primarily useful for computing total metrics (total CPU time, total

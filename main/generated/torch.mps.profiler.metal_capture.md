@@ -1,6 +1,6 @@
 # torch.mps.profiler.metal_capture
 
-torch.mps.profiler.metal_capture(*fname*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/mps/profiler.py#L91)
+torch.mps.profiler.metal_capture(*fname*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/mps/profiler.py#L91)
 
 Context manager that enables capturing of Metal calls into gputrace
 

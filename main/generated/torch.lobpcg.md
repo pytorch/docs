@@ -1,6 +1,6 @@
 # torch.lobpcg
 
-torch.lobpcg(*A*, *k=None*, *B=None*, *X=None*, *n=None*, *iK=None*, *niter=None*, *tol=None*, *largest=None*, *method=None*, *tracker=None*, *ortho_iparams=None*, *ortho_fparams=None*, *ortho_bparams=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/_lobpcg.py#L343)
+torch.lobpcg(*A*, *k=None*, *B=None*, *X=None*, *n=None*, *iK=None*, *niter=None*, *tol=None*, *largest=None*, *method=None*, *tracker=None*, *ortho_iparams=None*, *ortho_fparams=None*, *ortho_bparams=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/_lobpcg.py#L343)
 
 Find the k largest (or smallest) eigenvalues and the corresponding
 eigenvectors of a symmetric positive definite generalized
@@ -70,20 +70,20 @@ ignored and n is automatically set to the number of
 columns in XXX.
 - **iK** (*tensor**,**optional*) - the input tensor of size (∗,m,m)(*, m,
 m)(∗,m,m). When specified, it will be used as preconditioner.
-- **niter** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - maximum number of iterations. When
+- **niter** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - maximum number of iterations. When
 reached, the iteration process is hard-stopped and
 the current approximation of eigenpairs is returned.
 For infinite iteration but until convergence criteria
 is met, use -1.
-- **tol** ([*float*](https://docs.python.org/3/library/functions.html#float)*,**optional*) - residual tolerance for stopping
+- **tol** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*,**optional*) - residual tolerance for stopping
 criterion. Default is feps ** 0.5 where feps is
 smallest non-zero floating-point number of the given
 input tensor A data type.
-- **largest** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - when True, solve the eigenproblem for
+- **largest** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - when True, solve the eigenproblem for
 the largest eigenvalues. Otherwise, solve the
 eigenproblem for smallest eigenvalues. Default is
 True.
-- **method** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**optional*) - select LOBPCG method. See the
+- **method** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**optional*) - select LOBPCG method. See the
 description of the function above. Default is
 "ortho".
 - **tracker** (*callable**,**optional*) -
@@ -129,11 +129,11 @@ the LOBPCG instance, it must make copies of these.
 
 If tracker sets bvars["force_stop"] = True, the
 iteration process will be hard-stopped.
-- **ortho_iparams** ([*dict*](https://docs.python.org/3/library/stdtypes.html#dict)*,**optional*) - various parameters to LOBPCG algorithm when using
+- **ortho_iparams** ([*dict*](https://docs.python.org/3/builtins/stdtypes.html#dict)*,**optional*) - various parameters to LOBPCG algorithm when using
 method="ortho".
-- **ortho_fparams** ([*dict*](https://docs.python.org/3/library/stdtypes.html#dict)*,**optional*) - various parameters to LOBPCG algorithm when using
+- **ortho_fparams** ([*dict*](https://docs.python.org/3/builtins/stdtypes.html#dict)*,**optional*) - various parameters to LOBPCG algorithm when using
 method="ortho".
-- **ortho_bparams** ([*dict*](https://docs.python.org/3/library/stdtypes.html#dict)*,**optional*) - various parameters to LOBPCG algorithm when using
+- **ortho_bparams** ([*dict*](https://docs.python.org/3/builtins/stdtypes.html#dict)*,**optional*) - various parameters to LOBPCG algorithm when using
 method="ortho".
 
 Returns:

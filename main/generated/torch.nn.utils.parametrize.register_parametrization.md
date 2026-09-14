@@ -1,6 +1,6 @@
 # torch.nn.utils.parametrize.register_parametrization
 
-torch.nn.utils.parametrize.register_parametrization(*module*, *tensor_name*, *parametrization*, ***, *unsafe=False*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/utils/parametrize.py#L450)
+torch.nn.utils.parametrize.register_parametrization(*module*, *tensor_name*, *parametrization*, ***, *unsafe=False*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/utils/parametrize.py#L450)
 
 Register a parametrization to a tensor in a module.
 
@@ -72,20 +72,20 @@ to the optimizer. See `torch.Optimizer.add_param_group()`.
 Parameters:
 
 - **module** ([*nn.Module*](torch.nn.Module.html#torch.nn.Module)) - module on which to register the parametrization
-- **tensor_name** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - name of the parameter or buffer on which to register
+- **tensor_name** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - name of the parameter or buffer on which to register
 the parametrization
 - **parametrization** ([*nn.Module*](torch.nn.Module.html#torch.nn.Module)) - the parametrization to register
 
 Keyword Arguments:
 
-**unsafe** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - a boolean flag that denotes whether the parametrization
+**unsafe** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - a boolean flag that denotes whether the parametrization
 may change the dtype and shape of the tensor. Default: False
 Warning: the parametrization is not checked for consistency upon registration.
 Enable this flag at your own risk.
 
 Raises:
 
-[**ValueError**](https://docs.python.org/3/library/exceptions.html#ValueError) - if the module does not have a parameter or a buffer named `tensor_name`
+[**ValueError**](https://docs.python.org/3/builtins/exceptions.html#ValueError) - if the module does not have a parameter or a buffer named `tensor_name`
 
 Return type:
 

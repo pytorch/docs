@@ -1,6 +1,6 @@
 # MaxPool1d
 
-*class*torch.nn.MaxPool1d(*kernel_size*, *stride=None*, *padding=0*, *dilation=1*, *return_indices=False*, *ceil_mode=False*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/pooling.py#L79)
+*class*torch.nn.MaxPool1d(*kernel_size*, *stride=None*, *padding=0*, *dilation=1*, *return_indices=False*, *ceil_mode=False*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/pooling.py#L79)
 
 Applies a 1D max pooling over an input signal composed of several input planes.
 
@@ -23,13 +23,13 @@ or the input. Sliding windows that would start in the right padded region are ig
 
 Parameters:
 
-- **kernel_size** ([*int*](https://docs.python.org/3/library/functions.html#int)*|*[*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*[*[*int*](https://docs.python.org/3/library/functions.html#int)*]*) - The size of the sliding window, must be > 0.
-- **stride** ([*int*](https://docs.python.org/3/library/functions.html#int)*|*[*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*[*[*int*](https://docs.python.org/3/library/functions.html#int)*]*) - The stride of the sliding window, must be > 0. Default value is `kernel_size`.
-- **padding** ([*int*](https://docs.python.org/3/library/functions.html#int)*|*[*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*[*[*int*](https://docs.python.org/3/library/functions.html#int)*]*) - Implicit negative infinity padding to be added on both sides, must be >= 0 and <= kernel_size / 2.
-- **dilation** ([*int*](https://docs.python.org/3/library/functions.html#int)*|*[*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*[*[*int*](https://docs.python.org/3/library/functions.html#int)*]*) - The stride between elements within a sliding window, must be > 0.
-- **return_indices** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If `True`, will return the argmax along with the max values.
+- **kernel_size** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*|*[*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*[*[*int*](https://docs.python.org/3/builtins/functions.html#int)*]*) - The size of the sliding window, must be > 0.
+- **stride** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*|*[*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*[*[*int*](https://docs.python.org/3/builtins/functions.html#int)*]*) - The stride of the sliding window, must be > 0. Default value is `kernel_size`.
+- **padding** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*|*[*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*[*[*int*](https://docs.python.org/3/builtins/functions.html#int)*]*) - Implicit negative infinity padding to be added on both sides, must be >= 0 and <= kernel_size / 2.
+- **dilation** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*|*[*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*[*[*int*](https://docs.python.org/3/builtins/functions.html#int)*]*) - The stride between elements within a sliding window, must be > 0.
+- **return_indices** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - If `True`, will return the argmax along with the max values.
 Useful for [`torch.nn.MaxUnpool1d`](torch.nn.MaxUnpool1d.html#torch.nn.MaxUnpool1d) later
-- **ceil_mode** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If `True`, will use ceil instead of floor to compute the output shape. This
+- **ceil_mode** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - If `True`, will use ceil instead of floor to compute the output shape. This
 ensures that every element in the input tensor is covered by a sliding window.
 
 Shape:
@@ -62,6 +62,6 @@ Examples:
 >>> output = m(input)
 ```
 
-forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/pooling.py#L142)
+forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/pooling.py#L142)
 
 Runs the forward pass.

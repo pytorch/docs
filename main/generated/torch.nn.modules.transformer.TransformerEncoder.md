@@ -1,6 +1,6 @@
 # TransformerEncoder
 
-*class*torch.nn.modules.transformer.TransformerEncoder(*encoder_layer*, *num_layers*, *norm=None*, *enable_nested_tensor=True*, *mask_check=True*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/transformer.py#L320)
+*class*torch.nn.modules.transformer.TransformerEncoder(*encoder_layer*, *num_layers*, *norm=None*, *enable_nested_tensor=True*, *mask_check=True*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/transformer.py#L320)
 
 TransformerEncoder is a stack of N encoder layers.
 
@@ -21,9 +21,9 @@ It is recommended to manually initialize the layers after creating the Transform
 Parameters:
 
 - **encoder_layer** ([*TransformerEncoderLayer*](torch.nn.modules.transformer.TransformerEncoderLayer.html#torch.nn.modules.transformer.TransformerEncoderLayer)) - an instance of the TransformerEncoderLayer() class (required).
-- **num_layers** ([*int*](https://docs.python.org/3/library/functions.html#int)) - the number of sub-encoder-layers in the encoder (required).
+- **num_layers** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - the number of sub-encoder-layers in the encoder (required).
 - **norm** ([*Module*](torch.nn.Module.html#torch.nn.Module)*|**None*) - the layer normalization component (optional).
-- **enable_nested_tensor** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - if True, input will automatically convert to nested tensor
+- **enable_nested_tensor** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - if True, input will automatically convert to nested tensor
 (and convert back on output). This will improve the overall performance of
 TransformerEncoder when padding rate is high. Default: `True` (enabled).
 
@@ -38,7 +38,7 @@ Examples
 >>> out = transformer_encoder(src)
 ```
 
-forward(*src*, *mask=None*, *src_key_padding_mask=None*, *is_causal=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/transformer.py#L409)
+forward(*src*, *mask=None*, *src_key_padding_mask=None*, *is_causal=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/transformer.py#L409)
 
 Pass the input through the encoder layers in turn.
 
@@ -47,7 +47,7 @@ Parameters:
 - **src** ([*Tensor*](../tensors.html#torch.Tensor)) - the sequence to the encoder (required).
 - **mask** ([*Tensor*](../tensors.html#torch.Tensor)*|**None*) - the mask for the src sequence (optional).
 - **src_key_padding_mask** ([*Tensor*](../tensors.html#torch.Tensor)*|**None*) - the mask for the src keys per batch (optional).
-- **is_causal** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*|**None*) - If specified, applies a causal mask as `mask`.
+- **is_causal** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*|**None*) - If specified, applies a causal mask as `mask`.
 Default: `None`; try to detect a causal mask.
 Warning:
 `is_causal` provides a hint that `mask` is the

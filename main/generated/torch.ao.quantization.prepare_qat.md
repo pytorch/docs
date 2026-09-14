@@ -1,6 +1,6 @@
 # prepare_qat
 
-*class*torch.ao.quantization.prepare_qat(*model*, *mapping=None*, *inplace=False*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/ao/quantization/quantize.py#L574)
+*class*torch.ao.quantization.prepare_qat(*model*, *mapping=None*, *inplace=False*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/ao/quantization/quantize.py#L574)
 
 Prepares a copy of the model for quantization calibration or
 quantization-aware training and converts it to quantized version.

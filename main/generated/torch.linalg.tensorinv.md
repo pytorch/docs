@@ -1,6 +1,6 @@
 # torch.linalg.tensorinv
 
-torch.linalg.tensorinv(*A*, *ind=2*, ***, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/linalg/__init__.py#L2731)
+torch.linalg.tensorinv(*A*, *ind=2*, ***, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/linalg/__init__.py#L2731)
 
 Computes the multiplicative inverse of [`torch.tensordot()`](torch.tensordot.html#torch.tensordot).
 
@@ -44,7 +44,7 @@ Parameters:
 - **A** ([*Tensor*](../tensors.html#torch.Tensor)) - tensor to invert. Its shape must satisfy
 prod(`A`.shape[:`ind`]) ==
 prod(`A`.shape[`ind`:]).
-- **ind** ([*int*](https://docs.python.org/3/library/functions.html#int)) - index at which to compute the inverse of [`torch.tensordot()`](torch.tensordot.html#torch.tensordot). Default: 2.
+- **ind** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - index at which to compute the inverse of [`torch.tensordot()`](torch.tensordot.html#torch.tensordot). Default: 2.
 
 Keyword Arguments:
 
@@ -52,7 +52,7 @@ Keyword Arguments:
 
 Raises:
 
-[**RuntimeError**](https://docs.python.org/3/library/exceptions.html#RuntimeError) - if the reshaped `A` is not invertible or the product of the first
+[**RuntimeError**](https://docs.python.org/3/builtins/exceptions.html#RuntimeError) - if the reshaped `A` is not invertible or the product of the first
  `ind` dimensions is not equal to the product of the rest.
 
 Examples:

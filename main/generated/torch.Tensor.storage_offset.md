@@ -1,6 +1,6 @@
 # torch.Tensor.storage_offset
 
-Tensor.storage_offset() → [int](https://docs.python.org/3/library/functions.html#int)
+Tensor.storage_offset() → [int](https://docs.python.org/3/builtins/functions.html#int)
 
 Returns `self` tensor's offset in the underlying storage in terms of
 number of storage elements (not bytes).

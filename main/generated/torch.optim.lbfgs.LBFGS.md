@@ -1,6 +1,6 @@
 # LBFGS
 
-*class*torch.optim.lbfgs.LBFGS(*params*, *lr=1*, *max_iter=20*, *max_eval=None*, *tolerance_grad=1e-07*, *tolerance_change=1e-09*, *history_size=100*, *line_search_fn=None*, ***, *maximize=False*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/optim/lbfgs.py#L206)
+*class*torch.optim.lbfgs.LBFGS(*params*, *lr=1*, *max_iter=20*, *max_eval=None*, *tolerance_grad=1e-07*, *tolerance_change=1e-09*, *history_size=100*, *line_search_fn=None*, ***, *maximize=False*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/optim/lbfgs.py#L206)
 
 Implements L-BFGS algorithm.
 
@@ -25,21 +25,21 @@ try reducing the history size, or use a different algorithm.
 Parameters:
 
 - **params** (*iterable*) - iterable of parameters to optimize. Parameters must be real.
-- **lr** ([*float*](https://docs.python.org/3/library/functions.html#float)*,**optional*) - learning rate (default: 1)
-- **max_iter** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - maximal number of iterations per optimization step
+- **lr** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*,**optional*) - learning rate (default: 1)
+- **max_iter** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - maximal number of iterations per optimization step
 (default: 20)
-- **max_eval** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - maximal number of function evaluations per optimization
+- **max_eval** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - maximal number of function evaluations per optimization
 step (default: max_iter * 1.25).
-- **tolerance_grad** ([*float*](https://docs.python.org/3/library/functions.html#float)*,**optional*) - termination tolerance on first order optimality
+- **tolerance_grad** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*,**optional*) - termination tolerance on first order optimality
 (default: 1e-7).
-- **tolerance_change** ([*float*](https://docs.python.org/3/library/functions.html#float)*,**optional*) - termination tolerance on function
+- **tolerance_change** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*,**optional*) - termination tolerance on function
 value/parameter changes (default: 1e-9).
-- **history_size** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - update history size (default: 100).
-- **line_search_fn** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**optional*) - either 'strong_wolfe' or None (default: None).
-- **maximize** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - maximize the objective with respect to the
+- **history_size** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - update history size (default: 100).
+- **line_search_fn** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**optional*) - either 'strong_wolfe' or None (default: None).
+- **maximize** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - maximize the objective with respect to the
 params, instead of minimizing (default: False)
 
-add_param_group(*param_group*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/optim/optimizer.py#L1136)
+add_param_group(*param_group*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/optim/optimizer.py#L1136)
 
 Add a param group to the `Optimizer` s param_groups.
 
@@ -48,16 +48,16 @@ trainable and added to the `Optimizer` as training progresses.
 
 Parameters:
 
-**param_group** ([*dict*](https://docs.python.org/3/library/stdtypes.html#dict)) - Specifies what Tensors should be optimized along with group
+**param_group** ([*dict*](https://docs.python.org/3/builtins/stdtypes.html#dict)) - Specifies what Tensors should be optimized along with group
 specific optimization options.
 
-load_state_dict(*state_dict*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/optim/optimizer.py#L909)
+load_state_dict(*state_dict*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/optim/optimizer.py#L909)
 
 Load the optimizer state.
 
 Parameters:
 
-**state_dict** ([*dict*](https://docs.python.org/3/library/stdtypes.html#dict)) - optimizer state. Should be an object returned
+**state_dict** ([*dict*](https://docs.python.org/3/builtins/stdtypes.html#dict)) - optimizer state. Should be an object returned
 from a call to `state_dict()`.
 
 Warning
@@ -102,7 +102,7 @@ Example
 >>> optimizer.load_state_dict(torch.load("./save_optim.pt"))
 ```
 
-register_load_state_dict_post_hook(*hook*, *prepend=False*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/optim/optimizer.py#L873)
+register_load_state_dict_post_hook(*hook*, *prepend=False*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/optim/optimizer.py#L873)
 
 Register a load_state_dict post-hook which will be called after
 [`load_state_dict()`](torch.optim.Optimizer.load_state_dict.html#torch.optim.Optimizer.load_state_dict) is called. It should have the
@@ -122,7 +122,7 @@ perform post-processing after `load_state_dict` has loaded the
 Parameters:
 
 - **hook** (*Callable*) - The user defined hook to be registered.
-- **prepend** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If True, the provided post `hook` will be fired before
+- **prepend** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - If True, the provided post `hook` will be fired before
 all the already registered post-hooks on `load_state_dict`. Otherwise,
 the provided `hook` will be fired after all the already registered
 post-hooks. (default: False)
@@ -136,7 +136,7 @@ Return type:
 
 `torch.utils.hooks.RemovableHandle`
 
-register_load_state_dict_pre_hook(*hook*, *prepend=False*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/optim/optimizer.py#L834)
+register_load_state_dict_pre_hook(*hook*, *prepend=False*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/optim/optimizer.py#L834)
 
 Register a load_state_dict pre-hook which will be called before
 [`load_state_dict()`](torch.optim.Optimizer.load_state_dict.html#torch.optim.Optimizer.load_state_dict) is called. It should have the
@@ -159,7 +159,7 @@ perform pre-processing before the `load_state_dict` call is made.
 Parameters:
 
 - **hook** (*Callable*) - The user defined hook to be registered.
-- **prepend** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If True, the provided pre `hook` will be fired before
+- **prepend** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - If True, the provided pre `hook` will be fired before
 all the already registered pre-hooks on `load_state_dict`. Otherwise,
 the provided `hook` will be fired after all the already registered
 pre-hooks. (default: False)
@@ -173,7 +173,7 @@ Return type:
 
 `torch.utils.hooks.RemovableHandle`
 
-register_state_dict_post_hook(*hook*, *prepend=False*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/optim/optimizer.py#L675)
+register_state_dict_post_hook(*hook*, *prepend=False*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/optim/optimizer.py#L675)
 
 Register a state dict post-hook which will be called after [`state_dict()`](torch.optim.Optimizer.state_dict.html#torch.optim.Optimizer.state_dict) is called.
 
@@ -191,7 +191,7 @@ on the `state_dict` before it is returned.
 Parameters:
 
 - **hook** (*Callable*) - The user defined hook to be registered.
-- **prepend** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If True, the provided post `hook` will be fired before
+- **prepend** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - If True, the provided post `hook` will be fired before
 all the already registered post-hooks on `state_dict`. Otherwise,
 the provided `hook` will be fired after all the already registered
 post-hooks. (default: False)
@@ -205,7 +205,7 @@ Return type:
 
 `torch.utils.hooks.RemovableHandle`
 
-register_state_dict_pre_hook(*hook*, *prepend=False*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/optim/optimizer.py#L643)
+register_state_dict_pre_hook(*hook*, *prepend=False*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/optim/optimizer.py#L643)
 
 Register a state dict pre-hook which will be called before [`state_dict()`](torch.optim.Optimizer.state_dict.html#torch.optim.Optimizer.state_dict) is called.
 
@@ -223,7 +223,7 @@ call is made.
 Parameters:
 
 - **hook** (*Callable*) - The user defined hook to be registered.
-- **prepend** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If True, the provided pre `hook` will be fired before
+- **prepend** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - If True, the provided pre `hook` will be fired before
 all the already registered pre-hooks on `state_dict`. Otherwise,
 the provided `hook` will be fired after all the already registered
 pre-hooks. (default: False)
@@ -237,7 +237,7 @@ Return type:
 
 `torch.utils.hooks.RemovableHandle`
 
-register_step_post_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/optim/optimizer.py#L622)
+register_step_post_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/optim/optimizer.py#L622)
 
 Register an optimizer step post hook which will be called after optimizer step.
 
@@ -262,7 +262,7 @@ Return type:
 
 `torch.utils.hooks.RemovableHandle`
 
-register_step_pre_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/optim/optimizer.py#L599)
+register_step_pre_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/optim/optimizer.py#L599)
 
 Register an optimizer step pre hook which will be called before optimizer step.
 
@@ -289,9 +289,9 @@ Return type:
 
 `torch.utils.hooks.RemovableHandle`
 
-state_dict()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/optim/optimizer.py#L709)
+state_dict()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/optim/optimizer.py#L709)
 
-Return the state of the optimizer as a [`dict`](https://docs.python.org/3/library/stdtypes.html#dict).
+Return the state of the optimizer as a [`dict`](https://docs.python.org/3/builtins/stdtypes.html#dict).
 
 It contains two entries:
 
@@ -346,9 +346,9 @@ A returned state dict might look something like:
 
 Return type:
 
-[dict](https://docs.python.org/3/library/stdtypes.html#dict)[[str](https://docs.python.org/3/library/stdtypes.html#str), [*Any*](https://docs.python.org/3/library/typing.html#typing.Any)]
+[dict](https://docs.python.org/3/builtins/stdtypes.html#dict)[[str](https://docs.python.org/3/builtins/stdtypes.html#str), [*Any*](https://docs.python.org/3/library/typing.html#typing.Any)]
 
-step(*closure*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/optim/lbfgs.py#L302)
+step(*closure*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/optim/lbfgs.py#L302)
 
 Perform a single optimization step.
 
@@ -357,13 +357,13 @@ Parameters:
 **closure** (*Callable*) - A closure that reevaluates the model
 and returns the loss.
 
-zero_grad(*set_to_none=True*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/optim/optimizer.py#L1057)
+zero_grad(*set_to_none=True*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/optim/optimizer.py#L1057)
 
 Reset the gradients of all optimized [`torch.Tensor`](../tensors.html#torch.Tensor) s.
 
 Parameters:
 
-**set_to_none** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) -
+**set_to_none** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) -
 
 Instead of setting to zero, set the grads to None. Default: `True`
 

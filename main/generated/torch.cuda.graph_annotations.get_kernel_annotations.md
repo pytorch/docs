@@ -1,6 +1,6 @@
 # torch.cuda.graph_annotations.get_kernel_annotations
 
-torch.cuda.graph_annotations.get_kernel_annotations() → Mapping[[int](https://docs.python.org/3/library/functions.html#int), [list](https://docs.python.org/3/library/stdtypes.html#list)][[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/cuda/_graph_annotations.py#L1072)
+torch.cuda.graph_annotations.get_kernel_annotations() → Mapping[[int](https://docs.python.org/3/builtins/functions.html#int), [list](https://docs.python.org/3/builtins/stdtypes.html#list)][[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/cuda/_graph_annotations.py#L1072)
 
 Return the live registry of recorded kernel annotations.
 
@@ -31,4 +31,4 @@ Example:
 
 Return type:
 
-[*Mapping*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Mapping)[[int](https://docs.python.org/3/library/functions.html#int), [list](https://docs.python.org/3/library/stdtypes.html#list)[[*Any*](https://docs.python.org/3/library/typing.html#typing.Any)]]
+[*Mapping*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Mapping)[[int](https://docs.python.org/3/builtins/functions.html#int), [list](https://docs.python.org/3/builtins/stdtypes.html#list)[[*Any*](https://docs.python.org/3/library/typing.html#typing.Any)]]

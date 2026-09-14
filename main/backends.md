@@ -20,7 +20,7 @@ These backends include:
 
 ## torch.backends.cpu
 
-torch.backends.cpu.get_cpu_capability()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/backends/cpu/__init__.py#L9)
+torch.backends.cpu.get_cpu_capability()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/backends/cpu/__init__.py#L9)
 
 Return cpu capability as a string value.
 
@@ -35,11 +35,11 @@ Possible values:
 
 Return type:
 
-[str](https://docs.python.org/3/library/stdtypes.html#str)
+[str](https://docs.python.org/3/builtins/stdtypes.html#str)
 
 ## torch.backends.cuda
 
-torch.backends.cuda.is_built()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/backends/cuda/__init__.py#L43)
+torch.backends.cuda.is_built()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/backends/cuda/__init__.py#L43)
 
 Return whether PyTorch is built with CUDA support.
 
@@ -48,7 +48,7 @@ binary were run on a machine with working CUDA drivers and devices, we would be 
 
 torch.backends.cuda.matmul.fp32_precision
 
-A [`str`](https://docs.python.org/3/library/stdtypes.html#str) that controls the internal computation precision of CUDA
+A [`str`](https://docs.python.org/3/builtins/stdtypes.html#str) that controls the internal computation precision of CUDA
 matrix multiplications with FP32 inputs and outputs. Supported values are
 `"ieee"`, `"tf32"`, and `"bfx9"`. The `"bfx9"` value allows
 cuBLAS BF16x9 and requires a PyTorch build with CUDA 12.9 or newer. BF16x9
@@ -57,38 +57,38 @@ cuBLAS uses native FP32 on other architectures. See [TensorFloat-32 (TF32) on Am
 
 torch.backends.cuda.matmul.allow_tf32
 
-A [`bool`](https://docs.python.org/3/library/functions.html#bool) that controls whether TensorFloat-32 tensor cores may be used in matrix
+A [`bool`](https://docs.python.org/3/builtins/functions.html#bool) that controls whether TensorFloat-32 tensor cores may be used in matrix
 multiplications on Ampere or newer GPUs. allow_tf32 is going to be deprecated. See [TensorFloat-32 (TF32) on Ampere (and later) devices](notes/cuda.html#tf32-on-ampere).
 
 torch.backends.cuda.matmul.allow_fp16_reduced_precision_reduction
 
-A [`bool`](https://docs.python.org/3/library/functions.html#bool) that controls whether reduced precision reductions (e.g.,
+A [`bool`](https://docs.python.org/3/builtins/functions.html#bool) that controls whether reduced precision reductions (e.g.,
 with fp16 accumulation type) are allowed with fp16 GEMMs.
 For tuple assignment and split-k behavior, see
 [Reduced Precision Reduction in FP16 GEMMs](notes/cuda.html#fp16reducedprecision).
 
 torch.backends.cuda.matmul.allow_fp16_reduced_precision_reduction_split_k
 
-A readonly [`bool`](https://docs.python.org/3/library/functions.html#bool) that reports whether split-K heuristics may be used
+A readonly [`bool`](https://docs.python.org/3/builtins/functions.html#bool) that reports whether split-K heuristics may be used
 for fp16 GEMMs when dispatching to cuBLASLt. For how this value is
 controlled, see
 [Reduced Precision Reduction in FP16 GEMMs](notes/cuda.html#fp16reducedprecision).
 
 torch.backends.cuda.matmul.prefer_cublaslt_grouped_gemm
 
-A [`bool`](https://docs.python.org/3/library/functions.html#bool) that controls whether supported grouped GEMMs prefer the
+A [`bool`](https://docs.python.org/3/builtins/functions.html#bool) that controls whether supported grouped GEMMs prefer the
 cuBLASLt backend.
 
 torch.backends.cuda.matmul.allow_bf16_reduced_precision_reduction
 
-A [`bool`](https://docs.python.org/3/library/functions.html#bool) that controls whether reduced precision reductions are
+A [`bool`](https://docs.python.org/3/builtins/functions.html#bool) that controls whether reduced precision reductions are
 allowed with bf16 GEMMs.
 For tuple assignment and split-k behavior, see
 [Reduced Precision Reduction in BF16 GEMMs](notes/cuda.html#bf16reducedprecision).
 
 torch.backends.cuda.matmul.allow_bf16_reduced_precision_reduction_split_k
 
-A readonly [`bool`](https://docs.python.org/3/library/functions.html#bool) that reports whether split-K heuristics may be used
+A readonly [`bool`](https://docs.python.org/3/builtins/functions.html#bool) that reports whether split-K heuristics may be used
 for bf16 GEMMs when dispatching to cuBLASLt. For how this value is
 controlled, see
 [Reduced Precision Reduction in BF16 GEMMs](notes/cuda.html#bf16reducedprecision).
@@ -100,17 +100,17 @@ Query a specific device i's cache via torch.backends.cuda.cufft_plan_cache[i].
 
 torch.backends.cuda.cufft_plan_cache.size
 
-A readonly [`int`](https://docs.python.org/3/library/functions.html#int) that shows the number of plans currently in a cuFFT plan cache.
+A readonly [`int`](https://docs.python.org/3/builtins/functions.html#int) that shows the number of plans currently in a cuFFT plan cache.
 
 torch.backends.cuda.cufft_plan_cache.max_size
 
-A [`int`](https://docs.python.org/3/library/functions.html#int) that controls the capacity of a cuFFT plan cache.
+A [`int`](https://docs.python.org/3/builtins/functions.html#int) that controls the capacity of a cuFFT plan cache.
 
 torch.backends.cuda.cufft_plan_cache.clear()
 
 Clears a cuFFT plan cache.
 
-torch.backends.cuda.preferred_blas_library(*backend=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/backends/cuda/__init__.py#L296)
+torch.backends.cuda.preferred_blas_library(*backend=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/backends/cuda/__init__.py#L296)
 
 Override the library PyTorch uses for BLAS operations. Choose between cuBLAS, cuBLASLt, and CK [ROCm-only].
 
@@ -120,7 +120,7 @@ This flag is experimental and subject to change.
 
 When PyTorch runs a CUDA BLAS operation it defaults to cuBLAS even if both cuBLAS and cuBLASLt are available.
 For PyTorch built for ROCm, hipBLAS, hipBLASLt, and CK may offer different performance.
-This flag (a [`str`](https://docs.python.org/3/library/stdtypes.html#str)) allows overriding which BLAS library to use.
+This flag (a [`str`](https://docs.python.org/3/builtins/stdtypes.html#str)) allows overriding which BLAS library to use.
 
 - If "cublas" is set then cuBLAS will be used wherever possible.
 - If "cublaslt" is set then cuBLASLt will be used wherever possible.
@@ -141,7 +141,7 @@ Return type:
 
 *_BlasBackend*
 
-torch.backends.cuda.cublas_workspace_size(*size=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/backends/cuda/__init__.py#L340)
+torch.backends.cuda.cublas_workspace_size(*size=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/backends/cuda/__init__.py#L340)
 
 Query or set the cuBLAS workspace size in bytes.
 
@@ -153,7 +153,7 @@ cached allocations are resized lazily as their handle and stream pairs are used.
 
 Parameters:
 
-**size** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - workspace size in bytes. Must be non-negative.
+**size** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - workspace size in bytes. Must be non-negative.
 
 Returns:
 
@@ -161,9 +161,9 @@ the current (or newly set) workspace size in bytes.
 
 Return type:
 
-[int](https://docs.python.org/3/library/functions.html#int)
+[int](https://docs.python.org/3/builtins/functions.html#int)
 
-torch.backends.cuda.cublaslt_workspace_size(*size=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/backends/cuda/__init__.py#L360)
+torch.backends.cuda.cublaslt_workspace_size(*size=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/backends/cuda/__init__.py#L360)
 
 Query or set the cuBLASLt workspace size in bytes.
 
@@ -175,7 +175,7 @@ cached allocations are resized lazily as their handle and stream pairs are used.
 
 Parameters:
 
-**size** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - workspace size in bytes. Must be non-negative.
+**size** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - workspace size in bytes. Must be non-negative.
 
 Returns:
 
@@ -183,9 +183,9 @@ the current (or newly set) workspace size in bytes.
 
 Return type:
 
-[int](https://docs.python.org/3/library/functions.html#int)
+[int](https://docs.python.org/3/builtins/functions.html#int)
 
-torch.backends.cuda.blas_workspace_size(*size=None*, *backend=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/backends/cuda/__init__.py#L380)
+torch.backends.cuda.blas_workspace_size(*size=None*, *backend=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/backends/cuda/__init__.py#L380)
 
 Query or set the BLAS workspace size for a given backend.
 
@@ -214,9 +214,9 @@ CUBLASLT_WORKSPACE_SIZE environment variable.
 
 Parameters:
 
-- **size** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - workspace size in bytes. Must be non-negative.
+- **size** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - workspace size in bytes. Must be non-negative.
 When omitted the current size is returned without modification.
-- **backend** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*|**torch._C._BlasBackend**,**optional*) - which backend's
+- **backend** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*|**torch._C._BlasBackend**,**optional*) - which backend's
 workspace to query/set. Accepts the same strings as
 `preferred_blas_library()` (e.g. `"cublas"`, `"cublaslt"`).
 
@@ -226,13 +226,13 @@ the current (or newly set) workspace size in bytes.
 
 Return type:
 
-[int](https://docs.python.org/3/library/functions.html#int)
+[int](https://docs.python.org/3/builtins/functions.html#int)
 
 Raises:
 
-[**RuntimeError**](https://docs.python.org/3/library/exceptions.html#RuntimeError) - if the resolved backend is CK (no workspace concept).
+[**RuntimeError**](https://docs.python.org/3/builtins/exceptions.html#RuntimeError) - if the resolved backend is CK (no workspace concept).
 
-torch.backends.cuda.preferred_rocm_fa_library(*backend=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/backends/cuda/__init__.py#L457)
+torch.backends.cuda.preferred_rocm_fa_library(*backend=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/backends/cuda/__init__.py#L457)
 
 [ROCm-only]
 Override the backend PyTorch uses in ROCm environments for Flash Attention. Choose between AOTriton and CK
@@ -242,7 +242,7 @@ Warning
 This flag is experimental and subject to change.
 
 When Flash Attention is enabled and desired, PyTorch defaults to using AOTriton as the backend.
-This flag (a [`str`](https://docs.python.org/3/library/stdtypes.html#str)) allows users to override this backend to use composable_kernel
+This flag (a [`str`](https://docs.python.org/3/builtins/stdtypes.html#str)) allows users to override this backend to use composable_kernel
 
 - If "default" is set then the default backend will be used wherever possible. Currently AOTriton.
 - If "aotriton" is set then AOTriton will be used wherever possible.
@@ -260,7 +260,7 @@ Return type:
 
 *_ROCmFABackend*
 
-torch.backends.cuda.is_ck_sdpa_available()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/backends/cuda/__init__.py#L502)
+torch.backends.cuda.is_ck_sdpa_available()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/backends/cuda/__init__.py#L502)
 
 Warning
 
@@ -271,9 +271,9 @@ scaled-dot-product-attention.
 
 Return type:
 
-[bool](https://docs.python.org/3/library/functions.html#bool)
+[bool](https://docs.python.org/3/builtins/functions.html#bool)
 
-torch.backends.cuda.preferred_linalg_library(*backend=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/backends/cuda/__init__.py#L225)
+torch.backends.cuda.preferred_linalg_library(*backend=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/backends/cuda/__init__.py#L225)
 
 Override the heuristic PyTorch uses to choose between cuSOLVER and MAGMA for CUDA linear algebra operations.
 
@@ -283,7 +283,7 @@ This flag is experimental and subject to change.
 
 When PyTorch runs a CUDA linear algebra operation it often uses the cuSOLVER or MAGMA libraries,
 and if both are available it decides which to use with a heuristic.
-This flag (a [`str`](https://docs.python.org/3/library/stdtypes.html#str)) allows overriding those heuristics.
+This flag (a [`str`](https://docs.python.org/3/builtins/stdtypes.html#str)) allows overriding those heuristics.
 
 - If "cusolver" is set then cuSOLVER will be used wherever possible.
 - If "magma" is set then MAGMA will be used wherever possible.
@@ -323,7 +323,7 @@ Return type:
 
 *class*torch.backends.cuda.SDPAParams
 
-torch.backends.cuda.flash_sdp_enabled()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/backends/cuda/__init__.py#L513)
+torch.backends.cuda.flash_sdp_enabled()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/backends/cuda/__init__.py#L513)
 
 Warning
 
@@ -331,7 +331,7 @@ This flag is beta and subject to change.
 
 Returns whether flash scaled dot product attention is enabled or not.
 
-torch.backends.cuda.enable_mem_efficient_sdp(*enabled*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/backends/cuda/__init__.py#L540)
+torch.backends.cuda.enable_mem_efficient_sdp(*enabled*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/backends/cuda/__init__.py#L540)
 
 Warning
 
@@ -339,7 +339,7 @@ This flag is beta and subject to change.
 
 Enables or disables memory efficient scaled dot product attention.
 
-torch.backends.cuda.mem_efficient_sdp_enabled()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/backends/cuda/__init__.py#L531)
+torch.backends.cuda.mem_efficient_sdp_enabled()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/backends/cuda/__init__.py#L531)
 
 Warning
 
@@ -347,7 +347,7 @@ This flag is beta and subject to change.
 
 Returns whether memory efficient scaled dot product attention is enabled or not.
 
-torch.backends.cuda.enable_flash_sdp(*enabled*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/backends/cuda/__init__.py#L522)
+torch.backends.cuda.enable_flash_sdp(*enabled*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/backends/cuda/__init__.py#L522)
 
 Warning
 
@@ -355,7 +355,7 @@ This flag is beta and subject to change.
 
 Enables or disables flash scaled dot product attention.
 
-torch.backends.cuda.math_sdp_enabled()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/backends/cuda/__init__.py#L549)
+torch.backends.cuda.math_sdp_enabled()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/backends/cuda/__init__.py#L549)
 
 Warning
 
@@ -363,7 +363,7 @@ This flag is beta and subject to change.
 
 Returns whether math scaled dot product attention is enabled or not.
 
-torch.backends.cuda.enable_math_sdp(*enabled*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/backends/cuda/__init__.py#L558)
+torch.backends.cuda.enable_math_sdp(*enabled*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/backends/cuda/__init__.py#L558)
 
 Warning
 
@@ -371,7 +371,7 @@ This flag is beta and subject to change.
 
 Enables or disables math scaled dot product attention.
 
-torch.backends.cuda.fp16_bf16_reduction_math_sdp_allowed()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/backends/cuda/__init__.py#L576)
+torch.backends.cuda.fp16_bf16_reduction_math_sdp_allowed()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/backends/cuda/__init__.py#L576)
 
 Warning
 
@@ -379,7 +379,7 @@ This flag is beta and subject to change.
 
 Returns whether fp16/bf16 reduction in math scaled dot product attention is enabled or not.
 
-torch.backends.cuda.allow_fp16_bf16_reduction_math_sdp(*enabled*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/backends/cuda/__init__.py#L567)
+torch.backends.cuda.allow_fp16_bf16_reduction_math_sdp(*enabled*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/backends/cuda/__init__.py#L567)
 
 Warning
 
@@ -387,7 +387,7 @@ This flag is beta and subject to change.
 
 Enables or disables fp16/bf16 reduction in math scaled dot product attention.
 
-torch.backends.cuda.cudnn_sdp_enabled()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/backends/cuda/__init__.py#L658)
+torch.backends.cuda.cudnn_sdp_enabled()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/backends/cuda/__init__.py#L658)
 
 Warning
 
@@ -395,7 +395,7 @@ This flag is beta and subject to change.
 
 Returns whether cuDNN scaled dot product attention is enabled or not.
 
-torch.backends.cuda.enable_cudnn_sdp(*enabled*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/backends/cuda/__init__.py#L667)
+torch.backends.cuda.enable_cudnn_sdp(*enabled*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/backends/cuda/__init__.py#L667)
 
 Warning
 
@@ -403,7 +403,7 @@ This flag is beta and subject to change.
 
 Enables or disables cuDNN scaled dot product attention.
 
-torch.backends.cuda.is_flash_attention_available()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/backends/cuda/__init__.py#L585)
+torch.backends.cuda.is_flash_attention_available()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/backends/cuda/__init__.py#L585)
 
 Check if PyTorch was built with FlashAttention for scaled_dot_product_attention.
 
@@ -413,14 +413,14 @@ True if FlashAttention is built and available; otherwise, False.
 
 Return type:
 
-[bool](https://docs.python.org/3/library/functions.html#bool)
+[bool](https://docs.python.org/3/builtins/functions.html#bool)
 
 Note
 
 This function is dependent on a CUDA-enabled build of PyTorch. It will return False
 in non-CUDA environments.
 
-torch.backends.cuda.can_use_flash_attention(*params*, *debug=False*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/backends/cuda/__init__.py#L598)
+torch.backends.cuda.can_use_flash_attention(*params*, *debug=False*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/backends/cuda/__init__.py#L598)
 
 Check if FlashAttention can be utilized in scaled_dot_product_attention.
 
@@ -429,7 +429,7 @@ Parameters:
 - **params** (*_SDPAParams*) - An instance of SDPAParams containing the tensors for query,
 key, value, an optional attention mask, dropout rate, and
 a flag indicating if the attention is causal.
-- **debug** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - Whether to logging.warn debug information as to why FlashAttention could not be run.
+- **debug** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Whether to logging.warn debug information as to why FlashAttention could not be run.
 Defaults to False.
 
 Returns:
@@ -438,14 +438,14 @@ True if FlashAttention can be used with the given parameters; otherwise, False.
 
 Return type:
 
-[bool](https://docs.python.org/3/library/functions.html#bool)
+[bool](https://docs.python.org/3/builtins/functions.html#bool)
 
 Note
 
 This function is dependent on a CUDA-enabled build of PyTorch. It will return False
 in non-CUDA environments.
 
-torch.backends.cuda.can_use_efficient_attention(*params*, *debug=False*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/backends/cuda/__init__.py#L618)
+torch.backends.cuda.can_use_efficient_attention(*params*, *debug=False*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/backends/cuda/__init__.py#L618)
 
 Check if efficient_attention can be utilized in scaled_dot_product_attention.
 
@@ -454,7 +454,7 @@ Parameters:
 - **params** (*_SDPAParams*) - An instance of SDPAParams containing the tensors for query,
 key, value, an optional attention mask, dropout rate, and
 a flag indicating if the attention is causal.
-- **debug** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - Whether to logging.warn with information as to why efficient_attention could not be run.
+- **debug** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Whether to logging.warn with information as to why efficient_attention could not be run.
 Defaults to False.
 
 Returns:
@@ -463,14 +463,14 @@ True if efficient_attention can be used with the given parameters; otherwise, Fa
 
 Return type:
 
-[bool](https://docs.python.org/3/library/functions.html#bool)
+[bool](https://docs.python.org/3/builtins/functions.html#bool)
 
 Note
 
 This function is dependent on a CUDA-enabled build of PyTorch. It will return False
 in non-CUDA environments.
 
-torch.backends.cuda.can_use_cudnn_attention(*params*, *debug=False*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/backends/cuda/__init__.py#L638)
+torch.backends.cuda.can_use_cudnn_attention(*params*, *debug=False*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/backends/cuda/__init__.py#L638)
 
 Check if cudnn_attention can be utilized in scaled_dot_product_attention.
 
@@ -479,7 +479,7 @@ Parameters:
 - **params** (*_SDPAParams*) - An instance of SDPAParams containing the tensors for query,
 key, value, an optional attention mask, dropout rate, and
 a flag indicating if the attention is causal.
-- **debug** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - Whether to logging.warn with information as to why cuDNN attention could not be run.
+- **debug** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Whether to logging.warn with information as to why cuDNN attention could not be run.
 Defaults to False.
 
 Returns:
@@ -488,14 +488,14 @@ True if cuDNN can be used with the given parameters; otherwise, False.
 
 Return type:
 
-[bool](https://docs.python.org/3/library/functions.html#bool)
+[bool](https://docs.python.org/3/builtins/functions.html#bool)
 
 Note
 
 This function is dependent on a CUDA-enabled build of PyTorch. It will return False
 in non-CUDA environments.
 
-torch.backends.cuda.sdp_kernel(*enable_flash=True*, *enable_math=True*, *enable_mem_efficient=True*, *enable_cudnn=True*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/backends/cuda/__init__.py#L676)
+torch.backends.cuda.sdp_kernel(*enable_flash=True*, *enable_math=True*, *enable_mem_efficient=True*, *enable_cudnn=True*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/backends/cuda/__init__.py#L676)
 
 Warning
 
@@ -506,68 +506,68 @@ Upon exiting the context manager, the previous state of the flags will be restor
 
 ## torch.backends.cudnn
 
-torch.backends.cudnn.version()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/backends/cudnn/__init__.py#L110)
+torch.backends.cudnn.version()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/backends/cudnn/__init__.py#L110)
 
 Return the version of cuDNN.
 
-torch.backends.cudnn.is_available()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/backends/cudnn/__init__.py#L124)
+torch.backends.cudnn.is_available()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/backends/cudnn/__init__.py#L124)
 
 Return a bool indicating if CUDNN is currently available.
 
 torch.backends.cudnn.enabled
 
-A [`bool`](https://docs.python.org/3/library/functions.html#bool) that controls whether cuDNN is enabled.
+A [`bool`](https://docs.python.org/3/builtins/functions.html#bool) that controls whether cuDNN is enabled.
 
 torch.backends.cudnn.allow_tf32
 
-A [`bool`](https://docs.python.org/3/library/functions.html#bool) that controls where TensorFloat-32 tensor cores may be used in cuDNN
+A [`bool`](https://docs.python.org/3/builtins/functions.html#bool) that controls where TensorFloat-32 tensor cores may be used in cuDNN
 convolutions on Ampere or newer GPUs. allow_tf32 is going to be deprecated. See [TensorFloat-32 (TF32) on Ampere (and later) devices](notes/cuda.html#tf32-on-ampere).
 
 torch.backends.cudnn.deterministic
 
-A [`bool`](https://docs.python.org/3/library/functions.html#bool) that, if True, causes cuDNN to only use deterministic convolution algorithms.
+A [`bool`](https://docs.python.org/3/builtins/functions.html#bool) that, if True, causes cuDNN to only use deterministic convolution algorithms.
 See also [`torch.are_deterministic_algorithms_enabled()`](generated/torch.are_deterministic_algorithms_enabled.html#torch.are_deterministic_algorithms_enabled) and
 [`torch.use_deterministic_algorithms()`](generated/torch.use_deterministic_algorithms.html#torch.use_deterministic_algorithms).
 
 torch.backends.cudnn.benchmark
 
-A [`bool`](https://docs.python.org/3/library/functions.html#bool) that, if True, causes cuDNN to benchmark multiple convolution algorithms
+A [`bool`](https://docs.python.org/3/builtins/functions.html#bool) that, if True, causes cuDNN to benchmark multiple convolution algorithms
 and select the fastest.
 
 torch.backends.cudnn.benchmark_limit
 
-A [`int`](https://docs.python.org/3/library/functions.html#int) that specifies the maximum number of cuDNN convolution algorithms to try when
+A [`int`](https://docs.python.org/3/builtins/functions.html#int) that specifies the maximum number of cuDNN convolution algorithms to try when
 torch.backends.cudnn.benchmark is True. Set benchmark_limit to zero to try every
 available algorithm. Note that this setting only affects convolutions dispatched via the
 cuDNN v8 API.
 
 ## torch.backends.cusparselt
 
-torch.backends.cusparselt.version()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/backends/cusparselt/__init__.py#L42)
+torch.backends.cusparselt.version()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/backends/cusparselt/__init__.py#L42)
 
 Return the version of cuSPARSELt
 
 Return type:
 
-[int](https://docs.python.org/3/library/functions.html#int) | None
+[int](https://docs.python.org/3/builtins/functions.html#int) | None
 
-torch.backends.cusparselt.is_available()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/backends/cusparselt/__init__.py#L49)
+torch.backends.cusparselt.is_available()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/backends/cusparselt/__init__.py#L49)
 
 Return a bool indicating if cuSPARSELt is currently available.
 
 Return type:
 
-[bool](https://docs.python.org/3/library/functions.html#bool)
+[bool](https://docs.python.org/3/builtins/functions.html#bool)
 
-torch.backends.cusparselt.get_max_alg_id()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/backends/cusparselt/__init__.py#L54)
+torch.backends.cusparselt.get_max_alg_id()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/backends/cusparselt/__init__.py#L54)
 
 Return type:
 
-[int](https://docs.python.org/3/library/functions.html#int) | None
+[int](https://docs.python.org/3/builtins/functions.html#int) | None
 
 ## torch.backends.mha
 
-torch.backends.mha.get_fastpath_enabled()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/backends/mha/__init__.py#L9)
+torch.backends.mha.get_fastpath_enabled()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/backends/mha/__init__.py#L9)
 
 Returns whether fast path for TransformerEncoder and MultiHeadAttention
 is enabled, or `True` if jit is scripting.
@@ -579,9 +579,9 @@ The fastpath might not be run even if `get_fastpath_enabled` returns
 
 Return type:
 
-[bool](https://docs.python.org/3/library/functions.html#bool)
+[bool](https://docs.python.org/3/builtins/functions.html#bool)
 
-torch.backends.mha.set_fastpath_enabled(*value*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/backends/mha/__init__.py#L22)
+torch.backends.mha.set_fastpath_enabled(*value*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/backends/mha/__init__.py#L22)
 
 Sets whether fast path is enabled
 
@@ -589,20 +589,20 @@ Sets whether fast path is enabled
 
 torch.backends.miopen.immediate
 
-A [`bool`](https://docs.python.org/3/library/functions.html#bool) that, if True, causes MIOpen to use Immediate Mode
+A [`bool`](https://docs.python.org/3/builtins/functions.html#bool) that, if True, causes MIOpen to use Immediate Mode
 ([https://rocm.docs.amd.com/projects/MIOpen/en/latest/how-to/find-and-immediate.html](https://rocm.docs.amd.com/projects/MIOpen/en/latest/how-to/find-and-immediate.html)).
 
 ## torch.backends.mps
 
-torch.backends.mps.is_available()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/backends/mps/__init__.py#L28)
+torch.backends.mps.is_available()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/backends/mps/__init__.py#L28)
 
 Return a bool indicating if MPS is currently available.
 
 Return type:
 
-[bool](https://docs.python.org/3/library/functions.html#bool)
+[bool](https://docs.python.org/3/builtins/functions.html#bool)
 
-torch.backends.mps.is_built()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/backends/mps/__init__.py#L18)
+torch.backends.mps.is_built()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/backends/mps/__init__.py#L18)
 
 Return whether PyTorch is built with MPS support.
 
@@ -612,9 +612,9 @@ and devices, we would be able to use it.
 
 Return type:
 
-[bool](https://docs.python.org/3/library/functions.html#bool)
+[bool](https://docs.python.org/3/builtins/functions.html#bool)
 
-torch.backends.mps.get_core_count()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/backends/mps/__init__.py#L52)
+torch.backends.mps.get_core_count()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/backends/mps/__init__.py#L52)
 
 Return GPU core count.
 
@@ -624,39 +624,39 @@ And one ALU can run 24 threads, i.e. one core is capable of executing 3072 threa
 
 Return type:
 
-[int](https://docs.python.org/3/library/functions.html#int)
+[int](https://docs.python.org/3/builtins/functions.html#int)
 
-torch.backends.mps.get_name()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/backends/mps/__init__.py#L46)
+torch.backends.mps.get_name()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/backends/mps/__init__.py#L46)
 
 Return Metal device name
 
 Return type:
 
-[str](https://docs.python.org/3/library/stdtypes.html#str)
+[str](https://docs.python.org/3/builtins/stdtypes.html#str)
 
-torch.backends.mps.is_macos13_or_newer(*minor=0*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/backends/mps/__init__.py#L40)
+torch.backends.mps.is_macos13_or_newer(*minor=0*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/backends/mps/__init__.py#L40)
 
 Return a bool indicating whether MPS is running on MacOS 13 or newer.
 
 Return type:
 
-[bool](https://docs.python.org/3/library/functions.html#bool)
+[bool](https://docs.python.org/3/builtins/functions.html#bool)
 
-torch.backends.mps.is_macos_or_newer(*major*, *minor*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/backends/mps/__init__.py#L34)
+torch.backends.mps.is_macos_or_newer(*major*, *minor*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/backends/mps/__init__.py#L34)
 
 Return a bool indicating whether MPS is running on given MacOS or newer.
 
 Return type:
 
-[bool](https://docs.python.org/3/library/functions.html#bool)
+[bool](https://docs.python.org/3/builtins/functions.html#bool)
 
 ## torch.backends.mkl
 
-torch.backends.mkl.is_available()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/backends/mkl/__init__.py#L5)
+torch.backends.mkl.is_available()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/backends/mkl/__init__.py#L5)
 
 Return whether PyTorch is built with MKL support.
 
-*class*torch.backends.mkl.verbose(*enable*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/backends/mkl/__init__.py#L14)
+*class*torch.backends.mkl.verbose(*enable*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/backends/mkl/__init__.py#L14)
 
 On-demand oneMKL verbosing functionality.
 
@@ -687,9 +687,9 @@ Parameters:
 
 ## torch.backends.mkldnn
 
-torch.backends.mkldnn.is_available()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/backends/mkldnn/__init__.py#L114)
+torch.backends.mkldnn.is_available()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/backends/mkldnn/__init__.py#L114)
 
-*class*torch.backends.mkldnn.verbose(*level*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/backends/mkldnn/__init__.py#L33)
+*class*torch.backends.mkldnn.verbose(*level*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/backends/mkldnn/__init__.py#L33)
 
 On-demand oneDNN (former MKL-DNN) verbosing functionality.
 
@@ -721,31 +721,31 @@ Parameters:
 
 ## torch.backends.nnpack
 
-torch.backends.nnpack.is_available()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/backends/nnpack/__init__.py#L11)
+torch.backends.nnpack.is_available()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/backends/nnpack/__init__.py#L11)
 
 Return whether PyTorch is built with NNPACK support.
 
-torch.backends.nnpack.flags(*enabled=False*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/backends/nnpack/__init__.py#L23)
+torch.backends.nnpack.flags(*enabled=False*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/backends/nnpack/__init__.py#L23)
 
 Context manager for setting if nnpack is enabled globally
 
-torch.backends.nnpack.set_flags(*_enabled*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/backends/nnpack/__init__.py#L16)
+torch.backends.nnpack.set_flags(*_enabled*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/backends/nnpack/__init__.py#L16)
 
 Set if nnpack is enabled globally
 
 ## torch.backends.openmp
 
-torch.backends.openmp.is_available()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/backends/openmp/__init__.py#L5)
+torch.backends.openmp.is_available()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/backends/openmp/__init__.py#L5)
 
 Return whether PyTorch is built with OpenMP support.
 
-torch.backends.kleidiai.is_available()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/backends/kleidiai/__init__.py#L5)
+torch.backends.kleidiai.is_available()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/backends/kleidiai/__init__.py#L5)
 
 Return whether PyTorch is built with KleidiAI support.
 
 ## torch.backends.opt_einsum
 
-torch.backends.opt_einsum.is_available()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/backends/opt_einsum/__init__.py#L17)
+torch.backends.opt_einsum.is_available()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/backends/opt_einsum/__init__.py#L17)
 
 Return a bool indicating if opt_einsum is currently available.
 
@@ -757,9 +757,9 @@ was installed and properly imported by torch.
 
 Return type:
 
-[bool](https://docs.python.org/3/library/functions.html#bool)
+[bool](https://docs.python.org/3/builtins/functions.html#bool)
 
-torch.backends.opt_einsum.get_opt_einsum()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/backends/opt_einsum/__init__.py#L30)
+torch.backends.opt_einsum.get_opt_einsum()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/backends/opt_einsum/__init__.py#L30)
 
 Return the opt_einsum package if opt_einsum is currently available, else None.
 
@@ -769,7 +769,7 @@ Return type:
 
 torch.backends.opt_einsum.enabled
 
-A [`bool`](https://docs.python.org/3/library/functions.html#bool) that controls whether opt_einsum is enabled (`True` by default). If so,
+A [`bool`](https://docs.python.org/3/builtins/functions.html#bool) that controls whether opt_einsum is enabled (`True` by default). If so,
 torch.einsum will use opt_einsum ([https://optimized-einsum.readthedocs.io/en/stable/path_finding.html](https://optimized-einsum.readthedocs.io/en/stable/path_finding.html))
 if available to calculate an optimal path of contraction for faster performance.
 
@@ -778,7 +778,7 @@ of left to right.
 
 torch.backends.opt_einsum.strategy
 
-A [`str`](https://docs.python.org/3/library/stdtypes.html#str) that specifies which strategies to try when `torch.backends.opt_einsum.enabled`
+A [`str`](https://docs.python.org/3/builtins/stdtypes.html#str) that specifies which strategies to try when `torch.backends.opt_einsum.enabled`
 is `True`. By default, torch.einsum will try the "auto" strategy, but the "greedy" and "optimal"
 strategies are also supported. Note that the "optimal" strategy is factorial on the number of
 inputs as it tries all possible paths. See more details in opt_einsum's docs
@@ -792,13 +792,13 @@ enable or disable high-performance implementations from various DSLs like Triton
 
 ### Module-level Functions
 
-torch.backends.python_native.get_dsl_operations(*dsl_name*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/backends/python_native/__init__.py#L232)
+torch.backends.python_native.get_dsl_operations(*dsl_name*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/backends/python_native/__init__.py#L232)
 
 Get list of operations registered by a specific DSL.
 
 Parameters:
 
-**dsl_name** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - Name of the DSL to query (e.g., 'triton', 'cutedsl').
+**dsl_name** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - Name of the DSL to query (e.g., 'triton', 'cutedsl').
 
 Returns:
 
@@ -806,7 +806,7 @@ Sorted list of operation names registered by the DSL.
 
 Return type:
 
-[list](https://docs.python.org/3/library/stdtypes.html#list)[[str](https://docs.python.org/3/library/stdtypes.html#str)]
+[list](https://docs.python.org/3/builtins/stdtypes.html#list)[[str](https://docs.python.org/3/builtins/stdtypes.html#str)]
 
 Example:
 
@@ -815,13 +815,13 @@ ops = torch.backends.python_native.get_dsl_operations("triton")
 print(ops) # ['triton_to_mxfp8_dim0', ...]
 ```
 
-torch.backends.python_native.disable_operations(**op_symbols*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/backends/python_native/__init__.py#L250)
+torch.backends.python_native.disable_operations(**op_symbols*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/backends/python_native/__init__.py#L250)
 
 Disable specific operations across all DSLs.
 
 Parameters:
 
-***op_symbols** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - Names of operations to disable.
+***op_symbols** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - Names of operations to disable.
 
 Example:
 
@@ -835,13 +835,13 @@ torch.backends.python_native.disable_operations(
 )
 ```
 
-torch.backends.python_native.enable_operations(**op_symbols*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/backends/python_native/__init__.py#L269)
+torch.backends.python_native.enable_operations(**op_symbols*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/backends/python_native/__init__.py#L269)
 
 Re-enable specific operations across all DSLs.
 
 Parameters:
 
-***op_symbols** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - Names of operations to re-enable.
+***op_symbols** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - Names of operations to re-enable.
 
 Example:
 
@@ -852,13 +852,13 @@ torch.backends.python_native.enable_operations(
 )
 ```
 
-torch.backends.python_native.disable_dispatch_keys(**dispatch_keys*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/backends/python_native/__init__.py#L285)
+torch.backends.python_native.disable_dispatch_keys(**dispatch_keys*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/backends/python_native/__init__.py#L285)
 
 Disable operations at specific dispatch keys.
 
 Parameters:
 
-***dispatch_keys** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - Dispatch keys to disable (e.g., 'CUDA', 'CPU').
+***dispatch_keys** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - Dispatch keys to disable (e.g., 'CUDA', 'CPU').
 
 Example:
 
@@ -867,13 +867,13 @@ Example:
 torch.backends.python_native.disable_dispatch_keys("CUDA")
 ```
 
-torch.backends.python_native.enable_dispatch_keys(**dispatch_keys*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/backends/python_native/__init__.py#L299)
+torch.backends.python_native.enable_dispatch_keys(**dispatch_keys*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/backends/python_native/__init__.py#L299)
 
 Re-enable operations at specific dispatch keys.
 
 Parameters:
 
-***dispatch_keys** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - Dispatch keys to re-enable (e.g., 'CUDA', 'CPU').
+***dispatch_keys** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - Dispatch keys to re-enable (e.g., 'CUDA', 'CPU').
 
 Example:
 
@@ -882,13 +882,13 @@ Example:
 torch.backends.python_native.enable_dispatch_keys("CUDA")
 ```
 
-torch.backends.python_native.operations_disabled(**op_symbols*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/backends/python_native/__init__.py#L313)
+torch.backends.python_native.operations_disabled(**op_symbols*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/backends/python_native/__init__.py#L313)
 
 Context manager to temporarily disable operations.
 
 Parameters:
 
-***op_symbols** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - Names of operations to temporarily disable.
+***op_symbols** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - Names of operations to temporarily disable.
 
 Example:
 
@@ -903,12 +903,12 @@ with torch.backends.python_native.operations_disabled("scaled_mm"):
 
 torch.backends.python_native.available_dsls
 
-A [`list`](https://docs.python.org/3/library/stdtypes.html#list) of [`str`](https://docs.python.org/3/library/stdtypes.html#str) containing the names of DSLs that are available at runtime.
+A [`list`](https://docs.python.org/3/builtins/stdtypes.html#list) of [`str`](https://docs.python.org/3/builtins/stdtypes.html#str) containing the names of DSLs that are available at runtime.
 This is a subset of `all_dsls` that have their runtime dependencies satisfied.
 
 torch.backends.python_native.all_dsls
 
-A [`list`](https://docs.python.org/3/library/stdtypes.html#list) of [`str`](https://docs.python.org/3/library/stdtypes.html#str) containing the names of all registered DSLs, whether
+A [`list`](https://docs.python.org/3/builtins/stdtypes.html#list) of [`str`](https://docs.python.org/3/builtins/stdtypes.html#str) containing the names of all registered DSLs, whether
 available at runtime or not.
 
 ### DSL Controllers
@@ -973,7 +973,7 @@ triton_ops = pn.get_dsl_operations('triton')
 
 ## torch.backends.xeon
 
-torch.backends.xeon.run_cpu.create_args(*parser=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/backends/xeon/run_cpu.py#L913)
+torch.backends.xeon.run_cpu.create_args(*parser=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/backends/xeon/run_cpu.py#L913)
 
 Parse the command line options.
 

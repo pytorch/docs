@@ -1,6 +1,6 @@
 # torch.autograd.gradcheck.gradgradcheck
 
-torch.autograd.gradcheck.gradgradcheck(*func*, *inputs*, *grad_outputs=None*, ***, *eps=1e-06*, *atol=1e-05*, *rtol=0.001*, *gen_non_contig_grad_outputs=False*, *raise_exception=True*, *nondet_tol=0.0*, *check_undefined_grad=True*, *check_grad_dtypes=False*, *check_batched_grad=False*, *check_fwd_over_rev=False*, *check_rev_over_rev=True*, *fast_mode=False*, *masked=False*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/autograd/gradcheck.py#L2182)
+torch.autograd.gradcheck.gradgradcheck(*func*, *inputs*, *grad_outputs=None*, ***, *eps=1e-06*, *atol=1e-05*, *rtol=0.001*, *gen_non_contig_grad_outputs=False*, *raise_exception=True*, *nondet_tol=0.0*, *check_undefined_grad=True*, *check_grad_dtypes=False*, *check_batched_grad=False*, *check_fwd_over_rev=False*, *check_rev_over_rev=True*, *fast_mode=False*, *masked=False*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/autograd/gradcheck.py#L2182)
 
 Check gradients of gradients computed via small finite differences
 against analytical gradients wrt tensors in `inputs` and
@@ -31,30 +31,30 @@ Parameters:
 
 - **func** (*function*) - a Python function that takes Tensor inputs and returns
 a Tensor or a tuple of Tensors
-- **inputs** ([*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*of*[*Tensor*](../tensors.html#torch.Tensor)*or*[*Tensor*](../tensors.html#torch.Tensor)) - inputs to the function
-- **grad_outputs** ([*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*of**[*[*Tensor*](../tensors.html#torch.Tensor)*or**None**] or*[*Tensor*](../tensors.html#torch.Tensor)*,**optional*) - The gradients with
+- **inputs** ([*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*of*[*Tensor*](../tensors.html#torch.Tensor)*or*[*Tensor*](../tensors.html#torch.Tensor)) - inputs to the function
+- **grad_outputs** ([*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*of**[*[*Tensor*](../tensors.html#torch.Tensor)*or**None**] or*[*Tensor*](../tensors.html#torch.Tensor)*,**optional*) - The gradients with
 respect to the function's outputs.
-- **eps** ([*float*](https://docs.python.org/3/library/functions.html#float)*,**optional*) - perturbation for finite differences
-- **atol** ([*float*](https://docs.python.org/3/library/functions.html#float)*,**optional*) - absolute tolerance
-- **rtol** ([*float*](https://docs.python.org/3/library/functions.html#float)*,**optional*) - relative tolerance
-- **gen_non_contig_grad_outputs** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - if `grad_outputs` is
+- **eps** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*,**optional*) - perturbation for finite differences
+- **atol** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*,**optional*) - absolute tolerance
+- **rtol** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*,**optional*) - relative tolerance
+- **gen_non_contig_grad_outputs** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - if `grad_outputs` is
 `None` and `gen_non_contig_grad_outputs` is `True`, the
 randomly generated gradient outputs are made to be noncontiguous
-- **raise_exception** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - indicating whether to raise an exception if
+- **raise_exception** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - indicating whether to raise an exception if
 the check fails. The exception gives more information about the
 exact nature of the failure. This is helpful when debugging gradchecks.
-- **nondet_tol** ([*float*](https://docs.python.org/3/library/functions.html#float)*,**optional*) - tolerance for non-determinism. When running
+- **nondet_tol** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*,**optional*) - tolerance for non-determinism. When running
 identical inputs through the differentiation, the results must either match
 exactly (default, 0.0) or be within this tolerance. Note that a small amount
 of nondeterminism in the gradient will lead to larger inaccuracies in
 the second derivative.
-- **check_undefined_grad** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - if True, check if undefined output grads
+- **check_undefined_grad** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - if True, check if undefined output grads
 are supported and treated as zeros
-- **check_batched_grad** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - if True, check if we can compute
+- **check_batched_grad** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - if True, check if we can compute
 batched gradients using prototype vmap support. Defaults to False.
-- **fast_mode** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - if True, run a faster implementation of gradgradcheck that
+- **fast_mode** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - if True, run a faster implementation of gradgradcheck that
 no longer computes the entire jacobian.
-- **masked** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - if True, the gradients of unspecified elements of
+- **masked** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - if True, the gradients of unspecified elements of
 sparse tensors are ignored (default, False).
 
 Returns:
@@ -63,4 +63,4 @@ True if all differences satisfy allclose condition
 
 Return type:
 
-[bool](https://docs.python.org/3/library/functions.html#bool)
+[bool](https://docs.python.org/3/builtins/functions.html#bool)

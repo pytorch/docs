@@ -1,6 +1,6 @@
 # MultiheadAttention
 
-*class*torch.nn.MultiheadAttention(*embed_dim*, *num_heads*, *dropout=0.0*, *bias=True*, *add_bias_kv=False*, *add_zero_attn=False*, *kdim=None*, *vdim=None*, *batch_first=False*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/activation.py#L1090)
+*class*torch.nn.MultiheadAttention(*embed_dim*, *num_heads*, *dropout=0.0*, *bias=True*, *add_bias_kv=False*, *add_zero_attn=False*, *kdim=None*, *vdim=None*, *batch_first=False*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/activation.py#L1090)
 
 Allows the model to jointly attend to information from different representation subspaces.
 
@@ -68,7 +68,7 @@ Examples:
 >>> attn_output, attn_output_weights = multihead_attn(query, key, value)
 ```
 
-forward(*query*, *key*, *value*, *key_padding_mask=None*, *need_weights=True*, *attn_mask=None*, *average_attn_weights=True*, *is_causal=False*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/activation.py#L1256)
+forward(*query*, *key*, *value*, *key_padding_mask=None*, *need_weights=True*, *attn_mask=None*, *average_attn_weights=True*, *is_causal=False*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/activation.py#L1256)
 
 Compute attention outputs using query, key, and value embeddings.
 
@@ -94,7 +94,7 @@ to ignore for the purpose of attention (i.e. treat as "padding"). For unbatched 
 Binary and float masks are supported.
 For a binary mask, a `True` value indicates that the corresponding `key` value will be ignored for
 the purpose of attention. For a float mask, it will be directly added to the corresponding `key` value.
-- **need_weights** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If specified, returns `attn_output_weights` in addition to `attn_outputs`.
+- **need_weights** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - If specified, returns `attn_output_weights` in addition to `attn_outputs`.
 Set `need_weights=False` to use the optimized `scaled_dot_product_attention`
 and achieve the best performance for MHA.
 Default: `True`.
@@ -106,10 +106,10 @@ Binary and float masks are supported. For a binary mask, a `True` value indicate
 corresponding position is not allowed to attend. For a float mask, the mask values will be added to
 the attention weight.
 If both attn_mask and key_padding_mask are supplied, their types should match.
-- **average_attn_weights** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If true, indicates that the returned `attn_weights` should be averaged across
+- **average_attn_weights** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - If true, indicates that the returned `attn_weights` should be averaged across
 heads. Otherwise, `attn_weights` are provided separately per head. Note that this flag only has an
 effect when `need_weights=True`. Default: `True` (i.e. average weights across heads)
-- **is_causal** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If specified, applies a causal mask as attention mask.
+- **is_causal** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - If specified, applies a causal mask as attention mask.
 Default: `False`.
 Warning:
 `is_causal` provides a hint that `attn_mask` is the
@@ -119,7 +119,7 @@ compatibility.
 
 Return type:
 
-[tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[*Tensor*](../tensors.html#torch.Tensor), [*Tensor*](../tensors.html#torch.Tensor) | None]
+[tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[*Tensor*](../tensors.html#torch.Tensor), [*Tensor*](../tensors.html#torch.Tensor) | None]
 
 Outputs:
 
@@ -137,7 +137,7 @@ Note
 
 batch_first argument is ignored for unbatched inputs.
 
-merge_masks(*attn_mask*, *key_padding_mask*, *query*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/activation.py#L1525)
+merge_masks(*attn_mask*, *key_padding_mask*, *query*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/activation.py#L1525)
 
 Determine mask type and combine masks if necessary.
 

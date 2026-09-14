@@ -1,6 +1,6 @@
 # InstanceNorm3d
 
-*class*torch.nn.InstanceNorm3d(*num_features*, *eps=1e-05*, *momentum=0.1*, *affine=False*, *track_running_stats=False*, *device=None*, *dtype=None*, ***, *bias=True*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/instancenorm.py#L375)
+*class*torch.nn.InstanceNorm3d(*num_features*, *eps=1e-05*, *momentum=0.1*, *affine=False*, *track_running_stats=False*, *device=None*, *dtype=None*, ***, *bias=True*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/instancenorm.py#L375)
 
 Applies Instance Normalization.
 
@@ -45,18 +45,18 @@ transform.
 
 Parameters:
 
-- **num_features** ([*int*](https://docs.python.org/3/library/functions.html#int)) - CCC from an expected input of size
+- **num_features** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - CCC from an expected input of size
 (N,C,D,H,W)(N, C, D, H, W)(N,C,D,H,W) or (C,D,H,W)(C, D, H, W)(C,D,H,W)
-- **eps** ([*float*](https://docs.python.org/3/library/functions.html#float)) - a value added to the denominator for numerical stability. Default: 1e-5
-- **momentum** ([*float*](https://docs.python.org/3/library/functions.html#float)*|**None*) - the value used for the running_mean and running_var computation. Default: 0.1
-- **affine** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - a boolean value that when set to `True`, this module has
+- **eps** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - a value added to the denominator for numerical stability. Default: 1e-5
+- **momentum** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*|**None*) - the value used for the running_mean and running_var computation. Default: 0.1
+- **affine** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - a boolean value that when set to `True`, this module has
 learnable affine parameters, initialized the same way as done for batch normalization.
 Default: `False`
-- **track_running_stats** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - a boolean value that when set to `True`, this
+- **track_running_stats** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - a boolean value that when set to `True`, this
 module tracks the running mean and variance, and when set to `False`,
 this module does not track such statistics and always uses batch
 statistics in both training and eval modes. Default: `False`
-- **bias** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If set to `False`, the layer will not learn an additive bias (only relevant if
+- **bias** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - If set to `False`, the layer will not learn an additive bias (only relevant if
 `affine` is `True`). Default: `True`
 
 Shape:

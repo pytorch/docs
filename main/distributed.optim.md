@@ -10,7 +10,7 @@ optimizer locally on the workers where the parameters live. The distributed
 optimizer can use any of the local optimizer [Base class](optim.html#optimizer-algorithms) to
 apply the gradients on each worker.
 
-*class*torch.distributed.optim.DistributedOptimizer(*optimizer_class*, *params_rref*, **args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/optim/optimizer.py#L98)
+*class*torch.distributed.optim.DistributedOptimizer(*optimizer_class*, *params_rref*, **args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/optim/optimizer.py#L98)
 
 DistributedOptimizer takes remote references to parameters scattered
 across workers and applies the given optimizer locally for each parameter.
@@ -38,7 +38,7 @@ Parameters:
 
 - **optimizer_class** ([*optim.Optimizer*](optim.html#torch.optim.Optimizer)) - the class of optimizer to
 instantiate on each worker.
-- **params_rref** ([*list*](https://docs.python.org/3/library/stdtypes.html#list)*[**RRef**]*) - list of RRefs to local or remote parameters
+- **params_rref** ([*list*](https://docs.python.org/3/builtins/stdtypes.html#list)*[**RRef**]*) - list of RRefs to local or remote parameters
 to optimize.
 - **args** - arguments to pass to the optimizer constructor on each worker.
 - **kwargs** - arguments to pass to the optimizer constructor on each worker.
@@ -69,7 +69,7 @@ Example::
 >>> dist_optim.step(context_id)
 ```
 
-step(*context_id*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/optim/optimizer.py#L192)
+step(*context_id*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/optim/optimizer.py#L192)
 
 Performs a single optimization step.
 
@@ -84,7 +84,7 @@ Parameters:
 **context_id** - the autograd context id for which we should run the
 optimizer step.
 
-*class*torch.distributed.optim.PostLocalSGDOptimizer(*optim*, *averager*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/optim/post_localSGD_optimizer.py#L8)
+*class*torch.distributed.optim.PostLocalSGDOptimizer(*optim*, *averager*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/optim/post_localSGD_optimizer.py#L8)
 
 Wraps an arbitrary [`torch.optim.Optimizer`](optim.html#torch.optim.Optimizer) and runs [post-local SGD](https://arxiv.org/abs/1808.07217),
 This optimizer runs local optimizer at every step.
@@ -135,7 +135,7 @@ Example:
 >>> opt.step()
 ```
 
-load_state_dict(*state_dict*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/optim/post_localSGD_optimizer.py#L80)
+load_state_dict(*state_dict*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/optim/post_localSGD_optimizer.py#L80)
 
 This is the same as [`torch.optim.Optimizer`](optim.html#torch.optim.Optimizer) `load_state_dict()`,
 but also restores model averager's step value to the one
@@ -144,17 +144,17 @@ saved in the provided `state_dict`.
 If there is no `"step"` entry in `state_dict`,
 it will raise a warning and initialize the model averager's step to 0.
 
-state_dict()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/optim/post_localSGD_optimizer.py#L70)
+state_dict()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/optim/post_localSGD_optimizer.py#L70)
 
 This is the same as [`torch.optim.Optimizer`](optim.html#torch.optim.Optimizer) `state_dict()`,
 but adds an extra entry to record model averager's step to the checkpoint
 to ensure reload does not cause unnecessary warm up again.
 
-step()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/optim/post_localSGD_optimizer.py#L100)
+step()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/optim/post_localSGD_optimizer.py#L100)
 
 Performs a single optimization step (parameter update).
 
-*class*torch.distributed.optim.ZeroRedundancyOptimizer(*params*, *optimizer_class*, *process_group=None*, *parameters_as_bucket_view=False*, *overlap_with_ddp=False*, ***defaults*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/optim/zero_redundancy_optimizer.py#L290)
+*class*torch.distributed.optim.ZeroRedundancyOptimizer(*params*, *optimizer_class*, *process_group=None*, *parameters_as_bucket_view=False*, *overlap_with_ddp=False*, ***defaults*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/optim/zero_redundancy_optimizer.py#L290)
 
 Wrap an arbitrary [`optim.Optimizer`](optim.html#torch.optim.Optimizer) and shard its states across ranks in the group.
 
@@ -177,7 +177,7 @@ parameter registration or usage order.
 Parameters:
 
 **params** (`Iterable`) - an `Iterable` of [`torch.Tensor`](tensors.html#torch.Tensor) s
-or [`dict`](https://docs.python.org/3/library/stdtypes.html#dict) s giving all parameters, which will be sharded
+or [`dict`](https://docs.python.org/3/builtins/stdtypes.html#dict) s giving all parameters, which will be sharded
 across ranks.
 
 Keyword Arguments:
@@ -187,12 +187,12 @@ optimizer.
 - **process_group** (`ProcessGroup`, optional) - `torch.distributed`
 `ProcessGroup` (default: `dist.group.WORLD` initialized by
 [`torch.distributed.init_process_group()`](distributed.html#torch.distributed.init_process_group)).
-- **parameters_as_bucket_view** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - if `True`, parameters are
+- **parameters_as_bucket_view** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - if `True`, parameters are
 packed into buckets to speed up communication, and `param.data`
 fields point to bucket views at different offsets; if `False`,
 each individual parameter is communicated separately, and each
 `params.data` stays intact (default: `False`).
-- **overlap_with_ddp** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - if `True`, `step()` is
+- **overlap_with_ddp** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - if `True`, `step()` is
 overlapped with `DistributedDataParallel` 's gradient
 synchronization; this requires (1) either a functional optimizer
 for the `optimizer_class` argument or one with a functional
@@ -247,7 +247,7 @@ Warning
 
 ZeroRedundancyOptimizer is experimental and subject to change.
 
-add_param_group(*param_group*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/optim/zero_redundancy_optimizer.py#L467)
+add_param_group(*param_group*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/optim/zero_redundancy_optimizer.py#L467)
 
 Add a parameter group to the `Optimizer` 's `param_groups`.
 
@@ -257,7 +257,7 @@ training progresses.
 
 Parameters:
 
-**param_group** ([*dict*](https://docs.python.org/3/library/stdtypes.html#dict)) - specifies the parameters to be optimized and
+**param_group** ([*dict*](https://docs.python.org/3/builtins/stdtypes.html#dict)) - specifies the parameters to be optimized and
 group-specific optimization options.
 
 Warning
@@ -268,17 +268,17 @@ the ranks will cause the training to hang because communication
 primitives are called depending on the managed parameters and
 expect all the ranks to participate on the same set of parameters.
 
-consolidate_state_dict(*to=0*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/optim/zero_redundancy_optimizer.py#L513)
+consolidate_state_dict(*to=0*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/optim/zero_redundancy_optimizer.py#L513)
 
 Consolidate a list of `state_dict` s (one per rank) on the target rank.
 
 Parameters:
 
-**to** ([*int*](https://docs.python.org/3/library/functions.html#int)) - the rank that receives the optimizer states (default: 0).
+**to** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - the rank that receives the optimizer states (default: 0).
 
 Raises:
 
-[**RuntimeError**](https://docs.python.org/3/library/exceptions.html#RuntimeError) - if `overlap_with_ddp=True` and this method is
+[**RuntimeError**](https://docs.python.org/3/builtins/exceptions.html#RuntimeError) - if `overlap_with_ddp=True` and this method is
  called before this `ZeroRedundancyOptimizer` instance
  has been fully initialized, which happens once
  `DistributedDataParallel` gradient buckets have been
@@ -292,7 +292,7 @@ This needs to be called on all ranks.
 
 Return default device.
 
-join_hook(***_kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/optim/zero_redundancy_optimizer.py#L1155)
+join_hook(***_kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/optim/zero_redundancy_optimizer.py#L1155)
 
 Return the ZeRO join hook.
 
@@ -303,7 +303,7 @@ Gradients must be properly set before this hook is called.
 
 Parameters:
 
-**kwargs** ([*dict*](https://docs.python.org/3/library/stdtypes.html#dict)) - a [`dict`](https://docs.python.org/3/library/stdtypes.html#dict) containing any keyword arguments
+**kwargs** ([*dict*](https://docs.python.org/3/builtins/stdtypes.html#dict)) - a [`dict`](https://docs.python.org/3/builtins/stdtypes.html#dict) containing any keyword arguments
 to modify the behavior of the join hook at run time; all
 `Joinable` instances sharing the same join context
 manager are forwarded the same value for `kwargs`.
@@ -319,30 +319,30 @@ unused.
 
 Return process group.
 
-load_state_dict(*state_dict*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/optim/zero_redundancy_optimizer.py#L1185)
+load_state_dict(*state_dict*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/optim/zero_redundancy_optimizer.py#L1185)
 
 Load the state pertaining to the given rank from the input `state_dict`, updating the local optimizer as needed.
 
 Parameters:
 
-**state_dict** ([*dict*](https://docs.python.org/3/library/stdtypes.html#dict)) - optimizer state; should be an object returned
+**state_dict** ([*dict*](https://docs.python.org/3/builtins/stdtypes.html#dict)) - optimizer state; should be an object returned
 from a call to `state_dict()`.
 
 Raises:
 
-[**RuntimeError**](https://docs.python.org/3/library/exceptions.html#RuntimeError) - if `overlap_with_ddp=True` and this method is
+[**RuntimeError**](https://docs.python.org/3/builtins/exceptions.html#RuntimeError) - if `overlap_with_ddp=True` and this method is
  called before this `ZeroRedundancyOptimizer` instance
  has been fully initialized, which happens once
  `DistributedDataParallel` gradient buckets have been
  rebuilt.
 
-state_dict()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/optim/zero_redundancy_optimizer.py#L1223)
+state_dict()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/optim/zero_redundancy_optimizer.py#L1223)
 
 Return the last global optimizer state known to this rank.
 
 Raises:
 
-[**RuntimeError**](https://docs.python.org/3/library/exceptions.html#RuntimeError) - if `overlap_with_ddp=True` and this method is
+[**RuntimeError**](https://docs.python.org/3/builtins/exceptions.html#RuntimeError) - if `overlap_with_ddp=True` and this method is
  called before this `ZeroRedundancyOptimizer` instance
  has been fully initialized, which happens once
  `DistributedDataParallel` gradient buckets have been
@@ -351,9 +351,9 @@ Raises:
 
 Return type:
 
-[dict](https://docs.python.org/3/library/stdtypes.html#dict)[[str](https://docs.python.org/3/library/stdtypes.html#str), [*Any*](https://docs.python.org/3/library/typing.html#typing.Any)]
+[dict](https://docs.python.org/3/builtins/stdtypes.html#dict)[[str](https://docs.python.org/3/builtins/stdtypes.html#str), [*Any*](https://docs.python.org/3/library/typing.html#typing.Any)]
 
-step(*closure=None*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/optim/zero_redundancy_optimizer.py#L1124)
+step(*closure=None*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/optim/zero_redundancy_optimizer.py#L1124)
 
 Perform a single optimizer step and sync parameters across all ranks.
 
@@ -368,13 +368,13 @@ Optional loss depending on the underlying local optimizer.
 
 Return type:
 
-[float](https://docs.python.org/3/library/functions.html#float) | None
+[float](https://docs.python.org/3/builtins/functions.html#float) | None
 
 Note
 
 Any extra parameters are passed to the base optimizer as-is.
 
-torch.distributed.optim.utils.register_functional_optim(*key*, *optim*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/optim/utils.py#L31)
+torch.distributed.optim.utils.register_functional_optim(*key*, *optim*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/optim/utils.py#L31)
 
 Interface to insert a new functional optimizer to functional_optim_map.
 `fn_optim_key` and `fn_optimizer` are user defined. The optimizer and key

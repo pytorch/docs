@@ -1,6 +1,6 @@
 # GaussianNLLLoss
 
-*class*torch.nn.GaussianNLLLoss(***, *full=False*, *eps=1e-06*, *reduction='mean'*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/loss.py#L377)
+*class*torch.nn.GaussianNLLLoss(***, *full=False*, *eps=1e-06*, *reduction='mean'*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/loss.py#L377)
 
 Gaussian negative log likelihood loss.
 
@@ -22,11 +22,11 @@ of 1 or have one fewer dimension (with all other sizes being the same) for corre
 
 Parameters:
 
-- **full** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - include the constant term in the loss
+- **full** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - include the constant term in the loss
 calculation. Default: `False`.
-- **eps** ([*float*](https://docs.python.org/3/library/functions.html#float)*,**optional*) - value used to clamp `var` (see note below), for
+- **eps** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*,**optional*) - value used to clamp `var` (see note below), for
 stability. Default: 1e-6.
-- **reduction** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**optional*) - specifies the reduction to apply to the
+- **reduction** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**optional*) - specifies the reduction to apply to the
 output:`'none'` | `'mean'` | `'sum'`. `'none'`: no reduction
 will be applied, `'mean'`: the output is the average of all batch
 member losses, `'sum'`: the output is the sum of all batch member
@@ -77,7 +77,7 @@ target probability distribution", Proceedings of 1994 IEEE International
 Conference on Neural Networks (ICNN'94), Orlando, FL, USA, 1994, pp. 55-60
 vol.1, doi: 10.1109/ICNN.1994.374138.
 
-forward(*input*, *target*, *var*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/loss.py#L455)
+forward(*input*, *target*, *var*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/loss.py#L455)
 
 Runs the forward pass.
 

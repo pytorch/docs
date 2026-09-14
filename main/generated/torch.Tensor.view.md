@@ -22,7 +22,7 @@ returns a view if the shapes are compatible, and copies (equivalent to calling
 
 Parameters:
 
-**shape** ([*torch.Size*](../size.html#torch.Size)*or*[*int*](https://docs.python.org/3/library/functions.html#int)*...*) - the desired size
+**shape** ([*torch.Size*](../size.html#torch.Size)*or*[*int*](https://docs.python.org/3/builtins/functions.html#int)*...*) - the desired size
 
 Example:
 

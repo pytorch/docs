@@ -1,6 +1,6 @@
 # torch.distributions.utils.broadcast_all
 
-torch.distributions.utils.broadcast_all(**values*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributions/utils.py#L27)
+torch.distributions.utils.broadcast_all(**values*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributions/utils.py#L27)
 
 Given a list of values (possibly containing numbers), returns a list where each
 value is broadcasted based on the following rules:
@@ -16,9 +16,9 @@ Parameters:
 
 Raises:
 
-[**ValueError**](https://docs.python.org/3/library/exceptions.html#ValueError) - if any of the values is not a Number instance,
+[**ValueError**](https://docs.python.org/3/builtins/exceptions.html#ValueError) - if any of the values is not a Number instance,
  a torch.*Tensor instance, or an instance implementing __torch_function__
 
 Return type:
 
-[tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[*Tensor*](../tensors.html#torch.Tensor), ...]
+[tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[*Tensor*](../tensors.html#torch.Tensor), ...]

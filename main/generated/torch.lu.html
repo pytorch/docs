@@ -80,7 +80,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.15.0a0+gitea89e4e )">
+<meta name="llm:version" content="main (2.15.0a0+gitb8bd7cf )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -186,7 +186,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+gitea89e4e )');
+  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+gitb8bd7cf )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -4271,7 +4271,7 @@ document.write(`
 <h1>torch.lu<a class="headerlink" href="#torch-lu" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.lu">
-<span class="sig-prename descclassname"><span class="pre">torch.</span></span><span class="sig-name descname"><span class="pre">lu</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/_jit_internal.py#L627"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.lu" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.</span></span><span class="sig-name descname"><span class="pre">lu</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/_jit_internal.py#L627"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.lu" title="Link to this definition">#</a></dt>
 <dd><p>Computes the LU factorization of a matrix or batches of matrices
 <code class="xref py py-attr docutils literal notranslate"><span class="pre">A</span></code>. Returns a tuple containing the LU factorization and
 pivots of <code class="xref py py-attr docutils literal notranslate"><span class="pre">A</span></code>.  Pivoting is done if <code class="xref py py-attr docutils literal notranslate"><span class="pre">pivot</span></code> is set to
@@ -4322,11 +4322,11 @@ the gradient will be numerically unstable as it depends on the computation of <s
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>A</strong> (<a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a>) – the tensor to factor of size <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mo>∗</mo><mo separator="true">,</mo><mi>m</mi><mo separator="true">,</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(*, m, n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">∗</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">m</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span></span></p></li>
-<li><p><strong>pivot</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – Whether to compute the LU decomposition with partial pivoting, or the regular LU
+<li><p><strong>pivot</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – Whether to compute the LU decomposition with partial pivoting, or the regular LU
 decomposition. <code class="xref py py-attr docutils literal notranslate"><span class="pre">pivot</span></code><cite>= False</cite> not supported on CPU. Default: <cite>True</cite>.</p></li>
-<li><p><strong>get_infos</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – if set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, returns an info IntTensor.
+<li><p><strong>get_infos</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – if set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, returns an info IntTensor.
 Default: <code class="docutils literal notranslate"><span class="pre">False</span></code></p></li>
-<li><p><strong>out</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a><em>, </em><em>optional</em>) – optional output tuple. If <code class="xref py py-attr docutils literal notranslate"><span class="pre">get_infos</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code>,
+<li><p><strong>out</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a><em>, </em><em>optional</em>) – optional output tuple. If <code class="xref py py-attr docutils literal notranslate"><span class="pre">get_infos</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code>,
 then the elements in the tuple are Tensor, IntTensor,
 and IntTensor. If <code class="xref py py-attr docutils literal notranslate"><span class="pre">get_infos</span></code> is <code class="docutils literal notranslate"><span class="pre">False</span></code>, then the
 elements in the tuple are Tensor, IntTensor. Default: <code class="docutils literal notranslate"><span class="pre">None</span></code></p></li>

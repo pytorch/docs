@@ -1,6 +1,6 @@
 # torch.linalg.matrix_power
 
-torch.linalg.matrix_power(*A*, *n*, ***, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/linalg/__init__.py#L1202)
+torch.linalg.matrix_power(*A*, *n*, ***, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/linalg/__init__.py#L1202)
 
 Computes the n-th power of a square matrix for an integer n.
 
@@ -32,7 +32,7 @@ numerically stable algorithm.
 Parameters:
 
 - **A** ([*Tensor*](../tensors.html#torch.Tensor)) - tensor of shape (*, m, m) where * is zero or more batch dimensions.
-- **n** ([*int*](https://docs.python.org/3/library/functions.html#int)) - the exponent.
+- **n** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - the exponent.
 
 Keyword Arguments:
 
@@ -40,7 +40,7 @@ Keyword Arguments:
 
 Raises:
 
-[**RuntimeError**](https://docs.python.org/3/library/exceptions.html#RuntimeError) - if `n`< 0 and the matrix `A` or any matrix in the
+[**RuntimeError**](https://docs.python.org/3/builtins/exceptions.html#RuntimeError) - if `n`< 0 and the matrix `A` or any matrix in the
  batch of matrices `A` is not invertible.
 
 Examples:

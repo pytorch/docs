@@ -1,6 +1,6 @@
 # torch.func.rearrange
 
-torch.func.rearrange(*tensor*, *pattern*, ***axes_lengths*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/_functorch/einops.py#L10)
+torch.func.rearrange(*tensor*, *pattern*, ***axes_lengths*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/_functorch/einops.py#L10)
 
 A native implementation of einops.rearrange, a reader-friendly smart element reordering for multidimensional
 tensors. This operation includes functionality of transpose (axes permutation), reshape (view), squeeze, unsqueeze,
@@ -11,8 +11,8 @@ See: [https://einops.rocks/api/rearrange/](https://einops.rocks/api/rearrange/)
 Parameters:
 
 - **tensor** ([*Tensor*](../tensors.html#torch.Tensor)*or**sequence**of*[*Tensor*](../tensors.html#torch.Tensor)) - the tensor(s) to rearrange
-- **pattern** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - the rearrangement pattern
-- **axes_lengths** ([*int*](https://docs.python.org/3/library/functions.html#int)) - any additional length specifications for dimensions
+- **pattern** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - the rearrangement pattern
+- **axes_lengths** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - any additional length specifications for dimensions
 
 Returns:
 

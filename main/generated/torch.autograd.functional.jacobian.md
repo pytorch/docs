@@ -1,6 +1,6 @@
 # torch.autograd.functional.jacobian
 
-torch.autograd.functional.jacobian(*func*, *inputs*, *create_graph=False*, *strict=False*, *vectorize=False*, *strategy='reverse-mode'*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/autograd/functional.py#L587)
+torch.autograd.functional.jacobian(*func*, *inputs*, *create_graph=False*, *strict=False*, *vectorize=False*, *strategy='reverse-mode'*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/autograd/functional.py#L587)
 
 Compute the Jacobian of a given function.
 
@@ -8,17 +8,17 @@ Parameters:
 
 - **func** (*function*) - a Python function that takes Tensor inputs and returns
 a tuple of Tensors or a Tensor.
-- **inputs** ([*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*of**Tensors**or*[*Tensor*](../tensors.html#torch.Tensor)) - inputs to the function `func`.
-- **create_graph** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If `True`, the Jacobian will be
+- **inputs** ([*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*of**Tensors**or*[*Tensor*](../tensors.html#torch.Tensor)) - inputs to the function `func`.
+- **create_graph** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If `True`, the Jacobian will be
 computed in a differentiable manner. Note that when `strict` is
 `False`, the result can not require gradients or be disconnected
 from the inputs. Defaults to `False`.
-- **strict** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If `True`, an error will be raised when we
+- **strict** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If `True`, an error will be raised when we
 detect that there exists an input such that all the outputs are
 independent of it. If `False`, we return a Tensor of zeros as the
 jacobian for said inputs, which is the expected mathematical value.
 Defaults to `False`.
-- **vectorize** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - This feature is experimental.
+- **vectorize** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - This feature is experimental.
 Please consider using [`torch.func.jacrev()`](torch.func.jacrev.html#torch.func.jacrev) or
 [`torch.func.jacfwd()`](torch.func.jacfwd.html#torch.func.jacfwd) instead if you are looking for something
 less experimental and more performant.
@@ -30,7 +30,7 @@ Though this should lead to performance improvements in many cases,
 because this feature is still experimental, there may be performance
 cliffs. See [`torch.autograd.grad()`](torch.autograd.grad.html#torch.autograd.grad)'s `batched_grad` parameter for
 more information.
-- **strategy** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**optional*) - Set to `"forward-mode"` or `"reverse-mode"` to
+- **strategy** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**optional*) - Set to `"forward-mode"` or `"reverse-mode"` to
 determine whether the Jacobian will be computed with forward or reverse
 mode AD. Currently, `"forward-mode"` requires `vectorized=True`.
 Defaults to `"reverse-mode"`. If `func` has more outputs than

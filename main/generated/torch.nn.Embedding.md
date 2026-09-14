@@ -1,6 +1,6 @@
 # Embedding
 
-*class*torch.nn.Embedding(*num_embeddings*, *embedding_dim*, *padding_idx=None*, *max_norm=None*, *norm_type=2.0*, *scale_grad_by_freq=False*, *sparse=False*, *_weight=None*, *_freeze=False*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/sparse.py#L14)
+*class*torch.nn.Embedding(*num_embeddings*, *embedding_dim*, *padding_idx=None*, *max_norm=None*, *norm_type=2.0*, *scale_grad_by_freq=False*, *sparse=False*, *_weight=None*, *_freeze=False*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/sparse.py#L14)
 
 A simple lookup table that stores embeddings of a fixed dictionary and size.
 
@@ -10,19 +10,19 @@ word embeddings.
 
 Parameters:
 
-- **num_embeddings** ([*int*](https://docs.python.org/3/library/functions.html#int)) - size of the dictionary of embeddings
-- **embedding_dim** ([*int*](https://docs.python.org/3/library/functions.html#int)) - the size of each embedding vector
-- **padding_idx** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - If specified, the entries at `padding_idx` do not contribute to the gradient;
+- **num_embeddings** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - size of the dictionary of embeddings
+- **embedding_dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - the size of each embedding vector
+- **padding_idx** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - If specified, the entries at `padding_idx` do not contribute to the gradient;
 therefore, the embedding vector at `padding_idx` is not updated during training,
 i.e. it remains as a fixed "pad". For a newly constructed Embedding,
 the embedding vector at `padding_idx` will default to all zeros,
 but can be updated to another value to be used as the padding vector.
-- **max_norm** ([*float*](https://docs.python.org/3/library/functions.html#float)*,**optional*) - If given, each embedding vector with norm larger than `max_norm`
+- **max_norm** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*,**optional*) - If given, each embedding vector with norm larger than `max_norm`
 is renormalized to have norm `max_norm`.
-- **norm_type** ([*float*](https://docs.python.org/3/library/functions.html#float)*,**optional*) - The p of the p-norm to compute for the `max_norm` option. Default `2`.
-- **scale_grad_by_freq** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If given, this will scale gradients by the inverse of frequency of
+- **norm_type** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*,**optional*) - The p of the p-norm to compute for the `max_norm` option. Default `2`.
+- **scale_grad_by_freq** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If given, this will scale gradients by the inverse of frequency of
 the words in the mini-batch. Default `False`.
-- **sparse** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If `True`, gradient w.r.t. `weight` matrix will be a sparse tensor.
+- **sparse** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If `True`, gradient w.r.t. `weight` matrix will be a sparse tensor.
 See Notes for more details regarding sparse gradients.
 
 Variables:
@@ -107,7 +107,7 @@ tensor([[ 1.0000, 1.0000, 1.0000],
  [ 0.6778, 0.5803, 0.2678]], requires_grad=True)
 ```
 
-*classmethod*from_pretrained(*embeddings*, *freeze=True*, *padding_idx=None*, *max_norm=None*, *norm_type=2.0*, *scale_grad_by_freq=False*, *sparse=False*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/sparse.py#L213)
+*classmethod*from_pretrained(*embeddings*, *freeze=True*, *padding_idx=None*, *max_norm=None*, *norm_type=2.0*, *scale_grad_by_freq=False*, *sparse=False*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/sparse.py#L213)
 
 Create Embedding instance from given 2-dimensional FloatTensor.
 
@@ -115,15 +115,15 @@ Parameters:
 
 - **embeddings** ([*Tensor*](../tensors.html#torch.Tensor)) - FloatTensor containing weights for the Embedding.
 First dimension is being passed to Embedding as `num_embeddings`, second as `embedding_dim`.
-- **freeze** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If `True`, the tensor does not get updated in the learning process.
+- **freeze** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If `True`, the tensor does not get updated in the learning process.
 Equivalent to `embedding.weight.requires_grad = False`. Default: `True`
-- **padding_idx** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - If specified, the entries at `padding_idx` do not contribute to the gradient;
+- **padding_idx** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - If specified, the entries at `padding_idx` do not contribute to the gradient;
 therefore, the embedding vector at `padding_idx` is not updated during training,
 i.e. it remains as a fixed "pad".
-- **max_norm** ([*float*](https://docs.python.org/3/library/functions.html#float)*,**optional*) - See module initialization documentation.
-- **norm_type** ([*float*](https://docs.python.org/3/library/functions.html#float)*,**optional*) - See module initialization documentation. Default `2`.
-- **scale_grad_by_freq** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - See module initialization documentation. Default `False`.
-- **sparse** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - See module initialization documentation.
+- **max_norm** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*,**optional*) - See module initialization documentation.
+- **norm_type** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*,**optional*) - See module initialization documentation. Default `2`.
+- **scale_grad_by_freq** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - See module initialization documentation. Default `False`.
+- **sparse** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - See module initialization documentation.
 
 Examples:
 

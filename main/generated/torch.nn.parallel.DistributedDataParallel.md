@@ -1,6 +1,6 @@
 # DistributedDataParallel
 
-*class*torch.nn.parallel.DistributedDataParallel(*module*, *device_ids=None*, *output_device=None*, *dim=0*, *broadcast_buffers=None*, *init_sync=True*, *process_group=None*, *bucket_cap_mb=None*, *find_unused_parameters=False*, *check_reduction=False*, *gradient_as_bucket_view=False*, *static_graph=False*, *delay_all_reduce_named_params=None*, *param_to_hook_all_reduce=None*, *mixed_precision=None*, *device_mesh=None*, *skip_all_reduce_unused_params=False*, *bucket_cap_mb_list=None*, *batched_grad_copy=False*, *forward_sync_buffers=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/parallel/distributed.py#L465)
+*class*torch.nn.parallel.DistributedDataParallel(*module*, *device_ids=None*, *output_device=None*, *dim=0*, *broadcast_buffers=None*, *init_sync=True*, *process_group=None*, *bucket_cap_mb=None*, *find_unused_parameters=False*, *check_reduction=False*, *gradient_as_bucket_view=False*, *static_graph=False*, *delay_all_reduce_named_params=None*, *param_to_hook_all_reduce=None*, *mixed_precision=None*, *device_mesh=None*, *skip_all_reduce_unused_params=False*, *bucket_cap_mb_list=None*, *batched_grad_copy=False*, *forward_sync_buffers=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/parallel/distributed.py#L465)
 
 Implement distributed data parallelism based on `torch.distributed` at module level.
 
@@ -241,7 +241,7 @@ Using `DistributedDataParallel` in conjunction with the
 Parameters:
 
 - **module** ([*Module*](torch.nn.Module.html#torch.nn.Module)) - module to be parallelized
-- **device_ids** ([*list*](https://docs.python.org/3/library/stdtypes.html#list)*of*[*int*](https://docs.python.org/3/library/functions.html#int)*or*[*torch.device*](../tensor_attributes.html#torch.device)) -
+- **device_ids** ([*list*](https://docs.python.org/3/builtins/stdtypes.html#list)*of*[*int*](https://docs.python.org/3/builtins/functions.html#int)*or*[*torch.device*](../tensor_attributes.html#torch.device)) -
 
 CUDA devices.
 1) For single-device modules, `device_ids` can
@@ -255,19 +255,19 @@ When `device_ids` is `None` for both cases,
 both the input data for the forward pass and the actual module
 must be placed on the correct device.
 (default: `None`)
-- **output_device** ([*int*](https://docs.python.org/3/library/functions.html#int)*or*[*torch.device*](../tensor_attributes.html#torch.device)) - Device location of output for
+- **output_device** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*or*[*torch.device*](../tensor_attributes.html#torch.device)) - Device location of output for
 single-device CUDA modules. For multi-device modules and
 CPU modules, it must be `None`, and the module itself
 dictates the output location. (default: `device_ids[0]`
 for single-device modules)
-- **broadcast_buffers** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*or**None*) -
+- **broadcast_buffers** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*or**None*) -
 
 Flag that enables syncing (broadcasting)
 buffers of the module at beginning of the `forward`
 function. (default: `None`)
 
 Deprecated since version 2.13: Use `forward_sync_buffers` instead.
-- **init_sync** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - Whether to sync during initialization to verify param
+- **init_sync** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Whether to sync during initialization to verify param
 shapes and broadcast parameters and buffers.
 Note: the deprecated `broadcast_buffers=False`
 excludes buffers from this init sync. The replacement
@@ -286,7 +286,7 @@ bucket can potentially overlap with backward computation.
 `bucket_cap_mb` controls the bucket size in
 MebiBytes (MiB). If `None`, a default size of 25 MiB
 will be used. (default: `None`)
-- **find_unused_parameters** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - Traverse the autograd graph from all
+- **find_unused_parameters** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Traverse the autograd graph from all
 tensors contained in the return value of the
 wrapped module's `forward` function. Parameters
 that don't receive gradients as part of this
@@ -298,7 +298,7 @@ thus would also not receive gradients are
 preemptively marked as ready to be reduced.
 (default: `False`)
 - **check_reduction** - This argument is deprecated.
-- **gradient_as_bucket_view** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - When set to `True`, gradients will be views
+- **gradient_as_bucket_view** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - When set to `True`, gradients will be views
 pointing to different offsets of `allreduce` communication
 buckets. This can reduce peak memory usage, where the
 saved memory size will be equal to the total gradients
@@ -310,7 +310,7 @@ referring to the [`zero_grad()`](torch.optim.Optimizer.zero_grad.html#torch.opti
 function in `torch/optim/optimizer.py` as a solution.
 Note that gradients will be views after first iteration, so
 the peak memory saving should be checked after first iteration.
-- **static_graph** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) -
+- **static_graph** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) -
 
 When set to `True`, DDP knows the trained graph is
 static. Static graph means 1) The set of used and unused
@@ -342,7 +342,7 @@ Example::
 >>> ddp_logging_data = model_DDP._get_ddp_logging_data()
 >>> static_graph = ddp_logging_data.get("can_set_static_graph")
 ```
-- **delay_all_reduce_named_params** ([*list*](https://docs.python.org/3/library/stdtypes.html#list)*of*[*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*of**str and torch.nn.Parameter*) - a list
+- **delay_all_reduce_named_params** ([*list*](https://docs.python.org/3/builtins/stdtypes.html#list)*of*[*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*of**str and torch.nn.Parameter*) - a list
 of named parameters whose all reduce will be delayed when the gradient of
 the parameter specified in `param_to_hook_all_reduce` is ready. Other
 arguments of DDP do not apply to named params specified in this argument
@@ -353,7 +353,7 @@ of parameters specified in `delay_all_reduce_named_params`.
 This requires that unused parameters remain the same across all ranks throughout
 the entire training process. If this condition is not met, it may cause
 desynchronization and result in training hang.
-- **batched_grad_copy** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - When set to `True`, individual per-parameter
+- **batched_grad_copy** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - When set to `True`, individual per-parameter
 gradient-to-bucket copy and division operations are deferred
 and flushed as a single `_foreach_copy_` plus one flat
 `div_` when a bucket becomes ready. This reduces per-parameter
@@ -364,7 +364,7 @@ optimization is most effective with
 `gradient_as_bucket_view` alone cannot avoid copies because
 the bucket view alias is destroyed every iteration.
 (default: `False`)
-- **forward_sync_buffers** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*or**None*) - Flag that enables syncing
+- **forward_sync_buffers** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*or**None*) - Flag that enables syncing
 (broadcasting) buffers of the module at runtime, including
 at the beginning of `forward` and after uneven-input
 joins. Does not affect initialization sync (see
@@ -384,7 +384,7 @@ Example:
 >>> net = torch.nn.parallel.DistributedDataParallel(model)
 ```
 
-finalize_backward()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/parallel/distributed.py#L2690)
+finalize_backward()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/parallel/distributed.py#L2690)
 
 Finalize a backward pass that requires manual finalization.
 
@@ -403,13 +403,13 @@ gradient all-reduce, or call it from a backward hook to run
 
 Raises:
 
-[**RuntimeError**](https://docs.python.org/3/library/exceptions.html#RuntimeError) - If `require_manual_backward_finalization` is
+[**RuntimeError**](https://docs.python.org/3/builtins/exceptions.html#RuntimeError) - If `require_manual_backward_finalization` is
  `False`, if called before all gradient buckets are ready, if
  no gradient reduction requires finalization, or if called
  during `no_sync()` or with an unsupported DDP reducer
  configuration.
 
-join(*divide_by_initial_world_size=True*, *enable=True*, *throw_on_early_termination=False*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/parallel/distributed.py#L1998)
+join(*divide_by_initial_world_size=True*, *enable=True*, *throw_on_early_termination=False*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/parallel/distributed.py#L1998)
 
 Context manager for training with uneven inputs across processes in DDP.
 
@@ -446,7 +446,7 @@ from across all ranks.
 
 Parameters:
 
-- **divide_by_initial_world_size** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If `True`, will divide
+- **divide_by_initial_world_size** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - If `True`, will divide
 gradients by the initial `world_size` DDP training was launched
 with. If `False`, will compute the effective world size
 (number of ranks that have not depleted their inputs yet) and
@@ -464,11 +464,11 @@ would want to set this to `True` for cases where the last few
 inputs of your training job are uneven. In extreme cases, where
 there is a large discrepancy in the number of inputs, setting
 this to `False` might provide better results.
-- **enable** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - Whether to enable uneven input detection or not. Pass
+- **enable** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Whether to enable uneven input detection or not. Pass
 in `enable=False` to disable in cases where you know that
 inputs are even across participating processes. Default is
 `True`.
-- **throw_on_early_termination** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - Whether to throw an error
+- **throw_on_early_termination** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Whether to throw an error
 or continue training when at least one rank has exhausted
 inputs. If `True`, will throw upon the first rank reaching end
 of data. If `False`, will continue training with a smaller
@@ -505,13 +505,13 @@ Example:
 >>> torch.cuda.synchronize(device=rank)
 ```
 
-join_hook(***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/parallel/distributed.py#L2104)
+join_hook(***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/parallel/distributed.py#L2104)
 
 DDP join hook enables training on uneven inputs by mirroring communications in forward and backward passes.
 
 Parameters:
 
-**kwargs** ([*dict*](https://docs.python.org/3/library/stdtypes.html#dict)) - a [`dict`](https://docs.python.org/3/library/stdtypes.html#dict) containing any keyword arguments
+**kwargs** ([*dict*](https://docs.python.org/3/builtins/stdtypes.html#dict)) - a [`dict`](https://docs.python.org/3/builtins/stdtypes.html#dict) containing any keyword arguments
 to modify the behavior of the join hook at run time; all
 `Joinable` instances sharing the same join context
 manager are forwarded the same value for `kwargs`.
@@ -529,7 +529,7 @@ unevenness is small but can be set to `False` in extreme
 cases for possibly better results.
 Default is `True`.
 
-no_sync()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/parallel/distributed.py#L1667)
+no_sync()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/parallel/distributed.py#L1667)
 
 Context manager to disable gradient synchronizations across DDP processes.
 
@@ -552,7 +552,7 @@ Warning
 The forward pass should be included inside the context manager, or
 else gradients will still be synchronized.
 
-register_comm_hook(*state*, *hook*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/parallel/distributed.py#L2187)
+register_comm_hook(*state*, *hook*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/parallel/distributed.py#L2187)
 
 Register communication hook for user-defined DDP aggregation of gradients across multiple workers.
 
@@ -563,7 +563,7 @@ parameter syncs while running Distributed DataParallel training.
 
 Parameters:
 
-- **state** ([*object*](https://docs.python.org/3/library/functions.html#object)) -
+- **state** ([*object*](https://docs.python.org/3/builtins/functions.html#object)) -
 
 Passed to the hook to maintain any state information during the training process.
 Examples include error feedback in gradient compression,
@@ -640,7 +640,7 @@ allreduce, and then decoded after allreduce.
 >>> ddp.register_comm_hook(state=None, hook=encode_and_decode)
 ```
 
-*property*require_manual_backward_finalization*: [bool](https://docs.python.org/3/library/functions.html#bool)*
+*property*require_manual_backward_finalization*: [bool](https://docs.python.org/3/builtins/functions.html#bool)*
 
 Whether the caller must manually finalize backward.
 
@@ -657,7 +657,7 @@ Must be set before forward or after backward finalization. For each
 synchronized backward, the caller must invoke `finalize_backward()`
 exactly once.
 
-*property*should_finalize_after_backward*: [bool](https://docs.python.org/3/library/functions.html#bool)*
+*property*should_finalize_after_backward*: [bool](https://docs.python.org/3/builtins/functions.html#bool)*
 
 Whether manual finalization must run after backward returns.
 

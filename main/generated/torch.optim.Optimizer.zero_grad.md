@@ -1,12 +1,12 @@
 # torch.optim.Optimizer.zero_grad
 
-Optimizer.zero_grad(*set_to_none=True*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/optim/optimizer.py#L1057)
+Optimizer.zero_grad(*set_to_none=True*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/optim/optimizer.py#L1057)
 
 Reset the gradients of all optimized [`torch.Tensor`](../tensors.html#torch.Tensor) s.
 
 Parameters:
 
-**set_to_none** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) -
+**set_to_none** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) -
 
 Instead of setting to zero, set the grads to None. Default: `True`
 

@@ -1,6 +1,6 @@
 # torch.is_floating_point
 
-torch.is_floating_point(*input: [Tensor](../tensors.html#torch.Tensor)*) → [bool](https://docs.python.org/3/library/functions.html#bool)
+torch.is_floating_point(*input: [Tensor](../tensors.html#torch.Tensor)*) → [bool](https://docs.python.org/3/builtins/functions.html#bool)
 
 Returns True if the data type of `input` is a floating point data type i.e.,
 one of `torch.float64`, `torch.float32`, `torch.float16`, and `torch.bfloat16`.

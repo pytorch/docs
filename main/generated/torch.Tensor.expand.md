@@ -26,7 +26,7 @@ materialize the expanded values. For example, changing dtype after
 
 Parameters:
 
-***size** ([*torch.Size*](../size.html#torch.Size)*or*[*int*](https://docs.python.org/3/library/functions.html#int)*...*) - the desired expanded size
+***size** ([*torch.Size*](../size.html#torch.Size)*or*[*int*](https://docs.python.org/3/builtins/functions.html#int)*...*) - the desired expanded size
 
 Warning
 

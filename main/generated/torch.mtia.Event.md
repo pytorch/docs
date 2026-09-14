@@ -8,9 +8,9 @@ Parameters:
 
 - **device** ([`torch.device`](../tensor_attributes.html#torch.device), optional) - the desired device for the Event.
 If not given, the current [accelerator](../torch.html#accelerators) type will be used.
-- **enable_timing** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - indicates if the event should measure time (default: `False`)
-- **blocking** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - if `True`, `wait()` will be blocking (default: `False`)
-- **interprocess** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - if `True`, the event can be shared between processes (default: `False`)
+- **enable_timing** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - indicates if the event should measure time (default: `False`)
+- **blocking** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - if `True`, `wait()` will be blocking (default: `False`)
+- **interprocess** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - if `True`, the event can be shared between processes (default: `False`)
 
 Warning
 
@@ -31,7 +31,7 @@ Example:
 >>> e_cuda = torch.Event(device='cuda')
 ```
 
-elapsed_time(*end_event*) → [float](https://docs.python.org/3/library/functions.html#float)
+elapsed_time(*end_event*) → [float](https://docs.python.org/3/builtins/functions.html#float)
 
 Returns the elapsed time in milliseconds between when this event and the `end_event` are
 each recorded via [`torch.Stream.record_event()`](torch.Stream.html#torch.Stream.record_event).
@@ -46,7 +46,7 @@ Time between starting and ending event in milliseconds.
 
 Return type:
 
-[float](https://docs.python.org/3/library/functions.html#float)
+[float](https://docs.python.org/3/builtins/functions.html#float)
 
 Example:
 
@@ -57,7 +57,7 @@ Example:
 >>> ms = e1_cuda.elapsed_time(e2_cuda)
 ```
 
-query() → [bool](https://docs.python.org/3/library/functions.html#bool)
+query() → [bool](https://docs.python.org/3/builtins/functions.html#bool)
 
 Check if the stream where this event was recorded already moved past the point where the event was recorded.
 Always returns `True` if the Event was not recorded.
@@ -68,7 +68,7 @@ A boolean indicating if all work currently captured by event has completed.
 
 Return type:
 
-[bool](https://docs.python.org/3/library/functions.html#bool)
+[bool](https://docs.python.org/3/builtins/functions.html#bool)
 
 Example:
 
@@ -79,7 +79,7 @@ Example:
 True
 ```
 
-record(*stream=None*) → [None](https://docs.python.org/3/library/constants.html#None)
+record(*stream=None*) → [None](https://docs.python.org/3/builtins/constants.html#None)
 
 Record the event in a given stream. The stream's device must match the event's device.
 This function is equivalent to `stream.record_event(self)`.
@@ -96,7 +96,7 @@ Example:
 >>> e_cuda.record()
 ```
 
-synchronize() → [None](https://docs.python.org/3/library/constants.html#None)
+synchronize() → [None](https://docs.python.org/3/builtins/constants.html#None)
 
 Wait for the event to complete. This prevents the CPU thread from proceeding until the event completes.
 
@@ -108,7 +108,7 @@ Example:
 >>> e_cuda.synchronize()
 ```
 
-wait(*stream=None*) → [None](https://docs.python.org/3/library/constants.html#None)
+wait(*stream=None*) → [None](https://docs.python.org/3/builtins/constants.html#None)
 
 Make all future work submitted to the given stream wait for this event.
 

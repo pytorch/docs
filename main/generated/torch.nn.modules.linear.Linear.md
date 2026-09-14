@@ -1,6 +1,6 @@
 # Linear
 
-*class*torch.nn.modules.linear.Linear(*in_features*, *out_features*, *bias=True*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/linear.py#L53)
+*class*torch.nn.modules.linear.Linear(*in_features*, *out_features*, *bias=True*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/linear.py#L53)
 
 Applies an affine linear transformation to the incoming data: y=xAT+by = xA^T + by=xAT+b.
 
@@ -10,9 +10,9 @@ On certain ROCm devices, when using float16 inputs this module will use [differe
 
 Parameters:
 
-- **in_features** ([*int*](https://docs.python.org/3/library/functions.html#int)) - size of each input sample
-- **out_features** ([*int*](https://docs.python.org/3/library/functions.html#int)) - size of each output sample
-- **bias** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If set to `False`, the layer will not learn an additive bias.
+- **in_features** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - size of each input sample
+- **out_features** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - size of each output sample
+- **bias** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - If set to `False`, the layer will not learn an additive bias.
 Default: `True`
 
 Shape:
@@ -43,15 +43,15 @@ Examples:
 torch.Size([128, 30])
 ```
 
-extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/linear.py#L136)
+extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/linear.py#L136)
 
 Return the extra representation of the module.
 
 Return type:
 
-[str](https://docs.python.org/3/library/stdtypes.html#str)
+[str](https://docs.python.org/3/builtins/stdtypes.html#str)
 
-forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/linear.py#L130)
+forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/linear.py#L130)
 
 Runs the forward pass.
 
@@ -59,6 +59,6 @@ Return type:
 
 [*Tensor*](../tensors.html#torch.Tensor)
 
-reset_parameters()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/linear.py#L117)
+reset_parameters()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/linear.py#L117)
 
 Resets parameters based on their initialization used in `__init__`.

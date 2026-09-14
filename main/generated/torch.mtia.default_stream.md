@@ -1,12 +1,12 @@
 # torch.mtia.default_stream
 
-torch.mtia.default_stream(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/mtia/__init__.py#L193)
+torch.mtia.default_stream(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/mtia/__init__.py#L193)
 
 Return the default [`Stream`](torch.mtia.Stream_class.html#torch.mtia.Stream) for a given device.
 
 Parameters:
 
-**device** ([*torch.device*](../tensor_attributes.html#torch.device)*or*[*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - selected device. Returns
+**device** ([*torch.device*](../tensor_attributes.html#torch.device)*or*[*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - selected device. Returns
 the default [`Stream`](torch.mtia.Stream_class.html#torch.mtia.Stream) for the current device, given by
 [`current_device()`](torch.mtia.current_device.html#torch.mtia.current_device), if [`device`](torch.mtia.device.html#torch.mtia.device) is `None`
 (default).

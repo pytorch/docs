@@ -1,12 +1,12 @@
 # torch.optim.Optimizer.load_state_dict
 
-Optimizer.load_state_dict(*state_dict*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/optim/optimizer.py#L909)
+Optimizer.load_state_dict(*state_dict*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/optim/optimizer.py#L909)
 
 Load the optimizer state.
 
 Parameters:
 
-**state_dict** ([*dict*](https://docs.python.org/3/library/stdtypes.html#dict)) - optimizer state. Should be an object returned
+**state_dict** ([*dict*](https://docs.python.org/3/builtins/stdtypes.html#dict)) - optimizer state. Should be an object returned
 from a call to [`state_dict()`](torch.optim.Optimizer.state_dict.html#torch.optim.Optimizer.state_dict).
 
 Warning

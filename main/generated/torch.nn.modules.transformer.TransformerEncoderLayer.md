@@ -1,6 +1,6 @@
 # TransformerEncoderLayer
 
-*class*torch.nn.modules.transformer.TransformerEncoderLayer(*d_model*, *nhead*, *dim_feedforward=2048*, *dropout=0.1*, *activation=<function relu>*, *layer_norm_eps=1e-05*, *batch_first=False*, *norm_first=False*, *bias=True*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/transformer.py#L663)
+*class*torch.nn.modules.transformer.TransformerEncoderLayer(*d_model*, *nhead*, *dim_feedforward=2048*, *dropout=0.1*, *activation=<function relu>*, *layer_norm_eps=1e-05*, *batch_first=False*, *norm_first=False*, *bias=True*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/transformer.py#L663)
 
 TransformerEncoderLayer is made up of self-attn and feedforward network.
 
@@ -28,18 +28,18 @@ Module.
 
 Parameters:
 
-- **d_model** ([*int*](https://docs.python.org/3/library/functions.html#int)) - the number of expected features in the input (required).
-- **nhead** ([*int*](https://docs.python.org/3/library/functions.html#int)) - the number of heads in the multiheadattention models (required).
-- **dim_feedforward** ([*int*](https://docs.python.org/3/library/functions.html#int)) - the dimension of the feedforward network model (default=2048).
-- **dropout** ([*float*](https://docs.python.org/3/library/functions.html#float)) - the dropout value (default=0.1).
-- **activation** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*|*[*Callable*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)*[**[*[*Tensor*](../tensors.html#torch.Tensor)*]**,*[*Tensor*](../tensors.html#torch.Tensor)*]*) - the activation function of the intermediate layer, can be a string
+- **d_model** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - the number of expected features in the input (required).
+- **nhead** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - the number of heads in the multiheadattention models (required).
+- **dim_feedforward** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - the dimension of the feedforward network model (default=2048).
+- **dropout** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - the dropout value (default=0.1).
+- **activation** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*|*[*Callable*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)*[**[*[*Tensor*](../tensors.html#torch.Tensor)*]**,*[*Tensor*](../tensors.html#torch.Tensor)*]*) - the activation function of the intermediate layer, can be a string
 ("relu" or "gelu") or a unary callable. Default: relu
-- **layer_norm_eps** ([*float*](https://docs.python.org/3/library/functions.html#float)) - the eps value in layer normalization components (default=1e-5).
-- **batch_first** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If `True`, then the input and output tensors are provided
+- **layer_norm_eps** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - the eps value in layer normalization components (default=1e-5).
+- **batch_first** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - If `True`, then the input and output tensors are provided
 as (batch, seq, feature). Default: `False` (seq, batch, feature).
-- **norm_first** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - if `True`, layer norm is done prior to attention and feedforward
+- **norm_first** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - if `True`, layer norm is done prior to attention and feedforward
 operations, respectively. Otherwise it's done after. Default: `False` (after).
-- **bias** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If set to `False`, `Linear` and `LayerNorm` layers will not learn an additive
+- **bias** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - If set to `False`, `Linear` and `LayerNorm` layers will not learn an additive
 bias. Default: `True`.
 
 Examples
@@ -84,7 +84,7 @@ mask. In this case, a [NestedTensor](https://pytorch.org/docs/stable/nested.html
 returned, and an additional speedup proportional to the fraction of the input that
 is padding can be expected.
 
-forward(*src*, *src_mask=None*, *src_key_padding_mask=None*, *is_causal=False*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/transformer.py#L799)
+forward(*src*, *src_mask=None*, *src_key_padding_mask=None*, *is_causal=False*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/transformer.py#L799)
 
 Pass the input through the encoder layer.
 
@@ -93,7 +93,7 @@ Parameters:
 - **src** ([*Tensor*](../tensors.html#torch.Tensor)) - the sequence to the encoder layer (required).
 - **src_mask** ([*Tensor*](../tensors.html#torch.Tensor)*|**None*) - the mask for the src sequence (optional).
 - **src_key_padding_mask** ([*Tensor*](../tensors.html#torch.Tensor)*|**None*) - the mask for the src keys per batch (optional).
-- **is_causal** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If specified, applies a causal mask as `src mask`.
+- **is_causal** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - If specified, applies a causal mask as `src mask`.
 Default: `False`.
 Warning:
 `is_causal` provides a hint that `src_mask` is the

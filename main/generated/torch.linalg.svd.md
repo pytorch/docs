@@ -1,6 +1,6 @@
 # torch.linalg.svd
 
-torch.linalg.svd(*A*, *full_matrices=True*, ***, *driver=None*, *out=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/linalg/__init__.py#L1734)
+torch.linalg.svd(*A*, *full_matrices=True*, ***, *driver=None*, *out=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/linalg/__init__.py#L1734)
 
 Computes the singular value decomposition (SVD) of a matrix.
 
@@ -106,17 +106,17 @@ matrices.
 Parameters:
 
 - **A** ([*Tensor*](../tensors.html#torch.Tensor)) - tensor of shape (*, m, n) where * is zero or more batch dimensions.
-- **full_matrices** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - controls whether to compute the full or reduced
+- **full_matrices** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - controls whether to compute the full or reduced
 SVD, and consequently,
 the shape of the returned tensors
 U and Vh. Default: True.
 
 Keyword Arguments:
 
-- **driver** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**optional*) - name of the cuSOLVER method to be used. This keyword argument only works on CUDA inputs.
+- **driver** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**optional*) - name of the cuSOLVER method to be used. This keyword argument only works on CUDA inputs.
 Available options are: None, gesvd, gesvdj, and gesvda.
 Default: None.
-- **out** ([*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*,**optional*) - output tuple of three tensors. Ignored if None.
+- **out** ([*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*,**optional*) - output tuple of three tensors. Ignored if None.
 
 Returns:
 

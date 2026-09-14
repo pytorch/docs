@@ -1,6 +1,6 @@
 # SmoothL1Loss
 
-*class*torch.nn.SmoothL1Loss(*size_average=None*, *reduce=None*, *reduction='mean'*, *beta=1.0*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/loss.py#L988)
+*class*torch.nn.SmoothL1Loss(*size_average=None*, *reduce=None*, *reduction='mean'*, *beta=1.0*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/loss.py#L988)
 
 Creates a criterion that uses a squared term if the absolute
 element-wise error falls below beta and an L1 term otherwise.
@@ -53,22 +53,22 @@ For [`HuberLoss`](torch.nn.HuberLoss.html#torch.nn.HuberLoss), the slope of the 
 
 Parameters:
 
-- **size_average** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - Deprecated (see `reduction`). By default,
+- **size_average** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - Deprecated (see `reduction`). By default,
 the losses are averaged over each loss element in the batch. Note that for
 some losses, there are multiple elements per sample. If the field `size_average`
 is set to `False`, the losses are instead summed for each minibatch. Ignored
 when `reduce` is `False`. Default: `True`
-- **reduce** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - Deprecated (see `reduction`). By default, the
+- **reduce** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - Deprecated (see `reduction`). By default, the
 losses are averaged or summed over observations for each minibatch depending
 on `size_average`. When `reduce` is `False`, returns a loss per
 batch element instead and ignores `size_average`. Default: `True`
-- **reduction** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**optional*) - Specifies the reduction to apply to the output:
+- **reduction** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**optional*) - Specifies the reduction to apply to the output:
 `'none'` | `'mean'` | `'sum'`. `'none'`: no reduction will be applied,
 `'mean'`: the sum of the output will be divided by the number of
 elements in the output, `'sum'`: the output will be summed. Note: `size_average`
 and `reduce` are in the process of being deprecated, and in the meantime,
 specifying either of those two args will override `reduction`. Default: `'mean'`
-- **beta** ([*float*](https://docs.python.org/3/library/functions.html#float)*,**optional*) - Specifies the threshold at which to change between L1 and L2 loss.
+- **beta** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*,**optional*) - Specifies the threshold at which to change between L1 and L2 loss.
 The value must be non-negative. Default: 1.0
 
 Shape:
@@ -87,7 +87,7 @@ Examples
 >>> output.backward()
 ```
 
-forward(*input*, *target*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/loss.py#L1076)
+forward(*input*, *target*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/loss.py#L1076)
 
 Runs the forward pass.
 

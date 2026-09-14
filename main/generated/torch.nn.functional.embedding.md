@@ -1,6 +1,6 @@
 # torch.nn.functional.embedding
 
-torch.nn.functional.embedding(*input*, *weight*, *padding_idx=None*, *max_norm=None*, *norm_type=2.0*, *scale_grad_by_freq=False*, *sparse=False*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/functional.py#L2509)
+torch.nn.functional.embedding(*input*, *weight*, *padding_idx=None*, *max_norm=None*, *norm_type=2.0*, *scale_grad_by_freq=False*, *sparse=False*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/functional.py#L2509)
 
 Generate a simple lookup table that looks up embeddings in a fixed dictionary and size.
 
@@ -27,16 +27,16 @@ Parameters:
 - **input** (*LongTensor*) - Tensor containing indices into the embedding matrix
 - **weight** ([*Tensor*](../tensors.html#torch.Tensor)) - The embedding matrix (must be 2-D) with number of rows equal to the maximum possible index + 1,
 and number of columns equal to the embedding size
-- **padding_idx** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - If specified, the entries at `padding_idx` do not contribute to the gradient;
+- **padding_idx** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - If specified, the entries at `padding_idx` do not contribute to the gradient;
 therefore, the embedding vector at `padding_idx` is not updated during training,
 i.e. it remains as a fixed "pad".
-- **max_norm** ([*float*](https://docs.python.org/3/library/functions.html#float)*,**optional*) - If given, each embedding vector with norm larger than `max_norm`
+- **max_norm** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*,**optional*) - If given, each embedding vector with norm larger than `max_norm`
 is renormalized to have norm `max_norm`.
 Note: this will modify `weight` in-place.
-- **norm_type** ([*float*](https://docs.python.org/3/library/functions.html#float)*,**optional*) - The p of the p-norm to compute for the `max_norm` option. Default `2`.
-- **scale_grad_by_freq** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If given, this will scale gradients by the inverse of frequency of
+- **norm_type** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*,**optional*) - The p of the p-norm to compute for the `max_norm` option. Default `2`.
+- **scale_grad_by_freq** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If given, this will scale gradients by the inverse of frequency of
 the words in the mini-batch. Default `False`.
-- **sparse** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If `True`, gradient w.r.t. `weight` will be a sparse tensor. See Notes under
+- **sparse** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If `True`, gradient w.r.t. `weight` will be a sparse tensor. See Notes under
 [`torch.nn.Embedding`](torch.nn.Embedding.html#torch.nn.Embedding) for more details regarding sparse gradients.
 
 Return type:

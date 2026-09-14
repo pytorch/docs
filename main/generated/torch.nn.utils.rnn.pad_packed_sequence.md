@@ -1,6 +1,6 @@
 # torch.nn.utils.rnn.pad_packed_sequence
 
-torch.nn.utils.rnn.pad_packed_sequence(*sequence*, *batch_first=False*, *padding_value=0.0*, *total_length=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/utils/rnn.py#L327)
+torch.nn.utils.rnn.pad_packed_sequence(*sequence*, *batch_first=False*, *padding_value=0.0*, *total_length=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/utils/rnn.py#L327)
 
 Pad a packed batch of variable length sequences.
 
@@ -42,11 +42,11 @@ details.
 Parameters:
 
 - **sequence** ([*PackedSequence*](torch.nn.utils.rnn.PackedSequence.html#torch.nn.utils.rnn.PackedSequence)) - batch to pad
-- **batch_first** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - if `True`, the output will be in `B x T x *`
+- **batch_first** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - if `True`, the output will be in `B x T x *`
 format, `T x B x *` otherwise.
-- **padding_value** ([*float*](https://docs.python.org/3/library/functions.html#float)*,**optional*) - values for padded elements.
-- **total_length** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - if not `None`, the output will be padded to
-have length `total_length`. This method will throw [`ValueError`](https://docs.python.org/3/library/exceptions.html#ValueError)
+- **padding_value** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*,**optional*) - values for padded elements.
+- **total_length** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - if not `None`, the output will be padded to
+have length `total_length`. This method will throw [`ValueError`](https://docs.python.org/3/builtins/exceptions.html#ValueError)
 if `total_length` is less than the max sequence length in
 `sequence`.
 
@@ -59,4 +59,4 @@ the batch was passed to `pack_padded_sequence` or `pack_sequence`.
 
 Return type:
 
-[tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[*Tensor*](../tensors.html#torch.Tensor), [*Tensor*](../tensors.html#torch.Tensor)]
+[tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[*Tensor*](../tensors.html#torch.Tensor), [*Tensor*](../tensors.html#torch.Tensor)]

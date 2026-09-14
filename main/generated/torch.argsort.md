@@ -15,12 +15,12 @@ which compare equal is not guaranteed. `True` is slower.
 Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - the input tensor.
-- **dim** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - the dimension to sort along
-- **descending** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - controls the sorting order (ascending or descending)
+- **dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - the dimension to sort along
+- **descending** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - controls the sorting order (ascending or descending)
 
 Keyword Arguments:
 
-**stable** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - controls the relative order of equivalent elements
+**stable** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - controls the relative order of equivalent elements
 
 Example:
 

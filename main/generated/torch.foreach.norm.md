@@ -1,6 +1,6 @@
 # torch.foreach.norm
 
-torch.foreach.norm(*inputs: TensorList*, */*, ***, *ord: Scalar = 2*, *dtype: [dtype](../tensor_attributes.html#torch.dtype) | [None](https://docs.python.org/3/library/constants.html#None) = None*) → [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...][[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/foreach/__init__.py#L1578)
+torch.foreach.norm(*inputs: TensorList*, */*, ***, *ord: Scalar = 2*, *dtype: [dtype](../tensor_attributes.html#torch.dtype) | [None](https://docs.python.org/3/builtins/constants.html#None) = None*) → [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...][[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/foreach/__init__.py#L1578)
 
 Returns the vector norm of each tensor in `inputs`.
 
@@ -16,7 +16,7 @@ Every input tensor is reduced over all dimensions. The `dim` and
 
 Parameters:
 
-- **inputs** ([*list*](https://docs.python.org/3/library/stdtypes.html#list)*or*[*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*of*[*Tensor*](../tensors.html#torch.Tensor)) - tensors to reduce.
+- **inputs** ([*list*](https://docs.python.org/3/builtins/stdtypes.html#list)*or*[*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*of*[*Tensor*](../tensors.html#torch.Tensor)) - tensors to reduce.
 - **ord** (*Number**,**optional*) - norm order. Default: `2`.
 - **dtype** ([`torch.dtype`](../tensor_attributes.html#torch.dtype), optional) - dtype used for the computation.
 

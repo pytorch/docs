@@ -1,6 +1,6 @@
 # DataParallel
 
-*class*torch.nn.DataParallel(*module*, *device_ids=None*, *output_device=None*, *dim=0*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/parallel/data_parallel.py#L54)
+*class*torch.nn.DataParallel(*module*, *device_ids=None*, *output_device=None*, *dim=0*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/parallel/data_parallel.py#L54)
 
 Implements data parallelism at the module level.
 
@@ -73,8 +73,8 @@ details.
 Parameters:
 
 - **module** ([*Module*](torch.nn.Module.html#torch.nn.Module)) - module to be parallelized
-- **device_ids** ([*list*](https://docs.python.org/3/library/stdtypes.html#list)*of*[*int*](https://docs.python.org/3/library/functions.html#int)*or*[*torch.device*](../tensor_attributes.html#torch.device)) - CUDA devices (default: all devices)
-- **output_device** ([*int*](https://docs.python.org/3/library/functions.html#int)*or*[*torch.device*](../tensor_attributes.html#torch.device)) - device location of output (default: device_ids[0])
+- **device_ids** ([*list*](https://docs.python.org/3/builtins/stdtypes.html#list)*of*[*int*](https://docs.python.org/3/builtins/functions.html#int)*or*[*torch.device*](../tensor_attributes.html#torch.device)) - CUDA devices (default: all devices)
+- **output_device** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*or*[*torch.device*](../tensor_attributes.html#torch.device)) - device location of output (default: device_ids[0])
 
 Variables:
 

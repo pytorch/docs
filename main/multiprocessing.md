@@ -25,21 +25,21 @@ to you.
 
 ## Strategy management
 
-torch.multiprocessing.get_all_sharing_strategies()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/multiprocessing/__init__.py#L82)
+torch.multiprocessing.get_all_sharing_strategies()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/multiprocessing/__init__.py#L82)
 
 Return a set of sharing strategies supported on a current system.
 
-torch.multiprocessing.get_sharing_strategy()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/multiprocessing/__init__.py#L77)
+torch.multiprocessing.get_sharing_strategy()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/multiprocessing/__init__.py#L77)
 
 Return the current strategy for sharing CPU tensors.
 
-torch.multiprocessing.set_sharing_strategy(*new_strategy*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/multiprocessing/__init__.py#L61)
+torch.multiprocessing.set_sharing_strategy(*new_strategy*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/multiprocessing/__init__.py#L61)
 
 Set the strategy for sharing CPU tensors.
 
 Parameters:
 
-**new_strategy** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - Name of the selected strategy. Should be one of
+**new_strategy** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - Name of the selected strategy. Should be one of
 the values returned by `get_all_sharing_strategies()`.
 
 ## Sharing CUDA tensors
@@ -179,7 +179,7 @@ The `spawn` function below addresses these concerns and takes care
 of error propagation, out of order termination, and will actively
 terminate processes upon detecting an error in one of them.
 
-torch.multiprocessing.spawn.spawn(*fn*, *args=()*, *nprocs=1*, *join=True*, *daemon=False*, *start_method='spawn'*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/multiprocessing/spawn.py#L309)
+torch.multiprocessing.spawn.spawn(*fn*, *args=()*, *nprocs=1*, *join=True*, *daemon=False*, *start_method='spawn'*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/multiprocessing/spawn.py#L309)
 
 Spawns `nprocs` processes that run `fn` with `args`.
 
@@ -201,12 +201,12 @@ is a requirement imposed by multiprocessing.
 The function is called as `fn(i, *args)`, where `i` is
 the process index and `args` is the passed through tuple
 of arguments.
-- **args** ([*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)) - Arguments passed to `fn`.
-- **nprocs** ([*int*](https://docs.python.org/3/library/functions.html#int)) - Number of processes to spawn.
-- **join** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - Perform a blocking join on all processes.
-- **daemon** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - The spawned processes' daemon flag. If set to True,
+- **args** ([*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)) - Arguments passed to `fn`.
+- **nprocs** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Number of processes to spawn.
+- **join** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Perform a blocking join on all processes.
+- **daemon** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - The spawned processes' daemon flag. If set to True,
 daemonic processes will be created.
-- **start_method** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - (deprecated) this method will always use `spawn`
+- **start_method** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - (deprecated) this method will always use `spawn`
 as the start method. To use a different start method
 use `start_processes()`.
 
@@ -215,11 +215,11 @@ Returns:
 None if `join` is `True`,
 `ProcessContext` if `join` is `False`
 
-*class*torch.multiprocessing.SpawnContext[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/multiprocessing/spawn.py#L223)
+*class*torch.multiprocessing.SpawnContext[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/multiprocessing/spawn.py#L223)
 
 Returned by `spawn()` when called with `join=False`.
 
-join(*timeout=None*, *grace_period=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/multiprocessing/spawn.py#L127)
+join(*timeout=None*, *grace_period=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/multiprocessing/spawn.py#L127)
 
 Join one or more processes within spawn context.
 
@@ -233,8 +233,8 @@ Returns `True` if all processes have been joined successfully,
 
 Parameters:
 
-- **timeout** ([*float*](https://docs.python.org/3/library/functions.html#float)) - Wait this long (in seconds) before giving up on waiting.
-- **grace_period** ([*float*](https://docs.python.org/3/library/functions.html#float)) - When any processes fail, wait this long (in seconds)
+- **timeout** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - Wait this long (in seconds) before giving up on waiting.
+- **grace_period** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - When any processes fail, wait this long (in seconds)
 for others to shutdown gracefully before terminating them. If they
 still don't exit, wait another grace period before killing them.
 

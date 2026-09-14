@@ -1,6 +1,6 @@
 # torch.accelerator.current_accelerator
 
-torch.accelerator.current_accelerator(*check_available=False*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/accelerator/__init__.py#L103)
+torch.accelerator.current_accelerator(*check_available=False*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/accelerator/__init__.py#L103)
 
 Return the device of the accelerator available at compilation time.
 If no accelerator were available at compilation time, returns None.
@@ -8,7 +8,7 @@ See [accelerator](../torch.html#accelerators) for details.
 
 Parameters:
 
-**check_available** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - if True, will also do a runtime check to see
+**check_available** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - if True, will also do a runtime check to see
 if the device [`torch.accelerator.is_available()`](torch.accelerator.is_available.html#torch.accelerator.is_available) on top of the compile-time
 check.
 Default: `False`

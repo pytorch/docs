@@ -1,6 +1,6 @@
 # FeatureAlphaDropout
 
-*class*torch.nn.FeatureAlphaDropout(*p=0.5*, *inplace=False*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/dropout.py#L272)
+*class*torch.nn.FeatureAlphaDropout(*p=0.5*, *inplace=False*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/dropout.py#L272)
 
 Randomly masks out entire channels.
 
@@ -30,8 +30,8 @@ feature maps and should be used instead.
 
 Parameters:
 
-- **p** ([*float*](https://docs.python.org/3/library/functions.html#float)*,**optional*) - probability of an element to be zeroed. Default: 0.5
-- **inplace** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If set to `True`, will do this operation
+- **p** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*,**optional*) - probability of an element to be zeroed. Default: 0.5
+- **inplace** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If set to `True`, will do this operation
 in-place
 
 Shape:
@@ -47,7 +47,7 @@ Examples:
 >>> output = m(input)
 ```
 
-forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/dropout.py#L319)
+forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/dropout.py#L319)
 
 Runs the forward pass.
 

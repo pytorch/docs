@@ -1,6 +1,6 @@
 # torch.linalg.householder_product
 
-torch.linalg.householder_product(*A*, *tau*, ***, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/linalg/__init__.py#L836)
+torch.linalg.householder_product(*A*, *tau*, ***, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/linalg/__init__.py#L836)
 
 Computes the first n columns of a product of Householder matrices.
 
@@ -48,7 +48,7 @@ Keyword Arguments:
 
 Raises:
 
-[**RuntimeError**](https://docs.python.org/3/library/exceptions.html#RuntimeError) - if `A` doesn't satisfy the requirement m >= n,
+[**RuntimeError**](https://docs.python.org/3/builtins/exceptions.html#RuntimeError) - if `A` doesn't satisfy the requirement m >= n,
  or `tau` doesn't satisfy the requirement n >= k.
 
 Examples:

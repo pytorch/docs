@@ -11,7 +11,7 @@ Operators that can be used to create any ONNX ops in the FX graph symbolically.
 These operators do not do actual computation. It's recommended that you used them
 inside an `if torch.onnx.is_in_onnx_export` block.
 
-torch.onnx.ops.symbolic(*domain_op*, */*, *inputs*, *attrs=None*, ***, *dtype*, *shape*, *version=None*, *metadata_props=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/onnx/ops/__init__.py#L73)
+torch.onnx.ops.symbolic(*domain_op*, */*, *inputs*, *attrs=None*, ***, *dtype*, *shape*, *version=None*, *metadata_props=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/onnx/ops/__init__.py#L73)
 
 Create a symbolic FX operator to represent an arbitrary ONNX operator.
 
@@ -48,19 +48,19 @@ class CustomOp(torch.nn.Module):
 
 Parameters:
 
-- **domain_op** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - The domain and operator name, separated by "::". For example,
+- **domain_op** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - The domain and operator name, separated by "::". For example,
 "custom_domain::CustomOp".
 - **inputs** (*Sequence**[*[*torch.Tensor*](tensors.html#torch.Tensor)*|**None**]*) - The input tensors to the operator.
-- **attrs** ([*dict*](https://docs.python.org/3/library/stdtypes.html#dict)*[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*,*[*int*](https://docs.python.org/3/library/functions.html#int)*|*[*float*](https://docs.python.org/3/library/functions.html#float)*|*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*|*[*bool*](https://docs.python.org/3/library/functions.html#bool)*|**Sequence**[*[*int*](https://docs.python.org/3/library/functions.html#int)*]**|**Sequence**[*[*float*](https://docs.python.org/3/library/functions.html#float)*]**|**Sequence**[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*]**|**Sequence**[*[*bool*](https://docs.python.org/3/library/functions.html#bool)*]**]**|**None*) - The attributes of the operator. The keys are attribute names and
+- **attrs** ([*dict*](https://docs.python.org/3/builtins/stdtypes.html#dict)*[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,*[*int*](https://docs.python.org/3/builtins/functions.html#int)*|*[*float*](https://docs.python.org/3/builtins/functions.html#float)*|*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*|*[*bool*](https://docs.python.org/3/builtins/functions.html#bool)*|**Sequence**[*[*int*](https://docs.python.org/3/builtins/functions.html#int)*]**|**Sequence**[*[*float*](https://docs.python.org/3/builtins/functions.html#float)*]**|**Sequence**[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*]**|**Sequence**[*[*bool*](https://docs.python.org/3/builtins/functions.html#bool)*]**]**|**None*) - The attributes of the operator. The keys are attribute names and
 the values are attribute values. Valid attribute types are int, float,
 str, bool, and lists of int, float, str, and bool. Tensor attributes
 are unsupported.
-- **dtype** ([*torch.dtype*](tensor_attributes.html#torch.dtype)*|*[*int*](https://docs.python.org/3/library/functions.html#int)) - The data type of the output tensor.This can be either a torch.dtype
+- **dtype** ([*torch.dtype*](tensor_attributes.html#torch.dtype)*|*[*int*](https://docs.python.org/3/builtins/functions.html#int)) - The data type of the output tensor.This can be either a torch.dtype
 or an integer representing the ONNX data type.
-- **shape** (*Sequence**[*[*int*](https://docs.python.org/3/library/functions.html#int)*|*[*torch.SymInt*](torch.html#torch.SymInt)*]*) - The shape of the output tensor. This can be a list of integers or
+- **shape** (*Sequence**[*[*int*](https://docs.python.org/3/builtins/functions.html#int)*|*[*torch.SymInt*](torch.html#torch.SymInt)*]*) - The shape of the output tensor. This can be a list of integers or
 SymInt values.
-- **version** ([*int*](https://docs.python.org/3/library/functions.html#int)*|**None*) - The version of the opset used for the operator.
-- **metadata_props** ([*dict*](https://docs.python.org/3/library/stdtypes.html#dict)*[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*,*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*]**|**None*) - Metadata properties for the ONNX node.
+- **version** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*|**None*) - The version of the opset used for the operator.
+- **metadata_props** ([*dict*](https://docs.python.org/3/builtins/stdtypes.html#dict)*[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*]**|**None*) - Metadata properties for the ONNX node.
 This is a dictionary of str-str pairs.
 
 Returns:
@@ -71,7 +71,7 @@ Return type:
 
 [torch.Tensor](tensors.html#torch.Tensor)
 
-torch.onnx.ops.symbolic_multi_out(*domain_op*, */*, *inputs*, *attrs=None*, ***, *dtypes*, *shapes*, *version=None*, *metadata_props=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/onnx/ops/__init__.py#L174)
+torch.onnx.ops.symbolic_multi_out(*domain_op*, */*, *inputs*, *attrs=None*, ***, *dtypes*, *shapes*, *version=None*, *metadata_props=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/onnx/ops/__init__.py#L174)
 
 Create a symbolic FX operator to represent an arbitrary ONNX operator with multiple outputs.
 
@@ -105,20 +105,20 @@ class CustomOp(torch.nn.Module):
 
 Parameters:
 
-- **domain_op** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - The domain and operator name, separated by "::". For example,
+- **domain_op** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - The domain and operator name, separated by "::". For example,
 "custom_domain::CustomOp".
 - **inputs** (*Sequence**[*[*torch.Tensor*](tensors.html#torch.Tensor)*|**None**]*) - The input tensors to the operator.
-- **attrs** ([*dict*](https://docs.python.org/3/library/stdtypes.html#dict)*[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*,*[*int*](https://docs.python.org/3/library/functions.html#int)*|*[*float*](https://docs.python.org/3/library/functions.html#float)*|*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*|*[*bool*](https://docs.python.org/3/library/functions.html#bool)*|**Sequence**[*[*int*](https://docs.python.org/3/library/functions.html#int)*]**|**Sequence**[*[*float*](https://docs.python.org/3/library/functions.html#float)*]**|**Sequence**[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*]**|**Sequence**[*[*bool*](https://docs.python.org/3/library/functions.html#bool)*]**]**|**None*) - The attributes of the operator. The keys are attribute names and
+- **attrs** ([*dict*](https://docs.python.org/3/builtins/stdtypes.html#dict)*[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,*[*int*](https://docs.python.org/3/builtins/functions.html#int)*|*[*float*](https://docs.python.org/3/builtins/functions.html#float)*|*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*|*[*bool*](https://docs.python.org/3/builtins/functions.html#bool)*|**Sequence**[*[*int*](https://docs.python.org/3/builtins/functions.html#int)*]**|**Sequence**[*[*float*](https://docs.python.org/3/builtins/functions.html#float)*]**|**Sequence**[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*]**|**Sequence**[*[*bool*](https://docs.python.org/3/builtins/functions.html#bool)*]**]**|**None*) - The attributes of the operator. The keys are attribute names and
 the values are attribute values. Valid attribute types are int, float,
 str, bool, and lists of int, float, str, and bool. Tensor attributes
 are unsupported.
-- **dtypes** (*Sequence**[*[*torch.dtype*](tensor_attributes.html#torch.dtype)*|*[*int*](https://docs.python.org/3/library/functions.html#int)*]*) - The data types of the output tensors. This can be a list of
+- **dtypes** (*Sequence**[*[*torch.dtype*](tensor_attributes.html#torch.dtype)*|*[*int*](https://docs.python.org/3/builtins/functions.html#int)*]*) - The data types of the output tensors. This can be a list of
 torch.dtype or integers representing the ONNX data types. The length
 of this list must be the number of outputs.
-- **shapes** (*Sequence**[**Sequence**[*[*int*](https://docs.python.org/3/library/functions.html#int)*|*[*torch.SymInt*](torch.html#torch.SymInt)*]**]*) - The shapes of the output tensors. This can be a list of lists of
+- **shapes** (*Sequence**[**Sequence**[*[*int*](https://docs.python.org/3/builtins/functions.html#int)*|*[*torch.SymInt*](torch.html#torch.SymInt)*]**]*) - The shapes of the output tensors. This can be a list of lists of
 integers or SymInt values. The length of this list must be the number of outputs.
-- **version** ([*int*](https://docs.python.org/3/library/functions.html#int)*|**None*) - The version of the opset used for the operator.
-- **metadata_props** ([*dict*](https://docs.python.org/3/library/stdtypes.html#dict)*[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*,*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*]**|**None*) - Metadata properties for the ONNX node.
+- **version** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*|**None*) - The version of the opset used for the operator.
+- **metadata_props** ([*dict*](https://docs.python.org/3/builtins/stdtypes.html#dict)*[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*]**|**None*) - Metadata properties for the ONNX node.
 This is a dictionary of str-str pairs.
 
 Returns:
@@ -205,7 +205,7 @@ class GraphModule(torch.nn.Module):
  return (rotary_embedding,)
 ```
 
-torch.onnx.ops.rotary_embedding(*X*, *cos_cache*, *sin_cache*, *position_ids=None*, ***, *interleaved=False*, *num_heads=0*, *rotary_embedding_dim=0*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/onnx/ops/__init__.py#L282)
+torch.onnx.ops.rotary_embedding(*X*, *cos_cache*, *sin_cache*, *position_ids=None*, ***, *interleaved=False*, *num_heads=0*, *rotary_embedding_dim=0*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/onnx/ops/__init__.py#L282)
 
 RotaryEmbedding op in ONNX.
 
@@ -246,9 +246,9 @@ when position_ids are not provided. max_position_id_plus_1 is a parameter
 to the model.
 - **position_ids** ([*Tensor*](tensors.html#torch.Tensor)*|**None*) - The position indices for the tokens. 2D tensor with shape
 (batch_size, sequence_length).
-- **interleaved** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - Rotate using interleaved pattern. Default value is 0 (False).
-- **num_heads** ([*int*](https://docs.python.org/3/library/functions.html#int)) - Number of attention heads. Must be provided when input is a 3D tensor.
-- **rotary_embedding_dim** ([*int*](https://docs.python.org/3/library/functions.html#int)) - Rotary embedding dimension used to apply partial rotary embeddings.
+- **interleaved** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Rotate using interleaved pattern. Default value is 0 (False).
+- **num_heads** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Number of attention heads. Must be provided when input is a 3D tensor.
+- **rotary_embedding_dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Rotary embedding dimension used to apply partial rotary embeddings.
 
 Returns:
 
@@ -258,7 +258,7 @@ Return type:
 
 [*Tensor*](tensors.html#torch.Tensor)
 
-torch.onnx.ops.attention(*Q*, *K*, *V*, *attn_mask=None*, *past_key=None*, *past_value=None*, ***, *is_causal=False*, *kv_num_heads=0*, *q_num_heads=0*, *qk_matmul_output_mode=0*, *scale=None*, *softcap=0.0*, *softmax_precision=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/onnx/ops/__init__.py#L348)
+torch.onnx.ops.attention(*Q*, *K*, *V*, *attn_mask=None*, *past_key=None*, *past_value=None*, ***, *is_causal=False*, *kv_num_heads=0*, *q_num_heads=0*, *qk_matmul_output_mode=0*, *scale=None*, *softcap=0.0*, *softmax_precision=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/onnx/ops/__init__.py#L348)
 
 Attention op in ONNX.
 
@@ -325,18 +325,18 @@ A boolean mask where a value of True indicates that the element should take part
 Also supports a float mask of the same type as query, key, value that is added to the attention score.
 - **past_key** ([*Tensor*](tensors.html#torch.Tensor)*|**None*) - Past state cache for key with shape (batch_size, kv_num_heads, past_sequence_length, head_size)
 - **past_value** ([*Tensor*](tensors.html#torch.Tensor)*|**None*) - Past state cache for value with shape (batch_size, kv_num_heads, past_sequence_length, v_head_size)
-- **is_causal** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If set to True, the attention masking is a lower triangular matrix when the mask is a square matrix.
+- **is_causal** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - If set to True, the attention masking is a lower triangular matrix when the mask is a square matrix.
 The attention masking has the form of the upper left causal bias due to the alignment.
-- **kv_num_heads** ([*int*](https://docs.python.org/3/library/functions.html#int)) - Number of heads of key and value. Must be used with 3D inputs of Q, K and V.
-- **q_num_heads** ([*int*](https://docs.python.org/3/library/functions.html#int)) - Number of heads of query. Must be used with 3D inputs of Q, K and V.
-- **qk_matmul_output_mode** ([*int*](https://docs.python.org/3/library/functions.html#int)) - If set to 0, qk_matmul_output is the output of qk matmul. If set to 1,
+- **kv_num_heads** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Number of heads of key and value. Must be used with 3D inputs of Q, K and V.
+- **q_num_heads** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Number of heads of query. Must be used with 3D inputs of Q, K and V.
+- **qk_matmul_output_mode** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - If set to 0, qk_matmul_output is the output of qk matmul. If set to 1,
 qk_matmul_output includes the addition of the attention mask to the output of qk matmul.
 If set to 2, qk_matmul_output is the output after the softcap operation. If set to 3,
 qk_matmul_output is the output after the softmax operation. Default value is 0.
-- **scale** ([*float*](https://docs.python.org/3/library/functions.html#float)*|**None*) - Scaling factor applied to Q*K^T. Default value is 1/sqrt(head_size). To prevent numerical overflow,
+- **scale** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*|**None*) - Scaling factor applied to Q*K^T. Default value is 1/sqrt(head_size). To prevent numerical overflow,
 scale Q, K by sqrt(scale) before matmul.
-- **softcap** ([*float*](https://docs.python.org/3/library/functions.html#float)) - Softcap value for attention weights. Default value is 0.
-- **softmax_precision** ([*int*](https://docs.python.org/3/library/functions.html#int)*|**None*) - The floating-point precision used in softmax computation. If softmax precision is not provided,
+- **softcap** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - Softcap value for attention weights. Default value is 0.
+- **softmax_precision** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*|**None*) - The floating-point precision used in softmax computation. If softmax precision is not provided,
 the same precision as the input of softmax (Q and K) is used.
 
 Returns:
@@ -382,10 +382,10 @@ ep = torch.export.export(
 ep_decomposed = ep.run_decompositions(torch.onnx.ops.aten_decompositions())
 ```
 
-torch.onnx.ops.aten_decompositions()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/onnx/ops/__init__.py#L57)
+torch.onnx.ops.aten_decompositions()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/onnx/ops/__init__.py#L57)
 
 Return the ONNX to ATen decomp table.
 
 Return type:
 
-[dict](https://docs.python.org/3/library/stdtypes.html#dict)[torch._ops.OpOverload, Callable]
+[dict](https://docs.python.org/3/builtins/stdtypes.html#dict)[torch._ops.OpOverload, Callable]

@@ -19,7 +19,7 @@ storage if necessary.
 Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - the input tensor.
-- **dim** ([*int*](https://docs.python.org/3/library/functions.html#int)) - the dimension in which we index
+- **dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - the dimension in which we index
 - **index** (*IntTensor**or**LongTensor*) - the 1-D tensor containing the indices to index
 
 Keyword Arguments:

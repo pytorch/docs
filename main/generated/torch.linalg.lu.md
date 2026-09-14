@@ -1,6 +1,6 @@
 # torch.linalg.lu
 
-torch.linalg.lu(*A*, ***, *pivot=True*, *out=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/linalg/__init__.py#L2641)
+torch.linalg.lu(*A*, ***, *pivot=True*, *out=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/linalg/__init__.py#L2641)
 
 Computes the LU decomposition with partial pivoting of a matrix.
 
@@ -47,12 +47,12 @@ This is because the LU decomposition with pivoting is not differentiable at thes
 Parameters:
 
 - **A** ([*Tensor*](../tensors.html#torch.Tensor)) - tensor of shape (*, m, n) where * is zero or more batch dimensions.
-- **pivot** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - Controls whether to compute the LU decomposition with partial pivoting or
+- **pivot** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - Controls whether to compute the LU decomposition with partial pivoting or
 no pivoting. Default: True.
 
 Keyword Arguments:
 
-**out** ([*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*,**optional*) - output tuple of three tensors. Ignored if None. Default: None.
+**out** ([*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*,**optional*) - output tuple of three tensors. Ignored if None. Default: None.
 
 Returns:
 

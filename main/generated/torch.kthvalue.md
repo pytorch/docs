@@ -23,13 +23,13 @@ When `input` is a CUDA tensor and there are multiple valid
 Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - the input tensor.
-- **k** ([*int*](https://docs.python.org/3/library/functions.html#int)) - k for the k-th smallest element
-- **dim** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - the dimension to find the kth value along
-- **keepdim** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - whether the output tensor has `dim` retained or not. Default: `False`.
+- **k** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - k for the k-th smallest element
+- **dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - the dimension to find the kth value along
+- **keepdim** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - whether the output tensor has `dim` retained or not. Default: `False`.
 
 Keyword Arguments:
 
-**out** ([*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*,**optional*) - the output tuple of (Tensor, LongTensor)
+**out** ([*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*,**optional*) - the output tuple of (Tensor, LongTensor)
 can be optionally given to be used as output buffers
 
 Example:

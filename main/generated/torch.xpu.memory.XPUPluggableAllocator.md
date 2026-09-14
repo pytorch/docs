@@ -1,6 +1,6 @@
 # XPUPluggableAllocator
 
-*class*torch.xpu.memory.XPUPluggableAllocator(*path_to_lib_file*, *alloc_fn_name*, *free_fn_name*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/xpu/memory.py#L490)
+*class*torch.xpu.memory.XPUPluggableAllocator(*path_to_lib_file*, *alloc_fn_name*, *free_fn_name*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/xpu/memory.py#L490)
 
 XPU memory allocator loaded dynamically from a shared library.
 
@@ -10,15 +10,15 @@ available for use via [`change_current_allocator()`](torch.xpu.memory.change_cur
 
 Parameters:
 
-- **path_to_lib_file** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - Filesystem path to the shared library file containing the allocation
+- **path_to_lib_file** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - Filesystem path to the shared library file containing the allocation
 and free functions.
-- **alloc_fn_name** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) -
+- **alloc_fn_name** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) -
 
 Name of the allocation function exported from the shared library.
 The function must have the signature:
 
 > `void* alloc_fn(size_t size, int device, sycl::queue* queue);`
-- **free_fn_name** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) -
+- **free_fn_name** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) -
 
 Name of the free function exported from the shared library.
 The function must have the signature:

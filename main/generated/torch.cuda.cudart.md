@@ -1,6 +1,6 @@
 # torch.cuda.cudart
 
-torch.cuda.cudart()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/cuda/__init__.py#L626)
+torch.cuda.cudart()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/cuda/__init__.py#L626)
 
 Retrieves the CUDA runtime API module.
 
@@ -22,8 +22,8 @@ module
 
 Raises:
 
-- [**RuntimeError**](https://docs.python.org/3/library/exceptions.html#RuntimeError) - If CUDA cannot be re-initialized in a forked subprocess.
-- [**AssertionError**](https://docs.python.org/3/library/exceptions.html#AssertionError) - If PyTorch is not compiled with CUDA support or if libcudart functions are unavailable.
+- [**RuntimeError**](https://docs.python.org/3/builtins/exceptions.html#RuntimeError) - If CUDA cannot be re-initialized in a forked subprocess.
+- [**AssertionError**](https://docs.python.org/3/builtins/exceptions.html#AssertionError) - If PyTorch is not compiled with CUDA support or if libcudart functions are unavailable.
 
 Example of CUDA operations with profiling:
 

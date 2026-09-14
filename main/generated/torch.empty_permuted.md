@@ -27,8 +27,8 @@ are filled with the maximum value.
 
 Parameters:
 
-- **size** ([*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*of*[*int*](https://docs.python.org/3/library/functions.html#int)) - the shape of the output tensor
-- **physical_layout** ([*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*of*[*int*](https://docs.python.org/3/library/functions.html#int)) - the ordering of dimensions physically in memory
+- **size** ([*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*of*[*int*](https://docs.python.org/3/builtins/functions.html#int)) - the shape of the output tensor
+- **physical_layout** ([*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*of*[*int*](https://docs.python.org/3/builtins/functions.html#int)) - the ordering of dimensions physically in memory
 
 Keyword Arguments:
 
@@ -40,9 +40,9 @@ Default: `torch.strided`.
 Default: if `None`, uses the current device for the default tensor type
 (see [`torch.set_default_device()`](torch.set_default_device.html#torch.set_default_device)). [`device`](../tensor_attributes.html#torch.device) will be the CPU
 for CPU tensor types and the current CUDA device for CUDA tensor types.
-- **requires_grad** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If autograd should record operations on the
+- **requires_grad** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If autograd should record operations on the
 returned tensor. Default: `False`.
-- **pin_memory** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If set, returned tensor would be allocated in
+- **pin_memory** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If set, returned tensor would be allocated in
 the pinned memory. Works only for CPU tensors. Default: `False`.
 
 Examples

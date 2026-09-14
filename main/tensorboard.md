@@ -65,7 +65,7 @@ Expected result:
 
 [![_images/hier_tags.png](_images/hier_tags.png)](_images/hier_tags.png)
 
-*class*torch.utils.tensorboard.writer.SummaryWriter(*log_dir=None*, *comment=''*, *purge_step=None*, *max_queue=10*, *flush_secs=120*, *filename_suffix=''*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/utils/tensorboard/writer.py#L173)
+*class*torch.utils.tensorboard.writer.SummaryWriter(*log_dir=None*, *comment=''*, *purge_step=None*, *max_queue=10*, *flush_secs=120*, *filename_suffix=''*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/utils/tensorboard/writer.py#L173)
 
 Writes entries directly to event files in the log_dir to be consumed by TensorBoard.
 
@@ -75,29 +75,29 @@ file contents asynchronously. This allows a training program to call methods
 to add data to the file directly from the training loop, without slowing down
 training.
 
-__init__(*log_dir=None*, *comment=''*, *purge_step=None*, *max_queue=10*, *flush_secs=120*, *filename_suffix=''*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/utils/tensorboard/writer.py#L183)
+__init__(*log_dir=None*, *comment=''*, *purge_step=None*, *max_queue=10*, *flush_secs=120*, *filename_suffix=''*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/utils/tensorboard/writer.py#L183)
 
 Create a SummaryWriter that will write out events and summaries to the event file.
 
 Parameters:
 
-- **log_dir** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - Save directory location. Default is
+- **log_dir** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - Save directory location. Default is
 runs/**CURRENT_DATETIME_HOSTNAME**, which changes after each run.
 Use hierarchical folder structure to compare
 between runs easily. e.g. pass in 'runs/exp1', 'runs/exp2', etc.
 for each new experiment to compare across them.
-- **comment** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - Comment log_dir suffix appended to the default
+- **comment** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - Comment log_dir suffix appended to the default
 `log_dir`. If `log_dir` is assigned, this argument has no effect.
-- **purge_step** ([*int*](https://docs.python.org/3/library/functions.html#int)) - When logging crashes at step T+XT+XT+X and restarts at step TTT,
+- **purge_step** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - When logging crashes at step T+XT+XT+X and restarts at step TTT,
 any events whose global_step larger or equal to TTT will be
 purged and hidden from TensorBoard.
 Note that crashed and resumed experiments should have the same `log_dir`.
-- **max_queue** ([*int*](https://docs.python.org/3/library/functions.html#int)) - Size of the queue for pending events and
+- **max_queue** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Size of the queue for pending events and
 summaries before one of the 'add' calls forces a flush to disk.
 Default is ten items.
-- **flush_secs** ([*int*](https://docs.python.org/3/library/functions.html#int)) - How often, in seconds, to flush the
+- **flush_secs** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - How often, in seconds, to flush the
 pending events and summaries to disk. Default is every two minutes.
-- **filename_suffix** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - Suffix added to all event filenames in
+- **filename_suffix** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - Suffix added to all event filenames in
 the log_dir directory. More details on filename construction in
 tensorboard.summary.writer.event_file_writer.EventFileWriter.
 
@@ -119,16 +119,16 @@ writer = SummaryWriter(comment="LR_0.1_BATCH_16")
 # folder location: runs/May04_22-14-54_s-MacBook-Pro.localLR_0.1_BATCH_16/
 ```
 
-add_scalar(*tag*, *scalar_value*, *global_step=None*, *walltime=None*, *new_style=False*, *double_precision=False*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/utils/tensorboard/writer.py#L347)
+add_scalar(*tag*, *scalar_value*, *global_step=None*, *walltime=None*, *new_style=False*, *double_precision=False*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/utils/tensorboard/writer.py#L347)
 
 Add scalar data to summary.
 
 Parameters:
 
-- **tag** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - Data identifier
-- **scalar_value** ([*float*](https://docs.python.org/3/library/functions.html#float)*or**string/blobname*) - Value to save
-- **global_step** ([*int*](https://docs.python.org/3/library/functions.html#int)) - Global step value to record
-- **walltime** ([*float*](https://docs.python.org/3/library/functions.html#float)) - Optional override default walltime (time.time())
+- **tag** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - Data identifier
+- **scalar_value** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*or**string/blobname*) - Value to save
+- **global_step** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Global step value to record
+- **walltime** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - Optional override default walltime (time.time())
 with seconds after epoch of event
 - **new_style** (*boolean*) - Whether to use new style (tensor field) or old
 style (simple_value field). New style could lead to faster data loading.
@@ -148,16 +148,16 @@ Expected result:
 
 [![_images/add_scalar.png](_images/add_scalar.png)](_images/add_scalar.png)
 
-add_scalars(*main_tag*, *tag_scalar_dict*, *global_step=None*, *walltime=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/utils/tensorboard/writer.py#L388)
+add_scalars(*main_tag*, *tag_scalar_dict*, *global_step=None*, *walltime=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/utils/tensorboard/writer.py#L388)
 
 Add many scalar data to summary.
 
 Parameters:
 
-- **main_tag** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - The parent name for the tags
-- **tag_scalar_dict** ([*dict*](https://docs.python.org/3/library/stdtypes.html#dict)) - Key-value pair storing the tag and corresponding values
-- **global_step** ([*int*](https://docs.python.org/3/library/functions.html#int)) - Global step value to record
-- **walltime** ([*float*](https://docs.python.org/3/library/functions.html#float)) - Optional override default walltime (time.time())
+- **main_tag** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - The parent name for the tags
+- **tag_scalar_dict** ([*dict*](https://docs.python.org/3/builtins/stdtypes.html#dict)) - Key-value pair storing the tag and corresponding values
+- **global_step** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Global step value to record
+- **walltime** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - Optional override default walltime (time.time())
 seconds after epoch of event
 
 Examples:
@@ -179,18 +179,18 @@ Expected result:
 
 [![_images/add_scalars.png](_images/add_scalars.png)](_images/add_scalars.png)
 
-add_histogram(*tag*, *values*, *global_step=None*, *bins='tensorflow'*, *walltime=None*, *max_bins=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/utils/tensorboard/writer.py#L465)
+add_histogram(*tag*, *values*, *global_step=None*, *bins='tensorflow'*, *walltime=None*, *max_bins=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/utils/tensorboard/writer.py#L465)
 
 Add histogram to summary.
 
 Parameters:
 
-- **tag** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - Data identifier
+- **tag** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - Data identifier
 - **values** ([*torch.Tensor*](tensors.html#torch.Tensor)*,*[*numpy.ndarray*](https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray)*, or**string/blobname*) - Values to build histogram
-- **global_step** ([*int*](https://docs.python.org/3/library/functions.html#int)) - Global step value to record
-- **bins** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - One of {'tensorflow','auto', 'fd', ...}. This determines how the bins are made. You can find
+- **global_step** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Global step value to record
+- **bins** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - One of {'tensorflow','auto', 'fd', ...}. This determines how the bins are made. You can find
 other options in: [https://numpy.org/doc/stable/reference/generated/numpy.histogram.html](https://numpy.org/doc/stable/reference/generated/numpy.histogram.html)
-- **walltime** ([*float*](https://docs.python.org/3/library/functions.html#float)) - Optional override default walltime (time.time())
+- **walltime** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - Optional override default walltime (time.time())
 seconds after epoch of event
 
 Examples:
@@ -209,7 +209,7 @@ Expected result:
 
 [![_images/add_histogram.png](_images/add_histogram.png)](_images/add_histogram.png)
 
-add_image(*tag*, *img_tensor*, *global_step=None*, *walltime=None*, *dataformats='CHW'*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/utils/tensorboard/writer.py#L583)
+add_image(*tag*, *img_tensor*, *global_step=None*, *walltime=None*, *dataformats='CHW'*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/utils/tensorboard/writer.py#L583)
 
 Add image data to summary.
 
@@ -217,12 +217,12 @@ Note that this requires the `pillow` package.
 
 Parameters:
 
-- **tag** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - Data identifier
+- **tag** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - Data identifier
 - **img_tensor** ([*torch.Tensor*](tensors.html#torch.Tensor)*,*[*numpy.ndarray*](https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray)*, or**string/blobname*) - Image data
-- **global_step** ([*int*](https://docs.python.org/3/library/functions.html#int)) - Global step value to record
-- **walltime** ([*float*](https://docs.python.org/3/library/functions.html#float)) - Optional override default walltime (time.time())
+- **global_step** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Global step value to record
+- **walltime** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - Optional override default walltime (time.time())
 seconds after epoch of event
-- **dataformats** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - Image data format specification of the form
+- **dataformats** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - Image data format specification of the form
 CHW, HWC, HW, WH, etc.
 
 Shape:
@@ -257,7 +257,7 @@ Expected result:
 
 [![_images/add_image.png](_images/add_image.png)](_images/add_image.png)
 
-add_images(*tag*, *img_tensor*, *global_step=None*, *walltime=None*, *dataformats='NCHW'*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/utils/tensorboard/writer.py#L634)
+add_images(*tag*, *img_tensor*, *global_step=None*, *walltime=None*, *dataformats='NCHW'*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/utils/tensorboard/writer.py#L634)
 
 Add batched image data to summary.
 
@@ -265,12 +265,12 @@ Note that this requires the `pillow` package.
 
 Parameters:
 
-- **tag** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - Data identifier
+- **tag** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - Data identifier
 - **img_tensor** ([*torch.Tensor*](tensors.html#torch.Tensor)*,*[*numpy.ndarray*](https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray)*, or**string/blobname*) - Image data
-- **global_step** ([*int*](https://docs.python.org/3/library/functions.html#int)) - Global step value to record
-- **walltime** ([*float*](https://docs.python.org/3/library/functions.html#float)) - Optional override default walltime (time.time())
+- **global_step** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Global step value to record
+- **walltime** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - Optional override default walltime (time.time())
 seconds after epoch of event
-- **dataformats** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - Image data format specification of the form
+- **dataformats** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - Image data format specification of the form
 NCHW, NHWC, CHW, HWC, HW, WH, etc.
 
 Shape:
@@ -298,7 +298,7 @@ Expected result:
 
 [![_images/add_images.png](_images/add_images.png)](_images/add_images.png)
 
-add_figure(*tag*, *figure*, *global_step=None*, *close=True*, *walltime=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/utils/tensorboard/writer.py#L729)
+add_figure(*tag*, *figure*, *global_step=None*, *close=True*, *walltime=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/utils/tensorboard/writer.py#L729)
 
 Render matplotlib figure into an image and add it to summary.
 
@@ -306,14 +306,14 @@ Note that this requires the `matplotlib` package.
 
 Parameters:
 
-- **tag** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - Data identifier
-- **figure** (*Figure**|*[*list*](https://docs.python.org/3/library/stdtypes.html#list)*[**Figure**]*) - Figure or a list of figures
-- **global_step** ([*int*](https://docs.python.org/3/library/functions.html#int)*|**None*) - Global step value to record
-- **close** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - Flag to automatically close the figure
-- **walltime** ([*float*](https://docs.python.org/3/library/functions.html#float)*|**None*) - Optional override default walltime (time.time())
+- **tag** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - Data identifier
+- **figure** (*Figure**|*[*list*](https://docs.python.org/3/builtins/stdtypes.html#list)*[**Figure**]*) - Figure or a list of figures
+- **global_step** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*|**None*) - Global step value to record
+- **close** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Flag to automatically close the figure
+- **walltime** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*|**None*) - Optional override default walltime (time.time())
 seconds after epoch of event
 
-add_video(*tag*, *vid_tensor*, *global_step=None*, *fps=4*, *walltime=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/utils/tensorboard/writer.py#L767)
+add_video(*tag*, *vid_tensor*, *global_step=None*, *fps=4*, *walltime=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/utils/tensorboard/writer.py#L767)
 
 Add video data to summary.
 
@@ -321,44 +321,44 @@ Note that this requires the `moviepy` package.
 
 Parameters:
 
-- **tag** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - Data identifier
+- **tag** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - Data identifier
 - **vid_tensor** ([*torch.Tensor*](tensors.html#torch.Tensor)) - Video data
-- **global_step** ([*int*](https://docs.python.org/3/library/functions.html#int)) - Global step value to record
-- **fps** ([*float*](https://docs.python.org/3/library/functions.html#float)*or*[*int*](https://docs.python.org/3/library/functions.html#int)) - Frames per second
-- **walltime** ([*float*](https://docs.python.org/3/library/functions.html#float)) - Optional override default walltime (time.time())
+- **global_step** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Global step value to record
+- **fps** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*or*[*int*](https://docs.python.org/3/builtins/functions.html#int)) - Frames per second
+- **walltime** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - Optional override default walltime (time.time())
 seconds after epoch of event
 
 Shape:
 
 vid_tensor: (N,T,C,H,W)(N, T, C, H, W)(N,T,C,H,W). The values should lie in [0, 255] for type uint8 or [0, 1] for type float.
 
-add_audio(*tag*, *snd_tensor*, *global_step=None*, *sample_rate=44100*, *walltime=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/utils/tensorboard/writer.py#L787)
+add_audio(*tag*, *snd_tensor*, *global_step=None*, *sample_rate=44100*, *walltime=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/utils/tensorboard/writer.py#L787)
 
 Add audio data to summary.
 
 Parameters:
 
-- **tag** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - Data identifier
+- **tag** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - Data identifier
 - **snd_tensor** ([*torch.Tensor*](tensors.html#torch.Tensor)) - Sound data
-- **global_step** ([*int*](https://docs.python.org/3/library/functions.html#int)) - Global step value to record
-- **sample_rate** ([*int*](https://docs.python.org/3/library/functions.html#int)) - sample rate in Hz
-- **walltime** ([*float*](https://docs.python.org/3/library/functions.html#float)) - Optional override default walltime (time.time())
+- **global_step** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Global step value to record
+- **sample_rate** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - sample rate in Hz
+- **walltime** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - Optional override default walltime (time.time())
 seconds after epoch of event
 
 Shape:
 
 snd_tensor: (1,L)(1, L)(1,L). The values should lie between [-1, 1].
 
-add_text(*tag*, *text_string*, *global_step=None*, *walltime=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/utils/tensorboard/writer.py#L807)
+add_text(*tag*, *text_string*, *global_step=None*, *walltime=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/utils/tensorboard/writer.py#L807)
 
 Add text data to summary.
 
 Parameters:
 
-- **tag** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - Data identifier
-- **text_string** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - String to save
-- **global_step** ([*int*](https://docs.python.org/3/library/functions.html#int)) - Global step value to record
-- **walltime** ([*float*](https://docs.python.org/3/library/functions.html#float)) - Optional override default walltime (time.time())
+- **tag** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - Data identifier
+- **text_string** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - String to save
+- **global_step** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Global step value to record
+- **walltime** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - Optional override default walltime (time.time())
 seconds after epoch of event
 
 Examples:
@@ -368,32 +368,32 @@ writer.add_text('lstm', 'This is an lstm', 0)
 writer.add_text('rnn', 'This is an rnn', 10)
 ```
 
-add_graph(*model*, *input_to_model=None*, *verbose=False*, *use_strict_trace=True*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/utils/tensorboard/writer.py#L830)
+add_graph(*model*, *input_to_model=None*, *verbose=False*, *use_strict_trace=True*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/utils/tensorboard/writer.py#L830)
 
 Add graph data to summary.
 
 Parameters:
 
 - **model** ([*torch.nn.Module*](generated/torch.nn.Module.html#torch.nn.Module)) - Model to draw.
-- **input_to_model** ([*torch.Tensor*](tensors.html#torch.Tensor)*or*[*list*](https://docs.python.org/3/library/stdtypes.html#list)*of*[*torch.Tensor*](tensors.html#torch.Tensor)) - A variable or a tuple of
+- **input_to_model** ([*torch.Tensor*](tensors.html#torch.Tensor)*or*[*list*](https://docs.python.org/3/builtins/stdtypes.html#list)*of*[*torch.Tensor*](tensors.html#torch.Tensor)) - A variable or a tuple of
 variables to be fed.
-- **verbose** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - Whether to print graph structure in console.
-- **use_strict_trace** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - Whether to pass keyword argument strict to
+- **verbose** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Whether to print graph structure in console.
+- **use_strict_trace** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Whether to pass keyword argument strict to
 torch.jit.trace. Pass False when you want the tracer to
 record your mutable container types (list, dict)
 
-add_embedding(*mat*, *metadata=None*, *label_img=None*, *global_step=None*, *tag='default'*, *metadata_header=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/utils/tensorboard/writer.py#L859)
+add_embedding(*mat*, *metadata=None*, *label_img=None*, *global_step=None*, *tag='default'*, *metadata_header=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/utils/tensorboard/writer.py#L859)
 
 Add embedding projector data to summary.
 
 Parameters:
 
 - **mat** ([*torch.Tensor*](tensors.html#torch.Tensor)*or*[*numpy.ndarray*](https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray)) - A matrix which each row is the feature vector of the data point
-- **metadata** ([*list*](https://docs.python.org/3/library/stdtypes.html#list)) - A list of labels, each element will be converted to string
+- **metadata** ([*list*](https://docs.python.org/3/builtins/stdtypes.html#list)) - A list of labels, each element will be converted to string
 - **label_img** ([*torch.Tensor*](tensors.html#torch.Tensor)) - Images correspond to each data point
-- **global_step** ([*int*](https://docs.python.org/3/library/functions.html#int)) - Global step value to record
-- **tag** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - Name for the embedding
-- **metadata_header** ([*list*](https://docs.python.org/3/library/stdtypes.html#list)) - A list of headers for multi-column metadata. If given, each metadata must be
+- **global_step** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Global step value to record
+- **tag** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - Name for the embedding
+- **metadata_header** ([*list*](https://docs.python.org/3/builtins/stdtypes.html#list)) - A list of headers for multi-column metadata. If given, each metadata must be
 a list with values corresponding to headers.
 
 Shape:
@@ -429,7 +429,7 @@ Note
 Categorical (i.e. non-numeric) metadata cannot have more than 50 unique values if they are to be used for
 coloring in the embedding projector.
 
-add_pr_curve(*tag*, *labels*, *predictions*, *global_step=None*, *num_thresholds=127*, *weights=None*, *walltime=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/utils/tensorboard/writer.py#L964)
+add_pr_curve(*tag*, *labels*, *predictions*, *global_step=None*, *num_thresholds=127*, *weights=None*, *walltime=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/utils/tensorboard/writer.py#L964)
 
 Add precision recall curve.
 
@@ -441,13 +441,13 @@ will let you choose the threshold interactively.
 
 Parameters:
 
-- **tag** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - Data identifier
+- **tag** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - Data identifier
 - **labels** ([*torch.Tensor*](tensors.html#torch.Tensor)*,*[*numpy.ndarray*](https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray)*, or**string/blobname*) - Ground truth data. Binary label for each element.
 - **predictions** ([*torch.Tensor*](tensors.html#torch.Tensor)*,*[*numpy.ndarray*](https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray)*, or**string/blobname*) - The probability that an element be classified as true.
 Value should be in [0, 1]
-- **global_step** ([*int*](https://docs.python.org/3/library/functions.html#int)) - Global step value to record
-- **num_thresholds** ([*int*](https://docs.python.org/3/library/functions.html#int)) - Number of thresholds used to draw the curve.
-- **walltime** ([*float*](https://docs.python.org/3/library/functions.html#float)) - Optional override default walltime (time.time())
+- **global_step** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Global step value to record
+- **num_thresholds** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Number of thresholds used to draw the curve.
+- **walltime** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - Optional override default walltime (time.time())
 seconds after epoch of event
 
 Examples:
@@ -462,7 +462,7 @@ writer.add_pr_curve('pr_curve', labels, predictions, 0)
 writer.close()
 ```
 
-add_custom_scalars(*layout*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/utils/tensorboard/writer.py#L1101)
+add_custom_scalars(*layout*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/utils/tensorboard/writer.py#L1101)
 
 Create special chart by collecting charts tags in 'scalars'.
 
@@ -472,7 +472,7 @@ Because it only provides metadata to tensorboard, the function can be called bef
 
 Parameters:
 
-**layout** ([*dict*](https://docs.python.org/3/library/stdtypes.html#dict)) - {categoryName: *charts*}, where *charts* is also a dictionary
+**layout** ([*dict*](https://docs.python.org/3/builtins/stdtypes.html#dict)) - {categoryName: *charts*}, where *charts* is also a dictionary
 {chartName: *ListOfProperties*}. The first element in *ListOfProperties* is the chart's type
 (one of **Multiline** or **Margin**) and the second element should be a list containing the tags
 you have used in add_scalar function, which will be collected into the new chart.
@@ -487,7 +487,7 @@ layout = {'Taiwan':{'twse':['Multiline',['twse/0050', 'twse/2330']]},
 writer.add_custom_scalars(layout)
 ```
 
-add_mesh(*tag*, *vertices*, *colors=None*, *faces=None*, *config_dict=None*, *global_step=None*, *walltime=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/utils/tensorboard/writer.py#L1125)
+add_mesh(*tag*, *vertices*, *colors=None*, *faces=None*, *config_dict=None*, *global_step=None*, *walltime=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/utils/tensorboard/writer.py#L1125)
 
 Add meshes or 3D point clouds to TensorBoard.
 
@@ -499,13 +499,13 @@ advanced usage.
 
 Parameters:
 
-- **tag** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - Data identifier
+- **tag** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - Data identifier
 - **vertices** ([*torch.Tensor*](tensors.html#torch.Tensor)) - List of the 3D coordinates of vertices.
 - **colors** ([*torch.Tensor*](tensors.html#torch.Tensor)) - Colors for each vertex
 - **faces** ([*torch.Tensor*](tensors.html#torch.Tensor)) - Indices of vertices within each triangle. (Optional)
 - **config_dict** - Dictionary with ThreeJS classes names and configuration.
-- **global_step** ([*int*](https://docs.python.org/3/library/functions.html#int)) - Global step value to record
-- **walltime** ([*float*](https://docs.python.org/3/library/functions.html#float)) - Optional override default walltime (time.time())
+- **global_step** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Global step value to record
+- **walltime** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - Optional override default walltime (time.time())
 seconds after epoch of event
 
 Shape:
@@ -545,26 +545,26 @@ writer.add_mesh('my_mesh', vertices=vertices_tensor, colors=colors_tensor, faces
 writer.close()
 ```
 
-add_hparams(*hparam_dict*, *metric_dict*, *hparam_domain_discrete=None*, *run_name=None*, *global_step=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/utils/tensorboard/writer.py#L292)
+add_hparams(*hparam_dict*, *metric_dict*, *hparam_domain_discrete=None*, *run_name=None*, *global_step=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/utils/tensorboard/writer.py#L292)
 
 Add a set of hyperparameters to be compared in TensorBoard.
 
 Parameters:
 
-- **hparam_dict** ([*dict*](https://docs.python.org/3/library/stdtypes.html#dict)) - Each key-value pair in the dictionary is the
+- **hparam_dict** ([*dict*](https://docs.python.org/3/builtins/stdtypes.html#dict)) - Each key-value pair in the dictionary is the
 name of the hyper parameter and its corresponding value.
 The type of the value can be one of bool, string, float,
 int, or None.
-- **metric_dict** ([*dict*](https://docs.python.org/3/library/stdtypes.html#dict)) - Each key-value pair in the dictionary is the
+- **metric_dict** ([*dict*](https://docs.python.org/3/builtins/stdtypes.html#dict)) - Each key-value pair in the dictionary is the
 name of the metric and its corresponding value. Note that the key used
 here should be unique in the tensorboard record. Otherwise the value
 you added by `add_scalar` will be displayed in hparam plugin. In most
 cases, this is unwanted.
 - **hparam_domain_discrete** - (Optional[Dict[str, List[Any]]]) A dictionary that
 contains names of the hyperparameters and all discrete values they can hold
-- **run_name** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - Name of the run, to be included as part of the logdir.
+- **run_name** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - Name of the run, to be included as part of the logdir.
 If unspecified, will use current timestamp.
-- **global_step** ([*int*](https://docs.python.org/3/library/functions.html#int)) - Global step value to record
+- **global_step** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Global step value to record
 
 Examples:
 
@@ -580,11 +580,11 @@ Expected result:
 
 [![_images/add_hparam.png](_images/add_hparam.png)](_images/add_hparam.png)
 
-flush()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/utils/tensorboard/writer.py#L1192)
+flush()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/utils/tensorboard/writer.py#L1192)
 
 Flushes the event file to disk.
 
 Call this method to make sure that all pending events have been written to
 disk.
 
-close()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/utils/tensorboard/writer.py#L1203)
+close()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/utils/tensorboard/writer.py#L1203)

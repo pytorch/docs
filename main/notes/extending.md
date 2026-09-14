@@ -73,7 +73,7 @@ specify the default values. All kinds of Python objects are accepted here.
 before the call, and their use will be registered in the graph. Note that this
 logic won't traverse lists/dicts/any other data structures and will only
 consider tensors that are direct arguments to the call. You can
-return either a single `Tensor` output, or a [`tuple`](https://docs.python.org/3/library/stdtypes.html#tuple) of
+return either a single `Tensor` output, or a [`tuple`](https://docs.python.org/3/builtins/stdtypes.html#tuple) of
 tensors if there are multiple outputs. Also, please refer to the
 docs of [`Function`](../autograd.html#torch.autograd.Function) to find descriptions of useful methods that can be
 called only from [`forward()`](../generated/torch.autograd.Function.forward.html#torch.autograd.Function.forward).
@@ -95,7 +95,7 @@ corresponding input. If your inputs didn't require gradient
 whether each input needs gradient computation), or were non-`Tensor`
 objects, you can return `python:None`. Also, if you have optional
 arguments to [`forward()`](../generated/torch.autograd.Function.forward.html#torch.autograd.Function.forward) you can return more gradients than there
-were inputs, as long as they're all [`None`](https://docs.python.org/3/library/constants.html#None).
+were inputs, as long as they're all [`None`](https://docs.python.org/3/builtins/constants.html#None).
 
 **Step 2:** It is your responsibility to use the functions in `ctx`
 properly in order to ensure that the new [`Function`](../autograd.html#torch.autograd.Function) works properly with

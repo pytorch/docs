@@ -1,6 +1,6 @@
 # BatchNorm1d
 
-*class*torch.nn.BatchNorm1d(*num_features*, *eps=1e-05*, *momentum=0.1*, *affine=True*, *track_running_stats=True*, *device=None*, *dtype=None*, ***, *bias=True*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/batchnorm.py#L306)
+*class*torch.nn.BatchNorm1d(*num_features*, *eps=1e-05*, *momentum=0.1*, *affine=True*, *track_running_stats=True*, *device=None*, *dtype=None*, ***, *bias=True*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/batchnorm.py#L306)
 
 Applies Batch Normalization over a 2D or 3D input.
 
@@ -42,21 +42,21 @@ on (N, L) slices, it's common terminology to call this Temporal Batch Normalizat
 
 Parameters:
 
-- **num_features** ([*int*](https://docs.python.org/3/library/functions.html#int)) - number of features or channels CCC of the input
-- **eps** ([*float*](https://docs.python.org/3/library/functions.html#float)) - a value added to the denominator for numerical stability.
+- **num_features** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - number of features or channels CCC of the input
+- **eps** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - a value added to the denominator for numerical stability.
 Default: 1e-5
-- **momentum** ([*float*](https://docs.python.org/3/library/functions.html#float)*|**None*) - the value used for the running_mean and running_var
+- **momentum** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*|**None*) - the value used for the running_mean and running_var
 computation. Can be set to `None` for cumulative moving average
 (i.e. simple average). Default: 0.1
-- **affine** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - a boolean value that when set to `True`, this module has
+- **affine** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - a boolean value that when set to `True`, this module has
 learnable affine parameters. Default: `True`
-- **track_running_stats** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - a boolean value that when set to `True`, this
+- **track_running_stats** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - a boolean value that when set to `True`, this
 module tracks the running mean and variance, and when set to `False`,
 this module does not track such statistics, and initializes statistics
 buffers `running_mean` and `running_var` as `None`.
 When these buffers are `None`, this module always uses batch statistics.
 in both training and eval modes. Default: `True`
-- **bias** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If set to `False`, the layer will not learn an additive bias (only relevant if
+- **bias** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - If set to `False`, the layer will not learn an additive bias (only relevant if
 `affine` is `True`). Default: `True`
 
 Shape:

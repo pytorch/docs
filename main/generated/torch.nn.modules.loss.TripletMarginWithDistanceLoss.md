@@ -1,6 +1,6 @@
 # TripletMarginWithDistanceLoss
 
-*class*torch.nn.modules.loss.TripletMarginWithDistanceLoss(***, *distance_function=None*, *margin=1.0*, *swap=False*, *reduction='mean'*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/loss.py#L2016)
+*class*torch.nn.modules.loss.TripletMarginWithDistanceLoss(***, *distance_function=None*, *margin=1.0*, *swap=False*, *reduction='mean'*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/loss.py#L2016)
 
 Creates a criterion that measures the triplet loss given input
 tensors aaa, ppp, and nnn (representing anchor,
@@ -43,16 +43,16 @@ Parameters:
 - **distance_function** (*Callable**,**optional*) - A nonnegative, real-valued function that
 quantifies the closeness of two tensors. If not specified,
 nn.PairwiseDistance will be used. Default: `None`
-- **margin** ([*float*](https://docs.python.org/3/library/functions.html#float)*,**optional*) - A nonnegative margin representing the minimum difference
+- **margin** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*,**optional*) - A nonnegative margin representing the minimum difference
 between the positive and negative distances required for the loss to be 0. Larger
 margins penalize cases where the negative examples are not distant enough from the
 anchors, relative to the positives. Default: 111.
-- **swap** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - Whether to use the distance swap described in the paper
+- **swap** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - Whether to use the distance swap described in the paper
 Learning shallow convolutional feature descriptors with triplet losses by
 V. Balntas, E. Riba et al. If True, and if the positive example is closer to the
 negative example than the anchor is, swaps the positive example and the anchor in
 the loss computation. Default: `False`.
-- **reduction** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**optional*) - Specifies the (optional) reduction to apply to the output:
+- **reduction** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**optional*) - Specifies the (optional) reduction to apply to the output:
 `'none'` | `'mean'` | `'sum'`. `'none'`: no reduction will be applied,
 `'mean'`: the sum of the output will be divided by the number of
 elements in the output, `'sum'`: the output will be summed. Default: `'mean'`
@@ -104,7 +104,7 @@ Reference:
 V. Balntas, et al.: Learning shallow convolutional feature descriptors with triplet losses:
 [https://bmva-archive.org.uk/bmvc/2016/papers/paper119/index.html](https://bmva-archive.org.uk/bmvc/2016/papers/paper119/index.html)
 
-forward(*anchor*, *positive*, *negative*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/loss.py#L2138)
+forward(*anchor*, *positive*, *negative*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/loss.py#L2138)
 
 Runs the forward pass.
 

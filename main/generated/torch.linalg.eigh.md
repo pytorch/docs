@@ -1,6 +1,6 @@
 # torch.linalg.eigh
 
-torch.linalg.eigh(*A*, *UPLO='L'*, ***, *out=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/linalg/__init__.py#L642)
+torch.linalg.eigh(*A*, *UPLO='L'*, ***, *out=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/linalg/__init__.py#L642)
 
 Computes the eigenvalue decomposition of a complex Hermitian or real symmetric matrix.
 
@@ -93,7 +93,7 @@ of `A` in the computations. Default: 'L'.
 
 Keyword Arguments:
 
-**out** ([*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*,**optional*) - output tuple of two tensors. Ignored if None. Default: None.
+**out** ([*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*,**optional*) - output tuple of two tensors. Ignored if None. Default: None.
 
 Returns:
 

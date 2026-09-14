@@ -1,6 +1,6 @@
 # torch.logical_xor
 
-torch.logical_xor(*input: [Tensor](../tensors.html#torch.Tensor)*, *other: [Tensor](../tensors.html#torch.Tensor)*, ***, *out: [Tensor](../tensors.html#torch.Tensor) | [None](https://docs.python.org/3/library/constants.html#None)*) → [Tensor](../tensors.html#torch.Tensor)
+torch.logical_xor(*input: [Tensor](../tensors.html#torch.Tensor)*, *other: [Tensor](../tensors.html#torch.Tensor)*, ***, *out: [Tensor](../tensors.html#torch.Tensor) | [None](https://docs.python.org/3/builtins/constants.html#None)*) → [Tensor](../tensors.html#torch.Tensor)
 
 Computes the element-wise logical XOR of the given input tensors. Zeros are treated as `False` and nonzeros are
 treated as `True`.

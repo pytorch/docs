@@ -1,6 +1,6 @@
 # torch.utils.dlpack
 
-torch.utils.dlpack.from_dlpack(*ext_tensor*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/utils/dlpack.py#L124)
+torch.utils.dlpack.from_dlpack(*ext_tensor*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/utils/dlpack.py#L124)
 
 Converts a tensor from an external library into a `torch.Tensor`.
 
@@ -22,10 +22,10 @@ the `__dlpack__` protocol (i.e., have a `ext_tensor.__dlpack__`
 method). Otherwise `ext_tensor` may be a DLPack capsule, which is
 an opaque `PyCapsule` instance, typically produced by a
 `to_dlpack` function or method.
-- **device** ([*torch.device*](tensor_attributes.html#torch.device)*or*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*or**None*) - An optional PyTorch device
+- **device** ([*torch.device*](tensor_attributes.html#torch.device)*or*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*or**None*) - An optional PyTorch device
 specifying where to place the new tensor. If None (default), the
 new tensor will be on the same device as `ext_tensor`.
-- **copy** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*or**None*) - An optional boolean indicating whether or not to copy
+- **copy** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*or**None*) - An optional boolean indicating whether or not to copy
 `self`. If None, PyTorch will copy only if necessary.
 
 Return type:
@@ -86,7 +86,7 @@ Parameters:
 
 The DLPack capsule shares the tensor's memory.
 
-*class*torch.utils.dlpack.ReadOnlyTensorWrapper(*tensor*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/utils/dlpack.py#L34)
+*class*torch.utils.dlpack.ReadOnlyTensorWrapper(*tensor*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/utils/dlpack.py#L34)
 
 A zero-copy, read-only view of a tensor for DLPack interop only.
 

@@ -1,6 +1,6 @@
 # EventList
 
-*class*torch.autograd.profiler_util.EventList(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/autograd/profiler_util.py#L29)
+*class*torch.autograd.profiler_util.EventList(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/autograd/profiler_util.py#L29)
 
 A list of profiling events with helper methods for analysis and visualization.
 
@@ -15,16 +15,16 @@ instantiated directly by users.
 Parameters:
 
 - ***args** - Standard list arguments.
-- **use_device** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**optional*) - Device type for profiling ("cuda", "xpu", etc.).
-- **profile_memory** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - Whether memory profiling was enabled. Default: False.
-- **with_flops** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - Whether to include FLOP counts. Default: False.
+- **use_device** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**optional*) - Device type for profiling ("cuda", "xpu", etc.).
+- **profile_memory** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - Whether memory profiling was enabled. Default: False.
+- **with_flops** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - Whether to include FLOP counts. Default: False.
 
 Variables:
 
-- **_use_device** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - Device type being profiled.
-- **_profile_memory** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - Whether memory profiling is enabled.
-- **_with_flops** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - Whether FLOP counting is enabled.
-- **_tree_built** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - Whether the event tree structure has been built.
+- **_use_device** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - Device type being profiled.
+- **_profile_memory** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Whether memory profiling is enabled.
+- **_with_flops** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Whether FLOP counting is enabled.
+- **_tree_built** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Whether the event tree structure has been built.
 
 Key Methods:
 
@@ -92,7 +92,7 @@ count(*value*, */*)
 
 Return number of occurrences of value.
 
-export_chrome_trace(*path*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/autograd/profiler_util.py#L288)
+export_chrome_trace(*path*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/autograd/profiler_util.py#L288)
 
 Export an EventList as a Chrome tracing tools file.
 
@@ -100,7 +100,7 @@ The checkpoint can be later loaded and inspected under `chrome://tracing` URL.
 
 Parameters:
 
-**path** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - Path where the trace will be written.
+**path** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - Path where the trace will be written.
 
 extend(*iterable*, */*)
 
@@ -116,7 +116,7 @@ insert(*index*, *object*, */*)
 
 Insert object before index.
 
-key_averages(*group_by_input_shapes=False*, *group_by_stack_n=0*, *group_by_overload_name=False*, *include_python_functions=False*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/autograd/profiler_util.py#L377)
+key_averages(*group_by_input_shapes=False*, *group_by_stack_n=0*, *group_by_overload_name=False*, *include_python_functions=False*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/autograd/profiler_util.py#L377)
 
 Averages all function events over their keys.
 
@@ -169,32 +169,32 @@ ascending or descending, according to their function values.
 
 The reverse flag can be set to sort in descending order.
 
-table(*sort_by=None*, *row_limit=100*, *max_src_column_width=75*, *max_name_column_width=55*, *max_shapes_column_width=80*, *header=None*, *top_level_events_only=False*, *time_unit=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/autograd/profiler_util.py#L242)
+table(*sort_by=None*, *row_limit=100*, *max_src_column_width=75*, *max_name_column_width=55*, *max_shapes_column_width=80*, *header=None*, *top_level_events_only=False*, *time_unit=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/autograd/profiler_util.py#L242)
 
 Print an EventList as a nicely formatted table.
 
 Parameters:
 
-- **sort_by** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**optional*) - Attribute used to sort entries. By default
+- **sort_by** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**optional*) - Attribute used to sort entries. By default
 they are printed in the same order as they were registered.
 Valid keys include: `cpu_time`, `cuda_time`, `xpu_time`,
 `cpu_time_total`, `cuda_time_total`, `xpu_time_total`,
 `cpu_memory_usage`, `cuda_memory_usage`, `xpu_memory_usage`,
 `self_cpu_memory_usage`, `self_cuda_memory_usage`,
 `self_xpu_memory_usage`, `count`.
-- **top_level_events_only** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - Boolean flag to determine the
+- **top_level_events_only** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - Boolean flag to determine the
 selection of events to display. If true, the profiler will only
 display events at top level like top-level invocation of python
 lstm, python add or other functions, nested events like low-level
 cpu/cuda/xpu ops events are omitted for profiler result readability.
-- **time_unit** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**optional*) - A time unit to be used for all values in the
+- **time_unit** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**optional*) - A time unit to be used for all values in the
 table. Valid options are: `s`, `ms` and `us`.
 
 Returns:
 
 A string containing the table.
 
-total_average()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/autograd/profiler_util.py#L455)
+total_average()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/autograd/profiler_util.py#L455)
 
 Compute aggregate statistics across all events.
 

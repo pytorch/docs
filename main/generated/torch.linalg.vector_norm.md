@@ -1,6 +1,6 @@
 # torch.linalg.vector_norm
 
-torch.linalg.vector_norm(*x*, *ord=2*, *dim=None*, *keepdim=False*, ***, *dtype=None*, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/linalg/__init__.py#L1491)
+torch.linalg.vector_norm(*x*, *ord=2*, *dim=None*, *keepdim=False*, ***, *dtype=None*, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/linalg/__init__.py#L1491)
 
 Computes a vector norm.
 
@@ -42,11 +42,11 @@ Parameters:
 - **x** ([*Tensor*](../tensors.html#torch.Tensor)) - tensor, flattened by default, but this behavior can be
 controlled using `dim`. (Note: the keyword argument
 input can also be used as an alias for x.)
-- **ord** ([*int*](https://docs.python.org/3/library/functions.html#int)*,*[*float*](https://docs.python.org/3/library/functions.html#float)*,**inf**,**-inf**,**optional*) - order of norm. Default: 2
-- **dim** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**Tuple**[*[*int*](https://docs.python.org/3/library/functions.html#int)*]**,**optional*) - dimensions over which to compute
+- **ord** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,*[*float*](https://docs.python.org/3/builtins/functions.html#float)*,**inf**,**-inf**,**optional*) - order of norm. Default: 2
+- **dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**Tuple**[*[*int*](https://docs.python.org/3/builtins/functions.html#int)*]**,**optional*) - dimensions over which to compute
 the norm. See above for the behavior when `dim`= None.
 Default: None
-- **keepdim** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If set to True, the reduced dimensions are retained
+- **keepdim** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If set to True, the reduced dimensions are retained
 in the result as dimensions with size one. Default: False
 
 Keyword Arguments:

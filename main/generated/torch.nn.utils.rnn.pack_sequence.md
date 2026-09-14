@@ -1,6 +1,6 @@
 # torch.nn.utils.rnn.pack_sequence
 
-torch.nn.utils.rnn.pack_sequence(*sequences*, *enforce_sorted=True*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/utils/rnn.py#L522)
+torch.nn.utils.rnn.pack_sequence(*sequences*, *enforce_sorted=True*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/utils/rnn.py#L522)
 
 Packs a list of variable length Tensors.
 
@@ -27,8 +27,8 @@ PackedSequence(data=tensor([1, 4, 6, 2, 5, 3]), batch_sizes=tensor([3, 2, 1]), s
 
 Parameters:
 
-- **sequences** ([*list*](https://docs.python.org/3/library/stdtypes.html#list)*[*[*Tensor*](../tensors.html#torch.Tensor)*]*) - A list of sequences of decreasing length.
-- **enforce_sorted** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - if `True`, checks that the input
+- **sequences** ([*list*](https://docs.python.org/3/builtins/stdtypes.html#list)*[*[*Tensor*](../tensors.html#torch.Tensor)*]*) - A list of sequences of decreasing length.
+- **enforce_sorted** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - if `True`, checks that the input
 contains sequences sorted by length in a decreasing order. If
 `False`, this condition is not checked. Default: `True`.
 

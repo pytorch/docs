@@ -1,6 +1,6 @@
 # torch.functional.split
 
-torch.functional.split(*tensor*, *split_size_or_sections*, *dim=0*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/functional.py#L120)
+torch.functional.split(*tensor*, *split_size_or_sections*, *dim=0*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/functional.py#L120)
 
 Splits the tensor into chunks. Each chunk is a view of the original tensor.
 
@@ -16,13 +16,13 @@ to `split_size_or_sections`.
 Parameters:
 
 - **tensor** ([*Tensor*](../tensors.html#torch.Tensor)) - tensor to split.
-- **split_size_or_sections** ([*int*](https://docs.python.org/3/library/functions.html#int)*) or**(*[*list*](https://docs.python.org/3/library/stdtypes.html#list)*(*[*int*](https://docs.python.org/3/library/functions.html#int)*)*) - size of a single chunk or
+- **split_size_or_sections** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*) or**(*[*list*](https://docs.python.org/3/builtins/stdtypes.html#list)*(*[*int*](https://docs.python.org/3/builtins/functions.html#int)*)*) - size of a single chunk or
 list of sizes for each chunk
-- **dim** ([*int*](https://docs.python.org/3/library/functions.html#int)) - dimension along which to split the tensor.
+- **dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - dimension along which to split the tensor.
 
 Return type:
 
-[tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[*Tensor*](../tensors.html#torch.Tensor), ...]
+[tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[*Tensor*](../tensors.html#torch.Tensor), ...]
 
 Example:
 

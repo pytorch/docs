@@ -1,6 +1,6 @@
 # torch.pca_lowrank
 
-torch.pca_lowrank(*A*, *q=None*, *center=True*, *niter=2*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/_lowrank.py#L183)
+torch.pca_lowrank(*A*, *q=None*, *center=True*, *niter=2*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/_lowrank.py#L183)
 
 Performs linear Principal Component Analysis (PCA) on a low-rank
 matrix, batches of such matrices, or sparse matrix.
@@ -40,19 +40,19 @@ pseudorandom number generator
 Parameters:
 
 - **A** ([*Tensor*](../tensors.html#torch.Tensor)) - the input tensor of size (∗,m,n)(*, m, n)(∗,m,n)
-- **q** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - a slightly overestimated rank of
+- **q** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - a slightly overestimated rank of
 AAA. By default, `q = min(6, m,
 n)`.
-- **center** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - if True, center the input tensor,
+- **center** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - if True, center the input tensor,
 otherwise, assume that the input is
 centered.
-- **niter** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - the number of subspace iterations to
+- **niter** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - the number of subspace iterations to
 conduct; niter must be a nonnegative
 integer, and defaults to 2.
 
 Return type:
 
-[tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[*Tensor*](../tensors.html#torch.Tensor), [*Tensor*](../tensors.html#torch.Tensor), [*Tensor*](../tensors.html#torch.Tensor)]
+[tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[*Tensor*](../tensors.html#torch.Tensor), [*Tensor*](../tensors.html#torch.Tensor), [*Tensor*](../tensors.html#torch.Tensor)]
 
 References:
 

@@ -79,7 +79,7 @@ Notice that the combine function becomes a sub-graph attribute of the top-level 
 
 ## API Reference
 
-torch._higher_order_ops.scan.scan(*combine_fn*, *init*, *xs*, ***, *dim=0*, *reverse=False*, *length=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/_higher_order_ops/scan.py#L112)
+torch._higher_order_ops.scan.scan(*combine_fn*, *init*, *xs*, ***, *dim=0*, *reverse=False*, *length=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/_higher_order_ops/scan.py#L112)
 
 Performs an inclusive scan with a combine function.
 
@@ -108,9 +108,9 @@ each step (counter-loop mode).
 
 Keyword Arguments:
 
-- **dim** ([*int*](https://docs.python.org/3/library/functions.html#int)) - the dimension to scan over, default 0.
-- **reverse** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - A boolean stating if the scan should be reversed with respect to `dim`, default `False`.
-- **length** ([*int*](https://docs.python.org/3/library/functions.html#int)*or*[*None*](https://docs.python.org/3/library/constants.html#None)) - Optional number of scan iterations, default `None`.
+- **dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - the dimension to scan over, default 0.
+- **reverse** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - A boolean stating if the scan should be reversed with respect to `dim`, default `False`.
+- **length** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*or*[*None*](https://docs.python.org/3/builtins/constants.html#None)) - Optional number of scan iterations, default `None`.
 When `xs` has tensor leaves, `length` is optional; if given it must equal
 `xs.shape[dim]` and serves only as a consistency check (no constraint when
 `length` is `None`). When `xs` has no leaves (`None` or empty pytree),
@@ -133,7 +133,7 @@ size 0 along `dim`. The gradient of `final_carry` with respect to `init` is the 
 
 Return type:
 
-[tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[*Any*](https://docs.python.org/3/library/typing.html#typing.Any), [*Any*](https://docs.python.org/3/library/typing.html#typing.Any)]
+[tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[*Any*](https://docs.python.org/3/library/typing.html#typing.Any), [*Any*](https://docs.python.org/3/library/typing.html#typing.Any)]
 
 Restrictions:
 

@@ -1,6 +1,6 @@
 # TensorMetadata
 
-*class*torch.fx.passes.shape_prop.TensorMetadata(*shape*, *dtype*, *requires_grad*, *stride*, *memory_format*, *is_quantized*, *qparams*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/passes/shape_prop.py#L17)
+*class*torch.fx.passes.shape_prop.TensorMetadata(*shape*, *dtype*, *requires_grad*, *stride*, *memory_format*, *is_quantized*, *qparams*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/passes/shape_prop.py#L17)
 
 A structure containing pertinent information about a tensor within a PyTorch program.
 
@@ -22,19 +22,19 @@ Return first index of value.
 
 Raises ValueError if the value is not present.
 
-is_quantized*: [bool](https://docs.python.org/3/library/functions.html#bool)*
+is_quantized*: [bool](https://docs.python.org/3/builtins/functions.html#bool)*
 
 Alias for field number 5
 
-memory_format*: [memory_format](../tensor_attributes.html#torch.memory_format) | [None](https://docs.python.org/3/library/constants.html#None)*
+memory_format*: [memory_format](../tensor_attributes.html#torch.memory_format) | [None](https://docs.python.org/3/builtins/constants.html#None)*
 
 Alias for field number 4
 
-qparams*: [dict](https://docs.python.org/3/library/stdtypes.html#dict)[[str](https://docs.python.org/3/library/stdtypes.html#str), [Any](https://docs.python.org/3/library/typing.html#typing.Any)]*
+qparams*: [dict](https://docs.python.org/3/builtins/stdtypes.html#dict)[[str](https://docs.python.org/3/builtins/stdtypes.html#str), [Any](https://docs.python.org/3/library/typing.html#typing.Any)]*
 
 Alias for field number 6
 
-requires_grad*: [bool](https://docs.python.org/3/library/functions.html#bool)*
+requires_grad*: [bool](https://docs.python.org/3/builtins/functions.html#bool)*
 
 Alias for field number 2
 
@@ -42,6 +42,6 @@ shape*: [Size](../size.html#torch.Size)*
 
 Alias for field number 0
 
-stride*: [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[int](https://docs.python.org/3/library/functions.html#int), ...]*
+stride*: [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[int](https://docs.python.org/3/builtins/functions.html#int), ...]*
 
 Alias for field number 3

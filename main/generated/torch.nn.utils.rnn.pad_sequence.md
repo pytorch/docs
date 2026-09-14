@@ -1,6 +1,6 @@
 # torch.nn.utils.rnn.pad_sequence
 
-torch.nn.utils.rnn.pad_sequence(*sequences*, *batch_first=False*, *padding_value=0.0*, *padding_side='right'*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/utils/rnn.py#L405)
+torch.nn.utils.rnn.pad_sequence(*sequences*, *batch_first=False*, *padding_value=0.0*, *padding_side='right'*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/utils/rnn.py#L405)
 
 Pad a list of variable length Tensors with `padding_value`.
 
@@ -31,11 +31,11 @@ trailing dimensions and type of all the Tensors in sequences are same.
 
 Parameters:
 
-- **sequences** ([*list*](https://docs.python.org/3/library/stdtypes.html#list)*[*[*Tensor*](../tensors.html#torch.Tensor)*]*) - list of variable length sequences.
-- **batch_first** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - if `True`, the output will be in `B x T x *`
+- **sequences** ([*list*](https://docs.python.org/3/builtins/stdtypes.html#list)*[*[*Tensor*](../tensors.html#torch.Tensor)*]*) - list of variable length sequences.
+- **batch_first** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - if `True`, the output will be in `B x T x *`
 format, `T x B x *` otherwise.
-- **padding_value** ([*float*](https://docs.python.org/3/library/functions.html#float)*,**optional*) - value for padded elements. Default: `0`.
-- **padding_side** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**optional*) - the side to pad the sequences on.
+- **padding_value** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*,**optional*) - value for padded elements. Default: `0`.
+- **padding_side** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**optional*) - the side to pad the sequences on.
 Default: `'right'`.
 
 Returns:

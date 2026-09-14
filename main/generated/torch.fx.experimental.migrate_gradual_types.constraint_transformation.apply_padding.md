@@ -1,6 +1,6 @@
 # torch.fx.experimental.migrate_gradual_types.constraint_transformation.apply_padding
 
-torch.fx.experimental.migrate_gradual_types.constraint_transformation.apply_padding(*e1_var*, *e11*, *e2*, *e12*, *d2*, *d11*, *d12*, *counter*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/experimental/migrate_gradual_types/constraint_transformation.py#L1115)
+torch.fx.experimental.migrate_gradual_types.constraint_transformation.apply_padding(*e1_var*, *e11*, *e2*, *e12*, *d2*, *d11*, *d12*, *counter*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/experimental/migrate_gradual_types/constraint_transformation.py#L1115)
 
 We are considering the possibility where one input has less dimensions than
 another input, so we apply padding to the broadcasted results
@@ -11,13 +11,13 @@ Parameters:
 - **e11** (*BinConstraintT*) - constraint of the form e11 = Tensortype[d1, ..., dn]
 - **e2** (*BinConstraintT*) - constraint of the form e2 = Tensortype[d1, ..., dn]
 - **e12** (*BinConstraintT*) - constraint of the form e11 = Tensortype[d1, ..., dn]
-- **d2** ([*list*](https://docs.python.org/3/library/stdtypes.html#list)*[**DVar**]*) - Tensor variables for the second input
-- **d11** ([*list*](https://docs.python.org/3/library/stdtypes.html#list)*[**DVar**]*) - Tensor variables for the broadcasted first input
-- **d12** ([*list*](https://docs.python.org/3/library/stdtypes.html#list)*[**DVar**]*) - Tensor variables for the broadcasted second input
-- **counter** ([*int*](https://docs.python.org/3/library/functions.html#int)) - variable tracking
+- **d2** ([*list*](https://docs.python.org/3/builtins/stdtypes.html#list)*[**DVar**]*) - Tensor variables for the second input
+- **d11** ([*list*](https://docs.python.org/3/builtins/stdtypes.html#list)*[**DVar**]*) - Tensor variables for the broadcasted first input
+- **d12** ([*list*](https://docs.python.org/3/builtins/stdtypes.html#list)*[**DVar**]*) - Tensor variables for the broadcasted second input
+- **counter** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - variable tracking
 
 Return type:
 
-[tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[*Constraint*, [int](https://docs.python.org/3/library/functions.html#int)]
+[tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[*Constraint*, [int](https://docs.python.org/3/builtins/functions.html#int)]
 
 Returns: A new constraint whose goal is to apply padding to the broadcasted result

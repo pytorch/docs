@@ -5,7 +5,7 @@ inputs. This page outlines the API of the relevant classes: `Join`,
 `Joinable`, and `JoinHook`. For a tutorial, see
 [Distributed Training with Uneven Inputs Using the Join Context Manager](https://pytorch.org/tutorials/advanced/generic_join.html).
 
-*class*torch.distributed.algorithms.Join(*joinables*, *enable=True*, *throw_on_early_termination=False*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/algorithms/join.py#L104)
+*class*torch.distributed.algorithms.Join(*joinables*, *enable=True*, *throw_on_early_termination=False*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/algorithms/join.py#L104)
 
 This class defines the generic join context manager, which allows custom hooks to be called after a process joins.
 
@@ -35,11 +35,11 @@ Parameters:
 - **joinables** (*List**[**Joinable**]*) - a list of the participating
 `Joinable` s; their hooks are iterated over in the given
 order.
-- **enable** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - a flag enabling uneven input detection; setting to
+- **enable** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - a flag enabling uneven input detection; setting to
 `False` disables the context manager's functionality and should
 only be set when the user knows the inputs will not be uneven
 (default: `True`).
-- **throw_on_early_termination** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - a flag controlling whether to throw an
+- **throw_on_early_termination** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - a flag controlling whether to throw an
 exception upon detecting uneven inputs (default: `False`).
 
 Example:
@@ -68,7 +68,7 @@ Example:
 >>> # All ranks reach here without hanging/erroring
 ```
 
-*static*notify_join_context(*joinable*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/algorithms/join.py#L298)
+*static*notify_join_context(*joinable*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/algorithms/join.py#L298)
 
 Notifies the join context manager that the calling process has not yet joined.
 
@@ -95,7 +95,7 @@ An async work handle for the all-reduce meant to notify the context
 manager that the process has not yet joined if `joinable` is the
 first one passed into the context manager; `None` otherwise.
 
-*class*torch.distributed.algorithms.Joinable[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/algorithms/join.py#L44)
+*class*torch.distributed.algorithms.Joinable[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/algorithms/join.py#L44)
 
 This defines an abstract base class for joinable classes.
 
@@ -109,13 +109,13 @@ process group information, respectively.
 
 Return the device from which to perform collective communications needed by the join context manager.
 
-*abstract*join_hook(***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/algorithms/join.py#L60)
+*abstract*join_hook(***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/algorithms/join.py#L60)
 
 Return a `JoinHook` instance for the given `Joinable`.
 
 Parameters:
 
-**kwargs** ([*dict*](https://docs.python.org/3/library/stdtypes.html#dict)) - a [`dict`](https://docs.python.org/3/library/stdtypes.html#dict) containing any keyword arguments
+**kwargs** ([*dict*](https://docs.python.org/3/builtins/stdtypes.html#dict)) - a [`dict`](https://docs.python.org/3/builtins/stdtypes.html#dict) containing any keyword arguments
 to modify the behavior of the join hook at run time; all
 `Joinable` instances sharing the same join context
 manager are forwarded the same value for `kwargs`.
@@ -128,7 +128,7 @@ Return type:
 
 Returns the process group for the collective communications needed by the join context manager itself.
 
-*class*torch.distributed.algorithms.JoinHook[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/algorithms/join.py#L14)
+*class*torch.distributed.algorithms.JoinHook[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/algorithms/join.py#L14)
 
 This defines a join hook, which provides two entry points in the join context manager.
 
@@ -139,13 +139,13 @@ To implement a join hook for the generic join context manager, define a
 class that inherits from `JoinHook` and override `main_hook()` and
 `post_hook()` as appropriate.
 
-main_hook()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/algorithms/join.py#L26)
+main_hook()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/algorithms/join.py#L26)
 
 Call this hook while there exists a non-joined process to shadow collective communications in a training iteration.
 
 Training iteration i.e., in one forward pass, backward pass, and optimizer step.
 
-post_hook(*is_last_joiner*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/algorithms/join.py#L32)
+post_hook(*is_last_joiner*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/algorithms/join.py#L32)
 
 Call hook after all processes have joined.
 
@@ -153,5 +153,5 @@ It is passed an additional `bool` argument `is_last_joiner`, which indicates if 
 
 Parameters:
 
-**is_last_joiner** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - `True` if the rank is one of the last to
+**is_last_joiner** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - `True` if the rank is one of the last to
 join; `False` otherwise.

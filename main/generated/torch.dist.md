@@ -11,7 +11,7 @@ Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - the input tensor.
 - **other** ([*Tensor*](../tensors.html#torch.Tensor)) - the Right-hand-side input tensor
-- **p** ([*float*](https://docs.python.org/3/library/functions.html#float)*,**optional*) - the norm to be computed
+- **p** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*,**optional*) - the norm to be computed
 
 Example:
 

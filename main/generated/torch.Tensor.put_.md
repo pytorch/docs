@@ -17,7 +17,7 @@ Parameters:
 
 - **index** (*LongTensor*) - the indices into self
 - **source** ([*Tensor*](../tensors.html#torch.Tensor)) - the tensor containing values to copy from
-- **accumulate** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - whether to accumulate into self. Default: `False`
+- **accumulate** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - whether to accumulate into self. Default: `False`
 
 Example:
 

@@ -30,8 +30,8 @@ opposite layout.
 Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - the input tensor.
-- **dim0** ([*int*](https://docs.python.org/3/library/functions.html#int)) - the first dimension to be transposed
-- **dim1** ([*int*](https://docs.python.org/3/library/functions.html#int)) - the second dimension to be transposed
+- **dim0** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - the first dimension to be transposed
+- **dim1** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - the second dimension to be transposed
 
 Example:
 

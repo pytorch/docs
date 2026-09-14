@@ -1,6 +1,6 @@
 # torch.nn.functional.ctc_loss
 
-torch.nn.functional.ctc_loss(*log_probs*, *targets*, *input_lengths*, *target_lengths*, *blank=0*, *reduction='mean'*, *zero_infinity=False*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/functional.py#L3100)
+torch.nn.functional.ctc_loss(*log_probs*, *targets*, *input_lengths*, *target_lengths*, *blank=0*, *reduction='mean'*, *zero_infinity=False*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/functional.py#L3100)
 
 Compute the Connectionist Temporal Classification loss.
 
@@ -27,13 +27,13 @@ In the second form, the targets are assumed to be concatenated.
 Lengths of the inputs (must each be ≤T\leq T≤T)
 - **target_lengths** ([*Tensor*](../tensors.html#torch.Tensor)) - (N)(N)(N) or ()()().
 Lengths of the targets
-- **blank** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - Blank label. Default 000.
-- **reduction** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**optional*) - Specifies the reduction to apply to the output:
+- **blank** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - Blank label. Default 000.
+- **reduction** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**optional*) - Specifies the reduction to apply to the output:
 `'none'` | `'mean'` | `'sum'`. `'none'`: no reduction will be applied,
 `'mean'`: the output losses will be divided by the target lengths and
 then the mean over the batch is taken, `'sum'`: the output will be
 summed. Default: `'mean'`
-- **zero_infinity** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - Whether to zero infinite losses and the associated gradients.
+- **zero_infinity** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - Whether to zero infinite losses and the associated gradients.
 Default: `False`
 Infinite losses mainly occur when the inputs are too short
 to be aligned to the targets.

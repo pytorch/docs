@@ -1,6 +1,6 @@
 # PairwiseDistance
 
-*class*torch.nn.PairwiseDistance(*p=2.0*, *eps=1e-06*, *keepdim=False*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/distance.py#L10)
+*class*torch.nn.PairwiseDistance(*p=2.0*, *eps=1e-06*, *keepdim=False*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/distance.py#L10)
 
 Computes the pairwise distance between input vectors, or between columns of input matrices.
 
@@ -19,9 +19,9 @@ where eee is the vector of ones and the `p`-norm is given by.
 Parameters:
 
 - **p** (*real**,**optional*) - the norm degree. Can be negative. Default: 2
-- **eps** ([*float*](https://docs.python.org/3/library/functions.html#float)*,**optional*) - Small value to avoid division by zero.
+- **eps** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*,**optional*) - Small value to avoid division by zero.
 Default: 1e-6
-- **keepdim** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - Determines whether or not to keep the vector dimension.
+- **keepdim** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - Determines whether or not to keep the vector dimension.
 Default: False
 
 Shape:
@@ -40,7 +40,7 @@ Examples
 >>> output = pdist(input1, input2)
 ```
 
-forward(*x1*, *x2*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/distance.py#L57)
+forward(*x1*, *x2*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/distance.py#L57)
 
 Runs the forward pass.
 

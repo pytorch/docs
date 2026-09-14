@@ -10,4 +10,4 @@ tensor.
 Parameters:
 
 - **mask** (*BoolTensor*) - the boolean mask
-- **value** ([*float*](https://docs.python.org/3/library/functions.html#float)) - the value to fill in with
+- **value** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - the value to fill in with

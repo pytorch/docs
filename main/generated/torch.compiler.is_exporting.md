@@ -1,6 +1,6 @@
 # torch.compiler.is_exporting
 
-torch.compiler.is_exporting()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/compiler/__init__.py#L736)
+torch.compiler.is_exporting()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/compiler/__init__.py#L736)
 
 Indicates whether we're under exporting.
 
@@ -19,4 +19,4 @@ Example:
 
 Return type:
 
-[bool](https://docs.python.org/3/library/functions.html#bool)
+[bool](https://docs.python.org/3/builtins/functions.html#bool)

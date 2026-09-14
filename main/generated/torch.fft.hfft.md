@@ -1,6 +1,6 @@
 # torch.fft.hfft
 
-torch.fft.hfft(*input*, *n=None*, *dim=-1*, *norm=None*, ***, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fft/__init__.py#L785)
+torch.fft.hfft(*input*, *n=None*, *dim=-1*, *norm=None*, ***, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fft/__init__.py#L785)
 
 Computes the one dimensional discrete Fourier transform of a Hermitian
 symmetric `input` signal.
@@ -42,12 +42,12 @@ n defaults to even output size = 2 * (transformed_dim_size - 1)
 Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - the input tensor representing a half-Hermitian signal
-- **n** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - Output signal length. This determines the length of the
+- **n** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - Output signal length. This determines the length of the
 real output. If given, the input will either be zero-padded or trimmed to this
 length before computing the Hermitian FFT.
 Defaults to even output: `n=2*(input.size(dim) - 1)`.
-- **dim** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - The dimension along which to take the one dimensional Hermitian FFT.
-- **norm** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**optional*) -
+- **dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - The dimension along which to take the one dimensional Hermitian FFT.
+- **norm** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**optional*) -
 
 Normalization mode. For the forward transform
 (`hfft()`), these correspond to:

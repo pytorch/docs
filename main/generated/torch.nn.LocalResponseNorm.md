@@ -1,6 +1,6 @@
 # LocalResponseNorm
 
-*class*torch.nn.LocalResponseNorm(*size*, *alpha=0.0001*, *beta=0.75*, *k=1.0*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/normalization.py#L16)
+*class*torch.nn.LocalResponseNorm(*size*, *alpha=0.0001*, *beta=0.75*, *k=1.0*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/normalization.py#L16)
 
 Applies local response normalization over an input signal.
 
@@ -13,10 +13,10 @@ bc=ac(k+αn∑c′=max⁡(0,c−n/2)min⁡(N−1,c+n/2)ac′2)−βb_{c} = a_{c}
 bc​=ac​​k+nα​c′=max(0,c−n/2)∑min(N−1,c+n/2)​ac′2​​−β
 Parameters:
 
-- **size** ([*int*](https://docs.python.org/3/library/functions.html#int)) - amount of neighbouring channels used for normalization
-- **alpha** ([*float*](https://docs.python.org/3/library/functions.html#float)) - multiplicative factor. Default: 0.0001
-- **beta** ([*float*](https://docs.python.org/3/library/functions.html#float)) - exponent. Default: 0.75
-- **k** ([*float*](https://docs.python.org/3/library/functions.html#float)) - additive factor. Default: 1
+- **size** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - amount of neighbouring channels used for normalization
+- **alpha** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - multiplicative factor. Default: 0.0001
+- **beta** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - exponent. Default: 0.75
+- **k** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - additive factor. Default: 1
 
 Shape:
 
@@ -33,11 +33,11 @@ Examples:
 >>> output_4d = lrn(signal_4d)
 ```
 
-extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/normalization.py#L67)
+extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/normalization.py#L67)
 
 Return the extra representation of the module.
 
-forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/normalization.py#L61)
+forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/normalization.py#L61)
 
 Runs the forward pass.
 

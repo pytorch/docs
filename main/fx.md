@@ -1104,7 +1104,7 @@ torch.testing.assert_close(traced(x), x)
 
 ## API Reference
 
-torch.fx.symbolic_trace(*root*, *concrete_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/_symbolic_trace.py#L1389)
+torch.fx.symbolic_trace(*root*, *concrete_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/_symbolic_trace.py#L1389)
 
 Symbolic tracing API
 
@@ -1156,7 +1156,7 @@ Parameters:
 
 - **root** (*Union**[*[*torch.nn.Module*](generated/torch.nn.Module.html#torch.nn.Module)*,**Callable**]*) - Module or function to be traced and converted
 into a Graph representation.
-- **concrete_args** (*Optional**[**Dict**[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**any**]**]*) - Inputs to be partially specialized
+- **concrete_args** (*Optional**[**Dict**[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**any**]**]*) - Inputs to be partially specialized
 
 Returns:
 
@@ -1170,9 +1170,9 @@ Note
 
 Backwards-compatibility for this API is guaranteed.
 
-torch.fx.wrap(*fn_or_name: _F*) → _F[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/_symbolic_trace.py#L1320)
+torch.fx.wrap(*fn_or_name: _F*) → _F[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/_symbolic_trace.py#L1320)
 
-torch.fx.wrap(*fn_or_name: [str](https://docs.python.org/3/library/stdtypes.html#str)*) → [str](https://docs.python.org/3/library/stdtypes.html#str)
+torch.fx.wrap(*fn_or_name: [str](https://docs.python.org/3/builtins/stdtypes.html#str)*) → [str](https://docs.python.org/3/builtins/stdtypes.html#str)
 
 This function can be called at module-level scope to register fn_or_name as a "leaf function".
 A "leaf function" will be preserved as a CallFunction node in the FX trace instead of being
@@ -1206,14 +1206,14 @@ rather than traced through.
 
 Parameters:
 
-**fn_or_name** (*Union**[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**Callable**]*) - The function or name of the global function to insert into the
+**fn_or_name** (*Union**[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**Callable**]*) - The function or name of the global function to insert into the
 graph when it's called
 
 Note
 
 Backwards-compatibility for this API is guaranteed.
 
-*class*torch.fx.GraphModule(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/graph_module.py#L518)
+*class*torch.fx.GraphModule(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/graph_module.py#L518)
 
 GraphModule is an nn.Module generated from an fx.Graph. Graphmodule has a
 `graph` attribute, as well as `code` and `forward` attributes generated
@@ -1234,13 +1234,13 @@ Return type:
 
 Self
 
-__init__(*root*, *graph*, *class_name='GraphModule'*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/graph_module.py#L552)
+__init__(*root*, *graph*, *class_name='GraphModule'*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/graph_module.py#L552)
 
 Construct a GraphModule.
 
 Parameters:
 
-- **root** (*Union**[*[*torch.nn.Module*](generated/torch.nn.Module.html#torch.nn.Module)*,**Dict**[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**Any**]*) - `root` can either be an nn.Module instance or a Dict mapping strings to any attribute type.
+- **root** (*Union**[*[*torch.nn.Module*](generated/torch.nn.Module.html#torch.nn.Module)*,**Dict**[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**Any**]*) - `root` can either be an nn.Module instance or a Dict mapping strings to any attribute type.
 In the case that `root` is a Module, any references to Module-based objects (via qualified
 name) in the Graph's Nodes' `target` field will be copied over from the respective place
 within `root`'s Module hierarchy into the GraphModule's module hierarchy.
@@ -1248,7 +1248,7 @@ In the case that `root` is a dict, the qualified name found in a Node's `target`
 looked up directly in the dict's keys. The object mapped to by the Dict will be copied
 over into the appropriate place within the GraphModule's module hierarchy.
 - **graph** (*Graph*) - `graph` contains the nodes this GraphModule should use for code generation
-- **class_name** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - `name` denotes the name of this GraphModule for debugging purposes. If it's unset, all
+- **class_name** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - `name` denotes the name of this GraphModule for debugging purposes. If it's unset, all
 error messages will report as originating from `GraphModule`. It may be helpful to set this
 to `root`'s original name or a name that makes sense within the context of your transform.
 
@@ -1256,7 +1256,7 @@ Note
 
 Backwards-compatibility for this API is guaranteed.
 
-add_submodule(*target*, *m*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/graph_module.py#L775)
+add_submodule(*target*, *m*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/graph_module.py#L775)
 
 Adds the given submodule to `self`.
 
@@ -1265,7 +1265,7 @@ subpaths of `target`.
 
 Parameters:
 
-- **target** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - The fully-qualified string name of the new submodule
+- **target** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - The fully-qualified string name of the new submodule
 (See example in `nn.Module.get_submodule` for how to
 specify a fully-qualified string.)
 - **m** ([*Module*](generated/torch.nn.Module.html#torch.nn.Module)) - The submodule itself; the actual object we want to
@@ -1282,18 +1282,18 @@ other attribute)
 
 Return type:
 
-[bool](https://docs.python.org/3/library/functions.html#bool)
+[bool](https://docs.python.org/3/builtins/functions.html#bool)
 
 Note
 
 Backwards-compatibility for this API is guaranteed.
 
-*property*code*: [str](https://docs.python.org/3/library/stdtypes.html#str)*
+*property*code*: [str](https://docs.python.org/3/builtins/stdtypes.html#str)*
 
 Return the Python code generated from the `Graph` underlying this
 `GraphModule`.
 
-delete_all_unused_submodules()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/graph_module.py#L857)
+delete_all_unused_submodules()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/graph_module.py#L857)
 
 Deletes all unused submodules from `self`.
 
@@ -1311,7 +1311,7 @@ Note
 
 Backwards-compatibility for this API is guaranteed.
 
-delete_submodule(*target*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/graph_module.py#L815)
+delete_submodule(*target*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/graph_module.py#L815)
 
 Deletes the given submodule from `self`.
 
@@ -1320,7 +1320,7 @@ target.
 
 Parameters:
 
-**target** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - The fully-qualified string name of the new submodule
+**target** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - The fully-qualified string name of the new submodule
 (See example in `nn.Module.get_submodule` for how to
 specify a fully-qualified string.)
 
@@ -1334,7 +1334,7 @@ a submodule.
 
 Return type:
 
-[bool](https://docs.python.org/3/library/functions.html#bool)
+[bool](https://docs.python.org/3/builtins/functions.html#bool)
 
 Note
 
@@ -1344,26 +1344,26 @@ Backwards-compatibility for this API is guaranteed.
 
 Return the `Graph` underlying this `GraphModule`
 
-print_readable(*print_output=True*, *include_stride=False*, *include_device=False*, *colored=False*, ***, *fast_sympy_print=False*, *expanded_def=False*, *additional_meta=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/graph_module.py#L1125)
+print_readable(*print_output=True*, *include_stride=False*, *include_device=False*, *colored=False*, ***, *fast_sympy_print=False*, *expanded_def=False*, *additional_meta=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/graph_module.py#L1125)
 
 Return the Python code generated for current GraphModule and its children GraphModules.
 
 Parameters:
 
-**additional_meta** ([*list*](https://docs.python.org/3/library/stdtypes.html#list)*[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*]**|**None*) - Optional list of meta keys to include in the output.
+**additional_meta** ([*list*](https://docs.python.org/3/builtins/stdtypes.html#list)*[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*]**|**None*) - Optional list of meta keys to include in the output.
 For each key in the list, if it exists in node.meta, its value
 will be shown in the format "key: value".
 Example: print_readable(additional_meta=["seq_nr"]).
 
 Return type:
 
-[str](https://docs.python.org/3/library/stdtypes.html#str)
+[str](https://docs.python.org/3/builtins/stdtypes.html#str)
 
 Warning
 
 This API is experimental and is *NOT* backward-compatible.
 
-recompile()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/graph_module.py#L925)
+recompile()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/graph_module.py#L925)
 
 Recompile this GraphModule from its `graph` attribute. This should be
 called after editing the contained `graph`, otherwise the generated
@@ -1377,7 +1377,7 @@ Return type:
 
 *PythonCode*
 
-to_folder(*folder*, *module_name='FxModule'*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/graph_module.py#L690)
+to_folder(*folder*, *module_name='FxModule'*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/graph_module.py#L690)
 
 Dumps out module to `folder` with `module_name` so that it can be
 
@@ -1397,7 +1397,7 @@ Warning
 
 This API is experimental and is *NOT* backward-compatible.
 
-*class*torch.fx.Graph(*owning_module=None*, *tracer_cls=None*, *tracer_extras=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/graph.py#L1400)
+*class*torch.fx.Graph(*owning_module=None*, *tracer_cls=None*, *tracer_extras=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/graph.py#L1400)
 
 `Graph` is the main data structure used in the FX Intermediate Representation.
 It consists of a series of `Node` s, each representing callsites (or other
@@ -1448,7 +1448,7 @@ Note
 
 Backwards-compatibility for this API is guaranteed.
 
-__init__(*owning_module=None*, *tracer_cls=None*, *tracer_extras=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/graph.py#L1449)
+__init__(*owning_module=None*, *tracer_cls=None*, *tracer_extras=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/graph.py#L1449)
 
 Construct an empty Graph.
 
@@ -1456,7 +1456,7 @@ Note
 
 Backwards-compatibility for this API is guaranteed.
 
-call_function(*the_function*, *args=None*, *kwargs=None*, *type_expr=None*, *name=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/graph.py#L1962)
+call_function(*the_function*, *args=None*, *kwargs=None*, *type_expr=None*, *name=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/graph.py#L1962)
 
 Insert a `call_function` `Node` into the `Graph`. A `call_function` node
 represents a call to a Python callable, specified by `the_function`.
@@ -1468,11 +1468,11 @@ operator, Python function, or member of the `builtins` or `operator`
 namespaces.
 - **args** (*Optional**[**Tuple**[**Argument**,**...**]**]*) - The positional arguments to be passed
 to the called function.
-- **kwargs** (*Optional**[**Dict**[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**Argument**]**]*) - The keyword arguments to be passed
+- **kwargs** (*Optional**[**Dict**[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**Argument**]**]*) - The keyword arguments to be passed
 to the called function
 - **type_expr** (*Optional**[**Any**]*) - an optional type annotation representing the
 Python type the output of this node will have.
-- **name** (*Optional**[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*]*) - The name of the node. If not specified, set to None
+- **name** (*Optional**[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*]*) - The name of the node. If not specified, set to None
 
 Returns:
 
@@ -1491,19 +1491,19 @@ Note
 
 Backwards-compatibility for this API is guaranteed.
 
-call_method(*method_name*, *args=None*, *kwargs=None*, *type_expr=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/graph.py#L1923)
+call_method(*method_name*, *args=None*, *kwargs=None*, *type_expr=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/graph.py#L1923)
 
 Insert a `call_method` `Node` into the `Graph`. A `call_method` node
 represents a call to a given method on the 0th element of `args`.
 
 Parameters:
 
-- **method_name** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - The name of the method to apply to the self argument.
+- **method_name** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - The name of the method to apply to the self argument.
 For example, if args[0] is a `Node` representing a `Tensor`,
 then to call `relu()` on that `Tensor`, pass `relu` to `method_name`.
 - **args** (*Optional**[**Tuple**[**Argument**,**...**]**]*) - The positional arguments to be passed
 to the called method. Note that this *should* include a `self` argument.
-- **kwargs** (*Optional**[**Dict**[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**Argument**]**]*) - The keyword arguments to be passed
+- **kwargs** (*Optional**[**Dict**[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**Argument**]**]*) - The keyword arguments to be passed
 to the called method
 - **type_expr** (*Optional**[**Any**]*) - an optional type annotation representing the
 Python type the output of this node will have.
@@ -1525,7 +1525,7 @@ Note
 
 Backwards-compatibility for this API is guaranteed.
 
-call_module(*module_name*, *args=None*, *kwargs=None*, *type_expr=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/graph.py#L1870)
+call_module(*module_name*, *args=None*, *kwargs=None*, *type_expr=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/graph.py#L1870)
 
 Insert a `call_module` `Node` into the `Graph`. A `call_module` node
 represents a call to the forward() function of a `Module` in the `Module`
@@ -1533,14 +1533,14 @@ hierarchy.
 
 Parameters:
 
-- **module_name** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - The qualified name of the `Module` in the `Module`
+- **module_name** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - The qualified name of the `Module` in the `Module`
 hierarchy to be called. For example, if the traced `Module` has a
 submodule named `foo`, which has a submodule named `bar`, the
 qualified name `foo.bar` should be passed as `module_name` to
 call that module.
 - **args** (*Optional**[**Tuple**[**Argument**,**...**]**]*) - The positional arguments to be passed
 to the called method. Note that this should *not* include a `self` argument.
-- **kwargs** (*Optional**[**Dict**[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**Argument**]**]*) - The keyword arguments to be passed
+- **kwargs** (*Optional**[**Dict**[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**Argument**]**]*) - The keyword arguments to be passed
 to the called method
 - **type_expr** (*Optional**[**Any**]*) - an optional type annotation representing the
 Python type the output of this node will have.
@@ -1562,7 +1562,7 @@ Note
 
 Backwards-compatibility for this API is guaranteed.
 
-create_node(*op*, *target*, *args=None*, *kwargs=None*, *name=None*, *type_expr=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/graph.py#L1588)
+create_node(*op*, *target*, *args=None*, *kwargs=None*, *name=None*, *type_expr=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/graph.py#L1588)
 
 Create a `Node` and add it to the `Graph` at the current insert-point.
 Note that the current insert-point can be set via `Graph.inserting_before()`
@@ -1570,12 +1570,12 @@ and `Graph.inserting_after()`.
 
 Parameters:
 
-- **op** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - the opcode for this Node. One of 'call_function', 'call_method', 'get_attr',
+- **op** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - the opcode for this Node. One of 'call_function', 'call_method', 'get_attr',
 'call_module', 'placeholder', or 'output'. The semantics of these opcodes are
 described in the `Graph` docstring.
 - **args** (*Optional**[**Tuple**[**Argument**,**...**]**]*) - is a tuple of arguments to this node.
-- **kwargs** (*Optional**[**Dict**[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**Argument**]**]*) - the kwargs of this Node
-- **name** (*Optional**[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*]*) - an optional string name for the `Node`.
+- **kwargs** (*Optional**[**Dict**[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**Argument**]**]*) - the kwargs of this Node
+- **name** (*Optional**[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*]*) - an optional string name for the `Node`.
 This will influence the name of the value assigned to in the
 Python generated code.
 - **type_expr** (*Optional**[**Any**]*) - an optional type annotation representing the
@@ -1593,7 +1593,7 @@ Note
 
 Backwards-compatibility for this API is guaranteed.
 
-create_size_node(*tensor_node*, *dim*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/graph.py#L2021)
+create_size_node(*tensor_node*, *dim*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/graph.py#L2021)
 
 Create an FX node for `tensor_node.size(dim)`.
 
@@ -1605,7 +1605,7 @@ Return type:
 
 *Node*
 
-create_storage_offset_node(*tensor_node*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/graph.py#L2039)
+create_storage_offset_node(*tensor_node*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/graph.py#L2039)
 
 Create an FX node for `tensor_node.storage_offset()`.
 
@@ -1617,7 +1617,7 @@ Return type:
 
 *Node*
 
-create_stride_node(*tensor_node*, *dim*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/graph.py#L2030)
+create_stride_node(*tensor_node*, *dim*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/graph.py#L2030)
 
 Create an FX node for `tensor_node.stride(dim)`.
 
@@ -1629,7 +1629,7 @@ Return type:
 
 *Node*
 
-eliminate_dead_code(*is_impure_node=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/graph.py#L2693)
+eliminate_dead_code(*is_impure_node=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/graph.py#L2693)
 
 Remove all dead code from the graph, based on each node's number of
 users, and whether the nodes have any side effects. The graph must be
@@ -1637,7 +1637,7 @@ topologically sorted before calling.
 
 Parameters:
 
-- **is_impure_node** (*Optional**[**Callable**[**[**Node**]**,*[*bool*](https://docs.python.org/3/library/functions.html#bool)*]**]*) - A function that returns
+- **is_impure_node** (*Optional**[**Callable**[**[**Node**]**,*[*bool*](https://docs.python.org/3/builtins/functions.html#bool)*]**]*) - A function that returns
 - **None** (*whether a node is impure. If this is*) -
 - **to** (*then the default behavior is*) -
 - **Node.is_impure.** (*use*) -
@@ -1648,7 +1648,7 @@ Whether the graph was changed as a result of the pass.
 
 Return type:
 
-[bool](https://docs.python.org/3/library/functions.html#bool)
+[bool](https://docs.python.org/3/builtins/functions.html#bool)
 
 Example:
 
@@ -1682,7 +1682,7 @@ Note
 
 Backwards-compatibility for this API is guaranteed.
 
-erase_node(*to_erase*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/graph.py#L1678)
+erase_node(*to_erase*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/graph.py#L1678)
 
 Erases a `Node` from the `Graph`. Throws an exception if
 there are still users of that node in the `Graph`.
@@ -1695,16 +1695,16 @@ Note
 
 Backwards-compatibility for this API is guaranteed.
 
-find_nodes(***, *op*, *target=None*, *sort=True*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/graph.py#L1501)
+find_nodes(***, *op*, *target=None*, *sort=True*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/graph.py#L1501)
 
 Allows for fast query of nodes
 
 Parameters:
 
-- **op** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - the name of the operation
+- **op** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - the name of the operation
 - **target** (*Optional**[**Target**]*) - the target of the node. For call_function,
 the target is required. For other ops, the target is optional.
-- **sort** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - whether to return nodes in the order they appear on
+- **sort** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - whether to return nodes in the order they appear on
 on the graph.
 
 Returns:
@@ -1713,20 +1713,20 @@ Iterable of nodes with the requested op and target.
 
 Return type:
 
-[list](https://docs.python.org/3/library/stdtypes.html#list)[[*Any*](https://docs.python.org/3/library/typing.html#typing.Any)]
+[list](https://docs.python.org/3/builtins/stdtypes.html#list)[[*Any*](https://docs.python.org/3/library/typing.html#typing.Any)]
 
 Warning
 
 This API is experimental and is *NOT* backward-compatible.
 
-get_attr(*qualified_name*, *type_expr=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/graph.py#L1802)
+get_attr(*qualified_name*, *type_expr=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/graph.py#L1802)
 
 Insert a `get_attr` node into the Graph. A `get_attr` `Node` represents the
 fetch of an attribute from the `Module` hierarchy.
 
 Parameters:
 
-- **qualified_name** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - the fully-qualified name of the attribute to be retrieved.
+- **qualified_name** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - the fully-qualified name of the attribute to be retrieved.
 For example, if the traced Module has a submodule named `foo`, which has a
 submodule named `bar`, which has an attribute named `baz`, the qualified
 name `foo.bar.baz` should be passed as `qualified_name`.
@@ -1750,7 +1750,7 @@ Note
 
 Backwards-compatibility for this API is guaranteed.
 
-graph_copy(*g*, *val_map*, *return_output_node=False*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/graph.py#L1528)
+graph_copy(*g*, *val_map*, *return_output_node=False*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/graph.py#L1528)
 
 Copy all nodes from a given graph into `self`.
 
@@ -1768,13 +1768,13 @@ if `g` had an `output` node. `None` otherwise.
 
 Return type:
 
-[tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[Argument, ...] | [*Sequence*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence)[Argument] | [*Mapping*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Mapping)[[str](https://docs.python.org/3/library/stdtypes.html#str), Argument] | [slice](https://docs.python.org/3/library/functions.html#slice) | [range](https://docs.python.org/3/library/stdtypes.html#range) | *Node* | [str](https://docs.python.org/3/library/stdtypes.html#str) | [int](https://docs.python.org/3/library/functions.html#int) | [float](https://docs.python.org/3/library/functions.html#float) | [bool](https://docs.python.org/3/library/functions.html#bool) | [complex](https://docs.python.org/3/library/functions.html#complex) | [*dtype*](tensor_attributes.html#torch.dtype) | [*Tensor*](tensors.html#torch.Tensor) | [*device*](tensor_attributes.html#torch.device) | [*memory_format*](tensor_attributes.html#torch.memory_format) | [*layout*](tensor_attributes.html#torch.layout) | *OpOverload* | [*SymInt*](torch.html#torch.SymInt) | [*SymBool*](torch.html#torch.SymBool) | [*SymFloat*](torch.html#torch.SymFloat) | None
+[tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[Argument, ...] | [*Sequence*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence)[Argument] | [*Mapping*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Mapping)[[str](https://docs.python.org/3/builtins/stdtypes.html#str), Argument] | [slice](https://docs.python.org/3/builtins/functions.html#slice) | [range](https://docs.python.org/3/builtins/stdtypes.html#range) | *Node* | [str](https://docs.python.org/3/builtins/stdtypes.html#str) | [int](https://docs.python.org/3/builtins/functions.html#int) | [float](https://docs.python.org/3/builtins/functions.html#float) | [bool](https://docs.python.org/3/builtins/functions.html#bool) | [complex](https://docs.python.org/3/builtins/functions.html#complex) | [*dtype*](tensor_attributes.html#torch.dtype) | [*Tensor*](tensors.html#torch.Tensor) | [*device*](tensor_attributes.html#torch.device) | [*memory_format*](tensor_attributes.html#torch.memory_format) | [*layout*](tensor_attributes.html#torch.layout) | *OpOverload* | [*SymInt*](torch.html#torch.SymInt) | [*SymBool*](torch.html#torch.SymBool) | [*SymFloat*](torch.html#torch.SymFloat) | None
 
 Note
 
 Backwards-compatibility for this API is guaranteed.
 
-inserting_after(*n=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/graph.py#L1744)
+inserting_after(*n=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/graph.py#L1744)
 
 Set the point at which create_node and companion methods will insert into the graph.
 
@@ -1806,7 +1806,7 @@ Return type:
 
 *_InsertPoint*
 
-inserting_before(*n=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/graph.py#L1719)
+inserting_before(*n=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/graph.py#L1719)
 
 Set the point at which create_node and companion methods will insert into the graph.
 
@@ -1838,7 +1838,7 @@ Return type:
 
 *_InsertPoint*
 
-lint()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/graph.py#L2613)
+lint()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/graph.py#L2613)
 
 Runs various checks on this Graph to make sure it is well-formed. In
 particular:
@@ -1851,7 +1851,7 @@ Note
 
 Backwards-compatibility for this API is guaranteed.
 
-materialize_symint(*value*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/graph.py#L2384)
+materialize_symint(*value*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/graph.py#L2384)
 
 Single-value convenience wrapper around `materialize_symints()`.
 
@@ -1861,9 +1861,9 @@ This API is experimental and is *NOT* backward-compatible.
 
 Return type:
 
-*Node* | [int](https://docs.python.org/3/library/functions.html#int)
+*Node* | [int](https://docs.python.org/3/builtins/functions.html#int)
 
-materialize_symints(*values*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/graph.py#L2113)
+materialize_symints(*values*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/graph.py#L2113)
 
 Materialize a list of `SymInt`/`int` values as FX subgraphs rooted
 
@@ -1911,9 +1911,9 @@ This API is experimental and is *NOT* backward-compatible.
 
 Return type:
 
-[list](https://docs.python.org/3/library/stdtypes.html#list)[*Node* | [int](https://docs.python.org/3/library/functions.html#int)]
+[list](https://docs.python.org/3/builtins/stdtypes.html#list)[*Node* | [int](https://docs.python.org/3/builtins/functions.html#int)]
 
-node_copy(*node*, *arg_transform=<function Graph.<lambda>>*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/graph.py#L2389)
+node_copy(*node*, *arg_transform=<function Graph.<lambda>>*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/graph.py#L2389)
 
 Copy a node from one graph into another. `arg_transform` needs to transform arguments from
 the graph of node to the graph of self. Example:
@@ -1956,7 +1956,7 @@ Returns:
 A doubly-linked list of Nodes. Note that `reversed` can be called on
 this list to switch iteration order.
 
-on_generate_code(*make_transformer*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/graph.py#L2786)
+on_generate_code(*make_transformer*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/graph.py#L2786)
 
 Register a transformer function when python code is generated
 
@@ -2056,7 +2056,7 @@ Return type:
 
 [*AbstractContextManager*](https://docs.python.org/3/library/contextlib.html#contextlib.AbstractContextManager)[None]
 
-output(*result*, *type_expr=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/graph.py#L2426)
+output(*result*, *type_expr=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/graph.py#L2426)
 
 Insert an `output` `Node` into the `Graph`. An `output` node represents
 a `return` statement in Python code. `result` is the value that should
@@ -2077,7 +2077,7 @@ Note
 
 Backwards-compatibility for this API is guaranteed.
 
-output_node()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/graph.py#L1494)
+output_node()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/graph.py#L1494)
 
 Warning
 
@@ -2087,14 +2087,14 @@ Return type:
 
 *Node*
 
-placeholder(*name*, *type_expr=None*, *default_value*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/graph.py#L1769)
+placeholder(*name*, *type_expr=None*, *default_value*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/graph.py#L1769)
 
 Insert a `placeholder` node into the Graph. A `placeholder` represents
 a function input.
 
 Parameters:
 
-- **name** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - A name for the input value. This corresponds to the name
+- **name** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - A name for the input value. This corresponds to the name
 of the positional argument to the function this `Graph` represents.
 - **type_expr** (*Optional**[**Any**]*) - an optional type annotation representing the
 Python type the output of this node will have. This is needed in some
@@ -2118,7 +2118,7 @@ Note
 
 Backwards-compatibility for this API is guaranteed.
 
-print_tabular()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/graph.py#L2591)
+print_tabular()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/graph.py#L2591)
 
 Prints the intermediate representation of the graph in tabular
 format. Note that this API requires the `tabulate` module to be
@@ -2128,7 +2128,7 @@ Note
 
 Backwards-compatibility for this API is guaranteed.
 
-process_inputs(**args*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/graph.py#L1667)
+process_inputs(**args*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/graph.py#L1667)
 
 Processes args so that they can be passed to the FX graph.
 
@@ -2140,7 +2140,7 @@ Return type:
 
 [*Any*](https://docs.python.org/3/library/typing.html#typing.Any)
 
-process_outputs(*out*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/graph.py#L1674)
+process_outputs(*out*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/graph.py#L1674)
 
 Warning
 
@@ -2150,13 +2150,13 @@ Return type:
 
 [*Any*](https://docs.python.org/3/library/typing.html#typing.Any)
 
-python_code(*root_module*, ***, *verbose=False*, *include_stride=False*, *include_device=False*, *colored=False*, *expanded_def=False*, *record_func=False*, *additional_meta=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/graph.py#L2464)
+python_code(*root_module*, ***, *verbose=False*, *include_stride=False*, *include_device=False*, *colored=False*, *expanded_def=False*, *record_func=False*, *additional_meta=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/graph.py#L2464)
 
 Turn this `Graph` into valid Python code.
 
 Parameters:
 
-**root_module** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - The name of the root module on which to look-up
+**root_module** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - The name of the root module on which to look-up
 qualified name targets. This is usually 'self'.
 
 Returns:
@@ -2172,13 +2172,13 @@ Note
 
 Backwards-compatibility for this API is guaranteed.
 
-set_codegen(*codegen*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/graph.py#L2782)
+set_codegen(*codegen*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/graph.py#L2782)
 
 Warning
 
 This API is experimental and is *NOT* backward-compatible.
 
-*class*torch.fx.Node(*graph*, *name*, *op*, *target*, *args*, *kwargs*, *return_type=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/node.py#L259)
+*class*torch.fx.Node(*graph*, *name*, *op*, *target*, *args*, *kwargs*, *return_type=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/node.py#L259)
 
 `Node` is the data structure that represents individual operations within
 a `Graph`. For the most part, Nodes represent callsites to various entities,
@@ -2209,7 +2209,7 @@ Note
 
 Backwards-compatibility for this API is guaranteed.
 
-*property*all_input_nodes*: [list](https://docs.python.org/3/library/stdtypes.html#list)[Node]*
+*property*all_input_nodes*: [list](https://docs.python.org/3/builtins/stdtypes.html#list)[Node]*
 
 Return all Nodes that are inputs to this Node. This is equivalent to
 iterating over `args` and `kwargs` and only collecting the values that
@@ -2220,7 +2220,7 @@ Returns:
 List of `Nodes` that appear in the `args` and `kwargs` of this
 `Node`, in that order.
 
-append(*x*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/node.py#L442)
+append(*x*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/node.py#L442)
 
 Insert `x` after this node in the list of nodes in the graph.
 Equivalent to `self.next.prepend(x)`
@@ -2233,7 +2233,7 @@ Note
 
 Backwards-compatibility for this API is guaranteed.
 
-*property*args*: [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[Argument, ...] | [Sequence](https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence)[Argument] | [Mapping](https://docs.python.org/3/library/collections.abc.html#collections.abc.Mapping)[[str](https://docs.python.org/3/library/stdtypes.html#str), Argument] | [slice](https://docs.python.org/3/library/functions.html#slice) | [range](https://docs.python.org/3/library/stdtypes.html#range) | Node | [str](https://docs.python.org/3/library/stdtypes.html#str) | [int](https://docs.python.org/3/library/functions.html#int) | [float](https://docs.python.org/3/library/functions.html#float) | [bool](https://docs.python.org/3/library/functions.html#bool) | [complex](https://docs.python.org/3/library/functions.html#complex) | [dtype](tensor_attributes.html#torch.dtype) | [Tensor](tensors.html#torch.Tensor) | [device](tensor_attributes.html#torch.device) | [memory_format](tensor_attributes.html#torch.memory_format) | [layout](tensor_attributes.html#torch.layout) | OpOverload | [SymInt](torch.html#torch.SymInt) | [SymBool](torch.html#torch.SymBool) | [SymFloat](torch.html#torch.SymFloat) | [None](https://docs.python.org/3/library/constants.html#None), ...]*
+*property*args*: [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[Argument, ...] | [Sequence](https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence)[Argument] | [Mapping](https://docs.python.org/3/library/collections.abc.html#collections.abc.Mapping)[[str](https://docs.python.org/3/builtins/stdtypes.html#str), Argument] | [slice](https://docs.python.org/3/builtins/functions.html#slice) | [range](https://docs.python.org/3/builtins/stdtypes.html#range) | Node | [str](https://docs.python.org/3/builtins/stdtypes.html#str) | [int](https://docs.python.org/3/builtins/functions.html#int) | [float](https://docs.python.org/3/builtins/functions.html#float) | [bool](https://docs.python.org/3/builtins/functions.html#bool) | [complex](https://docs.python.org/3/builtins/functions.html#complex) | [dtype](tensor_attributes.html#torch.dtype) | [Tensor](tensors.html#torch.Tensor) | [device](tensor_attributes.html#torch.device) | [memory_format](tensor_attributes.html#torch.memory_format) | [layout](tensor_attributes.html#torch.layout) | OpOverload | [SymInt](torch.html#torch.SymInt) | [SymBool](torch.html#torch.SymBool) | [SymFloat](torch.html#torch.SymFloat) | [None](https://docs.python.org/3/builtins/constants.html#None), ...]*
 
 The tuple of arguments to this `Node`. The interpretation of arguments
 depends on the node's opcode. See the `Node` docstring for more
@@ -2242,7 +2242,7 @@ information.
 Assignment to this property is allowed. All accounting of uses and users
 is updated automatically on assignment.
 
-format_node(*placeholder_names=None*, *maybe_return_typename=None*, ***, *include_tensor_metadata=False*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/node.py#L617)
+format_node(*placeholder_names=None*, *maybe_return_typename=None*, ***, *include_tensor_metadata=False*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/node.py#L617)
 
 Return a descriptive string representation of `self`.
 
@@ -2258,13 +2258,13 @@ should not be used otherwise.
 
 Parameters:
 
-- **placeholder_names** ([*list*](https://docs.python.org/3/library/stdtypes.html#list)*[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*]**|**None*) - A list that will store formatted strings
+- **placeholder_names** ([*list*](https://docs.python.org/3/builtins/stdtypes.html#list)*[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*]**|**None*) - A list that will store formatted strings
 representing the placeholders in the generated
 `forward` function. Internal use only.
-- **maybe_return_typename** ([*list*](https://docs.python.org/3/library/stdtypes.html#list)*[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*]**|**None*) - A single-element list that will store
+- **maybe_return_typename** ([*list*](https://docs.python.org/3/builtins/stdtypes.html#list)*[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*]**|**None*) - A single-element list that will store
 a formatted string representing the output of the
 generated `forward` function. Internal use only.
-- **include_tensor_metadata** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - Whether to include tensor metadata
+- **include_tensor_metadata** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Whether to include tensor metadata
 
 Returns:
 
@@ -2277,33 +2277,33 @@ current Node.
 
 Return type:
 
-[str](https://docs.python.org/3/library/stdtypes.html#str)
+[str](https://docs.python.org/3/builtins/stdtypes.html#str)
 
 Note
 
 Backwards-compatibility for this API is guaranteed.
 
-insert_arg(*idx*, *arg*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/node.py#L529)
+insert_arg(*idx*, *arg*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/node.py#L529)
 
 Insert a positional argument to the argument list with given index.
 
 Parameters:
 
-- **idx** ([*int*](https://docs.python.org/3/library/functions.html#int)) - The index of the element in `self.args` to be inserted before.
+- **idx** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - The index of the element in `self.args` to be inserted before.
 - **arg** (*Argument*) - The new argument value to insert into `args`
 
 Note
 
 Backwards-compatibility for this API is guaranteed.
 
-is_impure(*impure_random=True*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/node.py#L758)
+is_impure(*impure_random=True*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/node.py#L758)
 
 Returns whether this op is impure, i.e. if its op is a placeholder or
 output, or if a call_function or call_module which is impure.
 
 Parameters:
 
-**impure_random** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - Whether to treat rand op as impure.
+**impure_random** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Whether to treat rand op as impure.
 
 Returns:
 
@@ -2311,13 +2311,13 @@ If the op is impure or not.
 
 Return type:
 
-[bool](https://docs.python.org/3/library/functions.html#bool)
+[bool](https://docs.python.org/3/builtins/functions.html#bool)
 
 Warning
 
 This API is experimental and is *NOT* backward-compatible.
 
-*property*kwargs*: [dict](https://docs.python.org/3/library/stdtypes.html#dict)[[str](https://docs.python.org/3/library/stdtypes.html#str), [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[Argument, ...] | [Sequence](https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence)[Argument] | [Mapping](https://docs.python.org/3/library/collections.abc.html#collections.abc.Mapping)[[str](https://docs.python.org/3/library/stdtypes.html#str), Argument] | [slice](https://docs.python.org/3/library/functions.html#slice) | [range](https://docs.python.org/3/library/stdtypes.html#range) | Node | [str](https://docs.python.org/3/library/stdtypes.html#str) | [int](https://docs.python.org/3/library/functions.html#int) | [float](https://docs.python.org/3/library/functions.html#float) | [bool](https://docs.python.org/3/library/functions.html#bool) | [complex](https://docs.python.org/3/library/functions.html#complex) | [dtype](tensor_attributes.html#torch.dtype) | [Tensor](tensors.html#torch.Tensor) | [device](tensor_attributes.html#torch.device) | [memory_format](tensor_attributes.html#torch.memory_format) | [layout](tensor_attributes.html#torch.layout) | OpOverload | [SymInt](torch.html#torch.SymInt) | [SymBool](torch.html#torch.SymBool) | [SymFloat](torch.html#torch.SymFloat) | [None](https://docs.python.org/3/library/constants.html#None)]*
+*property*kwargs*: [dict](https://docs.python.org/3/builtins/stdtypes.html#dict)[[str](https://docs.python.org/3/builtins/stdtypes.html#str), [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[Argument, ...] | [Sequence](https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence)[Argument] | [Mapping](https://docs.python.org/3/library/collections.abc.html#collections.abc.Mapping)[[str](https://docs.python.org/3/builtins/stdtypes.html#str), Argument] | [slice](https://docs.python.org/3/builtins/functions.html#slice) | [range](https://docs.python.org/3/builtins/stdtypes.html#range) | Node | [str](https://docs.python.org/3/builtins/stdtypes.html#str) | [int](https://docs.python.org/3/builtins/functions.html#int) | [float](https://docs.python.org/3/builtins/functions.html#float) | [bool](https://docs.python.org/3/builtins/functions.html#bool) | [complex](https://docs.python.org/3/builtins/functions.html#complex) | [dtype](tensor_attributes.html#torch.dtype) | [Tensor](tensors.html#torch.Tensor) | [device](tensor_attributes.html#torch.device) | [memory_format](tensor_attributes.html#torch.memory_format) | [layout](tensor_attributes.html#torch.layout) | OpOverload | [SymInt](torch.html#torch.SymInt) | [SymBool](torch.html#torch.SymBool) | [SymFloat](torch.html#torch.SymFloat) | [None](https://docs.python.org/3/builtins/constants.html#None)]*
 
 The dict of keyword arguments to this `Node`. The interpretation of arguments
 depends on the node's opcode. See the `Node` docstring for more
@@ -2334,7 +2334,7 @@ Returns:
 
 The next `Node` in the linked list of Nodes.
 
-normalized_arguments(*root*, *arg_types=None*, *kwarg_types=None*, *normalize_to_only_use_kwargs=False*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/node.py#L809)
+normalized_arguments(*root*, *arg_types=None*, *kwarg_types=None*, *normalize_to_only_use_kwargs=False*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/node.py#L809)
 
 Returns normalized arguments to Python targets. This means that
 args/kwargs will be matched up to the module/functional's
@@ -2351,8 +2351,8 @@ Parameters:
 
 - **root** ([*torch.nn.Module*](generated/torch.nn.Module.html#torch.nn.Module)) - Module upon which to resolve module targets.
 - **arg_types** (*Optional**[**Tuple**[**Any**]**]*) - Tuple of arg types for the args
-- **kwarg_types** (*Optional**[**Dict**[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**Any**]**]*) - Dict of arg types for the kwargs
-- **normalize_to_only_use_kwargs** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - Whether to normalize to only use kwargs.
+- **kwarg_types** (*Optional**[**Dict**[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**Any**]**]*) - Dict of arg types for the kwargs
+- **normalize_to_only_use_kwargs** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Whether to normalize to only use kwargs.
 
 Returns:
 
@@ -2366,7 +2366,7 @@ Warning
 
 This API is experimental and is *NOT* backward-compatible.
 
-prepend(*x*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/node.py#L426)
+prepend(*x*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/node.py#L426)
 
 Insert x before this node in the list of nodes in the graph. Example:
 
@@ -2393,7 +2393,7 @@ Returns:
 
 The previous `Node` in the linked list of Nodes.
 
-replace_all_uses_with(*replace_with*, *delete_user_cb=None*, ***, *propagate_meta=False*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/node.py#L711)
+replace_all_uses_with(*replace_with*, *delete_user_cb=None*, ***, *propagate_meta=False*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/node.py#L711)
 
 Replace all uses of `self` in the Graph with the Node `replace_with`.
 
@@ -2402,7 +2402,7 @@ Parameters:
 - **replace_with** (*Node*) - The node to replace all uses of `self` with.
 - **delete_user_cb** (*Callable*) - Callback that is called to determine
 whether a given user of the self node should be removed.
-- **propagate_meta** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - Whether or not to copy all properties
+- **propagate_meta** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Whether or not to copy all properties
 on the .meta field of the original node onto the replacement node.
 For safety, this is only valid to do if the replacement node
 doesn't already have an existing .meta field.
@@ -2413,13 +2413,13 @@ The list of Nodes on which this change was made.
 
 Return type:
 
-[list](https://docs.python.org/3/library/stdtypes.html#list)[Node]
+[list](https://docs.python.org/3/builtins/stdtypes.html#list)[Node]
 
 Note
 
 Backwards-compatibility for this API is guaranteed.
 
-replace_input_with(*old_input*, *new_input*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/node.py#L867)
+replace_input_with(*old_input*, *new_input*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/node.py#L867)
 
 Loop through input nodes of `self`, and replace all instances of
 `old_input` with `new_input`.
@@ -2433,7 +2433,7 @@ Note
 
 Backwards-compatibility for this API is guaranteed.
 
-*property*stack_trace*: [str](https://docs.python.org/3/library/stdtypes.html#str) | [None](https://docs.python.org/3/library/constants.html#None)*
+*property*stack_trace*: [str](https://docs.python.org/3/builtins/stdtypes.html#str) | [None](https://docs.python.org/3/builtins/constants.html#None)*
 
 Return the Python stack trace that was recorded during tracing, if any.
 When traced with fx.Tracer, this property is usually populated by
@@ -2444,35 +2444,35 @@ OutputGraph.create_proxy.
 
 stack_trace would have the innermost frame at the end of the string.
 
-update_arg(*idx*, *arg*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/node.py#L514)
+update_arg(*idx*, *arg*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/node.py#L514)
 
 Update an existing positional argument to contain the new value
 `arg`. After calling, `self.args[idx] == arg`.
 
 Parameters:
 
-- **idx** ([*int*](https://docs.python.org/3/library/functions.html#int)) - The index into `self.args` of the element to update
+- **idx** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - The index into `self.args` of the element to update
 - **arg** (*Argument*) - The new argument value to write into `args`
 
 Note
 
 Backwards-compatibility for this API is guaranteed.
 
-update_kwarg(*key*, *arg*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/node.py#L556)
+update_kwarg(*key*, *arg*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/node.py#L556)
 
 Update an existing keyword argument to contain the new value
 `arg`. After calling, `self.kwargs[key] == arg`.
 
 Parameters:
 
-- **key** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - The key in `self.kwargs` of the element to update
+- **key** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - The key in `self.kwargs` of the element to update
 - **arg** (*Argument*) - The new argument value to write into `kwargs`
 
 Note
 
 Backwards-compatibility for this API is guaranteed.
 
-*class*torch.fx.Tracer(*autowrap_modules=(math,)*, *autowrap_functions=()*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/_symbolic_trace.py#L281)
+*class*torch.fx.Tracer(*autowrap_modules=(math,)*, *autowrap_functions=()*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/_symbolic_trace.py#L281)
 
 > `Tracer` is the class that implements the symbolic tracing functionality
 > of `torch.fx.symbolic_trace`. A call to `symbolic_trace(m)` is equivalent
@@ -2489,7 +2489,7 @@ Note
 
 Backwards-compatibility for this API is guaranteed.
 
-call_module(*m*, *forward*, *args*, *kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/_symbolic_trace.py#L558)
+call_module(*m*, *forward*, *args*, *kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/_symbolic_trace.py#L558)
 
 Method that specifies the behavior of this `Tracer` when it encounters
 a call to an `nn.Module` instance.
@@ -2524,7 +2524,7 @@ Note
 
 Backwards-compatibility for this API is guaranteed.
 
-create_arg(*a*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/_symbolic_trace.py#L402)
+create_arg(*a*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/_symbolic_trace.py#L402)
 
 A method to specify the behavior of tracing when preparing values to
 be used as arguments to nodes in the `Graph`.
@@ -2558,7 +2558,7 @@ Note
 
 Backwards-compatibility for this API is guaranteed.
 
-create_args_for_root(*root_fn*, *is_module*, *concrete_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/_symbolic_trace.py#L687)
+create_args_for_root(*root_fn*, *is_module*, *concrete_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/_symbolic_trace.py#L687)
 
 Create `placeholder` nodes corresponding to the signature of the `root`
 Module. This method introspects root's signature and emits those
@@ -2570,9 +2570,9 @@ This API is experimental and is *NOT* backward-compatible.
 
 Return type:
 
-[tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[*Any*](https://docs.python.org/3/library/typing.html#typing.Any), [list](https://docs.python.org/3/library/stdtypes.html#list)[[*Any*](https://docs.python.org/3/library/typing.html#typing.Any)]]
+[tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[*Any*](https://docs.python.org/3/library/typing.html#typing.Any), [list](https://docs.python.org/3/builtins/stdtypes.html#list)[[*Any*](https://docs.python.org/3/library/typing.html#typing.Any)]]
 
-create_node(*kind*, *target*, *args*, *kwargs*, *name=None*, *type_expr=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/proxy.py#L214)
+create_node(*kind*, *target*, *args*, *kwargs*, *name=None*, *type_expr=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/proxy.py#L214)
 
 Inserts a graph node given target, args, kwargs, and name.
 
@@ -2588,7 +2588,7 @@ Return type:
 
 *Node*
 
-create_proxy(*kind*, *target*, *args*, *kwargs*, *name=None*, *type_expr=None*, *proxy_factory_fn=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/proxy.py#L339)
+create_proxy(*kind*, *target*, *args*, *kwargs*, *name=None*, *type_expr=None*, *proxy_factory_fn=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/proxy.py#L339)
 
 Create a Node from the given arguments, then return the Node
 wrapped in a Proxy object.
@@ -2606,7 +2606,7 @@ Return type:
 
 *Proxy*
 
-get_fresh_qualname(*prefix*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/_symbolic_trace.py#L376)
+get_fresh_qualname(*prefix*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/_symbolic_trace.py#L376)
 
 Gets a fresh name for a prefix and returns it. This function ensures
 that it will not clash with an existing attribute on the graph.
@@ -2617,9 +2617,9 @@ Backwards-compatibility for this API is guaranteed.
 
 Return type:
 
-[str](https://docs.python.org/3/library/stdtypes.html#str)
+[str](https://docs.python.org/3/builtins/stdtypes.html#str)
 
-getattr(*attr*, *attr_val*, *parameter_proxy_cache*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/_symbolic_trace.py#L618)
+getattr(*attr*, *attr_val*, *parameter_proxy_cache*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/_symbolic_trace.py#L618)
 
 Method that specifies the behavior of this `Tracer` when we call getattr
 on a call to an `nn.Module` instance.
@@ -2633,9 +2633,9 @@ querying parameters.
 
 Parameters:
 
-- **attr** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - The name of the attribute being queried
+- **attr** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - The name of the attribute being queried
 - **attr_val** (*Any*) - The value of the attribute
-- **parameter_proxy_cache** (*Dict**[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**Any**]*) - A cache of attr names to proxies
+- **parameter_proxy_cache** (*Dict**[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**Any**]*) - A cache of attr names to proxies
 
 Returns:
 
@@ -2649,7 +2649,7 @@ Warning
 
 This API is experimental and is *NOT* backward-compatible.
 
-is_leaf_module(*m*, *module_qualified_name*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/_symbolic_trace.py#L505)
+is_leaf_module(*m*, *module_qualified_name*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/_symbolic_trace.py#L505)
 
 A method to specify whether a given `nn.Module` is a "leaf" module.
 
@@ -2663,20 +2663,20 @@ via this parameter.
 Parameters:
 
 - **m** ([*Module*](generated/torch.nn.Module.html#torch.nn.Module)) - The module being queried about
-- **module_qualified_name** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - The path to root of this module. For example,
+- **module_qualified_name** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - The path to root of this module. For example,
 if you have a module hierarchy where submodule `foo` contains
 submodule `bar`, which contains submodule `baz`, that module will
 appear with the qualified name `foo.bar.baz` here.
 
 Return type:
 
-[bool](https://docs.python.org/3/library/functions.html#bool)
+[bool](https://docs.python.org/3/builtins/functions.html#bool)
 
 Note
 
 Backwards-compatibility for this API is guaranteed.
 
-iter(*obj*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/proxy.py#L496)
+iter(*obj*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/proxy.py#L496)
 
 Called when a proxy object is being iterated over, such as
 
@@ -2692,7 +2692,7 @@ Return type:
 
 [*Iterator*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterator)
 
-keys(*obj*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/proxy.py#L514)
+keys(*obj*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/proxy.py#L514)
 
 Called when a proxy object has the keys() method called.
 
@@ -2707,7 +2707,7 @@ Return type:
 
 *Proxy*
 
-path_of_module(*mod*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/_symbolic_trace.py#L530)
+path_of_module(*mod*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/_symbolic_trace.py#L530)
 
 Helper method to find the qualified name of `mod` in the Module hierarchy
 of `root`. For example, if `root` has a submodule named `foo`, which has
@@ -2716,17 +2716,17 @@ the string "foo.bar".
 
 Parameters:
 
-**mod** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - The `Module` to retrieve the qualified name for.
+**mod** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - The `Module` to retrieve the qualified name for.
 
 Return type:
 
-[str](https://docs.python.org/3/library/stdtypes.html#str)
+[str](https://docs.python.org/3/builtins/stdtypes.html#str)
 
 Note
 
 Backwards-compatibility for this API is guaranteed.
 
-proxy(*node*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/proxy.py#L335)
+proxy(*node*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/proxy.py#L335)
 
 Note
 
@@ -2736,7 +2736,7 @@ Return type:
 
 *Proxy*
 
-to_bool(*obj*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/proxy.py#L485)
+to_bool(*obj*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/proxy.py#L485)
 
 Called when a proxy object is being converted to a boolean, such as
 
@@ -2750,9 +2750,9 @@ Backwards-compatibility for this API is guaranteed.
 
 Return type:
 
-[bool](https://docs.python.org/3/library/functions.html#bool)
+[bool](https://docs.python.org/3/builtins/functions.html#bool)
 
-trace(*root*, *concrete_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/_symbolic_trace.py#L798)
+trace(*root*, *concrete_args=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/_symbolic_trace.py#L798)
 
 Trace `root` and return the corresponding FX `Graph` representation. `root`
 can either be an `nn.Module` instance or a Python callable.
@@ -2767,7 +2767,7 @@ Parameters:
 - **root** (*Union**[*[*Module*](generated/torch.nn.Module.html#torch.nn.Module)*,**Callable**]*) - Either a `Module` or a function to be
 traced through. Backwards-compatibility for this parameter is
 guaranteed.
-- **concrete_args** (*Optional**[**Dict**[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**any**]**]*) - Concrete arguments that should
+- **concrete_args** (*Optional**[**Dict**[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**any**]**]*) - Concrete arguments that should
 not be treated as Proxies. This parameter is experimental and
 its backwards-compatibility is *NOT* guaranteed.
 
@@ -2783,7 +2783,7 @@ Note
 
 Backwards-compatibility for this API is guaranteed.
 
-*class*torch.fx.Proxy(*node*, *tracer=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/proxy.py#L599)
+*class*torch.fx.Proxy(*node*, *tracer=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/proxy.py#L599)
 
 `Proxy` objects are `Node` wrappers that flow through the
 program during symbolic tracing and record all the operations
@@ -2817,7 +2817,7 @@ Note
 
 Backwards-compatibility for this API is guaranteed.
 
-*class*torch.fx.Interpreter(*module*, *garbage_collect_values=True*, *graph=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/interpreter.py#L51)
+*class*torch.fx.Interpreter(*module*, *garbage_collect_values=True*, *graph=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/interpreter.py#L51)
 
 An Interpreter executes an FX graph Node-by-Node. This pattern
 can be useful for many things, including writing code
@@ -2871,7 +2871,7 @@ torch.testing.assert_close(result, torch.neg(input).sigmoid())
 Parameters:
 
 - **module** ([*torch.nn.Module*](generated/torch.nn.Module.html#torch.nn.Module)) - The module to be executed
-- **garbage_collect_values** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - Whether to delete values after their last
+- **garbage_collect_values** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Whether to delete values after their last
 use within the Module's execution. This ensures optimal memory usage during
 execution. This can be disabled to, for example, examine all of the intermediate
 values in the execution by looking at the `Interpreter.env` attribute.
@@ -2883,7 +2883,7 @@ Note
 
 Backwards-compatibility for this API is guaranteed.
 
-boxed_run(*args_list*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/interpreter.py#L239)
+boxed_run(*args_list*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/interpreter.py#L239)
 
 Run module via interpretation and return the result. This uses the "boxed"
 calling convention, where you pass a list of arguments, which will be cleared
@@ -2897,7 +2897,7 @@ Return type:
 
 [*Any*](https://docs.python.org/3/library/typing.html#typing.Any)
 
-call_function(*target*, *args*, *kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/interpreter.py#L356)
+call_function(*target*, *args*, *kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/interpreter.py#L356)
 
 Execute a `call_function` node and return the result.
 
@@ -2921,7 +2921,7 @@ Note
 
 Backwards-compatibility for this API is guaranteed.
 
-call_method(*target*, *args*, *kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/interpreter.py#L379)
+call_method(*target*, *args*, *kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/interpreter.py#L379)
 
 Execute a `call_method` node and return the result.
 
@@ -2945,7 +2945,7 @@ Note
 
 Backwards-compatibility for this API is guaranteed.
 
-call_module(*target*, *args*, *kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/interpreter.py#L404)
+call_module(*target*, *args*, *kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/interpreter.py#L404)
 
 Execute a `call_module` node and return the result.
 
@@ -2969,7 +2969,7 @@ Note
 
 Backwards-compatibility for this API is guaranteed.
 
-fetch_args_kwargs_from_env(*n*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/interpreter.py#L472)
+fetch_args_kwargs_from_env(*n*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/interpreter.py#L472)
 
 Fetch the concrete values of `args` and `kwargs` of node `n`
 from the current execution environment.
@@ -2990,13 +2990,13 @@ Note
 
 Backwards-compatibility for this API is guaranteed.
 
-fetch_attr(*target*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/interpreter.py#L451)
+fetch_attr(*target*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/interpreter.py#L451)
 
 Fetch an attribute from the `Module` hierarchy of `self.module`.
 
 Parameters:
 
-**target** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - The fully-qualified name of the attribute to fetch
+**target** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - The fully-qualified name of the attribute to fetch
 
 Returns:
 
@@ -3010,7 +3010,7 @@ Note
 
 Backwards-compatibility for this API is guaranteed.
 
-get_attr(*target*, *args*, *kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/interpreter.py#L334)
+get_attr(*target*, *args*, *kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/interpreter.py#L334)
 
 Execute a `get_attr` node. Will retrieve an attribute
 value from the `Module` hierarchy of `self.module`.
@@ -3035,7 +3035,7 @@ Note
 
 Backwards-compatibility for this API is guaranteed.
 
-map_nodes_to_values(*args*, *n*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/interpreter.py#L494)
+map_nodes_to_values(*args*, *n*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/interpreter.py#L494)
 
 Recursively descend through `args` and look up the concrete value
 for each `Node` in the current execution environment.
@@ -3047,13 +3047,13 @@ Parameters:
 
 Return type:
 
-[tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[Argument, ...] | [*Sequence*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence)[Argument] | [*Mapping*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Mapping)[[str](https://docs.python.org/3/library/stdtypes.html#str), Argument] | [slice](https://docs.python.org/3/library/functions.html#slice) | [range](https://docs.python.org/3/library/stdtypes.html#range) | *Node* | [str](https://docs.python.org/3/library/stdtypes.html#str) | [int](https://docs.python.org/3/library/functions.html#int) | [float](https://docs.python.org/3/library/functions.html#float) | [bool](https://docs.python.org/3/library/functions.html#bool) | [complex](https://docs.python.org/3/library/functions.html#complex) | [*dtype*](tensor_attributes.html#torch.dtype) | [*Tensor*](tensors.html#torch.Tensor) | [*device*](tensor_attributes.html#torch.device) | [*memory_format*](tensor_attributes.html#torch.memory_format) | [*layout*](tensor_attributes.html#torch.layout) | *OpOverload* | [*SymInt*](torch.html#torch.SymInt) | [*SymBool*](torch.html#torch.SymBool) | [*SymFloat*](torch.html#torch.SymFloat) | None
+[tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[Argument, ...] | [*Sequence*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence)[Argument] | [*Mapping*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Mapping)[[str](https://docs.python.org/3/builtins/stdtypes.html#str), Argument] | [slice](https://docs.python.org/3/builtins/functions.html#slice) | [range](https://docs.python.org/3/builtins/stdtypes.html#range) | *Node* | [str](https://docs.python.org/3/builtins/stdtypes.html#str) | [int](https://docs.python.org/3/builtins/functions.html#int) | [float](https://docs.python.org/3/builtins/functions.html#float) | [bool](https://docs.python.org/3/builtins/functions.html#bool) | [complex](https://docs.python.org/3/builtins/functions.html#complex) | [*dtype*](tensor_attributes.html#torch.dtype) | [*Tensor*](tensors.html#torch.Tensor) | [*device*](tensor_attributes.html#torch.device) | [*memory_format*](tensor_attributes.html#torch.memory_format) | [*layout*](tensor_attributes.html#torch.layout) | *OpOverload* | [*SymInt*](torch.html#torch.SymInt) | [*SymBool*](torch.html#torch.SymBool) | [*SymFloat*](torch.html#torch.SymFloat) | None
 
 Note
 
 Backwards-compatibility for this API is guaranteed.
 
-output(*target*, *args*, *kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/interpreter.py#L430)
+output(*target*, *args*, *kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/interpreter.py#L430)
 
 Execute an `output` node. This really just retrieves
 the value referenced by the `output` node and returns it.
@@ -3078,7 +3078,7 @@ Note
 
 Backwards-compatibility for this API is guaranteed.
 
-placeholder(*target*, *args*, *kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/interpreter.py#L297)
+placeholder(*target*, *args*, *kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/interpreter.py#L297)
 
 Execute a `placeholder` node. Note that this is stateful:
 `Interpreter` maintains an internal iterator over
@@ -3105,7 +3105,7 @@ Note
 
 Backwards-compatibility for this API is guaranteed.
 
-run(**args*, *initial_env=None*, *enable_io_processing=True*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/interpreter.py#L147)
+run(**args*, *initial_env=None*, *enable_io_processing=True*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/interpreter.py#L147)
 
 Run module via interpretation and return the result.
 
@@ -3116,7 +3116,7 @@ Parameters:
 This is a dict mapping Node to any value. This can be used, for example, to
 pre-populate results for certain Nodes so as to do only partial evaluation within
 the interpreter.
-- **enable_io_processing** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If true, we process the inputs and outputs with graph's process_inputs and
+- **enable_io_processing** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - If true, we process the inputs and outputs with graph's process_inputs and
 process_outputs function first before using them.
 
 Returns:
@@ -3131,7 +3131,7 @@ Note
 
 Backwards-compatibility for this API is guaranteed.
 
-run_node(*n*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/interpreter.py#L273)
+run_node(*n*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/interpreter.py#L273)
 
 Run a specific node `n` and return the result.
 Calls into placeholder, get_attr, call_function,
@@ -3154,7 +3154,7 @@ Note
 
 Backwards-compatibility for this API is guaranteed.
 
-*class*torch.fx.Transformer(*module*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/interpreter.py#L517)
+*class*torch.fx.Transformer(*module*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/interpreter.py#L517)
 
 `Transformer` is a special type of interpreter that produces a
 new `Module`. It exposes a `transform()` method that returns
@@ -3209,7 +3209,7 @@ Note
 
 Backwards-compatibility for this API is guaranteed.
 
-call_function(*target*, *args*, *kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/interpreter.py#L640)
+call_function(*target*, *args*, *kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/interpreter.py#L640)
 
 Note
 
@@ -3219,7 +3219,7 @@ Return type:
 
 [*Any*](https://docs.python.org/3/library/typing.html#typing.Any)
 
-call_module(*target*, *args*, *kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/interpreter.py#L630)
+call_module(*target*, *args*, *kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/interpreter.py#L630)
 
 Note
 
@@ -3229,7 +3229,7 @@ Return type:
 
 [*Any*](https://docs.python.org/3/library/typing.html#typing.Any)
 
-get_attr(*target*, *args*, *kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/interpreter.py#L610)
+get_attr(*target*, *args*, *kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/interpreter.py#L610)
 
 Execute a `get_attr` node. In `Transformer`, this is
 overridden to insert a new `get_attr` node into the output
@@ -3251,7 +3251,7 @@ Note
 
 Backwards-compatibility for this API is guaranteed.
 
-placeholder(*target*, *args*, *kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/interpreter.py#L587)
+placeholder(*target*, *args*, *kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/interpreter.py#L587)
 
 Execute a `placeholder` node. In `Transformer`, this is
 overridden to insert a new `placeholder` into the output
@@ -3273,7 +3273,7 @@ Note
 
 Backwards-compatibility for this API is guaranteed.
 
-transform()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/interpreter.py#L647)
+transform()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/interpreter.py#L647)
 
 Transform `self.module` and return the transformed
 `GraphModule`.
@@ -3286,7 +3286,7 @@ Return type:
 
 *GraphModule*
 
-torch.fx.replace_pattern(*gm*, *pattern*, *replacement*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/subgraph_rewriter.py#L95)
+torch.fx.replace_pattern(*gm*, *pattern*, *replacement*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/subgraph_rewriter.py#L95)
 
 Matches all possible non-overlapping sets of operators and their
 data dependencies (`pattern`) in the Graph of a GraphModule
@@ -3410,7 +3410,7 @@ Note
 
 Backwards-compatibility for this API is guaranteed.
 
-torch.fx.traceback.annotate(*annotation_dict*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/traceback.py#L309)
+torch.fx.traceback.annotate(*annotation_dict*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/traceback.py#L309)
 
 Temporarily adds custom annotations to the current tracing context.
 The fx_node produced from this tracing context will have the
@@ -3436,7 +3436,7 @@ to be used with PT2 family of tracers, e.g. torch.export and dynamo.
 
 Parameters:
 
-**annotation_dict** ([*dict*](https://docs.python.org/3/library/stdtypes.html#dict)) - A dictionary of custom key-value pairs to inject
+**annotation_dict** ([*dict*](https://docs.python.org/3/builtins/stdtypes.html#dict)) - A dictionary of custom key-value pairs to inject
 into the FX trace metadata.
 
 Return type:
@@ -3456,7 +3456,7 @@ Warning
 
 This API is experimental and is *NOT* backward-compatible.
 
-torch.fx.passes.tools_common.stable_topological_sort(*gm*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/passes/tools_common.py#L333)
+torch.fx.passes.tools_common.stable_topological_sort(*gm*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/passes/tools_common.py#L333)
 
 Replace the graph of the given GraphModule with one that contains the same nodes as the
 original, but in topologically sorted order while preserving the original node order
@@ -3535,7 +3535,7 @@ This API is experimental and is *NOT* backward-compatible.
 
 ## torch.fx.passes.graph_manipulation
 
-torch.fx.passes.graph_manipulation.get_size_of_all_nodes(*fx_module*, *args=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/passes/graph_manipulation.py#L56)
+torch.fx.passes.graph_manipulation.get_size_of_all_nodes(*fx_module*, *args=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/passes/graph_manipulation.py#L56)
 
 Given a fx graph module, update each node with its total size (weights + bias + output)
 
@@ -3546,7 +3546,7 @@ Warning
 
 This API is experimental and is *NOT* backward-compatible.
 
-torch.fx.passes.graph_manipulation.get_size_of_node(*fx_module*, *node*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/passes/graph_manipulation.py#L87)
+torch.fx.passes.graph_manipulation.get_size_of_node(*fx_module*, *node*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/passes/graph_manipulation.py#L87)
 
 Given a node with node.dtype and node.shape, return its total size and its output size.
 
@@ -3578,7 +3578,7 @@ Return type:
 
 ## torch.fx.passes.param_fetch
 
-torch.fx.passes.param_fetch.default_matching(*name*, *target_version*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/passes/param_fetch.py#L18)
+torch.fx.passes.param_fetch.default_matching(*name*, *target_version*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/passes/param_fetch.py#L18)
 
 Default matching method
 
@@ -3588,9 +3588,9 @@ This API is experimental and is *NOT* backward-compatible.
 
 Return type:
 
-[str](https://docs.python.org/3/library/stdtypes.html#str)
+[str](https://docs.python.org/3/builtins/stdtypes.html#str)
 
-torch.fx.passes.param_fetch.extract_attrs_for_lowering(*mod*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/passes/param_fetch.py#L58)
+torch.fx.passes.param_fetch.extract_attrs_for_lowering(*mod*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/passes/param_fetch.py#L58)
 
 If mod is in module_fetch_book, fetch the mod's attributes that in the module_fetch_book
 
@@ -3602,9 +3602,9 @@ This API is experimental and is *NOT* backward-compatible.
 
 Return type:
 
-[dict](https://docs.python.org/3/library/stdtypes.html#dict)[[str](https://docs.python.org/3/library/stdtypes.html#str), [*Any*](https://docs.python.org/3/library/typing.html#typing.Any)]
+[dict](https://docs.python.org/3/builtins/stdtypes.html#dict)[[str](https://docs.python.org/3/builtins/stdtypes.html#str), [*Any*](https://docs.python.org/3/library/typing.html#typing.Any)]
 
-torch.fx.passes.param_fetch.lift_lowering_attrs_to_nodes(*fx_module*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/passes/param_fetch.py#L85)
+torch.fx.passes.param_fetch.lift_lowering_attrs_to_nodes(*fx_module*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/passes/param_fetch.py#L85)
 
 Recursively traverse all fx_module nodes and fetch the module's attributes if the node is a leaf module.
 
@@ -3633,7 +3633,7 @@ This API is experimental and is *NOT* backward-compatible.
 
 ## torch.fx.passes.split_utils
 
-torch.fx.passes.split_utils.split_by_tags(*gm*, *tags*, *return_fqn_mapping=False*, *return_tuple=False*, *GraphModuleCls=<class 'torch.fx.graph_module.GraphModule'>*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/passes/split_utils.py#L76)
+torch.fx.passes.split_utils.split_by_tags(*gm*, *tags*, *return_fqn_mapping=False*, *return_tuple=False*, *GraphModuleCls=<class 'torch.fx.graph_module.GraphModule'>*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/passes/split_utils.py#L76)
 
 Splits a GraphModule using tags on its graph nodes. We honor the order of
 tags. For example, we have tags = ["a", "b", "c"], the function will create
@@ -3725,7 +3725,7 @@ This API is experimental and is *NOT* backward-compatible.
 
 ## torch.fx.passes.utils.common
 
-torch.fx.passes.utils.common.lift_subgraph_as_module(*gm*, *subgraph*, *comp_name=''*, *class_name='GraphModule'*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/passes/utils/common.py#L24)
+torch.fx.passes.utils.common.lift_subgraph_as_module(*gm*, *subgraph*, *comp_name=''*, *class_name='GraphModule'*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/passes/utils/common.py#L24)
 
 Create a GraphModule for subgraph, which copies the necessary attributes
 from the original parent graph_module.
@@ -3735,12 +3735,12 @@ Parameters:
 - **gm** (*GraphModule*) - parent graph module
 - **subgraph** (`torch.fx.Graph`) - a valid subgraph that contains copied nodes from the
 parent graph
-- **comp_name** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - name for the new component
-- **class_name** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - name for the submodule
+- **comp_name** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - name for the new component
+- **class_name** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - name for the submodule
 
 Return type:
 
-[tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[*GraphModule*, [dict](https://docs.python.org/3/library/stdtypes.html#dict)[[str](https://docs.python.org/3/library/stdtypes.html#str), [str](https://docs.python.org/3/library/stdtypes.html#str)]]
+[tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[*GraphModule*, [dict](https://docs.python.org/3/builtins/stdtypes.html#dict)[[str](https://docs.python.org/3/builtins/stdtypes.html#str), [str](https://docs.python.org/3/builtins/stdtypes.html#str)]]
 
 Warning
 
@@ -3751,7 +3751,7 @@ This API is experimental and is *NOT* backward-compatible.
 
 ## torch.fx.passes.utils.fuser_utils
 
-torch.fx.passes.utils.fuser_utils.fuse_as_graphmodule(*gm*, *nodes*, *module_name*, *partition_lookup_table=None*, ***, *always_return_tuple=False*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/passes/utils/fuser_utils.py#L97)
+torch.fx.passes.utils.fuser_utils.fuse_as_graphmodule(*gm*, *nodes*, *module_name*, *partition_lookup_table=None*, ***, *always_return_tuple=False*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/passes/utils/fuser_utils.py#L97)
 
 Fuse nodes in graph_module into a GraphModule.
 
@@ -3759,9 +3759,9 @@ Parameters:
 
 - **gm** (*GraphModule*) - target graph_module
 - **nodes** (*List**[**Node**]*) - list of nodes in gm to fuse, where the node must be topologically sorted
-- **module_name** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - class name for the fused GraphModule
+- **module_name** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - class name for the fused GraphModule
 - **partition_lookup_table** (*Optional**[**Dict**[**Node**,**None**]**]*) - optional dict of nodes to speed up lookup
-- **always_return_tuple** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - whether to always return a tuple, even if there is only one output
+- **always_return_tuple** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - whether to always return a tuple, even if there is only one output
 
 Returns:
 
@@ -3786,12 +3786,12 @@ This API is experimental and is *NOT* backward-compatible.
 
 ## torch.fx.passes.utils.source_matcher_utils
 
-torch.fx.passes.utils.source_matcher_utils.get_source_partitions(*graph*, *wanted_sources*, *filter_fn=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/passes/utils/source_matcher_utils.py#L55)
+torch.fx.passes.utils.source_matcher_utils.get_source_partitions(*graph*, *wanted_sources*, *filter_fn=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/passes/utils/source_matcher_utils.py#L55)
 
 Parameters:
 
 - **graph** (*Graph*) - The graph we want to partition
-- **wanted_sources** ([*list*](https://docs.python.org/3/library/stdtypes.html#list)*[*[*Any*](https://docs.python.org/3/library/typing.html#typing.Any)*]*) - List of sources of nodes that were decomposed from this
+- **wanted_sources** ([*list*](https://docs.python.org/3/builtins/stdtypes.html#list)*[*[*Any*](https://docs.python.org/3/library/typing.html#typing.Any)*]*) - List of sources of nodes that were decomposed from this
 source. This can be a function (ex. torch.nn.functional.linear) or a
 leaf module type (ex. torch.nn.Linear).
 
@@ -3803,7 +3803,7 @@ source.
 
 Return type:
 
-[dict](https://docs.python.org/3/library/stdtypes.html#dict)[[*Any*](https://docs.python.org/3/library/typing.html#typing.Any), [list](https://docs.python.org/3/library/stdtypes.html#list)[*SourcePartition*]]
+[dict](https://docs.python.org/3/builtins/stdtypes.html#dict)[[*Any*](https://docs.python.org/3/library/typing.html#typing.Any), [list](https://docs.python.org/3/builtins/stdtypes.html#list)[*SourcePartition*]]
 
 Warning
 
@@ -3827,7 +3827,7 @@ This API is experimental and is *NOT* backward-compatible.
 | --- | --- |
 | [`reduce_package_graph_module`](generated/torch.fx.graph_module.reduce_package_graph_module.html#torch.fx.graph_module.reduce_package_graph_module) | |
 
-torch.fx.passes.annotate_getitem_nodes.annotate_getitem_nodes(*graph*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/passes/annotate_getitem_nodes.py#L7)
+torch.fx.passes.annotate_getitem_nodes.annotate_getitem_nodes(*graph*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/passes/annotate_getitem_nodes.py#L7)
 
 Annotate the type of getitem nodes, inferred from the type of sequence node.
 If sequence node is not annotated with a type, do nothing.
@@ -3849,7 +3849,7 @@ Parameters:
 | [`TensorMetadata`](generated/torch.fx.passes.shape_prop.TensorMetadata.html#torch.fx.passes.shape_prop.TensorMetadata) | A structure containing pertinent information about a tensor within a PyTorch program. |
 | --- | --- |
 
-torch.fx.passes.split_utils.move_non_tensor_nodes_on_boundary(*subgraphs*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/passes/split_utils.py#L346)
+torch.fx.passes.split_utils.move_non_tensor_nodes_on_boundary(*subgraphs*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/passes/split_utils.py#L346)
 
 Move non-tensor nodes on the boundary between subgraphs.
 
@@ -3867,13 +3867,13 @@ have duplicated nodes, just process the node once)
 
 Parameters:
 
-**subgraphs** ([*list*](https://docs.python.org/3/library/stdtypes.html#list)*[**Subgraph**]*) - List of subgraphs containing nodes to be processed
+**subgraphs** ([*list*](https://docs.python.org/3/builtins/stdtypes.html#list)*[**Subgraph**]*) - List of subgraphs containing nodes to be processed
 
 Warning
 
 This API is experimental and is *NOT* backward-compatible.
 
-torch.fx.passes.splitter_base.generate_inputs_for_submodules(*model*, *inputs*, *target_submodules*, *deepcopy=False*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/passes/splitter_base.py#L440)
+torch.fx.passes.splitter_base.generate_inputs_for_submodules(*model*, *inputs*, *target_submodules*, *deepcopy=False*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/passes/splitter_base.py#L440)
 
 Generate inputs for targeting submodules in the given model. Note that if two submodules refer to the same obj, this
 function doesn't work.
@@ -3882,7 +3882,7 @@ Parameters:
 
 - **model** ([*Module*](generated/torch.nn.Module.html#torch.nn.Module)) - root model.
 - **inputs** ([*Sequence*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence)*[*[*Any*](https://docs.python.org/3/library/typing.html#typing.Any)*]*) - inputs to the root model.
-- **target_submodules** ([*Iterable*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterable)*[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*]*) - submodules that we want to generate inputs for.
+- **target_submodules** ([*Iterable*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterable)*[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*]*) - submodules that we want to generate inputs for.
 
 Returns:
 
@@ -3890,7 +3890,7 @@ A dict that maps from submodule name to its inputs.
 
 Return type:
 
-[dict](https://docs.python.org/3/library/stdtypes.html#dict)[[str](https://docs.python.org/3/library/stdtypes.html#str), [*Any*](https://docs.python.org/3/library/typing.html#typing.Any)]
+[dict](https://docs.python.org/3/builtins/stdtypes.html#dict)[[str](https://docs.python.org/3/builtins/stdtypes.html#str), [*Any*](https://docs.python.org/3/library/typing.html#typing.Any)]
 
 Warning
 

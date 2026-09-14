@@ -26,8 +26,8 @@ its device with the CPU.
 
 Parameters:
 
-- **mean** ([*float*](https://docs.python.org/3/library/functions.html#float)*or*[*Tensor*](../tensors.html#torch.Tensor)) - per-element mean(s). Only floating point types are supported.
-- **std** ([*float*](https://docs.python.org/3/library/functions.html#float)*or*[*Tensor*](../tensors.html#torch.Tensor)) - per-element standard deviation(s). Only floating point types are supported.
+- **mean** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*or*[*Tensor*](../tensors.html#torch.Tensor)) - per-element mean(s). Only floating point types are supported.
+- **std** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*or*[*Tensor*](../tensors.html#torch.Tensor)) - per-element standard deviation(s). Only floating point types are supported.
 
 Keyword Arguments:
 
@@ -49,7 +49,7 @@ elements.
 
 Parameters:
 
-- **mean** ([*float*](https://docs.python.org/3/library/functions.html#float)*,**optional*) - the mean for all distributions
+- **mean** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*,**optional*) - the mean for all distributions
 - **std** ([*Tensor*](../tensors.html#torch.Tensor)) - the tensor of per-element standard deviations
 
 Keyword Arguments:
@@ -71,7 +71,7 @@ all drawn elements.
 Parameters:
 
 - **mean** ([*Tensor*](../tensors.html#torch.Tensor)) - the tensor of per-element means
-- **std** ([*float*](https://docs.python.org/3/library/functions.html#float)*,**optional*) - the standard deviation for all distributions
+- **std** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*,**optional*) - the standard deviation for all distributions
 
 Keyword Arguments:
 
@@ -91,9 +91,9 @@ among all drawn elements. The resulting tensor has size given by `size`.
 
 Parameters:
 
-- **mean** ([*float*](https://docs.python.org/3/library/functions.html#float)) - the mean for all distributions
-- **std** ([*float*](https://docs.python.org/3/library/functions.html#float)) - the standard deviation for all distributions
-- **size** ([*int*](https://docs.python.org/3/library/functions.html#int)*...*) - a sequence of integers defining the shape of the output tensor.
+- **mean** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - the mean for all distributions
+- **std** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - the standard deviation for all distributions
+- **size** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*...*) - a sequence of integers defining the shape of the output tensor.
 
 Keyword Arguments:
 
@@ -107,9 +107,9 @@ Default: `torch.strided`.
 Default: if `None`, uses the current device for the default tensor type
 (see [`torch.set_default_device()`](torch.set_default_device.html#torch.set_default_device)). [`device`](../tensor_attributes.html#torch.device) will be the CPU
 for CPU tensor types and the current CUDA device for CUDA tensor types.
-- **requires_grad** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If autograd should record operations on the
+- **requires_grad** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If autograd should record operations on the
 returned tensor. Default: `False`.
-- **pin_memory** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If set, returned tensor would be allocated in
+- **pin_memory** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If set, returned tensor would be allocated in
 the pinned memory. Works only for CPU tensors. Default: `False`.
 
 Example:

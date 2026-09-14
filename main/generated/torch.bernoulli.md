@@ -1,6 +1,6 @@
 # torch.bernoulli
 
-torch.bernoulli(*input: [Tensor](../tensors.html#torch.Tensor)*, ***, *generator: [Generator](torch.Generator.html#torch.Generator) | [None](https://docs.python.org/3/library/constants.html#None)*, *out: [Tensor](../tensors.html#torch.Tensor) | [None](https://docs.python.org/3/library/constants.html#None)*) → [Tensor](../tensors.html#torch.Tensor)
+torch.bernoulli(*input: [Tensor](../tensors.html#torch.Tensor)*, ***, *generator: [Generator](torch.Generator.html#torch.Generator) | [None](https://docs.python.org/3/builtins/constants.html#None)*, *out: [Tensor](../tensors.html#torch.Tensor) | [None](https://docs.python.org/3/builtins/constants.html#None)*) → [Tensor](../tensors.html#torch.Tensor)
 
 Draws binary random numbers (0 or 1) from a Bernoulli distribution.
 

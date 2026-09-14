@@ -1,6 +1,6 @@
 # TransformerDecoder
 
-*class*torch.nn.modules.transformer.TransformerDecoder(*decoder_layer*, *num_layers*, *norm=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/transformer.py#L558)
+*class*torch.nn.modules.transformer.TransformerDecoder(*decoder_layer*, *num_layers*, *norm=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/transformer.py#L558)
 
 TransformerDecoder is a stack of N decoder layers.
 
@@ -21,7 +21,7 @@ It is recommended to manually initialize the layers after creating the Transform
 Parameters:
 
 - **decoder_layer** ([*TransformerDecoderLayer*](torch.nn.modules.transformer.TransformerDecoderLayer.html#torch.nn.modules.transformer.TransformerDecoderLayer)) - an instance of the TransformerDecoderLayer() class (required).
-- **num_layers** ([*int*](https://docs.python.org/3/library/functions.html#int)) - the number of sub-decoder-layers in the decoder (required).
+- **num_layers** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - the number of sub-decoder-layers in the decoder (required).
 - **norm** ([*Module*](torch.nn.Module.html#torch.nn.Module)*|**None*) - the layer normalization component (optional).
 
 Examples
@@ -34,7 +34,7 @@ Examples
 >>> out = transformer_decoder(tgt, memory)
 ```
 
-forward(*tgt*, *memory*, *tgt_mask=None*, *memory_mask=None*, *tgt_key_padding_mask=None*, *memory_key_padding_mask=None*, *tgt_is_causal=None*, *memory_is_causal=False*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/transformer.py#L601)
+forward(*tgt*, *memory*, *tgt_mask=None*, *memory_mask=None*, *tgt_key_padding_mask=None*, *memory_key_padding_mask=None*, *tgt_is_causal=None*, *memory_is_causal=False*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/transformer.py#L601)
 
 Pass the inputs (and mask) through the decoder layer in turn.
 
@@ -46,14 +46,14 @@ Parameters:
 - **memory_mask** ([*Tensor*](../tensors.html#torch.Tensor)*|**None*) - the mask for the memory sequence (optional).
 - **tgt_key_padding_mask** ([*Tensor*](../tensors.html#torch.Tensor)*|**None*) - the mask for the tgt keys per batch (optional).
 - **memory_key_padding_mask** ([*Tensor*](../tensors.html#torch.Tensor)*|**None*) - the mask for the memory keys per batch (optional).
-- **tgt_is_causal** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*|**None*) - If specified, applies a causal mask as `tgt mask`.
+- **tgt_is_causal** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*|**None*) - If specified, applies a causal mask as `tgt mask`.
 Default: `None`; try to detect a causal mask.
 Warning:
 `tgt_is_causal` provides a hint that `tgt_mask` is
 the causal mask. Providing incorrect hints can result in
 incorrect execution, including forward and backward
 compatibility.
-- **memory_is_causal** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If specified, applies a causal mask as
+- **memory_is_causal** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - If specified, applies a causal mask as
 `memory mask`.
 Default: `False`.
 Warning:

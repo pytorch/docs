@@ -1,13 +1,13 @@
 # torch.fx.experimental.unification.multipledispatch.dispatcher.ambiguity_warn
 
-torch.fx.experimental.unification.multipledispatch.dispatcher.ambiguity_warn(*dispatcher*, *ambiguities*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/experimental/unification/multipledispatch/dispatcher.py#L40)
+torch.fx.experimental.unification.multipledispatch.dispatcher.ambiguity_warn(*dispatcher*, *ambiguities*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/experimental/unification/multipledispatch/dispatcher.py#L40)
 
 Raise warning when ambiguity is detected.
 
 Parameters:
 
 - **dispatcher** (*Dispatcher*) - The dispatcher on which the ambiguity was detected
-- **ambiguities** ([*set*](https://docs.python.org/3/library/stdtypes.html#set)) - Set of type signature pairs that are ambiguous within this dispatcher
+- **ambiguities** ([*set*](https://docs.python.org/3/builtins/stdtypes.html#set)) - Set of type signature pairs that are ambiguous within this dispatcher
 
 See also
 

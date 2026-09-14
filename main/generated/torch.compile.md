@@ -1,8 +1,8 @@
 # torch.compile
 
-torch.compile(*model: [Callable](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)[[_InputT], _RetT]*, ***, *fullgraph: [bool](https://docs.python.org/3/library/functions.html#bool) = False*, *dynamic: [bool](https://docs.python.org/3/library/functions.html#bool) | [None](https://docs.python.org/3/library/constants.html#None) = None*, *backend: [str](https://docs.python.org/3/library/stdtypes.html#str) | [Callable](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)[[...], [Any](https://docs.python.org/3/library/typing.html#typing.Any)] = 'inductor'*, *mode: [str](https://docs.python.org/3/library/stdtypes.html#str) | [None](https://docs.python.org/3/library/constants.html#None) = None*, *options: [dict](https://docs.python.org/3/library/stdtypes.html#dict)[[str](https://docs.python.org/3/library/stdtypes.html#str), [str](https://docs.python.org/3/library/stdtypes.html#str) | [int](https://docs.python.org/3/library/functions.html#int) | [bool](https://docs.python.org/3/library/functions.html#bool) | [Callable](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)[[...], [Any](https://docs.python.org/3/library/typing.html#typing.Any)]] | [None](https://docs.python.org/3/library/constants.html#None) = None*, *name: [str](https://docs.python.org/3/library/stdtypes.html#str) | [None](https://docs.python.org/3/library/constants.html#None) = None*, *disable: [bool](https://docs.python.org/3/library/functions.html#bool) = False*, *dynamic_shapes: [Any](https://docs.python.org/3/library/typing.html#typing.Any) = None*) → [Callable](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)[[_InputT], _RetT][[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/__init__.py#L3076)
+torch.compile(*model: [Callable](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)[[_InputT], _RetT]*, ***, *fullgraph: [bool](https://docs.python.org/3/builtins/functions.html#bool) = False*, *dynamic: [bool](https://docs.python.org/3/builtins/functions.html#bool) | [None](https://docs.python.org/3/builtins/constants.html#None) = None*, *backend: [str](https://docs.python.org/3/builtins/stdtypes.html#str) | [Callable](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)[[...], [Any](https://docs.python.org/3/library/typing.html#typing.Any)] = 'inductor'*, *mode: [str](https://docs.python.org/3/builtins/stdtypes.html#str) | [None](https://docs.python.org/3/builtins/constants.html#None) = None*, *options: [dict](https://docs.python.org/3/builtins/stdtypes.html#dict)[[str](https://docs.python.org/3/builtins/stdtypes.html#str), [str](https://docs.python.org/3/builtins/stdtypes.html#str) | [int](https://docs.python.org/3/builtins/functions.html#int) | [bool](https://docs.python.org/3/builtins/functions.html#bool) | [Callable](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)[[...], [Any](https://docs.python.org/3/library/typing.html#typing.Any)]] | [None](https://docs.python.org/3/builtins/constants.html#None) = None*, *name: [str](https://docs.python.org/3/builtins/stdtypes.html#str) | [None](https://docs.python.org/3/builtins/constants.html#None) = None*, *disable: [bool](https://docs.python.org/3/builtins/functions.html#bool) = False*, *dynamic_shapes: [Any](https://docs.python.org/3/library/typing.html#typing.Any) = None*) → [Callable](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)[[_InputT], _RetT][[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/__init__.py#L3076)
 
-torch.compile(*model: [None](https://docs.python.org/3/library/constants.html#None) = None*, ***, *fullgraph: [bool](https://docs.python.org/3/library/functions.html#bool) = False*, *dynamic: [bool](https://docs.python.org/3/library/functions.html#bool) | [None](https://docs.python.org/3/library/constants.html#None) = None*, *backend: [str](https://docs.python.org/3/library/stdtypes.html#str) | [Callable](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)[[...], [Any](https://docs.python.org/3/library/typing.html#typing.Any)] = 'inductor'*, *mode: [str](https://docs.python.org/3/library/stdtypes.html#str) | [None](https://docs.python.org/3/library/constants.html#None) = None*, *options: [dict](https://docs.python.org/3/library/stdtypes.html#dict)[[str](https://docs.python.org/3/library/stdtypes.html#str), [str](https://docs.python.org/3/library/stdtypes.html#str) | [int](https://docs.python.org/3/library/functions.html#int) | [bool](https://docs.python.org/3/library/functions.html#bool) | [Callable](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)[[...], [Any](https://docs.python.org/3/library/typing.html#typing.Any)]] | [None](https://docs.python.org/3/library/constants.html#None) = None*, *name: [str](https://docs.python.org/3/library/stdtypes.html#str) | [None](https://docs.python.org/3/library/constants.html#None) = None*, *disable: [bool](https://docs.python.org/3/library/functions.html#bool) = False*, *dynamic_shapes: [Any](https://docs.python.org/3/library/typing.html#typing.Any) = None*) → [Callable](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)[[[Callable](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)[[_InputT], _RetT]], [Callable](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)[[_InputT], _RetT]]
+torch.compile(*model: [None](https://docs.python.org/3/builtins/constants.html#None) = None*, ***, *fullgraph: [bool](https://docs.python.org/3/builtins/functions.html#bool) = False*, *dynamic: [bool](https://docs.python.org/3/builtins/functions.html#bool) | [None](https://docs.python.org/3/builtins/constants.html#None) = None*, *backend: [str](https://docs.python.org/3/builtins/stdtypes.html#str) | [Callable](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)[[...], [Any](https://docs.python.org/3/library/typing.html#typing.Any)] = 'inductor'*, *mode: [str](https://docs.python.org/3/builtins/stdtypes.html#str) | [None](https://docs.python.org/3/builtins/constants.html#None) = None*, *options: [dict](https://docs.python.org/3/builtins/stdtypes.html#dict)[[str](https://docs.python.org/3/builtins/stdtypes.html#str), [str](https://docs.python.org/3/builtins/stdtypes.html#str) | [int](https://docs.python.org/3/builtins/functions.html#int) | [bool](https://docs.python.org/3/builtins/functions.html#bool) | [Callable](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)[[...], [Any](https://docs.python.org/3/library/typing.html#typing.Any)]] | [None](https://docs.python.org/3/builtins/constants.html#None) = None*, *name: [str](https://docs.python.org/3/builtins/stdtypes.html#str) | [None](https://docs.python.org/3/builtins/constants.html#None) = None*, *disable: [bool](https://docs.python.org/3/builtins/functions.html#bool) = False*, *dynamic_shapes: [Any](https://docs.python.org/3/library/typing.html#typing.Any) = None*) → [Callable](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)[[[Callable](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)[[_InputT], _RetT]], [Callable](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)[[_InputT], _RetT]]
 
 Optimizes given model/function using TorchDynamo and specified backend.
 If you are compiling an [`torch.nn.Module`](torch.nn.Module.html#torch.nn.Module), you can also use [`torch.nn.Module.compile()`](torch.nn.Module.html#torch.nn.Module.compile)
@@ -22,19 +22,19 @@ function, they will all share the same code cache.
 Parameters:
 
 - **model** (*Callable**or**None*) - Module/function to optimize
-- **fullgraph** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If False (default), torch.compile attempts to discover compilable regions
+- **fullgraph** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - If False (default), torch.compile attempts to discover compilable regions
 in the function that it will optimize. If True, then we require that the entire function be
 capturable into a single graph. If this is not possible (that is, if there are graph breaks),
 then this will raise an error. This also opts into unbacked semantics, notably it will turn on
 capture_scalar_outputs and capture_dynamic_output_shape_ops on by default.
-- **dynamic** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*or**None*) - Use dynamic shape tracing. When this is True, we will up-front attempt
+- **dynamic** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*or**None*) - Use dynamic shape tracing. When this is True, we will up-front attempt
 to generate a kernel that is as dynamic as possible to avoid recompilations when
 sizes change. This may not always work as some operations/optimizations will
 force specialization; use TORCH_LOGS=dynamic to debug overspecialization.
 When this is False, we will NEVER generate dynamic kernels, we will always specialize.
 By default (None), we automatically detect if dynamism has occurred and compile a more
 dynamic kernel upon recompile.
-- **backend** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*or**Callable*) -
+- **backend** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*or**Callable*) -
 
 backend to be used
 
@@ -43,7 +43,7 @@ backend to be used
 - Experimental or debug in-tree backends can be seen with torch._dynamo.list_backends(None)
 - To register an out-of-tree custom backend:
 [https://docs.pytorch.org/docs/main/user_guide/torch_compiler/torch.compiler_custom_backends.html#registering-custom-backends](https://docs.pytorch.org/docs/main/user_guide/torch_compiler/torch.compiler_custom_backends.html#registering-custom-backends)
-- **mode** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) -
+- **mode** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) -
 
 Can be either "default", "reduce-overhead", "max-autotune" or "max-autotune-no-cudagraphs"
 
@@ -60,7 +60,7 @@ on supported devices and Triton based convolutions on GPU.
 It enables CUDA graphs by default on GPU.
 - "max-autotune-no-cudagraphs" is a mode similar to "max-autotune" but without CUDA graphs
 - To see the exact configs that each mode sets you can call torch._inductor.list_mode_options()
-- **options** ([*dict*](https://docs.python.org/3/library/stdtypes.html#dict)) -
+- **options** ([*dict*](https://docs.python.org/3/builtins/stdtypes.html#dict)) -
 
 A dictionary of options to pass to the backend. Some notable ones to try out are
 
@@ -79,14 +79,14 @@ For stable helper functions to use, see the documentation in torch.compiler, for
 - torch.compiler.skip_guard_on_all_nn_modules_unsafe
 - torch.compiler.keep_tensor_guards_unsafe
 - For inductor you can see the full list of configs that it supports by calling torch._inductor.list_options()
-- **name** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*or**None*) - Optional identifier for the compiled region. When supported by downstream
+- **name** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*or**None*) - Optional identifier for the compiled region. When supported by downstream
 tooling, this is surfaced on wrapped compiled-region higher-order operators and other debug metadata.
-- **disable** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - Turn torch.compile() into a no-op for testing
-- **recompile_limit** ([*int*](https://docs.python.org/3/library/functions.html#int)*or**None*) - Maximum number of recompilations allowed for this
+- **disable** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Turn torch.compile() into a no-op for testing
+- **recompile_limit** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*or**None*) - Maximum number of recompilations allowed for this
 `torch.compile()` call before falling back to eager. If None (default), uses
 the global `torch._dynamo.config.recompile_limit` (default 8). With
 `fullgraph=True`, exceeding the limit raises `FailOnRecompileLimitHit`.
-- **isolate_recompiles** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If True, this `torch.compile()` call tracks
+- **isolate_recompiles** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - If True, this `torch.compile()` call tracks
 recompilations independently. By default, all `torch.compile()` calls on the
 same function share a single set of compiled entries, so one call's
 recompilations count against every other call's limit. With

@@ -1,6 +1,6 @@
 # torch.fx.operator_schemas.create_type_hint
 
-torch.fx.operator_schemas.create_type_hint(*x*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/operator_schemas.py#L267)
+torch.fx.operator_schemas.create_type_hint(*x*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/operator_schemas.py#L267)
 
 Produces a type hint for the given argument.
 
@@ -18,4 +18,4 @@ This API is experimental and is *NOT* backward-compatible.
 
 Return type:
 
-[object](https://docs.python.org/3/library/functions.html#object)
+[object](https://docs.python.org/3/builtins/functions.html#object)

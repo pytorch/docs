@@ -1,6 +1,6 @@
 # RMSNorm
 
-*class*torch.nn.RMSNorm(*normalized_shape*, *eps=None*, *elementwise_affine=True*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/normalization.py#L343)
+*class*torch.nn.RMSNorm(*normalized_shape*, *eps=None*, *elementwise_affine=True*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/normalization.py#L343)
 
 Applies Root Mean Square Layer Normalization over a mini-batch of inputs.
 
@@ -19,7 +19,7 @@ the last 2 dimensions of the input.
 
 Parameters:
 
-- **normalized_shape** ([*int*](https://docs.python.org/3/library/functions.html#int)*or*[*list*](https://docs.python.org/3/library/stdtypes.html#list)*or*[*torch.Size*](../size.html#torch.Size)) -
+- **normalized_shape** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*or*[*list*](https://docs.python.org/3/builtins/stdtypes.html#list)*or*[*torch.Size*](../size.html#torch.Size)) -
 
 input shape from an expected input
 of size
@@ -31,11 +31,11 @@ of size
 
 If a single integer is used, it is treated as a singleton list, and this module will
 normalize over the last dimension which is expected to be of that specific size.
-- **eps** ([*float*](https://docs.python.org/3/library/functions.html#float)*,**optional*) - a value added to the denominator for numerical stability.
+- **eps** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*,**optional*) - a value added to the denominator for numerical stability.
 If not specified, uses the machine epsilon of the computation (opmath) type:
 fp16/bf16 and fp32 inputs use `torch.finfo(torch.float32).eps`, while fp64
 inputs use `torch.finfo(torch.float64).eps`. Default: `None`
-- **elementwise_affine** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - a boolean value that when set to `True`, this module
+- **elementwise_affine** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - a boolean value that when set to `True`, this module
 has learnable per-element affine parameters initialized to ones (for weights). Default: `True`.
 
 Shape:
@@ -51,15 +51,15 @@ Examples:
 >>> rms_norm(input)
 ```
 
-extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/normalization.py#L429)
+extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/normalization.py#L429)
 
 Return the extra representation of the module.
 
 Return type:
 
-[str](https://docs.python.org/3/library/stdtypes.html#str)
+[str](https://docs.python.org/3/builtins/stdtypes.html#str)
 
-forward(*x*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/normalization.py#L423)
+forward(*x*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/normalization.py#L423)
 
 Runs the forward pass.
 
@@ -67,6 +67,6 @@ Return type:
 
 [*Tensor*](../tensors.html#torch.Tensor)
 
-reset_parameters()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/normalization.py#L416)
+reset_parameters()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/normalization.py#L416)
 
 Resets parameters based on their initialization used in __init__.

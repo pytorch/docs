@@ -1,6 +1,6 @@
 # torch.nn.functional.normalize
 
-torch.nn.functional.normalize(*input*, *p=2.0*, *dim=1*, *eps=1e-12*, *out=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/functional.py#L6108)
+torch.nn.functional.normalize(*input*, *p=2.0*, *dim=1*, *eps=1e-12*, *out=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/functional.py#L6108)
 
 Perform LpL_pLp​ normalization of inputs over specified dimension.
 
@@ -16,9 +16,9 @@ With the default arguments it uses the Euclidean norm over vectors along dimensi
 Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - input tensor of any shape
-- **p** ([*float*](https://docs.python.org/3/library/functions.html#float)) - the exponent value in the norm formulation. Default: 2
-- **dim** ([*int*](https://docs.python.org/3/library/functions.html#int)*or*[*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*of**ints*) - the dimension to reduce. Default: 1
-- **eps** ([*float*](https://docs.python.org/3/library/functions.html#float)) - small value to avoid division by zero. Default: 1e-12
+- **p** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - the exponent value in the norm formulation. Default: 2
+- **dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*or*[*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*of**ints*) - the dimension to reduce. Default: 1
+- **eps** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - small value to avoid division by zero. Default: 1e-12
 - **out** ([*Tensor*](../tensors.html#torch.Tensor)*,**optional*) - the output tensor. If `out` is used, this
 operation won't be differentiable.
 

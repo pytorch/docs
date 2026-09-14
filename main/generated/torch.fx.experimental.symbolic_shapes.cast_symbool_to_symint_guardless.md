@@ -1,6 +1,6 @@
 # torch.fx.experimental.symbolic_shapes.cast_symbool_to_symint_guardless
 
-torch.fx.experimental.symbolic_shapes.cast_symbool_to_symint_guardless(*symbool*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/fx/experimental/symbolic_shapes.py#L2702)
+torch.fx.experimental.symbolic_shapes.cast_symbool_to_symint_guardless(*symbool*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/fx/experimental/symbolic_shapes.py#L2702)
 
 Converts a SymBool or bool to a SymInt or int without introducing guards.
 
@@ -10,7 +10,7 @@ guards, this function performs the conversion without adding any guards.
 
 Parameters:
 
-**symbool** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*|*[*SymBool*](../torch.html#torch.SymBool)) - A boolean value, either a concrete bool or symbolic SymBool
+**symbool** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*|*[*SymBool*](../torch.html#torch.SymBool)) - A boolean value, either a concrete bool or symbolic SymBool
 
 Returns:
 
@@ -19,4 +19,4 @@ a concrete int or symbolic SymInt
 
 Return type:
 
-[int](https://docs.python.org/3/library/functions.html#int) | [*SymInt*](../torch.html#torch.SymInt)
+[int](https://docs.python.org/3/builtins/functions.html#int) | [*SymInt*](../torch.html#torch.SymInt)

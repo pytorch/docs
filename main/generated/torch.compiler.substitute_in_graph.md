@@ -1,6 +1,6 @@
 # torch.compiler.substitute_in_graph
 
-torch.compiler.substitute_in_graph(*original_fn*, ***, *can_constant_fold_through=False*, *skip_signature_check=False*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/compiler/__init__.py#L249)
+torch.compiler.substitute_in_graph(*original_fn*, ***, *can_constant_fold_through=False*, *skip_signature_check=False*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/compiler/__init__.py#L249)
 
 Register a polyfill handler for a function, usually a C function from the C extension, to be
 used in place of the original function when inlining the original function in the graph.
@@ -19,11 +19,11 @@ Parameters:
 
 - **original_fn** (*callable*) - The original function, usually a C function, to register a polyfill
 handler for.
-- **can_constant_fold_through** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - Whether the polyfill handler can be constant
+- **can_constant_fold_through** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - Whether the polyfill handler can be constant
 folded through. That is, if the polyfill handler is a pure function and its arguments
 are constant, the result of the polyfill handler can be constant folded during the
 compilation. Defaults to `False`.
-- **skip_signature_check** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - Whether to skip the signature check between the
+- **skip_signature_check** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - Whether to skip the signature check between the
 original function and the polyfill handler. Defaults to `False`.
 
 Returns:

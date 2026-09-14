@@ -1,7 +1,7 @@
 # torch.distributed.run.config_from_args
 
-torch.distributed.run.config_from_args(*args*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/distributed/run.py#L948)
+torch.distributed.run.config_from_args(*args*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/distributed/run.py#L948)
 
 Return type:
 
-[tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[*LaunchConfig*, [*Callable*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable) | [str](https://docs.python.org/3/library/stdtypes.html#str), [list](https://docs.python.org/3/library/stdtypes.html#list)[[str](https://docs.python.org/3/library/stdtypes.html#str)]]
+[tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[*LaunchConfig*, [*Callable*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable) | [str](https://docs.python.org/3/builtins/stdtypes.html#str), [list](https://docs.python.org/3/builtins/stdtypes.html#list)[[str](https://docs.python.org/3/builtins/stdtypes.html#str)]]

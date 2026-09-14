@@ -1,6 +1,6 @@
 # torch.linalg.qr
 
-torch.linalg.qr(*A*, *mode='reduced'*, ***, *out=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/linalg/__init__.py#L2865)
+torch.linalg.qr(*A*, *mode='reduced'*, ***, *out=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/linalg/__init__.py#L2865)
 
 Computes the QR decomposition of a matrix.
 
@@ -58,12 +58,12 @@ may be incorrect and its autodiff may fail or produce incorrect results.
 Parameters:
 
 - **A** ([*Tensor*](../tensors.html#torch.Tensor)) - tensor of shape (*, m, n) where * is zero or more batch dimensions.
-- **mode** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**optional*) - one of 'reduced', 'complete', 'r'.
+- **mode** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**optional*) - one of 'reduced', 'complete', 'r'.
 Controls the shape of the returned tensors. Default: 'reduced'.
 
 Keyword Arguments:
 
-**out** ([*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*,**optional*) - output tuple of two tensors. Ignored if None. Default: None.
+**out** ([*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*,**optional*) - output tuple of two tensors. Ignored if None. Default: None.
 
 Returns:
 

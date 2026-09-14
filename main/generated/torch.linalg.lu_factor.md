@@ -1,6 +1,6 @@
 # torch.linalg.lu_factor
 
-torch.linalg.lu_factor(*A*, ***, *bool pivot=True*, *out=None) -> (Tensor*, *Tensor*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/linalg/__init__.py#L2445)
+torch.linalg.lu_factor(*A*, ***, *bool pivot=True*, *out=None) -> (Tensor*, *Tensor*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/linalg/__init__.py#L2445)
 
 Computes a compact representation of the LU factorization with partial pivoting of a matrix.
 
@@ -57,9 +57,9 @@ Parameters:
 
 Keyword Arguments:
 
-- **pivot** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - Whether to compute the LU decomposition with partial pivoting, or the regular LU
+- **pivot** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - Whether to compute the LU decomposition with partial pivoting, or the regular LU
 decomposition. `pivot`= False not supported on CPU. Default: True.
-- **out** ([*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*,**optional*) - tuple of two tensors to write the output to. Ignored if None. Default: None.
+- **out** ([*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*,**optional*) - tuple of two tensors to write the output to. Ignored if None. Default: None.
 
 Returns:
 
@@ -67,7 +67,7 @@ A named tuple (LU, pivots).
 
 Raises:
 
-[**RuntimeError**](https://docs.python.org/3/library/exceptions.html#RuntimeError) - if the `A` matrix is not invertible or any matrix in a batched `A`
+[**RuntimeError**](https://docs.python.org/3/builtins/exceptions.html#RuntimeError) - if the `A` matrix is not invertible or any matrix in a batched `A`
  is not invertible.
 
 Examples:

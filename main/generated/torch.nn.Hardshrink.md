@@ -1,6 +1,6 @@
 # Hardshrink
 
-*class*torch.nn.Hardshrink(*lambd=0.5*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/activation.py#L826)
+*class*torch.nn.Hardshrink(*lambd=0.5*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/activation.py#L826)
 
 Applies the Hard Shrinkage (Hardshrink) function element-wise.
 
@@ -16,7 +16,7 @@ x, & \text{ if } x < -\lambda \\
 HardShrink(x)=⎩⎨⎧​x,x,0,​ if x>λ if x<−λ otherwise ​
 Parameters:
 
-**lambd** ([*float*](https://docs.python.org/3/library/functions.html#float)) - the λ\lambdaλ value for the Hardshrink formulation. Default: 0.5
+**lambd** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - the λ\lambdaλ value for the Hardshrink formulation. Default: 0.5
 
 Shape:
 
@@ -33,15 +33,15 @@ Examples:
 >>> output = m(input)
 ```
 
-extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/activation.py#L868)
+extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/activation.py#L868)
 
 Return the extra representation of the module.
 
 Return type:
 
-[str](https://docs.python.org/3/library/stdtypes.html#str)
+[str](https://docs.python.org/3/builtins/stdtypes.html#str)
 
-forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/nn/modules/activation.py#L862)
+forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/nn/modules/activation.py#L862)
 
 Run forward pass.
 

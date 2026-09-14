@@ -71,7 +71,7 @@ also be interested in reading our [development wiki](https://github.com/pytorch/
 
 ### Functions
 
-torch.onnx.export(*model*, *args=()*, *f=None*, ***, *kwargs=None*, *verbose=None*, *input_names=None*, *output_names=None*, *opset_version=None*, *dynamo=True*, *external_data=True*, *dynamic_shapes=None*, *custom_translation_table=None*, *report=False*, *optimize=True*, *verify=False*, *profile=False*, *dump_exported_program=False*, *artifacts_dir='.'*, *export_params=True*, *keep_initializers_as_inputs=False*, *dynamic_axes=None*, *training=<TrainingMode.EVAL: 0>*, *operator_export_type=<OperatorExportTypes.ONNX: 0>*, *do_constant_folding=True*, *custom_opsets=None*, *export_modules_as_functions=False*, *autograd_inlining=True*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/onnx/__init__.py#L65)
+torch.onnx.export(*model*, *args=()*, *f=None*, ***, *kwargs=None*, *verbose=None*, *input_names=None*, *output_names=None*, *opset_version=None*, *dynamo=True*, *external_data=True*, *dynamic_shapes=None*, *custom_translation_table=None*, *report=False*, *optimize=True*, *verify=False*, *profile=False*, *dump_exported_program=False*, *artifacts_dir='.'*, *export_params=True*, *keep_initializers_as_inputs=False*, *dynamic_axes=None*, *training=<TrainingMode.EVAL: 0>*, *operator_export_type=<OperatorExportTypes.ONNX: 0>*, *do_constant_folding=True*, *custom_opsets=None*, *export_modules_as_functions=False*, *autograd_inlining=True*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/onnx/__init__.py#L65)
 
 Exports a model into ONNX format.
 
@@ -91,57 +91,57 @@ The exporter tries the following strategies to get an ExportedProgram for conver
 Parameters:
 
 - **model** ([*torch.nn.Module*](generated/torch.nn.Module.html#torch.nn.Module)*|*[*torch.export.ExportedProgram*](user_guide/torch_compiler/export/api_reference.html#torch.export.ExportedProgram)*|**torch.jit.ScriptModule**|**torch.jit.ScriptFunction*) - The model to be exported.
-- **args** ([*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*[**Any**,**...**]*) - Example positional inputs. Any non-Tensor arguments will be hard-coded into the
+- **args** ([*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*[**Any**,**...**]*) - Example positional inputs. Any non-Tensor arguments will be hard-coded into the
 exported model; any Tensor arguments will become inputs of the exported model,
 in the order they occur in the tuple.
-- **f** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*|*[*os.PathLike*](https://docs.python.org/3/library/os.html#os.PathLike)*|**None*) - Path to the output ONNX model file. E.g. "model.onnx". This argument is kept for
+- **f** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*|*[*os.PathLike*](https://docs.python.org/3/library/os.html#os.PathLike)*|**None*) - Path to the output ONNX model file. E.g. "model.onnx". This argument is kept for
 backward compatibility. It is recommended to leave unspecified (None)
 and use the returned [`torch.onnx.ONNXProgram`](onnx_export.html#torch.onnx.ONNXProgram) to serialize the model
 to a file instead.
-- **kwargs** ([*dict*](https://docs.python.org/3/library/stdtypes.html#dict)*[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**Any**]**|**None*) - Optional example keyword inputs.
-- **verbose** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*|**None*) - Whether to enable verbose logging.
-- **input_names** (*Sequence**[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*]**|**None*) - names to assign to the input nodes of the graph, in order.
-- **output_names** (*Sequence**[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*]**|**None*) - names to assign to the output nodes of the graph, in order.
+- **kwargs** ([*dict*](https://docs.python.org/3/builtins/stdtypes.html#dict)*[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**Any**]**|**None*) - Optional example keyword inputs.
+- **verbose** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*|**None*) - Whether to enable verbose logging.
+- **input_names** (*Sequence**[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*]**|**None*) - names to assign to the input nodes of the graph, in order.
+- **output_names** (*Sequence**[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*]**|**None*) - names to assign to the output nodes of the graph, in order.
 These are labels only and do not affect the order of outputs. If the model
 returns a dictionary, outputs are flattened in the dictionary's iteration
 order regardless of the names specified here.
-- **opset_version** ([*int*](https://docs.python.org/3/library/functions.html#int)*|**None*) - The version of the
+- **opset_version** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*|**None*) - The version of the
 [default (ai.onnx) opset](https://github.com/onnx/onnx/blob/master/docs/Operators.md)
 to target. You should set `opset_version` according to the supported opset versions
 of the runtime backend or compiler you want to run the exported model with.
 Leave as default (`None`) to use the recommended version, or refer to
 the ONNX operators documentation for more information.
-- **dynamo** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - Whether to export the model with `torch.export` ExportedProgram instead of TorchScript.
-- **external_data** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - Whether to save the model weights as an external data file.
+- **dynamo** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Whether to export the model with `torch.export` ExportedProgram instead of TorchScript.
+- **external_data** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Whether to save the model weights as an external data file.
 This is required for models with large weights that exceed the ONNX file size limit (2GB).
 When False, the weights are saved in the ONNX file with the model architecture.
-- **dynamic_shapes** ([*dict*](https://docs.python.org/3/library/stdtypes.html#dict)*[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**Any**]**|*[*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*[**Any**,**...**]**|*[*list*](https://docs.python.org/3/library/stdtypes.html#list)*[**Any**]**|**None*) - A dictionary or a tuple of dynamic shapes for the model inputs. Refer to
+- **dynamic_shapes** ([*dict*](https://docs.python.org/3/builtins/stdtypes.html#dict)*[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**Any**]**|*[*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*[**Any**,**...**]**|*[*list*](https://docs.python.org/3/builtins/stdtypes.html#list)*[**Any**]**|**None*) - A dictionary or a tuple of dynamic shapes for the model inputs. Refer to
 [`torch.export.export()`](user_guide/torch_compiler/export/api_reference.html#torch.export.export) for more details. This is only used (and preferred) when dynamo is True.
 Note that dynamic_shapes is designed to be used when the model is exported with dynamo=True, while
 dynamic_axes is used when dynamo=False.
-- **custom_translation_table** ([*dict*](https://docs.python.org/3/library/stdtypes.html#dict)*[**Callable**,**Callable**]**|**None*) - A dictionary of custom decompositions for operators in the model.
+- **custom_translation_table** ([*dict*](https://docs.python.org/3/builtins/stdtypes.html#dict)*[**Callable**,**Callable**]**|**None*) - A dictionary of custom decompositions for operators in the model.
 The dictionary should have the callable target in the fx Node as the key (e.g. `torch.ops.aten.stft.default`),
 and the value should be a function that builds that graph using ONNX Script. This option
 is only valid when dynamo is True.
-- **report** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - Whether to generate a markdown report for the export process. This option
+- **report** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Whether to generate a markdown report for the export process. This option
 is only valid when dynamo is True.
-- **optimize** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - Whether to optimize the exported model. This option
+- **optimize** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Whether to optimize the exported model. This option
 is only valid when dynamo is True. Default is True.
-- **verify** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - Whether to verify the exported model using ONNX Runtime. This option
+- **verify** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Whether to verify the exported model using ONNX Runtime. This option
 is only valid when dynamo is True.
-- **profile** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - Whether to profile the export process. This option
+- **profile** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Whether to profile the export process. This option
 is only valid when dynamo is True.
-- **dump_exported_program** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - Whether to dump the [`torch.export.ExportedProgram`](user_guide/torch_compiler/export/api_reference.html#torch.export.ExportedProgram) to a file.
+- **dump_exported_program** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Whether to dump the [`torch.export.ExportedProgram`](user_guide/torch_compiler/export/api_reference.html#torch.export.ExportedProgram) to a file.
 This is useful for debugging the exporter. This option is only valid when dynamo is True.
-- **artifacts_dir** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*|*[*os.PathLike*](https://docs.python.org/3/library/os.html#os.PathLike)) - The directory to save the debugging artifacts like the report and the serialized
+- **artifacts_dir** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*|*[*os.PathLike*](https://docs.python.org/3/library/os.html#os.PathLike)) - The directory to save the debugging artifacts like the report and the serialized
 exported program. This option is only valid when dynamo is True.
-- **export_params** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) -
+- **export_params** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) -
 
 **When ``f`` is specified**: If false, parameters (weights) will not be exported.
 
 You can also leave it unspecified and use the returned [`torch.onnx.ONNXProgram`](onnx_export.html#torch.onnx.ONNXProgram)
 to control how initializers are treated when serializing the model.
-- **keep_initializers_as_inputs** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) -
+- **keep_initializers_as_inputs** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) -
 
 **When ``f`` is specified**: If True, all the
 initializers (typically corresponding to model weights) in the
@@ -155,7 +155,7 @@ Set it to False if the weights are static to allow for better optimizations
 
 You can also leave it unspecified and use the returned [`torch.onnx.ONNXProgram`](onnx_export.html#torch.onnx.ONNXProgram)
 to control how initializers are treated when serializing the model.
-- **dynamic_axes** (*Mapping**[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**Mapping**[*[*int*](https://docs.python.org/3/library/functions.html#int)*,*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*]**]**|**Mapping**[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**Sequence**[*[*int*](https://docs.python.org/3/library/functions.html#int)*]**]**|**None*) -
+- **dynamic_axes** (*Mapping**[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**Mapping**[*[*int*](https://docs.python.org/3/builtins/functions.html#int)*,*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*]**]**|**Mapping**[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**Sequence**[*[*int*](https://docs.python.org/3/builtins/functions.html#int)*]**]**|**None*) -
 
 Deprecated: Prefer specifying `dynamic_shapes` when `dynamo=True`.
 
@@ -249,10 +249,10 @@ output {
 ```
 - **training** (*_C_onnx.TrainingMode*) - Deprecated option. Instead, set the training mode of the model before exporting.
 - **operator_export_type** (*_C_onnx.OperatorExportTypes*) - Deprecated option. Only ONNX is supported.
-- **do_constant_folding** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - Deprecated option.
-- **custom_opsets** (*Mapping**[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*,*[*int*](https://docs.python.org/3/library/functions.html#int)*]**|**None*) - Deprecated option.
-- **export_modules_as_functions** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*|**Collection**[*[*type*](https://docs.python.org/3/library/functions.html#type)*[*[*torch.nn.Module*](generated/torch.nn.Module.html#torch.nn.Module)*]**]*) - Deprecated option.
-- **autograd_inlining** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - Deprecated option.
+- **do_constant_folding** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Deprecated option.
+- **custom_opsets** (*Mapping**[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,*[*int*](https://docs.python.org/3/builtins/functions.html#int)*]**|**None*) - Deprecated option.
+- **export_modules_as_functions** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*|**Collection**[*[*type*](https://docs.python.org/3/builtins/functions.html#type)*[*[*torch.nn.Module*](generated/torch.nn.Module.html#torch.nn.Module)*]**]*) - Deprecated option.
+- **autograd_inlining** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Deprecated option.
 
 Returns:
 
@@ -274,13 +274,13 @@ Changed in version 2.9: `dynamo` is now True by default.
 
 Changed in version 2.11: `fallback` option has been removed.
 
-torch.onnx.is_in_onnx_export()[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/onnx/__init__.py#L359)
+torch.onnx.is_in_onnx_export()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/onnx/__init__.py#L359)
 
 Returns whether it is in the middle of ONNX export.
 
 Return type:
 
-[bool](https://docs.python.org/3/library/functions.html#bool)
+[bool](https://docs.python.org/3/builtins/functions.html#bool)
 
 ### Classes
 
@@ -301,7 +301,7 @@ Errors raised by the ONNX exporter. This is the base class for all exporter erro
 
 Deprecated since version 2.6: These functions are deprecated and will be removed in a future version.
 
-torch.onnx.register_custom_op_symbolic(*symbolic_name*, *symbolic_fn*, *opset_version*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/onnx/_internal/torchscript_exporter/utils.py#L1842)
+torch.onnx.register_custom_op_symbolic(*symbolic_name*, *symbolic_fn*, *opset_version*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/onnx/_internal/torchscript_exporter/utils.py#L1842)
 
 Registers a symbolic function for a custom operator.
 
@@ -314,14 +314,14 @@ See "Custom Operators" in the module documentation for an example usage.
 
 Parameters:
 
-- **symbolic_name** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - The name of the custom operator in "<domain>::<op>"
+- **symbolic_name** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - The name of the custom operator in "<domain>::<op>"
 format.
 - **symbolic_fn** (*Callable*) - A function that takes in the ONNX graph and
 the input arguments to the current operator, and returns new
 operator nodes to add to the graph.
-- **opset_version** ([*int*](https://docs.python.org/3/library/functions.html#int)) - The ONNX opset version in which to register.
+- **opset_version** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - The ONNX opset version in which to register.
 
-torch.onnx.unregister_custom_op_symbolic(*symbolic_name*, *opset_version*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/onnx/_internal/torchscript_exporter/utils.py#L1872)
+torch.onnx.unregister_custom_op_symbolic(*symbolic_name*, *opset_version*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/onnx/_internal/torchscript_exporter/utils.py#L1872)
 
 Unregisters `symbolic_name`.
 
@@ -329,11 +329,11 @@ See "Custom Operators" in the module documentation for an example usage.
 
 Parameters:
 
-- **symbolic_name** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - The name of the custom operator in "<domain>::<op>"
+- **symbolic_name** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - The name of the custom operator in "<domain>::<op>"
 format.
-- **opset_version** ([*int*](https://docs.python.org/3/library/functions.html#int)) - The ONNX opset version in which to unregister.
+- **opset_version** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - The ONNX opset version in which to unregister.
 
-torch.onnx.select_model_mode_for_export(*model*, *mode*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/onnx/_internal/torchscript_exporter/utils.py#L91)
+torch.onnx.select_model_mode_for_export(*model*, *mode*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/onnx/_internal/torchscript_exporter/utils.py#L91)
 
 A context manager to temporarily set the training mode of `model`
 to `mode`, resetting it when we exit the with-block.

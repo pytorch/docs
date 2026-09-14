@@ -1,6 +1,6 @@
 # torch.testing
 
-torch.testing.assert_close(*actual*, *expected*, ***, *allow_subclasses=True*, *rtol=None*, *atol=None*, *equal_nan=False*, *check_device=True*, *check_dtype=True*, *check_layout=True*, *check_stride=False*, *msg=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/testing/_comparison.py#L1415)
+torch.testing.assert_close(*actual*, *expected*, ***, *allow_subclasses=True*, *rtol=None*, *atol=None*, *equal_nan=False*, *check_device=True*, *check_dtype=True*, *check_layout=True*, *check_stride=False*, *msg=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/testing/_comparison.py#L1415)
 
 Asserts that `actual` and `expected` are close.
 
@@ -38,53 +38,53 @@ their elements are considered close according to the above definition.
 Note
 
 Python scalars are an exception to the type relation requirement, because their `type()`, i.e.
-[`int`](https://docs.python.org/3/library/functions.html#int), [`float`](https://docs.python.org/3/library/functions.html#float), and [`complex`](https://docs.python.org/3/library/functions.html#complex), is equivalent to the `dtype` of a tensor-like. Thus,
+[`int`](https://docs.python.org/3/builtins/functions.html#int), [`float`](https://docs.python.org/3/builtins/functions.html#float), and [`complex`](https://docs.python.org/3/builtins/functions.html#complex), is equivalent to the `dtype` of a tensor-like. Thus,
 Python scalars of different types can be checked, but require `check_dtype=False`.
 
 Parameters:
 
 - **actual** (*Any*) - Actual input.
 - **expected** (*Any*) - Expected input.
-- **allow_subclasses** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If `True` (default) and except for Python scalars, inputs of directly related types
+- **allow_subclasses** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - If `True` (default) and except for Python scalars, inputs of directly related types
 are allowed. Otherwise type equality is required.
-- **rtol** (*Optional**[*[*float*](https://docs.python.org/3/library/functions.html#float)*]*) - Relative tolerance. If specified `atol` must also be specified. If omitted, default
+- **rtol** (*Optional**[*[*float*](https://docs.python.org/3/builtins/functions.html#float)*]*) - Relative tolerance. If specified `atol` must also be specified. If omitted, default
 values based on the `dtype` are selected with the below table.
-- **atol** (*Optional**[*[*float*](https://docs.python.org/3/library/functions.html#float)*]*) - Absolute tolerance. If specified `rtol` must also be specified. If omitted, default
+- **atol** (*Optional**[*[*float*](https://docs.python.org/3/builtins/functions.html#float)*]*) - Absolute tolerance. If specified `rtol` must also be specified. If omitted, default
 values based on the `dtype` are selected with the below table.
-- **equal_nan** (*Union**[*[*bool*](https://docs.python.org/3/library/functions.html#bool)*,*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*]*) - If `True`, two `NaN` values will be considered equal.
-- **check_device** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If `True` (default), asserts that corresponding tensors are on the same
+- **equal_nan** (*Union**[*[*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*]*) - If `True`, two `NaN` values will be considered equal.
+- **check_device** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - If `True` (default), asserts that corresponding tensors are on the same
 [`device`](generated/torch.Tensor.device.html#torch.Tensor.device). If this check is disabled, tensors on different
 [`device`](generated/torch.Tensor.device.html#torch.Tensor.device)'s are moved to the CPU before being compared.
-- **check_dtype** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If `True` (default), asserts that corresponding tensors have the same `dtype`. If this
+- **check_dtype** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - If `True` (default), asserts that corresponding tensors have the same `dtype`. If this
 check is disabled, tensors with different `dtype`'s are promoted to a common `dtype` (according to
 [`torch.promote_types()`](generated/torch.promote_types.html#torch.promote_types)) before being compared.
-- **check_layout** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If `True` (default), asserts that corresponding tensors have the same `layout`. If this
+- **check_layout** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - If `True` (default), asserts that corresponding tensors have the same `layout`. If this
 check is disabled, tensors with different `layout`'s are converted to strided tensors before being
 compared.
-- **check_stride** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If `True` and corresponding tensors are strided, asserts that they have the same stride.
-- **msg** (*Optional**[**Union**[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**Callable**[**[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*]**,*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*]**]**]*) - Optional error message to use in case a failure occurs during
+- **check_stride** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - If `True` and corresponding tensors are strided, asserts that they have the same stride.
+- **msg** (*Optional**[**Union**[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**Callable**[**[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*]**,*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*]**]**]*) - Optional error message to use in case a failure occurs during
 the comparison. Can also passed as callable in which case it will be called with the generated message and
 should return the new message.
 
 Raises:
 
-- [**ValueError**](https://docs.python.org/3/library/exceptions.html#ValueError) - If no [`torch.Tensor`](tensors.html#torch.Tensor) can be constructed from an input.
-- [**ValueError**](https://docs.python.org/3/library/exceptions.html#ValueError) - If only `rtol` or `atol` is specified.
-- [**AssertionError**](https://docs.python.org/3/library/exceptions.html#AssertionError) - If corresponding inputs are not Python scalars and are not directly related.
-- [**AssertionError**](https://docs.python.org/3/library/exceptions.html#AssertionError) - If `allow_subclasses` is `False`, but corresponding inputs are not Python scalars and have
+- [**ValueError**](https://docs.python.org/3/builtins/exceptions.html#ValueError) - If no [`torch.Tensor`](tensors.html#torch.Tensor) can be constructed from an input.
+- [**ValueError**](https://docs.python.org/3/builtins/exceptions.html#ValueError) - If only `rtol` or `atol` is specified.
+- [**AssertionError**](https://docs.python.org/3/builtins/exceptions.html#AssertionError) - If corresponding inputs are not Python scalars and are not directly related.
+- [**AssertionError**](https://docs.python.org/3/builtins/exceptions.html#AssertionError) - If `allow_subclasses` is `False`, but corresponding inputs are not Python scalars and have
  different types.
-- [**AssertionError**](https://docs.python.org/3/library/exceptions.html#AssertionError) - If the inputs are [`Sequence`](https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence)'s, but their length does not match.
-- [**AssertionError**](https://docs.python.org/3/library/exceptions.html#AssertionError) - If the inputs are [`Mapping`](https://docs.python.org/3/library/collections.abc.html#collections.abc.Mapping)'s, but their set of keys do not match.
-- [**AssertionError**](https://docs.python.org/3/library/exceptions.html#AssertionError) - If corresponding tensors do not have the same [`shape`](generated/torch.Tensor.shape.html#torch.Tensor.shape).
-- [**AssertionError**](https://docs.python.org/3/library/exceptions.html#AssertionError) - If `check_layout` is `True`, but corresponding tensors do not have the same
+- [**AssertionError**](https://docs.python.org/3/builtins/exceptions.html#AssertionError) - If the inputs are [`Sequence`](https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence)'s, but their length does not match.
+- [**AssertionError**](https://docs.python.org/3/builtins/exceptions.html#AssertionError) - If the inputs are [`Mapping`](https://docs.python.org/3/library/collections.abc.html#collections.abc.Mapping)'s, but their set of keys do not match.
+- [**AssertionError**](https://docs.python.org/3/builtins/exceptions.html#AssertionError) - If corresponding tensors do not have the same [`shape`](generated/torch.Tensor.shape.html#torch.Tensor.shape).
+- [**AssertionError**](https://docs.python.org/3/builtins/exceptions.html#AssertionError) - If `check_layout` is `True`, but corresponding tensors do not have the same
  `layout`.
-- [**AssertionError**](https://docs.python.org/3/library/exceptions.html#AssertionError) - If only one of corresponding tensors is quantized.
-- [**AssertionError**](https://docs.python.org/3/library/exceptions.html#AssertionError) - If corresponding tensors are quantized, but have different [`qscheme()`](generated/torch.Tensor.qscheme.html#torch.Tensor.qscheme)'s.
-- [**AssertionError**](https://docs.python.org/3/library/exceptions.html#AssertionError) - If `check_device` is `True`, but corresponding tensors are not on the same
+- [**AssertionError**](https://docs.python.org/3/builtins/exceptions.html#AssertionError) - If only one of corresponding tensors is quantized.
+- [**AssertionError**](https://docs.python.org/3/builtins/exceptions.html#AssertionError) - If corresponding tensors are quantized, but have different [`qscheme()`](generated/torch.Tensor.qscheme.html#torch.Tensor.qscheme)'s.
+- [**AssertionError**](https://docs.python.org/3/builtins/exceptions.html#AssertionError) - If `check_device` is `True`, but corresponding tensors are not on the same
  [`device`](generated/torch.Tensor.device.html#torch.Tensor.device).
-- [**AssertionError**](https://docs.python.org/3/library/exceptions.html#AssertionError) - If `check_dtype` is `True`, but corresponding tensors do not have the same `dtype`.
-- [**AssertionError**](https://docs.python.org/3/library/exceptions.html#AssertionError) - If `check_stride` is `True`, but corresponding strided tensors do not have the same stride.
-- [**AssertionError**](https://docs.python.org/3/library/exceptions.html#AssertionError) - If the values of corresponding tensors are not close according to the definition above.
+- [**AssertionError**](https://docs.python.org/3/builtins/exceptions.html#AssertionError) - If `check_dtype` is `True`, but corresponding tensors do not have the same `dtype`.
+- [**AssertionError**](https://docs.python.org/3/builtins/exceptions.html#AssertionError) - If `check_stride` is `True`, but corresponding strided tensors do not have the same stride.
+- [**AssertionError**](https://docs.python.org/3/builtins/exceptions.html#AssertionError) - If the values of corresponding tensors are not close according to the definition above.
 
 The following table displays the default `rtol` and `atol` for different `dtype`'s. In case of mismatching
 `dtype`'s, the maximum of both tolerances is used.
@@ -240,7 +240,7 @@ Greatest relative difference: 1.0 at index (1,) (up to 1.3e-06 allowed)
 Footer
 ```
 
-torch.testing.make_tensor(**shape*, *dtype*, *device*, *low=None*, *high=None*, *requires_grad=False*, *noncontiguous=False*, *exclude_zero=False*, *memory_format=None*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/testing/_creation.py#L45)
+torch.testing.make_tensor(**shape*, *dtype*, *device*, *low=None*, *high=None*, *requires_grad=False*, *noncontiguous=False*, *exclude_zero=False*, *memory_format=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/testing/_creation.py#L45)
 
 Creates a tensor with the given `shape`, `device`, and `dtype`, and filled with
 values uniformly drawn from `[low, high)`.
@@ -260,9 +260,9 @@ which depend on `dtype`.
 
 Parameters:
 
-- **shape** (*Tuple**[*[*int*](https://docs.python.org/3/library/functions.html#int)*,**...**]*) - Single integer or a sequence of integers defining the shape of the output tensor.
+- **shape** (*Tuple**[*[*int*](https://docs.python.org/3/builtins/functions.html#int)*,**...**]*) - Single integer or a sequence of integers defining the shape of the output tensor.
 - **dtype** ([`torch.dtype`](tensor_attributes.html#torch.dtype)) - The data type of the returned tensor.
-- **device** (*Union**[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*,*[*torch.device*](tensor_attributes.html#torch.device)*]*) - The device of the returned tensor.
+- **device** (*Union**[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,*[*torch.device*](tensor_attributes.html#torch.device)*]*) - The device of the returned tensor.
 - **low** (*Optional**[**Number**]*) - Sets the lower limit (inclusive) of the given range. If a number is provided it is
 clamped to the least representable finite value of the given dtype. When `None` (default),
 this value is determined based on the `dtype` (see the table above). Default: `None`.
@@ -274,10 +274,10 @@ is determined based on the `dtype` (see the table above). Default: `None`.
 
 Deprecated since version 2.1: Passing `low==high` to `make_tensor()` for floating or complex types is deprecated
 since 2.1 and will be removed in 2.3. Use [`torch.full()`](generated/torch.full.html#torch.full) instead.
-- **requires_grad** (*Optional**[*[*bool*](https://docs.python.org/3/library/functions.html#bool)*]*) - If autograd should record operations on the returned tensor. Default: `False`.
-- **noncontiguous** (*Optional**[*[*bool*](https://docs.python.org/3/library/functions.html#bool)*]*) - If True, the returned tensor will be noncontiguous. This argument is
+- **requires_grad** (*Optional**[*[*bool*](https://docs.python.org/3/builtins/functions.html#bool)*]*) - If autograd should record operations on the returned tensor. Default: `False`.
+- **noncontiguous** (*Optional**[*[*bool*](https://docs.python.org/3/builtins/functions.html#bool)*]*) - If True, the returned tensor will be noncontiguous. This argument is
 ignored if the constructed tensor has fewer than two elements. Mutually exclusive with `memory_format`.
-- **exclude_zero** (*Optional**[*[*bool*](https://docs.python.org/3/library/functions.html#bool)*]*) - If `True` then zeros are replaced with the dtype's small positive value
+- **exclude_zero** (*Optional**[*[*bool*](https://docs.python.org/3/builtins/functions.html#bool)*]*) - If `True` then zeros are replaced with the dtype's small positive value
 depending on the `dtype`. For bool and integer types zero is replaced with one. For floating
 point types it is replaced with the dtype's smallest positive normal number (the "tiny" value of the
 `dtype`'s `finfo()` object), and for complex types it is replaced with a complex number
@@ -288,11 +288,11 @@ with `noncontiguous`.
 
 Raises:
 
-- [**ValueError**](https://docs.python.org/3/library/exceptions.html#ValueError) - If `requires_grad=True` is passed for integral dtype
-- [**ValueError**](https://docs.python.org/3/library/exceptions.html#ValueError) - If `low >= high`.
-- [**ValueError**](https://docs.python.org/3/library/exceptions.html#ValueError) - If either `low` or `high` is `nan`.
-- [**ValueError**](https://docs.python.org/3/library/exceptions.html#ValueError) - If both `noncontiguous` and `memory_format` are passed.
-- [**TypeError**](https://docs.python.org/3/library/exceptions.html#TypeError) - If `dtype` isn't supported by this function.
+- [**ValueError**](https://docs.python.org/3/builtins/exceptions.html#ValueError) - If `requires_grad=True` is passed for integral dtype
+- [**ValueError**](https://docs.python.org/3/builtins/exceptions.html#ValueError) - If `low >= high`.
+- [**ValueError**](https://docs.python.org/3/builtins/exceptions.html#ValueError) - If either `low` or `high` is `nan`.
+- [**ValueError**](https://docs.python.org/3/builtins/exceptions.html#ValueError) - If both `noncontiguous` and `memory_format` are passed.
+- [**TypeError**](https://docs.python.org/3/builtins/exceptions.html#TypeError) - If `dtype` isn't supported by this function.
 
 Return type:
 
@@ -311,7 +311,7 @@ tensor([[False, False],
  [False, True]], device='cuda:0')
 ```
 
-torch.testing.assert_allclose(*actual*, *expected*, *rtol=None*, *atol=None*, *equal_nan=True*, *msg=''*)[[source]](https://github.com/pytorch/pytorch/blob/ea89e4e90dc68302e8ef5cba3ddbdaa9d50d9512/torch/testing/_comparison.py#L1692)
+torch.testing.assert_allclose(*actual*, *expected*, *rtol=None*, *atol=None*, *equal_nan=True*, *msg=''*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/testing/_comparison.py#L1692)
 
 Warning
 

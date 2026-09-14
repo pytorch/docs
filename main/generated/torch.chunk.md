@@ -1,6 +1,6 @@
 # torch.chunk
 
-torch.chunk(*input: [Tensor](../tensors.html#torch.Tensor)*, *chunks: [int](https://docs.python.org/3/library/functions.html#int)*, *dim: [int](https://docs.python.org/3/library/functions.html#int) = 0*) → Tuple[[Tensor](../tensors.html#torch.Tensor), ...]
+torch.chunk(*input: [Tensor](../tensors.html#torch.Tensor)*, *chunks: [int](https://docs.python.org/3/builtins/functions.html#int)*, *dim: [int](https://docs.python.org/3/builtins/functions.html#int) = 0*) → Tuple[[Tensor](../tensors.html#torch.Tensor), ...]
 
 Attempts to split a tensor into the specified number of chunks. Each chunk is a view of
 the input tensor.
@@ -23,8 +23,8 @@ than the specified number of chunks.
 Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - the tensor to split
-- **chunks** ([*int*](https://docs.python.org/3/library/functions.html#int)) - number of chunks to return
-- **dim** ([*int*](https://docs.python.org/3/library/functions.html#int)) - dimension along which to split the tensor
+- **chunks** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - number of chunks to return
+- **dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - dimension along which to split the tensor
 
 Example
 
