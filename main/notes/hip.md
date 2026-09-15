@@ -118,6 +118,32 @@ hipBLAS to avoid using workspaces, set `HIPBLAS_WORKSPACE_CONFIG=:0:0`. For conv
 
 Setting the size of the cache for hipFFT/rocFFT plans is not supported.
 
+## hipFile (GPUDirect Storage)
+
+The `torch.cuda.gds` APIs are implemented with [hipFile](https://rocm.docs.amd.com/projects/hipFile/en/latest/) on ROCm, taking the
+place of cuFile on CUDA. hipFile ships with ROCm 7.14 and later; on older ROCm
+the build disables GDS support and [`torch.cuda.gds.is_available()`](../generated/torch.cuda.gds.is_available.html#torch.cuda.gds.is_available) returns
+`False`. As elsewhere in the HIP port, the build option keeps its CUDA name,
+so `USE_CUFILE=0` is what disables the support in a ROCm build. hipFile is
+Linux-only, so a Windows ROCm build never has GDS support.
+
+Each wrapper in `torch.cuda.gds` calls the hipFile counterpart of the
+cuFile function named in its docstring: `hipFileRead`, `hipFileWrite`,
+`hipFileBufRegister`, `hipFileBufDeregister`, `hipFileHandleRegister` and
+`hipFileHandleDeregister`. Errors quote the hipFile name, so a failed read
+raises `hipFileRead failed: ...`. hipFile is close to cuFile but not identical;
+the known divergences, including that numeric error codes are not guaranteed to
+match, are listed in [cuFile compatibility](https://rocm.docs.amd.com/projects/hipFile/en/latest/reference/hipFile-cuFile-compatibility.html).
+
+Configuring a system for GDS on ROCm differs from CUDA, and the NVIDIA
+GPUDirect Storage installation and troubleshooting guide does not apply. Refer
+instead to the hipFile documentation:
+
+- [Install hipFile](https://rocm.docs.amd.com/projects/hipFile/en/latest/install/install.html)
+- [Check for fastpath compatibility](https://rocm.docs.amd.com/projects/hipFile/en/latest/how-to/checking-system-compatibility.html)
+- [Set up a local NVMe drive](https://rocm.docs.amd.com/projects/hipFile/en/latest/how-to/setup-local-nvme.html)
+- [Troubleshooting](https://rocm.docs.amd.com/projects/hipFile/en/latest/troubleshooting/troubleshooting.html)
+
 ## torch.distributed backends
 
 Currently, only the "nccl" and "gloo" backends for torch.distributed are supported on ROCm.

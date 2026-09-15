@@ -1,10 +1,12 @@
 # torch.cuda.gds.is_available
 
-torch.cuda.gds.is_available()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/cuda/gds.py#L24)
+torch.cuda.gds.is_available()[[source]](https://github.com/pytorch/pytorch/blob/0519eef7e2a6d24aba3db4d6f13aa0ee998c0d9f/torch/cuda/gds.py#L24)
 
-Return `True` if GDS (GPUDirect Storage) support is built in.
+Return `True` if GPUDirect Storage (GDS) support is built in.
 
-This requires PyTorch to be built with cuFile (CUDA) or hipFile (ROCm).
+This requires a Linux build with `USE_CUFILE` enabled (the default) and
+with cuFile (CUDA) or hipFile (ROCm) available at build time. See
+[hipFile (GPUDirect Storage)](../notes/hip.html#rocm-gds) for the ROCm requirements.
 
 Return type:
 

@@ -225,7 +225,7 @@ This package adds support for device memory management implemented in CUDA.
 | --- | --- |
 | [`caching_allocator_enable`](generated/torch.cuda.memory.caching_allocator_enable.html#torch.cuda.memory.caching_allocator_enable) | Enable or disable the CUDA memory allocator. |
 
-*class*torch.cuda.use_mem_pool(*pool*, *device=None*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/cuda/memory.py#L1442)
+*class*torch.cuda.use_mem_pool(*pool*, *device=None*)[[source]](https://github.com/pytorch/pytorch/blob/0519eef7e2a6d24aba3db4d6f13aa0ee998c0d9f/torch/cuda/memory.py#L1442)
 
 A context manager that routes allocations to a given pool.
 
@@ -249,7 +249,7 @@ Note
 When used during [`CUDAGraph`](generated/torch.cuda.CUDAGraph.html#torch.cuda.CUDAGraph) capture, the graph
 retains the pool until the graph is reset or destroyed.
 
-torch.cuda.nccl.version()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/cuda/nccl.py#L35)
+torch.cuda.nccl.version()[[source]](https://github.com/pytorch/pytorch/blob/0519eef7e2a6d24aba3db4d6f13aa0ee998c0d9f/torch/cuda/nccl.py#L35)
 
 Returns the version of the NCCL.
 
@@ -304,17 +304,22 @@ direct memory access transfers between GPU memory and storage, avoiding a bounce
 [cufile api documentation](https://docs.nvidia.com/gpudirect-storage/api-reference-guide/index.html#cufile-io-api)
 for more details.
 
-These APIs can be used in versions greater than or equal to CUDA 12.6. In order to use these APIs, one must
+These APIs can be used with CUDA 12.6 or newer. In order to use these APIs, one must
 ensure that their system is appropriately configured to use GPUDirect Storage per the
 [GPUDirect Storage documentation](https://docs.nvidia.com/gpudirect-storage/troubleshooting-guide/contents.html).
 
+On ROCm, the same APIs are backed by [hipFile](https://rocm.docs.amd.com/projects/hipFile/en/latest/)
+rather than cuFile and require ROCm 7.14 or newer. The hipFile entry points and the ROCm system
+configuration steps, which differ from the CUDA ones, are covered in
+[hipFile (GPUDirect Storage)](notes/hip.html#rocm-gds).
+
 See the docs for [`GdsFile`](generated/torch.cuda.gds.GdsFile.html#torch.cuda.gds.GdsFile) for an example of how to use these.
 
-| [`is_available`](generated/torch.cuda.gds.is_available.html#torch.cuda.gds.is_available) | Return `True` if GDS (GPUDirect Storage) support is built in. |
+| [`is_available`](generated/torch.cuda.gds.is_available.html#torch.cuda.gds.is_available) | Return `True` if GPUDirect Storage (GDS) support is built in. |
 | --- | --- |
-| [`gds_register_buffer`](generated/torch.cuda.gds.gds_register_buffer.html#torch.cuda.gds.gds_register_buffer) | Registers a storage on a CUDA device as a cufile buffer. |
-| [`gds_deregister_buffer`](generated/torch.cuda.gds.gds_deregister_buffer.html#torch.cuda.gds.gds_deregister_buffer) | Deregisters a previously registered storage on a CUDA device as a cufile buffer. |
-| [`GdsFile`](generated/torch.cuda.gds.GdsFile.html#torch.cuda.gds.GdsFile) | Wrapper around cuFile. |
+| [`gds_register_buffer`](generated/torch.cuda.gds.gds_register_buffer.html#torch.cuda.gds.gds_register_buffer) | Registers a storage on a CUDA device as a GDS buffer. |
+| [`gds_deregister_buffer`](generated/torch.cuda.gds.gds_deregister_buffer.html#torch.cuda.gds.gds_deregister_buffer) | Deregisters a previously registered GDS buffer. |
+| [`GdsFile`](generated/torch.cuda.gds.GdsFile.html#torch.cuda.gds.GdsFile) | Wrapper around a file registered with the GPUDirect Storage (GDS) driver. |
 
 ## Green Contexts (experimental)
 
@@ -349,6 +354,6 @@ deprecated compatibility APIs.
 | [`GreenContext`](generated/torch.cuda.green_contexts.GreenContext.html#torch.cuda.green_contexts.GreenContext) | Wrapper around a CUDA green context. |
 | --- | --- |
 
-torch.cuda.nccl.is_available(*tensors*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/cuda/nccl.py#L14)
+torch.cuda.nccl.is_available(*tensors*)[[source]](https://github.com/pytorch/pytorch/blob/0519eef7e2a6d24aba3db4d6f13aa0ee998c0d9f/torch/cuda/nccl.py#L14)
 
 This package adds support for NVIDIA Tools Extension (NVTX) used in profiling.

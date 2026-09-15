@@ -80,7 +80,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.15.0a0+gitb8bd7cf )">
+<meta name="llm:version" content="main (2.15.0a0+git0519eef )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -186,7 +186,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+gitb8bd7cf )');
+  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+git0519eef )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3525,7 +3525,7 @@ document.write(`
 <h1>torch.compiler.load_compiled_function<a class="headerlink" href="#torch-compiler-load-compiled-function" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.compiler.load_compiled_function">
-<span class="sig-prename descclassname"><span class="pre">torch.compiler.</span></span><span class="sig-name descname"><span class="pre">load_compiled_function</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f_globals</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">external_data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/compiler/__init__.py#L988"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.compiler.load_compiled_function" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.compiler.</span></span><span class="sig-name descname"><span class="pre">load_compiled_function</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f_globals</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">external_data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/0519eef7e2a6d24aba3db4d6f13aa0ee998c0d9f/torch/compiler/__init__.py#L988"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.compiler.load_compiled_function" title="Link to this definition">#</a></dt>
 <dd><p>Load an aot-compiled function from a file.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -3535,7 +3535,38 @@ document.write(`
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>file</strong> (<a class="reference external" href="https://docs.python.org/3/library/io.html#io.IOBase" title="(in Python v3.14)"><em>IOBase</em></a>) – A file-like object containing the serialized compiled function.</p></li>
-<li><p><strong>f_globals</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.14)"><em>object</em></a><em>] </em><em>| </em><em>None</em>) – Optional global scope enclosing the compiled function.</p></li>
+<li><p><strong>f_globals</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.14)"><em>object</em></a><em>] </em><em>| </em><em>None</em>) – Optional live global scope enclosing the compiled function,
+and the scope its kept guards resolve globals against,
+symbolic-shape guards included: whether one installs as a
+Python lambda (the default) or as a C++ guard under
+<code class="docutils literal notranslate"><span class="pre">enable_cpp_symbolic_shape_guards</span></code>, its global operands
+resolve here. When a kept guard reads a global – which,
+beyond a symbolic-shape guard on a global with a dynamic
+dim, takes a <code class="docutils literal notranslate"><span class="pre">guard_filter_fn</span></code> that keeps global guards,
+since the default drops them all – pass <code class="docutils literal notranslate"><span class="pre">vars(mod)</span></code> for
+the module <code class="docutils literal notranslate"><span class="pre">mod</span></code> that DEFINED the original function rather
+than a dict of a few extra names: every global a kept guard
+reads has to be bound here with a value that satisfies it,
+or else the call raises <code class="docutils literal notranslate"><span class="pre">RuntimeError:</span> <span class="pre">GuardManager</span> <span class="pre">check</span>
+<span class="pre">failed</span></code> rather than recompiling. Under the default filter
+no other kept guard reads a global, so this dict only widens
+what the bytecode merges over (below) with nothing checking
+it; pass only the names the load cannot otherwise resolve,
+if any. Passing <code class="docutils literal notranslate"><span class="pre">{}</span></code> is
+an empty guard scope, not the same as omitting the argument,
+which resolves the guards against the scope rebuilt from the
+artifact instead. The
+dict is held by reference and written into: the load may
+add the Dynamo-generated globals a kept guard is rooted at,
+and <code class="docutils literal notranslate"><span class="pre">__builtins__</span></code> when it has to build the builtins dict
+one of those names holds, never overwriting a key it already
+binds, and a global rebound in it afterwards is what the
+guards check on the next call. The compiled bytecode instead
+reads a load-time snapshot of this dict merged over the
+globals serialized with the artifact, so a name this dict
+omits still resolves there and a rebind the guards ACCEPT
+leaves the call computing with the load-time value – a known
+limitation rather than a contract to rely on.</p></li>
 <li><p><strong>external_data</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a><em>] </em><em>| </em><em>None</em>) – Optional data to be loaded into the runtime environment
 of the compiled function. This should contain the same
 data as AOTCompileResult.external_data returned from save_compiled_function() call.</p></li>
@@ -3906,7 +3937,7 @@ data as AOTCompileResult.external_data returned from save_compiled_function() ca
        "headline": "torch.compiler.load_compiled_function",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/generated/torch.compiler.load_compiled_function.html",
-       "articleBody": "torch.compiler.load_compiled_function# torch.compiler.load_compiled_function(file, *, f_globals=None, external_data=None)[source]# Load an aot-compiled function from a file. Warning This API is currently experimental and subject to change. Parameters: file (IOBase) \u2013 A file-like object containing the serialized compiled function. f_globals (dict[str, object] | None) \u2013 Optional global scope enclosing the compiled function. external_data (dict[str, Any] | None) \u2013 Optional data to be loaded into the runtime environment of the compiled function. This should contain the same data as AOTCompileResult.external_data returned from save_compiled_function() call. Returns: A torch-compiled function with compilation preloaded from disk. Return type: Callable[[\u2026], Any]",
+       "articleBody": "torch.compiler.load_compiled_function# torch.compiler.load_compiled_function(file, *, f_globals=None, external_data=None)[source]# Load an aot-compiled function from a file. Warning This API is currently experimental and subject to change. Parameters: file (IOBase) \u2013 A file-like object containing the serialized compiled function. f_globals (dict[str, object] | None) \u2013 Optional live global scope enclosing the compiled function, and the scope its kept guards resolve globals against, symbolic-shape guards included: whether one installs as a Python lambda (the default) or as a C++ guard under enable_cpp_symbolic_shape_guards, its global operands resolve here. When a kept guard reads a global \u2013 which, beyond a symbolic-shape guard on a global with a dynamic dim, takes a guard_filter_fn that keeps global guards, since the default drops them all \u2013 pass vars(mod) for the module mod that DEFINED the original function rather than a dict of a few extra names: every global a kept guard reads has to be bound here with a value that satisfies it, or else the call raises RuntimeError: GuardManager check failed rather than recompiling. Under the default filter no other kept guard reads a global, so this dict only widens what the bytecode merges over (below) with nothing checking it; pass only the names the load cannot otherwise resolve, if any. Passing {} is an empty guard scope, not the same as omitting the argument, which resolves the guards against the scope rebuilt from the artifact instead. The dict is held by reference and written into: the load may add the Dynamo-generated globals a kept guard is rooted at, and __builtins__ when it has to build the builtins dict one of those names holds, never overwriting a key it already binds, and a global rebound in it afterwards is what the guards check on the next call. The compiled bytecode instead reads a load-time snapshot of this dict merged over the globals serialized with the artifact, so a name this dict omits still resolves there and a rebind the guards ACCEPT leaves the call computing with the load-time value \u2013 a known limitation rather than a contract to rely on. external_data (dict[str, Any] | None) \u2013 Optional data to be loaded into the runtime environment of the compiled function. This should contain the same data as AOTCompileResult.external_data returned from save_compiled_function() call. Returns: A torch-compiled function with compilation preloaded from disk. Return type: Callable[[\u2026], Any]",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",

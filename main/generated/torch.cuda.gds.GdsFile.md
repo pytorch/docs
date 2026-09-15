@@ -1,13 +1,14 @@
 # GdsFile
 
-*class*torch.cuda.gds.GdsFile(*filename*, *flags*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/cuda/gds.py#L96)
+*class*torch.cuda.gds.GdsFile(*filename*, *flags*)[[source]](https://github.com/pytorch/pytorch/blob/0519eef7e2a6d24aba3db4d6f13aa0ee998c0d9f/torch/cuda/gds.py#L102)
 
-Wrapper around cuFile.
+Wrapper around a file registered with the GPUDirect Storage (GDS) driver.
 
-cuFile is a file-like interface to the GPUDirect Storage (GDS) API.
+cuFile (CUDA) and hipFile (ROCm) are file-like interfaces to the GDS API.
 
 See the [cufile docs](https://docs.nvidia.com/gpudirect-storage/api-reference-guide/index.html#cufile-io-api)
-for more details.
+and the [hipFile docs](https://rocm.docs.amd.com/projects/hipFile/en/latest/)
+for more details, and [hipFile (GPUDirect Storage)](../notes/hip.html#rocm-gds) for ROCm specifics.
 
 Parameters:
 
@@ -33,36 +34,37 @@ True
 True
 ```
 
-deregister_handle()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/cuda/gds.py#L151)
+deregister_handle()[[source]](https://github.com/pytorch/pytorch/blob/0519eef7e2a6d24aba3db4d6f13aa0ee998c0d9f/torch/cuda/gds.py#L158)
 
-Deregisters file descriptor from cuFile Driver.
+Deregisters file descriptor from the GDS driver.
 
-This is a wrapper around `cuFileHandleDeregister`.
+This is a wrapper around `cuFileHandleDeregister` (CUDA) / `hipFileHandleDeregister` (ROCm).
 
-load_storage(*storage*, *offset=0*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/cuda/gds.py#L161)
+load_storage(*storage*, *offset=0*)[[source]](https://github.com/pytorch/pytorch/blob/0519eef7e2a6d24aba3db4d6f13aa0ee998c0d9f/torch/cuda/gds.py#L168)
 
 Loads data from the file into the storage.
 
-This is a wrapper around `cuFileRead`. `storage.nbytes()` of data
-will be loaded from the file at `offset` into the storage.
+This is a wrapper around `cuFileRead` (CUDA) / `hipFileRead` (ROCm).
+`storage.nbytes()` of data will be loaded from the file at `offset`
+into the storage.
 
 Parameters:
 
 - **storage** (*Storage*) - Storage to load data into.
 - **offset** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - Offset into the file to start loading from. (Default: 0)
 
-register_handle()[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/cuda/gds.py#L142)
+register_handle()[[source]](https://github.com/pytorch/pytorch/blob/0519eef7e2a6d24aba3db4d6f13aa0ee998c0d9f/torch/cuda/gds.py#L149)
 
-Registers file descriptor to cuFile Driver.
+Registers file descriptor to the GDS driver.
 
-This is a wrapper around `cuFileHandleRegister`.
+This is a wrapper around `cuFileHandleRegister` (CUDA) / `hipFileHandleRegister` (ROCm).
 
-save_storage(*storage*, *offset=0*)[[source]](https://github.com/pytorch/pytorch/blob/b8bd7cf750ea02a2390d8a5440261e2c6ed5ddc7/torch/cuda/gds.py#L175)
+save_storage(*storage*, *offset=0*)[[source]](https://github.com/pytorch/pytorch/blob/0519eef7e2a6d24aba3db4d6f13aa0ee998c0d9f/torch/cuda/gds.py#L183)
 
 Saves data from the storage into the file.
 
-This is a wrapper around `cuFileWrite`. All bytes of the storage
-will be written to the file at `offset`.
+This is a wrapper around `cuFileWrite` (CUDA) / `hipFileWrite` (ROCm).
+All bytes of the storage will be written to the file at `offset`.
 
 Parameters:
 
