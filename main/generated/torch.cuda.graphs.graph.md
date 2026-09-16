@@ -1,6 +1,6 @@
 # graph
 
-*class*torch.cuda.graphs.graph(*cuda_graph*, *pool=None*, *stream=None*, *capture_error_mode='global'*, *enable_annotations=False*, *annotation_config=None*, *check_input_liveness=False*)[[source]](https://github.com/pytorch/pytorch/blob/0519eef7e2a6d24aba3db4d6f13aa0ee998c0d9f/torch/cuda/graphs.py#L1179)
+*class*torch.cuda.graphs.graph(*cuda_graph*, *pool=None*, *stream=None*, *capture_error_mode='global'*, *enable_annotations=False*, *annotation_config=None*, *check_input_liveness=False*)[[source]](https://github.com/pytorch/pytorch/blob/a483bad75086c479c263d54ad3dbf19e1fde74d8/torch/cuda/graphs.py#L1206)
 
 Context-manager that captures CUDA work into a [`torch.cuda.CUDAGraph`](torch.cuda.CUDAGraph.html#torch.cuda.CUDAGraph) object for later replay.
 
@@ -39,6 +39,12 @@ needed - which prevents kineto from initializing, so a later
 [`torch.profiler.profile`](../profiler.html#torch.profiler.profile) records no GPU activity; `"edge_walk"` forces
 the walk, which cannot see nodes created while the current stream was not yet
 capturing.
+Also supports `"key_by"`, which selects the graph the annotations stay keyed
+to: `"exec"` (default) rekeys them to the executable graph at each
+`instantiate()`, matching the graph node id CUPTI reports for replayed work;
+`"source"` leaves them on the capture graph, for a consumer that reads CUPTI's
+`sourceGraphNodeId` instead (needs CUPTI >= 13.4 and a CUDA driver >= 13.4,
+else the capture raises).
 - **check_input_liveness** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) -
 
 If `True`, tracks external tensor inputs during graph capture and
