@@ -1,6 +1,6 @@
 # torch.fx.experimental.optimization.reset_modules
 
-torch.fx.experimental.optimization.reset_modules(*nodes*, *modules*, *old_modules*)[[source]](https://github.com/pytorch/pytorch/blob/a483bad75086c479c263d54ad3dbf19e1fde74d8/torch/fx/experimental/optimization.py#L213)
+torch.fx.experimental.optimization.reset_modules(*nodes*, *modules*, *old_modules*)[[source]](https://github.com/pytorch/pytorch/blob/65c295bfa29161891e39b83fac63c4f5417ffdc2/torch/fx/experimental/optimization.py#L213)
 
 Maps each module that's been changed with modules_to_mkldnn back to its
 original.

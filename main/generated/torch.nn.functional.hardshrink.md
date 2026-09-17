@@ -1,6 +1,6 @@
 # torch.nn.functional.hardshrink
 
-torch.nn.functional.hardshrink(*input*, *lambd=0.5*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/a483bad75086c479c263d54ad3dbf19e1fde74d8/torch/nn/functional.py#L2079)
+torch.nn.functional.hardshrink(*input*, *lambd=0.5*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/65c295bfa29161891e39b83fac63c4f5417ffdc2/torch/nn/functional.py#L2079)
 
 Applies the hard shrinkage function element-wise
 

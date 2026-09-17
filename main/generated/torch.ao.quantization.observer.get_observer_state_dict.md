@@ -1,6 +1,6 @@
 # get_observer_state_dict
 
-*class*torch.ao.quantization.observer.get_observer_state_dict(*mod*)[[source]](https://github.com/pytorch/pytorch/blob/a483bad75086c479c263d54ad3dbf19e1fde74d8/torch/ao/quantization/observer.py#L2004)
+*class*torch.ao.quantization.observer.get_observer_state_dict(*mod*)[[source]](https://github.com/pytorch/pytorch/blob/65c295bfa29161891e39b83fac63c4f5417ffdc2/torch/ao/quantization/observer.py#L2004)
 
 Returns the state dict corresponding to the observer stats.
 Traverse the model state_dict and extract out the stats.

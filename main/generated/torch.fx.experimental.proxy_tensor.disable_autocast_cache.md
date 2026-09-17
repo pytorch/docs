@@ -1,6 +1,6 @@
 # torch.fx.experimental.proxy_tensor.disable_autocast_cache
 
-torch.fx.experimental.proxy_tensor.disable_autocast_cache()[[source]](https://github.com/pytorch/pytorch/blob/a483bad75086c479c263d54ad3dbf19e1fde74d8/torch/fx/experimental/proxy_tensor.py#L2522)
+torch.fx.experimental.proxy_tensor.disable_autocast_cache()[[source]](https://github.com/pytorch/pytorch/blob/65c295bfa29161891e39b83fac63c4f5417ffdc2/torch/fx/experimental/proxy_tensor.py#L2522)
 
 Return type:
 

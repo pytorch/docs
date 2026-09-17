@@ -1,6 +1,6 @@
 # torch.fx.experimental.graph_gradual_typechecker.register_algebraic_expressions_inference_rule
 
-torch.fx.experimental.graph_gradual_typechecker.register_algebraic_expressions_inference_rule(*call_target*)[[source]](https://github.com/pytorch/pytorch/blob/a483bad75086c479c263d54ad3dbf19e1fde74d8/torch/fx/experimental/graph_gradual_typechecker.py#L152)
+torch.fx.experimental.graph_gradual_typechecker.register_algebraic_expressions_inference_rule(*call_target*)[[source]](https://github.com/pytorch/pytorch/blob/65c295bfa29161891e39b83fac63c4f5417ffdc2/torch/fx/experimental/graph_gradual_typechecker.py#L152)
 
 Return type:
 

@@ -1,5 +1,5 @@
 # TorchAODType
 
-*class*torch.ao.quantization.observer.TorchAODType(*value*)[[source]](https://github.com/pytorch/pytorch/blob/a483bad75086c479c263d54ad3dbf19e1fde74d8/torch/ao/quantization/observer.py#L1673)
+*class*torch.ao.quantization.observer.TorchAODType(*value*)[[source]](https://github.com/pytorch/pytorch/blob/65c295bfa29161891e39b83fac63c4f5417ffdc2/torch/ao/quantization/observer.py#L1673)
 
 Placeholder for dtypes that do not exist in PyTorch core yet.

@@ -1,3 +1,3 @@
 # RNNCellBase
 
-*class*torch.ao.nn.quantized.dynamic.modules.rnn.RNNCellBase(*input_size*, *hidden_size*, *bias=True*, *num_chunks=4*, *dtype=torch.qint8*)[[source]](https://github.com/pytorch/pytorch/blob/a483bad75086c479c263d54ad3dbf19e1fde74d8/torch/ao/nn/quantized/dynamic/modules/rnn.py#L959)
+*class*torch.ao.nn.quantized.dynamic.modules.rnn.RNNCellBase(*input_size*, *hidden_size*, *bias=True*, *num_chunks=4*, *dtype=torch.qint8*)[[source]](https://github.com/pytorch/pytorch/blob/65c295bfa29161891e39b83fac63c4f5417ffdc2/torch/ao/nn/quantized/dynamic/modules/rnn.py#L959)

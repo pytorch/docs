@@ -1,6 +1,6 @@
 # torch.fx.experimental.proxy_tensor.has_proxy_slot
 
-torch.fx.experimental.proxy_tensor.has_proxy_slot(*obj*, *tracer*)[[source]](https://github.com/pytorch/pytorch/blob/a483bad75086c479c263d54ad3dbf19e1fde74d8/torch/fx/experimental/proxy_tensor.py#L370)
+torch.fx.experimental.proxy_tensor.has_proxy_slot(*obj*, *tracer*)[[source]](https://github.com/pytorch/pytorch/blob/65c295bfa29161891e39b83fac63c4f5417ffdc2/torch/fx/experimental/proxy_tensor.py#L370)
 
 Return type:
 

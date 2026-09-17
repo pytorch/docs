@@ -1,6 +1,6 @@
 # torch.mtia.initial_seed
 
-torch.mtia.initial_seed()[[source]](https://github.com/pytorch/pytorch/blob/a483bad75086c479c263d54ad3dbf19e1fde74d8/torch/mtia/__init__.py#L533)
+torch.mtia.initial_seed()[[source]](https://github.com/pytorch/pytorch/blob/65c295bfa29161891e39b83fac63c4f5417ffdc2/torch/mtia/__init__.py#L533)
 
 Returns the current random seed of the current MTIA device.
 

@@ -1058,6 +1058,7 @@
 - [torch.autograd.forward_ad.make_dual](https://docs.pytorch.org/docs/stable/generated/torch.autograd.forward_ad.make_dual.md)
 - [torch.autograd.forward_ad.unpack_dual](https://docs.pytorch.org/docs/stable/generated/torch.autograd.forward_ad.unpack_dual.md)
 - [BackwardCFunction](https://docs.pytorch.org/docs/stable/generated/torch.autograd.function.BackwardCFunction.md)
+- [torch.autograd.function.FunctionCtx.input_grad_buffers](https://docs.pytorch.org/docs/stable/generated/torch.autograd.function.FunctionCtx.input_grad_buffers.md)
 - [torch.autograd.function.FunctionCtx.mark_dirty](https://docs.pytorch.org/docs/stable/generated/torch.autograd.function.FunctionCtx.mark_dirty.md)
 - [torch.autograd.function.FunctionCtx.mark_non_differentiable](https://docs.pytorch.org/docs/stable/generated/torch.autograd.function.FunctionCtx.mark_non_differentiable.md)
 - [torch.autograd.function.FunctionCtx.save_for_backward](https://docs.pytorch.org/docs/stable/generated/torch.autograd.function.FunctionCtx.save_for_backward.md)

@@ -1,6 +1,6 @@
 # activation_is_statically_quantized
 
-*class*torch.ao.quantization.utils.activation_is_statically_quantized(*qconfig*)[[source]](https://github.com/pytorch/pytorch/blob/a483bad75086c479c263d54ad3dbf19e1fde74d8/torch/ao/quantization/utils.py#L280)
+*class*torch.ao.quantization.utils.activation_is_statically_quantized(*qconfig*)[[source]](https://github.com/pytorch/pytorch/blob/65c295bfa29161891e39b83fac63c4f5417ffdc2/torch/ao/quantization/utils.py#L280)
 
 Given a qconfig, decide if the activation needs to be
 quantized or not, this includes quantizing to quint8, qint8 and qint32 and float16

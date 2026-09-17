@@ -61,7 +61,7 @@
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/generated/torch.autograd.Function.vmap.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="torch.autograd.function.FunctionCtx.mark_dirty" href="torch.autograd.function.FunctionCtx.mark_dirty.html" />
+    <link rel="next" title="torch.autograd.function.FunctionCtx.input_grad_buffers" href="torch.autograd.function.FunctionCtx.input_grad_buffers.html" />
     <link rel="prev" title="torch.autograd.Function.jvp" href="torch.autograd.Function.jvp.html" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -80,7 +80,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.15.0a0+gita483bad )">
+<meta name="llm:version" content="main (2.15.0a0+git65c295b )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -186,7 +186,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+gita483bad )');
+  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+git65c295b )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3395,6 +3395,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.autograd.Function.backward.html">torch.autograd.Function.backward</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.autograd.Function.jvp.html">torch.autograd.Function.jvp</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">torch.autograd.Function.vmap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.autograd.function.FunctionCtx.input_grad_buffers.html">torch.autograd.function.FunctionCtx.input_grad_buffers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.autograd.function.FunctionCtx.mark_dirty.html">torch.autograd.function.FunctionCtx.mark_dirty</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.autograd.function.FunctionCtx.mark_non_differentiable.html">torch.autograd.function.FunctionCtx.mark_non_differentiable</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.autograd.function.FunctionCtx.save_for_backward.html">torch.autograd.function.FunctionCtx.save_for_backward</a></li>
@@ -3635,7 +3636,7 @@ document.write(`
 <h1>torch.autograd.Function.vmap<a class="headerlink" href="#torch-autograd-function-vmap" title="Link to this heading">#</a></h1>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.autograd.Function.vmap">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Function.</span></span><span class="sig-name descname"><span class="pre">vmap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">info</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_dims</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a483bad75086c479c263d54ad3dbf19e1fde74d8/torch/autograd/function.py#L622"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.Function.vmap" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Function.</span></span><span class="sig-name descname"><span class="pre">vmap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">info</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_dims</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/65c295bfa29161891e39b83fac63c4f5417ffdc2/torch/autograd/function.py#L708"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.autograd.Function.vmap" title="Link to this definition">#</a></dt>
 <dd><p>Define the behavior for this autograd.Function underneath <a class="reference internal" href="torch.vmap.html#torch.vmap" title="torch.vmap"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.vmap()</span></code></a>.</p>
 <p>For a <a class="reference internal" href="../autograd.html#torch.autograd.Function" title="torch.autograd.Function"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.autograd.Function()</span></code></a> to support
 <a class="reference internal" href="torch.vmap.html#torch.vmap" title="torch.vmap"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.vmap()</span></code></a>, you must either override this static method, or set
@@ -3714,11 +3715,11 @@ output has the vmapped dimension and what index it is in.</p>
       </div>
     </a>
     <a class="right-next"
-       href="torch.autograd.function.FunctionCtx.mark_dirty.html"
+       href="torch.autograd.function.FunctionCtx.input_grad_buffers.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">torch.autograd.function.FunctionCtx.mark_dirty</p>
+        <p class="prev-next-title">torch.autograd.function.FunctionCtx.input_grad_buffers</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -3753,11 +3754,11 @@ output has the vmapped dimension and what index it is in.</p>
       </div>
     </a>
     <a class="right-next"
-       href="torch.autograd.function.FunctionCtx.mark_dirty.html"
+       href="torch.autograd.function.FunctionCtx.input_grad_buffers.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">torch.autograd.function.FunctionCtx.mark_dirty</p>
+        <p class="prev-next-title">torch.autograd.function.FunctionCtx.input_grad_buffers</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
