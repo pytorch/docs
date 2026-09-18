@@ -1,6 +1,6 @@
 # torch.nn.functional.grid_sample
 
-torch.nn.functional.grid_sample(*input*, *grid*, *mode='bilinear'*, *padding_mode='zeros'*, *align_corners=None*)[[source]](https://github.com/pytorch/pytorch/blob/65c295bfa29161891e39b83fac63c4f5417ffdc2/torch/nn/functional.py#L5509)
+torch.nn.functional.grid_sample(*input*, *grid*, *mode='bilinear'*, *padding_mode='zeros'*, *align_corners=None*)[[source]](https://github.com/pytorch/pytorch/blob/0c8b4a78ffbbce776adc0823e790158b26435f40/torch/nn/functional.py#L5509)
 
 Compute grid sample.
 
@@ -20,8 +20,8 @@ For each output location `output[n, :, h, w]`, the size-2 vector
 which are used to interpolate the output value `output[n, :, h, w]`.
 In the case of 5D inputs, `grid[n, d, h, w]` specifies the
 `x`, `y`, `z` pixel locations for interpolating
-`output[n, :, d, h, w]`. `mode` argument specifies `nearest` or
-`bilinear` interpolation method to sample the input pixels.
+`output[n, :, d, h, w]`. `mode` argument specifies `nearest`,
+`bilinear` or `bicubic` interpolation method to sample the input pixels.
 
 `grid` specifies the sampling pixel locations normalized by the
 `input` spatial dimensions. Therefore, it should have most values in
@@ -64,10 +64,11 @@ or (N,C,Din,Hin,Win)(N, C, D_\text{in}, H_\text{in}, W_\text{in})(N,C,Din​,Hin
 or (N,Dout,Hout,Wout,3)(N, D_\text{out}, H_\text{out}, W_\text{out}, 3)(N,Dout​,Hout​,Wout​,3) (5-D case)
 - **mode** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - interpolation mode to calculate output values
 `'bilinear'` | `'nearest'` | `'bicubic'`. Default: `'bilinear'`
-Note: `mode='bicubic'` supports only 4-D input.
 When `mode='bilinear'` and the input is 5-D, the interpolation mode
 used internally will actually be trilinear. However, when the input is 4-D,
-the interpolation mode will legitimately be bilinear.
+the interpolation mode will legitimately be bilinear. Likewise
+`mode='bicubic'` is tricubic on a 5-D input, the separable cubic kernel
+extended over the third axis; CPU and CUDA, ROCm included, implement the 5-D case.
 - **padding_mode** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - padding mode for outside grid values
 `'zeros'` | `'border'` | `'reflection'`. Default: `'zeros'`
 - **align_corners** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - Geometrically, we consider the pixels of the

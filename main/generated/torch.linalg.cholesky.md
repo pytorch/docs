@@ -1,6 +1,6 @@
 # torch.linalg.cholesky
 
-torch.linalg.cholesky(*A*, ***, *upper=False*, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/65c295bfa29161891e39b83fac63c4f5417ffdc2/torch/linalg/__init__.py#L71)
+torch.linalg.cholesky(*A*, ***, *upper=False*, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/0c8b4a78ffbbce776adc0823e790158b26435f40/torch/linalg/__init__.py#L71)
 
 Computes the Cholesky decomposition of a complex Hermitian or real symmetric positive-definite matrix.
 

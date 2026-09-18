@@ -1,6 +1,6 @@
 # torch.autograd.Function.jvp
 
-*static*Function.jvp(*ctx*, **grad_inputs*)[[source]](https://github.com/pytorch/pytorch/blob/65c295bfa29161891e39b83fac63c4f5417ffdc2/torch/autograd/function.py#L622)
+*static*Function.jvp(*ctx*, **grad_inputs*)[[source]](https://github.com/pytorch/pytorch/blob/0c8b4a78ffbbce776adc0823e790158b26435f40/torch/autograd/function.py#L622)
 
 Define a formula for differentiating the operation with forward mode automatic differentiation.
 
