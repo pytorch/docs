@@ -1,5 +1,5 @@
 # torch.fx.experimental.unify_refinements.infer_symbolic_types_single_pass
 
-torch.fx.experimental.unify_refinements.infer_symbolic_types_single_pass(*traced*)[[source]](https://github.com/pytorch/pytorch/blob/0c8b4a78ffbbce776adc0823e790158b26435f40/torch/fx/experimental/unify_refinements.py#L22)
+torch.fx.experimental.unify_refinements.infer_symbolic_types_single_pass(*traced*)[[source]](https://github.com/pytorch/pytorch/blob/b7954b2399da4803024b9a2850e39c588522015f/torch/fx/experimental/unify_refinements.py#L22)
 
 Calls our symbolic inferencer once.

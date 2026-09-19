@@ -1,10 +1,10 @@
 # BackwardCFunction
 
-*class*torch.autograd.function.BackwardCFunction[[source]](https://github.com/pytorch/pytorch/blob/0c8b4a78ffbbce776adc0823e790158b26435f40/torch/autograd/function.py#L424)
+*class*torch.autograd.function.BackwardCFunction[[source]](https://github.com/pytorch/pytorch/blob/b7954b2399da4803024b9a2850e39c588522015f/torch/autograd/function.py#L424)
 
 This class is used for internal autograd work. Do not use.
 
-apply(**args*)[[source]](https://github.com/pytorch/pytorch/blob/0c8b4a78ffbbce776adc0823e790158b26435f40/torch/autograd/function.py#L440)
+apply(**args*)[[source]](https://github.com/pytorch/pytorch/blob/b7954b2399da4803024b9a2850e39c588522015f/torch/autograd/function.py#L440)
 
 Apply method used when executing this Node during the backward.
 
@@ -12,13 +12,13 @@ Called by the autograd engine (non-boxed path) and by direct
 grad_fn.apply() calls. When boxed_grads_call is True, boxes
 grads into a mutable list before calling user's backward.
 
-apply_boxed(**args*)[[source]](https://github.com/pytorch/pytorch/blob/0c8b4a78ffbbce776adc0823e790158b26435f40/torch/autograd/function.py#L454)
+apply_boxed(**args*)[[source]](https://github.com/pytorch/pytorch/blob/b7954b2399da4803024b9a2850e39c588522015f/torch/autograd/function.py#L454)
 
 Apply method called by the autograd engine when boxed_grads_call
 is True. Grads arrive as a single mutable list argument, allowing
 backward to free individual grads mid-execution.
 
-apply_jvp(**args*)[[source]](https://github.com/pytorch/pytorch/blob/0c8b4a78ffbbce776adc0823e790158b26435f40/torch/autograd/function.py#L462)
+apply_jvp(**args*)[[source]](https://github.com/pytorch/pytorch/blob/b7954b2399da4803024b9a2850e39c588522015f/torch/autograd/function.py#L462)
 
 Apply method used when executing forward mode AD during the forward
 
@@ -108,7 +108,7 @@ interface. It is responsible for managing `.grad` state, including
 initialization and lifetime, synchronization with all other producers,
 and any `AccumulateGrad` hook behavior bypassed by the direct write.
 
-mark_dirty(**args*)[[source]](https://github.com/pytorch/pytorch/blob/0c8b4a78ffbbce776adc0823e790158b26435f40/torch/autograd/function.py#L244)
+mark_dirty(**args*)[[source]](https://github.com/pytorch/pytorch/blob/b7954b2399da4803024b9a2850e39c588522015f/torch/autograd/function.py#L244)
 
 Mark given tensors as modified in an in-place operation.
 
@@ -144,7 +144,7 @@ Examples::
 >>> # computation has been modified by an inplace operation
 ```
 
-mark_non_differentiable(**args*)[[source]](https://github.com/pytorch/pytorch/blob/0c8b4a78ffbbce776adc0823e790158b26435f40/torch/autograd/function.py#L290)
+mark_non_differentiable(**args*)[[source]](https://github.com/pytorch/pytorch/blob/b7954b2399da4803024b9a2850e39c588522015f/torch/autograd/function.py#L290)
 
 Mark outputs as non-differentiable.
 
@@ -177,7 +177,7 @@ This is used e.g. for indices returned from a sort. See example::
 >>> return grad_input
 ```
 
-save_for_backward(**tensors*)[[source]](https://github.com/pytorch/pytorch/blob/0c8b4a78ffbbce776adc0823e790158b26435f40/torch/autograd/function.py#L127)
+save_for_backward(**tensors*)[[source]](https://github.com/pytorch/pytorch/blob/b7954b2399da4803024b9a2850e39c588522015f/torch/autograd/function.py#L127)
 
 Save given tensors for a future call to `backward()`.
 
@@ -237,7 +237,7 @@ Example:
 >>> d = Func.apply(a, b, c)
 ```
 
-save_for_forward(**tensors*)[[source]](https://github.com/pytorch/pytorch/blob/0c8b4a78ffbbce776adc0823e790158b26435f40/torch/autograd/function.py#L188)
+save_for_forward(**tensors*)[[source]](https://github.com/pytorch/pytorch/blob/b7954b2399da4803024b9a2850e39c588522015f/torch/autograd/function.py#L188)
 
 Save given tensors for a future call to `jvp()`.
 
@@ -285,7 +285,7 @@ Example:
 >>> d = Func.apply(a_dual, b, c)
 ```
 
-set_materialize_grads(*value*)[[source]](https://github.com/pytorch/pytorch/blob/0c8b4a78ffbbce776adc0823e790158b26435f40/torch/autograd/function.py#L362)
+set_materialize_grads(*value*)[[source]](https://github.com/pytorch/pytorch/blob/b7954b2399da4803024b9a2850e39c588522015f/torch/autograd/function.py#L362)
 
 Set whether to materialize grad tensors. Default is `True`.
 
@@ -331,7 +331,7 @@ Example:
 >>> b, _ = Func.apply(a) # induces g2 to be undefined
 ```
 
-set_output_grad_dtype(**dtypes*)[[source]](https://github.com/pytorch/pytorch/blob/0c8b4a78ffbbce776adc0823e790158b26435f40/torch/autograd/function.py#L322)
+set_output_grad_dtype(**dtypes*)[[source]](https://github.com/pytorch/pytorch/blob/b7954b2399da4803024b9a2850e39c588522015f/torch/autograd/function.py#L322)
 
 Declare the gradient dtype for each of this Function's outputs.
 

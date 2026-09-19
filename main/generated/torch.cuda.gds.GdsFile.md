@@ -1,6 +1,6 @@
 # GdsFile
 
-*class*torch.cuda.gds.GdsFile(*filename*, *flags*)[[source]](https://github.com/pytorch/pytorch/blob/0c8b4a78ffbbce776adc0823e790158b26435f40/torch/cuda/gds.py#L102)
+*class*torch.cuda.gds.GdsFile(*filename*, *flags*)[[source]](https://github.com/pytorch/pytorch/blob/b7954b2399da4803024b9a2850e39c588522015f/torch/cuda/gds.py#L102)
 
 Wrapper around a file registered with the GPUDirect Storage (GDS) driver.
 
@@ -34,13 +34,13 @@ True
 True
 ```
 
-deregister_handle()[[source]](https://github.com/pytorch/pytorch/blob/0c8b4a78ffbbce776adc0823e790158b26435f40/torch/cuda/gds.py#L158)
+deregister_handle()[[source]](https://github.com/pytorch/pytorch/blob/b7954b2399da4803024b9a2850e39c588522015f/torch/cuda/gds.py#L158)
 
 Deregisters file descriptor from the GDS driver.
 
 This is a wrapper around `cuFileHandleDeregister` (CUDA) / `hipFileHandleDeregister` (ROCm).
 
-load_storage(*storage*, *offset=0*)[[source]](https://github.com/pytorch/pytorch/blob/0c8b4a78ffbbce776adc0823e790158b26435f40/torch/cuda/gds.py#L168)
+load_storage(*storage*, *offset=0*)[[source]](https://github.com/pytorch/pytorch/blob/b7954b2399da4803024b9a2850e39c588522015f/torch/cuda/gds.py#L168)
 
 Loads data from the file into the storage.
 
@@ -53,13 +53,13 @@ Parameters:
 - **storage** (*Storage*) - Storage to load data into.
 - **offset** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - Offset into the file to start loading from. (Default: 0)
 
-register_handle()[[source]](https://github.com/pytorch/pytorch/blob/0c8b4a78ffbbce776adc0823e790158b26435f40/torch/cuda/gds.py#L149)
+register_handle()[[source]](https://github.com/pytorch/pytorch/blob/b7954b2399da4803024b9a2850e39c588522015f/torch/cuda/gds.py#L149)
 
 Registers file descriptor to the GDS driver.
 
 This is a wrapper around `cuFileHandleRegister` (CUDA) / `hipFileHandleRegister` (ROCm).
 
-save_storage(*storage*, *offset=0*)[[source]](https://github.com/pytorch/pytorch/blob/0c8b4a78ffbbce776adc0823e790158b26435f40/torch/cuda/gds.py#L183)
+save_storage(*storage*, *offset=0*)[[source]](https://github.com/pytorch/pytorch/blob/b7954b2399da4803024b9a2850e39c588522015f/torch/cuda/gds.py#L183)
 
 Saves data from the storage into the file.
 
