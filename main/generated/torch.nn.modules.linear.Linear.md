@@ -1,6 +1,6 @@
 # Linear
 
-*class*torch.nn.modules.linear.Linear(*in_features*, *out_features*, *bias=True*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/b7954b2399da4803024b9a2850e39c588522015f/torch/nn/modules/linear.py#L53)
+*class*torch.nn.modules.linear.Linear(*in_features*, *out_features*, *bias=True*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/55f1d787eeab8196db1c529de1754add16feec18/torch/nn/modules/linear.py#L53)
 
 Applies an affine linear transformation to the incoming data: y=xAT+by = xA^T + by=xAT+b.
 
@@ -43,7 +43,7 @@ Examples:
 torch.Size([128, 30])
 ```
 
-extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/b7954b2399da4803024b9a2850e39c588522015f/torch/nn/modules/linear.py#L136)
+extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/55f1d787eeab8196db1c529de1754add16feec18/torch/nn/modules/linear.py#L136)
 
 Return the extra representation of the module.
 
@@ -51,7 +51,7 @@ Return type:
 
 [str](https://docs.python.org/3/builtins/stdtypes.html#str)
 
-forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/b7954b2399da4803024b9a2850e39c588522015f/torch/nn/modules/linear.py#L130)
+forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/55f1d787eeab8196db1c529de1754add16feec18/torch/nn/modules/linear.py#L130)
 
 Runs the forward pass.
 
@@ -59,6 +59,6 @@ Return type:
 
 [*Tensor*](../tensors.html#torch.Tensor)
 
-reset_parameters()[[source]](https://github.com/pytorch/pytorch/blob/b7954b2399da4803024b9a2850e39c588522015f/torch/nn/modules/linear.py#L117)
+reset_parameters()[[source]](https://github.com/pytorch/pytorch/blob/55f1d787eeab8196db1c529de1754add16feec18/torch/nn/modules/linear.py#L117)
 
 Resets parameters based on their initialization used in `__init__`.

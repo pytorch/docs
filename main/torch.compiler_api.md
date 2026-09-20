@@ -48,6 +48,9 @@ Note
 
 With the default `make_fx` tracer, capture is non-strict. Control flow is
 specialized to the example inputs, and shapes are static - each size is baked in.
+A nested example input is refused on both capture paths, and an unbacked capture
+(below) also refuses to run inside another trace, whose fake mode would outrank the
+one that path builds.
 The exception is a tensor dim explicitly marked unbacked (inductor backend only)
 with `torch._dynamo.decorators.mark_unbacked` on the inputs before the call; such
 a dim is captured as an unbacked symint, so one artifact serves any runtime size of
@@ -100,7 +103,7 @@ f = torch.compiler.precompile.load(python_code, cache)
 out = f(model, x) # pass the model again at runtime
 ```
 
-precompile.load(*python_code*, *cache*)[[source]](https://github.com/pytorch/pytorch/blob/b7954b2399da4803024b9a2850e39c588522015f/torch/_precompile.py#L1748)
+precompile.load(*python_code*, *cache*)[[source]](https://github.com/pytorch/pytorch/blob/55f1d787eeab8196db1c529de1754add16feec18/torch/_precompile.py#L2128)
 
 Reconstruct a runnable from the `(python_code, cache)` pair returned by
 `precompile`. The calling convention is read from `python_code` (the single
@@ -141,6 +144,8 @@ The error type raised by `torch.compiler.precompile` and its artifacts.
 
 Raised when capture, lowering, `load`, or a runtime call violates the precompile
 contract - e.g. a tensor baked as a constant (invariant 1), an unsupported /
-effectful op, a non-tensor output the inductor backend cannot lower, or a runtime
-input whose shape or memory format differs from the example (invariants 3 and 6).
+effectful op, a nested example input, which capture does not support on either path
+(invariant 3), an UNBACKED capture attempted inside another trace (invariant 3), a
+non-tensor output the inductor backend cannot lower, or a runtime input whose shape or
+memory format differs from the example (invariants 3 and 6).
 See Note [precompile programming model] in this module for the full contract.

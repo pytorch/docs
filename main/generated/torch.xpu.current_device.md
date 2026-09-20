@@ -1,6 +1,6 @@
 # torch.xpu.current_device
 
-torch.xpu.current_device()[[source]](https://github.com/pytorch/pytorch/blob/b7954b2399da4803024b9a2850e39c588522015f/torch/xpu/__init__.py#L530)
+torch.xpu.current_device()[[source]](https://github.com/pytorch/pytorch/blob/55f1d787eeab8196db1c529de1754add16feec18/torch/xpu/__init__.py#L530)
 
 Return the index of a currently selected device.
 
