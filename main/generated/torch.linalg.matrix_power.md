@@ -1,6 +1,6 @@
 # torch.linalg.matrix_power
 
-torch.linalg.matrix_power(*A*, *n*, ***, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/55f1d787eeab8196db1c529de1754add16feec18/torch/linalg/__init__.py#L1202)
+torch.linalg.matrix_power(*A*, *n*, ***, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/e1994aea9ce307fb82feeb7524ab2c5d36771e4f/torch/linalg/__init__.py#L1202)
 
 Computes the n-th power of a square matrix for an integer n.
 
