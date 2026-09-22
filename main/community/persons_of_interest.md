@@ -234,7 +234,7 @@ and [dev-discuss.pytorch.org](https://dev-discuss.pytorch.org/)
 
 ### AArch64 CPU
 
-- Sunita Nadampalli ([snadampal](https://github.com/snadampal))
+- (emeritus) Sunita Nadampalli ([snadampal](https://github.com/snadampal))
 
 ### Out-of-tree Backend Integration (PrivateUse1)
 

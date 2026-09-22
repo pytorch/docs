@@ -1,6 +1,6 @@
 # torch.fx.experimental.meta_tracer.torch_nn_relu_override
 
-torch.fx.experimental.meta_tracer.torch_nn_relu_override(*self*, *x*)[[source]](https://github.com/pytorch/pytorch/blob/e1994aea9ce307fb82feeb7524ab2c5d36771e4f/torch/fx/experimental/meta_tracer.py#L48)
+torch.fx.experimental.meta_tracer.torch_nn_relu_override(*self*, *x*)[[source]](https://github.com/pytorch/pytorch/blob/9d784735eb70fb8b0335b0ad7cad9db3ea4babbd/torch/fx/experimental/meta_tracer.py#L48)
 
 Return type:
 
