@@ -1,6 +1,6 @@
 # torch.fx.experimental.unification.unification_tools.get_in
 
-torch.fx.experimental.unification.unification_tools.get_in(*keys*, *coll*, *default=None*, *no_default=False*)[[source]](https://github.com/pytorch/pytorch/blob/9d784735eb70fb8b0335b0ad7cad9db3ea4babbd/torch/fx/experimental/unification/unification_tools.py#L358)
+torch.fx.experimental.unification.unification_tools.get_in(*keys*, *coll*, *default=None*, *no_default=False*)[[source]](https://github.com/pytorch/pytorch/blob/8d6343a7cd80821d54ba546bc6f799aad9ccb79c/torch/fx/experimental/unification/unification_tools.py#L358)
 
 Returns coll[i0][i1]...[iX] where [i0, i1, ..., iX]==keys.
 

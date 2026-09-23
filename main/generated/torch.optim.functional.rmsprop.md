@@ -1,6 +1,6 @@
 # torch.optim.functional.rmsprop
 
-torch.optim.functional.rmsprop(*params*, *grads*, *square_avgs*, *grad_avgs*, *momentum_buffer_list*, *state_steps*, *foreach=None*, *maximize=False*, *differentiable=False*, *capturable=False*, *has_complex=False*, ***, *lr*, *alpha*, *eps*, *weight_decay*, *momentum*, *centered*)[[source]](https://github.com/pytorch/pytorch/blob/9d784735eb70fb8b0335b0ad7cad9db3ea4babbd/torch/optim/rmsprop.py#L479)
+torch.optim.functional.rmsprop(*params*, *grads*, *square_avgs*, *grad_avgs*, *momentum_buffer_list*, *state_steps*, *foreach=None*, *maximize=False*, *differentiable=False*, *capturable=False*, *has_complex=False*, ***, *lr*, *alpha*, *eps*, *weight_decay*, *momentum*, *centered*)[[source]](https://github.com/pytorch/pytorch/blob/8d6343a7cd80821d54ba546bc6f799aad9ccb79c/torch/optim/rmsprop.py#L479)
 
 Functional API that performs RMSprop algorithm computation.
 

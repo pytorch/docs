@@ -1,6 +1,6 @@
 # torch.nn.functional.max_pool3d
 
-torch.nn.functional.max_pool3d(*input*, *kernel_size*, *stride=None*, *padding=0*, *dilation=1*, *ceil_mode=False*, *return_indices=False*)[[source]](https://github.com/pytorch/pytorch/blob/9d784735eb70fb8b0335b0ad7cad9db3ea4babbd/torch/_jit_internal.py#L627)
+torch.nn.functional.max_pool3d(*input*, *kernel_size*, *stride=None*, *padding=0*, *dilation=1*, *ceil_mode=False*, *return_indices=False*)[[source]](https://github.com/pytorch/pytorch/blob/8d6343a7cd80821d54ba546bc6f799aad9ccb79c/torch/_jit_internal.py#L627)
 
 Applies a 3D max pooling over an input signal composed of several input
 planes.

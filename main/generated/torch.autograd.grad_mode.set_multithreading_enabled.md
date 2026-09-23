@@ -1,6 +1,6 @@
 # set_multithreading_enabled
 
-*class*torch.autograd.grad_mode.set_multithreading_enabled(*mode*)[[source]](https://github.com/pytorch/pytorch/blob/9d784735eb70fb8b0335b0ad7cad9db3ea4babbd/torch/autograd/grad_mode.py#L314)
+*class*torch.autograd.grad_mode.set_multithreading_enabled(*mode*)[[source]](https://github.com/pytorch/pytorch/blob/8d6343a7cd80821d54ba546bc6f799aad9ccb79c/torch/autograd/grad_mode.py#L314)
 
 Context-manager that enables or disables multithreaded backward.
 
@@ -25,7 +25,7 @@ Note
 This API does not apply to [forward-mode AD](../autograd.html#forward-mode-ad),
 which never uses multithreading.
 
-clone()[[source]](https://github.com/pytorch/pytorch/blob/9d784735eb70fb8b0335b0ad7cad9db3ea4babbd/torch/autograd/grad_mode.py#L349)
+clone()[[source]](https://github.com/pytorch/pytorch/blob/8d6343a7cd80821d54ba546bc6f799aad9ccb79c/torch/autograd/grad_mode.py#L349)
 
 Create a copy of this class
 
