@@ -1,6 +1,6 @@
 # torch.foreach.ceil
 
-torch.foreach.ceil(*inputs: TensorList*, */*) → [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...][[source]](https://github.com/pytorch/pytorch/blob/8d6343a7cd80821d54ba546bc6f799aad9ccb79c/torch/foreach/__init__.py#L380)
+torch.foreach.ceil(*inputs: TensorList*, */*) → [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...][[source]](https://github.com/pytorch/pytorch/blob/b58511bf7d1e77b23d16cb44e2eacf0f2e05be9c/torch/foreach/__init__.py#L380)
 
 Applies [`torch.ceil()`](torch.ceil.html#torch.ceil) to each tensor in `inputs`.
 

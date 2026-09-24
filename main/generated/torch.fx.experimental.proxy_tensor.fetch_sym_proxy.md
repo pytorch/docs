@@ -1,6 +1,6 @@
 # torch.fx.experimental.proxy_tensor.fetch_sym_proxy
 
-torch.fx.experimental.proxy_tensor.fetch_sym_proxy(*tracer*)[[source]](https://github.com/pytorch/pytorch/blob/8d6343a7cd80821d54ba546bc6f799aad9ccb79c/torch/fx/experimental/proxy_tensor.py#L1054)
+torch.fx.experimental.proxy_tensor.fetch_sym_proxy(*tracer*)[[source]](https://github.com/pytorch/pytorch/blob/b58511bf7d1e77b23d16cb44e2eacf0f2e05be9c/torch/fx/experimental/proxy_tensor.py#L1054)
 
 Return type:
 
