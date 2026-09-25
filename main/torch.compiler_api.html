@@ -80,7 +80,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.15.0a0+gitb58511b )">
+<meta name="llm:version" content="main (2.15.0a0+git5eb87fd )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -186,7 +186,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+gitb58511b )');
+  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+git5eb87fd )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3482,8 +3482,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3698,7 +3698,7 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="torch-compiler-api-reference">
 <span id="torch-compiler-api"></span><span id="module-torch.compiler"></span><h1>torch.compiler API reference<a class="headerlink" href="#torch-compiler-api-reference" title="Link to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jun 02, 2023 | Last Updated On: Sep 19, 2026</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jun 02, 2023 | Last Updated On: Sep 23, 2026</p>
 <p>For a quick overview of <code class="docutils literal notranslate"><span class="pre">torch.compiler</span></code>, see <a class="reference internal" href="user_guide/torch_compiler/torch.compiler.html#torch-compiler-overview"><span class="std std-ref">torch.compiler</span></a>.</p>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
 <tbody>
@@ -3789,111 +3789,123 @@ document.write(`
 </tbody>
 </table>
 </div>
-<section id="torch-compiler-precompile">
-<h2>torch.compiler.precompile<a class="headerlink" href="#torch-compiler-precompile" title="Link to this heading">#</a></h2>
-<dl class="py function">
-<dt class="sig sig-object py" id="torch.compiler.precompile">
-<span class="sig-prename descclassname"><span class="pre">torch.compiler.</span></span><span class="sig-name descname"><span class="pre">precompile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fn</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">example_inputs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'inductor'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tracer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'make_fx'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decompositions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.compiler.precompile" title="Link to this definition">#</a></dt>
-<dd><p>Ahead-of-time precompile <code class="docutils literal notranslate"><span class="pre">fn</span></code> against example inputs, returning a self-contained,
-runnable Python source string plus an acceleration cache as <code class="docutils literal notranslate"><span class="pre">(python_code,</span> <span class="pre">cache)</span></code>.
-<code class="docutils literal notranslate"><span class="pre">fn</span></code> is the whole computation, taking the model(s) as
-explicit arguments, e.g. <code class="docutils literal notranslate"><span class="pre">lambda</span> <span class="pre">model,</span> <span class="pre">x:</span> <span class="pre">model(x)</span></code> or a training step. The
-<code class="docutils literal notranslate"><span class="pre">nn.Module</span></code> arguments have their parameters/buffers lifted to graph inputs, so no
-weights are baked into the artifact – you pass the model again at runtime to the
-reloaded callable. Reload with <code class="docutils literal notranslate"><span class="pre">torch.compiler.precompile.load</span></code> (below).</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>With the default <code class="docutils literal notranslate"><span class="pre">make_fx</span></code> tracer, capture is non-strict. Control flow is
-specialized to the example inputs, and shapes are static – each size is baked in.
-A nested example input is refused on both capture paths, and an unbacked capture
-(below) also refuses to run inside another trace, whose fake mode would outrank the
-one that path builds.
-The exception is a tensor dim explicitly marked unbacked (inductor backend only)
-with <code class="docutils literal notranslate"><span class="pre">torch._dynamo.decorators.mark_unbacked</span></code> on the inputs before the call; such
-a dim is captured as an unbacked symint, so one artifact serves any runtime size of
-it, and a graph that needs to guard on it fails at capture. Each input’s dtype and
-device are specialized too (a runtime mismatch is rejected), and the inductor backend
-additionally specializes on input memory format. See Note [precompile programming
-model] in <code class="docutils literal notranslate"><span class="pre">torch/_precompile.py</span></code>. <code class="docutils literal notranslate"><span class="pre">torch.compiler.precompile</span></code> is distinct from
-<code class="docutils literal notranslate"><span class="pre">torch._dynamo.config.caching_precompile</span></code> (a <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> caching mode).</p>
-</div>
-<p>If <code class="docutils literal notranslate"><span class="pre">fn</span></code> runs a backward, the artifact re-runs the whole forward and backward and
-scatters the resulting parameter gradients onto the runtime model’s <code class="docutils literal notranslate"><span class="pre">parameters()</span></code>
-<code class="docutils literal notranslate"><span class="pre">.grad</span></code> fields, accumulating (<code class="docutils literal notranslate"><span class="pre">p.grad</span> <span class="pre">+=</span> <span class="pre">g</span></code>) exactly like eager <code class="docutils literal notranslate"><span class="pre">.backward()</span></code> –
-so keep your usual <code class="docutils literal notranslate"><span class="pre">zero_grad()</span></code> / <code class="docutils literal notranslate"><span class="pre">optimizer.step()</span></code> loop. Which params receive a
-grad is fixed at capture time (frozen or non-contributing params stay <code class="docutils literal notranslate"><span class="pre">.grad</span> <span class="pre">=</span> <span class="pre">None</span></code>).
-The artifact returns <code class="docutils literal notranslate"><span class="pre">fn</span></code>’s own result (<code class="docutils literal notranslate"><span class="pre">None</span></code> for a bare <code class="docutils literal notranslate"><span class="pre">.backward()</span></code> step), not
-the gradients.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>fn</strong> – The whole computation to capture, taking the model(s) and runtime inputs
-as positional arguments.</p></li>
-<li><p><strong>example_inputs</strong> – Example positional arguments to <code class="docutils literal notranslate"><span class="pre">fn</span></code>; the <code class="docutils literal notranslate"><span class="pre">nn.Module</span></code>
-arguments are lifted and the rest are the runtime inputs.</p></li>
-<li><p><strong>backend</strong> – <code class="docutils literal notranslate"><span class="pre">&quot;inductor&quot;</span></code> (default) lowers through AOTAutograd + Inductor;
-<code class="docutils literal notranslate"><span class="pre">&quot;eager&quot;</span></code> keeps the captured ATen graph (layout-flexible, no kernels; shapes
-are still specialized to the example).</p></li>
-<li><p><strong>tracer</strong> – capture front-end. <code class="docutils literal notranslate"><span class="pre">&quot;make_fx&quot;</span></code> (default) is a non-strict make_fx
-trace and the only tracer implemented today; <code class="docutils literal notranslate"><span class="pre">&quot;dynamo&quot;</span></code> is planned and raises
-<code class="docutils literal notranslate"><span class="pre">NotImplementedError</span></code> for now.</p></li>
-<li><p><strong>decompositions</strong> – Optional decomposition table (<code class="docutils literal notranslate"><span class="pre">dict</span></code> of <code class="docutils literal notranslate"><span class="pre">OpOverload</span></code> to a
-decomposition function) forwarded to <code class="docutils literal notranslate"><span class="pre">make_fx</span></code>; defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">(python_code,</span> <span class="pre">cache)</span></code> – a self-contained Python source string (the
-single source of truth for the calling convention) and a binary acceleration
-cache (no weights, no calling-convention metadata; it carries a small
-format/version/backend/code_hash integrity tag that <code class="docutils literal notranslate"><span class="pre">load</span></code> verifies).</p>
-</dd>
-<dt class="field-odd">Raises<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="#torch.compiler.PrecompileError" title="torch.compiler.PrecompileError"><strong>PrecompileError</strong></a> – if capture, lowering, or a runtime call violates the
-contract (see the exception below).</p>
-</dd>
-</dl>
-<p>Example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python_code</span><span class="p">,</span> <span class="n">cache</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">compiler</span><span class="o">.</span><span class="n">precompile</span><span class="p">(</span><span class="k">lambda</span> <span class="n">m</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">m</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">model</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
-<span class="n">f</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">compiler</span><span class="o">.</span><span class="n">precompile</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">python_code</span><span class="p">,</span> <span class="n">cache</span><span class="p">)</span>
-<span class="n">out</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>   <span class="c1"># pass the model again at runtime</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="torch.compiler.precompile.load">
-<span class="sig-prename descclassname"><span class="pre">precompile.</span></span><span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">python_code</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cache</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/b58511bf7d1e77b23d16cb44e2eacf0f2e05be9c/torch/_precompile.py#L2587"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.compiler.precompile.load" title="Link to this definition">#</a></dt>
-<dd><p>Reconstruct a runnable from the <code class="docutils literal notranslate"><span class="pre">(python_code,</span> <span class="pre">cache)</span></code> pair returned by
-<code class="docutils literal notranslate"><span class="pre">precompile</span></code>. The calling convention is read from <code class="docutils literal notranslate"><span class="pre">python_code</span></code> (the single
-source of truth); <code class="docutils literal notranslate"><span class="pre">cache</span></code> only accelerates loading – it carries only the compiled
-backend artifact (the Inductor bundle for <code class="docutils literal notranslate"><span class="pre">backend=&quot;inductor&quot;</span></code>; empty for
-<code class="docutils literal notranslate"><span class="pre">backend=&quot;eager&quot;</span></code>) and no weights. You pass the model(s) again at runtime.</p>
+<section id="module-torch.compiler.precompile">
+<span id="torch-compiler-precompile"></span><h2>torch.compiler.precompile<a class="headerlink" href="#module-torch.compiler.precompile" title="Link to this heading">#</a></h2>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p><code class="docutils literal notranslate"><span class="pre">load</span></code> runs the artifact as code: it executes <code class="docutils literal notranslate"><span class="pre">python_code</span></code> (via <code class="docutils literal notranslate"><span class="pre">exec</span></code>) and,
-for the inductor backend, primes the kernel caches from the <code class="docutils literal notranslate"><span class="pre">cache</span></code>. Treat
-<code class="docutils literal notranslate"><span class="pre">(python_code,</span> <span class="pre">cache)</span></code> as trusted, executable input – only load a pair you
-produced yourself or otherwise trust, exactly as you would any code you are about to
-run (see Note [precompile programming model], invariant 7). <code class="docutils literal notranslate"><span class="pre">load</span></code> also emits a
-per-call warning before it runs.</p>
+<p><code class="docutils literal notranslate"><span class="pre">torch.compiler.precompile</span></code> and everything reached through it is a prototype API.
+Signatures, error types and the artifact format may change between releases without a
+deprecation cycle.</p>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">torch.compiler.precompile</span></code> captures a whole computation – <code class="docutils literal notranslate"><span class="pre">fn(model,</span> <span class="pre">x)</span></code>, with the
+model(s) passed as arguments – ahead of time from the caller’s own calls, and lowers it to
+a self-contained Python source artifact plus an acceleration cache that a fresh process
+reloads. No weights are baked in, so the model is passed again at runtime:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">compiler</span><span class="o">.</span><span class="n">precompile</span><span class="o">.</span><span class="n">capture</span><span class="p">(</span>
+    <span class="k">lambda</span> <span class="n">model</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">artifact_path</span><span class="o">=</span><span class="s2">&quot;m.py&quot;</span><span class="p">,</span> <span class="n">cache_path</span><span class="o">=</span><span class="s2">&quot;m.cache&quot;</span>
+<span class="p">)</span> <span class="k">as</span> <span class="n">cap</span><span class="p">:</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">cap</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+
+<span class="n">f</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">compiler</span><span class="o">.</span><span class="n">precompile</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;m.py&quot;</span><span class="p">,</span> <span class="s2">&quot;m.cache&quot;</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The contract is Note [precompile programming model] in <code class="docutils literal notranslate"><span class="pre">torch/_precompile.py</span></code>. It is
+distinct from <code class="docutils literal notranslate"><span class="pre">torch._dynamo.config.caching_precompile</span></code> (a <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> caching mode).</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="torch.compiler.precompile.capture">
+<span class="sig-prename descclassname"><span class="pre">torch.compiler.precompile.</span></span><span class="sig-name descname"><span class="pre">capture</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fn</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">artifact_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cache_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tracer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">MakeFxTracer(decompositions=None)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'inductor'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/5eb87fdd0ab88b4b6cc91ec5bfcf4de22d6a6c49/torch/_precompile.py#L2694"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.compiler.precompile.capture" title="Link to this definition">#</a></dt>
+<dd><p>Capture <code class="docutils literal notranslate"><span class="pre">fn</span></code> across the calls YOUR loop makes, writing the artifact on exit.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This is a prototype API. Its signature, error types and artifact
+format may change between releases without a deprecation cycle.</p>
+</div>
+<p>Capture is caller-driven: this returns a capture object rather than running
+anything. Enter it as a context manager, call it exactly as you would <code class="docutils literal notranslate"><span class="pre">fn</span></code>
+inside the block (a <a class="reference internal" href="#torch.compiler.precompile.MakeFxTracer" title="torch.compiler.precompile.MakeFxTracer"><code class="xref py py-class docutils literal notranslate"><span class="pre">MakeFxTracer</span></code></a> capture takes exactly one call) –
+each call runs for real, folds what it exercised into the capture, and
+returns that run’s result – and the <code class="docutils literal notranslate"><span class="pre">(python_code,</span> <span class="pre">cache)</span></code> artifact is
+written to <code class="docutils literal notranslate"><span class="pre">artifact_path</span></code> / <code class="docutils literal notranslate"><span class="pre">cache_path</span></code> when the block exits:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">compiler</span><span class="o">.</span><span class="n">precompile</span><span class="o">.</span><span class="n">capture</span><span class="p">(</span>
+    <span class="n">fn</span><span class="p">,</span> <span class="n">artifact_path</span><span class="o">=</span><span class="s2">&quot;m.py&quot;</span><span class="p">,</span> <span class="n">cache_path</span><span class="o">=</span><span class="s2">&quot;m.cache&quot;</span>
+<span class="p">)</span> <span class="k">as</span> <span class="n">cap</span><span class="p">:</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">cap</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">compiler</span><span class="o">.</span><span class="n">precompile</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;m.py&quot;</span><span class="p">,</span> <span class="s2">&quot;m.cache&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Because the caller makes the calls, inputs flow through naturally and return
+values stay available, so the capture drops into an ordinary pipeline loop.
+To write the artifact before the block ends, call <code class="docutils literal notranslate"><span class="pre">cap.save()</span></code> inside it.
+A block that raises writes nothing it has not already saved, and a block
+that made no call raises <code class="docutils literal notranslate"><span class="pre">PrecompileError</span></code> on exit. A capture is single-use:
+to capture again, call <code class="docutils literal notranslate"><span class="pre">capture()</span></code> again.</p>
+<p><code class="docutils literal notranslate"><span class="pre">tracer</span></code> picks the capture front-end and carries its tracer-specific
+configuration. <a class="reference internal" href="#torch.compiler.precompile.MakeFxTracer" title="torch.compiler.precompile.MakeFxTracer"><code class="xref py py-class docutils literal notranslate"><span class="pre">MakeFxTracer</span></code></a> is one non-strict ATen trace: the capture
+takes exactly ONE call, refuses a second, and specializes control flow and
+shapes to that call, with the contract of Note [precompile programming model]
+in <code class="docutils literal notranslate"><span class="pre">torch/_precompile.py</span></code>. Arguments are matched positionally at capture and
+at load. <code class="docutils literal notranslate"><span class="pre">fn</span></code> is the whole computation, e.g. <code class="docutils literal notranslate"><span class="pre">lambda</span> <span class="pre">model,</span> <span class="pre">x:</span> <span class="pre">model(x)</span></code>:
+the <code class="docutils literal notranslate"><span class="pre">nn.Module</span></code> arguments have their params/buffers lifted to graph inputs
+(no weights are baked in) and the rest are the runtime inputs; the reloaded
+callable is invoked with the same argument structure, and the runtime model
+must match the captured model’s parameter/buffer structure.</p>
+<p><code class="docutils literal notranslate"><span class="pre">backend</span></code> selects how the captured graph is realized: <code class="docutils literal notranslate"><span class="pre">&quot;inductor&quot;</span></code>
+(default) lowers through AOTAutograd + Inductor into one self-contained
+module, and the cache holds the bundle that primes the inductor kernel caches
+on load; <code class="docutils literal notranslate"><span class="pre">&quot;eager&quot;</span></code> keeps the captured ATen graph and runs it as-is (no
+kernels, so the cache carries no artifact). A <code class="docutils literal notranslate"><span class="pre">fn</span></code> that runs a backward
+captures it: the trace runs with grad enabled, the resulting parameter
+gradients are scattered onto the runtime model exactly like eager
+<code class="docutils literal notranslate"><span class="pre">.backward()</span></code>, and the artifact returns <code class="docutils literal notranslate"><span class="pre">fn</span></code>’s own result.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">torch.compiler.precompile</span></code> is NOT
+<code class="docutils literal notranslate"><span class="pre">torch._dynamo.config.caching_precompile</span></code> (a <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code>
+guard-serialization caching mode); it captures <code class="docutils literal notranslate"><span class="pre">fn</span></code> ahead of time and
+lowers it to a self-contained Python source artifact.</p>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>python_code</strong> – The self-contained Python source string returned by <code class="docutils literal notranslate"><span class="pre">precompile</span></code>.</p></li>
-<li><p><strong>cache</strong> – The binary acceleration cache returned by <code class="docutils literal notranslate"><span class="pre">precompile</span></code>.</p></li>
-</ul>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#torch.compiler.precompile.Capture" title="torch.compiler.precompile.Capture"><em>Capture</em></a></p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A runnable callable with the same calling convention as the captured <code class="docutils literal notranslate"><span class="pre">fn</span></code>.
-Arguments are matched positionally at both capture and load time; keyword-argument
-calling conventions are not supported.</p>
-</dd>
-<dt class="field-odd">Raises<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="#torch.compiler.PrecompileError" title="torch.compiler.precompile.PrecompileError"><strong>PrecompileError</strong></a> – if <code class="docutils literal notranslate"><span class="pre">python_code</span></code> is not a valid precompile artifact (it
-fails to parse or is missing its calling-convention metadata), if <code class="docutils literal notranslate"><span class="pre">cache</span></code> is
-paired with a different <code class="docutils literal notranslate"><span class="pre">python_code</span></code> (mismatched <code class="docutils literal notranslate"><span class="pre">backend</span></code> tag or
-<code class="docutils literal notranslate"><span class="pre">code_hash</span></code>), or if a runtime call violates the precompile contract.</p>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="torch.compiler.precompile.load">
+<span class="sig-prename descclassname"><span class="pre">torch.compiler.precompile.</span></span><span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">artifact_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cache_path</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/5eb87fdd0ab88b4b6cc91ec5bfcf4de22d6a6c49/torch/_precompile.py#L2779"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.compiler.precompile.load" title="Link to this definition">#</a></dt>
+<dd><p>Reconstruct a runnable from the two files a precompile capture wrote.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This is a prototype API. Its signature, error types and artifact
+format may change between releases without a deprecation cycle.</p>
+</div>
+<p>Name the two files <a class="reference internal" href="#torch.compiler.precompile.capture" title="torch.compiler.precompile.capture"><code class="xref py py-func docutils literal notranslate"><span class="pre">capture()</span></code></a> wrote – the <code class="docutils literal notranslate"><span class="pre">python_code</span></code> artifact and
+its <code class="docutils literal notranslate"><span class="pre">cache</span></code>. A readable, current-format cache loads only
+against the <code class="docutils literal notranslate"><span class="pre">python_code</span></code> it was emitted with (it carries a sha256 of exactly
+those bytes); an unreadable or other-format cache is ignored with a warning.</p>
+<p>The driver runs from <code class="docutils literal notranslate"><span class="pre">python_code</span></code> – the single source of truth for the whole
+calling convention. <code class="docutils literal notranslate"><span class="pre">load</span></code> reads the source’s <code class="docutils literal notranslate"><span class="pre">BACKEND</span></code>, checks the cache’s
+<code class="docutils literal notranslate"><span class="pre">backend</span></code> tag against it, primes the inductor kernel caches when the cache
+carries a bundle so a warm reload loads precompiled kernels instead of
+JIT-compiling, and then exec’s <code class="docutils literal notranslate"><span class="pre">python_code</span></code>. With no usable cache it degrades to JIT’ing from
+<code class="docutils literal notranslate"><span class="pre">python_code</span></code>. Both files are trusted, EXECUTABLE input: load only artifacts
+you produced or otherwise trust.</p>
+<p>Call the result with the SAME argument structure <code class="docutils literal notranslate"><span class="pre">fn</span></code> took – the model(s)
+in their original positions plus the runtime inputs. The runtime model must
+match the captured model’s parameter/buffer structure; precompile re-derives
+the param/buffer list from it. The result is a
+<a class="reference internal" href="#torch.compiler.precompile.PrecompiledRunnable" title="torch.compiler.precompile.PrecompiledRunnable"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.compiler.precompile.PrecompiledRunnable</span></code></a>.</p>
+<p>Raises <code class="docutils literal notranslate"><span class="pre">PrecompileError</span></code> if either file cannot be read, if <code class="docutils literal notranslate"><span class="pre">python_code</span></code> is
+not a <code class="docutils literal notranslate"><span class="pre">torch.compiler.precompile</span></code> artifact, or if the cache’s <code class="docutils literal notranslate"><span class="pre">backend</span></code> or
+<code class="docutils literal notranslate"><span class="pre">code_hash</span></code> does not match <code class="docutils literal notranslate"><span class="pre">python_code</span></code> – the pair came from different
+captures. A cache whose <code class="docutils literal notranslate"><span class="pre">format</span></code>/<code class="docutils literal notranslate"><span class="pre">version</span></code> does not match (a foreign or
+different-build envelope) is NOT fatal: the cache is acceleration only, so
+<code class="docutils literal notranslate"><span class="pre">load</span></code> degrades to JIT’ing from <code class="docutils literal notranslate"><span class="pre">python_code</span></code> rather than crashing.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#torch.compiler.precompile.PrecompiledRunnable" title="torch.compiler.precompile.PrecompiledRunnable"><em>PrecompiledRunnable</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -3909,6 +3921,252 @@ effectful op, a nested example input, which capture does not support on either p
 non-tensor output the inductor backend cannot lower, or a runtime input whose shape or
 memory format differs from the example (invariants 3 and 6).
 See Note [precompile programming model] in this module for the full contract.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="torch.compiler.precompile.MakeFxTracer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.compiler.precompile.</span></span><span class="sig-name descname"><span class="pre">MakeFxTracer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">decompositions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.compiler.precompile.MakeFxTracer" title="Link to this definition">#</a></dt>
+<dd><p>The <code class="docutils literal notranslate"><span class="pre">make_fx</span></code> capture front-end, passed as <code class="docutils literal notranslate"><span class="pre">tracer=</span></code> to a precompile capture.</p>
+<p>A NON-STRICT single make_fx trace: it records the ATen ops of ONE execution of
+<code class="docutils literal notranslate"><span class="pre">fn</span></code>, so a <code class="docutils literal notranslate"><span class="pre">capture</span></code> with this tracer takes exactly one call and refuses a
+second, and control flow and shapes are specialized to that call (the source of
+the programming-model contract). Part of the prototype <code class="docutils literal notranslate"><span class="pre">torch.compiler.precompile</span></code>
+API, so it may change without a deprecation cycle.</p>
+<p>The contract in brief (Note [precompile programming model] in
+<code class="docutils literal notranslate"><span class="pre">torch/_precompile.py</span></code> has the full list): every tensor <code class="docutils literal notranslate"><span class="pre">fn</span></code> reads is an
+argument or a registered parameter/buffer of an <code class="docutils literal notranslate"><span class="pre">nn.Module</span></code> argument, and
+shapes are static unless a dim is marked with <code class="docutils literal notranslate"><span class="pre">mark_unbacked</span></code>
+(<code class="docutils literal notranslate"><span class="pre">torch._dynamo.decorators</span></code>, inductor backend only) before the call: a
+marked dim is captured as an unbacked symint, so one artifact serves any
+runtime size of it, and a graph that needs to guard on it fails at capture.
+Dims that must be equal at runtime must share a <code class="docutils literal notranslate"><span class="pre">shape_id</span></code>: marked
+independently they bake a silent equal-size assumption, and a mismatch at
+runtime is not caught. Each input’s dtype and device are specialized too (a
+runtime mismatch is rejected), the inductor backend additionally specializes
+on memory format, and a nested-tensor example input is refused.</p>
+<p><code class="docutils literal notranslate"><span class="pre">decompositions</span></code> is an optional decomposition table (a dict mapping each
+<code class="docutils literal notranslate"><span class="pre">OpOverload</span></code> to a decomposition function) forwarded to <code class="docutils literal notranslate"><span class="pre">make_fx</span></code> as its
+<code class="docutils literal notranslate"><span class="pre">decomposition_table</span></code>; it is specific to this tracer (Dynamo lowers through the
+backend instead).</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="torch.compiler.precompile.Capture">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.compiler.precompile.</span></span><span class="sig-name descname"><span class="pre">Capture</span></span><a class="headerlink" href="#torch.compiler.precompile.Capture" title="Link to this definition">#</a></dt>
+<dd><p>The caller-driven capture <code class="docutils literal notranslate"><span class="pre">torch.compiler.precompile.capture</span></code> returns.</p>
+<p>Part of the prototype <code class="docutils literal notranslate"><span class="pre">torch.compiler.precompile</span></code> API, so it may change
+without a deprecation cycle. Enter it as a context manager to arm the
+capture, call it exactly as you would <code class="docutils literal notranslate"><span class="pre">fn</span></code> inside the block – each call
+runs for real, is folded into the capture, and returns that run’s result
+– and the artifact is written to the <code class="docutils literal notranslate"><span class="pre">artifact_path</span></code> / <code class="docutils literal notranslate"><span class="pre">cache_path</span></code>
+files when the block exits. How many calls a capture takes is the tracer’s:
+<a class="reference internal" href="#torch.compiler.precompile.MakeFxTracer" title="torch.compiler.precompile.MakeFxTracer"><code class="xref py py-class docutils literal notranslate"><span class="pre">MakeFxTracer</span></code></a> takes exactly one. Call <a class="reference internal" href="#torch.compiler.precompile.Capture.save" title="torch.compiler.precompile.Capture.save"><code class="xref py py-meth docutils literal notranslate"><span class="pre">save()</span></code></a> inside the block
+to write what has been captured so far to those same files without ending
+the capture. A block that raises writes nothing it has not already saved,
+and a block that made no call raises <code class="docutils literal notranslate"><span class="pre">PrecompileError</span></code> on exit rather
+than writing an empty artifact. A capture is single-use: once its block
+exits it cannot be entered again, so call <code class="docutils literal notranslate"><span class="pre">capture()</span></code> again to retry.
+That includes a failed write at exit: the spent capture does not keep its
+pair, so fix the path and capture again.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.compiler.precompile.Capture.save">
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/5eb87fdd0ab88b4b6cc91ec5bfcf4de22d6a6c49/torch/_precompile.py#L423"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.compiler.precompile.Capture.save" title="Link to this definition">#</a></dt>
+<dd><p>Write everything captured so far to the artifact files without ending the capture.</p>
+<p>Raises <code class="docutils literal notranslate"><span class="pre">PrecompileError</span></code> outside the capture’s <code class="docutils literal notranslate"><span class="pre">with</span></code> block.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="torch.compiler.precompile.PrecompiledRunnable">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.compiler.precompile.</span></span><span class="sig-name descname"><span class="pre">PrecompiledRunnable</span></span><a class="headerlink" href="#torch.compiler.precompile.PrecompiledRunnable" title="Link to this definition">#</a></dt>
+<dd><p>What <code class="docutils literal notranslate"><span class="pre">torch.compiler.precompile.load</span></code> returns.</p>
+<p>A callable with the captured <code class="docutils literal notranslate"><span class="pre">fn</span></code>’s calling convention that can also be
+entered as a context manager and unloaded. A standalone artifact installs
+nothing, so for it <code class="docutils literal notranslate"><span class="pre">__enter__</span></code>/<code class="docutils literal notranslate"><span class="pre">__exit__</span></code>/<a class="reference internal" href="#torch.compiler.precompile.PrecompiledRunnable.unload" title="torch.compiler.precompile.PrecompiledRunnable.unload"><code class="xref py py-meth docutils literal notranslate"><span class="pre">unload()</span></code></a> are no-ops.
+Part of the prototype <code class="docutils literal notranslate"><span class="pre">torch.compiler.precompile</span></code> API, so it may change
+without a deprecation cycle.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Variables<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>installed</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Whether calling this handle installs onto the captured code
+objects; <code class="docutils literal notranslate"><span class="pre">False</span></code> for a standalone artifact.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.compiler.precompile.PrecompiledRunnable.unload">
+<span class="sig-name descname"><span class="pre">unload</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/5eb87fdd0ab88b4b6cc91ec5bfcf4de22d6a6c49/torch/_precompile.py#L391"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.compiler.precompile.PrecompiledRunnable.unload" title="Link to this definition">#</a></dt>
+<dd><p>Remove whatever this loaded artifact installed; a no-op when it installed nothing.</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="torch.compiler.precompile.PrecompileSummary">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.compiler.precompile.</span></span><span class="sig-name descname"><span class="pre">PrecompileSummary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frames</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resume_functions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">guarded_codes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backend_graphs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bypassed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">truncated</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uncovered_frames</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wont_generalize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dropped_guards</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kept_guards</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">risky_dropped_guards</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">policy_dropped_guards</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dropped_guard_code</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">capture_errors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.compiler.precompile.PrecompileSummary" title="Link to this definition">#</a></dt>
+<dd><p>Coverage and guard information from an observed precompile capture.</p>
+<p><code class="docutils literal notranslate"><span class="pre">str(summary)</span></code> renders a one-line digest: the counts, the dropped guards
+tallied by type, the risky slots and frame lists cut to their first five
+entries (<code class="docutils literal notranslate"><span class="pre">+N</span> <span class="pre">more</span></code>), and the first non-empty line of the first capture
+error.
+Everything here describes the calls that ran, not every possible input or
+unexecuted branch, and once <code class="docutils literal notranslate"><span class="pre">truncated</span></code> is non-empty every count and
+frame list is a lower bound: from a limit hit on, that frame and everything
+it called ran untraced, so a frame first reached there is in no list here.</p>
+<p>The guard fields hold <code class="docutils literal notranslate"><span class="pre">(guard_type,</span> <span class="pre">source)</span></code> slots, the source spelled
+with the local scope stripped (<code class="docutils literal notranslate"><span class="pre">L['self'].act</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">self.act</span></code>;
+<code class="docutils literal notranslate"><span class="pre">G['CFG'].width</span></code> unchanged). Each list holds a slot once, however many
+frames or variants carried it, so <code class="docutils literal notranslate"><span class="pre">dropped_guard_types</span></code> counts distinct
+slots, not occurrences. The relations between the lists hold within one
+frame variant, where the producer applies them, and are stated here rather
+than checked:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">kept_guards</span></code> and <code class="docutils literal notranslate"><span class="pre">dropped_guards</span></code> are disjoint: the filter gives a
+slot one verdict, keep or reject.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">risky_dropped_guards</span></code> is drawn from <code class="docutils literal notranslate"><span class="pre">dropped_guards</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">policy_dropped_guards</span></code> is disjoint from both: a policy drop is taken
+out of the serialized copy the filter kept, once the slot held
+identically across every captured variant, and is not checked either.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dropped_guard_code</span></code> draws its slots from <code class="docutils literal notranslate"><span class="pre">dropped_guards</span></code> and
+<code class="docutils literal notranslate"><span class="pre">policy_dropped_guards</span></code>.</p></li>
+<li><p>every <code class="docutils literal notranslate"><span class="pre">wont_generalize</span></code> source is the source half of a <code class="docutils literal notranslate"><span class="pre">kept_guards</span></code>
+slot, the value-equality guard that pins it.</p></li>
+</ul>
+<p>The lists aggregate every captured frame and a slot names no frame, so two
+frames’ <code class="docutils literal notranslate"><span class="pre">self.act</span></code> are one slot: a slot one frame kept and another dropped
+is in both <code class="docutils literal notranslate"><span class="pre">kept_guards</span></code> and <code class="docutils literal notranslate"><span class="pre">dropped_guards</span></code> (the digest’s <code class="docutils literal notranslate"><span class="pre">(N</span> <span class="pre">kept)</span></code>
+is the kept count beside the drops, not the other half of a total), and a
+slot one frame’s filter rejected and another frame’s invariance policy
+dropped is in both drop lists. Nothing is enforced, as for the frame lists
+below: a report that raised on its own bookkeeping would lose the coverage
+it exists to describe.</p>
+<p>The frame lists differ in what an entry is. <code class="docutils literal notranslate"><span class="pre">bypassed</span></code> and
+<code class="docutils literal notranslate"><span class="pre">uncovered_frames</span></code> hold one bare <code class="docutils literal notranslate"><span class="pre">co_name</span></code> per frame, read off the
+package’s entries, so a name can repeat (every <code class="docutils literal notranslate"><span class="pre">nn.Module</span></code> has a
+<code class="docutils literal notranslate"><span class="pre">forward</span></code>: <code class="docutils literal notranslate"><span class="pre">['forward',</span> <span class="pre">'forward']</span></code> is two frames, not a repeat) and
+their lengths count frames. <code class="docutils literal notranslate"><span class="pre">truncated</span></code> holds <code class="docutils literal notranslate"><span class="pre">co_name</span>
+<span class="pre">(filename:firstlineno)</span></code>, recorded once per code object that hit the limit,
+so its entries do identify a frame. A bare name identifies none, so the two
+bare lists cannot be checked disjoint.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Variables<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>frames</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Captured frames: every frame the package holds an entry for, the
+<code class="docutils literal notranslate"><span class="pre">bypassed</span></code>, <code class="docutils literal notranslate"><span class="pre">truncated</span></code> and <code class="docutils literal notranslate"><span class="pre">uncovered_frames</span></code> ones included,
+so the digest’s frame clauses cut into this count rather than add
+to it.</p></li>
+<li><p><strong>resume_functions</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Of those, the graph-break continuations.</p></li>
+<li><p><strong>guarded_codes</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Guarded code objects across all frames.</p></li>
+<li><p><strong>backend_graphs</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Compiled backend graphs.</p></li>
+<li><p><strong>bypassed</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>...</em><em>]</em>) – The <code class="docutils literal notranslate"><span class="pre">co_name</span></code> of each frame the package holds nothing
+servable for: no compile of the frame recorded a guarded code and
+one was bypassed (its guards could not be serialized, or its graph
+held parameters by static address), or a backend artifact was
+missing when the package was saved. Not an eager fallback: the
+frame ran compiled during capture, but the package kept no variant
+of it a load can serve, so a call that reaches it raises.</p></li>
+<li><p><strong>truncated</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>...</em><em>]</em>) – <code class="docutils literal notranslate"><span class="pre">co_name</span> <span class="pre">(filename:firstlineno)</span></code> of each frame that hit the
+recompile limit. A lower bound, which is why the digest prints it
+as <code class="docutils literal notranslate"><span class="pre">&gt;=</span></code>: from a limit hit on, that frame and the frames it calls
+run without tracing, so a limit hit that would follow it there is
+never recorded.</p></li>
+<li><p><strong>uncovered_frames</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>...</em><em>]</em>) – The <code class="docutils literal notranslate"><span class="pre">co_name</span></code> of each frame the capture ran that
+ended with no guarded code and was not bypassed, so the artifact
+cannot serve it: a thin wrapper whose graphs all landed in an inner
+frame, a frame Dynamo gave up on, or a frame whose compile raised
+(its message is in <code class="docutils literal notranslate"><span class="pre">capture_errors</span></code>, so one failure shows in both
+digest clauses). A different cause from <code class="docutils literal notranslate"><span class="pre">bypassed</span></code>,
+never the same frame; a frame that hit the recompile limit before it
+recorded a guarded code is in <code class="docutils literal notranslate"><span class="pre">truncated</span></code> too. Not a remainder:
+which frames count as a gap is the producer’s decision, and a frame
+the package holds an entry for but never ran is not one, so this is
+not <code class="docutils literal notranslate"><span class="pre">frames</span></code> minus <code class="docutils literal notranslate"><span class="pre">bypassed</span></code> minus the frames that hold guarded
+code.</p></li>
+<li><p><strong>wont_generalize</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>...</em><em>]</em>) – Guard <em>sources</em> (not frame names) a kept value-equality
+guard on a bare argument name pins in some variant (<code class="docutils literal notranslate"><span class="pre">self.eps</span></code> is
+not a bare name) while no other variant of the same frame guards the
+source without pinning it, so as captured no variant served another
+value. Observed, not proven: a variant that never guarded the source
+does not count as serving other values of it.</p></li>
+<li><p><strong>dropped_guards</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>]</em><em>, </em><em>...</em><em>]</em>) – Slots the serialized copy’s guard filter rejected; a
+variant that dropped a slot does not check it, so a load through
+that variant cannot notice whatever it checked. The default filter
+drops a guard when the serializer refuses its type or a type its
+check derives: the identity guards (<code class="docutils literal notranslate"><span class="pre">ID_MATCH</span></code>,
+<code class="docutils literal notranslate"><span class="pre">FUNCTION_MATCH</span></code>, <code class="docutils literal notranslate"><span class="pre">NN_MODULE</span></code> and the like), <code class="docutils literal notranslate"><span class="pre">WEAKREF_ALIVE</span></code>
+and most <code class="docutils literal notranslate"><span class="pre">DICT_VERSION</span></code> guards, so a load cannot notice that the
+objects they checked were rebound, mutated or collected. Passing it
+does not make a guard serializable; a caller-supplied filter decides
+its own set. A slot is listed under the guard’s own type whatever
+the reason for the drop, so a <code class="docutils literal notranslate"><span class="pre">TENSOR_MATCH</span></code> rejected for what its
+check derives is a dropped <code class="docutils literal notranslate"><span class="pre">TENSOR_MATCH</span></code>.</p></li>
+<li><p><strong>kept_guards</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>]</em><em>, </em><em>...</em><em>]</em>) – Slots the serialized copy’s guard filter kept and the
+invariance policy left in place.</p></li>
+<li><p><strong>risky_dropped_guards</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>]</em><em>, </em><em>...</em><em>]</em>) – The subset of <code class="docutils literal notranslate"><span class="pre">dropped_guards</span></code> observed to tell
+captured variants apart, or flagged by the risky-drop lint as a
+configuration-chosen binding.</p></li>
+<li><p><strong>policy_dropped_guards</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>]</em><em>, </em><em>...</em><em>]</em>) – Slots the filter kept that the invariance policy
+then dropped because they held identically across every captured
+variant (only guard types from a fixed set are eligible). Reported
+apart from <code class="docutils literal notranslate"><span class="pre">dropped_guards</span></code> because the remedy differs, and
+reported at all because a capture that discards a precondition
+should not look like one that had none.</p></li>
+<li><p><strong>dropped_guard_code</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>]</em><em>, </em><em>...</em><em>]</em>) – <code class="docutils literal notranslate"><span class="pre">(guard_type,</span> <span class="pre">source,</span> <span class="pre">rendered_check)</span></code>, one per
+slot of <code class="docutils literal notranslate"><span class="pre">dropped_guards</span></code> or <code class="docutils literal notranslate"><span class="pre">policy_dropped_guards</span></code> whose guard
+rendered a check (how a guard is installed does not predict whether
+it renders one, and a slot whose guard rendered none has no entry).
+One rendering however many variants dropped the slot: where the
+check embeds the guarded value (<code class="docutils literal notranslate"><span class="pre">EQUALS_MATCH</span></code> renders
+<code class="docutils literal notranslate"><span class="pre">L['n']</span> <span class="pre">==</span> <span class="pre">3</span></code>) it is one variant’s, the producer’s pick rather
+than a merge, so it tells the form of the check and not the value;
+that the slot varied at all is what <code class="docutils literal notranslate"><span class="pre">risky_dropped_guards</span></code>
+records. Carried because a slot alone can be ambiguous: a dropped
+<code class="docutils literal notranslate"><span class="pre">('HASATTR',</span> <span class="pre">&quot;counts['pixel']&quot;)</span></code> is either the benign companion of
+a kept <code class="docutils literal notranslate"><span class="pre">TENSOR_MATCH</span></code> on the same source or the only guard on an
+optional attribute, and only the rendered check tells them apart.
+Kept beside the slot lists so the slots stay the identity the policy
+compares on; for programmatic consumers, not the digest.</p></li>
+<li><p><strong>capture_errors</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>...</em><em>]</em>) – One message per distinct exception a capture call raised
+(repeats of the same type and message collapse), the exception type
+first (<code class="docutils literal notranslate"><span class="pre">&quot;RuntimeError:</span> <span class="pre">boom&quot;</span></code>), so the digest’s first line is
+never empty however the exception was raised.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py property">
+<dt class="sig sig-object py" id="torch.compiler.precompile.PrecompileSummary.complete">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">complete</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></em><a class="headerlink" href="#torch.compiler.precompile.PrecompileSummary.complete" title="Link to this definition">#</a></dt>
+<dd><p>Whether the capture covers everything it exercised.</p>
+<p>Coverage only: False if a frame was <code class="docutils literal notranslate"><span class="pre">bypassed</span></code>, hit the recompile
+limit (<code class="docutils literal notranslate"><span class="pre">truncated</span></code>) or ended with no guarded code
+(<code class="docutils literal notranslate"><span class="pre">uncovered_frames</span></code>), if a capture call raised (<code class="docutils literal notranslate"><span class="pre">capture_errors</span></code>),
+or if nothing was compiled. Both <code class="docutils literal notranslate"><span class="pre">guarded_codes</span></code> and <code class="docutils literal notranslate"><span class="pre">backend_graphs</span></code>
+must be non-zero for the last check, because a frame that compiled
+nothing can still count as one guarded code, so <code class="docutils literal notranslate"><span class="pre">guarded_codes</span></code> alone
+cannot tell a real capture from an empty one.
+The guard fields never enter: <code class="docutils literal notranslate"><span class="pre">risky_dropped_guards</span></code> is a lint
+finding, not a proof, and <code class="docutils literal notranslate"><span class="pre">wont_generalize</span></code> follows from any value the
+capture pinned, so both describe how far a complete capture generalizes
+and the digest reports them on their own.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="torch.compiler.precompile.PrecompileSummary.dropped_guard_types">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">dropped_guard_types</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#torch.compiler.precompile.PrecompileSummary.dropped_guard_types" title="Link to this definition">#</a></dt>
+<dd><p>The distinct dropped slots counted by guard type.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="torch.compiler.precompile.PrecompileSummary.kept_guard_types">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">kept_guard_types</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#torch.compiler.precompile.PrecompileSummary.kept_guard_types" title="Link to this definition">#</a></dt>
+<dd><p>The distinct kept slots counted by guard type.</p>
+</dd></dl>
+
 </dd></dl>
 
 </section>
@@ -4031,12 +4289,25 @@ See Note [precompile programming model] in this module for the full contract.</p
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch-compiler-precompile">torch.compiler.precompile</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.compiler.precompile"><code class="docutils literal notranslate"><span class="pre">precompile()</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.compiler.precompile.load"><code class="docutils literal notranslate"><span class="pre">precompile.load()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-torch.compiler.precompile">torch.compiler.precompile</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.compiler.precompile.capture"><code class="docutils literal notranslate"><span class="pre">capture()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.compiler.precompile.load"><code class="docutils literal notranslate"><span class="pre">load()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.compiler.PrecompileError"><code class="docutils literal notranslate"><span class="pre">PrecompileError</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.compiler.precompile.MakeFxTracer"><code class="docutils literal notranslate"><span class="pre">MakeFxTracer</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.compiler.precompile.Capture"><code class="docutils literal notranslate"><span class="pre">Capture</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.compiler.precompile.Capture.save"><code class="docutils literal notranslate"><span class="pre">Capture.save()</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.compiler.PrecompileError"><code class="docutils literal notranslate"><span class="pre">PrecompileError</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.compiler.precompile.PrecompiledRunnable"><code class="docutils literal notranslate"><span class="pre">PrecompiledRunnable</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.compiler.precompile.PrecompiledRunnable.unload"><code class="docutils literal notranslate"><span class="pre">PrecompiledRunnable.unload()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.compiler.precompile.PrecompileSummary"><code class="docutils literal notranslate"><span class="pre">PrecompileSummary</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.compiler.precompile.PrecompileSummary.complete"><code class="docutils literal notranslate"><span class="pre">PrecompileSummary.complete</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.compiler.precompile.PrecompileSummary.dropped_guard_types"><code class="docutils literal notranslate"><span class="pre">PrecompileSummary.dropped_guard_types</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.compiler.precompile.PrecompileSummary.kept_guard_types"><code class="docutils literal notranslate"><span class="pre">PrecompileSummary.kept_guard_types</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -4291,7 +4562,7 @@ See Note [precompile programming model] in this module for the full contract.</p
        "headline": "torch.compiler API reference",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/torch.compiler_api.html",
-       "articleBody": "torch.compiler API reference# Created On: Jun 02, 2023 | Last Updated On: Sep 19, 2026 For a quick overview of torch.compiler, see torch.compiler. compile See torch.compile() for details on the arguments for this function. reset Reset the in-process compiler state. nonstrict_trace Decorator to mark a function as nonstrict-traceable for dynamo. allow_in_graph Tells the compiler frontend (Dynamo) to skip symbolic introspection of the function and instead directly write it to the graph when encountered. substitute_in_graph Register a polyfill handler for a function, usually a C function from the C extension, to be used in place of the original function when inlining the original function in the graph. assume_constant_result This function is used to mark a function fn as having a constant result. list_backends Return valid strings that can be passed to torch.compile(..., backend=\"name\"). disable This function provides a decorator to disable compilation on a function. set_default_backend Set the default backend for torch.compile when no backend argument is specified. get_default_backend Return the current default backend for torch.compile. set_stance Set the current stance of the compiler. set_enable_guard_collectives Enables use of collectives during guard evaluation to synchronize behavior across ranks. cudagraph_mark_step_begin Indicates that a new iteration of inference or training is about to begin. cudagraph_mark_warmup_incomplete Request another warmup for the active CUDA Graph Trees function. is_compiling Indicates whether a graph is executed/traced as part of torch.compile() or torch.export(). is_dynamo_compiling Indicates whether a graph is traced via TorchDynamo. is_exporting Indicates whether we\u0027re under exporting. keep_portable_guards_unsafe A common function to only keep guards that can be used in both Python and non-Python environments. skip_guard_on_inbuilt_nn_modules_unsafe A common function to skip guards on the inbuilt nn modules like torch.nn.Linear. skip_guard_on_all_nn_modules_unsafe A common function to skip guards on all nn modules, both user defined as well inbuilt nn modules (like torch.nn.Linear). keep_tensor_guards_unsafe A common function to keep tensor guards on all tensors. skip_guard_on_globals_unsafe A common function to skip guards on all globals. skip_all_guards_unsafe A function for skipping all guards on a compiled function. nested_compile_region Tells ``torch.compile`` that the marked set of operations forms a nested compile region (which is often repeated in the full model) whose code can be compiled once and safely reused. load_cache_artifacts Hot loads cache artifacts that were previously serialized via save_cache_artifacts load_compiled_function Load an aot-compiled function from a file. save_cache_artifacts Serializes all the cache artifacts that were created during the compilation wrap_numpy Decorator that turns a function from np.ndarrays to np.ndarrays into a function from torch.Tensors to torch.Tensors. torch.compiler.precompile# torch.compiler.precompile(fn, *example_inputs, backend=\u0027inductor\u0027, tracer=\u0027make_fx\u0027, decompositions=None)# Ahead-of-time precompile fn against example inputs, returning a self-contained, runnable Python source string plus an acceleration cache as (python_code, cache). fn is the whole computation, taking the model(s) as explicit arguments, e.g. lambda model, x: model(x) or a training step. The nn.Module arguments have their parameters/buffers lifted to graph inputs, so no weights are baked into the artifact \u2013 you pass the model again at runtime to the reloaded callable. Reload with torch.compiler.precompile.load (below). Note With the default make_fx tracer, capture is non-strict. Control flow is specialized to the example inputs, and shapes are static \u2013 each size is baked in. A nested example input is refused on both capture paths, and an unbacked capture (below) also refuses to run inside another trace, whose fake mode would outrank the one that path builds. The exception is a tensor dim explicitly marked unbacked (inductor backend only) with torch._dynamo.decorators.mark_unbacked on the inputs before the call; such a dim is captured as an unbacked symint, so one artifact serves any runtime size of it, and a graph that needs to guard on it fails at capture. Each input\u2019s dtype and device are specialized too (a runtime mismatch is rejected), and the inductor backend additionally specializes on input memory format. See Note [precompile programming model] in torch/_precompile.py. torch.compiler.precompile is distinct from torch._dynamo.config.caching_precompile (a torch.compile caching mode). If fn runs a backward, the artifact re-runs the whole forward and backward and scatters the resulting parameter gradients onto the runtime model\u2019s parameters() .grad fields, accumulating (p.grad += g) exactly like eager .backward() \u2013 so keep your usual zero_grad() / optimizer.step() loop. Which params receive a grad is fixed at capture time (frozen or non-contributing params stay .grad = None). The artifact returns fn\u2019s own result (None for a bare .backward() step), not the gradients. Parameters: fn \u2013 The whole computation to capture, taking the model(s) and runtime inputs as positional arguments. example_inputs \u2013 Example positional arguments to fn; the nn.Module arguments are lifted and the rest are the runtime inputs. backend \u2013 \"inductor\" (default) lowers through AOTAutograd + Inductor; \"eager\" keeps the captured ATen graph (layout-flexible, no kernels; shapes are still specialized to the example). tracer \u2013 capture front-end. \"make_fx\" (default) is a non-strict make_fx trace and the only tracer implemented today; \"dynamo\" is planned and raises NotImplementedError for now. decompositions \u2013 Optional decomposition table (dict of OpOverload to a decomposition function) forwarded to make_fx; defaults to None. Returns: (python_code, cache) \u2013 a self-contained Python source string (the single source of truth for the calling convention) and a binary acceleration cache (no weights, no calling-convention metadata; it carries a small format/version/backend/code_hash integrity tag that load verifies). Raises: PrecompileError \u2013 if capture, lowering, or a runtime call violates the contract (see the exception below). Example: python_code, cache = torch.compiler.precompile(lambda m, x: m(x), model, x) f = torch.compiler.precompile.load(python_code, cache) out = f(model, x) # pass the model again at runtime precompile.load(python_code, cache)[source]# Reconstruct a runnable from the (python_code, cache) pair returned by precompile. The calling convention is read from python_code (the single source of truth); cache only accelerates loading \u2013 it carries only the compiled backend artifact (the Inductor bundle for backend=\"inductor\"; empty for backend=\"eager\") and no weights. You pass the model(s) again at runtime. Warning load runs the artifact as code: it executes python_code (via exec) and, for the inductor backend, primes the kernel caches from the cache. Treat (python_code, cache) as trusted, executable input \u2013 only load a pair you produced yourself or otherwise trust, exactly as you would any code you are about to run (see Note [precompile programming model], invariant 7). load also emits a per-call warning before it runs. Parameters: python_code \u2013 The self-contained Python source string returned by precompile. cache \u2013 The binary acceleration cache returned by precompile. Returns: A runnable callable with the same calling convention as the captured fn. Arguments are matched positionally at both capture and load time; keyword-argument calling conventions are not supported. Raises: PrecompileError \u2013 if python_code is not a valid precompile artifact (it fails to parse or is missing its calling-convention metadata), if cache is paired with a different python_code (mismatched backend tag or code_hash), or if a runtime call violates the precompile contract. exception torch.compiler.PrecompileError# The error type raised by torch.compiler.precompile and its artifacts. Raised when capture, lowering, load, or a runtime call violates the precompile contract \u2013 e.g. a tensor baked as a constant (invariant 1), an unsupported / effectful op, a nested example input, which capture does not support on either path (invariant 3), an UNBACKED capture attempted inside another trace (invariant 3), a non-tensor output the inductor backend cannot lower, or a runtime input whose shape or memory format differs from the example (invariants 3 and 6). See Note [precompile programming model] in this module for the full contract.",
+       "articleBody": "torch.compiler API reference# Created On: Jun 02, 2023 | Last Updated On: Sep 23, 2026 For a quick overview of torch.compiler, see torch.compiler. compile See torch.compile() for details on the arguments for this function. reset Reset the in-process compiler state. nonstrict_trace Decorator to mark a function as nonstrict-traceable for dynamo. allow_in_graph Tells the compiler frontend (Dynamo) to skip symbolic introspection of the function and instead directly write it to the graph when encountered. substitute_in_graph Register a polyfill handler for a function, usually a C function from the C extension, to be used in place of the original function when inlining the original function in the graph. assume_constant_result This function is used to mark a function fn as having a constant result. list_backends Return valid strings that can be passed to torch.compile(..., backend=\"name\"). disable This function provides a decorator to disable compilation on a function. set_default_backend Set the default backend for torch.compile when no backend argument is specified. get_default_backend Return the current default backend for torch.compile. set_stance Set the current stance of the compiler. set_enable_guard_collectives Enables use of collectives during guard evaluation to synchronize behavior across ranks. cudagraph_mark_step_begin Indicates that a new iteration of inference or training is about to begin. cudagraph_mark_warmup_incomplete Request another warmup for the active CUDA Graph Trees function. is_compiling Indicates whether a graph is executed/traced as part of torch.compile() or torch.export(). is_dynamo_compiling Indicates whether a graph is traced via TorchDynamo. is_exporting Indicates whether we\u0027re under exporting. keep_portable_guards_unsafe A common function to only keep guards that can be used in both Python and non-Python environments. skip_guard_on_inbuilt_nn_modules_unsafe A common function to skip guards on the inbuilt nn modules like torch.nn.Linear. skip_guard_on_all_nn_modules_unsafe A common function to skip guards on all nn modules, both user defined as well inbuilt nn modules (like torch.nn.Linear). keep_tensor_guards_unsafe A common function to keep tensor guards on all tensors. skip_guard_on_globals_unsafe A common function to skip guards on all globals. skip_all_guards_unsafe A function for skipping all guards on a compiled function. nested_compile_region Tells ``torch.compile`` that the marked set of operations forms a nested compile region (which is often repeated in the full model) whose code can be compiled once and safely reused. load_cache_artifacts Hot loads cache artifacts that were previously serialized via save_cache_artifacts load_compiled_function Load an aot-compiled function from a file. save_cache_artifacts Serializes all the cache artifacts that were created during the compilation wrap_numpy Decorator that turns a function from np.ndarrays to np.ndarrays into a function from torch.Tensors to torch.Tensors. torch.compiler.precompile# Warning torch.compiler.precompile and everything reached through it is a prototype API. Signatures, error types and the artifact format may change between releases without a deprecation cycle. torch.compiler.precompile captures a whole computation \u2013 fn(model, x), with the model(s) passed as arguments \u2013 ahead of time from the caller\u2019s own calls, and lowers it to a self-contained Python source artifact plus an acceleration cache that a fresh process reloads. No weights are baked in, so the model is passed again at runtime: with torch.compiler.precompile.capture( lambda model, x: model(x), artifact_path=\"m.py\", cache_path=\"m.cache\" ) as cap: y = cap(model, x) f = torch.compiler.precompile.load(\"m.py\", \"m.cache\") y = f(model, x) The contract is Note [precompile programming model] in torch/_precompile.py. It is distinct from torch._dynamo.config.caching_precompile (a torch.compile caching mode). torch.compiler.precompile.capture(fn, /, *, artifact_path, cache_path, tracer=MakeFxTracer(decompositions=None), backend=\u0027inductor\u0027)[source]# Capture fn across the calls YOUR loop makes, writing the artifact on exit. Warning This is a prototype API. Its signature, error types and artifact format may change between releases without a deprecation cycle. Capture is caller-driven: this returns a capture object rather than running anything. Enter it as a context manager, call it exactly as you would fn inside the block (a MakeFxTracer capture takes exactly one call) \u2013 each call runs for real, folds what it exercised into the capture, and returns that run\u2019s result \u2013 and the (python_code, cache) artifact is written to artifact_path / cache_path when the block exits: with torch.compiler.precompile.capture( fn, artifact_path=\"m.py\", cache_path=\"m.cache\" ) as cap: y = cap(model, x) f = torch.compiler.precompile.load(\"m.py\", \"m.cache\") Because the caller makes the calls, inputs flow through naturally and return values stay available, so the capture drops into an ordinary pipeline loop. To write the artifact before the block ends, call cap.save() inside it. A block that raises writes nothing it has not already saved, and a block that made no call raises PrecompileError on exit. A capture is single-use: to capture again, call capture() again. tracer picks the capture front-end and carries its tracer-specific configuration. MakeFxTracer is one non-strict ATen trace: the capture takes exactly ONE call, refuses a second, and specializes control flow and shapes to that call, with the contract of Note [precompile programming model] in torch/_precompile.py. Arguments are matched positionally at capture and at load. fn is the whole computation, e.g. lambda model, x: model(x): the nn.Module arguments have their params/buffers lifted to graph inputs (no weights are baked in) and the rest are the runtime inputs; the reloaded callable is invoked with the same argument structure, and the runtime model must match the captured model\u2019s parameter/buffer structure. backend selects how the captured graph is realized: \"inductor\" (default) lowers through AOTAutograd + Inductor into one self-contained module, and the cache holds the bundle that primes the inductor kernel caches on load; \"eager\" keeps the captured ATen graph and runs it as-is (no kernels, so the cache carries no artifact). A fn that runs a backward captures it: the trace runs with grad enabled, the resulting parameter gradients are scattered onto the runtime model exactly like eager .backward(), and the artifact returns fn\u2019s own result. Note torch.compiler.precompile is NOT torch._dynamo.config.caching_precompile (a torch.compile guard-serialization caching mode); it captures fn ahead of time and lowers it to a self-contained Python source artifact. Return type: Capture torch.compiler.precompile.load(artifact_path, cache_path)[source]# Reconstruct a runnable from the two files a precompile capture wrote. Warning This is a prototype API. Its signature, error types and artifact format may change between releases without a deprecation cycle. Name the two files capture() wrote \u2013 the python_code artifact and its cache. A readable, current-format cache loads only against the python_code it was emitted with (it carries a sha256 of exactly those bytes); an unreadable or other-format cache is ignored with a warning. The driver runs from python_code \u2013 the single source of truth for the whole calling convention. load reads the source\u2019s BACKEND, checks the cache\u2019s backend tag against it, primes the inductor kernel caches when the cache carries a bundle so a warm reload loads precompiled kernels instead of JIT-compiling, and then exec\u2019s python_code. With no usable cache it degrades to JIT\u2019ing from python_code. Both files are trusted, EXECUTABLE input: load only artifacts you produced or otherwise trust. Call the result with the SAME argument structure fn took \u2013 the model(s) in their original positions plus the runtime inputs. The runtime model must match the captured model\u2019s parameter/buffer structure; precompile re-derives the param/buffer list from it. The result is a torch.compiler.precompile.PrecompiledRunnable. Raises PrecompileError if either file cannot be read, if python_code is not a torch.compiler.precompile artifact, or if the cache\u2019s backend or code_hash does not match python_code \u2013 the pair came from different captures. A cache whose format/version does not match (a foreign or different-build envelope) is NOT fatal: the cache is acceleration only, so load degrades to JIT\u2019ing from python_code rather than crashing. Return type: PrecompiledRunnable exception torch.compiler.PrecompileError# The error type raised by torch.compiler.precompile and its artifacts. Raised when capture, lowering, load, or a runtime call violates the precompile contract \u2013 e.g. a tensor baked as a constant (invariant 1), an unsupported / effectful op, a nested example input, which capture does not support on either path (invariant 3), an UNBACKED capture attempted inside another trace (invariant 3), a non-tensor output the inductor backend cannot lower, or a runtime input whose shape or memory format differs from the example (invariants 3 and 6). See Note [precompile programming model] in this module for the full contract. class torch.compiler.precompile.MakeFxTracer(decompositions=None)# The make_fx capture front-end, passed as tracer= to a precompile capture. A NON-STRICT single make_fx trace: it records the ATen ops of ONE execution of fn, so a capture with this tracer takes exactly one call and refuses a second, and control flow and shapes are specialized to that call (the source of the programming-model contract). Part of the prototype torch.compiler.precompile API, so it may change without a deprecation cycle. The contract in brief (Note [precompile programming model] in torch/_precompile.py has the full list): every tensor fn reads is an argument or a registered parameter/buffer of an nn.Module argument, and shapes are static unless a dim is marked with mark_unbacked (torch._dynamo.decorators, inductor backend only) before the call: a marked dim is captured as an unbacked symint, so one artifact serves any runtime size of it, and a graph that needs to guard on it fails at capture. Dims that must be equal at runtime must share a shape_id: marked independently they bake a silent equal-size assumption, and a mismatch at runtime is not caught. Each input\u2019s dtype and device are specialized too (a runtime mismatch is rejected), the inductor backend additionally specializes on memory format, and a nested-tensor example input is refused. decompositions is an optional decomposition table (a dict mapping each OpOverload to a decomposition function) forwarded to make_fx as its decomposition_table; it is specific to this tracer (Dynamo lowers through the backend instead). class torch.compiler.precompile.Capture# The caller-driven capture torch.compiler.precompile.capture returns. Part of the prototype torch.compiler.precompile API, so it may change without a deprecation cycle. Enter it as a context manager to arm the capture, call it exactly as you would fn inside the block \u2013 each call runs for real, is folded into the capture, and returns that run\u2019s result \u2013 and the artifact is written to the artifact_path / cache_path files when the block exits. How many calls a capture takes is the tracer\u2019s: MakeFxTracer takes exactly one. Call save() inside the block to write what has been captured so far to those same files without ending the capture. A block that raises writes nothing it has not already saved, and a block that made no call raises PrecompileError on exit rather than writing an empty artifact. A capture is single-use: once its block exits it cannot be entered again, so call capture() again to retry. That includes a failed write at exit: the spent capture does not keep its pair, so fix the path and capture again. save()[source]# Write everything captured so far to the artifact files without ending the capture. Raises PrecompileError outside the capture\u2019s with block. class torch.compiler.precompile.PrecompiledRunnable# What torch.compiler.precompile.load returns. A callable with the captured fn\u2019s calling convention that can also be entered as a context manager and unloaded. A standalone artifact installs nothing, so for it __enter__/__exit__/unload() are no-ops. Part of the prototype torch.compiler.precompile API, so it may change without a deprecation cycle. Variables: installed (bool) \u2013 Whether calling this handle installs onto the captured code objects; False for a standalone artifact. unload()[source]# Remove whatever this loaded artifact installed; a no-op when it installed nothing. class torch.compiler.precompile.PrecompileSummary(*, frames, resume_functions, guarded_codes, backend_graphs, bypassed=(), truncated=(), uncovered_frames=(), wont_generalize=(), dropped_guards=(), kept_guards=(), risky_dropped_guards=(), policy_dropped_guards=(), dropped_guard_code=(), capture_errors=())# Coverage and guard information from an observed precompile capture. str(summary) renders a one-line digest: the counts, the dropped guards tallied by type, the risky slots and frame lists cut to their first five entries (+N more), and the first non-empty line of the first capture error. Everything here describes the calls that ran, not every possible input or unexecuted branch, and once truncated is non-empty every count and frame list is a lower bound: from a limit hit on, that frame and everything it called ran untraced, so a frame first reached there is in no list here. The guard fields hold (guard_type, source) slots, the source spelled with the local scope stripped (L[\u0027self\u0027].act -\u003e self.act; G[\u0027CFG\u0027].width unchanged). Each list holds a slot once, however many frames or variants carried it, so dropped_guard_types counts distinct slots, not occurrences. The relations between the lists hold within one frame variant, where the producer applies them, and are stated here rather than checked: kept_guards and dropped_guards are disjoint: the filter gives a slot one verdict, keep or reject. risky_dropped_guards is drawn from dropped_guards. policy_dropped_guards is disjoint from both: a policy drop is taken out of the serialized copy the filter kept, once the slot held identically across every captured variant, and is not checked either. dropped_guard_code draws its slots from dropped_guards and policy_dropped_guards. every wont_generalize source is the source half of a kept_guards slot, the value-equality guard that pins it. The lists aggregate every captured frame and a slot names no frame, so two frames\u2019 self.act are one slot: a slot one frame kept and another dropped is in both kept_guards and dropped_guards (the digest\u2019s (N kept) is the kept count beside the drops, not the other half of a total), and a slot one frame\u2019s filter rejected and another frame\u2019s invariance policy dropped is in both drop lists. Nothing is enforced, as for the frame lists below: a report that raised on its own bookkeeping would lose the coverage it exists to describe. The frame lists differ in what an entry is. bypassed and uncovered_frames hold one bare co_name per frame, read off the package\u2019s entries, so a name can repeat (every nn.Module has a forward: [\u0027forward\u0027, \u0027forward\u0027] is two frames, not a repeat) and their lengths count frames. truncated holds co_name (filename:firstlineno), recorded once per code object that hit the limit, so its entries do identify a frame. A bare name identifies none, so the two bare lists cannot be checked disjoint. Variables: frames (int) \u2013 Captured frames: every frame the package holds an entry for, the bypassed, truncated and uncovered_frames ones included, so the digest\u2019s frame clauses cut into this count rather than add to it. resume_functions (int) \u2013 Of those, the graph-break continuations. guarded_codes (int) \u2013 Guarded code objects across all frames. backend_graphs (int) \u2013 Compiled backend graphs. bypassed (tuple[str, ...]) \u2013 The co_name of each frame the package holds nothing servable for: no compile of the frame recorded a guarded code and one was bypassed (its guards could not be serialized, or its graph held parameters by static address), or a backend artifact was missing when the package was saved. Not an eager fallback: the frame ran compiled during capture, but the package kept no variant of it a load can serve, so a call that reaches it raises. truncated (tuple[str, ...]) \u2013 co_name (filename:firstlineno) of each frame that hit the recompile limit. A lower bound, which is why the digest prints it as \u003e=: from a limit hit on, that frame and the frames it calls run without tracing, so a limit hit that would follow it there is never recorded. uncovered_frames (tuple[str, ...]) \u2013 The co_name of each frame the capture ran that ended with no guarded code and was not bypassed, so the artifact cannot serve it: a thin wrapper whose graphs all landed in an inner frame, a frame Dynamo gave up on, or a frame whose compile raised (its message is in capture_errors, so one failure shows in both digest clauses). A different cause from bypassed, never the same frame; a frame that hit the recompile limit before it recorded a guarded code is in truncated too. Not a remainder: which frames count as a gap is the producer\u2019s decision, and a frame the package holds an entry for but never ran is not one, so this is not frames minus bypassed minus the frames that hold guarded code. wont_generalize (tuple[str, ...]) \u2013 Guard sources (not frame names) a kept value-equality guard on a bare argument name pins in some variant (self.eps is not a bare name) while no other variant of the same frame guards the source without pinning it, so as captured no variant served another value. Observed, not proven: a variant that never guarded the source does not count as serving other values of it. dropped_guards (tuple[tuple[str, str], ...]) \u2013 Slots the serialized copy\u2019s guard filter rejected; a variant that dropped a slot does not check it, so a load through that variant cannot notice whatever it checked. The default filter drops a guard when the serializer refuses its type or a type its check derives: the identity guards (ID_MATCH, FUNCTION_MATCH, NN_MODULE and the like), WEAKREF_ALIVE and most DICT_VERSION guards, so a load cannot notice that the objects they checked were rebound, mutated or collected. Passing it does not make a guard serializable; a caller-supplied filter decides its own set. A slot is listed under the guard\u2019s own type whatever the reason for the drop, so a TENSOR_MATCH rejected for what its check derives is a dropped TENSOR_MATCH. kept_guards (tuple[tuple[str, str], ...]) \u2013 Slots the serialized copy\u2019s guard filter kept and the invariance policy left in place. risky_dropped_guards (tuple[tuple[str, str], ...]) \u2013 The subset of dropped_guards observed to tell captured variants apart, or flagged by the risky-drop lint as a configuration-chosen binding. policy_dropped_guards (tuple[tuple[str, str], ...]) \u2013 Slots the filter kept that the invariance policy then dropped because they held identically across every captured variant (only guard types from a fixed set are eligible). Reported apart from dropped_guards because the remedy differs, and reported at all because a capture that discards a precondition should not look like one that had none. dropped_guard_code (tuple[tuple[str, str, str], ...]) \u2013 (guard_type, source, rendered_check), one per slot of dropped_guards or policy_dropped_guards whose guard rendered a check (how a guard is installed does not predict whether it renders one, and a slot whose guard rendered none has no entry). One rendering however many variants dropped the slot: where the check embeds the guarded value (EQUALS_MATCH renders L[\u0027n\u0027] == 3) it is one variant\u2019s, the producer\u2019s pick rather than a merge, so it tells the form of the check and not the value; that the slot varied at all is what risky_dropped_guards records. Carried because a slot alone can be ambiguous: a dropped (\u0027HASATTR\u0027, \"counts[\u0027pixel\u0027]\") is either the benign companion of a kept TENSOR_MATCH on the same source or the only guard on an optional attribute, and only the rendered check tells them apart. Kept beside the slot lists so the slots stay the identity the policy compares on; for programmatic consumers, not the digest. capture_errors (tuple[str, ...]) \u2013 One message per distinct exception a capture call raised (repeats of the same type and message collapse), the exception type first (\"RuntimeError: boom\"), so the digest\u2019s first line is never empty however the exception was raised. property complete: bool# Whether the capture covers everything it exercised. Coverage only: False if a frame was bypassed, hit the recompile limit (truncated) or ended with no guarded code (uncovered_frames), if a capture call raised (capture_errors), or if nothing was compiled. Both guarded_codes and backend_graphs must be non-zero for the last check, because a frame that compiled nothing can still count as one guarded code, so guarded_codes alone cannot tell a real capture from an empty one. The guard fields never enter: risky_dropped_guards is a lint finding, not a proof, and wont_generalize follows from any value the capture pinned, so both describe how far a complete capture generalizes and the digest reports them on their own. property dropped_guard_types: dict[str, int]# The distinct dropped slots counted by guard type. property kept_guard_types: dict[str, int]# The distinct kept slots counted by guard type.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -4303,7 +4574,7 @@ See Note [precompile programming model] in this module for the full contract.</p
          "@id": "/torch.compiler_api.html"
        },
        "datePublished": "Jun 02, 2023T00:00:00Z",
-       "dateModified": "Sep 19, 2026T00:00:00Z"
+       "dateModified": "Sep 23, 2026T00:00:00Z"
      }
  </script>
   <script>

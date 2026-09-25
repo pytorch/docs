@@ -85,7 +85,7 @@ window.addEventListener("load", () => mermaid.run());
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.15.0a0+gitb58511b )">
+<meta name="llm:version" content="main (2.15.0a0+git5eb87fd )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -191,7 +191,7 @@ window.addEventListener("load", () => mermaid.run());
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+gitb58511b )');
+  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+git5eb87fd )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -5581,6 +5581,10 @@ document.write(`
 </li>
       <li><a href="generated/torch.fx.experimental.symbolic_shapes.canonicalize_bool_expr.html#torch.fx.experimental.symbolic_shapes.canonicalize_bool_expr">canonicalize_bool_expr() (in module torch.fx.experimental.symbolic_shapes)</a>
 </li>
+      <li><a href="torch.compiler_api.html#torch.compiler.precompile.Capture">Capture (class in torch.compiler.precompile)</a>
+</li>
+      <li><a href="torch.compiler_api.html#torch.compiler.precompile.capture">capture() (in module torch.compiler.precompile)</a>
+</li>
       <li><a href="generated/torch.accelerator.Graph.html#torch.accelerator.Graph.capture_begin">capture_begin() (torch.accelerator.Graph method)</a>
 
       <ul>
@@ -6197,6 +6201,8 @@ document.write(`
 </li>
       <li><a href="generated/torch.compiled_with_cxx11_abi.html#torch.compiled_with_cxx11_abi">compiled_with_cxx11_abi() (in module torch)</a>
 </li>
+      <li><a href="torch.compiler_api.html#torch.compiler.precompile.PrecompileSummary.complete">complete (torch.compiler.precompile.PrecompileSummary property)</a>
+</li>
       <li><a href="generated/torch.complex.html#torch.complex">complex() (in module torch)</a>
 </li>
       <li><a href="storage.html#torch.TypedStorage.complex_double">complex_double() (torch.TypedStorage method)</a>
@@ -6309,6 +6315,8 @@ document.write(`
 </li>
       <li><a href="elastic/metrics.html#torch.distributed.elastic.metrics.api.ConsoleMetricHandler">ConsoleMetricHandler (class in torch.distributed.elastic.metrics.api)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="distributed.optim.html#torch.distributed.optim.ZeroRedundancyOptimizer.consolidate_state_dict">consolidate_state_dict() (torch.distributed.optim.ZeroRedundancyOptimizer method)</a>
 </li>
       <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.const_data_ptr">const_data_ptr() (torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
@@ -6319,8 +6327,6 @@ document.write(`
         <li><a href="generated/torch.Tensor.const_data_ptr.html#torch.Tensor.const_data_ptr">(torch.Tensor method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="nn.init.html#torch.nn.init.constant_">constant_() (in module torch.nn.init)</a>
 </li>
       <li><a href="user_guide/torch_compiler/export/api_reference.html#torch.export.graph_signature.InputKind.CONSTANT_TENSOR">CONSTANT_TENSOR (torch.export.graph_signature.InputKind attribute)</a>
@@ -7803,6 +7809,8 @@ document.write(`
 </li>
       <li><a href="generated/torch.dropout_.html#torch.dropout_">dropout_() (in module torch)</a>
 </li>
+      <li><a href="torch.compiler_api.html#torch.compiler.precompile.PrecompileSummary.dropped_guard_types">dropped_guard_types (torch.compiler.precompile.PrecompileSummary property)</a>
+</li>
       <li><a href="generated/torch.dsmm.html#torch.dsmm">dsmm() (in module torch)</a>
 </li>
       <li><a href="generated/torch.dsplit.html#torch.dsplit">dsplit() (in module torch)</a>
@@ -8936,8 +8944,12 @@ document.write(`
 </li>
       <li><a href="benchmark_utils.html#torch.utils.benchmark.FunctionCounts.filter">filter() (torch.utils.benchmark.FunctionCounts method)</a>
 </li>
-      <li><a href="generated/torch.nn.parallel.DistributedDataParallel.html#torch.nn.parallel.DistributedDataParallel.finalize_backward">finalize_backward() (torch.nn.parallel.DistributedDataParallel method)</a>
+      <li><a href="distributed.fsdp.fully_shard.html#torch.distributed.fsdp.FSDPModule.finalize_backward">finalize_backward() (torch.distributed.fsdp.FSDPModule method)</a>
+
+      <ul>
+        <li><a href="generated/torch.nn.parallel.DistributedDataParallel.html#torch.nn.parallel.DistributedDataParallel.finalize_backward">(torch.nn.parallel.DistributedDataParallel method)</a>
 </li>
+      </ul></li>
       <li><a href="generated/torch.utils.hipify.hipify_python.find_bracket_group.html#torch.utils.hipify.hipify_python.find_bracket_group">find_bracket_group() (in module torch.utils.hipify.hipify_python)</a>
 </li>
       <li><a href="generated/torch.utils.hipify.hipify_python.find_closure_group.html#torch.utils.hipify.hipify_python.find_closure_group">find_closure_group() (in module torch.utils.hipify.hipify_python)</a>
@@ -12830,6 +12842,8 @@ document.write(`
 </li>
       <li><a href="generated/torch.compiler.keep_tensor_guards_unsafe.html#torch.compiler.keep_tensor_guards_unsafe">keep_tensor_guards_unsafe() (in module torch.compiler)</a>
 </li>
+      <li><a href="torch.compiler_api.html#torch.compiler.precompile.PrecompileSummary.kept_guard_types">kept_guard_types (torch.compiler.precompile.PrecompileSummary property)</a>
+</li>
       <li><a href="generated/torch.autograd.profiler_util.Kernel.html#torch.autograd.profiler_util.Kernel">Kernel (class in torch.autograd.profiler_util)</a>
 </li>
       <li><a href="generated/torch.autograd.profiler.profile.key_averages.html#torch.autograd.profiler.profile.key_averages">key_averages() (torch.autograd.profiler.profile method)</a>
@@ -13335,6 +13349,8 @@ document.write(`
       <li><a href="generated/torch.load.html#torch.load">load() (in module torch)</a>
 
       <ul>
+        <li><a href="torch.compiler_api.html#torch.compiler.precompile.load">(in module torch.compiler.precompile)</a>
+</li>
         <li><a href="distributed.checkpoint.html#torch.distributed.checkpoint.state_dict_loader.load">(in module torch.distributed.checkpoint.state_dict_loader)</a>
 </li>
         <li><a href="user_guide/torch_compiler/export/api_reference.html#torch.export.load">(in module torch.export)</a>
@@ -13342,8 +13358,6 @@ document.write(`
         <li><a href="hub.html#torch.hub.load">(in module torch.hub)</a>
 </li>
         <li><a href="cpp_extension.html#torch.utils.cpp_extension.load">(in module torch.utils.cpp_extension)</a>
-</li>
-        <li><a href="torch.compiler_api.html#torch.compiler.precompile.load">(torch.compiler.precompile method)</a>
 </li>
       </ul></li>
       <li><a href="package.html#torch.package.PackageImporter.load_binary">load_binary() (torch.package.PackageImporter method)</a>
@@ -14111,6 +14125,8 @@ document.write(`
 </li>
       </ul></li>
       <li><a href="testing.html#torch.testing.make_tensor">make_tensor() (in module torch.testing)</a>
+</li>
+      <li><a href="torch.compiler_api.html#torch.compiler.precompile.MakeFxTracer">MakeFxTracer (class in torch.compiler.precompile)</a>
 </li>
       <li><a href="generated/torch.manual_seed.html#torch.manual_seed">manual_seed() (in module torch)</a>
 
@@ -15175,6 +15191,8 @@ document.write(`
         <li><a href="torch.compiler_api.html#module-torch.compiler">torch.compiler</a>
 </li>
         <li><a href="user_guide/torch_compiler/torch.compiler.config.html#module-torch.compiler.config">torch.compiler.config</a>
+</li>
+        <li><a href="torch.compiler_api.html#module-torch.compiler.precompile">torch.compiler.precompile</a>
 </li>
         <li><a href="torch.html#module-torch.contrib">torch.contrib</a>
 </li>
@@ -17915,9 +17933,11 @@ document.write(`
         <li><a href="distributions.html#torch.distributions.wishart.Wishart.precision_matrix">(torch.distributions.wishart.Wishart property)</a>
 </li>
       </ul></li>
-      <li><a href="torch.compiler_api.html#torch.compiler.precompile">precompile() (in module torch.compiler)</a>
+      <li><a href="torch.compiler_api.html#torch.compiler.precompile.PrecompiledRunnable">PrecompiledRunnable (class in torch.compiler.precompile)</a>
 </li>
       <li><a href="torch.compiler_api.html#torch.compiler.PrecompileError">PrecompileError</a>
+</li>
+      <li><a href="torch.compiler_api.html#torch.compiler.precompile.PrecompileSummary">PrecompileSummary (class in torch.compiler.precompile)</a>
 </li>
       <li><a href="generated/torch.nn.AdaptiveLogSoftmaxWithLoss.html#torch.nn.AdaptiveLogSoftmaxWithLoss.predict">predict() (torch.nn.AdaptiveLogSoftmaxWithLoss method)</a>
 
@@ -20122,6 +20142,8 @@ document.write(`
 </li>
         <li><a href="user_guide/torch_compiler/export/api_reference.html#torch.export.save">(in module torch.export)</a>
 </li>
+        <li><a href="torch.compiler_api.html#torch.compiler.precompile.Capture.save">(torch.compiler.precompile.Capture method)</a>
+</li>
         <li><a href="onnx_export.html#torch.onnx.ONNXProgram.save">(torch.onnx.ONNXProgram method)</a>
 </li>
       </ul></li>
@@ -20564,6 +20586,8 @@ document.write(`
       <li><a href="library.html#torch._library.custom_ops.CustomOpDef.set_kernel_enabled">set_kernel_enabled() (torch._library.custom_ops.CustomOpDef method)</a>
 </li>
       <li><a href="generated/torch._logging.set_logs.html#torch._logging.set_logs">set_logs() (in module torch._logging)</a>
+</li>
+      <li><a href="distributed.fsdp.fully_shard.html#torch.distributed.fsdp.FSDPModule.set_manual_backward_finalization">set_manual_backward_finalization() (torch.distributed.fsdp.FSDPModule method)</a>
 </li>
       <li><a href="generated/torch.autograd.function.BackwardCFunction.html#torch.autograd.function.BackwardCFunction.set_materialize_grads">set_materialize_grads() (torch.autograd.function.BackwardCFunction method)</a>
 
@@ -21185,10 +21209,10 @@ document.write(`
         <li><a href="generated/torch.xpu.memory.MemPool.html#torch.xpu.memory.MemPool.snapshot">(torch.xpu.memory.MemPool method)</a>
 </li>
       </ul></li>
-      <li><a href="generated/torch.fx.experimental.proxy_tensor.snapshot_fake.html#torch.fx.experimental.proxy_tensor.snapshot_fake">snapshot_fake() (in module torch.fx.experimental.proxy_tensor)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="generated/torch.fx.experimental.proxy_tensor.snapshot_fake.html#torch.fx.experimental.proxy_tensor.snapshot_fake">snapshot_fake() (in module torch.fx.experimental.proxy_tensor)</a>
+</li>
       <li><a href="generated/torch.quasirandom.SobolEngine.html#torch.quasirandom.SobolEngine">SobolEngine (class in torch.quasirandom)</a>
 </li>
       <li><a href="elastic/numa.html#torch.numa.binding.AffinityMode.SOCKET">SOCKET (torch.numa.binding.AffinityMode attribute)</a>
@@ -23876,6 +23900,13 @@ document.write(`
 </li>
       </ul></li>
       <li>
+    torch.compiler.precompile
+
+      <ul>
+        <li><a href="torch.compiler_api.html#module-torch.compiler.precompile">module</a>
+</li>
+      </ul></li>
+      <li>
     torch.contrib
 
       <ul>
@@ -25541,6 +25572,8 @@ document.write(`
         <li><a href="user_guide/torch_compiler/export/api_reference.html#module-torch.export.unflatten">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     torch.fft
 
@@ -25548,8 +25581,6 @@ document.write(`
         <li><a href="fft.html#module-torch.fft">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="type_info.html#torch.torch.finfo">torch.finfo (class in torch)</a>
 </li>
       <li>
@@ -28930,6 +28961,8 @@ document.write(`
         <li><a href="generated/torch.Tensor.unique_consecutive.html#torch.Tensor.unique_consecutive">(torch.Tensor method)</a>
 </li>
       </ul></li>
+      <li><a href="torch.compiler_api.html#torch.compiler.precompile.PrecompiledRunnable.unload">unload() (torch.compiler.precompile.PrecompiledRunnable method)</a>
+</li>
       <li><a href="generated/torch.autograd.forward_ad.unpack_dual.html#torch.autograd.forward_ad.unpack_dual">unpack_dual() (in module torch.autograd.forward_ad)</a>
 </li>
       <li><a href="generated/torch.nn.utils.rnn.unpack_sequence.html#torch.nn.utils.rnn.unpack_sequence">unpack_sequence() (in module torch.nn.utils.rnn)</a>

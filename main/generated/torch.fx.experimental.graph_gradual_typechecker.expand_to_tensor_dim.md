@@ -1,6 +1,6 @@
 # torch.fx.experimental.graph_gradual_typechecker.expand_to_tensor_dim
 
-torch.fx.experimental.graph_gradual_typechecker.expand_to_tensor_dim(*t*, *n*)[[source]](https://github.com/pytorch/pytorch/blob/b58511bf7d1e77b23d16cb44e2eacf0f2e05be9c/torch/fx/experimental/graph_gradual_typechecker.py#L63)
+torch.fx.experimental.graph_gradual_typechecker.expand_to_tensor_dim(*t*, *n*)[[source]](https://github.com/pytorch/pytorch/blob/5eb87fdd0ab88b4b6cc91ec5bfcf4de22d6a6c49/torch/fx/experimental/graph_gradual_typechecker.py#L63)
 
 Expand a type to the desired tensor dimension if possible
 Raise an error otherwise.
