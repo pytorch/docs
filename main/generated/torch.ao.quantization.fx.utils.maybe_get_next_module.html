@@ -80,7 +80,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.15.0a0+git5eb87fd )">
+<meta name="llm:version" content="main (2.15.0a0+git9b99789 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -186,7 +186,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+git5eb87fd )');
+  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+git9b99789 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3588,7 +3588,7 @@ document.write(`
 <h1>maybe_get_next_module<a class="headerlink" href="#maybe-get-next-module" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.ao.quantization.fx.utils.maybe_get_next_module">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.quantization.fx.utils.</span></span><span class="sig-name descname"><span class="pre">maybe_get_next_module</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">modules</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_module_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_functional_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/5eb87fdd0ab88b4b6cc91ec5bfcf4de22d6a6c49/torch/ao/quantization/fx/utils.py#L428"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.fx.utils.maybe_get_next_module" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.ao.quantization.fx.utils.</span></span><span class="sig-name descname"><span class="pre">maybe_get_next_module</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">modules</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_module_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_functional_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/9b9978943e4030e97eeee36a9968db27a3b21163/torch/ao/quantization/fx/utils.py#L428"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.ao.quantization.fx.utils.maybe_get_next_module" title="Link to this definition">#</a></dt>
 <dd><p>Gets the next module that matches what is needed in
 is_target_module_type if it exists</p>
 <dl class="field-list simple">
@@ -3596,7 +3596,7 @@ is_target_module_type if it exists</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>node</strong> (<a class="reference internal" href="../fx.html#torch.fx.Node" title="torch.fx.node.Node"><em>Node</em></a>) – The node whose users we want to look at</p></li>
 <li><p><strong>target_module_type</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#type" title="(in Python v3.14)"><em>type</em></a><em>[</em><a class="reference internal" href="torch.nn.Module.html#torch.nn.Module" title="torch.nn.modules.module.Module"><em>Module</em></a><em>] </em><em>| </em><em>None</em>) – Module type that we want to check</p></li>
-<li><p><strong>target_functional_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a><em> | </em><em>None</em>) – Functional type that we want to check</p></li>
+<li><p><strong>target_functional_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>) – Functional type that we want to check</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -3961,7 +3961,7 @@ is_target_module_type if it exists</p>
        "headline": "maybe_get_next_module",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/generated/torch.ao.quantization.fx.utils.maybe_get_next_module.html",
-       "articleBody": "maybe_get_next_module# class torch.ao.quantization.fx.utils.maybe_get_next_module(node, modules, target_module_type=None, target_functional_type=None)[source]# Gets the next module that matches what is needed in is_target_module_type if it exists Parameters: node (Node) \u2013 The node whose users we want to look at target_module_type (type[Module] | None) \u2013 Module type that we want to check target_functional_type (Any | None) \u2013 Functional type that we want to check Return type: Node | None",
+       "articleBody": "maybe_get_next_module# class torch.ao.quantization.fx.utils.maybe_get_next_module(node, modules, target_module_type=None, target_functional_type=None)[source]# Gets the next module that matches what is needed in is_target_module_type if it exists Parameters: node (Node) \u2013 The node whose users we want to look at target_module_type (type[Module] | None) \u2013 Module type that we want to check target_functional_type (Any) \u2013 Functional type that we want to check Return type: Node | None",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",

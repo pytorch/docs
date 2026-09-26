@@ -1,6 +1,6 @@
 # torch.mps.device_count
 
-torch.mps.device_count()[[source]](https://github.com/pytorch/pytorch/blob/5eb87fdd0ab88b4b6cc91ec5bfcf4de22d6a6c49/torch/mps/__init__.py#L25)
+torch.mps.device_count()[[source]](https://github.com/pytorch/pytorch/blob/9b9978943e4030e97eeee36a9968db27a3b21163/torch/mps/__init__.py#L25)
 
 Returns the number of available MPS devices.
 

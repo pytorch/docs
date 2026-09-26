@@ -61,7 +61,7 @@
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/generated/torch.cuda.graph_annotations.get_kernel_annotations.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="torch.cuda.graph_annotations.clear_kernel_annotations" href="torch.cuda.graph_annotations.clear_kernel_annotations.html" />
+    <link rel="next" title="torch.cuda.graph_annotations.get_kernel_py_stacks" href="torch.cuda.graph_annotations.get_kernel_py_stacks.html" />
     <link rel="prev" title="torch.cuda.graph_annotations.mark_kernels" href="torch.cuda.graph_annotations.mark_kernels.html" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -80,7 +80,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.15.0a0+git5eb87fd )">
+<meta name="llm:version" content="main (2.15.0a0+git9b99789 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -186,7 +186,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+git5eb87fd )');
+  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+git9b99789 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3453,6 +3453,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.graph_annotations.is_available.html">torch.cuda.graph_annotations.is_available</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.graph_annotations.mark_kernels.html">torch.cuda.graph_annotations.mark_kernels</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">torch.cuda.graph_annotations.get_kernel_annotations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.cuda.graph_annotations.get_kernel_py_stacks.html">torch.cuda.graph_annotations.get_kernel_py_stacks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.cuda.graph_annotations.dump_kernel_py_stacks.html">torch.cuda.graph_annotations.dump_kernel_py_stacks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.graph_annotations.clear_kernel_annotations.html">torch.cuda.graph_annotations.clear_kernel_annotations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.memory.empty_cache.html">torch.cuda.memory.empty_cache</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.memory.get_per_process_memory_fraction.html">torch.cuda.memory.get_per_process_memory_fraction</a></li>
@@ -3503,6 +3505,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.gds.gds_deregister_buffer.html">torch.cuda.gds.gds_deregister_buffer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.gds.GdsFile.html">GdsFile</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.green_contexts.GreenContext.html">GreenContext</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.cuda.green_contexts.SMPartition.html">SMPartition</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../cuda.aliases.html">Aliases in torch.cuda</a></li>
 </ul>
 </details></li>
@@ -3699,7 +3702,7 @@ document.write(`
 <h1>torch.cuda.graph_annotations.get_kernel_annotations<a class="headerlink" href="#torch-cuda-graph-annotations-get-kernel-annotations" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda.graph_annotations.get_kernel_annotations">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda.graph_annotations.</span></span><span class="sig-name descname"><span class="pre">get_kernel_annotations</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/5eb87fdd0ab88b4b6cc91ec5bfcf4de22d6a6c49/torch/cuda/_graph_annotations.py#L1234"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.graph_annotations.get_kernel_annotations" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda.graph_annotations.</span></span><span class="sig-name descname"><span class="pre">get_kernel_annotations</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/9b9978943e4030e97eeee36a9968db27a3b21163/torch/cuda/_graph_annotations.py#L1228"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.graph_annotations.get_kernel_annotations" title="Link to this definition">#</a></dt>
 <dd><p>Return the live registry of recorded kernel annotations.</p>
 <p>Keys are opaque integers matching the <code class="docutils literal notranslate"><span class="pre">graph</span> <span class="pre">node</span> <span class="pre">id</span></code> field that
 CUPTI-based profilers attach to kernel events; values are one-element
@@ -3712,6 +3715,16 @@ graph’s ids), so a reference obtained early stays current. Keys are
 valid for joining against a profiler trace once the corresponding
 graphs have been instantiated. The mapping is read-only; snapshot it
 with <code class="docutils literal notranslate"><span class="pre">dict(...)</span></code> if isolation is needed.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Keep graphs alive until all profiles using their annotations have been
+exported. For asynchronous Cuspy exports, also call
+<a class="reference internal" href="../profiler.html#torch.profiler.profile.wait_for_exports" title="torch.profiler.profile.wait_for_exports"><code class="xref py py-meth docutils literal notranslate"><span class="pre">wait_for_exports()</span></code></a> before resetting or
+destroying the graphs. Stopping the profiler or synchronizing CUDA alone
+does not guarantee that buffered profiling records have been processed.
+Graph cleanup removes entries from this live view; it can leave pending
+profiles without annotations.</p>
+</div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>This API is in prototype and may change in future releases.</p>
@@ -3783,11 +3796,11 @@ with <code class="docutils literal notranslate"><span class="pre">dict(...)</spa
       </div>
     </a>
     <a class="right-next"
-       href="torch.cuda.graph_annotations.clear_kernel_annotations.html"
+       href="torch.cuda.graph_annotations.get_kernel_py_stacks.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">torch.cuda.graph_annotations.clear_kernel_annotations</p>
+        <p class="prev-next-title">torch.cuda.graph_annotations.get_kernel_py_stacks</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -3822,11 +3835,11 @@ with <code class="docutils literal notranslate"><span class="pre">dict(...)</spa
       </div>
     </a>
     <a class="right-next"
-       href="torch.cuda.graph_annotations.clear_kernel_annotations.html"
+       href="torch.cuda.graph_annotations.get_kernel_py_stacks.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">torch.cuda.graph_annotations.clear_kernel_annotations</p>
+        <p class="prev-next-title">torch.cuda.graph_annotations.get_kernel_py_stacks</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -4085,7 +4098,7 @@ with <code class="docutils literal notranslate"><span class="pre">dict(...)</spa
        "headline": "torch.cuda.graph_annotations.get_kernel_annotations",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/generated/torch.cuda.graph_annotations.get_kernel_annotations.html",
-       "articleBody": "torch.cuda.graph_annotations.get_kernel_annotations# torch.cuda.graph_annotations.get_kernel_annotations() \u2192 Mapping[int, list][source]# Return the live registry of recorded kernel annotations. Keys are opaque integers matching the graph node id field that CUPTI-based profilers attach to kernel events; values are one-element lists holding the annotation dict recorded for that node \u2013 annotations from overlapping scopes are merged into that single dict. The registry accumulates across captures and is global to the process. The returned mapping is a live view: it is updated in place when a graph is instantiated (annotation keys are rekeyed to the executable graph\u2019s ids), so a reference obtained early stays current. Keys are valid for joining against a profiler trace once the corresponding graphs have been instantiated. The mapping is read-only; snapshot it with dict(...) if isolation is needed. Warning This API is in prototype and may change in future releases. Example: \u003e\u003e\u003e annotations = torch.cuda.graph_annotations.get_kernel_annotations() \u003e\u003e\u003e with open(\"annotations.pkl\", \"wb\") as f: ... pickle.dump(dict(annotations), f) Return type: Mapping[int, list[Any]]",
+       "articleBody": "torch.cuda.graph_annotations.get_kernel_annotations# torch.cuda.graph_annotations.get_kernel_annotations() \u2192 Mapping[int, list][source]# Return the live registry of recorded kernel annotations. Keys are opaque integers matching the graph node id field that CUPTI-based profilers attach to kernel events; values are one-element lists holding the annotation dict recorded for that node \u2013 annotations from overlapping scopes are merged into that single dict. The registry accumulates across captures and is global to the process. The returned mapping is a live view: it is updated in place when a graph is instantiated (annotation keys are rekeyed to the executable graph\u2019s ids), so a reference obtained early stays current. Keys are valid for joining against a profiler trace once the corresponding graphs have been instantiated. The mapping is read-only; snapshot it with dict(...) if isolation is needed. Note Keep graphs alive until all profiles using their annotations have been exported. For asynchronous Cuspy exports, also call wait_for_exports() before resetting or destroying the graphs. Stopping the profiler or synchronizing CUDA alone does not guarantee that buffered profiling records have been processed. Graph cleanup removes entries from this live view; it can leave pending profiles without annotations. Warning This API is in prototype and may change in future releases. Example: \u003e\u003e\u003e annotations = torch.cuda.graph_annotations.get_kernel_annotations() \u003e\u003e\u003e with open(\"annotations.pkl\", \"wb\") as f: ... pickle.dump(dict(annotations), f) Return type: Mapping[int, list[Any]]",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",

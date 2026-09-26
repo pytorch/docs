@@ -1,6 +1,6 @@
 # torch.utils.swap_tensors
 
-torch.utils.swap_tensors(*t1*, *t2*)[[source]](https://github.com/pytorch/pytorch/blob/5eb87fdd0ab88b4b6cc91ec5bfcf4de22d6a6c49/torch/utils/__init__.py#L35)
+torch.utils.swap_tensors(*t1*, *t2*)[[source]](https://github.com/pytorch/pytorch/blob/9b9978943e4030e97eeee36a9968db27a3b21163/torch/utils/__init__.py#L35)
 
 This function swaps the content of the two Tensor objects.
 At a high level, this will make t1 have the content of t2 while preserving

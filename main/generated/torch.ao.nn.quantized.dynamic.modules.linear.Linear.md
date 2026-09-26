@@ -1,6 +1,6 @@
 # Linear
 
-*class*torch.ao.nn.quantized.dynamic.modules.linear.Linear(*in_features*, *out_features*, *bias_=True*, *dtype=torch.qint8*)[[source]](https://github.com/pytorch/pytorch/blob/5eb87fdd0ab88b4b6cc91ec5bfcf4de22d6a6c49/torch/ao/nn/quantized/dynamic/modules/linear.py#L13)
+*class*torch.ao.nn.quantized.dynamic.modules.linear.Linear(*in_features*, *out_features*, *bias_=True*, *dtype=torch.qint8*)[[source]](https://github.com/pytorch/pytorch/blob/9b9978943e4030e97eeee36a9968db27a3b21163/torch/ao/nn/quantized/dynamic/modules/linear.py#L13)
 
 A dynamic quantized linear module with floating point tensor as inputs and outputs.
 We adopt the same interface as torch.nn.Linear, please see
@@ -27,7 +27,7 @@ Examples:
 torch.Size([128, 30])
 ```
 
-*classmethod*from_float(*mod*, *use_precomputed_fake_quant=False*)[[source]](https://github.com/pytorch/pytorch/blob/5eb87fdd0ab88b4b6cc91ec5bfcf4de22d6a6c49/torch/ao/nn/quantized/dynamic/modules/linear.py#L100)
+*classmethod*from_float(*mod*, *use_precomputed_fake_quant=False*)[[source]](https://github.com/pytorch/pytorch/blob/9b9978943e4030e97eeee36a9968db27a3b21163/torch/ao/nn/quantized/dynamic/modules/linear.py#L100)
 
 Create a dynamic quantized module from a float module or qparams_dict
 
@@ -36,7 +36,7 @@ Parameters:
 **mod** ([*Module*](torch.nn.Module.html#torch.nn.Module)) - a float module, either produced by torch.ao.quantization
 utilities or provided by the user
 
-*classmethod*from_reference(*ref_qlinear*)[[source]](https://github.com/pytorch/pytorch/blob/5eb87fdd0ab88b4b6cc91ec5bfcf4de22d6a6c49/torch/ao/nn/quantized/dynamic/modules/linear.py#L154)
+*classmethod*from_reference(*ref_qlinear*)[[source]](https://github.com/pytorch/pytorch/blob/9b9978943e4030e97eeee36a9968db27a3b21163/torch/ao/nn/quantized/dynamic/modules/linear.py#L154)
 
 Create a (fbgemm/qnnpack) dynamic quantized module from a reference quantized
 module

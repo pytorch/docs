@@ -1,6 +1,6 @@
 # NoopObserver
 
-*class*torch.ao.quantization.observer.NoopObserver(*dtype=torch.float16*, *custom_op_name=''*)[[source]](https://github.com/pytorch/pytorch/blob/5eb87fdd0ab88b4b6cc91ec5bfcf4de22d6a6c49/torch/ao/quantization/observer.py#L1571)
+*class*torch.ao.quantization.observer.NoopObserver(*dtype=torch.float16*, *custom_op_name=''*)[[source]](https://github.com/pytorch/pytorch/blob/9b9978943e4030e97eeee36a9968db27a3b21163/torch/ao/quantization/observer.py#L1571)
 
 Observer that doesn't do anything and just passes its configuration to the
 quantized module's `.from_float()`.

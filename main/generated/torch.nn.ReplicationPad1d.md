@@ -1,6 +1,6 @@
 # ReplicationPad1d
 
-*class*torch.nn.ReplicationPad1d(*padding*)[[source]](https://github.com/pytorch/pytorch/blob/5eb87fdd0ab88b4b6cc91ec5bfcf4de22d6a6c49/torch/nn/modules/padding.py#L547)
+*class*torch.nn.ReplicationPad1d(*padding*)[[source]](https://github.com/pytorch/pytorch/blob/9b9978943e4030e97eeee36a9968db27a3b21163/torch/nn/modules/padding.py#L547)
 
 Pads the input tensor using replication of the input boundary.
 

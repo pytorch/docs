@@ -1,6 +1,6 @@
 # StreamReaderIterDataPipe
 
-*class*torch.utils.data.datapipes.iter.streamreader.StreamReaderIterDataPipe(*datapipe*, *chunk=None*)[[source]](https://github.com/pytorch/pytorch/blob/5eb87fdd0ab88b4b6cc91ec5bfcf4de22d6a6c49/torch/utils/data/datapipes/iter/streamreader.py#L11)
+*class*torch.utils.data.datapipes.iter.streamreader.StreamReaderIterDataPipe(*datapipe*, *chunk=None*)[[source]](https://github.com/pytorch/pytorch/blob/9b9978943e4030e97eeee36a9968db27a3b21163/torch/utils/data/datapipes/iter/streamreader.py#L11)
 
 Given IO streams and their label names, yield bytes with label name as tuple.
 
@@ -22,7 +22,7 @@ Example
 [('alphabet', 'a'), ('alphabet', 'b'), ('alphabet', 'c'), ('alphabet', 'd'), ('alphabet', 'e')]
 ```
 
-reset()[[source]](https://github.com/pytorch/pytorch/blob/5eb87fdd0ab88b4b6cc91ec5bfcf4de22d6a6c49/torch/utils/data/datapipes/datapipe.py#L233)
+reset()[[source]](https://github.com/pytorch/pytorch/blob/9b9978943e4030e97eeee36a9968db27a3b21163/torch/utils/data/datapipes/datapipe.py#L233)
 
 Reset the IterDataPipe to the initial state.
 

@@ -1,6 +1,6 @@
 # graph
 
-*class*torch.cuda.graphs.graph(*cuda_graph*, *pool=None*, *stream=None*, *capture_error_mode='global'*, *enable_annotations=False*, *annotation_config=None*, *check_input_liveness=False*)[[source]](https://github.com/pytorch/pytorch/blob/5eb87fdd0ab88b4b6cc91ec5bfcf4de22d6a6c49/torch/cuda/graphs.py#L1206)
+*class*torch.cuda.graphs.graph(*cuda_graph*, *pool=None*, *stream=None*, *capture_error_mode='global'*, *enable_annotations=False*, *annotation_config=None*, *check_input_liveness=False*)[[source]](https://github.com/pytorch/pytorch/blob/9b9978943e4030e97eeee36a9968db27a3b21163/torch/cuda/graphs.py#L1199)
 
 Context-manager that captures CUDA work into a [`torch.cuda.CUDAGraph`](torch.cuda.CUDAGraph.html#torch.cuda.CUDAGraph) object for later replay.
 
@@ -48,6 +48,20 @@ else the capture raises); `"auto"` is `"source"` where the stack supports it
 and `"exec"` where it does not, so it never raises. `"exec"` remains the
 default because kineto reports only the exec node id, so a trace exported
 through it cannot resolve capture-keyed annotations.
+`"record_py_stacks"` (bool, default `False`) records user Python launch
+frames for kernel, memcpy, memset, batch-memory, event, and host nodes.
+It requires CUPTI and single-threaded autograd: `backend="auto"`
+acquires a CUPTI subscription as with `"cupti"`, and `"edge_walk"` is
+rejected. By default, framework and generated Inductor frames are omitted. Conditional
+and child-graph bodies require `key_by="source"`. Use `"exec"` keys for
+exported traces or `"source"` keys for CUPTI's `sourceGraphNodeId`. Save stacks
+separately with [`dump_kernel_py_stacks()`](torch.cuda.graph_annotations.dump_kernel_py_stacks.html#torch.cuda.graph_annotations.dump_kernel_py_stacks)
+or read them with [`get_kernel_py_stacks()`](torch.cuda.graph_annotations.get_kernel_py_stacks.html#torch.cuda.graph_annotations.get_kernel_py_stacks).
+`"py_stack_filter_paths"` (list or tuple of str, default `None`) replaces
+the default stack filters with directories whose frames should be omitted.
+Paths are matched on directory boundaries; relative paths are resolved when
+capture begins. `None` uses the defaults; an empty list disables filtering.
+Used only with `record_py_stacks=True`.
 - **check_input_liveness** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) -
 
 If `True`, tracks external tensor inputs during graph capture and

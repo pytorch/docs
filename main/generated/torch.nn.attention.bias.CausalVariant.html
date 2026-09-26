@@ -80,7 +80,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.15.0a0+git5eb87fd )">
+<meta name="llm:version" content="main (2.15.0a0+git9b99789 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -186,7 +186,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+git5eb87fd )');
+  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+git9b99789 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3598,7 +3598,7 @@ document.write(`
 <h1>CausalVariant<a class="headerlink" href="#causalvariant" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.nn.attention.bias.CausalVariant">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.attention.bias.</span></span><span class="sig-name descname"><span class="pre">CausalVariant</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/5eb87fdd0ab88b4b6cc91ec5bfcf4de22d6a6c49/torch/nn/attention/bias.py#L33"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.bias.CausalVariant" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.attention.bias.</span></span><span class="sig-name descname"><span class="pre">CausalVariant</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qualname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/9b9978943e4030e97eeee36a9968db27a3b21163/torch/nn/attention/bias.py#L33"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.attention.bias.CausalVariant" title="Link to this definition">#</a></dt>
 <dd><p>Enum for causal variants used in attention mechanisms.</p>
 <p>Defines two types of causal biases:</p>
 <p><code class="docutils literal notranslate"><span class="pre">UPPER_LEFT</span></code>: Represents upper-left triangular bias for standard causal attention.
@@ -3634,6 +3634,77 @@ tensors are equal since the triangular matrix is square.</p>
 <p class="admonition-title">Warning</p>
 <p>This enum is a prototype and subject to change.</p>
 </div>
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.nn.attention.bias.CausalVariant.as_integer_ratio">
+<span class="sig-name descname"><span class="pre">as_integer_ratio</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#torch.nn.attention.bias.CausalVariant.as_integer_ratio" title="Link to this definition">#</a></dt>
+<dd><p>Return integer ratio.</p>
+<p>Return a pair of integers, whose ratio is exactly equal to the original int
+and with a positive denominator.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">as_integer_ratio</span><span class="p">()</span>
+<span class="go">(10, 1)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">as_integer_ratio</span><span class="p">()</span>
+<span class="go">(-10, 1)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">as_integer_ratio</span><span class="p">()</span>
+<span class="go">(0, 1)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.nn.attention.bias.CausalVariant.bit_count">
+<span class="sig-name descname"><span class="pre">bit_count</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#torch.nn.attention.bias.CausalVariant.bit_count" title="Link to this definition">#</a></dt>
+<dd><p>Number of ones in the binary representation of the absolute value of self.</p>
+<p>Also known as the population count.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">bin</span><span class="p">(</span><span class="mi">13</span><span class="p">)</span>
+<span class="go">&#39;0b1101&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">(</span><span class="mi">13</span><span class="p">)</span><span class="o">.</span><span class="n">bit_count</span><span class="p">()</span>
+<span class="go">3</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.nn.attention.bias.CausalVariant.bit_length">
+<span class="sig-name descname"><span class="pre">bit_length</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#torch.nn.attention.bias.CausalVariant.bit_length" title="Link to this definition">#</a></dt>
+<dd><p>Number of bits necessary to represent self in binary.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">bin</span><span class="p">(</span><span class="mi">37</span><span class="p">)</span>
+<span class="go">&#39;0b100101&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">(</span><span class="mi">37</span><span class="p">)</span><span class="o">.</span><span class="n">bit_length</span><span class="p">()</span>
+<span class="go">6</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.nn.attention.bias.CausalVariant.conjugate">
+<span class="sig-name descname"><span class="pre">conjugate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#torch.nn.attention.bias.CausalVariant.conjugate" title="Link to this definition">#</a></dt>
+<dd><p>Returns self, the complex conjugate of any int.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="torch.nn.attention.bias.CausalVariant.denominator">
+<span class="sig-name descname"><span class="pre">denominator</span></span><a class="headerlink" href="#torch.nn.attention.bias.CausalVariant.denominator" title="Link to this definition">#</a></dt>
+<dd><p>the denominator of a rational number in lowest terms</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="torch.nn.attention.bias.CausalVariant.imag">
+<span class="sig-name descname"><span class="pre">imag</span></span><a class="headerlink" href="#torch.nn.attention.bias.CausalVariant.imag" title="Link to this definition">#</a></dt>
+<dd><p>the imaginary part of a complex number</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="torch.nn.attention.bias.CausalVariant.numerator">
+<span class="sig-name descname"><span class="pre">numerator</span></span><a class="headerlink" href="#torch.nn.attention.bias.CausalVariant.numerator" title="Link to this definition">#</a></dt>
+<dd><p>the numerator of a rational number in lowest terms</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="torch.nn.attention.bias.CausalVariant.real">
+<span class="sig-name descname"><span class="pre">real</span></span><a class="headerlink" href="#torch.nn.attention.bias.CausalVariant.real" title="Link to this definition">#</a></dt>
+<dd><p>the real part of a complex number</p>
+</dd></dl>
+
 </dd></dl>
 
 </section>
@@ -3755,7 +3826,17 @@ tensors are equal since the triangular matrix is square.</p>
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.nn.attention.bias.CausalVariant"><code class="docutils literal notranslate"><span class="pre">CausalVariant</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.nn.attention.bias.CausalVariant"><code class="docutils literal notranslate"><span class="pre">CausalVariant</span></code></a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.nn.attention.bias.CausalVariant.as_integer_ratio"><code class="docutils literal notranslate"><span class="pre">CausalVariant.as_integer_ratio()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.nn.attention.bias.CausalVariant.bit_count"><code class="docutils literal notranslate"><span class="pre">CausalVariant.bit_count()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.nn.attention.bias.CausalVariant.bit_length"><code class="docutils literal notranslate"><span class="pre">CausalVariant.bit_length()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.nn.attention.bias.CausalVariant.conjugate"><code class="docutils literal notranslate"><span class="pre">CausalVariant.conjugate()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.nn.attention.bias.CausalVariant.denominator"><code class="docutils literal notranslate"><span class="pre">CausalVariant.denominator</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.nn.attention.bias.CausalVariant.imag"><code class="docutils literal notranslate"><span class="pre">CausalVariant.imag</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.nn.attention.bias.CausalVariant.numerator"><code class="docutils literal notranslate"><span class="pre">CausalVariant.numerator</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.nn.attention.bias.CausalVariant.real"><code class="docutils literal notranslate"><span class="pre">CausalVariant.real</span></code></a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
     
@@ -3992,7 +4073,7 @@ tensors are equal since the triangular matrix is square.</p>
        "headline": "CausalVariant",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/generated/torch.nn.attention.bias.CausalVariant.html",
-       "articleBody": "CausalVariant# class torch.nn.attention.bias.CausalVariant(value)[source]# Enum for causal variants used in attention mechanisms. Defines two types of causal biases: UPPER_LEFT: Represents upper-left triangular bias for standard causal attention. The equivalent pytorch code for constructing this bias is: torch.tril(torch.ones(size, dtype=torch.bool)) For instance, with shape=(3,4), the materialized bias tensor will be: [[1, 0, 0, 0], [1, 1, 0, 0], [1, 1, 1, 0]] LOWER_RIGHT: Represents lower-right triangular bias, the include values are aligned to the lower right corner of the matrix. The equivalent pytorch code for constructing this bias is: diagonal_offset = size[1] - size[0] torch.tril( torch.ones(size, dtype=torch.bool), diagonal=diagonal_offset, ) For instance, with shape=(3,4), the materialized bias tensor will be: [[1, 1, 0, 0], [1, 1, 1, 0], [1, 1, 1, 1]] Note that these variants are equivalent to each other when the sequence lengths of the query and key/value tensors are equal since the triangular matrix is square. Warning This enum is a prototype and subject to change.",
+       "articleBody": "CausalVariant# class torch.nn.attention.bias.CausalVariant(value, names=None, *, module=None, qualname=None, type=None, start=1, boundary=None)[source]# Enum for causal variants used in attention mechanisms. Defines two types of causal biases: UPPER_LEFT: Represents upper-left triangular bias for standard causal attention. The equivalent pytorch code for constructing this bias is: torch.tril(torch.ones(size, dtype=torch.bool)) For instance, with shape=(3,4), the materialized bias tensor will be: [[1, 0, 0, 0], [1, 1, 0, 0], [1, 1, 1, 0]] LOWER_RIGHT: Represents lower-right triangular bias, the include values are aligned to the lower right corner of the matrix. The equivalent pytorch code for constructing this bias is: diagonal_offset = size[1] - size[0] torch.tril( torch.ones(size, dtype=torch.bool), diagonal=diagonal_offset, ) For instance, with shape=(3,4), the materialized bias tensor will be: [[1, 1, 0, 0], [1, 1, 1, 0], [1, 1, 1, 1]] Note that these variants are equivalent to each other when the sequence lengths of the query and key/value tensors are equal since the triangular matrix is square. Warning This enum is a prototype and subject to change. as_integer_ratio()# Return integer ratio. Return a pair of integers, whose ratio is exactly equal to the original int and with a positive denominator. \u003e\u003e\u003e (10).as_integer_ratio() (10, 1) \u003e\u003e\u003e (-10).as_integer_ratio() (-10, 1) \u003e\u003e\u003e (0).as_integer_ratio() (0, 1) bit_count()# Number of ones in the binary representation of the absolute value of self. Also known as the population count. \u003e\u003e\u003e bin(13) \u00270b1101\u0027 \u003e\u003e\u003e (13).bit_count() 3 bit_length()# Number of bits necessary to represent self in binary. \u003e\u003e\u003e bin(37) \u00270b100101\u0027 \u003e\u003e\u003e (37).bit_length() 6 conjugate()# Returns self, the complex conjugate of any int. denominator# the denominator of a rational number in lowest terms imag# the imaginary part of a complex number numerator# the numerator of a rational number in lowest terms real# the real part of a complex number",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",

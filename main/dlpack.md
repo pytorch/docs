@@ -1,6 +1,6 @@
 # torch.utils.dlpack
 
-torch.utils.dlpack.from_dlpack(*ext_tensor*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/5eb87fdd0ab88b4b6cc91ec5bfcf4de22d6a6c49/torch/utils/dlpack.py#L124)
+torch.utils.dlpack.from_dlpack(*ext_tensor*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/9b9978943e4030e97eeee36a9968db27a3b21163/torch/utils/dlpack.py#L124)
 
 Converts a tensor from an external library into a `torch.Tensor`.
 
@@ -86,7 +86,7 @@ Parameters:
 
 The DLPack capsule shares the tensor's memory.
 
-*class*torch.utils.dlpack.ReadOnlyTensorWrapper(*tensor*)[[source]](https://github.com/pytorch/pytorch/blob/5eb87fdd0ab88b4b6cc91ec5bfcf4de22d6a6c49/torch/utils/dlpack.py#L34)
+*class*torch.utils.dlpack.ReadOnlyTensorWrapper(*tensor*)[[source]](https://github.com/pytorch/pytorch/blob/9b9978943e4030e97eeee36a9968db27a3b21163/torch/utils/dlpack.py#L34)
 
 A zero-copy, read-only view of a tensor for DLPack interop only.
 

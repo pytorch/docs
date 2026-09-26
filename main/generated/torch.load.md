@@ -1,6 +1,6 @@
 # torch.load
 
-torch.load(*f*, *map_location=None*, *pickle_module=pickle*, ***, *weights_only=True*, *mmap=None*, ***pickle_load_args*)[[source]](https://github.com/pytorch/pytorch/blob/5eb87fdd0ab88b4b6cc91ec5bfcf4de22d6a6c49/torch/serialization.py#L1316)
+torch.load(*f*, *map_location=None*, *pickle_module=pickle*, ***, *weights_only=True*, *mmap=None*, ***pickle_load_args*)[[source]](https://github.com/pytorch/pytorch/blob/9b9978943e4030e97eeee36a9968db27a3b21163/torch/serialization.py#L1316)
 
 Loads an object saved with [`torch.save()`](torch.save.html#torch.save) from a file.
 
@@ -47,7 +47,7 @@ Parameters:
 or a string or os.PathLike object containing a file name
 - **map_location** ([*Callable*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)*[**[**Storage**,*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*]**,**Storage**]**|*[*device*](../tensor_attributes.html#torch.device)*|*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*|*[*dict*](https://docs.python.org/3/builtins/stdtypes.html#dict)*[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*]**|**None*) - a function, [`torch.device`](../tensor_attributes.html#torch.device), string or a dict specifying how to remap storage
 locations
-- **pickle_module** ([*Any*](https://docs.python.org/3/library/typing.html#typing.Any)*|**None*) - module used for unpickling metadata and objects (has to
+- **pickle_module** ([*Any*](https://docs.python.org/3/library/typing.html#typing.Any)) - module used for unpickling metadata and objects (has to
 match the `pickle_module` used to serialize file)
 - **weights_only** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*|**None*) - Indicates whether unpickler should be restricted to
 loading only tensors, primitive types, dictionaries
