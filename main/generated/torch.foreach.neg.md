@@ -1,6 +1,6 @@
 # torch.foreach.neg
 
-torch.foreach.neg(*inputs: TensorList*, */*) → [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...][[source]](https://github.com/pytorch/pytorch/blob/9b9978943e4030e97eeee36a9968db27a3b21163/torch/foreach/__init__.py#L534)
+torch.foreach.neg(*inputs: TensorList*, */*) → [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...][[source]](https://github.com/pytorch/pytorch/blob/8bea8e2d91031a1dee02417397d5a065e31c43c8/torch/foreach/__init__.py#L534)
 
 Applies [`torch.neg()`](torch.neg.html#torch.neg) to each tensor in `inputs`.
 
