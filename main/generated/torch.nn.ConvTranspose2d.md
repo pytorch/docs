@@ -1,6 +1,6 @@
 # ConvTranspose2d
 
-*class*torch.nn.ConvTranspose2d(*in_channels*, *out_channels*, *kernel_size*, *stride=1*, *padding=0*, *output_padding=0*, *groups=1*, *bias=True*, *dilation=1*, *padding_mode='zeros'*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/8bea8e2d91031a1dee02417397d5a065e31c43c8/torch/nn/modules/conv.py#L1012)
+*class*torch.nn.ConvTranspose2d(*in_channels*, *out_channels*, *kernel_size*, *stride=1*, *padding=0*, *output_padding=0*, *groups=1*, *bias=True*, *dilation=1*, *padding_mode='zeros'*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/nn/modules/conv.py#L1012)
 
 Applies a 2D transposed convolution operator over an input image
 composed of several input planes.
@@ -125,7 +125,7 @@ torch.Size([1, 16, 6, 6])
 torch.Size([1, 16, 12, 12])
 ```
 
-forward(*input*, *output_size=None*)[[source]](https://github.com/pytorch/pytorch/blob/8bea8e2d91031a1dee02417397d5a065e31c43c8/torch/nn/modules/conv.py#L1169)
+forward(*input*, *output_size=None*)[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/nn/modules/conv.py#L1169)
 
 Performs the forward pass.
 

@@ -1,6 +1,6 @@
 # torch.foreach.floor
 
-torch.foreach.floor(*inputs: TensorList*, */*) → [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...][[source]](https://github.com/pytorch/pytorch/blob/8bea8e2d91031a1dee02417397d5a065e31c43c8/torch/foreach/__init__.py#L457)
+torch.foreach.floor(*inputs: TensorList*, */*) → [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...][[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/foreach/__init__.py#L457)
 
 Applies [`torch.floor()`](torch.floor.html#torch.floor) to each tensor in `inputs`.
 
