@@ -189,7 +189,7 @@ Range constraints: {}
 
 Note
 
-Tags: python.data-structure, [python.control-flow](python.control-flow.html)
+Tags: [python.control-flow](python.control-flow.html), python.data-structure
 
 Support Level: SUPPORTED
 

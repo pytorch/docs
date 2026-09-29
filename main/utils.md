@@ -13,7 +13,7 @@
 
 # torch.utils.hooks
 
-torch.utils.hooks.unserializable_hook(*f*)[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/utils/hooks.py#L72)
+torch.utils.hooks.unserializable_hook(*f*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/utils/hooks.py#L72)
 
 Mark a function as an unserializable hook with this decorator.
 
@@ -22,7 +22,7 @@ to serialize a tensor that has a hook.
 
 # torch.utils.throughput_benchmark
 
-torch.utils.throughput_benchmark.format_time(*time_us=None*, *time_ms=None*, *time_s=None*)[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/utils/throughput_benchmark.py#L6)
+torch.utils.throughput_benchmark.format_time(*time_us=None*, *time_ms=None*, *time_s=None*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/utils/throughput_benchmark.py#L6)
 
 Define time formatting.
 
@@ -132,7 +132,7 @@ assert mode.get_total_flops() == 8
 | [`conv_backward_flop`](generated/torch.utils.flop_counter.conv_backward_flop.html#torch.utils.flop_counter.conv_backward_flop) | |
 | [`conv_flop`](generated/torch.utils.flop_counter.conv_flop.html#torch.utils.flop_counter.conv_flop) | Count flops for convolution. |
 | [`conv_flop_count`](generated/torch.utils.flop_counter.conv_flop_count.html#torch.utils.flop_counter.conv_flop_count) | Count flops for convolution. |
-| [`register_flop_formula`](generated/torch.utils.flop_counter.register_flop_formula.html#torch.utils.flop_counter.register_flop_formula) | |
+| [`register_flop_formula`](generated/torch.utils.flop_counter.register_flop_formula.html#torch.utils.flop_counter.register_flop_formula) | Register a FLOP counting formula for custom operations. |
 | [`sdpa_backward_flop`](generated/torch.utils.flop_counter.sdpa_backward_flop.html#torch.utils.flop_counter.sdpa_backward_flop) | Count flops for self-attention backward. |
 | [`sdpa_backward_flop_count`](generated/torch.utils.flop_counter.sdpa_backward_flop_count.html#torch.utils.flop_counter.sdpa_backward_flop_count) | |
 | [`sdpa_flop`](generated/torch.utils.flop_counter.sdpa_flop.html#torch.utils.flop_counter.sdpa_flop) | Count flops for self-attention. |

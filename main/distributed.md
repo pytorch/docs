@@ -5,7 +5,7 @@ Note
 Please refer to [PyTorch Distributed Overview](https://pytorch.org/tutorials/beginner/dist_overview.html)
 for a brief introduction to all features related to distributed training.
 
-torch.distributed.elastic.utils.api.get_env_variable_or_raise(*env_name*)[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/elastic/utils/api.py#L15)
+torch.distributed.elastic.utils.api.get_env_variable_or_raise(*env_name*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/elastic/utils/api.py#L15)
 
 Tries to retrieve environment variable. Raises `ValueError`
 if no environment variable found.
@@ -18,7 +18,7 @@ Return type:
 
 [str](https://docs.python.org/3/builtins/stdtypes.html#str)
 
-torch.distributed.elastic.utils.distributed.get_free_port()[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/elastic/utils/distributed.py#L124)
+torch.distributed.elastic.utils.distributed.get_free_port()[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/elastic/utils/distributed.py#L124)
 
 Returns an unused port on localhost.
 
@@ -45,7 +45,7 @@ Note
 The port returned by `get_free_port()` is not reserved and may be
 taken by another process after this function returns.
 
-torch.distributed.elastic.utils.log_level.get_log_level()[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/elastic/utils/log_level.py#L10)
+torch.distributed.elastic.utils.log_level.get_log_level()[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/elastic/utils/log_level.py#L10)
 
 Return default log level for pytorch.
 
@@ -53,7 +53,7 @@ Return type:
 
 [str](https://docs.python.org/3/builtins/stdtypes.html#str)
 
-torch.distributed.elastic.utils.logging.get_logger(*name=None*)[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/elastic/utils/logging.py#L17)
+torch.distributed.elastic.utils.logging.get_logger(*name=None*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/elastic/utils/logging.py#L17)
 
 Util function to set up a simple logger that writes
 into stderr. The loglevel is fetched from the LOGLEVEL
@@ -69,7 +69,7 @@ Return type:
 
 [*Logger*](https://docs.python.org/3/library/logging.html#logging.Logger)
 
-torch.distributed.rendezvous.register_rendezvous_handler(*scheme*, *handler*)[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/rendezvous.py#L25)
+torch.distributed.rendezvous.register_rendezvous_handler(*scheme*, *handler*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/rendezvous.py#L25)
 
 Register a new rendezvous handler.
 
@@ -94,18 +94,18 @@ rendezvous() function is called with a URL that uses
 the corresponding scheme. It must be a generator function
 that yields the triplet.
 
-torch.distributed.algorithms.model_averaging.utils.average_parameters(*params*, *process_group*)[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/algorithms/model_averaging/utils.py#L21)
+torch.distributed.algorithms.model_averaging.utils.average_parameters(*params*, *process_group*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/algorithms/model_averaging/utils.py#L21)
 
 Averages all the given parameters.
 
 For allreduce efficiency, all the parameters are flattened into a contiguous buffer.
 Thus, it requires extra memory of the same size as the given parameters.
 
-torch.distributed.algorithms.model_averaging.utils.average_parameters_or_parameter_groups(*params*, *process_group*)[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/algorithms/model_averaging/utils.py#L81)
+torch.distributed.algorithms.model_averaging.utils.average_parameters_or_parameter_groups(*params*, *process_group*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/algorithms/model_averaging/utils.py#L81)
 
 Averages parameters of a model or parameter groups of an optimizer.
 
-torch.distributed.algorithms.model_averaging.utils.get_params_to_average(*params*)[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/algorithms/model_averaging/utils.py#L52)
+torch.distributed.algorithms.model_averaging.utils.get_params_to_average(*params*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/algorithms/model_averaging/utils.py#L52)
 
 Return a list of parameters that need to average.
 
@@ -264,7 +264,7 @@ Warning
 Initialization is not thread-safe. Process group creation should be performed from a single thread, to prevent
 inconsistent 'UUID' assignment across ranks, and to prevent races during initialization that can lead to hangs.
 
-torch.distributed.is_available()[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/__init__.py#L18)
+torch.distributed.is_available()[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/__init__.py#L18)
 
 Return `True` if the distributed package is available.
 
@@ -279,7 +279,7 @@ Return type:
 
 [bool](https://docs.python.org/3/builtins/functions.html#bool)
 
-torch.distributed.init_process_group(*backend=None*, *init_method=None*, *timeout=None*, *world_size=-1*, *rank=-1*, *store=None*, *group_name=''*, *pg_options=None*, *device_id=None*, *_ranks=None*, *enable_reconfigure=False*)[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/distributed_c10d.py#L2437)
+torch.distributed.init_process_group(*backend=None*, *init_method=None*, *timeout=None*, *world_size=-1*, *rank=-1*, *store=None*, *group_name=''*, *pg_options=None*, *device_id=None*, *_ranks=None*, *enable_reconfigure=False*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/distributed_c10d.py#L2453)
 
 Initialize the default distributed process group.
 
@@ -345,7 +345,10 @@ there're compute kernels waiting. For other available options to config nccl,
 See [https://docs.nvidia.com/deeplearning/nccl/user-guide/docs/api/types.html#ncclconfig-t](https://docs.nvidia.com/deeplearning/nccl/user-guide/docs/api/types.html#ncclconfig-t)
 - **device_id** ([*torch.device*](tensor_attributes.html#torch.device)*|*[*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - a single, specific device
 this process will work on, allowing for backend-specific
-optimizations. Currently this has two effects, only under
+optimizations. Both accelerator devices (e.g. `cuda:0`) and
+CPU devices (e.g. `cpu:0`) are accepted; on CPU, this currently
+only validates and records the device, without any of the NCCL-specific
+optimizations described below. Currently this has two effects, only under
 NCCL: the communicator is immediately formed (calling
 `ncclCommInit*` immediately rather than the normal lazy
 call) and sub-groups will use `ncclCommSplit` when
@@ -375,7 +378,7 @@ for collectives with CUDA tensors. A custom backend can be specified by passing 
 a string with format "<device_type>:<backend_name>,<device_type>:<backend_name>", e.g.
 "cpu:gloo,cuda:custom_backend".
 
-torch.distributed.device_mesh.init_device_mesh(*device_type*, *mesh_shape*, ***, *mesh_dim_names=None*, *backend_override=None*)[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/device_mesh.py#L1640)
+torch.distributed.device_mesh.init_device_mesh(*device_type*, *mesh_shape*, ***, *mesh_dim_names=None*, *backend_override=None*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/device_mesh.py#L1640)
 
 Initializes a DeviceMesh based on device_type, mesh_shape, and mesh_dim_names parameters.
 
@@ -425,7 +428,7 @@ Example:
 >>> mesh_2d = init_device_mesh("cuda", mesh_shape=(2, 8), mesh_dim_names=("dp", "tp"))
 ```
 
-torch.distributed.is_initialized()[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/distributed_c10d.py#L2101)
+torch.distributed.is_initialized()[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/distributed_c10d.py#L2117)
 
 Check if the default process group has been initialized.
 
@@ -433,7 +436,7 @@ Return type:
 
 [bool](https://docs.python.org/3/builtins/functions.html#bool)
 
-torch.distributed.is_mpi_available()[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/distributed_c10d.py#L2038)
+torch.distributed.is_mpi_available()[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/distributed_c10d.py#L2054)
 
 Check if the MPI backend is available.
 
@@ -441,7 +444,7 @@ Return type:
 
 [bool](https://docs.python.org/3/builtins/functions.html#bool)
 
-torch.distributed.is_nccl_available()[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/distributed_c10d.py#L2043)
+torch.distributed.is_nccl_available()[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/distributed_c10d.py#L2059)
 
 Check if the NCCL backend is available.
 
@@ -449,7 +452,7 @@ Return type:
 
 [bool](https://docs.python.org/3/builtins/functions.html#bool)
 
-torch.distributed.is_gloo_available()[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/distributed_c10d.py#L2048)
+torch.distributed.is_gloo_available()[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/distributed_c10d.py#L2064)
 
 Check if the Gloo backend is available.
 
@@ -457,7 +460,7 @@ Return type:
 
 [bool](https://docs.python.org/3/builtins/functions.html#bool)
 
-torch.distributed.distributed_c10d.is_xccl_available()[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/distributed_c10d.py#L2058)
+torch.distributed.distributed_c10d.is_xccl_available()[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/distributed_c10d.py#L2074)
 
 Check if the XCCL backend is available.
 
@@ -465,7 +468,7 @@ Return type:
 
 [bool](https://docs.python.org/3/builtins/functions.html#bool)
 
-torch.distributed.distributed_c10d.batch_isend_irecv(*p2p_op_list*)[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/distributed_c10d.py#L3862)
+torch.distributed.distributed_c10d.batch_isend_irecv(*p2p_op_list*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/distributed_c10d.py#L3882)
 
 Send or Receive a batch of tensors asynchronously and return a list of requests.
 
@@ -526,7 +529,7 @@ this API call; otherwise, the behavior is undefined. If this API call is
 not the first collective call in the `group`, batched P2P operations
 involving only a subset of ranks of the `group` are allowed.
 
-torch.distributed.distributed_c10d.destroy_process_group(*group=None*)[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/distributed_c10d.py#L3202)
+torch.distributed.distributed_c10d.destroy_process_group(*group=None*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/distributed_c10d.py#L3222)
 
 Destroy a given process group, and deinitialize the distributed package.
 
@@ -537,7 +540,7 @@ group.WORLD is given, all process
 groups including the default one will
 be destroyed.
 
-torch.distributed.distributed_c10d.is_backend_available(*backend*)[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/distributed_c10d.py#L2076)
+torch.distributed.distributed_c10d.is_backend_available(*backend*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/distributed_c10d.py#L2092)
 
 Check backend availability.
 
@@ -556,7 +559,7 @@ Return type:
 
 [bool](https://docs.python.org/3/builtins/functions.html#bool)
 
-torch.distributed.distributed_c10d.irecv(*tensor*, *src=None*, *group=None*, *tag=0*, *group_src=None*)[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/distributed_c10d.py#L3523)
+torch.distributed.distributed_c10d.irecv(*tensor*, *src=None*, *group=None*, *tag=0*, *group_src=None*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/distributed_c10d.py#L3543)
 
 Receives a tensor asynchronously.
 
@@ -585,7 +588,7 @@ Return type:
 
 *Work* | None
 
-torch.distributed.distributed_c10d.is_gloo_available()[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/distributed_c10d.py#L2048)
+torch.distributed.distributed_c10d.is_gloo_available()[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/distributed_c10d.py#L2064)
 
 Check if the Gloo backend is available.
 
@@ -593,7 +596,7 @@ Return type:
 
 [bool](https://docs.python.org/3/builtins/functions.html#bool)
 
-torch.distributed.distributed_c10d.is_initialized()[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/distributed_c10d.py#L2101)
+torch.distributed.distributed_c10d.is_initialized()[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/distributed_c10d.py#L2117)
 
 Check if the default process group has been initialized.
 
@@ -601,7 +604,7 @@ Return type:
 
 [bool](https://docs.python.org/3/builtins/functions.html#bool)
 
-torch.distributed.distributed_c10d.is_mpi_available()[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/distributed_c10d.py#L2038)
+torch.distributed.distributed_c10d.is_mpi_available()[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/distributed_c10d.py#L2054)
 
 Check if the MPI backend is available.
 
@@ -609,7 +612,7 @@ Return type:
 
 [bool](https://docs.python.org/3/builtins/functions.html#bool)
 
-torch.distributed.distributed_c10d.is_nccl_available()[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/distributed_c10d.py#L2043)
+torch.distributed.distributed_c10d.is_nccl_available()[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/distributed_c10d.py#L2059)
 
 Check if the NCCL backend is available.
 
@@ -617,7 +620,7 @@ Return type:
 
 [bool](https://docs.python.org/3/builtins/functions.html#bool)
 
-torch.distributed.distributed_c10d.is_torchelastic_launched()[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/distributed_c10d.py#L2106)
+torch.distributed.distributed_c10d.is_torchelastic_launched()[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/distributed_c10d.py#L2122)
 
 Check whether this process was launched with `torch.distributed.elastic` (aka torchelastic).
 
@@ -631,7 +634,7 @@ Return type:
 
 [bool](https://docs.python.org/3/builtins/functions.html#bool)
 
-torch.distributed.distributed_c10d.is_ucc_available()[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/distributed_c10d.py#L2053)
+torch.distributed.distributed_c10d.is_ucc_available()[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/distributed_c10d.py#L2069)
 
 Check if the UCC backend is available.
 
@@ -639,7 +642,7 @@ Return type:
 
 [bool](https://docs.python.org/3/builtins/functions.html#bool)
 
-torch.distributed.is_torchelastic_launched()[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/distributed_c10d.py#L2106)
+torch.distributed.is_torchelastic_launched()[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/distributed_c10d.py#L2122)
 
 Check whether this process was launched with `torch.distributed.elastic` (aka torchelastic).
 
@@ -653,7 +656,7 @@ Return type:
 
 [bool](https://docs.python.org/3/builtins/functions.html#bool)
 
-torch.distributed.get_default_backend_for_device(*device*)[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/distributed_c10d.py#L2262)
+torch.distributed.get_default_backend_for_device(*device*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/distributed_c10d.py#L2278)
 
 Return the default backend for the given device.
 
@@ -761,7 +764,7 @@ operations.
 Once `torch.distributed.init_process_group()` was run, the following functions can be used. To
 check whether the process group has already been initialized use `torch.distributed.is_initialized()`.
 
-*class*torch.distributed.Backend(*name*)[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/distributed_c10d.py#L542)
+*class*torch.distributed.Backend(*name*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/distributed_c10d.py#L558)
 
 An enum-like class for backends.
 
@@ -785,7 +788,7 @@ Return type:
 
 [str](https://docs.python.org/3/builtins/stdtypes.html#str)
 
-*classmethod*register_backend(*name*, *func*, *extended_api=False*, *devices=None*, ***, *_backend_type=None*)[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/distributed_c10d.py#L648)
+*classmethod*register_backend(*name*, *func*, *extended_api=False*, *devices=None*, ***, *_backend_type=None*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/distributed_c10d.py#L664)
 
 Register a new backend with the given name and instantiating function.
 
@@ -812,7 +815,7 @@ Note
 
 This support of 3rd party backend is experimental and subject to change.
 
-torch.distributed.get_backend(*group=None*)[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/distributed_c10d.py#L2178)
+torch.distributed.get_backend(*group=None*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/distributed_c10d.py#L2194)
 
 Return the backend of the given process group.
 
@@ -830,7 +833,7 @@ Return type:
 
 [str](https://docs.python.org/3/builtins/stdtypes.html#str)
 
-torch.distributed.get_backend_impl(*group=None*, *device=None*) → torch._C._distributed_c10d.Backend[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/distributed_c10d.py#L2204)
+torch.distributed.get_backend_impl(*group=None*, *device=None*) → torch._C._distributed_c10d.Backend[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/distributed_c10d.py#L2220)
 
 Return the underlying backend implementation of the given process group.
 
@@ -862,7 +865,7 @@ Return type:
 
 torch._C._distributed_c10d.Backend
 
-torch.distributed.get_backend_config(*group=None*)[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/distributed_c10d.py#L2158)
+torch.distributed.get_backend_config(*group=None*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/distributed_c10d.py#L2174)
 
 Return the backend configuration of the given process group.
 
@@ -880,7 +883,7 @@ Return type:
 
 [str](https://docs.python.org/3/builtins/stdtypes.html#str)
 
-torch.distributed.get_rank(*group=None*)[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/distributed_c10d.py#L3420)
+torch.distributed.get_rank(*group=None*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/distributed_c10d.py#L3440)
 
 Return the rank of the current process in the provided `group`, default otherwise.
 
@@ -902,7 +905,7 @@ Return type:
 
 [int](https://docs.python.org/3/builtins/functions.html#int)
 
-torch.distributed.get_world_size(*group=None*)[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/distributed_c10d.py#L3447)
+torch.distributed.get_world_size(*group=None*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/distributed_c10d.py#L3467)
 
 Return the number of processes in the current process group.
 
@@ -924,7 +927,7 @@ torch.distributed.get_debug_level() → torch._C._distributed_c10d.DebugLevel
 
 Gets the debug level of the torch.distributed package.
 
-torch.distributed.get_node_local_rank(*fallback_rank=None*)[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/distributed_c10d.py#L2330)
+torch.distributed.get_node_local_rank(*fallback_rank=None*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/distributed_c10d.py#L2346)
 
 Return the local rank of the current process relative to the node.
 
@@ -943,7 +946,7 @@ Return type:
 
 [int](https://docs.python.org/3/builtins/functions.html#int)
 
-torch.distributed.get_pg_count()[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/distributed_c10d.py#L2322)
+torch.distributed.get_pg_count()[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/distributed_c10d.py#L2338)
 
 Return the number of process groups.
 
@@ -951,7 +954,7 @@ Return type:
 
 [int](https://docs.python.org/3/builtins/functions.html#int)
 
-torch.distributed.set_timeout(*timeout*, *group=None*)[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/distributed_c10d.py#L2380)
+torch.distributed.set_timeout(*timeout*, *group=None*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/distributed_c10d.py#L2396)
 
 Set the default timeout for all future operations on a process group.
 
@@ -1003,7 +1006,7 @@ Example::
 The context manager and the backend's `_supports_time_estimate` capability probe are
 experimental and may change without notice.
 
-torch.distributed.distributed_c10d._time_estimator(*group=None*, *device=None*) → Iterator[_TimeEstimator][[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/distributed_c10d.py#L3812)
+torch.distributed.distributed_c10d._time_estimator(*group=None*, *device=None*) → Iterator[_TimeEstimator][[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/distributed_c10d.py#L3832)
 
 Estimate the execution time of collectives without running them.
 
@@ -1048,7 +1051,7 @@ Examples:
 
 ### Fault-tolerant reconfiguration
 
-torch.distributed.distributed_c10d._supports_reconfigure(*group=None*)[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/distributed_c10d.py#L8156)
+torch.distributed.distributed_c10d._supports_reconfigure(*group=None*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/distributed_c10d.py#L8176)
 
 Return whether `group` supports the reconfigure-based fault tolerance API.
 
@@ -1065,7 +1068,7 @@ Return type:
 
 [bool](https://docs.python.org/3/builtins/functions.html#bool)
 
-torch.distributed.distributed_c10d._get_reconfigure_handle(*group=None*)[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/distributed_c10d.py#L8171)
+torch.distributed.distributed_c10d._get_reconfigure_handle(*group=None*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/distributed_c10d.py#L8191)
 
 Return an opaque reconfigure handle for `group`.
 
@@ -1085,7 +1088,7 @@ Return type:
 
 [str](https://docs.python.org/3/builtins/stdtypes.html#str)
 
-torch.distributed.distributed_c10d._reconfigure(*uuid*, *handles*, *group=None*, *timeout=None*, *hints=None*)[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/distributed_c10d.py#L8189)
+torch.distributed.distributed_c10d._reconfigure(*uuid*, *handles*, *group=None*, *timeout=None*, *hints=None*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/distributed_c10d.py#L8209)
 
 Reconfigure `group` with a new set of peers for fault tolerance.
 
@@ -1163,7 +1166,7 @@ used to create new groups, with arbitrary subsets of all processes. It returns
 an opaque group handle that can be given as a `group` argument to all collectives
 (collectives are distributed functions to exchange information in certain well-known programming patterns).
 
-torch.distributed.new_group(*ranks=None*, *timeout=None*, *backend=None*, *pg_options=None*, *use_local_synchronization=False*, *group_desc=None*, *device_id=None*, *sort_ranks=True*)[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/distributed_c10d.py#L7022)
+torch.distributed.new_group(*ranks=None*, *timeout=None*, *backend=None*, *pg_options=None*, *use_local_synchronization=False*, *group_desc=None*, *device_id=None*, *sort_ranks=True*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/distributed_c10d.py#L7042)
 
 Create a new distributed group.
 
@@ -1252,7 +1255,7 @@ per-peer, lazily-initialized group (a dedicated comm + stream per send/recv
 peer, like `ProcessGroupNCCL`) so concurrent P2P to different peers can
 overlap; pass the default / `"nccl"` backend for an eager group.
 
-torch.distributed.distributed_c10d.shrink_group(*ranks_to_exclude*, *group=None*, *shrink_flags=0*, *pg_options=None*)[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/distributed_c10d.py#L7592)
+torch.distributed.distributed_c10d.shrink_group(*ranks_to_exclude*, *group=None*, *shrink_flags=0*, *pg_options=None*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/distributed_c10d.py#L7612)
 
 Shrinks a process group by excluding specified ranks.
 
@@ -1299,7 +1302,7 @@ must not participate in the shrink operation.
 - Shrinking the default group destroys all other process groups since
 rank reassignment makes them inconsistent.
 
-torch.distributed.get_group_rank(*group*, *global_rank*)[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/distributed_c10d.py#L1813)
+torch.distributed.get_group_rank(*group*, *global_rank*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/distributed_c10d.py#L1829)
 
 Translate a global rank into a group rank.
 
@@ -1320,7 +1323,7 @@ Return type:
 
 N.B. calling this function on the default process group returns identity
 
-torch.distributed.get_global_rank(*group*, *group_rank*)[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/distributed_c10d.py#L1841)
+torch.distributed.get_global_rank(*group*, *group_rank*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/distributed_c10d.py#L1857)
 
 Translate a group rank into a global rank.
 
@@ -1341,7 +1344,7 @@ Return type:
 
 N.B. calling this function on the default process group returns identity
 
-torch.distributed.get_process_group_ranks(*group*)[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/distributed_c10d.py#L1879)
+torch.distributed.get_process_group_ranks(*group*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/distributed_c10d.py#L1895)
 
 Get all ranks associated with `group`.
 
@@ -1358,7 +1361,7 @@ Return type:
 
 [list](https://docs.python.org/3/builtins/stdtypes.html#list)[[int](https://docs.python.org/3/builtins/functions.html#int)]
 
-torch.distributed.split_group(*parent_pg=None*, *split_ranks=None*, *timeout=None*, *pg_options=None*, *group_desc=None*, *backend=None*)[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/distributed_c10d.py#L6760)
+torch.distributed.split_group(*parent_pg=None*, *split_ranks=None*, *timeout=None*, *pg_options=None*, *group_desc=None*, *backend=None*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/distributed_c10d.py#L6780)
 
 Create a new process group split from the given parent process group.
 
@@ -1445,7 +1448,7 @@ how to set up the ranks correctly for different sub process groups, and it helps
 distributed process group easily. `init_device_mesh()` function can be
 used to create new DeviceMesh, with a mesh shape describing the device topology.
 
-*class*torch.distributed.device_mesh.DeviceMesh(*device_type*, *mesh=None*, ***, *mesh_dim_names=None*, *backend_override=None*, *preserve_rank_order=False*, *_init_backend=True*, *_rank=None*, *_layout=None*, *_rank_map=None*, *_root_mesh=None*)[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/device_mesh.py#L188)
+*class*torch.distributed.device_mesh.DeviceMesh(*device_type*, *mesh=None*, ***, *mesh_dim_names=None*, *backend_override=None*, *preserve_rank_order=False*, *_init_backend=True*, *_rank=None*, *_layout=None*, *_rank_map=None*, *_root_mesh=None*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/device_mesh.py#L188)
 
 DeviceMesh represents a mesh of devices, where layout of devices could be
 represented as a n-d dimension array, and each value of the n-d dimensional
@@ -1507,7 +1510,7 @@ Example:
 >>> mesh = DeviceMesh(device_type="cuda", mesh=[[0, 1, 2, 3],[4, 5, 6, 7]])
 ```
 
-abort()[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/device_mesh.py#L910)
+abort()[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/device_mesh.py#L910)
 
 Abort all process groups associated with this DeviceMesh.
 
@@ -1529,7 +1532,7 @@ process group.
 
 Returns the device type of the mesh.
 
-*static*from_group(*group*, *device_type*, *mesh=None*, ***, *mesh_dim_names=None*)[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/device_mesh.py#L1191)
+*static*from_group(*group*, *device_type*, *mesh=None*, ***, *mesh_dim_names=None*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/device_mesh.py#L1191)
 
 Constructs a `DeviceMesh` with `device_type` from an
 existing `ProcessGroup` or a list of existing `ProcessGroup`.
@@ -1569,7 +1572,7 @@ Return type:
 
 DeviceMesh
 
-get_all_groups()[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/device_mesh.py#L901)
+get_all_groups()[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/device_mesh.py#L901)
 
 Returns a list of ProcessGroups for all mesh dimensions.
 
@@ -1581,7 +1584,7 @@ Return type:
 
 [list](https://docs.python.org/3/builtins/stdtypes.html#list)[*ProcessGroup*]
 
-get_coordinate()[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/device_mesh.py#L1371)
+get_coordinate()[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/device_mesh.py#L1371)
 
 Return the relative indices of this rank relative to all
 dimensions of the mesh. If this rank is not part of the mesh, return None.
@@ -1590,7 +1593,7 @@ Return type:
 
 [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[int](https://docs.python.org/3/builtins/functions.html#int), ...] | None
 
-get_group(*mesh_dim=None*)[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/device_mesh.py#L846)
+get_group(*mesh_dim=None*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/device_mesh.py#L846)
 
 Returns the single ProcessGroup specified by mesh_dim, or, if mesh_dim is not specified and the
 DeviceMesh is 1-dimensional, returns the only ProcessGroup in the mesh.
@@ -1608,7 +1611,7 @@ Return type:
 
 *ProcessGroup*
 
-get_local_rank(*mesh_dim=None*)[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/device_mesh.py#L1308)
+get_local_rank(*mesh_dim=None*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/device_mesh.py#L1308)
 
 Returns the local rank of the given mesh_dim of the DeviceMesh.
 
@@ -1644,7 +1647,7 @@ Example:
 >>> mesh = DeviceMesh(device_type="cuda", mesh=[[0, 1, 2, 3],[4, 5, 6, 7]])
 ```
 
-get_rank()[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/device_mesh.py#L1302)
+get_rank()[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/device_mesh.py#L1302)
 
 Returns the current global rank.
 
@@ -1662,7 +1665,7 @@ Returns the names of mesh dimensions.
 
 ## Point-to-point communication
 
-torch.distributed.send(*tensor*, *dst=None*, *group=None*, *tag=0*, *group_dst=None*)[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/distributed_c10d.py#L3580)
+torch.distributed.send(*tensor*, *dst=None*, *group=None*, *tag=0*, *group_dst=None*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/distributed_c10d.py#L3600)
 
 Send a tensor synchronously.
 
@@ -1680,7 +1683,7 @@ the default process group will be used.
 - **tag** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - Tag to match send with remote recv
 - **group_dst** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - Destination rank on `group`. Invalid to specify both `dst` and `group_dst`.
 
-torch.distributed.recv(*tensor*, *src=None*, *group=None*, *tag=0*, *group_src=None*)[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/distributed_c10d.py#L3624)
+torch.distributed.recv(*tensor*, *src=None*, *group=None*, *tag=0*, *group_src=None*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/distributed_c10d.py#L3644)
 
 Receives a tensor synchronously.
 
@@ -1715,7 +1718,7 @@ as they should never be created manually, but they are guaranteed to support two
 - `wait()` - will block the process until the operation is finished.
 `is_completed()` is guaranteed to return True once it returns.
 
-torch.distributed.isend(*tensor*, *dst=None*, *group=None*, *tag=0*, *group_dst=None*)[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/distributed_c10d.py#L3466)
+torch.distributed.isend(*tensor*, *dst=None*, *group=None*, *tag=0*, *group_dst=None*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/distributed_c10d.py#L3486)
 
 Send a tensor asynchronously.
 
@@ -1748,7 +1751,7 @@ Return type:
 
 *Work* | None
 
-torch.distributed.irecv(*tensor*, *src=None*, *group=None*, *tag=0*, *group_src=None*)[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/distributed_c10d.py#L3523)
+torch.distributed.irecv(*tensor*, *src=None*, *group=None*, *tag=0*, *group_src=None*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/distributed_c10d.py#L3543)
 
 Receives a tensor asynchronously.
 
@@ -1777,7 +1780,7 @@ Return type:
 
 *Work* | None
 
-torch.distributed.send_object_list(*object_list*, *dst=None*, *group=None*, *device=None*, *group_dst=None*, *use_batch=False*, *weights_only=False*)[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/distributed_c10d.py#L4609)
+torch.distributed.send_object_list(*object_list*, *dst=None*, *group=None*, *device=None*, *group_dst=None*, *use_batch=False*, *weights_only=False*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/distributed_c10d.py#L4629)
 
 Sends picklable objects in `object_list` synchronously.
 
@@ -1861,7 +1864,7 @@ Example::
 ['foo', 12, {1: 2}]
 ```
 
-torch.distributed.recv_object_list(*object_list*, *src=None*, *group=None*, *device=None*, *group_src=None*, *use_batch=False*, *weights_only=False*)[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/distributed_c10d.py#L4736)
+torch.distributed.recv_object_list(*object_list*, *src=None*, *group=None*, *device=None*, *group_src=None*, *use_batch=False*, *weights_only=False*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/distributed_c10d.py#L4756)
 
 Receives picklable objects in `object_list` synchronously.
 
@@ -1943,7 +1946,7 @@ Example::
 ['foo', 12, {1: 2}]
 ```
 
-torch.distributed.batch_isend_irecv(*p2p_op_list*)[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/distributed_c10d.py#L3862)
+torch.distributed.batch_isend_irecv(*p2p_op_list*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/distributed_c10d.py#L3882)
 
 Send or Receive a batch of tensors asynchronously and return a list of requests.
 
@@ -2004,7 +2007,7 @@ this API call; otherwise, the behavior is undefined. If this API call is
 not the first collective call in the `group`, batched P2P operations
 involving only a subset of ranks of the `group` are allowed.
 
-*class*torch.distributed.P2POp(*op*, *tensor*, *peer=None*, *group=None*, *tag=0*, *group_peer=None*)[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/distributed_c10d.py#L1249)
+*class*torch.distributed.P2POp(*op*, *tensor*, *peer=None*, *group=None*, *tag=0*, *group_peer=None*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/distributed_c10d.py#L1265)
 
 A class to build point-to-point operations for `batch_isend_irecv`.
 
@@ -2082,7 +2085,7 @@ if rank == 0:
 
 ## Collective functions
 
-torch.distributed.broadcast(*tensor*, *src=None*, *group=None*, *async_op=False*, *group_src=None*)[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/distributed_c10d.py#L3959)
+torch.distributed.broadcast(*tensor*, *src=None*, *group=None*, *async_op=False*, *group_src=None*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/distributed_c10d.py#L3979)
 
 Broadcasts the tensor to the whole group.
 
@@ -2109,7 +2112,7 @@ Return type:
 
 *Work* | None
 
-torch.distributed.broadcast_object_list(*object_list*, *src=None*, *group=None*, *device=None*, *group_src=None*, *weights_only=False*)[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/distributed_c10d.py#L4886)
+torch.distributed.broadcast_object_list(*object_list*, *src=None*, *group=None*, *device=None*, *group_src=None*, *weights_only=False*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/distributed_c10d.py#L4906)
 
 Broadcasts picklable objects in `object_list` to the whole group.
 
@@ -2196,7 +2199,7 @@ Example::
 ['foo', 12, {1: 2}]
 ```
 
-torch.distributed.all_reduce(*tensor: [Tensor](tensors.html#torch.Tensor)*, *op: _ReduceOp = ReduceOp.SUM*, *group: ProcessGroup | [None](https://docs.python.org/3/builtins/constants.html#None) = None*, ***, *async_op: Literal[True]*) → Work[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/distributed_c10d.py#L4049)
+torch.distributed.all_reduce(*tensor: [Tensor](tensors.html#torch.Tensor)*, *op: _ReduceOp = ReduceOp.SUM*, *group: ProcessGroup | [None](https://docs.python.org/3/builtins/constants.html#None) = None*, ***, *async_op: Literal[True]*) → Work[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/distributed_c10d.py#L4069)
 
 torch.distributed.all_reduce(*tensor: [Tensor](tensors.html#torch.Tensor)*, *op: _ReduceOp = ReduceOp.SUM*, *group: ProcessGroup | [None](https://docs.python.org/3/builtins/constants.html#None) = None*, *async_op: [bool](https://docs.python.org/3/builtins/functions.html#bool) = False*) → Work | [None](https://docs.python.org/3/builtins/constants.html#None)
 
@@ -2253,7 +2256,7 @@ tensor([4.+4.j, 6.+6.j], device='cuda:0') # Rank 0
 tensor([4.+4.j, 6.+6.j], device='cuda:1') # Rank 1
 ```
 
-torch.distributed.all_reduce_coalesced(*tensors*, *op=<RedOpType.SUM: 0>*, *group=None*, *async_op=False*)[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/distributed_c10d.py#L4156)
+torch.distributed.all_reduce_coalesced(*tensors*, *op=<RedOpType.SUM: 0>*, *group=None*, *async_op=False*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/distributed_c10d.py#L4176)
 
 WARNING: at this time individual shape checking is not implemented across nodes.
 
@@ -2292,7 +2295,7 @@ Return type:
 
 *Future* | None
 
-torch.distributed.reduce(*tensor*, *dst=None*, *op=<RedOpType.SUM: 0>*, *group=None*, *async_op=False*, *group_dst=None*)[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/distributed_c10d.py#L4241)
+torch.distributed.reduce(*tensor*, *dst=None*, *op=<RedOpType.SUM: 0>*, *group=None*, *async_op=False*, *group_dst=None*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/distributed_c10d.py#L4261)
 
 Reduces the tensor data across all machines.
 
@@ -2321,7 +2324,7 @@ Return type:
 
 *Work* | None
 
-torch.distributed.all_gather(*tensor_list: [list](https://docs.python.org/3/builtins/stdtypes.html#list)[[Tensor](tensors.html#torch.Tensor)]*, *tensor: [Tensor](tensors.html#torch.Tensor)*, *group: ProcessGroup | C10DBackend | [None](https://docs.python.org/3/builtins/constants.html#None) = None*, ***, *async_op: Literal[True]*) → Work[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/distributed_c10d.py#L5190)
+torch.distributed.all_gather(*tensor_list: [list](https://docs.python.org/3/builtins/stdtypes.html#list)[[Tensor](tensors.html#torch.Tensor)]*, *tensor: [Tensor](tensors.html#torch.Tensor)*, *group: ProcessGroup | C10DBackend | [None](https://docs.python.org/3/builtins/constants.html#None) = None*, ***, *async_op: Literal[True]*) → Work[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/distributed_c10d.py#L5210)
 
 torch.distributed.all_gather(*tensor_list: [list](https://docs.python.org/3/builtins/stdtypes.html#list)[[Tensor](tensors.html#torch.Tensor)]*, *tensor: [Tensor](tensors.html#torch.Tensor)*, *group: ProcessGroup | C10DBackend | [None](https://docs.python.org/3/builtins/constants.html#None) = None*, *async_op: [bool](https://docs.python.org/3/builtins/functions.html#bool) = False*) → Work | [None](https://docs.python.org/3/builtins/constants.html#None)
 
@@ -2387,7 +2390,7 @@ tensor([3.+3.j, 4.+4.j], device='cuda:1') # Rank 1
 [tensor([1.+1.j, 2.+2.j], device='cuda:1'), tensor([3.+3.j, 4.+4.j], device='cuda:1')] # Rank 1
 ```
 
-torch.distributed.all_gather_single(*output_tensor*, *input_tensor*, *group=None*, *async_op=False*)[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/distributed_c10d.py#L5298)
+torch.distributed.all_gather_single(*output_tensor*, *input_tensor*, *group=None*, *async_op=False*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/distributed_c10d.py#L5318)
 
 Gather tensors from all ranks and put them in a single output tensor.
 
@@ -2445,7 +2448,7 @@ tensor([[1, 2],
  [3, 4]], device='cuda:1') # Rank 1
 ```
 
-torch.distributed.all_gather_object(*object_list*, *obj*, *group=None*, *weights_only=False*)[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/distributed_c10d.py#L4359)
+torch.distributed.all_gather_object(*object_list*, *obj*, *group=None*, *weights_only=False*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/distributed_c10d.py#L4379)
 
 Gathers picklable objects from the whole group into a list.
 
@@ -2522,7 +2525,7 @@ Example::
 ['foo', 12, {1: 2}]
 ```
 
-torch.distributed.all_gather_coalesced(*output_tensor_lists*, *input_tensor_list*, *group=None*, *async_op=False*)[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/distributed_c10d.py#L5465)
+torch.distributed.all_gather_coalesced(*output_tensor_lists*, *input_tensor_list*, *group=None*, *async_op=False*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/distributed_c10d.py#L5485)
 
 Gathers input tensors from the whole group in a list in a coalesced manner.
 
@@ -2578,7 +2581,7 @@ erroneous outputs. This lack of shape checking results in significant
 performance improvements but users of this function should take extra care
 to ensure that each node passes in tensors whose shapes match across nodes.
 
-torch.distributed.gather(*tensor*, *gather_list=None*, *dst=None*, *group=None*, *async_op=False*, *group_dst=None*)[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/distributed_c10d.py#L5591)
+torch.distributed.gather(*tensor*, *gather_list=None*, *dst=None*, *group=None*, *async_op=False*, *group_dst=None*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/distributed_c10d.py#L5611)
 
 Gathers a list of tensors in a single process.
 
@@ -2628,7 +2631,7 @@ Example::
 None # Rank 1
 ```
 
-torch.distributed.gather_single(*tensor*, *gather_tensor=None*, *dst=None*, *group=None*, *async_op=False*, *group_dst=None*)[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/distributed_c10d.py#L5696)
+torch.distributed.gather_single(*tensor*, *gather_tensor=None*, *dst=None*, *group=None*, *async_op=False*, *group_dst=None*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/distributed_c10d.py#L5716)
 
 Gather the input tensor from all ranks into a single output tensor on `dst`.
 
@@ -2683,7 +2686,7 @@ tensor([1, 2, 3, 4], device='cuda:0') # Rank 0
 None # Rank 1
 ```
 
-torch.distributed.gather_object(*obj*, *object_gather_list=None*, *dst=None*, *group=None*, *group_dst=None*, *weights_only=False*)[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/distributed_c10d.py#L4468)
+torch.distributed.gather_object(*obj*, *object_gather_list=None*, *dst=None*, *group=None*, *group_dst=None*, *weights_only=False*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/distributed_c10d.py#L4488)
 
 Gathers picklable objects from the whole group in a single process.
 
@@ -2768,7 +2771,7 @@ Example::
 ['foo', 12, {1: 2}]
 ```
 
-torch.distributed.scatter(*tensor*, *scatter_list=None*, *src=None*, *group=None*, *async_op=False*, *group_src=None*)[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/distributed_c10d.py#L5823)
+torch.distributed.scatter(*tensor*, *scatter_list=None*, *src=None*, *group=None*, *async_op=False*, *group_src=None*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/distributed_c10d.py#L5843)
 
 Scatters a list of tensors to all processes in a group.
 
@@ -2825,7 +2828,7 @@ tensor([1., 1.], device='cuda:0') # Rank 0
 tensor([5., 5.], device='cuda:1') # Rank 1
 ```
 
-torch.distributed.scatter_object_list(*scatter_object_output_list*, *scatter_object_input_list=None*, *src=None*, *group=None*, *group_src=None*, *weights_only=False*)[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/distributed_c10d.py#L5029)
+torch.distributed.scatter_object_list(*scatter_object_output_list*, *scatter_object_input_list=None*, *src=None*, *group=None*, *group_src=None*, *weights_only=False*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/distributed_c10d.py#L5049)
 
 Scatters picklable objects in `scatter_object_input_list` to the whole group.
 
@@ -2904,7 +2907,7 @@ Example::
 [{1: 2}]
 ```
 
-torch.distributed.reduce_scatter(*output: [Tensor](tensors.html#torch.Tensor)*, *input_list: [list](https://docs.python.org/3/builtins/stdtypes.html#list)[[Tensor](tensors.html#torch.Tensor)]*, *op: _ReduceOp = ReduceOp.SUM*, *group: ProcessGroup | [None](https://docs.python.org/3/builtins/constants.html#None) = None*, ***, *async_op: Literal[True]*) → Work[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/distributed_c10d.py#L5963)
+torch.distributed.reduce_scatter(*output: [Tensor](tensors.html#torch.Tensor)*, *input_list: [list](https://docs.python.org/3/builtins/stdtypes.html#list)[[Tensor](tensors.html#torch.Tensor)]*, *op: _ReduceOp = ReduceOp.SUM*, *group: ProcessGroup | [None](https://docs.python.org/3/builtins/constants.html#None) = None*, ***, *async_op: Literal[True]*) → Work[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/distributed_c10d.py#L5983)
 
 torch.distributed.reduce_scatter(*output: [Tensor](tensors.html#torch.Tensor)*, *input_list: [list](https://docs.python.org/3/builtins/stdtypes.html#list)[[Tensor](tensors.html#torch.Tensor)]*, *op: _ReduceOp = ReduceOp.SUM*, *group: ProcessGroup | [None](https://docs.python.org/3/builtins/constants.html#None) = None*, *async_op: [bool](https://docs.python.org/3/builtins/functions.html#bool) = False*) → Work | [None](https://docs.python.org/3/builtins/constants.html#None)
 
@@ -2926,7 +2929,7 @@ Returns:
 Async work handle, if async_op is set to True.
 None, if not async_op or if not part of the group.
 
-torch.distributed.reduce_scatter_single(*output: [Tensor](tensors.html#torch.Tensor)*, *input: [Tensor](tensors.html#torch.Tensor)*, *op: _ReduceOp = ReduceOp.SUM*, *group: ProcessGroup | [None](https://docs.python.org/3/builtins/constants.html#None) = None*, ***, *async_op: Literal[True]*) → Work[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/distributed_c10d.py#L6046)
+torch.distributed.reduce_scatter_single(*output: [Tensor](tensors.html#torch.Tensor)*, *input: [Tensor](tensors.html#torch.Tensor)*, *op: _ReduceOp = ReduceOp.SUM*, *group: ProcessGroup | [None](https://docs.python.org/3/builtins/constants.html#None) = None*, ***, *async_op: Literal[True]*) → Work[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/distributed_c10d.py#L6066)
 
 torch.distributed.reduce_scatter_single(*output: [Tensor](tensors.html#torch.Tensor)*, *input: [Tensor](tensors.html#torch.Tensor)*, *op: _ReduceOp = ReduceOp.SUM*, *group: ProcessGroup | [None](https://docs.python.org/3/builtins/constants.html#None) = None*, *async_op: [bool](https://docs.python.org/3/builtins/functions.html#bool) = False*) → Work | [None](https://docs.python.org/3/builtins/constants.html#None)
 
@@ -2982,7 +2985,7 @@ tensor([0, 2], device='cuda:0') # Rank 0
 tensor([4, 6], device='cuda:1') # Rank 1
 ```
 
-torch.distributed.all_to_all_single(*output*, *input*, *output_split_sizes=None*, *input_split_sizes=None*, *group=None*, *async_op=False*)[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/distributed_c10d.py#L6207)
+torch.distributed.all_to_all_single(*output*, *input*, *output_split_sizes=None*, *input_split_sizes=None*, *group=None*, *async_op=False*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/distributed_c10d.py#L6227)
 
 Split input tensor and then scatter the split list to all processes in a group.
 
@@ -3089,7 +3092,7 @@ tensor([3+3j, 7+7j, 11+11j, 15+15j]) # Rank 2
 tensor([4+4j, 8+8j, 12+12j, 16+16j]) # Rank 3
 ```
 
-torch.distributed.all_to_all(*output_tensor_list*, *input_tensor_list*, *group=None*, *async_op=False*)[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/distributed_c10d.py#L6357)
+torch.distributed.all_to_all(*output_tensor_list*, *input_tensor_list*, *group=None*, *async_op=False*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/distributed_c10d.py#L6377)
 
 Scatters list of input tensors to all processes in a group and return gathered list of tensors in output list.
 
@@ -3195,7 +3198,7 @@ tensor([30, 31, 32, 33, 34, 35, 36]) # Rank 3
 [tensor([4+4j]), tensor([8+8j]), tensor([12+12j]), tensor([16+16j])] # Rank 3
 ```
 
-torch.distributed.barrier(*group: ProcessGroup | [None](https://docs.python.org/3/builtins/constants.html#None) = GroupMember.WORLD*, ***, *async_op: Literal[True]*, *device_ids: [list](https://docs.python.org/3/builtins/stdtypes.html#list)[[int](https://docs.python.org/3/builtins/functions.html#int)] | [None](https://docs.python.org/3/builtins/constants.html#None) = None*, *timeout: timedelta | [None](https://docs.python.org/3/builtins/constants.html#None) = None*) → Work[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/distributed_c10d.py#L6519)
+torch.distributed.barrier(*group: ProcessGroup | [None](https://docs.python.org/3/builtins/constants.html#None) = GroupMember.WORLD*, ***, *async_op: Literal[True]*, *device_ids: [list](https://docs.python.org/3/builtins/stdtypes.html#list)[[int](https://docs.python.org/3/builtins/functions.html#int)] | [None](https://docs.python.org/3/builtins/constants.html#None) = None*, *timeout: timedelta | [None](https://docs.python.org/3/builtins/constants.html#None) = None*) → Work[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/distributed_c10d.py#L6539)
 
 torch.distributed.barrier(*group: ProcessGroup | [None](https://docs.python.org/3/builtins/constants.html#None) = GroupMember.WORLD*, *async_op: [bool](https://docs.python.org/3/builtins/functions.html#bool) = False*, *device_ids: [list](https://docs.python.org/3/builtins/stdtypes.html#list)[[int](https://docs.python.org/3/builtins/functions.html#int)] | [None](https://docs.python.org/3/builtins/constants.html#None) = None*, *timeout: timedelta | [None](https://docs.python.org/3/builtins/constants.html#None) = None*) → Work | [None](https://docs.python.org/3/builtins/constants.html#None)
 
@@ -3230,7 +3233,7 @@ device_ids arg of barrier if not None, (2) the device passed to init_process_gro
 that was first used with this process group, if another collective with tensor inputs has been performed, (4)
 the device index indicated by the global rank mod local device count.
 
-torch.distributed.monitored_barrier(*group=None*, *timeout=None*, *wait_all_ranks=False*)[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/distributed_c10d.py#L6597)
+torch.distributed.monitored_barrier(*group=None*, *timeout=None*, *wait_all_ranks=False*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/distributed_c10d.py#L6617)
 
 Synchronize processes similar to `torch.distributed.barrier`, but consider a configurable timeout.
 
@@ -4018,7 +4021,7 @@ with torch.profiler():
 
 Please refer to the [profiler documentation](https://pytorch.org/docs/main/profiler.html) for a full overview of profiler features.
 
-torch.distributed.distributed_c10d.record_comm(*name*)[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/distributed_c10d.py#L8131)
+torch.distributed.distributed_c10d.record_comm(*name*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/distributed_c10d.py#L8151)
 
 Context manager to set a custom profiling name for communication collectives.
 
@@ -4385,11 +4388,11 @@ write to a networked filesystem. See
 [pytorch/pytorch#12042](https://github.com/pytorch/pytorch/issues/12042) for an example of
 how things can go wrong if you don't do this correctly.
 
-torch.distributed.launch.launch(*args*)[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/launch.py#L183)
+torch.distributed.launch.launch(*args*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/launch.py#L183)
 
-torch.distributed.launch.main(*args=None*)[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/launch.py#L191)
+torch.distributed.launch.main(*args=None*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/launch.py#L191)
 
-torch.distributed.launch.parse_args(*args*)[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/launch.py#L168)
+torch.distributed.launch.parse_args(*args*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/launch.py#L168)
 
 ## Spawn utility
 
@@ -4641,7 +4644,7 @@ Note
 
 This is an experimental feature and may change at any time.
 
-torch.distributed.debug.start_debug_server(*port=25999*, *worker_port=0*, *start_method=None*, *dump_dir=None*, *dump_interval=60.0*, *enabled_dumps=None*, *handlers=None*, *fetch_timeout=60.0*)[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/debug/__init__.py#L27)
+torch.distributed.debug.start_debug_server(*port=25999*, *worker_port=0*, *start_method=None*, *dump_dir=None*, *dump_interval=60.0*, *enabled_dumps=None*, *handlers=None*, *fetch_timeout=60.0*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/debug/__init__.py#L27)
 
 Start the debug server stack on all workers. The frontend debug server is
 only started on rank0 while the per rank worker servers are started on all
@@ -4685,7 +4688,7 @@ the default handlers.
 workers. Defaults to 60. Workers that don't respond within this time
 will be reported as unavailable.
 
-torch.distributed.debug.stop_debug_server()[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/debug/__init__.py#L130)
+torch.distributed.debug.stop_debug_server()[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/debug/__init__.py#L130)
 
 Shutdown the debug server and stop the frontend debug server process.
 
@@ -5132,7 +5135,7 @@ Exception raised when an error occurs in the distributed store
 
 If you are running single node training, it may be convenient to interactively breakpoint your script. We offer a way to conveniently breakpoint a single rank:
 
-torch.distributed.breakpoint(*rank=0*, *skip=0*, *timeout_s=3600*)[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/__init__.py#L122)
+torch.distributed.breakpoint(*rank=0*, *skip=0*, *timeout_s=3600*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/__init__.py#L122)
 
 Set a breakpoint, but only on a single rank. All other ranks will wait for you to be
 done with the breakpoint before continuing.
@@ -5155,11 +5158,11 @@ Warning
 
 This module is experimental and subject to change.
 
-torch.distributed._watchdog.shutdown()[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/_watchdog.py#L392)
+torch.distributed._watchdog.shutdown()[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/_watchdog.py#L392)
 
 Shut down the watchdog singleton. After this, _get_watchdog() creates a fresh instance.
 
-torch.distributed._watchdog.stream_timeout(*timeout*, *callback=None*)[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/_watchdog.py#L461)
+torch.distributed._watchdog.stream_timeout(*timeout*, *callback=None*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/_watchdog.py#L461)
 
 Record a CUDA event and fire callback if the stream hasn't completed by deadline.
 
@@ -5181,7 +5184,7 @@ handle = stream_timeout(60.0)
 handle.cancel()
 ```
 
-torch.distributed._watchdog.cpu_timeout(*timeout*, *callback=None*)[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/_watchdog.py#L480)
+torch.distributed._watchdog.cpu_timeout(*timeout*, *callback=None*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/_watchdog.py#L480)
 
 Schedule callback to fire after timeout unless cancelled.
 
@@ -5202,7 +5205,7 @@ blocking_rendezvous_call()
 handle.cancel()
 ```
 
-torch.distributed._watchdog.op_timeout(*timeout*, *callback=None*)[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/_watchdog.py#L498)
+torch.distributed._watchdog.op_timeout(*timeout*, *callback=None*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/_watchdog.py#L498)
 
 CPU timeout guards the block; stream timeout monitors GPU work after exit.
 
@@ -5218,7 +5221,7 @@ Return type:
 
 [*Generator*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Generator)[None, None, None]
 
-torch.distributed.collective_utils.all_gather_object_enforce_type(*pg*, *object_list*, *obj*, *type_checker=<function <lambda>>*)[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/collective_utils.py#L205)
+torch.distributed.collective_utils.all_gather_object_enforce_type(*pg*, *object_list*, *obj*, *type_checker=<function <lambda>>*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/collective_utils.py#L205)
 
 Similar to plain all_gather_object but with additional type checking
 AFTER gather is done to ensure basic consistency.
@@ -5232,8 +5235,316 @@ The default check does not check sub type (considered different)
 or covariance (considered same) but users can pass in custom checker
 if more complicated check is needed.
 
-torch.distributed.launcher.api.launch_agent(*config*, *entrypoint*, *args*, *health_check_server=None*)[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/distributed/launcher/api.py#L244)
+torch.distributed.launcher.api.launch_agent(*config*, *entrypoint*, *args*, *health_check_server=None*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/launcher/api.py#L244)
 
 Return type:
 
 [dict](https://docs.python.org/3/builtins/stdtypes.html#dict)[[int](https://docs.python.org/3/builtins/functions.html#int), [*Any*](https://docs.python.org/3/library/typing.html#typing.Any)]
+
+### One-sided tensor transports (experimental)
+
+`torch.distributed._transport` moves registered tensor byte ranges between
+independently managed workers. It does not require a process group, global rank
+assignment, or matching receives.
+
+An endpoint connects to one peer. Exchange `bind()` bytes and remote memory
+descriptors through a trusted application control plane. Exchange descriptors only with authorized peers. A write copies from a local view to the remote base; a read
+copies from the remote base to a writable local view. Offsets and lengths are bytes;
+shape and dtype agreement is the application's responsibility.
+
+Synchronous reads/writes return zero; `async_op=True` returns
+`torch.distributed.Work`. Successful completion means the transfer completed,
+not that the remote application consumed or acknowledged the data. Asyncio callers
+can use `read_async`, `write_async`, or `wait_all`. Registration remains valid
+until unregistration or close, and tensors must not be resized or have their storage replaced.
+
+CUDA stream semantics, graph capture, tracing, batching, remote slicing, and
+rank-based bootstrap helpers are outside this initial API. Rank-to-endpoint
+lookup belongs in a separate control-plane adapter. Descriptor classes define explicit `serialize()`/`deserialize()` methods.
+The built-in backends declare their fields in a versioned JSON envelope; binary
+metadata is base64-encoded. Unknown fields, versions, backends, and invalid field
+types are rejected. Tensor contents and native handles are never serialized.
+
+torch.distributed._transport.new_transport(*backend*, *device=None*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/_transport/_registry.py#L72)
+
+Construct a one-sided transport, optionally restricting tensor devices.
+
+Parameters:
+
+- **backend** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - Name registered with `register_transport` or an installed
+`torch.distributed.transports` entry point.
+- **device** ([*torch.device*](tensor_attributes.html#torch.device)*|*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*|**None*) - Optional CPU/CUDA device restriction; otherwise infer each tensor's
+device at registration.
+- ****kwargs** (*Any*) - Options forwarded to the selected backend's constructor.
+Backend modules are imported only when selected.
+
+Return type:
+
+Transport
+
+Example:
+
+```
+import torch
+from torch.distributed._transport import new_transport
+
+backend = "my_backend" # An installed or process-registered backend.
+
+# Both endpoints are shown locally. Across processes, exchange bind()
+# results and remote descriptors through your application's control plane.
+with (
+ new_transport(backend, "cpu") as trainer,
+ new_transport(backend, "cpu") as replica,
+):
+ trainer_url, replica_url = trainer.bind(), replica.bind()
+ trainer.connect(replica_url)
+ replica.connect(trainer_url)
+ weights = torch.arange(8, dtype=torch.float32)
+ received = torch.empty_like(weights)
+ source = trainer.register_memory(weights)
+ target = replica.register_memory(received)
+ descriptor = target.to_remote_buffer()
+ # Exchange these bytes through the application control plane.
+ remote = type(descriptor).deserialize(descriptor.serialize())
+ work = trainer.write(source.to_view(), remote, async_op=True)
+ work.wait()
+ torch.testing.assert_close(received, weights)
+ # Coordinate with peers before closing either endpoint.
+
+# Inside an asyncio application, after registration and metadata exchange:
+async def push_weights(trainer, source, remote):
+ await trainer.write_async(source.to_view(), remote, timeout=30.0)
+ # Coordinate with peers before cleanup; cancellation does not cancel DMA.
+ await trainer.close_async(timeout=30.0)
+```
+
+*class*torch.distributed._transport.Transport(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/_transport/_api.py#L60)
+
+Base class for one-sided tensor transports.
+
+`read` and `write` return zero on synchronous success. With
+`async_op=True`, they return a `torch.distributed.Work` whose
+`wait` blocks until completion and propagates transfer errors.
+`is_completed` includes failed operations. Work futures resolve to an
+empty list on success.
+
+`read_async` and `write_async` are asyncio coroutines. Cancellation or
+timeout may leave transfers pending. `wait_all` awaits their completion
+futures without blocking the event loop.
+
+Operations use byte ranges, not tensor shapes or dtypes. One endpoint has
+one outgoing peer; no process group, ranks, or matching receives are needed.
+Exchange connection bytes and remote descriptors through a trusted control
+plane. Registration is valid until unregistration or close, including after bind/connect.
+
+`timeout` is a nonnegative, finite number of seconds; `None` selects the
+backend default. A timeout bounds the caller's wait, not the transfer's
+lifetime: it does not cancel DMA. Pending work retains its local buffers.
+After a timeout, wait for the Work or successfully close the transport before
+reusing buffers. A timed-out close rejects new operations but retains resources
+until close is retried successfully.
+Independent transfers may overlap; wait before submitting dependent or
+overlapping reads/writes. There is no implicit completion ordering.
+
+Never resize, replace storage, or modify buffers while registered/exposed to
+a peer. The application must coordinate remote access and notify peers before
+unregistering memory or closing; local completion does not establish that a peer has stopped accessing
+this endpoint. Descriptors are invalid after unregistration or their owner closes.
+CUDA stream, graph capture, and tracing semantics are not part of this API.
+
+*abstract*bind(***, *timeout=None*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/_transport/_api.py#L110)
+
+Bind the endpoint and return its opaque connection URL.
+
+Return type:
+
+[bytes](https://docs.python.org/3/builtins/stdtypes.html#bytes)
+
+*abstract*close(***, *timeout=None*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/_transport/_api.py#L215)
+
+Drain outstanding operations and release transport resources.
+
+*async*close_async(***, *timeout=None*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/_transport/_api.py#L219)
+
+Await cleanup when supported by the backend.
+
+Unlike `close`, this must not block the event loop while waiting for
+transfers. Blocking prototype backends do not implement this method.
+
+*abstract*connect(*peer_url*, ***, *timeout=None*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/_transport/_api.py#L114)
+
+Connect to a bound peer and return zero on success.
+
+Rank-to-endpoint lookup belongs in a separate application control-plane
+adapter; this interface addresses peers using opaque connection bytes.
+
+Return type:
+
+[int](https://docs.python.org/3/builtins/functions.html#int)
+
+*abstract*connected()[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/_transport/_api.py#L122)
+
+Return whether the endpoint is connected to its peer.
+
+Return type:
+
+[bool](https://docs.python.org/3/builtins/functions.html#bool)
+
+*abstract*read(*local_buffer*, *remote_buffer*, ***, *async_op=False*, *timeout=None*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/_transport/_api.py#L160)
+
+Read into a local view; return Work for async_op=True, otherwise zero.
+
+Return type:
+
+[int](https://docs.python.org/3/builtins/functions.html#int) | *Work*
+
+*async*read_async(*local_buffer*, *remote_buffer*, ***, *timeout=None*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/_transport/_api.py#L193)
+
+Read into a local view, yielding to asyncio until the transfer finishes.
+
+*abstract*register_memory(*tensor*, ***, *timeout=None*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/_transport/_api.py#L126)
+
+Register a contiguous tensor, including after bind/connect or transfers.
+
+Exchange its remote-buffer descriptor with the peer before remote access.
+
+Return type:
+
+*Memory*
+
+*abstract static*supported()[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/_transport/_api.py#L105)
+
+Return whether the transport can be used in this process.
+
+Return type:
+
+[bool](https://docs.python.org/3/builtins/functions.html#bool)
+
+unregister_memory(*memory*, ***, *timeout=None*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/_transport/_api.py#L135)
+
+Unregister memory after coordinating with peers to stop remote access.
+
+Wait for locally submitted transfers using this registration first.
+Reused registrations share one lifetime: unregistering any handle
+invalidates all aliases, existing views, and exported descriptors.
+Register the tensor again and exchange fresh descriptors before reuse.
+Repeating unregistration on the same handle is a no-op while open.
+Backends without this operation raise `NotImplementedError`.
+
+*abstract*write(*local_buffer*, *remote_buffer*, ***, *async_op=False*, *timeout=None*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/_transport/_api.py#L149)
+
+Write a local view; return Work for async_op=True, otherwise zero.
+
+Return type:
+
+[int](https://docs.python.org/3/builtins/functions.html#int) | *Work*
+
+*async*write_async(*local_buffer*, *remote_buffer*, ***, *timeout=None*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/_transport/_api.py#L171)
+
+Write a local view, yielding to asyncio until the transfer finishes.
+
+*class*torch.distributed._transport.Memory(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/_transport/_api.py#L45)
+
+Memory registered with a transport.
+
+*class*torch.distributed._transport.MemoryView(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/_transport/_api.py#L14)
+
+A read-only view of registered memory.
+
+*class*torch.distributed._transport.MutableMemoryView(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/_transport/_api.py#L21)
+
+A view explicitly permitting writes to its registered memory.
+
+*class*torch.distributed._transport.RemoteBuffer(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/_transport/_api.py#L29)
+
+A backend-defined wire descriptor, excluding tensor contents/native handles.
+
+Exchange `serialize()` bytes and reconstruct them with the matching backend
+descriptor class's `deserialize()`. Decoders validate their schema and
+version without executing code or importing classes named by the payload.
+Descriptors grant memory access: exchange them only with authorized peers.
+
+*async*torch.distributed._transport.wait_all(*works*, ***, *timeout=None*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/_transport/_work.py#L64)
+
+Await Work futures without blocking the asyncio loop.
+
+Timeout and cancellation stop waiting, not transfers. Retain buffers and
+wait again (or close the transport) before reusing them. Transfer errors and
+iterable errors are reported after draining submitted work, unless this wait
+is timed out or cancelled first. Each Work must support `get_future`.
+This adapter does not select CUDA streams or establish consumer-stream
+ordering; callers must follow their backend's CUDA synchronization contract.
+
+torch.distributed._transport.available_transports()[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/_transport/_registry.py#L65)
+
+Return registered and discoverable transport names.
+
+Return type:
+
+[tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[str](https://docs.python.org/3/builtins/stdtypes.html#str), ...]
+
+torch.distributed._transport.register_transport(*name*, *factory*, ***, *replace=False*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/_transport/_registry.py#L20)
+
+Register a transport factory for this process.
+
+#### NIXL backend
+
+The initial backend is NIXL, installed separately with `pip install nixl`.
+Its default UCX plugin supports CPU and CUDA memory, subject to the installed
+NIXL/UCX build and hardware.
+
+`unregister_memory(memory)` deregisters a local allocation without closing the
+transport. Wait for local transfers first and coordinate with peers to stop remote
+access; the backend cannot detect incoming DMA. All handles sharing a registration,
+including previously created views and exported descriptors, become invalid.
+Register again and exchange fresh descriptors before resuming transfers.
+
+NIXL transfers return Work objects that retain their request handles until
+completion. `wait_all`, `read_async`, and `write_async` await Work futures.
+The NIXL adapter resolves those futures by checking native transfer status.
+Each live transfer owns a distinct request handle.
+Independent requests may overlap; explicitly wait before issuing dependent or
+overlapping reads/writes. Completion ordering is not implicit.
+
+NIXL's default wait timeout is 30 seconds. `timeout` is in seconds; `None`
+selects the backend default and zero polls without waiting. `Work.wait` instead
+takes a `datetime.timedelta`; its zero default selects the transfer's timeout.
+Timeout and asyncio cancellation stop waiting, not DMA. The transport retains
+pending requests and buffers, even if the caller drops its Work. Wait again or
+successfully close before reusing buffers. Coordinate with peers before closing
+exposed memory; close only drains locally submitted operations.
+
+`NIXLTransport.close_async` awaits pending transfers before native cleanup.
+A timed-out or cancelled close rejects new work and retains resources; retry
+close to finish cleanup. Registrations keep the transport alive even after its last outgoing transfer,
+because peers may still access exposed memory. Forgotten registrations may retain
+resources indefinitely:
+call `unregister_memory` or `close` after coordinating with peers.
+Checking `is_completed` also releases completed requests.
+For pending NIXL work, `get_future` requires a running asyncio loop; the loop
+must remain running to drive that future. Completed work needs no event loop.
+
+Native metadata, registration, request submission, status checks, and cleanup
+calls execute synchronously on the calling thread. Their timeouts bound lock
+acquisition and transfer completion waits, not execution inside NIXL. Python
+cannot interrupt a blocked native call, even when it releases the GIL.
+
+*class*torch.distributed._transport.nixl.NIXLTransport(*device=None*, ***, *plugin='UCX'*, *agent_name=None*, *num_threads=0*, *enable_prog_thread=True*, *capture_telemetry=False*, *backend_options=None*, *timeout=30.0*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/_transport/nixl/_transport.py#L41)
+
+One-sided tensor transport backed by a NIXL plugin.
+
+Backend options accepted by `new_transport()` include `plugin="UCX"`,
+`agent_name=None`, `num_threads=0`, `enable_prog_thread=True`,
+`capture_telemetry=False`, `backend_options=None`, and `timeout=30.0`.
+`backend_options` maps plugin parameter names to strings and is forwarded
+to NIXL's `create_backend`. NIXL is an optional dependency, imported only
+when selected. Transfers require registered views; raw tensors are rejected
+rather than allocated or registered implicitly.
+
+*async*close_async(***, *timeout=None*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/distributed/_transport/nixl/_transport.py#L451)
+
+Await outstanding DMA before synchronous native resource cleanup.
+
+Cancellation/timeout retains resources and rejects new submissions.
+Retry close after pending work completes. Native cleanup is not
+interruptible; peer access must already have been stopped externally.

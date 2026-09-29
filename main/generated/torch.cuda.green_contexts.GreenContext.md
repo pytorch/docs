@@ -1,6 +1,6 @@
 # GreenContext
 
-*class*torch.cuda.green_contexts.GreenContext(***, *num_sms=None*, *sm_partition=None*, *workqueue_scope=None*, *workqueue_concurrency_limit=None*, *device_id=None*)[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/cuda/green_contexts.py#L268)
+*class*torch.cuda.green_contexts.GreenContext(***, *num_sms=None*, *sm_partition=None*, *workqueue_scope=None*, *workqueue_concurrency_limit=None*, *device_id=None*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/cuda/green_contexts.py#L268)
 
 Wrapper around a CUDA green context.
 
@@ -22,7 +22,7 @@ Green-context streams are custom CUDA streams. Synchronization with other
 streams is the user's responsibility and should be handled with CUDA events,
 as with any other custom stream.
 
-Stream()[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/cuda/green_contexts.py#L639)
+Stream()[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/cuda/green_contexts.py#L639)
 
 Return a CUDA stream associated with this green context.
 
@@ -34,7 +34,7 @@ Return type:
 
 [*Stream*](torch.cuda.streams.Stream.html#torch.cuda.streams.Stream)
 
-*static*create(***, *num_sms=None*, *sm_partition=None*, *workqueue_scope=None*, *workqueue_concurrency_limit=None*, *device_id=None*)[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/cuda/green_contexts.py#L531)
+*static*create(***, *num_sms=None*, *sm_partition=None*, *workqueue_scope=None*, *workqueue_concurrency_limit=None*, *device_id=None*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/cuda/green_contexts.py#L531)
 
 Create a CUDA green context.
 
@@ -48,7 +48,7 @@ Return type:
 
 The device index of this green context.
 
-*static*max_workqueue_concurrency(*device_id=None*)[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/cuda/green_contexts.py#L552)
+*static*max_workqueue_concurrency(*device_id=None*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/cuda/green_contexts.py#L552)
 
 Return the maximum workqueue concurrency limit for the device.
 
@@ -65,7 +65,7 @@ Return type:
 
 [int](https://docs.python.org/3/builtins/functions.html#int)
 
-pop_context()[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/cuda/green_contexts.py#L612)
+pop_context()[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/cuda/green_contexts.py#L612)
 
 Assuming the green context is the current context, pop it from the
 context stack and restore the previous context.
@@ -73,7 +73,7 @@ context stack and restore the previous context.
 Deprecated. Create streams with `Stream()` and use
 [`torch.cuda.stream()`](torch.cuda.stream_function.html#torch.cuda.stream) instead.
 
-set_context()[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/cuda/green_contexts.py#L583)
+set_context()[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/cuda/green_contexts.py#L583)
 
 Make the green context the current context.
 
@@ -90,7 +90,7 @@ The context's actual SM resource, which can be subdivided.
 
 The returned resource keeps this context alive while it is in use.
 
-*static*split(***, *num_sms=0*, *coscheduled_sm_count=0*, *preferred_coscheduled_sm_count=0*, *backfill=False*, *workqueue_scope=None*, *workqueue_concurrency_limit=None*, *device_id=None*)[[source]](https://github.com/pytorch/pytorch/blob/2e9b4aff8d49b22bbebf288ccbf63983c51e45f0/torch/cuda/green_contexts.py#L460)
+*static*split(***, *num_sms=0*, *coscheduled_sm_count=0*, *preferred_coscheduled_sm_count=0*, *backfill=False*, *workqueue_scope=None*, *workqueue_concurrency_limit=None*, *device_id=None*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/cuda/green_contexts.py#L460)
 
 Create contexts backed by disjoint SM partitions of a device.
 

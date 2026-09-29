@@ -85,7 +85,7 @@ window.addEventListener("load", () => mermaid.run());
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.15.0a0+git2e9b4af )">
+<meta name="llm:version" content="main (2.15.0a0+gitc8532b3 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -191,7 +191,7 @@ window.addEventListener("load", () => mermaid.run());
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+git2e9b4af )');
+  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+gitc8532b3 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -4225,10 +4225,10 @@ document.write(`
       </ul></li>
       <li><a href="distributed.pipelining.html#torch.distributed.pipelining.schedules.analyze_pipeline_activation_liveness">analyze_pipeline_activation_liveness() (in module torch.distributed.pipelining.schedules)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="nn.attention.flex_attention.html#torch.nn.attention.flex_attention.and_masks">and_masks() (in module torch.nn.attention.flex_attention)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.angle.html#torch.angle">angle() (in module torch)</a>
 
       <ul>
@@ -4897,6 +4897,8 @@ document.write(`
       </ul></li>
       <li><a href="backends.html#torch.backends.python_native.available_dsls">available_dsls (in module torch.backends.python_native)</a>
 </li>
+      <li><a href="distributed.html#torch.distributed._transport.available_transports">available_transports() (in module torch.distributed._transport)</a>
+</li>
       <li><a href="distributed.html#torch.distributed.algorithms.model_averaging.utils.average_parameters">average_parameters() (in module torch.distributed.algorithms.model_averaging.utils)</a>
 </li>
       <li><a href="distributed.html#torch.distributed.algorithms.model_averaging.utils.average_parameters_or_parameter_groups">average_parameters_or_parameter_groups() (in module torch.distributed.algorithms.model_averaging.utils)</a>
@@ -5191,6 +5193,8 @@ document.write(`
         <li><a href="generated/torch.Tensor.bincount.html#torch.Tensor.bincount">(torch.Tensor method)</a>
 </li>
       </ul></li>
+      <li><a href="distributed.html#torch.distributed._transport.Transport.bind">bind() (torch.distributed._transport.Transport method)</a>
+</li>
       <li><a href="generated/torch.fx.experimental.symbolic_shapes.ShapeEnv.html#torch.fx.experimental.symbolic_shapes.ShapeEnv.bind_symbols">bind_symbols() (torch.fx.experimental.symbolic_shapes.ShapeEnv method)</a>
 </li>
       <li><a href="distributions.html#torch.distributions.binomial.Binomial">Binomial (class in torch.distributions.binomial)</a>
@@ -6071,9 +6075,11 @@ document.write(`
 </li>
       <li><a href="elastic/rendezvous.html#torch.distributed.elastic.rendezvous.dynamic_rendezvous.RendezvousTimeout.close">close (torch.distributed.elastic.rendezvous.dynamic_rendezvous.RendezvousTimeout property)</a>
 </li>
-      <li><a href="distributed.checkpoint.html#torch.distributed.checkpoint.staging.AsyncStager.close">close() (torch.distributed.checkpoint.staging.AsyncStager method)</a>
+      <li><a href="distributed.html#torch.distributed._transport.Transport.close">close() (torch.distributed._transport.Transport method)</a>
 
       <ul>
+        <li><a href="distributed.checkpoint.html#torch.distributed.checkpoint.staging.AsyncStager.close">(torch.distributed.checkpoint.staging.AsyncStager method)</a>
+</li>
         <li><a href="distributed.checkpoint.html#torch.distributed.checkpoint.staging.DefaultStager.close">(torch.distributed.checkpoint.staging.DefaultStager method)</a>
 </li>
         <li><a href="user_guide/torch_compiler/export/api_reference.html#torch.export.pt2_archive.PT2ArchiveWriter.close">(torch.export.pt2_archive.PT2ArchiveWriter method)</a>
@@ -6081,6 +6087,12 @@ document.write(`
         <li><a href="package.html#torch.package.PackageExporter.close">(torch.package.PackageExporter method)</a>
 </li>
         <li><a href="tensorboard.html#torch.utils.tensorboard.writer.SummaryWriter.close">(torch.utils.tensorboard.writer.SummaryWriter method)</a>
+</li>
+      </ul></li>
+      <li><a href="distributed.html#torch.distributed._transport.nixl.NIXLTransport.close_async">close_async() (torch.distributed._transport.nixl.NIXLTransport method)</a>
+
+      <ul>
+        <li><a href="distributed.html#torch.distributed._transport.Transport.close_async">(torch.distributed._transport.Transport method)</a>
 </li>
       </ul></li>
       <li><a href="generated/torch.utils.data.datapipes.utils.common.StreamWrapper.html#torch.utils.data.datapipes.utils.common.StreamWrapper.close_streams">close_streams() (torch.utils.data.datapipes.utils.common.StreamWrapper class method)</a>
@@ -6321,12 +6333,16 @@ document.write(`
         <li><a href="torch.html#torch.SymFloat.conjugate">(torch.SymFloat method)</a>
 </li>
       </ul></li>
+      <li><a href="distributed.html#torch.distributed._transport.Transport.connect">connect() (torch.distributed._transport.Transport method)</a>
+</li>
+      <li><a href="distributed.html#torch.distributed._transport.Transport.connected">connected() (torch.distributed._transport.Transport method)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.fx.experimental.unification.multipledispatch.conflict.consistent.html#torch.fx.experimental.unification.multipledispatch.conflict.consistent">consistent() (in module torch.fx.experimental.unification.multipledispatch.conflict)</a>
 </li>
       <li><a href="elastic/metrics.html#torch.distributed.elastic.metrics.api.ConsoleMetricHandler">ConsoleMetricHandler (class in torch.distributed.elastic.metrics.api)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="distributed.optim.html#torch.distributed.optim.ZeroRedundancyOptimizer.consolidate_state_dict">consolidate_state_dict() (torch.distributed.optim.ZeroRedundancyOptimizer method)</a>
 </li>
       <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.const_data_ptr">const_data_ptr() (torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
@@ -10652,10 +10668,10 @@ document.write(`
       </ul></li>
       <li><a href="generated/torch.ao.quantization.fx.utils.get_linear_prepack_op_for_dtype.html#torch.ao.quantization.fx.utils.get_linear_prepack_op_for_dtype">get_linear_prepack_op_for_dtype (class in torch.ao.quantization.fx.utils)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="distributed.html#torch.distributed.device_mesh.DeviceMesh.get_local_rank">get_local_rank() (torch.distributed.device_mesh.DeviceMesh method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="distributed.html#torch.distributed.elastic.utils.log_level.get_log_level">get_log_level() (in module torch.distributed.elastic.utils.log_level)</a>
 </li>
       <li><a href="distributed.html#torch.distributed.elastic.utils.logging.get_logger">get_logger() (in module torch.distributed.elastic.utils.logging)</a>
@@ -10927,6 +10943,8 @@ document.write(`
       <li><a href="package.html#torch.package.PackageExporter.get_unique_id">get_unique_id() (torch.package.PackageExporter method)</a>
 </li>
       <li><a href="notes/serialization.html#torch.serialization.get_unsafe_globals_in_checkpoint">get_unsafe_globals_in_checkpoint() (in module torch.serialization)</a>
+</li>
+      <li><a href="generated/torch.utils.flop_counter.FlopCounterMode.html#torch.utils.flop_counter.FlopCounterMode.get_unsupported_ops">get_unsupported_ops() (torch.utils.flop_counter.FlopCounterMode method)</a>
 </li>
       <li><a href="cuda.tunable.html#torch.cuda.tunable.get_validators">get_validators() (in module torch.cuda.tunable)</a>
 </li>
@@ -14594,6 +14612,8 @@ document.write(`
         <li><a href="generated/torch.xpu.memory.mem_get_info.html#torch.xpu.memory.mem_get_info">(in module torch.xpu.memory)</a>
 </li>
       </ul></li>
+      <li><a href="distributed.html#torch.distributed._transport.Memory">Memory (class in torch.distributed._transport)</a>
+</li>
       <li><a href="generated/torch.accelerator.memory.memory_allocated.html#torch.accelerator.memory.memory_allocated">memory_allocated() (in module torch.accelerator.memory)</a>
 
       <ul>
@@ -14652,6 +14672,8 @@ document.write(`
         <li><a href="generated/torch.xpu.memory_usage.html#torch.xpu.memory_usage">(in module torch.xpu)</a>
 </li>
       </ul></li>
+      <li><a href="distributed.html#torch.distributed._transport.MemoryView">MemoryView (class in torch.distributed._transport)</a>
+</li>
       <li><a href="generated/torch.cuda.memory.MemPool.html#torch.cuda.memory.MemPool">MemPool (class in torch.cuda.memory)</a>
 
       <ul>
@@ -16763,6 +16785,8 @@ document.write(`
 </li>
       <li><a href="generated/torch.optim.functional.muon.html#torch.optim.functional.muon">muon() (in module torch.optim.functional)</a>
 </li>
+      <li><a href="distributed.html#torch.distributed._transport.MutableMemoryView">MutableMemoryView (class in torch.distributed._transport)</a>
+</li>
       <li><a href="generated/torch.mv.html#torch.mv">mv() (in module torch)</a>
 
       <ul>
@@ -17087,10 +17111,10 @@ document.write(`
 </li>
       <li><a href="nested.html#torch.nested.nested_tensor">nested_tensor() (in module torch.nested)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="nested.html#torch.nested.nested_tensor_from_jagged">nested_tensor_from_jagged() (in module torch.nested)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.autograd.function.NestedIOFunction.html#torch.autograd.function.NestedIOFunction">NestedIOFunction (class in torch.autograd.function)</a>
 </li>
       <li><a href="storage.html#torch.UntypedStorage.new">new() (torch.UntypedStorage method)</a>
@@ -17135,6 +17159,8 @@ document.write(`
         <li><a href="generated/torch.Tensor.new_tensor.html#torch.Tensor.new_tensor">(torch.Tensor method)</a>
 </li>
       </ul></li>
+      <li><a href="distributed.html#torch.distributed._transport.new_transport">new_transport() (in module torch.distributed._transport)</a>
+</li>
       <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.new_zeros">new_zeros() (torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
 
       <ul>
@@ -17167,6 +17193,8 @@ document.write(`
         <li><a href="generated/torch.Tensor.nextafter_.html#torch.Tensor.nextafter_">(torch.Tensor method)</a>
 </li>
       </ul></li>
+      <li><a href="distributed.html#torch.distributed._transport.nixl.NIXLTransport">NIXLTransport (class in torch.distributed._transport.nixl)</a>
+</li>
       <li><a href="generated/torch.nn.functional.nll_loss.html#torch.nn.functional.nll_loss">nll_loss() (in module torch.nn.functional)</a>
 </li>
       <li><a href="generated/torch.nn.NLLLoss.html#torch.nn.NLLLoss">NLLLoss (class in torch.nn)</a>
@@ -18539,6 +18567,10 @@ document.write(`
         <li><a href="generated/torch.xpu.XPUGraph.html#torch.xpu.XPUGraph.raw_xpu_graph_exec">(torch.xpu.XPUGraph method)</a>
 </li>
       </ul></li>
+      <li><a href="distributed.html#torch.distributed._transport.Transport.read">read() (torch.distributed._transport.Transport method)</a>
+</li>
+      <li><a href="distributed.html#torch.distributed._transport.Transport.read_async">read_async() (torch.distributed._transport.Transport method)</a>
+</li>
       <li><a href="user_guide/torch_compiler/export/api_reference.html#torch.export.pt2_archive.PT2ArchiveReader.read_bytes">read_bytes() (torch.export.pt2_archive.PT2ArchiveReader method)</a>
 </li>
       <li><a href="distributed.checkpoint.html#torch.distributed.checkpoint.format_utils.BroadcastingTorchSaveReader.read_data">read_data() (torch.distributed.checkpoint.format_utils.BroadcastingTorchSaveReader method)</a>
@@ -18989,6 +19021,8 @@ document.write(`
         <li><a href="generated/torch.optim.swa_utils.AveragedModel.html#torch.optim.swa_utils.AveragedModel.register_load_state_dict_pre_hook">(torch.optim.swa_utils.AveragedModel method)</a>
 </li>
       </ul></li>
+      <li><a href="distributed.html#torch.distributed._transport.Transport.register_memory">register_memory() (torch.distributed._transport.Transport method)</a>
+</li>
       <li><a href="package.html#torch.package.PackageExporter.register_mock_hook">register_mock_hook() (torch.package.PackageExporter method)</a>
 </li>
       <li><a href="generated/torch.nn.Module.html#torch.nn.Module.register_module">register_module() (torch.nn.Module method)</a>
@@ -19321,6 +19355,8 @@ document.write(`
 </li>
       <li><a href="generated/torch.fx.experimental.migrate_gradual_types.constraint_transformation.register_transformation_rule.html#torch.fx.experimental.migrate_gradual_types.constraint_transformation.register_transformation_rule">register_transformation_rule() (in module torch.fx.experimental.migrate_gradual_types.constraint_transformation)</a>
 </li>
+      <li><a href="distributed.html#torch.distributed._transport.register_transport">register_transport() (in module torch.distributed._transport)</a>
+</li>
       <li><a href="library.html#torch.library.register_vmap">register_vmap() (in module torch.library)</a>
 </li>
       <li><a href="generated/torch.fx.experimental.unification.core.reify.html#torch.fx.experimental.unification.core.reify">reify() (in module torch.fx.experimental.unification.core)</a>
@@ -19404,6 +19440,8 @@ document.write(`
 </li>
       </ul></li>
       <li><a href="rpc.html#torch.distributed.nn.api.remote_module.RemoteModule.remote_parameters">remote_parameters() (torch.distributed.nn.api.remote_module.RemoteModule method)</a>
+</li>
+      <li><a href="distributed.html#torch.distributed._transport.RemoteBuffer">RemoteBuffer (class in torch.distributed._transport)</a>
 </li>
       <li><a href="rpc.html#torch.distributed.nn.api.remote_module.RemoteModule">RemoteModule (class in torch.distributed.nn.api.remote_module)</a>
 </li>
@@ -22155,6 +22193,8 @@ document.write(`
         <li><a href="distributions.html#torch.distributions.wishart.Wishart.support">(torch.distributions.wishart.Wishart attribute)</a>
 </li>
       </ul></li>
+      <li><a href="distributed.html#torch.distributed._transport.Transport.supported">supported() (torch.distributed._transport.Transport static method)</a>
+</li>
       <li><a href="profiler.html#torch.profiler.profiler.supported_activities">supported_activities() (in module torch.profiler.profiler)</a>
 </li>
       <li><a href="generated/torch.fx.experimental.symbolic_shapes.ShapeEnv.html#torch.fx.experimental.symbolic_shapes.ShapeEnv.suppress_guards">suppress_guards() (torch.fx.experimental.symbolic_shapes.ShapeEnv method)</a>
@@ -25612,8 +25652,6 @@ document.write(`
         <li><a href="user_guide/torch_compiler/export/api_reference.html#module-torch.export.unflatten">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     torch.fft
 
@@ -25621,6 +25659,8 @@ document.write(`
         <li><a href="fft.html#module-torch.fft">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="type_info.html#torch.torch.finfo">torch.finfo (class in torch)</a>
 </li>
       <li>
@@ -28691,6 +28731,8 @@ document.write(`
 </li>
       <li><a href="generated/torch.fx.experimental.validator.TranslationValidator.html#torch.fx.experimental.validator.TranslationValidator">TranslationValidator (class in torch.fx.experimental.validator)</a>
 </li>
+      <li><a href="distributed.html#torch.distributed._transport.Transport">Transport (class in torch.distributed._transport)</a>
+</li>
       <li><a href="generated/torch.transpose.html#torch.transpose">transpose() (in module torch)</a>
 
       <ul>
@@ -29021,6 +29063,8 @@ document.write(`
 </li>
       <li><a href="monitor.html#torch.monitor.unregister_event_handler">unregister_event_handler() (in module torch.monitor)</a>
 </li>
+      <li><a href="distributed.html#torch.distributed._transport.Transport.unregister_memory">unregister_memory() (torch.distributed._transport.Transport method)</a>
+</li>
       <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.unsafe_chunk">unsafe_chunk() (torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
 
       <ul>
@@ -29035,10 +29079,10 @@ document.write(`
       </ul></li>
       <li><a href="utils.html#torch.utils.hooks.unserializable_hook">unserializable_hook() (in module torch.utils.hooks)</a>
 </li>
-      <li><a href="distributed.fsdp.fully_shard.html#torch.distributed.fsdp.FSDPModule.unshard">unshard() (torch.distributed.fsdp.FSDPModule method)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="distributed.fsdp.fully_shard.html#torch.distributed.fsdp.FSDPModule.unshard">unshard() (torch.distributed.fsdp.FSDPModule method)</a>
+</li>
       <li><a href="distributed.fsdp.fully_shard.html#torch.distributed.fsdp.UnshardHandle">UnshardHandle (class in torch.distributed.fsdp)</a>
 </li>
       <li><a href="generated/torch.nn.utils.rnn.PackedSequence.html#torch.nn.utils.rnn.PackedSequence.unsorted_indices">unsorted_indices (torch.nn.utils.rnn.PackedSequence attribute)</a>
@@ -29495,8 +29539,12 @@ document.write(`
         <li><a href="generated/torch.xpu.streams.Event.html#torch.xpu.streams.Event.wait">(torch.xpu.streams.Event method)</a>
 </li>
       </ul></li>
-      <li><a href="futures.html#torch.futures.wait_all">wait_all() (in module torch.futures)</a>
+      <li><a href="distributed.html#torch.distributed._transport.wait_all">wait_all() (in module torch.distributed._transport)</a>
+
+      <ul>
+        <li><a href="futures.html#torch.futures.wait_all">(in module torch.futures)</a>
 </li>
+      </ul></li>
       <li><a href="generated/torch.cuda.ExternalStream.html#torch.cuda.ExternalStream.wait_event">wait_event() (torch.cuda.ExternalStream method)</a>
 
       <ul>
@@ -29608,6 +29656,10 @@ document.write(`
       <li><a href="torch.overrides.html#torch.overrides.wrap_torch_function">wrap_torch_function() (in module torch.overrides)</a>
 </li>
       <li><a href="library.html#torch.library.wrap_triton">wrap_triton() (in module torch.library)</a>
+</li>
+      <li><a href="distributed.html#torch.distributed._transport.Transport.write">write() (torch.distributed._transport.Transport method)</a>
+</li>
+      <li><a href="distributed.html#torch.distributed._transport.Transport.write_async">write_async() (torch.distributed._transport.Transport method)</a>
 </li>
       <li><a href="user_guide/torch_compiler/export/api_reference.html#torch.export.pt2_archive.PT2ArchiveWriter.write_bytes">write_bytes() (torch.export.pt2_archive.PT2ArchiveWriter method)</a>
 </li>
