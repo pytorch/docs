@@ -282,7 +282,7 @@ This package adds support for device memory management implemented in CUDA.
 | --- | --- |
 | [`caching_allocator_enable`](generated/torch.cuda.memory.caching_allocator_enable.html#torch.cuda.memory.caching_allocator_enable) | Enable or disable the CUDA memory allocator. |
 
-*class*torch.cuda.use_mem_pool(*pool*, *device=None*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/cuda/memory.py#L1442)
+*class*torch.cuda.use_mem_pool(*pool*, *device=None*)[[source]](https://github.com/pytorch/pytorch/blob/c96c0d945cc30cd4317ca02911049a75e43972b7/torch/cuda/memory.py#L1442)
 
 A context manager that routes allocations to a given pool.
 
@@ -306,7 +306,7 @@ Note
 When used during [`CUDAGraph`](generated/torch.cuda.CUDAGraph.html#torch.cuda.CUDAGraph) capture, the graph
 retains the pool until the graph is reset or destroyed.
 
-torch.cuda.nccl.version()[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/cuda/nccl.py#L35)
+torch.cuda.nccl.version()[[source]](https://github.com/pytorch/pytorch/blob/c96c0d945cc30cd4317ca02911049a75e43972b7/torch/cuda/nccl.py#L35)
 
 Returns the version of the NCCL.
 
@@ -456,10 +456,54 @@ created through the existing `num_sms` constructor. Independent constructor
 calls do not guarantee disjoint SMs. A context's `sm_partition` property returns
 a resource that can be subdivided and keeps its originating context alive.
 
+Locality domains describe hardware topology. With CUDA driver and bindings
+13.4+, add locality constraints when splitting a resource:
+
+```
+from torch.cuda.green_contexts import get_num_locality_domains
+
+n = get_num_locality_domains(device_id=0)
+contexts = GreenContext.split(
+ coscheduled_sm_count=2,
+ locality_domain_ids=tuple(range(n)),
+ device_id=0,
+)
+```
+
+Here, the default zero SM count is broadcast to each locality domain and discovers
+its available SMs. Some device SMs may be outside all locality domains and remain
+unassigned. A domain can contain
+multiple partitions; its ID can also constrain subdivision through an existing
+context's queried SM resource, as shown above. Use `None` for a group with no
+locality constraint. Workqueue settings can be combined with either kind of split.
+
+`backfill=True` permits CUDA to fill a group with SMs outside its co-scheduling
+or locality constraints. It preserves the separation between sibling partitions.
+The `locality_domain_id` property on partitions and contexts reads CUDA's
+reported metadata and returns `None` if CUDA does not specify a domain.
+
+`get_num_locality_domains` returns `1` when the required software is unavailable.
+With CUDA driver and bindings 13.4+, it queries CUDA directly; invalid devices and
+failed queries raise. Supplying an explicit device index initializes only the
+driver, without initializing PyTorch CUDA state or creating a primary context.
+Driver initialization can still prevent CUDA use in subsequently forked children.
+
+`is_localization_supported` returns false for unsupported software or devices
+with at most one domain. Before driver initialization, it attempts a best-effort
+NVML capability check using `CUDA_VISIBLE_DEVICES`. If NVML cannot determine
+support, it raises; initialize CUDA explicitly before querying again if needed.
+After driver initialization, the query always uses CUDA and query errors
+propagate. The predicate does not initialize the driver or a context, so calling
+it does not poison subsequent forks.
+Actual splitting and context creation always use CUDA, independently of this
+capability check.
+
 | [`GreenContext`](generated/torch.cuda.green_contexts.GreenContext.html#torch.cuda.green_contexts.GreenContext) | Wrapper around a CUDA green context. |
 | --- | --- |
 | [`SMPartition`](generated/torch.cuda.green_contexts.SMPartition.html#torch.cuda.green_contexts.SMPartition) | An SM resource selected by CUDA, with its device and allocation metadata. |
+| [`get_num_locality_domains`](generated/torch.cuda.green_contexts.get_num_locality_domains.html#torch.cuda.green_contexts.get_num_locality_domains) | Return the device's locality-domain count reported by CUDA. |
+| [`is_localization_supported`](generated/torch.cuda.green_contexts.is_localization_supported.html#torch.cuda.green_contexts.is_localization_supported) | Return whether the software supports localization on a multi-domain GPU. |
 
-torch.cuda.nccl.is_available(*tensors*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/cuda/nccl.py#L14)
+torch.cuda.nccl.is_available(*tensors*)[[source]](https://github.com/pytorch/pytorch/blob/c96c0d945cc30cd4317ca02911049a75e43972b7/torch/cuda/nccl.py#L14)
 
 This package adds support for NVIDIA Tools Extension (NVTX) used in profiling.

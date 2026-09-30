@@ -61,7 +61,7 @@
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/generated/torch.cuda.green_contexts.SMPartition.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Aliases in torch.cuda" href="../cuda.aliases.html" />
+    <link rel="next" title="torch.cuda.green_contexts.get_num_locality_domains" href="torch.cuda.green_contexts.get_num_locality_domains.html" />
     <link rel="prev" title="GreenContext" href="torch.cuda.green_contexts.GreenContext.html" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -80,7 +80,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.15.0a0+gitc8532b3 )">
+<meta name="llm:version" content="main (2.15.0a0+gitc96c0d9 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -186,7 +186,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+gitc8532b3 )');
+  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+gitc96c0d9 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3506,6 +3506,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.gds.GdsFile.html">GdsFile</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.green_contexts.GreenContext.html">GreenContext</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">SMPartition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.cuda.green_contexts.get_num_locality_domains.html">torch.cuda.green_contexts.get_num_locality_domains</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.cuda.green_contexts.is_localization_supported.html">torch.cuda.green_contexts.is_localization_supported</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../cuda.aliases.html">Aliases in torch.cuda</a></li>
 </ul>
 </details></li>
@@ -3702,7 +3704,7 @@ document.write(`
 <h1>SMPartition<a class="headerlink" href="#smpartition" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.cuda.green_contexts.SMPartition">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.cuda.green_contexts.</span></span><span class="sig-name descname"><span class="pre">SMPartition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_resource</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_device_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_owner</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/cuda/green_contexts.py#L82"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.green_contexts.SMPartition" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.cuda.green_contexts.</span></span><span class="sig-name descname"><span class="pre">SMPartition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_resource</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_device_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_owner</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/c96c0d945cc30cd4317ca02911049a75e43972b7/torch/cuda/green_contexts.py#L267"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.green_contexts.SMPartition" title="Link to this definition">#</a></dt>
 <dd><p>An SM resource selected by CUDA, with its device and allocation metadata.</p>
 <p>Obtain resources with <a class="reference internal" href="#torch.cuda.green_contexts.SMPartition.from_device" title="torch.cuda.green_contexts.SMPartition.from_device"><code class="xref py py-meth docutils literal notranslate"><span class="pre">from_device()</span></code></a>, <a class="reference internal" href="#torch.cuda.green_contexts.SMPartition.split" title="torch.cuda.green_contexts.SMPartition.split"><code class="xref py py-meth docutils literal notranslate"><span class="pre">split()</span></code></a>, or
 <a class="reference internal" href="torch.cuda.green_contexts.GreenContext.html#torch.cuda.green_contexts.GreenContext.sm_partition" title="torch.cuda.green_contexts.GreenContext.sm_partition"><code class="xref py py-attr docutils literal notranslate"><span class="pre">GreenContext.sm_partition</span></code></a>. Construct a <a class="reference internal" href="torch.cuda.green_contexts.GreenContext.html#torch.cuda.green_contexts.GreenContext" title="torch.cuda.green_contexts.GreenContext"><code class="xref py py-class docutils literal notranslate"><span class="pre">GreenContext</span></code></a> with
@@ -3725,7 +3727,7 @@ contexts. Reusing a partition for multiple contexts shares those SMs.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.cuda.green_contexts.SMPartition.from_device">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_device</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/cuda/green_contexts.py#L103"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.green_contexts.SMPartition.from_device" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_device</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/c96c0d945cc30cd4317ca02911049a75e43972b7/torch/cuda/green_contexts.py#L288"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.green_contexts.SMPartition.from_device" title="Link to this definition">#</a></dt>
 <dd><p>Return the full device SM resource.</p>
 <p>Initializes the CUDA driver. If <code class="docutils literal notranslate"><span class="pre">device_id</span></code> is omitted, uses the
 current PyTorch device, initializing PyTorch CUDA state if necessary.</p>
@@ -3737,6 +3739,14 @@ current PyTorch device, initializing PyTorch CUDA state if necessary.</p>
 </dd></dl>
 
 <dl class="py property">
+<dt class="sig sig-object py" id="torch.cuda.green_contexts.SMPartition.locality_domain_id">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">locality_domain_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#torch.cuda.green_contexts.SMPartition.locality_domain_id" title="Link to this definition">#</a></dt>
+<dd><p>The locality domain reported by CUDA, or <code class="docutils literal notranslate"><span class="pre">None</span></code> if unspecified.</p>
+<p>Requires CUDA driver and bindings 13.4+. This reads the resource’s
+metadata rather than inferring a domain from the requested split.</p>
+</dd></dl>
+
+<dl class="py property">
 <dt class="sig sig-object py" id="torch.cuda.green_contexts.SMPartition.sm_count">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sm_count</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></em><a class="headerlink" href="#torch.cuda.green_contexts.SMPartition.sm_count" title="Link to this definition">#</a></dt>
 <dd><p>The actual number of SMs in this resource.</p>
@@ -3744,7 +3754,7 @@ current PyTorch device, initializing PyTorch CUDA state if necessary.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.cuda.green_contexts.SMPartition.split">
-<span class="sig-name descname"><span class="pre">split</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_sms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coscheduled_sm_count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preferred_coscheduled_sm_count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backfill</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/cuda/green_contexts.py#L139"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.green_contexts.SMPartition.split" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">split</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_sms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coscheduled_sm_count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preferred_coscheduled_sm_count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backfill</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">locality_domain_ids</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/c96c0d945cc30cd4317ca02911049a75e43972b7/torch/cuda/green_contexts.py#L340"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.green_contexts.SMPartition.split" title="Link to this definition">#</a></dt>
 <dd><p>Split this resource into disjoint groups and an optional remainder.</p>
 <p>Requires CUDA driver and bindings 13.1+. CUDA checks the requested
 counts and hardware constraints; counts are not automatically rounded.
@@ -3762,8 +3772,11 @@ Default: <code class="docutils literal notranslate"><span class="pre">0</span></
 <li><p><strong>preferred_coscheduled_sm_count</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> or </em><em>sequence</em><em> of </em><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) – Preferred larger grouping size, when CUDA can combine groups.
 Zero selects the CUDA default. Default: <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p></li>
 <li><p><strong>backfill</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em> or </em><em>sequence</em><em> of </em><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – Allow CUDA to fill
-groups with SMs outside complete co-scheduled groupings.
+groups with SMs outside the co-scheduling or locality constraints.
 Default: <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
+<li><p><strong>locality_domain_ids</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>None</em><em>, or </em><em>sequence</em><em> of </em><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> or </em><em>None</em><em>, </em><em>optional</em>) – Select SMs from these locality domains during splitting. <code class="docutils literal notranslate"><span class="pre">None</span></code>
+leaves locality unconstrained. Requires CUDA driver and bindings
+13.4+ when any domain is specified. Default: <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -3852,11 +3865,11 @@ separate splits on the same or overlapping input resources may overlap.</p>
       </div>
     </a>
     <a class="right-next"
-       href="../cuda.aliases.html"
+       href="torch.cuda.green_contexts.get_num_locality_domains.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Aliases in torch.cuda</p>
+        <p class="prev-next-title">torch.cuda.green_contexts.get_num_locality_domains</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -3891,11 +3904,11 @@ separate splits on the same or overlapping input resources may overlap.</p>
       </div>
     </a>
     <a class="right-next"
-       href="../cuda.aliases.html"
+       href="torch.cuda.green_contexts.get_num_locality_domains.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Aliases in torch.cuda</p>
+        <p class="prev-next-title">torch.cuda.green_contexts.get_num_locality_domains</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -3921,6 +3934,7 @@ separate splits on the same or overlapping input resources may overlap.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.cuda.green_contexts.SMPartition.coscheduled_sm_count"><code class="docutils literal notranslate"><span class="pre">SMPartition.coscheduled_sm_count</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.cuda.green_contexts.SMPartition.device_id"><code class="docutils literal notranslate"><span class="pre">SMPartition.device_id</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.cuda.green_contexts.SMPartition.from_device"><code class="docutils literal notranslate"><span class="pre">SMPartition.from_device()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.cuda.green_contexts.SMPartition.locality_domain_id"><code class="docutils literal notranslate"><span class="pre">SMPartition.locality_domain_id</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.cuda.green_contexts.SMPartition.sm_count"><code class="docutils literal notranslate"><span class="pre">SMPartition.sm_count</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.cuda.green_contexts.SMPartition.split"><code class="docutils literal notranslate"><span class="pre">SMPartition.split()</span></code></a></li>
 </ul>
@@ -4161,7 +4175,7 @@ separate splits on the same or overlapping input resources may overlap.</p>
        "headline": "SMPartition",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/generated/torch.cuda.green_contexts.SMPartition.html",
-       "articleBody": "SMPartition# class torch.cuda.green_contexts.SMPartition(_resource, _device_id, _owner=None)[source]# An SM resource selected by CUDA, with its device and allocation metadata. Obtain resources with from_device(), split(), or GreenContext.sm_partition. Construct a GreenContext with sm_partition=partition to run work on the selected SMs. A partition describes a set of SMs; it does not reserve them against other contexts. Reusing a partition for multiple contexts shares those SMs. property coscheduled_sm_count: int# The co-scheduled SM alignment reported by CUDA for this resource. property device_id: int# The device index of this SM resource. classmethod from_device(device_id=None)[source]# Return the full device SM resource. Initializes the CUDA driver. If device_id is omitted, uses the current PyTorch device, initializing PyTorch CUDA state if necessary. Return type: SMPartition property sm_count: int# The actual number of SMs in this resource. split(*, num_sms=0, coscheduled_sm_count=0, preferred_coscheduled_sm_count=0, backfill=False)[source]# Split this resource into disjoint groups and an optional remainder. Requires CUDA driver and bindings 13.1+. CUDA checks the requested counts and hardware constraints; counts are not automatically rounded. A count of zero requests discovery of the largest remaining group satisfying its constraints. Groups are processed in order. Parameters: num_sms (int or sequence of int, optional) \u2013 SM count for each group. Zero requests discovery. Default: 0. coscheduled_sm_count (int or sequence of int, optional) \u2013 Co-scheduled SM grouping size for thread-block clusters. Zero lets CUDA determine cluster capabilities from the selected resources. Default: 0. preferred_coscheduled_sm_count (int or sequence of int, optional) \u2013 Preferred larger grouping size, when CUDA can combine groups. Zero selects the CUDA default. Default: 0. backfill (bool or sequence of bool, optional) \u2013 Allow CUDA to fill groups with SMs outside complete co-scheduled groupings. Default: False. Return type: tuple[tuple[SMPartition, \u2026], SMPartition | None] Each option can be a scalar or a sequence. All sequences must have the same nonzero length; scalars are broadcast to that length. If every option is scalar, the split has one group. An early discovery group can exhaust the SMs needed by later groups. A group with both num_sms=0 and backfill=True consumes all remaining SMs and must be the last group. Returns (partitions, remainder), with None for an empty remainder. The remainder does not inherit the requested alignment. To subdivide a returned partition or remainder, create a GreenContext from it and split the context\u2019s queried sm_partition. CUDA drivers can reject raw split outputs as already partitioned resources. Context creation is explicit. Children are subsets of this resource and overlap it. Siblings from this operation, including the remainder, are disjoint. Results from separate splits on the same or overlapping input resources may overlap. Example: \u003e\u003e\u003e sms = SMPartition.from_device(device_id=0) \u003e\u003e\u003e (first,), rest = sms.split(num_sms=4, coscheduled_sm_count=2) \u003e\u003e\u003e rest_ctx = GreenContext(sm_partition=rest) \u003e\u003e\u003e (second,), rest = rest_ctx.sm_partition.split( ... num_sms=4, coscheduled_sm_count=2 ... )",
+       "articleBody": "SMPartition# class torch.cuda.green_contexts.SMPartition(_resource, _device_id, _owner=None)[source]# An SM resource selected by CUDA, with its device and allocation metadata. Obtain resources with from_device(), split(), or GreenContext.sm_partition. Construct a GreenContext with sm_partition=partition to run work on the selected SMs. A partition describes a set of SMs; it does not reserve them against other contexts. Reusing a partition for multiple contexts shares those SMs. property coscheduled_sm_count: int# The co-scheduled SM alignment reported by CUDA for this resource. property device_id: int# The device index of this SM resource. classmethod from_device(device_id=None)[source]# Return the full device SM resource. Initializes the CUDA driver. If device_id is omitted, uses the current PyTorch device, initializing PyTorch CUDA state if necessary. Return type: SMPartition property locality_domain_id: int | None# The locality domain reported by CUDA, or None if unspecified. Requires CUDA driver and bindings 13.4+. This reads the resource\u2019s metadata rather than inferring a domain from the requested split. property sm_count: int# The actual number of SMs in this resource. split(*, num_sms=0, coscheduled_sm_count=0, preferred_coscheduled_sm_count=0, backfill=False, locality_domain_ids=None)[source]# Split this resource into disjoint groups and an optional remainder. Requires CUDA driver and bindings 13.1+. CUDA checks the requested counts and hardware constraints; counts are not automatically rounded. A count of zero requests discovery of the largest remaining group satisfying its constraints. Groups are processed in order. Parameters: num_sms (int or sequence of int, optional) \u2013 SM count for each group. Zero requests discovery. Default: 0. coscheduled_sm_count (int or sequence of int, optional) \u2013 Co-scheduled SM grouping size for thread-block clusters. Zero lets CUDA determine cluster capabilities from the selected resources. Default: 0. preferred_coscheduled_sm_count (int or sequence of int, optional) \u2013 Preferred larger grouping size, when CUDA can combine groups. Zero selects the CUDA default. Default: 0. backfill (bool or sequence of bool, optional) \u2013 Allow CUDA to fill groups with SMs outside the co-scheduling or locality constraints. Default: False. locality_domain_ids (int, None, or sequence of int or None, optional) \u2013 Select SMs from these locality domains during splitting. None leaves locality unconstrained. Requires CUDA driver and bindings 13.4+ when any domain is specified. Default: None. Return type: tuple[tuple[SMPartition, \u2026], SMPartition | None] Each option can be a scalar or a sequence. All sequences must have the same nonzero length; scalars are broadcast to that length. If every option is scalar, the split has one group. An early discovery group can exhaust the SMs needed by later groups. A group with both num_sms=0 and backfill=True consumes all remaining SMs and must be the last group. Returns (partitions, remainder), with None for an empty remainder. The remainder does not inherit the requested alignment. To subdivide a returned partition or remainder, create a GreenContext from it and split the context\u2019s queried sm_partition. CUDA drivers can reject raw split outputs as already partitioned resources. Context creation is explicit. Children are subsets of this resource and overlap it. Siblings from this operation, including the remainder, are disjoint. Results from separate splits on the same or overlapping input resources may overlap. Example: \u003e\u003e\u003e sms = SMPartition.from_device(device_id=0) \u003e\u003e\u003e (first,), rest = sms.split(num_sms=4, coscheduled_sm_count=2) \u003e\u003e\u003e rest_ctx = GreenContext(sm_partition=rest) \u003e\u003e\u003e (second,), rest = rest_ctx.sm_partition.split( ... num_sms=4, coscheduled_sm_count=2 ... )",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",

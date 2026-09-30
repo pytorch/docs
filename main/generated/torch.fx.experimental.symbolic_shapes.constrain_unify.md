@@ -1,6 +1,6 @@
 # torch.fx.experimental.symbolic_shapes.constrain_unify
 
-torch.fx.experimental.symbolic_shapes.constrain_unify(*a*, *b*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/fx/experimental/symbolic_shapes.py#L1870)
+torch.fx.experimental.symbolic_shapes.constrain_unify(*a*, *b*)[[source]](https://github.com/pytorch/pytorch/blob/c96c0d945cc30cd4317ca02911049a75e43972b7/torch/fx/experimental/symbolic_shapes.py#L1870)
 
 Given two SymInts, constrain them so that they must be equal. NB:
 this will not work with SymInts that represent nontrivial expressions

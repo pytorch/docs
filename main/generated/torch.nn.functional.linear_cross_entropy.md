@@ -1,19 +1,27 @@
 # torch.nn.functional.linear_cross_entropy
 
-torch.nn.functional.linear_cross_entropy(*input*, *linear_weight*, *target*, ***, *linear_bias=None*, *weight=None*, *reduction='mean'*, *ignore_index=None*, *label_smoothing=0.0*, *options=None*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/nn/functional.py#L3761)
+torch.nn.functional.linear_cross_entropy(*input*, *linear_weight*, *target*, ***, *linear_bias=None*, *weight=None*, *reduction='mean'*, *ignore_index=None*, *label_smoothing=0.0*, *options=None*)[[source]](https://github.com/pytorch/pytorch/blob/c96c0d945cc30cd4317ca02911049a75e43972b7/torch/nn/functional.py#L3761)
 
 Compute the cross entropy loss between inputs, transformed linearly, and target.
 
 The statement:
 
 ```
-loss = linear_cross_entropy(input, linear_weight, target, **kwargs)
+loss = linear_cross_entropy(
+ input, linear_weight, target, linear_bias=linear_bias, **kwargs
+)
 ```
 
 is equivalent to the following reference implementation of linear_cross_entropy:
 
 ```
-logits = linear(input, linear_weight)
+C, *out_features, in_features = linear_weight.shape
+logits = linear(
+ input,
+ linear_weight.reshape(-1, in_features),
+ None if linear_bias is None else linear_bias.reshape(-1),
+)
+logits = logits.reshape(*input.shape[:-1], C, *out_features)
 loss = cross_entropy(logits, target, **kwargs)
 ```
 
@@ -106,7 +114,9 @@ The reference path (`options=None`) supports all of the above.
 
 Shape:
 
-- Input: (infeatures)(in_features)(inf​eatures) or (N,in_features)(N, in\_features)(N,in_features).
+- Input: (infeatures)(in_features)(inf​eatures) or (N,in_features)(N, in\_features)(N,in_features). There is
+no (B,T,in_features)(B, T, in\_features)(B,T,in_features) form: flatten sequence inputs to
+(N,in_features)(N, in\_features)(N,in_features) with target (N)(N)(N).
 - Linear weight: (C,in_features)(C, in\_features)(C,in_features) or (C,d1,...,dK,in_features)(C, d_1,
 ..., d_K, in\_features)(C,d1​,...,dK​,in_features) with K≥1K \geq 1K≥1 in the case of
 K-dimensional loss. Note: multi-dimensional weights (K > 0)

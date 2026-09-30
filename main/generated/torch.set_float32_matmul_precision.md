@@ -1,6 +1,6 @@
 # torch.set_float32_matmul_precision
 
-torch.set_float32_matmul_precision(*precision*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/__init__.py#L2008)
+torch.set_float32_matmul_precision(*precision*)[[source]](https://github.com/pytorch/pytorch/blob/c96c0d945cc30cd4317ca02911049a75e43972b7/torch/__init__.py#L2008)
 
 Sets the internal precision of float32 matrix multiplications.
 
@@ -61,6 +61,12 @@ when computing float32 matrix multiplications, equivalent to setting
 torch.backends.cuda.matmul.allow_tf32 = True. When "highest" (the default)
 is set then the float32 datatype is used for internal computations, equivalent
 to setting torch.backends.cuda.matmul.allow_tf32 = False.
+
+Note
+
+The implementation of "high" and "medium" precision in AMD Instinct MI300 series
+devices uses 10 mantissa bits but always rounds down instead of rounding to nearest,
+reducing accuracy slightly and introducing a downward bias. See [TensorFloat-32 (TF32) on AMD Instinct MI300 devices](../notes/numerical_accuracy.html#tf32-on-mi300).
 
 Parameters:
 

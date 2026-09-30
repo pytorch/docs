@@ -1,6 +1,6 @@
 # activation_is_int8_quantized
 
-*class*torch.ao.quantization.utils.activation_is_int8_quantized(*qconfig*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/ao/quantization/utils.py#L307)
+*class*torch.ao.quantization.utils.activation_is_int8_quantized(*qconfig*)[[source]](https://github.com/pytorch/pytorch/blob/c96c0d945cc30cd4317ca02911049a75e43972b7/torch/ao/quantization/utils.py#L307)
 
 Given a qconfig, decide if the activation needs to be
 quantized to int8 or not, this includes quantizing to quint8, qint8

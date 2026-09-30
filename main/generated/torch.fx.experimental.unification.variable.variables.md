@@ -1,6 +1,6 @@
 # torch.fx.experimental.unification.variable.variables
 
-torch.fx.experimental.unification.variable.variables(**variables*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/fx/experimental/unification/variable.py#L67)
+torch.fx.experimental.unification.variable.variables(**variables*)[[source]](https://github.com/pytorch/pytorch/blob/c96c0d945cc30cd4317ca02911049a75e43972b7/torch/fx/experimental/unification/variable.py#L67)
 
 Context manager for logic variables
 

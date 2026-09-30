@@ -1,6 +1,6 @@
 # torch.foreach.erfc
 
-torch.foreach.erfc(*inputs: TensorList*, */*) → [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...][[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/foreach/__init__.py#L424)
+torch.foreach.erfc(*inputs: TensorList*, */*) → [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...][[source]](https://github.com/pytorch/pytorch/blob/c96c0d945cc30cd4317ca02911049a75e43972b7/torch/foreach/__init__.py#L424)
 
 Applies [`torch.erfc()`](torch.erfc.html#torch.erfc) to each tensor in `inputs`.
 

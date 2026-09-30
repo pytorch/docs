@@ -1,8 +1,8 @@
 # DivideByKey
 
-*class*torch.fx.experimental.symbolic_shapes.DivideByKey(*divisor: 'IntLikeType'*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/fx/experimental/symbolic_shapes.py#L1223)
+*class*torch.fx.experimental.symbolic_shapes.DivideByKey(*divisor: 'IntLikeType'*)[[source]](https://github.com/pytorch/pytorch/blob/c96c0d945cc30cd4317ca02911049a75e43972b7/torch/fx/experimental/symbolic_shapes.py#L1223)
 
-get(*o*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/fx/experimental/symbolic_shapes.py#L1230)
+get(*o*)[[source]](https://github.com/pytorch/pytorch/blob/c96c0d945cc30cd4317ca02911049a75e43972b7/torch/fx/experimental/symbolic_shapes.py#L1230)
 
 Divide object by divisor
 

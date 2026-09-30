@@ -1,6 +1,6 @@
 # torch.fx.operator_schemas.type_matches
 
-torch.fx.operator_schemas.type_matches(*signature_type*, *argument_type*)[[source]](https://github.com/pytorch/pytorch/blob/c8532b3e7f0e3aec4bb518524c3ca041e17665aa/torch/fx/operator_schemas.py#L312)
+torch.fx.operator_schemas.type_matches(*signature_type*, *argument_type*)[[source]](https://github.com/pytorch/pytorch/blob/c96c0d945cc30cd4317ca02911049a75e43972b7/torch/fx/operator_schemas.py#L312)
 
 Warning
 
