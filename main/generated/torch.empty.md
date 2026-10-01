@@ -14,6 +14,16 @@ nondeterministic behavior from using the data as an input to an operation.
 Floating point and complex tensors are filled with NaN, and integer tensors
 are filled with the maximum value.
 
+Warning
+
+For `dtype=torch.bool`, the uninitialized bytes may hold values other
+than `0` (`False`) and `1` (`True`), which are not valid booleans.
+The behavior of operations that read such values is undefined: they may be
+preserved as-is or normalized to `1` depending on the operation, device
+and memory layout. Write to the tensor (e.g. with [`fill_()`](torch.Tensor.fill_.html#torch.Tensor.fill_) or
+[`copy_()`](torch.Tensor.copy_.html#torch.Tensor.copy_)) before reading from it, or use [`torch.zeros()`](torch.zeros.html#torch.zeros)
+instead.
+
 Parameters:
 
 **size** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*...*) - a sequence of integers defining the shape of the output tensor.

@@ -1,6 +1,6 @@
 # torch.cuda.graphs.register_graph_instantiate_hook
 
-torch.cuda.graphs.register_graph_instantiate_hook(*fn*)[[source]](https://github.com/pytorch/pytorch/blob/c96c0d945cc30cd4317ca02911049a75e43972b7/torch/cuda/graphs.py#L230)
+torch.cuda.graphs.register_graph_instantiate_hook(*fn*)[[source]](https://github.com/pytorch/pytorch/blob/38cca96300da024842405ecefa081e4761254922/torch/cuda/graphs.py#L230)
 
 Register a hook run with each CUDA graph right after it is instantiated. Returns a
 RemovableHandle; call `.remove()` to unregister.

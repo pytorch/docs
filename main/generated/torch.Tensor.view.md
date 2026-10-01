@@ -86,6 +86,17 @@ Warning
 This overload is not supported by TorchScript, and using it in a Torchscript
 program will cause undefined behavior.
 
+Warning
+
+Viewing a tensor as `torch.bool` reinterprets its bytes without
+converting them. A `torch.bool` tensor must only contain the byte values
+`0` (`False`) and `1` (`True`). If any byte of the viewed data has
+another value, the behavior of operations on the returned tensor is
+undefined: depending on the operation, device and memory layout, such bytes
+may be preserved as-is or normalized to `1`, and eager mode and
+[`torch.compile()`](torch.compile.html#torch.compile) may give different results. To convert values to
+booleans, use [`bool()`](torch.Tensor.bool.html#torch.Tensor.bool) (or `self != 0`) instead.
+
 Parameters:
 
 **dtype** ([`torch.dtype`](../tensor_attributes.html#torch.dtype)) - the desired dtype

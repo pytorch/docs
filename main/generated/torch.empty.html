@@ -80,7 +80,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.15.0a0+gitc96c0d9 )">
+<meta name="llm:version" content="main (2.15.0a0+git38cca96 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -186,7 +186,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+gitc96c0d9 )');
+  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+git38cca96 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -4283,6 +4283,16 @@ nondeterministic behavior from using the data as an input to an operation.
 Floating point and complex tensors are filled with NaN, and integer tensors
 are filled with the maximum value.</p>
 </div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>For <code class="docutils literal notranslate"><span class="pre">dtype=torch.bool</span></code>, the uninitialized bytes may hold values other
+than <code class="docutils literal notranslate"><span class="pre">0</span></code> (<code class="docutils literal notranslate"><span class="pre">False</span></code>) and <code class="docutils literal notranslate"><span class="pre">1</span></code> (<code class="docutils literal notranslate"><span class="pre">True</span></code>), which are not valid booleans.
+The behavior of operations that read such values is undefined: they may be
+preserved as-is or normalized to <code class="docutils literal notranslate"><span class="pre">1</span></code> depending on the operation, device
+and memory layout. Write to the tensor (e.g. with <a class="reference internal" href="torch.Tensor.fill_.html#torch.Tensor.fill_" title="torch.Tensor.fill_"><code class="xref py py-meth docutils literal notranslate"><span class="pre">fill_()</span></code></a> or
+<a class="reference internal" href="torch.Tensor.copy_.html#torch.Tensor.copy_" title="torch.Tensor.copy_"><code class="xref py py-meth docutils literal notranslate"><span class="pre">copy_()</span></code></a>) before reading from it, or use <a class="reference internal" href="torch.zeros.html#torch.zeros" title="torch.zeros"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.zeros()</span></code></a>
+instead.</p>
+</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>size</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>...</em>) – a sequence of integers defining the shape of the output tensor.
@@ -4672,7 +4682,7 @@ returned Tensor. Default: <code class="docutils literal notranslate"><span class
        "headline": "torch.empty",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/generated/torch.empty.html",
-       "articleBody": "torch.empty# torch.empty(*size, *, out=None, dtype=None, layout=torch.strided, device=None, requires_grad=False, pin_memory=False, memory_format=torch.contiguous_format) \u2192 Tensor# Returns a tensor filled with uninitialized data. The shape of the tensor is defined by the variable argument size. Note If torch.use_deterministic_algorithms() and torch.utils.deterministic.fill_uninitialized_memory are both set to True, the output tensor is initialized to prevent any possible nondeterministic behavior from using the data as an input to an operation. Floating point and complex tensors are filled with NaN, and integer tensors are filled with the maximum value. Parameters: size (int...) \u2013 a sequence of integers defining the shape of the output tensor. Can be a variable number of arguments or a collection like a list or tuple. Keyword Arguments: out (Tensor, optional) \u2013 the output tensor. dtype (torch.dtype, optional) \u2013 the desired data type of returned tensor. Default: if None, uses a global default (see torch.set_default_dtype()). layout (torch.layout, optional) \u2013 the desired layout of returned Tensor. Default: torch.strided. device (torch.device, optional) \u2013 the desired device of returned tensor. Default: if None, uses the current device for the default tensor type (see torch.set_default_device()). device will be the CPU for CPU tensor types and the current CUDA device for CUDA tensor types. requires_grad (bool, optional) \u2013 If autograd should record operations on the returned tensor. Default: False. pin_memory (bool, optional) \u2013 If set, returned tensor would be allocated in the pinned memory. Works only for CPU tensors. Default: False. memory_format (torch.memory_format, optional) \u2013 the desired memory format of returned Tensor. Default: torch.contiguous_format. Example: \u003e\u003e\u003e torch.empty((2,3), dtype=torch.int64) tensor([[ 9.4064e+13, 2.8000e+01, 9.3493e+13], [ 7.5751e+18, 7.1428e+18, 7.5955e+18]])",
+       "articleBody": "torch.empty# torch.empty(*size, *, out=None, dtype=None, layout=torch.strided, device=None, requires_grad=False, pin_memory=False, memory_format=torch.contiguous_format) \u2192 Tensor# Returns a tensor filled with uninitialized data. The shape of the tensor is defined by the variable argument size. Note If torch.use_deterministic_algorithms() and torch.utils.deterministic.fill_uninitialized_memory are both set to True, the output tensor is initialized to prevent any possible nondeterministic behavior from using the data as an input to an operation. Floating point and complex tensors are filled with NaN, and integer tensors are filled with the maximum value. Warning For dtype=torch.bool, the uninitialized bytes may hold values other than 0 (False) and 1 (True), which are not valid booleans. The behavior of operations that read such values is undefined: they may be preserved as-is or normalized to 1 depending on the operation, device and memory layout. Write to the tensor (e.g. with fill_() or copy_()) before reading from it, or use torch.zeros() instead. Parameters: size (int...) \u2013 a sequence of integers defining the shape of the output tensor. Can be a variable number of arguments or a collection like a list or tuple. Keyword Arguments: out (Tensor, optional) \u2013 the output tensor. dtype (torch.dtype, optional) \u2013 the desired data type of returned tensor. Default: if None, uses a global default (see torch.set_default_dtype()). layout (torch.layout, optional) \u2013 the desired layout of returned Tensor. Default: torch.strided. device (torch.device, optional) \u2013 the desired device of returned tensor. Default: if None, uses the current device for the default tensor type (see torch.set_default_device()). device will be the CPU for CPU tensor types and the current CUDA device for CUDA tensor types. requires_grad (bool, optional) \u2013 If autograd should record operations on the returned tensor. Default: False. pin_memory (bool, optional) \u2013 If set, returned tensor would be allocated in the pinned memory. Works only for CPU tensors. Default: False. memory_format (torch.memory_format, optional) \u2013 the desired memory format of returned Tensor. Default: torch.contiguous_format. Example: \u003e\u003e\u003e torch.empty((2,3), dtype=torch.int64) tensor([[ 9.4064e+13, 2.8000e+01, 9.3493e+13], [ 7.5751e+18, 7.1428e+18, 7.5955e+18]])",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",

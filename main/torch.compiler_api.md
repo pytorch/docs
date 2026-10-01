@@ -58,7 +58,7 @@ y = f(model, x)
 The contract is Note [precompile programming model] in `torch/_precompile.py`. It is
 distinct from `torch._dynamo.config.caching_precompile` (a `torch.compile` caching mode).
 
-torch.compiler.precompile.capture(*fn*, */*, ***, *artifact_path*, *cache_path*, *tracer=MakeFxTracer(decompositions=None)*, *backend='inductor'*)[[source]](https://github.com/pytorch/pytorch/blob/c96c0d945cc30cd4317ca02911049a75e43972b7/torch/_precompile.py#L2895)
+torch.compiler.precompile.capture(*fn*, */*, ***, *artifact_path*, *cache_path*, *tracer=MakeFxTracer(decompositions=None)*, *backend='inductor'*)[[source]](https://github.com/pytorch/pytorch/blob/38cca96300da024842405ecefa081e4761254922/torch/_precompile.py#L2895)
 
 Capture `fn` across the calls YOUR loop makes, writing the artifact on exit.
 
@@ -120,7 +120,7 @@ Return type:
 
 *Capture*
 
-torch.compiler.precompile.load(*artifact_path*, *cache_path*)[[source]](https://github.com/pytorch/pytorch/blob/c96c0d945cc30cd4317ca02911049a75e43972b7/torch/_precompile.py#L2980)
+torch.compiler.precompile.load(*artifact_path*, *cache_path*)[[source]](https://github.com/pytorch/pytorch/blob/38cca96300da024842405ecefa081e4761254922/torch/_precompile.py#L2980)
 
 Reconstruct a runnable from the two files a precompile capture wrote.
 
@@ -218,7 +218,7 @@ exits it cannot be entered again, so call `capture()` again to retry.
 That includes a failed write at exit: the spent capture does not keep its
 pair, so fix the path and capture again.
 
-save()[[source]](https://github.com/pytorch/pytorch/blob/c96c0d945cc30cd4317ca02911049a75e43972b7/torch/_precompile.py#L425)
+save()[[source]](https://github.com/pytorch/pytorch/blob/38cca96300da024842405ecefa081e4761254922/torch/_precompile.py#L425)
 
 Write everything captured so far to the artifact files without ending the capture.
 
@@ -239,7 +239,7 @@ Variables:
 **installed** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Whether calling this handle installs onto the captured code
 objects; `False` for a standalone artifact.
 
-unload()[[source]](https://github.com/pytorch/pytorch/blob/c96c0d945cc30cd4317ca02911049a75e43972b7/torch/_precompile.py#L393)
+unload()[[source]](https://github.com/pytorch/pytorch/blob/38cca96300da024842405ecefa081e4761254922/torch/_precompile.py#L393)
 
 Remove whatever this loaded artifact installed; a no-op when it installed nothing.
 
