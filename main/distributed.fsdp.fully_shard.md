@@ -152,7 +152,7 @@ details.
 
 The frontend API is `fully_shard` that can be called on a `module`:
 
-torch.distributed.fsdp.fully_shard(*module*, ***, *mesh=None*, *reshard_after_forward=None*, *shard_placement_fn=None*, *mp_policy=MixedPrecisionPolicy(param_dtype=None, reduce_dtype=None, output_dtype=None, cast_forward_inputs=True)*, *offload_policy=OffloadPolicy()*, *ignored_params=None*, *dp_mesh_dims=None*)[[source]](https://github.com/pytorch/pytorch/blob/38cca96300da024842405ecefa081e4761254922/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L99)
+torch.distributed.fsdp.fully_shard(*module*, ***, *mesh=None*, *reshard_after_forward=None*, *shard_placement_fn=None*, *mp_policy=MixedPrecisionPolicy(param_dtype=None, reduce_dtype=None, output_dtype=None, cast_forward_inputs=True)*, *offload_policy=OffloadPolicy()*, *ignored_params=None*, *dp_mesh_dims=None*)[[source]](https://github.com/pytorch/pytorch/blob/dcd7ed975a6b090ec2bcf2360c28c9a263be8fe5/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L99)
 
 Apply fully sharded data parallelism (FSDP) to `module`, where FSDP
 shards module parameters, gradients, and optimizer states across data
@@ -176,6 +176,14 @@ on `module` all-gathers the parameters, and a module
 [forward hook](https://pytorch.org/docs/main/generated/torch.nn.Module.html#torch.nn.Module.register_forward_hook)
 on `module` frees them (if needed). Similar backward hooks all-gather
 parameters and later free parameters and reduce-scatter gradients.
+
+Parameter dtypes and `grad_dtype` may change (e.g. `module.bfloat16()`)
+until lazy initialization at the first forward or
+`FSDPModule.unshard()`; later changes are unsupported. An explicit
+`grad_dtype` survives dtype conversions and is inherited by a parameter
+that `load_state_dict(assign=True)` registers without one. Device moves
+preserve sharded gradient dtypes and leave pending gradients on their
+original device.
 
 Since grouping multiple tensors together for one collective is critical for
 communication efficiency, this implementation makes this grouping first
@@ -298,7 +306,7 @@ FSDPModule
 
 *class*torch.distributed.fsdp.FSDPModule(**args*, ***kwargs*)
 
-finalize_backward(***, *async_op=False*)[[source]](https://github.com/pytorch/pytorch/blob/38cca96300da024842405ecefa081e4761254922/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L471)
+finalize_backward(***, *async_op=False*)[[source]](https://github.com/pytorch/pytorch/blob/dcd7ed975a6b090ec2bcf2360c28c9a263be8fe5/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L479)
 
 Finalize backward on the calling thread.
 
@@ -357,7 +365,7 @@ Return type:
 
 *GradientReductionHandle* | None
 
-reset_iter_state()[[source]](https://github.com/pytorch/pytorch/blob/38cca96300da024842405ecefa081e4761254922/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L379)
+reset_iter_state()[[source]](https://github.com/pytorch/pytorch/blob/dcd7ed975a6b090ec2bcf2360c28c9a263be8fe5/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L387)
 
 Resets FSDP's per-iteration state after an exception aborted a
 forward or backward mid-flight. The supported recovery workflow is:
@@ -387,13 +395,13 @@ top-level `fully_shard` was applied to, equivalently the
 module first forwarded. Calling on a non-root module raises
 `RuntimeError`.
 
-reshard()[[source]](https://github.com/pytorch/pytorch/blob/38cca96300da024842405ecefa081e4761254922/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L339)
+reshard()[[source]](https://github.com/pytorch/pytorch/blob/dcd7ed975a6b090ec2bcf2360c28c9a263be8fe5/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L347)
 
 Reshards the module's parameters, freeing the unsharded parameters if
 they are allocated and registering the sharded parameters to the
 module. This method is *not* recursive.
 
-set_all_reduce_hook(*hook*, ***, *stream=None*)[[source]](https://github.com/pytorch/pytorch/blob/38cca96300da024842405ecefa081e4761254922/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L743)
+set_all_reduce_hook(*hook*, ***, *stream=None*)[[source]](https://github.com/pytorch/pytorch/blob/dcd7ed975a6b090ec2bcf2360c28c9a263be8fe5/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L767)
 
 Parameters:
 
@@ -406,7 +414,7 @@ hook in. This should only be set if not using native HSDP. If
 using native HSDP, the hook will run in the internally defined
 all-reduce stream used by the native HSDP all-reduce.
 
-set_allocate_memory_from_process_group_for_comm(*enable*)[[source]](https://github.com/pytorch/pytorch/blob/38cca96300da024842405ecefa081e4761254922/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L959)
+set_allocate_memory_from_process_group_for_comm(*enable*)[[source]](https://github.com/pytorch/pytorch/blob/dcd7ed975a6b090ec2bcf2360c28c9a263be8fe5/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L987)
 
 Sets whether the temporary staging buffers used to send and receive data
 over collective communications should be allocated using the custom
@@ -424,7 +432,7 @@ Parameters:
 
 **enable** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Whether to turn on ProcessGroup allocation.
 
-set_custom_all_gather(*comm*)[[source]](https://github.com/pytorch/pytorch/blob/38cca96300da024842405ecefa081e4761254922/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L705)
+set_custom_all_gather(*comm*)[[source]](https://github.com/pytorch/pytorch/blob/dcd7ed975a6b090ec2bcf2360c28c9a263be8fe5/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L729)
 
 Overrides the default `all_gather` communication behavior,
 to have better control over the communication and memory usage.
@@ -434,7 +442,7 @@ Parameters:
 
 **comm** (*AllGather*) - Custom all-gather communication.
 
-set_custom_reduce_scatter(*comm*)[[source]](https://github.com/pytorch/pytorch/blob/38cca96300da024842405ecefa081e4761254922/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L724)
+set_custom_reduce_scatter(*comm*)[[source]](https://github.com/pytorch/pytorch/blob/dcd7ed975a6b090ec2bcf2360c28c9a263be8fe5/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L748)
 
 Overrides the default `reduce_scatter` communication behavior,
 to have better control over the communication and memory usage.
@@ -444,7 +452,7 @@ Parameters:
 
 **comm** (*ReduceScatter*) - Custom reduce_scatter communication.
 
-set_force_sum_reduction_for_comms(*enable*)[[source]](https://github.com/pytorch/pytorch/blob/38cca96300da024842405ecefa081e4761254922/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L811)
+set_force_sum_reduction_for_comms(*enable*)[[source]](https://github.com/pytorch/pytorch/blob/dcd7ed975a6b090ec2bcf2360c28c9a263be8fe5/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L835)
 
 Sets whether to require the low-level collective communication
 primitives to exclusively use "sum"-type reductions, even if it comes
@@ -462,7 +470,7 @@ Parameters:
 
 **enable** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Whether to only ever use ReduceOp.SUM for comms.
 
-set_gradient_divide_factor(*factor*)[[source]](https://github.com/pytorch/pytorch/blob/38cca96300da024842405ecefa081e4761254922/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L798)
+set_gradient_divide_factor(*factor*)[[source]](https://github.com/pytorch/pytorch/blob/dcd7ed975a6b090ec2bcf2360c28c9a263be8fe5/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L822)
 
 Sets a custom divide factor for the gradient reduction. This might use
 a custom reduce op using NCCL's PreMulSum, which allows multiplying by
@@ -472,14 +480,14 @@ Parameters:
 
 **factor** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - Custom divide factor.
 
-set_is_last_backward(*is_last_backward*)[[source]](https://github.com/pytorch/pytorch/blob/38cca96300da024842405ecefa081e4761254922/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L413)
+set_is_last_backward(*is_last_backward*)[[source]](https://github.com/pytorch/pytorch/blob/dcd7ed975a6b090ec2bcf2360c28c9a263be8fe5/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L421)
 
 Sets whether the next backward is the last one. On the last backward,
 FSDP waits on pending gradient reduction and clears internal data
 data structures for backward prefetching. This can be useful for
 microbatching.
 
-set_manual_backward_finalization(*enabled*)[[source]](https://github.com/pytorch/pytorch/blob/38cca96300da024842405ecefa081e4761254922/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L423)
+set_manual_backward_finalization(*enabled*)[[source]](https://github.com/pytorch/pytorch/blob/dcd7ed975a6b090ec2bcf2360c28c9a263be8fe5/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L431)
 
 Set whether the caller must finalize backward.
 
@@ -494,7 +502,7 @@ settings.
 Set this before backward. The mode cannot change after backward starts
 until the backward iteration is finalized or reset.
 
-set_modules_to_backward_prefetch(*modules*)[[source]](https://github.com/pytorch/pytorch/blob/38cca96300da024842405ecefa081e4761254922/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L685)
+set_modules_to_backward_prefetch(*modules*)[[source]](https://github.com/pytorch/pytorch/blob/dcd7ed975a6b090ec2bcf2360c28c9a263be8fe5/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L709)
 
 Sets the FSDP modules for which this FSDP module should explicitly
 prefetch all-gathers in backward. This overrides the default backward
@@ -510,7 +518,7 @@ Parameters:
 
 **modules** (*List**[**FSDPModule**]*) - FSDP modules to prefetch.
 
-set_modules_to_forward_prefetch(*modules*)[[source]](https://github.com/pytorch/pytorch/blob/38cca96300da024842405ecefa081e4761254922/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L665)
+set_modules_to_forward_prefetch(*modules*)[[source]](https://github.com/pytorch/pytorch/blob/dcd7ed975a6b090ec2bcf2360c28c9a263be8fe5/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L689)
 
 Sets the FSDP modules for which this FSDP module should explicitly
 prefetch all-gathers in forward. The prefetching runs after this
@@ -526,7 +534,7 @@ Parameters:
 
 **modules** (*List**[**FSDPModule**]*) - FSDP modules to prefetch.
 
-set_post_optim_event(*event*)[[source]](https://github.com/pytorch/pytorch/blob/38cca96300da024842405ecefa081e4761254922/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L774)
+set_post_optim_event(*event*)[[source]](https://github.com/pytorch/pytorch/blob/dcd7ed975a6b090ec2bcf2360c28c9a263be8fe5/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L798)
 
 Sets a post-optimizer-step event for the root FSDP module to wait the
 all-gather streams on.
@@ -544,11 +552,11 @@ Parameters:
 **event** ([*torch.Event*](generated/torch.Event.html#torch.Event)) - Event recorded after the optimizer step
 to wait all-gather streams on.
 
-set_reduce_scatter_divide_factor(*factor*)[[source]](https://github.com/pytorch/pytorch/blob/38cca96300da024842405ecefa081e4761254922/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L793)
+set_reduce_scatter_divide_factor(*factor*)[[source]](https://github.com/pytorch/pytorch/blob/dcd7ed975a6b090ec2bcf2360c28c9a263be8fe5/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L817)
 
 Use `set_gradient_divide_factor()` instead
 
-set_reduce_scatter_max_input_buffers(*max_input_buffers*, ***, *recurse=True*)[[source]](https://github.com/pytorch/pytorch/blob/38cca96300da024842405ecefa081e4761254922/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L859)
+set_reduce_scatter_max_input_buffers(*max_input_buffers*, ***, *recurse=True*)[[source]](https://github.com/pytorch/pytorch/blob/dcd7ed975a6b090ec2bcf2360c28c9a263be8fe5/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L887)
 
 Sets how many gradient reduce-scatter input buffers may be in flight at
 once - the copy-in (`chunk_cat`) buffer cap-K (experimental).
@@ -576,7 +584,7 @@ memory.
 - **recurse** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Whether to set for all FSDP submodules or just the
 passed-in module.
 
-set_reduce_scatter_unused_params(*reduce_scatter_unused_params*, ***, *recurse=True*)[[source]](https://github.com/pytorch/pytorch/blob/38cca96300da024842405ecefa081e4761254922/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L832)
+set_reduce_scatter_unused_params(*reduce_scatter_unused_params*, ***, *recurse=True*)[[source]](https://github.com/pytorch/pytorch/blob/dcd7ed975a6b090ec2bcf2360c28c9a263be8fe5/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L856)
 
 Sets whether to include zero gradients for parameters that did not
 receive a gradient in backward. This is needed when different ranks
@@ -585,6 +593,10 @@ multi-modal models, mixture of experts), causing mismatched
 reduce-scatter collectives. Similar to DDP's
 `find_unused_parameters`.
 
+Parameters requiring gradients with explicit `grad_dtype=None`
+require a non-`None` `reduce_dtype` so zero gradients have the
+same dtype on every rank; otherwise, backward raises an error.
+
 Parameters:
 
 - **reduce_scatter_unused_params** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Whether to include zero
@@ -592,18 +604,31 @@ gradients for unused parameters in gradient reduction.
 - **recurse** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Whether to set for all FSDP submodules or just
 the passed-in module.
 
-set_requires_all_reduce(*requires_all_reduce*, ***, *recurse=True*)[[source]](https://github.com/pytorch/pytorch/blob/38cca96300da024842405ecefa081e4761254922/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L589)
+set_requires_all_reduce(*requires_all_reduce*, ***, *recurse=True*)[[source]](https://github.com/pytorch/pytorch/blob/dcd7ed975a6b090ec2bcf2360c28c9a263be8fe5/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L610)
 
 Sets if the module should all-reduce gradients. This can be used to
 implement gradient accumulation with only reduce-scatter but not
 all-reduce for HSDP.
 
-set_requires_gradient_sync(*requires_gradient_sync*, ***, *recurse=True*)[[source]](https://github.com/pytorch/pytorch/blob/38cca96300da024842405ecefa081e4761254922/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L565)
+set_requires_gradient_sync(*requires_gradient_sync*, ***, *recurse=True*)[[source]](https://github.com/pytorch/pytorch/blob/dcd7ed975a6b090ec2bcf2360c28c9a263be8fe5/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L573)
 
 Sets if the module should sync gradients. This can be used to implement
 gradient accumulation *without communication*. For HSDP, this controls
 both reduce-scatter and all-reduce together. This is the equivalence of
 no_sync in FSDP1.
+
+Unsynchronized gradients accumulate on unsharded parameters in
+`MixedPrecisionPolicy.reduce_dtype` if set, and otherwise as the
+parameter's `grad_dtype` specifies (the original dtype if unset). Sharded gradients and HSDP
+buffers awaiting all-reduce remain separate. CPU offload moves only
+fully reduced sharded gradients to CPU.
+
+`zero_grad()` clears only the currently registered parameters' gradients,
+leaving other parameter copies and pending all-reduce buffers intact.
+
+Before gradient clipping or an optimizer step, enable the required
+reductions and call `set_is_last_backward(True)` for the final backward.
+Reshard before updating parameters.
 
 Parameters:
 
@@ -612,12 +637,15 @@ module's parameters.
 - **recurse** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Whether to set for all FSDP submodules or just the
 passed-in module.
 
-set_reshard_after_backward(*reshard_after_backward*, ***, *recurse=True*)[[source]](https://github.com/pytorch/pytorch/blob/38cca96300da024842405ecefa081e4761254922/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L642)
+set_reshard_after_backward(*reshard_after_backward*, ***, *recurse=True*)[[source]](https://github.com/pytorch/pytorch/blob/dcd7ed975a6b090ec2bcf2360c28c9a263be8fe5/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L663)
 
 Sets if the module should reshard parameters after backward. This can
 be used during gradient accumulation to trade off higher memory for
 reduced communication since the unsharded parameters do not need to be
 re-all-gathered before the next forward.
+
+Call `reshard()` on each FSDP module on every rank before updating
+its sharded parameters.
 
 Parameters:
 
@@ -626,7 +654,7 @@ backward.
 - **recurse** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Whether to set for all FSDP submodules or just the
 passed-in module.
 
-set_reshard_after_forward(*reshard_after_forward*, *recurse=True*)[[source]](https://github.com/pytorch/pytorch/blob/38cca96300da024842405ecefa081e4761254922/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L605)
+set_reshard_after_forward(*reshard_after_forward*, *recurse=True*)[[source]](https://github.com/pytorch/pytorch/blob/dcd7ed975a6b090ec2bcf2360c28c9a263be8fe5/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L626)
 
 Sets if the module should reshard parameters after forward. This can be
 used to change the `reshard_after_forward` FSDP arg at runtime. For
@@ -642,7 +670,7 @@ forward.
 - **recurse** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Whether to set for all FSDP submodules or just the
 passed-in module.
 
-set_separate_reduce_scatter_group(*enable=True*, ***, *recurse=True*)[[source]](https://github.com/pytorch/pytorch/blob/38cca96300da024842405ecefa081e4761254922/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L910)
+set_separate_reduce_scatter_group(*enable=True*, ***, *recurse=True*)[[source]](https://github.com/pytorch/pytorch/blob/dcd7ed975a6b090ec2bcf2360c28c9a263be8fe5/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L938)
 
 Enables (or disables) running gradient reduce-scatter on its own process
 group so it can overlap with all-gather in the backward pass
@@ -666,7 +694,7 @@ group.
 - **recurse** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Whether to set for all FSDP submodules or just the
 passed-in module.
 
-set_symm_mem_for_comm(*backend='NCCL'*)[[source]](https://github.com/pytorch/pytorch/blob/38cca96300da024842405ecefa081e4761254922/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L980)
+set_symm_mem_for_comm(*backend='NCCL'*)[[source]](https://github.com/pytorch/pytorch/blob/dcd7ed975a6b090ec2bcf2360c28c9a263be8fe5/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L1008)
 
 Sets the symmetric memory (`symm_mem`) backend for allocating the
 staging buffers used in all-gather collectives. This allows NCCL to use
@@ -697,14 +725,14 @@ Parameters:
 **backend** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - The symmetric memory backend to use. Defaults to
 `"NCCL"`. Currently, only `"NCCL"` is supported.
 
-set_unshard_in_backward(*unshard_in_backward*)[[source]](https://github.com/pytorch/pytorch/blob/38cca96300da024842405ecefa081e4761254922/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L948)
+set_unshard_in_backward(*unshard_in_backward*)[[source]](https://github.com/pytorch/pytorch/blob/dcd7ed975a6b090ec2bcf2360c28c9a263be8fe5/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L976)
 
 Sets whether the FSDP module's parameters need to be unsharded in
 backward. This can be used in expert cases when the user knows that all
 parameters in this FSDP module's parameter group are not needed for
 backward computation (e.g. embedding).
 
-unshard(*async_op=False*)[[source]](https://github.com/pytorch/pytorch/blob/38cca96300da024842405ecefa081e4761254922/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L349)
+unshard(*async_op=False*)[[source]](https://github.com/pytorch/pytorch/blob/dcd7ed975a6b090ec2bcf2360c28c9a263be8fe5/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L357)
 
 Unshards the module's parameters by allocating memory and all-gathering
 the parameters. This method is *not* recursive. The unshard follows the
@@ -733,7 +761,7 @@ before pre-forward.
 
 A handle to wait on a `FSDPModule.unshard()` op.
 
-wait()[[source]](https://github.com/pytorch/pytorch/blob/38cca96300da024842405ecefa081e4761254922/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L1090)
+wait()[[source]](https://github.com/pytorch/pytorch/blob/dcd7ed975a6b090ec2bcf2360c28c9a263be8fe5/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L1135)
 
 Waits on the unshard op. This ensures that the current stream can use
 the unsharded parameters, which are now registered to the module.
@@ -742,7 +770,7 @@ the unsharded parameters, which are now registered to the module.
 
 A handle for asynchronous backward finalization.
 
-wait()[[source]](https://github.com/pytorch/pytorch/blob/38cca96300da024842405ecefa081e4761254922/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L1057)
+wait()[[source]](https://github.com/pytorch/pytorch/blob/dcd7ed975a6b090ec2bcf2360c28c9a263be8fe5/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L1102)
 
 Wait for gradient reduction and release its retained buffers.
 
@@ -751,7 +779,7 @@ Raises:
 [**RuntimeError**](https://docs.python.org/3/builtins/exceptions.html#RuntimeError) - If `FSDPModule.reset_iter_state()` invalidated
  this handle.
 
-torch.distributed.fsdp.register_fsdp_forward_method(*module*, *method_name*)[[source]](https://github.com/pytorch/pytorch/blob/38cca96300da024842405ecefa081e4761254922/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L1110)
+torch.distributed.fsdp.register_fsdp_forward_method(*module*, *method_name*)[[source]](https://github.com/pytorch/pytorch/blob/dcd7ed975a6b090ec2bcf2360c28c9a263be8fe5/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L1155)
 
 Registers a method on `module` to be considered a forward method for
 FSDP.
@@ -788,14 +816,25 @@ computation and the parameter all-gather. If this is `None`, then
 the unsharded parameter uses the original dtype. The optimizer step
 uses the sharded parameter in the original dtype. (Default:
 `None`)
-- **reduce_dtype** (*Optional**[*[*torch.dtype*](tensor_attributes.html#torch.dtype)*]*) - This specifies the dtype for
-gradient reduction (i.e. reduce-scatter or all-reduce). If this is
-`None` but `param_dtype` is not `None`, then the reduction
-uses the compute dtype. This can be used to run gradient reduction
-in full precision while using low precision for compute. If also
-gradient reduction is disabled via `set_requires_gradient_sync()`,
-then FSDP will accumulate gradients using `reduce_dtype`.
-(Default: `None`)
+- **reduce_dtype** (*Optional**[*[*torch.dtype*](tensor_attributes.html#torch.dtype)*]*) -
+
+The dtype for autograd accumulation
+and gradient reduction (reduce-scatter or all-reduce). If `None`,
+follows the parameter's `grad_dtype` configured before lazy
+initialization (the first forward or `FSDPModule.unshard()`):
+unset uses the original parameter dtype;
+explicit `None` accepts any incoming gradient dtype. This fallback
+is independent of `param_dtype`. Gradients with different dtypes
+in one communication group are reduced in their promoted dtype
+(e.g. fp32 for bf16 and fp32). Reduced shards retain the input
+`grad_dtype` policy. (Default: `None`)
+
+Changed in version 2.15: With `reduce_dtype=None`, gradients were previously reduced
+in `param_dtype` when it was set. They now follow the
+parameter's `grad_dtype` as described above, e.g. fp32 for fp32
+parameters with `param_dtype=torch.bfloat16`. Set
+`reduce_dtype=torch.bfloat16` to keep the previous behavior.
+FSDP1 still reduces in `param_dtype`.
 - **output_dtype** (*Optional**[*[*torch.dtype*](tensor_attributes.html#torch.dtype)*]*) - This specifies the dtype for
 casting floating-point forward outputs. This can be used to
 help implement cases where different modules have different mixed
@@ -826,7 +865,7 @@ and for the copies to overlap with compute. However, the pinned
 memory cannot be used by other processes. Set this to `False` if
 you have insufficient CPU memory. (Default: `True`)
 
-torch.distributed.fsdp.share_comm_ctx(*modules*)[[source]](https://github.com/pytorch/pytorch/blob/38cca96300da024842405ecefa081e4761254922/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L1148)
+torch.distributed.fsdp.share_comm_ctx(*modules*)[[source]](https://github.com/pytorch/pytorch/blob/dcd7ed975a6b090ec2bcf2360c28c9a263be8fe5/torch/distributed/fsdp/_fully_shard/_fully_shard.py#L1193)
 
 Share cuda streams for multiple FSDPModules
 

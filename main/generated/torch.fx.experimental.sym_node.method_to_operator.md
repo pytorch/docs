@@ -1,6 +1,6 @@
 # torch.fx.experimental.sym_node.method_to_operator
 
-torch.fx.experimental.sym_node.method_to_operator(*method*)[[source]](https://github.com/pytorch/pytorch/blob/38cca96300da024842405ecefa081e4761254922/torch/fx/experimental/sym_node.py#L1421)
+torch.fx.experimental.sym_node.method_to_operator(*method*)[[source]](https://github.com/pytorch/pytorch/blob/dcd7ed975a6b090ec2bcf2360c28c9a263be8fe5/torch/fx/experimental/sym_node.py#L1421)
 
 Return type:
 

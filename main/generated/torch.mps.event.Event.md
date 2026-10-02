@@ -1,6 +1,6 @@
 # Event
 
-*class*torch.mps.event.Event(*enable_timing=False*)[[source]](https://github.com/pytorch/pytorch/blob/38cca96300da024842405ecefa081e4761254922/torch/mps/event.py#L4)
+*class*torch.mps.event.Event(*enable_timing=False*)[[source]](https://github.com/pytorch/pytorch/blob/dcd7ed975a6b090ec2bcf2360c28c9a263be8fe5/torch/mps/event.py#L4)
 
 Wrapper around an MPS event.
 
@@ -12,7 +12,7 @@ Parameters:
 **enable_timing** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - indicates if the event should measure time
 (default: `False`)
 
-elapsed_time(*end_event*)[[source]](https://github.com/pytorch/pytorch/blob/38cca96300da024842405ecefa081e4761254922/torch/mps/event.py#L45)
+elapsed_time(*end_event*)[[source]](https://github.com/pytorch/pytorch/blob/dcd7ed975a6b090ec2bcf2360c28c9a263be8fe5/torch/mps/event.py#L45)
 
 Returns the time elapsed in milliseconds after the event was
 recorded and before the end_event was recorded.
@@ -21,7 +21,7 @@ Return type:
 
 [float](https://docs.python.org/3/builtins/functions.html#float)
 
-query()[[source]](https://github.com/pytorch/pytorch/blob/38cca96300da024842405ecefa081e4761254922/torch/mps/event.py#L35)
+query()[[source]](https://github.com/pytorch/pytorch/blob/dcd7ed975a6b090ec2bcf2360c28c9a263be8fe5/torch/mps/event.py#L35)
 
 Returns True if all work currently captured by event has completed.
 
@@ -29,15 +29,15 @@ Return type:
 
 [bool](https://docs.python.org/3/builtins/functions.html#bool)
 
-record()[[source]](https://github.com/pytorch/pytorch/blob/38cca96300da024842405ecefa081e4761254922/torch/mps/event.py#L23)
+record()[[source]](https://github.com/pytorch/pytorch/blob/dcd7ed975a6b090ec2bcf2360c28c9a263be8fe5/torch/mps/event.py#L23)
 
 Records the event in the current stream.
 
-synchronize()[[source]](https://github.com/pytorch/pytorch/blob/38cca96300da024842405ecefa081e4761254922/torch/mps/event.py#L39)
+synchronize()[[source]](https://github.com/pytorch/pytorch/blob/dcd7ed975a6b090ec2bcf2360c28c9a263be8fe5/torch/mps/event.py#L39)
 
 Waits until the completion of all work currently captured in this event.
 This prevents the CPU thread from proceeding until the event completes.
 
-wait()[[source]](https://github.com/pytorch/pytorch/blob/38cca96300da024842405ecefa081e4761254922/torch/mps/event.py#L29)
+wait()[[source]](https://github.com/pytorch/pytorch/blob/dcd7ed975a6b090ec2bcf2360c28c9a263be8fe5/torch/mps/event.py#L29)
 
 Makes all future work submitted to the current stream wait for this event.

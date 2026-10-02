@@ -446,7 +446,7 @@ re-enter Python; consumers must bind replay-stable state during capture. A
 custom schedule action receives this context only when it delegates execution
 to `stage.forward_one_chunk()`.
 
-*class*torch.distributed.pipelining.PipelineStageInfo(***, *stage_index*, *microbatch_index*, *is_metadata_inference=False*)[[source]](https://github.com/pytorch/pytorch/blob/38cca96300da024842405ecefa081e4761254922/torch/distributed/pipelining/stage.py#L73)
+*class*torch.distributed.pipelining.PipelineStageInfo(***, *stage_index*, *microbatch_index*, *is_metadata_inference=False*)[[source]](https://github.com/pytorch/pytorch/blob/dcd7ed975a6b090ec2bcf2360c28c9a263be8fe5/torch/distributed/pipelining/stage.py#L73)
 
 Identify one pipeline-stage forward invocation.
 
@@ -462,7 +462,7 @@ rank may own several logical stages.
 - **is_metadata_inference** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Whether this invocation is the representative
 dynamic metadata-inference probe rather than real execution.
 
-PipelineStage.register_forward_context(*context_factory*)[[source]](https://github.com/pytorch/pytorch/blob/38cca96300da024842405ecefa081e4761254922/torch/distributed/pipelining/stage.py#L267)
+PipelineStage.register_forward_context(*context_factory*)[[source]](https://github.com/pytorch/pytorch/blob/dcd7ed975a6b090ec2bcf2360c28c9a263be8fe5/torch/distributed/pipelining/stage.py#L267)
 
 Register a context manager around this stage's forward computation.
 
@@ -591,13 +591,13 @@ You can turn on additional logging using the `TORCH_LOGS` environment variable f
 
 The following set of APIs transform your model into a pipeline representation.
 
-*class*torch.distributed.pipelining.SplitPoint(*value*, *names=None*, ***, *module=None*, *qualname=None*, *type=None*, *start=1*, *boundary=None*)[[source]](https://github.com/pytorch/pytorch/blob/38cca96300da024842405ecefa081e4761254922/torch/distributed/pipelining/_IR.py#L1192)
+*class*torch.distributed.pipelining.SplitPoint(*value*, *names=None*, ***, *module=None*, *qualname=None*, *type=None*, *start=1*, *boundary=None*)[[source]](https://github.com/pytorch/pytorch/blob/dcd7ed975a6b090ec2bcf2360c28c9a263be8fe5/torch/distributed/pipelining/_IR.py#L1192)
 
 Enum representing the points at which a split can occur in the execution of a submodule.
 :ivar BEGINNING: Represents adding a split point *before* the execution of a certain submodule in the forward function.
 :ivar END: Represents adding a split point *after* the execution of a certain submodule in the forward function.
 
-torch.distributed.pipelining.pipeline(*module*, *mb_args*, *mb_kwargs=None*, *split_spec=None*, *split_policy=None*)[[source]](https://github.com/pytorch/pytorch/blob/38cca96300da024842405ecefa081e4761254922/torch/distributed/pipelining/_IR.py#L1247)
+torch.distributed.pipelining.pipeline(*module*, *mb_args*, *mb_kwargs=None*, *split_spec=None*, *split_policy=None*)[[source]](https://github.com/pytorch/pytorch/blob/dcd7ed975a6b090ec2bcf2360c28c9a263be8fe5/torch/distributed/pipelining/_IR.py#L1247)
 
 Split a module based on a specification.
 
@@ -615,9 +615,9 @@ Return type:
 
 A pipeline representation of class Pipe.
 
-*class*torch.distributed.pipelining.Pipe(*split_gm*, *num_stages*, *has_loss_and_backward*, *loss_spec*)[[source]](https://github.com/pytorch/pytorch/blob/38cca96300da024842405ecefa081e4761254922/torch/distributed/pipelining/_IR.py#L561)
+*class*torch.distributed.pipelining.Pipe(*split_gm*, *num_stages*, *has_loss_and_backward*, *loss_spec*)[[source]](https://github.com/pytorch/pytorch/blob/dcd7ed975a6b090ec2bcf2360c28c9a263be8fe5/torch/distributed/pipelining/_IR.py#L561)
 
-torch.distributed.pipelining.pipe_split()[[source]](https://github.com/pytorch/pytorch/blob/38cca96300da024842405ecefa081e4761254922/torch/distributed/pipelining/_IR.py#L363)
+torch.distributed.pipelining.pipe_split()[[source]](https://github.com/pytorch/pytorch/blob/dcd7ed975a6b090ec2bcf2360c28c9a263be8fe5/torch/distributed/pipelining/_IR.py#L363)
 
 pipe_split is a special operator that is used to mark the boundary between
 stages in a module. It is used to split the module into stages. It is a
@@ -638,11 +638,11 @@ The above example will be split into two stages.
 
 ### Microbatch Utilities
 
-*class*torch.distributed.pipelining.microbatch.TensorChunkSpec(*split_dim*)[[source]](https://github.com/pytorch/pytorch/blob/38cca96300da024842405ecefa081e4761254922/torch/distributed/pipelining/microbatch.py#L60)
+*class*torch.distributed.pipelining.microbatch.TensorChunkSpec(*split_dim*)[[source]](https://github.com/pytorch/pytorch/blob/dcd7ed975a6b090ec2bcf2360c28c9a263be8fe5/torch/distributed/pipelining/microbatch.py#L60)
 
 Class used to specify chunking of inputs
 
-torch.distributed.pipelining.microbatch.split_args_kwargs_into_chunks(*args*, *kwargs*, *chunks*, *args_chunk_spec=None*, *kwargs_chunk_spec=None*)[[source]](https://github.com/pytorch/pytorch/blob/38cca96300da024842405ecefa081e4761254922/torch/distributed/pipelining/microbatch.py#L378)
+torch.distributed.pipelining.microbatch.split_args_kwargs_into_chunks(*args*, *kwargs*, *chunks*, *args_chunk_spec=None*, *kwargs_chunk_spec=None*)[[source]](https://github.com/pytorch/pytorch/blob/dcd7ed975a6b090ec2bcf2360c28c9a263be8fe5/torch/distributed/pipelining/microbatch.py#L378)
 
 Given a sequence of args and kwargs, split them into a number of chunks
 according to their respective chunking specs.
@@ -664,7 +664,7 @@ Return type:
 
 args_split
 
-torch.distributed.pipelining.microbatch.merge_chunks(*chunks*, *chunk_spec*)[[source]](https://github.com/pytorch/pytorch/blob/38cca96300da024842405ecefa081e4761254922/torch/distributed/pipelining/microbatch.py#L493)
+torch.distributed.pipelining.microbatch.merge_chunks(*chunks*, *chunk_spec*)[[source]](https://github.com/pytorch/pytorch/blob/dcd7ed975a6b090ec2bcf2360c28c9a263be8fe5/torch/distributed/pipelining/microbatch.py#L493)
 
 Given a list of chunks, merge them into a single value according to
 the chunk spec.
@@ -684,7 +684,7 @@ value
 
 ### Pipeline Stages
 
-*class*torch.distributed.pipelining.stage.PipelineStage(*submodule*, *stage_index*, *num_stages*, *device*, *input_args=None*, *output_args=None*, *output_grads=None*, *input_grads=None*, *group=None*, *dw_builder=None*, *get_mesh=None*)[[source]](https://github.com/pytorch/pytorch/blob/38cca96300da024842405ecefa081e4761254922/torch/distributed/pipelining/stage.py#L1885)
+*class*torch.distributed.pipelining.stage.PipelineStage(*submodule*, *stage_index*, *num_stages*, *device*, *input_args=None*, *output_args=None*, *output_grads=None*, *input_grads=None*, *group=None*, *dw_builder=None*, *get_mesh=None*)[[source]](https://github.com/pytorch/pytorch/blob/dcd7ed975a6b090ec2bcf2360c28c9a263be8fe5/torch/distributed/pipelining/stage.py#L1885)
 
 A pipeline stage for pipeline parallelism with sequential model partitioning.
 
@@ -717,7 +717,7 @@ zero-bubble (F/I/W) schedules.
 - **get_mesh** (*GetMeshCallback**|**None*) - GetMeshCallback used during
 dynamic DTensor inference. Ignored in fully static DTensor mode.
 
-torch.distributed.pipelining.stage.build_stage(*stage_module*, *stage_index*, *pipe_info*, *device*, *group=None*)[[source]](https://github.com/pytorch/pytorch/blob/38cca96300da024842405ecefa081e4761254922/torch/distributed/pipelining/stage.py#L1855)
+torch.distributed.pipelining.stage.build_stage(*stage_module*, *stage_index*, *pipe_info*, *device*, *group=None*)[[source]](https://github.com/pytorch/pytorch/blob/dcd7ed975a6b090ec2bcf2360c28c9a263be8fe5/torch/distributed/pipelining/stage.py#L1855)
 
 Create a pipeline stage given a stage_module to be wrapped by this stage
 and pipeline information.
@@ -772,7 +772,7 @@ all selected stages for one microbatch as one storage unit. Stage indices are
 global logical indices and commonly identify virtual stages hosted by the same
 pipeline rank.
 
-torch.distributed.pipelining.schedules.analyze_pipeline_activation_liveness(*schedule*, ***, *pp_rank*, *stage_indices*, *granularity*)[[source]](https://github.com/pytorch/pytorch/blob/38cca96300da024842405ecefa081e4761254922/torch/distributed/pipelining/schedules.py#L5027)
+torch.distributed.pipelining.schedules.analyze_pipeline_activation_liveness(*schedule*, ***, *pp_rank*, *stage_indices*, *granularity*)[[source]](https://github.com/pytorch/pytorch/blob/dcd7ed975a6b090ec2bcf2360c28c9a263be8fe5/torch/distributed/pipelining/schedules.py#L5027)
 
 Analyze activation lifetimes and assign reusable pipeline slots.
 
@@ -821,7 +821,7 @@ Return type:
 
 *PipelineActivationLiveness*
 
-*class*torch.distributed.pipelining.schedules.PipelineActivationLiveness(*pp_rank*, *granularity*, *stage_indices*, *num_microbatches*, *slot_by_stage_and_microbatch*, *num_slots*, *_activation_lifetime_by_stage_and_microbatch*)[[source]](https://github.com/pytorch/pytorch/blob/38cca96300da024842405ecefa081e4761254922/torch/distributed/pipelining/schedules.py#L4877)
+*class*torch.distributed.pipelining.schedules.PipelineActivationLiveness(*pp_rank*, *granularity*, *stage_indices*, *num_microbatches*, *slot_by_stage_and_microbatch*, *num_slots*, *_activation_lifetime_by_stage_and_microbatch*)[[source]](https://github.com/pytorch/pytorch/blob/dcd7ed975a6b090ec2bcf2360c28c9a263be8fe5/torch/distributed/pipelining/schedules.py#L4877)
 
 Reusable activation slots derived from a pipeline schedule.
 
@@ -861,7 +861,7 @@ analysis. These commonly identify virtual stages hosted by
 `(stage_index, microbatch_index)` to logical activation-slot ID.
 - **num_slots** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Number of logical slots required by the assignment.
 
-get_activation_lifetime(*stage_index*, *microbatch_index*)[[source]](https://github.com/pytorch/pytorch/blob/38cca96300da024842405ecefa081e4761254922/torch/distributed/pipelining/schedules.py#L4951)
+get_activation_lifetime(*stage_index*, *microbatch_index*)[[source]](https://github.com/pytorch/pytorch/blob/dcd7ed975a6b090ec2bcf2360c28c9a263be8fe5/torch/distributed/pipelining/schedules.py#L4951)
 
 Return the inclusive schedule interval for an activation.
 
@@ -893,7 +893,7 @@ Return type:
 
 [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[int](https://docs.python.org/3/builtins/functions.html#int), [int](https://docs.python.org/3/builtins/functions.html#int)]
 
-slot_for(*stage_index*, *microbatch_index*)[[source]](https://github.com/pytorch/pytorch/blob/38cca96300da024842405ecefa081e4761254922/torch/distributed/pipelining/schedules.py#L4930)
+slot_for(*stage_index*, *microbatch_index*)[[source]](https://github.com/pytorch/pytorch/blob/dcd7ed975a6b090ec2bcf2360c28c9a263be8fe5/torch/distributed/pipelining/schedules.py#L4930)
 
 Return the activation slot for a stage and microbatch.
 
@@ -914,17 +914,17 @@ Return type:
 
 [int](https://docs.python.org/3/builtins/functions.html#int)
 
-*class*torch.distributed.pipelining.schedules.ScheduleGPipe(*stage*, *n_microbatches*, *loss_fn=None*, *args_chunk_spec=None*, *kwargs_chunk_spec=None*, *output_merge_spec=None*, *scale_grads=True*)[[source]](https://github.com/pytorch/pytorch/blob/38cca96300da024842405ecefa081e4761254922/torch/distributed/pipelining/schedules.py#L1281)
+*class*torch.distributed.pipelining.schedules.ScheduleGPipe(*stage*, *n_microbatches*, *loss_fn=None*, *args_chunk_spec=None*, *kwargs_chunk_spec=None*, *output_merge_spec=None*, *scale_grads=True*)[[source]](https://github.com/pytorch/pytorch/blob/dcd7ed975a6b090ec2bcf2360c28c9a263be8fe5/torch/distributed/pipelining/schedules.py#L1281)
 
 The GPipe schedule.
 Will go through all the microbatches in a fill-drain manner.
 
-*class*torch.distributed.pipelining.schedules.Schedule1F1B(*stage*, *n_microbatches*, *loss_fn=None*, *args_chunk_spec=None*, *kwargs_chunk_spec=None*, *output_merge_spec=None*, *scale_grads=True*)[[source]](https://github.com/pytorch/pytorch/blob/38cca96300da024842405ecefa081e4761254922/torch/distributed/pipelining/schedules.py#L1415)
+*class*torch.distributed.pipelining.schedules.Schedule1F1B(*stage*, *n_microbatches*, *loss_fn=None*, *args_chunk_spec=None*, *kwargs_chunk_spec=None*, *output_merge_spec=None*, *scale_grads=True*)[[source]](https://github.com/pytorch/pytorch/blob/dcd7ed975a6b090ec2bcf2360c28c9a263be8fe5/torch/distributed/pipelining/schedules.py#L1415)
 
 The 1F1B schedule.
 Will perform one forward and one backward on the microbatches in steady state.
 
-*class*torch.distributed.pipelining.schedules.ScheduleInterleaved1F1B(*stages*, *n_microbatches*, *loss_fn=None*, *args_chunk_spec=None*, *kwargs_chunk_spec=None*, *output_merge_spec=None*, *scale_grads=True*, *backward_requires_autograd=True*, *defer_pp_recv=False*, *max_active_stages=3*, *unshard_lookahead='full'*, ***, *defer_reduce_grad_wait=False*, *max_outstanding_sends=None*)[[source]](https://github.com/pytorch/pytorch/blob/38cca96300da024842405ecefa081e4761254922/torch/distributed/pipelining/schedules.py#L4048)
+*class*torch.distributed.pipelining.schedules.ScheduleInterleaved1F1B(*stages*, *n_microbatches*, *loss_fn=None*, *args_chunk_spec=None*, *kwargs_chunk_spec=None*, *output_merge_spec=None*, *scale_grads=True*, *backward_requires_autograd=True*, *defer_pp_recv=False*, *max_active_stages=3*, *unshard_lookahead='full'*, ***, *defer_reduce_grad_wait=False*, *max_outstanding_sends=None*)[[source]](https://github.com/pytorch/pytorch/blob/dcd7ed975a6b090ec2bcf2360c28c9a263be8fe5/torch/distributed/pipelining/schedules.py#L4048)
 
 The Interleaved 1F1B schedule.
 See [https://arxiv.org/pdf/2104.04473](https://arxiv.org/pdf/2104.04473) for details.
@@ -961,7 +961,7 @@ to be posted and may stall. Schedule construction raises
 `ValueError` when no causally safe wait placement can meet the
 limit.
 
-*class*torch.distributed.pipelining.schedules.ScheduleLoopedBFS(*stages*, *n_microbatches*, *loss_fn=None*, *output_merge_spec=None*, *scale_grads=True*, *backward_requires_autograd=True*, *defer_pp_recv=False*, *max_active_stages=3*, *unshard_lookahead='full'*, ***, *defer_reduce_grad_wait=False*, *max_outstanding_sends=None*)[[source]](https://github.com/pytorch/pytorch/blob/38cca96300da024842405ecefa081e4761254922/torch/distributed/pipelining/schedules.py#L3797)
+*class*torch.distributed.pipelining.schedules.ScheduleLoopedBFS(*stages*, *n_microbatches*, *loss_fn=None*, *output_merge_spec=None*, *scale_grads=True*, *backward_requires_autograd=True*, *defer_pp_recv=False*, *max_active_stages=3*, *unshard_lookahead='full'*, ***, *defer_reduce_grad_wait=False*, *max_outstanding_sends=None*)[[source]](https://github.com/pytorch/pytorch/blob/dcd7ed975a6b090ec2bcf2360c28c9a263be8fe5/torch/distributed/pipelining/schedules.py#L3797)
 
 Breadth-First Pipeline Parallelism.
 See [https://arxiv.org/abs/2211.05953](https://arxiv.org/abs/2211.05953) for details.
@@ -986,7 +986,7 @@ reduction may be pending per pipeline rank.
 - **max_outstanding_sends** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*|**None*) - Maximum number of pending forward and backward
 send batches on each pipeline rank. `None` applies no hard limit.
 
-*class*torch.distributed.pipelining.schedules.ScheduleInterleavedZeroBubble(*stages*, *n_microbatches*, *loss_fn=None*, *args_chunk_spec=None*, *kwargs_chunk_spec=None*, *output_merge_spec=None*, *scale_grads=True*, *backward_requires_autograd=True*, *defer_pp_recv=False*, *max_active_stages=3*, *unshard_lookahead='full'*, ***, *defer_reduce_grad_wait=False*, *max_outstanding_sends=None*)[[source]](https://github.com/pytorch/pytorch/blob/38cca96300da024842405ecefa081e4761254922/torch/distributed/pipelining/schedules.py#L4192)
+*class*torch.distributed.pipelining.schedules.ScheduleInterleavedZeroBubble(*stages*, *n_microbatches*, *loss_fn=None*, *args_chunk_spec=None*, *kwargs_chunk_spec=None*, *output_merge_spec=None*, *scale_grads=True*, *backward_requires_autograd=True*, *defer_pp_recv=False*, *max_active_stages=3*, *unshard_lookahead='full'*, ***, *defer_reduce_grad_wait=False*, *max_outstanding_sends=None*)[[source]](https://github.com/pytorch/pytorch/blob/dcd7ed975a6b090ec2bcf2360c28c9a263be8fe5/torch/distributed/pipelining/schedules.py#L4192)
 
 The Interleaved Zero Bubble schedule.
 See [https://arxiv.org/pdf/2401.10241](https://arxiv.org/pdf/2401.10241) for details.
@@ -1012,7 +1012,7 @@ reduction may be pending per pipeline rank.
 - **max_outstanding_sends** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*|**None*) - Maximum number of pending forward and backward
 send batches on each pipeline rank. `None` applies no hard limit.
 
-*class*torch.distributed.pipelining.schedules.ScheduleZBVZeroBubble(*stages*, *n_microbatches*, *loss_fn=None*, *args_chunk_spec=None*, *kwargs_chunk_spec=None*, *output_merge_spec=None*, *scale_grads=True*, *backward_requires_autograd=True*, *defer_pp_recv=False*, *max_active_stages=3*, *unshard_lookahead='full'*, ***, *defer_reduce_grad_wait=False*, *max_outstanding_sends=None*)[[source]](https://github.com/pytorch/pytorch/blob/38cca96300da024842405ecefa081e4761254922/torch/distributed/pipelining/schedules.py#L4408)
+*class*torch.distributed.pipelining.schedules.ScheduleZBVZeroBubble(*stages*, *n_microbatches*, *loss_fn=None*, *args_chunk_spec=None*, *kwargs_chunk_spec=None*, *output_merge_spec=None*, *scale_grads=True*, *backward_requires_autograd=True*, *defer_pp_recv=False*, *max_active_stages=3*, *unshard_lookahead='full'*, ***, *defer_reduce_grad_wait=False*, *max_outstanding_sends=None*)[[source]](https://github.com/pytorch/pytorch/blob/dcd7ed975a6b090ec2bcf2360c28c9a263be8fe5/torch/distributed/pipelining/schedules.py#L4408)
 
 The Zero Bubble schedule (ZBV variant).
 See [https://arxiv.org/pdf/2401.10241](https://arxiv.org/pdf/2401.10241) Section 6 for details.
@@ -1043,7 +1043,7 @@ reduction may be pending per pipeline rank.
 - **max_outstanding_sends** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*|**None*) - Maximum number of pending forward and backward
 send batches on each pipeline rank. `None` applies no hard limit.
 
-*class*torch.distributed.pipelining.schedules.ScheduleDualPipeV(*stages*, *n_microbatches*, *loss_fn=None*, *args_chunk_spec=None*, *kwargs_chunk_spec=None*, *output_merge_spec=None*, *scale_grads=True*, *backward_requires_autograd=True*, *defer_pp_recv=False*, *max_active_stages=3*, *unshard_lookahead='full'*, ***, *defer_reduce_grad_wait=False*, *max_outstanding_sends=None*)[[source]](https://github.com/pytorch/pytorch/blob/38cca96300da024842405ecefa081e4761254922/torch/distributed/pipelining/schedules.py#L4626)
+*class*torch.distributed.pipelining.schedules.ScheduleDualPipeV(*stages*, *n_microbatches*, *loss_fn=None*, *args_chunk_spec=None*, *kwargs_chunk_spec=None*, *output_merge_spec=None*, *scale_grads=True*, *backward_requires_autograd=True*, *defer_pp_recv=False*, *max_active_stages=3*, *unshard_lookahead='full'*, ***, *defer_reduce_grad_wait=False*, *max_outstanding_sends=None*)[[source]](https://github.com/pytorch/pytorch/blob/dcd7ed975a6b090ec2bcf2360c28c9a263be8fe5/torch/distributed/pipelining/schedules.py#L4626)
 
 The DualPipeV schedule. A more efficient schedule variant based on the
 DualPipe schedule introduced by DeepSeek in [https://arxiv.org/pdf/2412.19437](https://arxiv.org/pdf/2412.19437)
@@ -1066,7 +1066,7 @@ reduction may be pending per pipeline rank.
 - **max_outstanding_sends** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*|**None*) - Maximum number of pending forward and backward
 send batches on each pipeline rank. `None` applies no hard limit.
 
-*class*torch.distributed.pipelining.schedules.PipelineScheduleSingle(*stage*, *n_microbatches*, *loss_fn=None*, *args_chunk_spec=None*, *kwargs_chunk_spec=None*, *output_merge_spec=None*, *scale_grads=True*)[[source]](https://github.com/pytorch/pytorch/blob/38cca96300da024842405ecefa081e4761254922/torch/distributed/pipelining/schedules.py#L1036)
+*class*torch.distributed.pipelining.schedules.PipelineScheduleSingle(*stage*, *n_microbatches*, *loss_fn=None*, *args_chunk_spec=None*, *kwargs_chunk_spec=None*, *output_merge_spec=None*, *scale_grads=True*)[[source]](https://github.com/pytorch/pytorch/blob/dcd7ed975a6b090ec2bcf2360c28c9a263be8fe5/torch/distributed/pipelining/schedules.py#L1036)
 
 Base class for single-stage schedules.
 Implements the step method.
@@ -1076,7 +1076,7 @@ Gradients are scaled by num_microbatches depending on the scale_grads argument, 
 should match the configuration of your loss_fn, which may either average losses (scale_grads=True)
 or sum losses (scale_grads=False).
 
-step(**args*, *target=None*, *losses=None*, *return_outputs=True*, *loss_kwargs=None*, *arg_mbs=None*, *kwarg_mbs=None*, *target_mbs=None*, *finalize_gradients=True*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/38cca96300da024842405ecefa081e4761254922/torch/distributed/pipelining/schedules.py#L1090)
+step(**args*, *target=None*, *losses=None*, *return_outputs=True*, *loss_kwargs=None*, *arg_mbs=None*, *kwarg_mbs=None*, *target_mbs=None*, *finalize_gradients=True*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/dcd7ed975a6b090ec2bcf2360c28c9a263be8fe5/torch/distributed/pipelining/schedules.py#L1090)
 
 Run one training iteration of a single-stage pipeline schedule.
 
@@ -1150,7 +1150,7 @@ Examples:
 ... )
 ```
 
-*class*torch.distributed.pipelining.schedules.PipelineScheduleMulti(*stages*, *n_microbatches*, *loss_fn=None*, *args_chunk_spec=None*, *kwargs_chunk_spec=None*, *output_merge_spec=None*, *use_full_backward=None*, *scale_grads=True*, *backward_requires_autograd=True*)[[source]](https://github.com/pytorch/pytorch/blob/38cca96300da024842405ecefa081e4761254922/torch/distributed/pipelining/schedules.py#L2636)
+*class*torch.distributed.pipelining.schedules.PipelineScheduleMulti(*stages*, *n_microbatches*, *loss_fn=None*, *args_chunk_spec=None*, *kwargs_chunk_spec=None*, *output_merge_spec=None*, *use_full_backward=None*, *scale_grads=True*, *backward_requires_autograd=True*)[[source]](https://github.com/pytorch/pytorch/blob/dcd7ed975a6b090ec2bcf2360c28c9a263be8fe5/torch/distributed/pipelining/schedules.py#L2636)
 
 Base class for multi-stage schedules.
 Implements the step method.
@@ -1159,7 +1159,7 @@ Gradients are scaled by num_microbatches depending on the scale_grads argument, 
 should match the configuration of your loss_fn, which may either average losses (scale_grads=True)
 or sum losses (scale_grads=False).
 
-step(**args*, *target=None*, *losses=None*, *return_outputs=True*, *loss_kwargs=None*, *arg_mbs=None*, *kwarg_mbs=None*, *target_mbs=None*, *finalize_gradients=True*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/38cca96300da024842405ecefa081e4761254922/torch/distributed/pipelining/schedules.py#L2821)
+step(**args*, *target=None*, *losses=None*, *return_outputs=True*, *loss_kwargs=None*, *arg_mbs=None*, *kwarg_mbs=None*, *target_mbs=None*, *finalize_gradients=True*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/dcd7ed975a6b090ec2bcf2360c28c9a263be8fe5/torch/distributed/pipelining/schedules.py#L2821)
 
 Run one training iteration of a multi-stage pipeline schedule.
 
@@ -1235,7 +1235,7 @@ Examples:
 ... )
 ```
 
-torch.distributed.pipelining.schedules.get_schedule_class(*schedule_name*)[[source]](https://github.com/pytorch/pytorch/blob/38cca96300da024842405ecefa081e4761254922/torch/distributed/pipelining/schedules.py#L5220)
+torch.distributed.pipelining.schedules.get_schedule_class(*schedule_name*)[[source]](https://github.com/pytorch/pytorch/blob/dcd7ed975a6b090ec2bcf2360c28c9a263be8fe5/torch/distributed/pipelining/schedules.py#L5220)
 
 Maps a schedule name (case insensitive) to its corresponding class object.
 
