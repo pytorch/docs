@@ -1,6 +1,6 @@
 # RNN
 
-*class*torch.nn.modules.rnn.RNN(*input_size*, *hidden_size*, *num_layers=1*, *nonlinearity='tanh'*, *bias=True*, *batch_first=False*, *dropout=0.0*, *bidirectional=False*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/dcd7ed975a6b090ec2bcf2360c28c9a263be8fe5/torch/nn/modules/rnn.py#L486)
+*class*torch.nn.modules.rnn.RNN(*input_size*, *hidden_size*, *num_layers=1*, *nonlinearity='tanh'*, *bias=True*, *batch_first=False*, *dropout=0.0*, *bidirectional=False*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/8ab13d788b9dab3e338e618576e65bb8b0c75e1a/torch/nn/modules/rnn.py#L486)
 
 Apply a multi-layer Elman RNN with tanh⁡\tanhtanh or ReLU\text{ReLU}ReLU
 non-linearity to an input sequence. For each element in the input sequence,
@@ -25,21 +25,22 @@ def forward(x, hx=None, batch_first=False):
  seq_len, batch_size, _ = x.size()
  if hx is None:
  hx = torch.zeros(rnn.num_layers, batch_size, rnn.hidden_size)
- h_t_minus_1 = hx.clone()
- h_t = hx.clone()
+ h_t_minus_1 = hx
  output = []
  for t in range(seq_len):
+ h_t = []
  for layer in range(rnn.num_layers):
  input_t = x[t] if layer == 0 else h_t[layer - 1]
- h_t[layer] = torch.tanh(
+ h_t.append(torch.tanh(
  input_t @ params[f"weight_ih_l{layer}"].T
  + h_t_minus_1[layer] @ params[f"weight_hh_l{layer}"].T
  + params[f"bias_hh_l{layer}"]
  + params[f"bias_ih_l{layer}"]
- )
- output.append(h_t[-1].clone())
- h_t_minus_1 = h_t.clone()
+ ))
+ output.append(h_t[-1])
+ h_t_minus_1 = h_t
  output = torch.stack(output)
+ h_t = torch.stack(h_t)
  if batch_first:
  output = output.transpose(0, 1)
  return output, h_t
@@ -159,7 +160,7 @@ Examples:
 >>> output, hn = rnn(input, h0)
 ```
 
-forward(*input: [Tensor](../tensors.html#torch.Tensor)*, *hx: [Tensor](../tensors.html#torch.Tensor) | [None](https://docs.python.org/3/builtins/constants.html#None) = None*) → [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), [Tensor](../tensors.html#torch.Tensor)][[source]](https://github.com/pytorch/pytorch/blob/dcd7ed975a6b090ec2bcf2360c28c9a263be8fe5/torch/nn/modules/rnn.py#L675)
+forward(*input: [Tensor](../tensors.html#torch.Tensor)*, *hx: [Tensor](../tensors.html#torch.Tensor) | [None](https://docs.python.org/3/builtins/constants.html#None) = None*) → [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), [Tensor](../tensors.html#torch.Tensor)][[source]](https://github.com/pytorch/pytorch/blob/8ab13d788b9dab3e338e618576e65bb8b0c75e1a/torch/nn/modules/rnn.py#L676)
 
 forward(*input: [PackedSequence](torch.nn.utils.rnn.PackedSequence.html#torch.nn.utils.rnn.PackedSequence)*, *hx: [Tensor](../tensors.html#torch.Tensor) | [None](https://docs.python.org/3/builtins/constants.html#None) = None*) → [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[PackedSequence](torch.nn.utils.rnn.PackedSequence.html#torch.nn.utils.rnn.PackedSequence), [Tensor](../tensors.html#torch.Tensor)]
 

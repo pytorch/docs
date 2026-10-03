@@ -9,6 +9,8 @@ and [dev-discuss.pytorch.org](https://dev-discuss.pytorch.org/)
 - Maintain public user and development documentation
 - Run meetings and share minutes plus roadmap on a half or quarterly basis
 
+See the [maintainer guide](maintainer_guide.html) for how to triage and review issues and pull requests.
+
 ## Lead Core Maintainer
 
 - Alban Desmaison ([albanD](https://github.com/albanD))

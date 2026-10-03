@@ -85,7 +85,7 @@ window.addEventListener("load", () => mermaid.run());
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.15.0a0+gitdcd7ed9 )">
+<meta name="llm:version" content="main (2.15.0a0+git8ab13d7 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -191,7 +191,7 @@ window.addEventListener("load", () => mermaid.run());
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+gitdcd7ed9 )');
+  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+git8ab13d7 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -1287,6 +1287,12 @@ document.write(`
               <li class=" ">
                 <a class="nav-link dropdown-item nav-internal" href="community/governance.html">
                   PyTorch Governance | Mechanics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="community/maintainer_guide.html">
+                  PyTorch Governance | Maintainer Guide
                 </a>
               </li>
             
@@ -2740,6 +2746,12 @@ document.write(`
               <li class=" ">
                 <a class="nav-link dropdown-item nav-internal" href="community/governance.html">
                   PyTorch Governance | Mechanics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="community/maintainer_guide.html">
+                  PyTorch Governance | Maintainer Guide
                 </a>
               </li>
             
@@ -17129,10 +17141,10 @@ document.write(`
 </li>
       <li><a href="nested.html#torch.nested.nested_tensor_from_jagged">nested_tensor_from_jagged() (in module torch.nested)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.autograd.function.NestedIOFunction.html#torch.autograd.function.NestedIOFunction">NestedIOFunction (class in torch.autograd.function)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="storage.html#torch.UntypedStorage.new">new() (torch.UntypedStorage method)</a>
 </li>
       <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.new_empty">new_empty() (torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
@@ -17176,6 +17188,8 @@ document.write(`
 </li>
       </ul></li>
       <li><a href="distributed.html#torch.distributed._transport.new_transport">new_transport() (in module torch.distributed._transport)</a>
+</li>
+      <li><a href="distributed.html#torch.distributed._transport.new_transport_rank">new_transport_rank() (in module torch.distributed._transport)</a>
 </li>
       <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.new_zeros">new_zeros() (torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
 
@@ -18603,6 +18617,8 @@ document.write(`
         <li><a href="distributed.checkpoint.html#torch.distributed.checkpoint.StorageReader.read_metadata">(torch.distributed.checkpoint.StorageReader method)</a>
 </li>
       </ul></li>
+      <li><a href="distributed.html#torch.distributed._transport.Transport.read_stream">read_stream() (torch.distributed._transport.Transport method)</a>
+</li>
       <li><a href="user_guide/torch_compiler/export/api_reference.html#torch.export.pt2_archive.PT2ArchiveReader.read_string">read_string() (torch.export.pt2_archive.PT2ArchiveReader method)</a>
 </li>
       <li><a href="distributed.checkpoint.html#torch.distributed.checkpoint.ReadItem">ReadItem (class in torch.distributed.checkpoint)</a>
@@ -20664,6 +20680,8 @@ document.write(`
       <li><a href="generated/torch.ao.quantization.fx.custom_config.PrepareCustomConfig.html#torch.ao.quantization.fx.custom_config.PrepareCustomConfig.set_input_quantized_indexes">set_input_quantized_indexes() (torch.ao.quantization.fx.custom_config.PrepareCustomConfig method)</a>
 </li>
       <li><a href="distributed.fsdp.fully_shard.html#torch.distributed.fsdp.FSDPModule.set_is_last_backward">set_is_last_backward() (torch.distributed.fsdp.FSDPModule method)</a>
+</li>
+      <li><a href="distributed.fsdp.fully_shard.html#torch.distributed.fsdp.FSDPModule.set_keep_unsharded_storage">set_keep_unsharded_storage() (torch.distributed.fsdp.FSDPModule method)</a>
 </li>
       <li><a href="library.html#torch._library.custom_ops.CustomOpDef.set_kernel_enabled">set_kernel_enabled() (torch._library.custom_ops.CustomOpDef method)</a>
 </li>
@@ -29690,6 +29708,8 @@ document.write(`
       <li><a href="user_guide/torch_compiler/export/api_reference.html#torch.export.pt2_archive.PT2ArchiveWriter.write_file">write_file() (torch.export.pt2_archive.PT2ArchiveWriter method)</a>
 </li>
       <li><a href="user_guide/torch_compiler/export/api_reference.html#torch.export.pt2_archive.PT2ArchiveWriter.write_folder">write_folder() (torch.export.pt2_archive.PT2ArchiveWriter method)</a>
+</li>
+      <li><a href="distributed.html#torch.distributed._transport.Transport.write_stream">write_stream() (torch.distributed._transport.Transport method)</a>
 </li>
       <li><a href="user_guide/torch_compiler/export/api_reference.html#torch.export.pt2_archive.PT2ArchiveWriter.write_string">write_string() (torch.export.pt2_archive.PT2ArchiveWriter method)</a>
 </li>

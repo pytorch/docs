@@ -1,5 +1,5 @@
 # torch.fx.experimental.accelerator_partitioner.set_parents_and_children
 
-torch.fx.experimental.accelerator_partitioner.set_parents_and_children(*partitions*)[[source]](https://github.com/pytorch/pytorch/blob/dcd7ed975a6b090ec2bcf2360c28c9a263be8fe5/torch/fx/experimental/accelerator_partitioner.py#L97)
+torch.fx.experimental.accelerator_partitioner.set_parents_and_children(*partitions*)[[source]](https://github.com/pytorch/pytorch/blob/8ab13d788b9dab3e338e618576e65bb8b0c75e1a/torch/fx/experimental/accelerator_partitioner.py#L97)
 
 Given a list of partitions, mark parents and children for each partition

@@ -145,11 +145,12 @@ The APIs and performance characteristics of these features may change.
 - [Windows FAQ](notes/windows.html)
 - [Community](community/index.html)
 
-- [The Ultimate Guide to PyTorch Contributions](https://github.com/pytorch/pytorch/wiki/The-Ultimate-Guide-to-PyTorch-Contributions)
+- [Contributing to PyTorch](https://github.com/pytorch/pytorch/blob/main/CONTRIBUTING.md)
 - [PyTorch Governance | Build + CI](community/build_ci_governance.html)
 - [PyTorch Contribution Guide](community/contribution_guide.html)
 - [PyTorch Design Philosophy](community/design.html)
 - [PyTorch Governance | Mechanics](community/governance.html)
+- [PyTorch Governance | Maintainer Guide](community/maintainer_guide.html)
 - [PyTorch Governance | Maintainers](community/persons_of_interest.html)
 - [viable/strict CI Jobs](community/viable_strict.html)
 

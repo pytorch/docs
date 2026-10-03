@@ -80,7 +80,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.15.0a0+gitdcd7ed9 )">
+<meta name="llm:version" content="main (2.15.0a0+git8ab13d7 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -186,7 +186,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+gitdcd7ed9 )');
+  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+git8ab13d7 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -1282,6 +1282,12 @@ document.write(`
               <li class=" ">
                 <a class="nav-link dropdown-item nav-internal" href="governance.html">
                   PyTorch Governance | Mechanics
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="maintainer_guide.html">
+                  PyTorch Governance | Maintainer Guide
                 </a>
               </li>
             
@@ -2741,6 +2747,12 @@ document.write(`
               </li>
             
               <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="maintainer_guide.html">
+                  PyTorch Governance | Maintainer Guide
+                </a>
+              </li>
+            
+              <li class=" ">
                 <a class="nav-link dropdown-item nav-internal" href="persons_of_interest.html">
                   PyTorch Governance | Maintainers
                 </a>
@@ -3364,11 +3376,12 @@ document.write(`
      aria-label="Section Navigation">
   <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
   <div class="bd-toc-item navbar-nav"><ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference external" href="https://github.com/pytorch/pytorch/wiki/The-Ultimate-Guide-to-PyTorch-Contributions">The Ultimate Guide to PyTorch Contributions</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/pytorch/pytorch/blob/main/CONTRIBUTING.md">Contributing to PyTorch</a></li>
 <li class="toctree-l1"><a class="reference internal" href="build_ci_governance.html">PyTorch Governance | Build + CI</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contribution_guide.html">PyTorch Contribution Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="design.html">PyTorch Design Philosophy</a></li>
 <li class="toctree-l1"><a class="reference internal" href="governance.html">PyTorch Governance | Mechanics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="maintainer_guide.html">PyTorch Governance | Maintainer Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="persons_of_interest.html">PyTorch Governance | Maintainers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="viable_strict.html">viable/strict CI Jobs</a></li>
 </ul>
@@ -3466,7 +3479,7 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="community">
 <h1>Community<a class="headerlink" href="#community" title="Link to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Apr 16, 2025 | Last Updated On: May 12, 2026</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Apr 16, 2025 | Last Updated On: Oct 02, 2026</p>
 <p>PyTorch is more than just a deep learning framework—it’s a vibrant
 ecosystem powered by a diverse global community. The PyTorch community
 brings together researchers, developers, students, and industry
@@ -3475,11 +3488,12 @@ professionals who collaborate to advance the state of machine learning.</p>
 core framework, report and fix bugs, improve documentation, and much more.</p>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference external" href="https://github.com/pytorch/pytorch/wiki/The-Ultimate-Guide-to-PyTorch-Contributions">The Ultimate Guide to PyTorch Contributions</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/pytorch/pytorch/blob/main/CONTRIBUTING.md">Contributing to PyTorch</a></li>
 <li class="toctree-l1"><a class="reference internal" href="build_ci_governance.html">PyTorch Governance | Build + CI</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contribution_guide.html">PyTorch Contribution Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="design.html">PyTorch Design Philosophy</a></li>
 <li class="toctree-l1"><a class="reference internal" href="governance.html">PyTorch Governance | Mechanics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="maintainer_guide.html">PyTorch Governance | Maintainer Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="persons_of_interest.html">PyTorch Governance | Maintainers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="viable_strict.html">viable/strict CI Jobs</a></li>
 </ul>
@@ -3844,7 +3858,7 @@ core framework, report and fix bugs, improve documentation, and much more.</p>
        "headline": "Community",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/community/index.html",
-       "articleBody": "Community# Created On: Apr 16, 2025 | Last Updated On: May 12, 2026 PyTorch is more than just a deep learning framework\u2014it\u2019s a vibrant ecosystem powered by a diverse global community. The PyTorch community brings together researchers, developers, students, and industry professionals who collaborate to advance the state of machine learning. Check out the resources below to learn how to contribute code to the core framework, report and fix bugs, improve documentation, and much more. The Ultimate Guide to PyTorch Contributions PyTorch Governance | Build + CI PyTorch Contribution Guide PyTorch Design Philosophy PyTorch Governance | Mechanics PyTorch Governance | Maintainers viable/strict CI Jobs",
+       "articleBody": "Community# Created On: Apr 16, 2025 | Last Updated On: Oct 02, 2026 PyTorch is more than just a deep learning framework\u2014it\u2019s a vibrant ecosystem powered by a diverse global community. The PyTorch community brings together researchers, developers, students, and industry professionals who collaborate to advance the state of machine learning. Check out the resources below to learn how to contribute code to the core framework, report and fix bugs, improve documentation, and much more. Contributing to PyTorch PyTorch Governance | Build + CI PyTorch Contribution Guide PyTorch Design Philosophy PyTorch Governance | Mechanics PyTorch Governance | Maintainer Guide PyTorch Governance | Maintainers viable/strict CI Jobs",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -3856,7 +3870,7 @@ core framework, report and fix bugs, improve documentation, and much more.</p>
          "@id": "/community/index.html"
        },
        "datePublished": "Apr 16, 2025T00:00:00Z",
-       "dateModified": "May 12, 2026T00:00:00Z"
+       "dateModified": "Oct 02, 2026T00:00:00Z"
      }
  </script>
   <script>

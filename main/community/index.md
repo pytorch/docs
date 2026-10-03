@@ -8,10 +8,11 @@ professionals who collaborate to advance the state of machine learning.
 Check out the resources below to learn how to contribute code to the
 core framework, report and fix bugs, improve documentation, and much more.
 
-- [The Ultimate Guide to PyTorch Contributions](https://github.com/pytorch/pytorch/wiki/The-Ultimate-Guide-to-PyTorch-Contributions)
+- [Contributing to PyTorch](https://github.com/pytorch/pytorch/blob/main/CONTRIBUTING.md)
 - [PyTorch Governance | Build + CI](build_ci_governance.html)
 - [PyTorch Contribution Guide](contribution_guide.html)
 - [PyTorch Design Philosophy](design.html)
 - [PyTorch Governance | Mechanics](governance.html)
+- [PyTorch Governance | Maintainer Guide](maintainer_guide.html)
 - [PyTorch Governance | Maintainers](persons_of_interest.html)
 - [viable/strict CI Jobs](viable_strict.html)
