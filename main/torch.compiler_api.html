@@ -80,7 +80,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.15.0a0+git8ab13d7 )">
+<meta name="llm:version" content="main (2.15.0a0+git496340f )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -186,7 +186,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+git8ab13d7 )');
+  document.documentElement.setAttribute('data-version', 'main (2.15.0a0+git496340f )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3826,7 +3826,7 @@ reloads. No weights are baked in, so the model is passed again at runtime:</p>
 distinct from <code class="docutils literal notranslate"><span class="pre">torch._dynamo.config.caching_precompile</span></code> (a <code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> caching mode).</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.compiler.precompile.capture">
-<span class="sig-prename descclassname"><span class="pre">torch.compiler.precompile.</span></span><span class="sig-name descname"><span class="pre">capture</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fn</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">artifact_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cache_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tracer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">MakeFxTracer(decompositions=None)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'inductor'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8ab13d788b9dab3e338e618576e65bb8b0c75e1a/torch/_precompile.py#L2895"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.compiler.precompile.capture" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.compiler.precompile.</span></span><span class="sig-name descname"><span class="pre">capture</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fn</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">artifact_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cache_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tracer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">MakeFxTracer(decompositions=None)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'inductor'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/496340f06ef7bda2800522429ba3f4e3473a92fa/torch/_precompile.py#L2895"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.compiler.precompile.capture" title="Link to this definition">#</a></dt>
 <dd><p>Capture <code class="docutils literal notranslate"><span class="pre">fn</span></code> across the calls YOUR loop makes, writing the artifact on exit.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -3886,7 +3886,7 @@ lowers it to a self-contained Python source artifact.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.compiler.precompile.load">
-<span class="sig-prename descclassname"><span class="pre">torch.compiler.precompile.</span></span><span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">artifact_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cache_path</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8ab13d788b9dab3e338e618576e65bb8b0c75e1a/torch/_precompile.py#L2980"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.compiler.precompile.load" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.compiler.precompile.</span></span><span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">artifact_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cache_path</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/496340f06ef7bda2800522429ba3f4e3473a92fa/torch/_precompile.py#L2980"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.compiler.precompile.load" title="Link to this definition">#</a></dt>
 <dd><p>Reconstruct a runnable from the two files a precompile capture wrote.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -3984,7 +3984,7 @@ That includes a failed write at exit: the spent capture does not keep its
 pair, so fix the path and capture again.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.compiler.precompile.Capture.save">
-<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8ab13d788b9dab3e338e618576e65bb8b0c75e1a/torch/_precompile.py#L425"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.compiler.precompile.Capture.save" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/496340f06ef7bda2800522429ba3f4e3473a92fa/torch/_precompile.py#L425"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.compiler.precompile.Capture.save" title="Link to this definition">#</a></dt>
 <dd><p>Write everything captured so far to the artifact files without ending the capture.</p>
 <p>Raises <code class="docutils literal notranslate"><span class="pre">PrecompileError</span></code> outside the capture’s <code class="docutils literal notranslate"><span class="pre">with</span></code> block.</p>
 <dl class="field-list simple">
@@ -4010,7 +4010,7 @@ objects; <code class="docutils literal notranslate"><span class="pre">False</spa
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.compiler.precompile.PrecompiledRunnable.unload">
-<span class="sig-name descname"><span class="pre">unload</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/8ab13d788b9dab3e338e618576e65bb8b0c75e1a/torch/_precompile.py#L393"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.compiler.precompile.PrecompiledRunnable.unload" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">unload</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/496340f06ef7bda2800522429ba3f4e3473a92fa/torch/_precompile.py#L393"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.compiler.precompile.PrecompiledRunnable.unload" title="Link to this definition">#</a></dt>
 <dd><p>Remove whatever this loaded artifact installed; a no-op when it installed nothing.</p>
 <dl class="field-list simple">
 </dl>

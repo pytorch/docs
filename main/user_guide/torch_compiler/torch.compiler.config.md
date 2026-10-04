@@ -61,11 +61,8 @@ one rank and run on all ranks. Read across the stack: make_fx, inductor, and dis
 
 torch.compiler.config.dynamic_shapes*: [bool](https://docs.python.org/3/builtins/functions.html#bool)**= True*
 
-Controls whether the compilation pipeline supports dynamic tensor shapes.
-When enabled, the compiler can handle tensors with varying dimensions across
-different invocations. This is a cross-cutting setting that affects shape
-inference, guard generation, and code generation across the entire compilation
-stack.
+This is a legacy option that is no longer used. See `assume_static_by_default`
+and `automatic_dynamic_shapes` instead.
 
 torch.compiler.config.enable_cpp_symbolic_shape_guards*: [bool](https://docs.python.org/3/builtins/functions.html#bool)**= False*
 

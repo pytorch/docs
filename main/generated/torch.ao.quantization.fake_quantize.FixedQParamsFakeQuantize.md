@@ -1,6 +1,6 @@
 # FixedQParamsFakeQuantize
 
-*class*torch.ao.quantization.fake_quantize.FixedQParamsFakeQuantize(*observer*)[[source]](https://github.com/pytorch/pytorch/blob/8ab13d788b9dab3e338e618576e65bb8b0c75e1a/torch/ao/quantization/fake_quantize.py#L331)
+*class*torch.ao.quantization.fake_quantize.FixedQParamsFakeQuantize(*observer*)[[source]](https://github.com/pytorch/pytorch/blob/496340f06ef7bda2800522429ba3f4e3473a92fa/torch/ao/quantization/fake_quantize.py#L331)
 
 Simulate quantize and dequantize in training time.
 
@@ -8,6 +8,6 @@ Simulate quantize and dequantize with fixed quantization
 parameters in training time. Only per tensor quantization
 is supported.
 
-extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/8ab13d788b9dab3e338e618576e65bb8b0c75e1a/torch/ao/quantization/fake_quantize.py#L360)
+extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/496340f06ef7bda2800522429ba3f4e3473a92fa/torch/ao/quantization/fake_quantize.py#L360)
 
 Define a string representation of the object's attributes.
