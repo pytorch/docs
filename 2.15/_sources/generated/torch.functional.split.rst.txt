@@ -1,0 +1,6 @@
+﻿torch.functional.split
+======================
+
+.. currentmodule:: torch.functional
+
+.. autofunction:: split

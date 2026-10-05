@@ -1,0 +1,6 @@
+﻿torch.fx.passes.reinplace.reinplace
+===================================
+
+.. currentmodule:: torch.fx.passes.reinplace
+
+.. autofunction:: reinplace

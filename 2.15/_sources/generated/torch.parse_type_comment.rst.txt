@@ -1,0 +1,6 @@
+﻿torch.parse\_type\_comment
+==========================
+
+.. currentmodule:: torch
+
+.. autofunction:: parse_type_comment

@@ -1,0 +1,6 @@
+﻿torch.rad2deg\_
+===============
+
+.. currentmodule:: torch
+
+.. autofunction:: rad2deg_

@@ -1,0 +1,6 @@
+﻿torch.cuda.current\_solver\_handle
+==================================
+
+.. currentmodule:: torch.cuda
+
+.. autofunction:: current_solver_handle

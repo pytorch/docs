@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.accelerator\_partitioner.reset\_partition\_device
+=======================================================================
+
+.. currentmodule:: torch.fx.experimental.accelerator_partitioner
+
+.. autofunction:: reset_partition_device

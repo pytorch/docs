@@ -1,0 +1,6 @@
+﻿torch.distributions.transforms.identity\_transform
+==================================================
+
+.. currentmodule:: torch.distributions.transforms
+
+.. autodata:: identity_transform

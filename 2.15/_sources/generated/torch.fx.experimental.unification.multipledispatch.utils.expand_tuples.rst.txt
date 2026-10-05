@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.unification.multipledispatch.utils.expand\_tuples
+=======================================================================
+
+.. currentmodule:: torch.fx.experimental.unification.multipledispatch.utils
+
+.. autofunction:: expand_tuples

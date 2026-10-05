@@ -1,0 +1,6 @@
+﻿torch.func.debug\_unwrap
+========================
+
+.. currentmodule:: torch.func
+
+.. autofunction:: debug_unwrap

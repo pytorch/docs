@@ -1,0 +1,6 @@
+﻿torch.foreach.lgamma
+====================
+
+.. currentmodule:: torch.foreach
+
+.. autofunction:: lgamma

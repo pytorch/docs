@@ -1,0 +1,6 @@
+﻿torch.distributions.utils.probs\_to\_logits
+===========================================
+
+.. currentmodule:: torch.distributions.utils
+
+.. autofunction:: probs_to_logits

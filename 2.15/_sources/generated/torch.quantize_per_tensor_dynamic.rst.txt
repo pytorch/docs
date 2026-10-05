@@ -1,0 +1,6 @@
+﻿torch.quantize\_per\_tensor\_dynamic
+====================================
+
+.. currentmodule:: torch
+
+.. autofunction:: quantize_per_tensor_dynamic

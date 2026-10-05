@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.optimization.replace\_node\_module
+========================================================
+
+.. currentmodule:: torch.fx.experimental.optimization
+
+.. autofunction:: replace_node_module

@@ -1,0 +1,6 @@
+﻿torch.cuda.is\_bf16\_supported
+==============================
+
+.. currentmodule:: torch.cuda
+
+.. autofunction:: is_bf16_supported

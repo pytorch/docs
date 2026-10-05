@@ -1,0 +1,6 @@
+﻿torch.hinge\_embedding\_loss
+============================
+
+.. currentmodule:: torch
+
+.. autofunction:: hinge_embedding_loss

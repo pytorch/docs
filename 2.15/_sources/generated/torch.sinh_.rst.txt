@@ -1,0 +1,6 @@
+﻿torch.sinh\_
+============
+
+.. currentmodule:: torch
+
+.. autofunction:: sinh_

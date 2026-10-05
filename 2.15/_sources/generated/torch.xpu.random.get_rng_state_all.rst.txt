@@ -1,0 +1,6 @@
+﻿torch.xpu.random.get\_rng\_state\_all
+=====================================
+
+.. currentmodule:: torch.xpu.random
+
+.. autofunction:: get_rng_state_all

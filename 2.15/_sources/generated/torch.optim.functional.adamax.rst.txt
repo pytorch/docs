@@ -1,0 +1,6 @@
+﻿torch.optim.functional.adamax
+=============================
+
+.. currentmodule:: torch.optim.functional
+
+.. autofunction:: adamax

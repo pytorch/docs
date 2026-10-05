@@ -1,0 +1,6 @@
+﻿torch.round\_
+=============
+
+.. currentmodule:: torch
+
+.. autofunction:: round_

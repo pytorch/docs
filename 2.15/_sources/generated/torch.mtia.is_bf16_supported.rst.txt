@@ -1,0 +1,6 @@
+﻿torch.mtia.is\_bf16\_supported
+==============================
+
+.. currentmodule:: torch.mtia
+
+.. autofunction:: is_bf16_supported

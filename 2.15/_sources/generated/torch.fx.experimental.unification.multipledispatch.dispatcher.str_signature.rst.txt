@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.unification.multipledispatch.dispatcher.str\_signature
+============================================================================
+
+.. currentmodule:: torch.fx.experimental.unification.multipledispatch.dispatcher
+
+.. autofunction:: str_signature

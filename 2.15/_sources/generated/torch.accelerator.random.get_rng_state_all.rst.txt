@@ -1,0 +1,6 @@
+﻿torch.accelerator.random.get\_rng\_state\_all
+=============================================
+
+.. currentmodule:: torch.accelerator.random
+
+.. autofunction:: get_rng_state_all

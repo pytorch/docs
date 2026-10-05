@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.proxy\_tensor.disable\_autocast\_cache
+============================================================
+
+.. currentmodule:: torch.fx.experimental.proxy_tensor
+
+.. autofunction:: disable_autocast_cache

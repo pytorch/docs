@@ -1,0 +1,6 @@
+﻿torch.fx.passes.operator\_support.chain
+=======================================
+
+.. currentmodule:: torch.fx.passes.operator_support
+
+.. autofunction:: chain

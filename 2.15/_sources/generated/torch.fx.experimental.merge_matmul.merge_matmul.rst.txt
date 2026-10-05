@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.merge\_matmul.merge\_matmul
+=================================================
+
+.. currentmodule:: torch.fx.experimental.merge_matmul
+
+.. autofunction:: merge_matmul

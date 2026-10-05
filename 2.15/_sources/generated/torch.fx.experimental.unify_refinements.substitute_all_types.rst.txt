@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.unify\_refinements.substitute\_all\_types
+===============================================================
+
+.. currentmodule:: torch.fx.experimental.unify_refinements
+
+.. autofunction:: substitute_all_types

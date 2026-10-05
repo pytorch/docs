@@ -1,0 +1,6 @@
+﻿torch.xpu.is\_tf32\_supported
+=============================
+
+.. currentmodule:: torch.xpu
+
+.. autofunction:: is_tf32_supported

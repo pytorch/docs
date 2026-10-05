@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.unification.match.edge
+============================================
+
+.. currentmodule:: torch.fx.experimental.unification.match
+
+.. autofunction:: edge

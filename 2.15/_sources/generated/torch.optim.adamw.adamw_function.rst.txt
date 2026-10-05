@@ -1,0 +1,6 @@
+﻿torch.optim.adamw.adamw
+=======================
+
+.. currentmodule:: torch.optim.adamw
+
+.. autofunction:: adamw

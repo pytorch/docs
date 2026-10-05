@@ -1,0 +1,27 @@
+# torch.logical_not
+
+torch.logical_not(*input*, ***, *out=None*) → [Tensor](../tensors.html#torch.Tensor)
+
+Computes the element-wise logical NOT of the given input tensor. If not specified, the output tensor will have the bool
+dtype. If the input tensor is not a bool tensor, zeros are treated as `False` and non-zeros are treated as `True`.
+
+Parameters:
+
+**input** ([*Tensor*](../tensors.html#torch.Tensor)) - the input tensor.
+
+Keyword Arguments:
+
+**out** ([*Tensor*](../tensors.html#torch.Tensor)*,**optional*) - the output tensor.
+
+Example:
+
+```
+>>> torch.logical_not(torch.tensor([True, False]))
+tensor([False, True])
+>>> torch.logical_not(torch.tensor([0, 1, -10], dtype=torch.int8))
+tensor([ True, False, False])
+>>> torch.logical_not(torch.tensor([0., 1.5, -10.], dtype=torch.double))
+tensor([ True, False, False])
+>>> torch.logical_not(torch.tensor([0., 1., -10.], dtype=torch.double), out=torch.empty(3, dtype=torch.int16))
+tensor([1, 0, 0], dtype=torch.int16)
+```

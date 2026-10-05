@@ -1,0 +1,6 @@
+﻿torch.lcm\_
+===========
+
+.. currentmodule:: torch
+
+.. autofunction:: lcm_

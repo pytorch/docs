@@ -1,0 +1,6 @@
+﻿torch.acosh\_
+=============
+
+.. currentmodule:: torch
+
+.. autofunction:: acosh_

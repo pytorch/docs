@@ -1,0 +1,6 @@
+﻿torch.cudnn\_is\_acceptable
+===========================
+
+.. currentmodule:: torch
+
+.. autofunction:: cudnn_is_acceptable

@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.migrate\_gradual\_types.constraint\_transformation.create\_equality\_constraints\_for\_broadcasting
+=========================================================================================================================
+
+.. currentmodule:: torch.fx.experimental.migrate_gradual_types.constraint_transformation
+
+.. autofunction:: create_equality_constraints_for_broadcasting

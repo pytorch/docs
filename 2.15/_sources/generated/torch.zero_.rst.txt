@@ -1,0 +1,6 @@
+﻿torch.zero\_
+============
+
+.. currentmodule:: torch
+
+.. autofunction:: zero_

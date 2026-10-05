@@ -1,0 +1,6 @@
+﻿torch.fx.subgraph\_rewriter.replace\_pattern\_with\_filters
+===========================================================
+
+.. currentmodule:: torch.fx.subgraph_rewriter
+
+.. autofunction:: replace_pattern_with_filters

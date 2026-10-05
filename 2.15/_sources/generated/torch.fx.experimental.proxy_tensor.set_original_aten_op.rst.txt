@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.proxy\_tensor.set\_original\_aten\_op
+===========================================================
+
+.. currentmodule:: torch.fx.experimental.proxy_tensor
+
+.. autofunction:: set_original_aten_op

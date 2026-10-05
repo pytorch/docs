@@ -1,0 +1,6 @@
+﻿torch.utils.jit.log\_extract.run\_test
+======================================
+
+.. currentmodule:: torch.utils.jit.log_extract
+
+.. autofunction:: run_test

@@ -1,0 +1,6 @@
+﻿torch.batch\_norm\_backward\_elemt
+==================================
+
+.. currentmodule:: torch
+
+.. autofunction:: batch_norm_backward_elemt

@@ -1,0 +1,6 @@
+﻿torch.nn.utils.weight\_norm.remove\_weight\_norm
+================================================
+
+.. currentmodule:: torch.nn.utils.weight_norm
+
+.. autofunction:: remove_weight_norm

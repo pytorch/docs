@@ -1,0 +1,6 @@
+﻿torch.utils.backend\_registration.rename\_privateuse1\_backend
+==============================================================
+
+.. currentmodule:: torch.utils.backend_registration
+
+.. autofunction:: rename_privateuse1_backend

@@ -1,0 +1,6 @@
+﻿torch.utils.hipify.hipify\_python.matched\_files\_iter
+======================================================
+
+.. currentmodule:: torch.utils.hipify.hipify_python
+
+.. autofunction:: matched_files_iter

@@ -1,0 +1,6 @@
+﻿torch.Tensor.nonzero\_static
+============================
+
+.. currentmodule:: torch
+
+.. automethod:: Tensor.nonzero_static

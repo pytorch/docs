@@ -1,0 +1,6 @@
+﻿torch.xpu.memory.memory\_allocated
+==================================
+
+.. currentmodule:: torch.xpu.memory
+
+.. autofunction:: memory_allocated

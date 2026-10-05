@@ -1,0 +1,6 @@
+﻿torch.view\_as\_complex\_copy
+=============================
+
+.. currentmodule:: torch
+
+.. autofunction:: view_as_complex_copy

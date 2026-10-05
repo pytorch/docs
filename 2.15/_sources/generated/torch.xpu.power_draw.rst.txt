@@ -1,0 +1,6 @@
+﻿torch.xpu.power\_draw
+=====================
+
+.. currentmodule:: torch.xpu
+
+.. autofunction:: power_draw

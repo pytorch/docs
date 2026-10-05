@@ -1,0 +1,6 @@
+﻿torch.cuda.green\_contexts.is\_localization\_supported
+======================================================
+
+.. currentmodule:: torch.cuda.green_contexts
+
+.. autofunction:: is_localization_supported

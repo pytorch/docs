@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.symbolic\_shapes.create\_contiguous
+=========================================================
+
+.. currentmodule:: torch.fx.experimental.symbolic_shapes
+
+.. autofunction:: create_contiguous

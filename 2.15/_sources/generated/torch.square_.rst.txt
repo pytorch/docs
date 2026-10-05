@@ -1,0 +1,6 @@
+﻿torch.square\_
+==============
+
+.. currentmodule:: torch
+
+.. autofunction:: square_

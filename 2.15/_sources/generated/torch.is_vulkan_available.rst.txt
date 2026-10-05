@@ -1,0 +1,6 @@
+﻿torch.is\_vulkan\_available
+===========================
+
+.. currentmodule:: torch
+
+.. autofunction:: is_vulkan_available

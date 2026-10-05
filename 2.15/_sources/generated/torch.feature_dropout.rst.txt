@@ -1,0 +1,6 @@
+﻿torch.feature\_dropout
+======================
+
+.. currentmodule:: torch
+
+.. autofunction:: feature_dropout

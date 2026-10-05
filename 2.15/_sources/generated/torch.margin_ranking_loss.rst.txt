@@ -1,0 +1,6 @@
+﻿torch.margin\_ranking\_loss
+===========================
+
+.. currentmodule:: torch
+
+.. autofunction:: margin_ranking_loss

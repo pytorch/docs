@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.symbolic\_shapes.cast\_symbool\_to\_symint\_guardless
+===========================================================================
+
+.. currentmodule:: torch.fx.experimental.symbolic_shapes
+
+.. autofunction:: cast_symbool_to_symint_guardless

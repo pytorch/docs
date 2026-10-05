@@ -1,0 +1,6 @@
+﻿torch.mtia.attach\_out\_of\_memory\_observer
+============================================
+
+.. currentmodule:: torch.mtia
+
+.. autofunction:: attach_out_of_memory_observer

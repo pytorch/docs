@@ -1,0 +1,6 @@
+﻿torch.optim.functional.nadam
+============================
+
+.. currentmodule:: torch.optim.functional
+
+.. autofunction:: nadam

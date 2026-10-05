@@ -1,0 +1,6 @@
+﻿torch.functional.norm
+=====================
+
+.. currentmodule:: torch.functional
+
+.. autofunction:: norm

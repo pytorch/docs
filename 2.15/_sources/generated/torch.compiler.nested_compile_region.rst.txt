@@ -1,0 +1,6 @@
+﻿torch.compiler.nested\_compile\_region
+======================================
+
+.. currentmodule:: torch.compiler
+
+.. autofunction:: nested_compile_region

@@ -1,0 +1,6 @@
+﻿torch.cos\_
+===========
+
+.. currentmodule:: torch
+
+.. autofunction:: cos_

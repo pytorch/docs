@@ -1,0 +1,6 @@
+﻿torch.optim.swa\_utils.get\_ema\_avg\_fn
+========================================
+
+.. currentmodule:: torch.optim.swa_utils
+
+.. autofunction:: get_ema_avg_fn

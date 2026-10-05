@@ -1,0 +1,6 @@
+﻿torch.cuda.random.get\_rng\_state\_all
+======================================
+
+.. currentmodule:: torch.cuda.random
+
+.. autofunction:: get_rng_state_all

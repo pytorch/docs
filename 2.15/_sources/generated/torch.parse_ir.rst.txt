@@ -1,0 +1,6 @@
+﻿torch.parse\_ir
+===============
+
+.. currentmodule:: torch
+
+.. autofunction:: parse_ir

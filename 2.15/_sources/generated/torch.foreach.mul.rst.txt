@@ -1,0 +1,6 @@
+﻿torch.foreach.mul
+=================
+
+.. currentmodule:: torch.foreach
+
+.. autofunction:: mul

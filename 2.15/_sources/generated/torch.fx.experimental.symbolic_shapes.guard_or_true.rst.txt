@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.symbolic\_shapes.guard\_or\_true
+======================================================
+
+.. currentmodule:: torch.fx.experimental.symbolic_shapes
+
+.. autofunction:: guard_or_true

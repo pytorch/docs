@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.validator.bisect
+======================================
+
+.. currentmodule:: torch.fx.experimental.validator
+
+.. autofunction:: bisect

@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.symbolic\_shapes.eval\_guards
+===================================================
+
+.. currentmodule:: torch.fx.experimental.symbolic_shapes
+
+.. autofunction:: eval_guards

@@ -1,0 +1,6 @@
+﻿torch.utils.hipify.hipify\_python.find\_parentheses\_group
+==========================================================
+
+.. currentmodule:: torch.utils.hipify.hipify_python
+
+.. autofunction:: find_parentheses_group

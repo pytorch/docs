@@ -1,0 +1,6 @@
+﻿torch.scalar\_tensor
+====================
+
+.. currentmodule:: torch
+
+.. autofunction:: scalar_tensor

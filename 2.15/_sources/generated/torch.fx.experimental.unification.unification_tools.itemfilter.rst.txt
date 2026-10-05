@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.unification.unification\_tools.itemfilter
+===============================================================
+
+.. currentmodule:: torch.fx.experimental.unification.unification_tools
+
+.. autofunction:: itemfilter

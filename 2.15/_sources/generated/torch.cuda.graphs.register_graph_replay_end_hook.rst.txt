@@ -1,0 +1,6 @@
+﻿torch.cuda.graphs.register\_graph\_replay\_end\_hook
+====================================================
+
+.. currentmodule:: torch.cuda.graphs
+
+.. autofunction:: register_graph_replay_end_hook

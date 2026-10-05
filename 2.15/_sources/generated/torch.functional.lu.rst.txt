@@ -1,0 +1,6 @@
+﻿torch.functional.lu
+===================
+
+.. currentmodule:: torch.functional
+
+.. autofunction:: lu

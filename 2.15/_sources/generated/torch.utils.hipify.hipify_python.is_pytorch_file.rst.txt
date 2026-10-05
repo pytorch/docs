@@ -1,0 +1,6 @@
+﻿torch.utils.hipify.hipify\_python.is\_pytorch\_file
+===================================================
+
+.. currentmodule:: torch.utils.hipify.hipify_python
+
+.. autofunction:: is_pytorch_file

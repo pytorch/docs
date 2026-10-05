@@ -1,0 +1,6 @@
+﻿torch.utils.flop\_counter.register\_flop\_formula
+=================================================
+
+.. currentmodule:: torch.utils.flop_counter
+
+.. autofunction:: register_flop_formula

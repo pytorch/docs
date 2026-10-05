@@ -1,0 +1,6 @@
+﻿torch.cuda.graph\_annotations.is\_available
+===========================================
+
+.. currentmodule:: torch.cuda.graph_annotations
+
+.. autofunction:: is_available

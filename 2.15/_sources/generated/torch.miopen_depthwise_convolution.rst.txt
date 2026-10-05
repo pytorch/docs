@@ -1,0 +1,6 @@
+﻿torch.miopen\_depthwise\_convolution
+====================================
+
+.. currentmodule:: torch
+
+.. autofunction:: miopen_depthwise_convolution

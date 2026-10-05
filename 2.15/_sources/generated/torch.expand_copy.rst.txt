@@ -1,0 +1,6 @@
+﻿torch.expand\_copy
+==================
+
+.. currentmodule:: torch
+
+.. autofunction:: expand_copy

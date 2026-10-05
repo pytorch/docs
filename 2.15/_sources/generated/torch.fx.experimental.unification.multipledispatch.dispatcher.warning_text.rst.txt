@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.unification.multipledispatch.dispatcher.warning\_text
+===========================================================================
+
+.. currentmodule:: torch.fx.experimental.unification.multipledispatch.dispatcher
+
+.. autofunction:: warning_text

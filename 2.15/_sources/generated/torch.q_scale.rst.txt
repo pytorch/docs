@@ -1,0 +1,6 @@
+﻿torch.q\_scale
+==============
+
+.. currentmodule:: torch
+
+.. autofunction:: q_scale

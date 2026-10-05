@@ -1,0 +1,6 @@
+﻿torch.autocast\_decrement\_nesting
+==================================
+
+.. currentmodule:: torch
+
+.. autofunction:: autocast_decrement_nesting

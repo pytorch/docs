@@ -1,0 +1,6 @@
+﻿torch.utils.collect\_env.check\_release\_file
+=============================================
+
+.. currentmodule:: torch.utils.collect_env
+
+.. autofunction:: check_release_file

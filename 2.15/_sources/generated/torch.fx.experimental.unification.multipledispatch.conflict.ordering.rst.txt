@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.unification.multipledispatch.conflict.ordering
+====================================================================
+
+.. currentmodule:: torch.fx.experimental.unification.multipledispatch.conflict
+
+.. autofunction:: ordering

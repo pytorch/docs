@@ -1,0 +1,6 @@
+﻿torch.xpu.random.set\_rng\_state\_all
+=====================================
+
+.. currentmodule:: torch.xpu.random
+
+.. autofunction:: set_rng_state_all

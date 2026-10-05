@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.optimization.matches\_module\_pattern
+===========================================================
+
+.. currentmodule:: torch.fx.experimental.optimization
+
+.. autofunction:: matches_module_pattern

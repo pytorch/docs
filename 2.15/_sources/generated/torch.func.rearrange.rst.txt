@@ -1,0 +1,6 @@
+﻿torch.func.rearrange
+====================
+
+.. currentmodule:: torch.func
+
+.. autofunction:: rearrange

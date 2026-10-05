@@ -1,0 +1,6 @@
+﻿torch.xpu.can\_device\_access\_peer
+===================================
+
+.. currentmodule:: torch.xpu
+
+.. autofunction:: can_device_access_peer

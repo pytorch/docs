@@ -1,0 +1,6 @@
+﻿torch.foreach.addcmul\_
+=======================
+
+.. currentmodule:: torch.foreach
+
+.. autofunction:: addcmul_

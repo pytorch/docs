@@ -1,0 +1,6 @@
+﻿torch.utils.hipify.hipify\_python.is\_caffe2\_gpu\_file
+=======================================================
+
+.. currentmodule:: torch.utils.hipify.hipify_python
+
+.. autofunction:: is_caffe2_gpu_file

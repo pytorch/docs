@@ -1,0 +1,6 @@
+﻿torch.gru
+=========
+
+.. currentmodule:: torch
+
+.. autofunction:: gru

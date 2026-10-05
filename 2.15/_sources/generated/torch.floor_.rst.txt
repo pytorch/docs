@@ -1,0 +1,6 @@
+﻿torch.floor\_
+=============
+
+.. currentmodule:: torch
+
+.. autofunction:: floor_

@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.optimization.modules\_to\_mkldnn
+======================================================
+
+.. currentmodule:: torch.fx.experimental.optimization
+
+.. autofunction:: modules_to_mkldnn

@@ -1,0 +1,6 @@
+﻿torch.cuda.memory.max\_memory\_reserved
+=======================================
+
+.. currentmodule:: torch.cuda.memory
+
+.. autofunction:: max_memory_reserved

@@ -1,0 +1,6 @@
+﻿torch.fx.passes.split\_utils.setattr\_recursive
+===============================================
+
+.. currentmodule:: torch.fx.passes.split_utils
+
+.. autofunction:: setattr_recursive

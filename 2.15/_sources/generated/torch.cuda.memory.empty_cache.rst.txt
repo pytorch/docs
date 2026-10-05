@@ -1,0 +1,6 @@
+﻿torch.cuda.memory.empty\_cache
+==============================
+
+.. currentmodule:: torch.cuda.memory
+
+.. autofunction:: empty_cache

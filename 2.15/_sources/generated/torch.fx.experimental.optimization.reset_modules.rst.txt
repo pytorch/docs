@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.optimization.reset\_modules
+=================================================
+
+.. currentmodule:: torch.fx.experimental.optimization
+
+.. autofunction:: reset_modules

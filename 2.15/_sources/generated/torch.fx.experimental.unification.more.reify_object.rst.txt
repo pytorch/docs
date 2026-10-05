@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.unification.more.reify\_object
+====================================================
+
+.. currentmodule:: torch.fx.experimental.unification.more
+
+.. autofunction:: reify_object

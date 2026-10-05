@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.migrate\_gradual\_types.constraint\_generator.gen\_layer\_norm\_constraints
+=================================================================================================
+
+.. currentmodule:: torch.fx.experimental.migrate_gradual_types.constraint_generator
+
+.. autofunction:: gen_layer_norm_constraints

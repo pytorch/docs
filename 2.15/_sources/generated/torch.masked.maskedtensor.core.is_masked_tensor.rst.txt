@@ -1,0 +1,6 @@
+﻿torch.masked.maskedtensor.core.is\_masked\_tensor
+=================================================
+
+.. currentmodule:: torch.masked.maskedtensor.core
+
+.. autofunction:: is_masked_tensor

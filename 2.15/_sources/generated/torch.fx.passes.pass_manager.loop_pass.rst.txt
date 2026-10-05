@@ -1,0 +1,6 @@
+﻿torch.fx.passes.pass\_manager.loop\_pass
+========================================
+
+.. currentmodule:: torch.fx.passes.pass_manager
+
+.. autofunction:: loop_pass

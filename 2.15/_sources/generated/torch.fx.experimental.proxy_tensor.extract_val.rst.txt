@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.proxy\_tensor.extract\_val
+================================================
+
+.. currentmodule:: torch.fx.experimental.proxy_tensor
+
+.. autofunction:: extract_val

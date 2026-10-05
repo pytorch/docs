@@ -1,0 +1,6 @@
+﻿torch.fx.graph\_module.reduce\_graph\_module
+============================================
+
+.. currentmodule:: torch.fx.graph_module
+
+.. autofunction:: reduce_graph_module

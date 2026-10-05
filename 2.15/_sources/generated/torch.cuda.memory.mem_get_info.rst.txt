@@ -1,0 +1,6 @@
+﻿torch.cuda.memory.mem\_get\_info
+================================
+
+.. currentmodule:: torch.cuda.memory
+
+.. autofunction:: mem_get_info

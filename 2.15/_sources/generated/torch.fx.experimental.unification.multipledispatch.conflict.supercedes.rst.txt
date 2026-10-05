@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.unification.multipledispatch.conflict.supercedes
+======================================================================
+
+.. currentmodule:: torch.fx.experimental.unification.multipledispatch.conflict
+
+.. autofunction:: supercedes

@@ -1,0 +1,6 @@
+﻿torch.nn.utils.spectral\_norm.spectral\_norm
+============================================
+
+.. currentmodule:: torch.nn.utils.spectral_norm
+
+.. autofunction:: spectral_norm

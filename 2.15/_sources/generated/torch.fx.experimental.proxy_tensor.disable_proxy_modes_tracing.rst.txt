@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.proxy\_tensor.disable\_proxy\_modes\_tracing
+==================================================================
+
+.. currentmodule:: torch.fx.experimental.proxy_tensor
+
+.. autofunction:: disable_proxy_modes_tracing

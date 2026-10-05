@@ -1,0 +1,6 @@
+﻿torch.optim.rprop.rprop
+=======================
+
+.. currentmodule:: torch.optim.rprop
+
+.. autofunction:: rprop

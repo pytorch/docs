@@ -1,0 +1,6 @@
+﻿torch.nn.parameter.is\_lazy
+===========================
+
+.. currentmodule:: torch.nn.parameter
+
+.. autofunction:: is_lazy

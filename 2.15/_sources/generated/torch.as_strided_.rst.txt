@@ -1,0 +1,6 @@
+﻿torch.as\_strided\_
+===================
+
+.. currentmodule:: torch
+
+.. autofunction:: as_strided_

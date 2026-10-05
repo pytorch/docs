@@ -1,0 +1,6 @@
+﻿torch.foreach.pow\_
+===================
+
+.. currentmodule:: torch.foreach
+
+.. autofunction:: pow_

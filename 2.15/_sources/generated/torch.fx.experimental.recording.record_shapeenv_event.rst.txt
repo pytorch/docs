@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.recording.record\_shapeenv\_event
+=======================================================
+
+.. currentmodule:: torch.fx.experimental.recording
+
+.. autofunction:: record_shapeenv_event

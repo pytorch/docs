@@ -1,0 +1,6 @@
+﻿torch.rnn\_tanh\_cell
+=====================
+
+.. currentmodule:: torch
+
+.. autofunction:: rnn_tanh_cell

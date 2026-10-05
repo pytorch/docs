@@ -1,0 +1,6 @@
+﻿torch.utils.hipify.hipify\_python.file\_add\_header
+===================================================
+
+.. currentmodule:: torch.utils.hipify.hipify_python
+
+.. autofunction:: file_add_header

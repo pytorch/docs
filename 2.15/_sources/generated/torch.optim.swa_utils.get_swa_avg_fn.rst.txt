@@ -1,0 +1,6 @@
+﻿torch.optim.swa\_utils.get\_swa\_avg\_fn
+========================================
+
+.. currentmodule:: torch.optim.swa_utils
+
+.. autofunction:: get_swa_avg_fn

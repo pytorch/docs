@@ -1,0 +1,6 @@
+﻿torch.cuda.profiler.start
+=========================
+
+.. currentmodule:: torch.cuda.profiler
+
+.. autofunction:: start

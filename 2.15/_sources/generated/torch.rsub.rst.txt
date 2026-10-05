@@ -1,0 +1,6 @@
+﻿torch.rsub
+==========
+
+.. currentmodule:: torch
+
+.. autofunction:: rsub

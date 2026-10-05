@@ -1,0 +1,6 @@
+﻿torch.mtia.get\_device\_properties
+==================================
+
+.. currentmodule:: torch.mtia
+
+.. autofunction:: get_device_properties

@@ -1,0 +1,6 @@
+﻿torch.is\_neg
+=============
+
+.. currentmodule:: torch
+
+.. autofunction:: is_neg

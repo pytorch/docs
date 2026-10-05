@@ -1,0 +1,6 @@
+﻿torch.ldexp\_
+=============
+
+.. currentmodule:: torch
+
+.. autofunction:: ldexp_

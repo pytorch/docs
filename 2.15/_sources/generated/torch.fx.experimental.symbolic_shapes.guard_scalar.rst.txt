@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.symbolic\_shapes.guard\_scalar
+====================================================
+
+.. currentmodule:: torch.fx.experimental.symbolic_shapes
+
+.. autofunction:: guard_scalar

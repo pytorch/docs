@@ -1,0 +1,3 @@
+# torch.fused_moving_avg_obs_fake_quant
+
+torch.fused_moving_avg_obs_fake_quant()

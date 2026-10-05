@@ -1,0 +1,6 @@
+﻿torch.detach\_
+==============
+
+.. currentmodule:: torch
+
+.. autofunction:: detach_

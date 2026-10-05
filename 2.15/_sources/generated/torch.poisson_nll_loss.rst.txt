@@ -1,0 +1,6 @@
+﻿torch.poisson\_nll\_loss
+========================
+
+.. currentmodule:: torch
+
+.. autofunction:: poisson_nll_loss

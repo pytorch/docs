@@ -1,0 +1,6 @@
+﻿torch.foreach.asin
+==================
+
+.. currentmodule:: torch.foreach
+
+.. autofunction:: asin

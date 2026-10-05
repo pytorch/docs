@@ -1,0 +1,6 @@
+﻿torch.fx.operator\_schemas.check\_for\_mutable\_operation
+=========================================================
+
+.. currentmodule:: torch.fx.operator_schemas
+
+.. autofunction:: check_for_mutable_operation

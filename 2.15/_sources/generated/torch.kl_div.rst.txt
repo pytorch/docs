@@ -1,0 +1,6 @@
+﻿torch.kl\_div
+=============
+
+.. currentmodule:: torch
+
+.. autofunction:: kl_div

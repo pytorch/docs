@@ -1,0 +1,6 @@
+﻿torch.xpu.memory.memory\_reserved
+=================================
+
+.. currentmodule:: torch.xpu.memory
+
+.. autofunction:: memory_reserved

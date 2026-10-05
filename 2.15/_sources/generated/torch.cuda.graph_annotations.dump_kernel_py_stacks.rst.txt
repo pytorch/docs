@@ -1,0 +1,6 @@
+﻿torch.cuda.graph\_annotations.dump\_kernel\_py\_stacks
+======================================================
+
+.. currentmodule:: torch.cuda.graph_annotations
+
+.. autofunction:: dump_kernel_py_stacks

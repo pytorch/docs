@@ -1,0 +1,6 @@
+﻿torch.fx.passes.utils.fuser\_utils.validate\_partition
+======================================================
+
+.. currentmodule:: torch.fx.passes.utils.fuser_utils
+
+.. autofunction:: validate_partition

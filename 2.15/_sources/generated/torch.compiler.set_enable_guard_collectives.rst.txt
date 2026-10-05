@@ -1,0 +1,6 @@
+﻿torch.compiler.set\_enable\_guard\_collectives
+==============================================
+
+.. currentmodule:: torch.compiler
+
+.. autofunction:: set_enable_guard_collectives

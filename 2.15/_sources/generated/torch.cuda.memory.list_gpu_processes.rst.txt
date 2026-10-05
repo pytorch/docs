@@ -1,0 +1,6 @@
+﻿torch.cuda.memory.list\_gpu\_processes
+======================================
+
+.. currentmodule:: torch.cuda.memory
+
+.. autofunction:: list_gpu_processes

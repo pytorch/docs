@@ -1,0 +1,6 @@
+﻿torch.diagonal\_copy
+====================
+
+.. currentmodule:: torch
+
+.. autofunction:: diagonal_copy

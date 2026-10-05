@@ -1,0 +1,6 @@
+﻿torch.fx.operator\_schemas.type\_matches
+========================================
+
+.. currentmodule:: torch.fx.operator_schemas
+
+.. autofunction:: type_matches

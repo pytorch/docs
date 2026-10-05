@@ -1,0 +1,6 @@
+﻿torch.compiler.skip\_guard\_on\_globals\_unsafe
+===============================================
+
+.. currentmodule:: torch.compiler
+
+.. autofunction:: skip_guard_on_globals_unsafe

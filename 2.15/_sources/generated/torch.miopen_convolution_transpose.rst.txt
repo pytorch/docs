@@ -1,0 +1,6 @@
+﻿torch.miopen\_convolution\_transpose
+====================================
+
+.. currentmodule:: torch
+
+.. autofunction:: miopen_convolution_transpose

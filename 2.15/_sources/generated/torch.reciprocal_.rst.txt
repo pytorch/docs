@@ -1,0 +1,6 @@
+﻿torch.reciprocal\_
+==================
+
+.. currentmodule:: torch
+
+.. autofunction:: reciprocal_

@@ -1,0 +1,6 @@
+﻿torch.alias\_copy
+=================
+
+.. currentmodule:: torch
+
+.. autofunction:: alias_copy

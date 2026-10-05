@@ -1,0 +1,6 @@
+﻿torch.mkldnn\_linear\_backward\_weights
+=======================================
+
+.. currentmodule:: torch
+
+.. autofunction:: mkldnn_linear_backward_weights

@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.optimization.optimize\_for\_inference
+===========================================================
+
+.. currentmodule:: torch.fx.experimental.optimization
+
+.. autofunction:: optimize_for_inference

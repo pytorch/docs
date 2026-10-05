@@ -1,0 +1,6 @@
+﻿torch.utils.hipify.hipify\_python.replace\_math\_functions
+==========================================================
+
+.. currentmodule:: torch.utils.hipify.hipify_python
+
+.. autofunction:: replace_math_functions

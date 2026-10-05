@@ -1,0 +1,5 @@
+# default_fused_per_channel_wt_fake_quant
+
+torch.ao.quantization.fake_quantize.default_fused_per_channel_wt_fake_quant
+
+Fused version of default_per_channel_weight_fake_quant, with improved performance.

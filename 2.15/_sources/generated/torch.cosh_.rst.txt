@@ -1,0 +1,6 @@
+﻿torch.cosh\_
+============
+
+.. currentmodule:: torch
+
+.. autofunction:: cosh_

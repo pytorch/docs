@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.unification.more.unify\_object
+====================================================
+
+.. currentmodule:: torch.fx.experimental.unification.more
+
+.. autofunction:: unify_object

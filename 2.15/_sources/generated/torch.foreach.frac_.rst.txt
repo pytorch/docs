@@ -1,0 +1,6 @@
+﻿torch.foreach.frac\_
+====================
+
+.. currentmodule:: torch.foreach
+
+.. autofunction:: frac_

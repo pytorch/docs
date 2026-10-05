@@ -1,0 +1,6 @@
+﻿torch.distributions.utils.clamp\_probs
+======================================
+
+.. currentmodule:: torch.distributions.utils
+
+.. autofunction:: clamp_probs

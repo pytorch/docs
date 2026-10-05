@@ -1,0 +1,58 @@
+# python.context-manager
+
+## null_context_manager
+
+Note
+
+Tags: python.context-manager
+
+Support Level: SUPPORTED
+
+Original source code:
+
+```
+# mypy: allow-untyped-defs
+import contextlib
+
+import torch
+
+class NullContextManager(torch.nn.Module):
+ """
+ Null context manager in Python will be traced out.
+ """
+
+ def forward(self, x):
+ """
+ Null context manager in Python will be traced out.
+ """
+ ctx = contextlib.nullcontext()
+ with ctx:
+ return x.sin() + x.cos()
+
+example_args = (torch.randn(3, 2),)
+tags = {"python.context-manager"}
+model = NullContextManager()
+
+torch.export.export(model, example_args)
+```
+
+Result:
+
+```
+ExportedProgram:
+ class GraphModule(torch.nn.Module):
+ def forward(self, x: "f32[3, 2]"):
+ sin: "f32[3, 2]" = torch.ops.aten.sin.default(x)
+ cos: "f32[3, 2]" = torch.ops.aten.cos.default(x); x = None
+ add: "f32[3, 2]" = torch.ops.aten.add.Tensor(sin, cos); sin = cos = None
+ return (add,)
+
+Graph signature:
+ # inputs
+ x: USER_INPUT
+
+ # outputs
+ add: USER_OUTPUT
+
+Range constraints: {}
+```

@@ -1,0 +1,6 @@
+﻿torch.cuda.graphs.make\_graphed\_callables
+==========================================
+
+.. currentmodule:: torch.cuda.graphs
+
+.. autofunction:: make_graphed_callables

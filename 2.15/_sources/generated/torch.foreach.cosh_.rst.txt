@@ -1,0 +1,6 @@
+﻿torch.foreach.cosh\_
+====================
+
+.. currentmodule:: torch.foreach
+
+.. autofunction:: cosh_

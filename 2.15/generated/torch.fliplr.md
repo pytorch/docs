@@ -1,0 +1,34 @@
+# torch.fliplr
+
+torch.fliplr(*input*) → [Tensor](../tensors.html#torch.Tensor)
+
+Flip tensor in the left/right direction, returning a new tensor.
+
+Flip the entries in each row in the left/right direction.
+Columns are preserved, but appear in a different order than before.
+
+Note
+
+Requires the tensor to be at least 2-D.
+
+Note
+
+torch.fliplr makes a copy of `input`'s data. This is different from NumPy's np.fliplr,
+which returns a view in constant time. Since copying a tensor's data is more work than viewing that data,
+torch.fliplr is expected to be slower than np.fliplr.
+
+Parameters:
+
+**input** ([*Tensor*](../tensors.html#torch.Tensor)) - Must be at least 2-dimensional.
+
+Example:
+
+```
+>>> x = torch.arange(4).view(2, 2)
+>>> x
+tensor([[0, 1],
+ [2, 3]])
+>>> torch.fliplr(x)
+tensor([[1, 0],
+ [3, 2]])
+```

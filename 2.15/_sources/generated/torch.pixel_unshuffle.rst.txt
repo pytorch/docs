@@ -1,0 +1,6 @@
+﻿torch.pixel\_unshuffle
+======================
+
+.. currentmodule:: torch
+
+.. autofunction:: pixel_unshuffle

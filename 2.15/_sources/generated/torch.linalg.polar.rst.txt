@@ -1,0 +1,6 @@
+﻿torch.linalg.polar
+==================
+
+.. currentmodule:: torch.linalg
+
+.. autofunction:: polar

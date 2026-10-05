@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.proxy\_tensor.get\_innermost\_proxy\_mode
+===============================================================
+
+.. currentmodule:: torch.fx.experimental.proxy_tensor
+
+.. autofunction:: get_innermost_proxy_mode

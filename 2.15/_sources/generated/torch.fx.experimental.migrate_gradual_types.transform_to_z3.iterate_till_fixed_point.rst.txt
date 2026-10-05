@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.migrate\_gradual\_types.transform\_to\_z3.iterate\_till\_fixed\_point
+===========================================================================================
+
+.. currentmodule:: torch.fx.experimental.migrate_gradual_types.transform_to_z3
+
+.. autofunction:: iterate_till_fixed_point

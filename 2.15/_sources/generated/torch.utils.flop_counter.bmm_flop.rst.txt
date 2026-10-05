@@ -1,0 +1,6 @@
+﻿torch.utils.flop\_counter.bmm\_flop
+===================================
+
+.. currentmodule:: torch.utils.flop_counter
+
+.. autofunction:: bmm_flop

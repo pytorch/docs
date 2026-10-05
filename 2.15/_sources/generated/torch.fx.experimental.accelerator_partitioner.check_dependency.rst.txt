@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.accelerator\_partitioner.check\_dependency
+================================================================
+
+.. currentmodule:: torch.fx.experimental.accelerator_partitioner
+
+.. autofunction:: check_dependency

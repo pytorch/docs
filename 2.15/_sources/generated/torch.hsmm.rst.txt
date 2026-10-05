@@ -1,0 +1,6 @@
+﻿torch.hsmm
+==========
+
+.. currentmodule:: torch
+
+.. autofunction:: hsmm

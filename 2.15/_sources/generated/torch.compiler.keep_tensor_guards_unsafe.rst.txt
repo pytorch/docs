@@ -1,0 +1,6 @@
+﻿torch.compiler.keep\_tensor\_guards\_unsafe
+===========================================
+
+.. currentmodule:: torch.compiler
+
+.. autofunction:: keep_tensor_guards_unsafe

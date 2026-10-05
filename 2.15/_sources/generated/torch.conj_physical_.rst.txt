@@ -1,0 +1,6 @@
+﻿torch.conj\_physical\_
+======================
+
+.. currentmodule:: torch
+
+.. autofunction:: conj_physical_

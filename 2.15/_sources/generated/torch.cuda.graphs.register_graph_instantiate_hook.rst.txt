@@ -1,0 +1,6 @@
+﻿torch.cuda.graphs.register\_graph\_instantiate\_hook
+====================================================
+
+.. currentmodule:: torch.cuda.graphs
+
+.. autofunction:: register_graph_instantiate_hook

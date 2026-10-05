@@ -1,0 +1,34 @@
+# torch.flipud
+
+torch.flipud(*input*) → [Tensor](../tensors.html#torch.Tensor)
+
+Flip tensor in the up/down direction, returning a new tensor.
+
+Flip the entries in each column in the up/down direction.
+Rows are preserved, but appear in a different order than before.
+
+Note
+
+Requires the tensor to be at least 1-D.
+
+Note
+
+torch.flipud makes a copy of `input`'s data. This is different from NumPy's np.flipud,
+which returns a view in constant time. Since copying a tensor's data is more work than viewing that data,
+torch.flipud is expected to be slower than np.flipud.
+
+Parameters:
+
+**input** ([*Tensor*](../tensors.html#torch.Tensor)) - Must be at least 1-dimensional.
+
+Example:
+
+```
+>>> x = torch.arange(4).view(2, 2)
+>>> x
+tensor([[0, 1],
+ [2, 3]])
+>>> torch.flipud(x)
+tensor([[2, 3],
+ [0, 1]])
+```

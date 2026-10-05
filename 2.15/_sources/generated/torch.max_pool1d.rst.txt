@@ -1,0 +1,6 @@
+﻿torch.max\_pool1d
+=================
+
+.. currentmodule:: torch
+
+.. autofunction:: max_pool1d

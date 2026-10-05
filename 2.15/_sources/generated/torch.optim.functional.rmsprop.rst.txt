@@ -1,0 +1,6 @@
+﻿torch.optim.functional.rmsprop
+==============================
+
+.. currentmodule:: torch.optim.functional
+
+.. autofunction:: rmsprop

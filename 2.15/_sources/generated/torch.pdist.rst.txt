@@ -1,0 +1,6 @@
+﻿torch.pdist
+===========
+
+.. currentmodule:: torch
+
+.. autofunction:: pdist

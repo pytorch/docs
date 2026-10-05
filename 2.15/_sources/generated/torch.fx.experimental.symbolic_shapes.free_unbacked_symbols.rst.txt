@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.symbolic\_shapes.free\_unbacked\_symbols
+==============================================================
+
+.. currentmodule:: torch.fx.experimental.symbolic_shapes
+
+.. autofunction:: free_unbacked_symbols

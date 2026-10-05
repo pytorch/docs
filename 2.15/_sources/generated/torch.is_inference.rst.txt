@@ -1,0 +1,6 @@
+﻿torch.is\_inference
+===================
+
+.. currentmodule:: torch
+
+.. autofunction:: is_inference

@@ -1,0 +1,6 @@
+﻿torch.values\_copy
+==================
+
+.. currentmodule:: torch
+
+.. autofunction:: values_copy

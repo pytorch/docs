@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.migrate\_gradual\_types.constraint.is\_dim
+================================================================
+
+.. currentmodule:: torch.fx.experimental.migrate_gradual_types.constraint
+
+.. autofunction:: is_dim

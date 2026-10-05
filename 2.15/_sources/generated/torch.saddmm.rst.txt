@@ -1,0 +1,6 @@
+﻿torch.saddmm
+============
+
+.. currentmodule:: torch
+
+.. autofunction:: saddmm

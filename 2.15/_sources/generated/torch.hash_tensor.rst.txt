@@ -1,0 +1,6 @@
+﻿torch.hash\_tensor
+==================
+
+.. currentmodule:: torch
+
+.. autofunction:: hash_tensor

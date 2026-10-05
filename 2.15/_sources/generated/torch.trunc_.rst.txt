@@ -1,0 +1,6 @@
+﻿torch.trunc\_
+=============
+
+.. currentmodule:: torch
+
+.. autofunction:: trunc_

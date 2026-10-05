@@ -1,0 +1,6 @@
+﻿torch.foreach.div\_
+===================
+
+.. currentmodule:: torch.foreach
+
+.. autofunction:: div_

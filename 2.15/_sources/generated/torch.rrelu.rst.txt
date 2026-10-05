@@ -1,0 +1,6 @@
+﻿torch.rrelu
+===========
+
+.. currentmodule:: torch
+
+.. autofunction:: rrelu

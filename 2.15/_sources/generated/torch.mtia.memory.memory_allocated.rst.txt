@@ -1,0 +1,6 @@
+﻿torch.mtia.memory.memory\_allocated
+===================================
+
+.. currentmodule:: torch.mtia.memory
+
+.. autofunction:: memory_allocated

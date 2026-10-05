@@ -1,0 +1,6 @@
+﻿torch.foreach.reciprocal
+========================
+
+.. currentmodule:: torch.foreach
+
+.. autofunction:: reciprocal

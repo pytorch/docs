@@ -1,0 +1,6 @@
+﻿torch.optim.functional.muon
+===========================
+
+.. currentmodule:: torch.optim.functional
+
+.. autofunction:: muon

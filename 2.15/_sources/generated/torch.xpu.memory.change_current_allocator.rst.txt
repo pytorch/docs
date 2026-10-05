@@ -1,0 +1,6 @@
+﻿torch.xpu.memory.change\_current\_allocator
+===========================================
+
+.. currentmodule:: torch.xpu.memory
+
+.. autofunction:: change_current_allocator

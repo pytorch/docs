@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.migrate\_gradual\_types.transform\_to\_z3.evaluate\_conditional\_with\_constraints
+========================================================================================================
+
+.. currentmodule:: torch.fx.experimental.migrate_gradual_types.transform_to_z3
+
+.. autofunction:: evaluate_conditional_with_constraints

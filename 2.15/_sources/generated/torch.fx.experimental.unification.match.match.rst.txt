@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.unification.match.match
+=============================================
+
+.. currentmodule:: torch.fx.experimental.unification.match
+
+.. autofunction:: match

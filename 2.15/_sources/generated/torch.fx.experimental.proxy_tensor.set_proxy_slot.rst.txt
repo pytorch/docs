@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.proxy\_tensor.set\_proxy\_slot
+====================================================
+
+.. currentmodule:: torch.fx.experimental.proxy_tensor
+
+.. autofunction:: set_proxy_slot

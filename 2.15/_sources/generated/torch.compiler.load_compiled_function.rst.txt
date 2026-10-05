@@ -1,0 +1,6 @@
+﻿torch.compiler.load\_compiled\_function
+=======================================
+
+.. currentmodule:: torch.compiler
+
+.. autofunction:: load_compiled_function

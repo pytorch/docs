@@ -1,0 +1,6 @@
+﻿torch.cuda.random.set\_rng\_state
+=================================
+
+.. currentmodule:: torch.cuda.random
+
+.. autofunction:: set_rng_state

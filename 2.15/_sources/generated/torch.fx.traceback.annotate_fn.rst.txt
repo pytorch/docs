@@ -1,0 +1,6 @@
+﻿torch.fx.traceback.annotate\_fn
+===============================
+
+.. currentmodule:: torch.fx.traceback
+
+.. autofunction:: annotate_fn

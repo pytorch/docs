@@ -1,0 +1,6 @@
+﻿torch.compiler.get\_default\_backend
+====================================
+
+.. currentmodule:: torch.compiler
+
+.. autofunction:: get_default_backend

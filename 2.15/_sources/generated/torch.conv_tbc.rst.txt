@@ -1,0 +1,6 @@
+﻿torch.conv\_tbc
+===============
+
+.. currentmodule:: torch
+
+.. autofunction:: conv_tbc

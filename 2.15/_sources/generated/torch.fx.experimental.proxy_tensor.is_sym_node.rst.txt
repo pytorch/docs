@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.proxy\_tensor.is\_sym\_node
+=================================================
+
+.. currentmodule:: torch.fx.experimental.proxy_tensor
+
+.. autofunction:: is_sym_node

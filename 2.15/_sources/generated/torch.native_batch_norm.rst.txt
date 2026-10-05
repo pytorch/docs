@@ -1,0 +1,6 @@
+﻿torch.native\_batch\_norm
+=========================
+
+.. currentmodule:: torch
+
+.. autofunction:: native_batch_norm

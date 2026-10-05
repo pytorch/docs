@@ -1,0 +1,6 @@
+﻿torch.masked\_fill
+==================
+
+.. currentmodule:: torch
+
+.. autofunction:: masked_fill

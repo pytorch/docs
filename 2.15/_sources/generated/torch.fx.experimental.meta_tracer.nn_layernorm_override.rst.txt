@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.meta\_tracer.nn\_layernorm\_override
+==========================================================
+
+.. currentmodule:: torch.fx.experimental.meta_tracer
+
+.. autofunction:: nn_layernorm_override

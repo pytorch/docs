@@ -1,0 +1,6 @@
+﻿torch.foreach.zero\_
+====================
+
+.. currentmodule:: torch.foreach
+
+.. autofunction:: zero_

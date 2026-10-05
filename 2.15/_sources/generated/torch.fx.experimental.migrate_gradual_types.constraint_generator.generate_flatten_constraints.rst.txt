@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.migrate\_gradual\_types.constraint\_generator.generate\_flatten\_constraints
+==================================================================================================
+
+.. currentmodule:: torch.fx.experimental.migrate_gradual_types.constraint_generator
+
+.. autofunction:: generate_flatten_constraints

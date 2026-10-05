@@ -1,0 +1,6 @@
+﻿torch.foreach.trunc\_
+=====================
+
+.. currentmodule:: torch.foreach
+
+.. autofunction:: trunc_

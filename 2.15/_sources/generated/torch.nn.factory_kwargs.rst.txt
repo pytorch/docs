@@ -1,0 +1,6 @@
+﻿torch.nn.factory\_kwargs
+========================
+
+.. currentmodule:: torch.nn
+
+.. autofunction:: factory_kwargs

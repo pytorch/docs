@@ -1,0 +1,6 @@
+﻿torch.utils.hipify.hipify\_python.is\_out\_of\_place
+====================================================
+
+.. currentmodule:: torch.utils.hipify.hipify_python
+
+.. autofunction:: is_out_of_place

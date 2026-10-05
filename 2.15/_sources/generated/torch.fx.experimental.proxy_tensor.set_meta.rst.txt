@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.proxy\_tensor.set\_meta
+=============================================
+
+.. currentmodule:: torch.fx.experimental.proxy_tensor
+
+.. autofunction:: set_meta

@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.unification.multipledispatch.dispatcher.halt\_ordering
+============================================================================
+
+.. currentmodule:: torch.fx.experimental.unification.multipledispatch.dispatcher
+
+.. autofunction:: halt_ordering

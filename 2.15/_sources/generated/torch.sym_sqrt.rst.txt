@@ -1,0 +1,6 @@
+﻿torch.sym\_sqrt
+===============
+
+.. currentmodule:: torch
+
+.. autofunction:: sym_sqrt

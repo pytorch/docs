@@ -1,0 +1,6 @@
+﻿torch.convolution
+=================
+
+.. currentmodule:: torch
+
+.. autofunction:: convolution

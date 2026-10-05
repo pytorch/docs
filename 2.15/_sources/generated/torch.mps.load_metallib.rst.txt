@@ -1,0 +1,6 @@
+﻿torch.mps.load\_metallib
+========================
+
+.. currentmodule:: torch.mps
+
+.. autofunction:: load_metallib

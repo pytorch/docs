@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.accelerator\_partitioner.set\_parents\_and\_children
+==========================================================================
+
+.. currentmodule:: torch.fx.experimental.accelerator_partitioner
+
+.. autofunction:: set_parents_and_children

@@ -1,0 +1,6 @@
+﻿torch.functional.stft
+=====================
+
+.. currentmodule:: torch.functional
+
+.. autofunction:: stft

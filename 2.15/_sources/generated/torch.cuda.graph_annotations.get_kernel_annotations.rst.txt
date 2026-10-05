@@ -1,0 +1,6 @@
+﻿torch.cuda.graph\_annotations.get\_kernel\_annotations
+======================================================
+
+.. currentmodule:: torch.cuda.graph_annotations
+
+.. autofunction:: get_kernel_annotations

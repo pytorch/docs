@@ -1,0 +1,6 @@
+﻿torch.utils.flop\_counter.shape\_wrapper
+========================================
+
+.. currentmodule:: torch.utils.flop_counter
+
+.. autofunction:: shape_wrapper

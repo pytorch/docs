@@ -1,0 +1,6 @@
+﻿torch.autograd.gradcheck.get\_numerical\_jacobian
+=================================================
+
+.. currentmodule:: torch.autograd.gradcheck
+
+.. autofunction:: get_numerical_jacobian

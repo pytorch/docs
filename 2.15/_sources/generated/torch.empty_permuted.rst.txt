@@ -1,0 +1,6 @@
+﻿torch.empty\_permuted
+=====================
+
+.. currentmodule:: torch
+
+.. autofunction:: empty_permuted

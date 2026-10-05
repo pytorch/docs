@@ -1,0 +1,6 @@
+﻿torch.autograd.function.FunctionCtx.input\_grad\_buffers
+========================================================
+
+.. currentmodule:: torch.autograd.function
+
+.. autoproperty:: FunctionCtx.input_grad_buffers

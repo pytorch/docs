@@ -1,0 +1,6 @@
+﻿torch.fork
+==========
+
+.. currentmodule:: torch
+
+.. autofunction:: fork

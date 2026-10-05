@@ -1,0 +1,6 @@
+﻿torch.foreach.tanh\_
+====================
+
+.. currentmodule:: torch.foreach
+
+.. autofunction:: tanh_

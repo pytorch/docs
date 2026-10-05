@@ -1,0 +1,6 @@
+﻿torch.embedding\_renorm\_
+=========================
+
+.. currentmodule:: torch
+
+.. autofunction:: embedding_renorm_

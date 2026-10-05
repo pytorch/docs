@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.meta\_tracer.torch\_abs\_override
+=======================================================
+
+.. currentmodule:: torch.fx.experimental.meta_tracer
+
+.. autofunction:: torch_abs_override

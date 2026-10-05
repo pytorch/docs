@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.merge\_matmul.are\_nodes\_independent
+===========================================================
+
+.. currentmodule:: torch.fx.experimental.merge_matmul
+
+.. autofunction:: are_nodes_independent

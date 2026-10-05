@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.symbolic\_shapes.log\_lru\_cache\_stats
+=============================================================
+
+.. currentmodule:: torch.fx.experimental.symbolic_shapes
+
+.. autofunction:: log_lru_cache_stats

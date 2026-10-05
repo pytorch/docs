@@ -1,0 +1,493 @@
+# torch.profiler
+
+## Overview
+
+PyTorch Profiler is a tool that allows the collection of performance metrics during training and inference.
+Profiler's context manager API can be used to better understand what model operators are the most expensive,
+examine their input shapes and stack traces, study device kernel activity and visualize the execution trace.
+
+Note
+
+An earlier version of the API in [`torch.autograd`](autograd.html#module-torch.autograd) module is considered legacy and will be deprecated.
+
+torch.profiler.profiler.schedule(***, *wait*, *warmup*, *active*, *repeat=0*, *skip_first=0*, *skip_first_wait=0*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/profiler/profiler.py#L972)
+
+Returns a callable that can be used as profiler `schedule` argument. The profiler will skip
+the first `skip_first` steps, then wait for `wait` steps, then do the warmup for the next `warmup` steps,
+then do the active recording for the next `active` steps and then repeat the cycle starting with `wait` steps.
+The optional number of cycles is specified with the `repeat` parameter, the zero value means that
+the cycles will continue until the profiling is finished.
+
+The `skip_first_wait` parameter controls whether the first `wait` stage should be skipped.
+This can be useful if a user wants to wait longer than `skip_first` between cycles, but not
+for the first profile. For example, if `skip_first` is 10 and `wait` is 20, the first cycle will
+wait 10 + 20 = 30 steps before warmup if `skip_first_wait` is zero, but will wait only 10
+steps if `skip_first_wait` is non-zero. All subsequent cycles will then wait 20 steps between the
+last active and warmup.
+
+Return type:
+
+Callable
+
+torch.profiler.profiler.supported_activities()[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/profiler/profiler.py#L96)
+
+Returns a set of supported profiler tracing activities.
+
+Note: profiler uses CUPTI library to trace on-device CUDA kernels.
+In case when CUDA is enabled but CUPTI is not available, passing
+`ProfilerActivity.CUDA` to profiler results in using the legacy CUDA
+profiling code (same as in the legacy `torch.autograd.profiler`).
+This, in turn, results in including CUDA time in the profiler table output,
+but not in the JSON trace.
+
+torch.profiler.profiler.tensorboard_trace_handler(*dir_name*, *worker_name=None*, *use_gzip=False*, *use_python_export=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/profiler/profiler.py#L1042)
+
+Outputs tracing files to directory of `dir_name`, then that directory can be
+directly delivered to tensorboard as logdir.
+`worker_name` should be unique for each worker in distributed scenario,
+it will be set to '[hostname]_[pid]' by default.
+
+## API Reference
+
+*class*torch.profiler.profile(***, *activities=None*, *schedule=None*, *on_trace_ready=None*, *record_shapes=False*, *profile_memory=False*, *with_stack=False*, *with_flops=False*, *with_modules=False*, *experimental_config=None*, *execution_trace_observer=None*, *acc_events=False*, *custom_trace_id_callback=None*, *post_processing_timeout_s=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/profiler/profiler.py#L1078)
+
+Profiler context manager.
+
+Parameters:
+
+- **activities** (*iterable*) -
+
+list of activity groups (CPU, CUDA) to use in profiling, supported values:
+`torch.profiler.ProfilerActivity.CPU`, `torch.profiler.ProfilerActivity.CUDA`,
+`torch.profiler.ProfilerActivity.XPU`.
+Default value: ProfilerActivity.CPU and (when available) ProfilerActivity.CUDA
+or (when available) ProfilerActivity.XPU.
+
+Each item can be a `ProfilerActivity` enum (collects all default
+activity types for that group) or a `dict` mapping a `ProfilerActivity`
+to a list of individual activity type names to collect, e.g.
+`{ProfilerActivity.CUDA: ["GPU_MEMCPY", "CUDA_RUNTIME"]}`.
+An empty list (e.g. `{ProfilerActivity.CUDA: []}`) means collect
+nothing for that group.
+The same activity group must not appear more than once.
+See `ProfilerActivity` for the valid
+activity type names and device-specific behavior.
+- **schedule** (*Callable*) - callable that takes step (int) as a single parameter and returns
+`ProfilerAction` value that specifies the profiler action to perform at each step.
+- **on_trace_ready** (*Callable*) - callable invoked at the end of each profiling cycle
+(when `schedule` returns `ProfilerAction.RECORD_AND_SAVE`). Receives the
+`profile` instance as its only argument, typically used to export the
+trace (e.g. via `export_chrome_trace()`) or print a summary.
+- **record_shapes** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - save information about operator's input shapes.
+- **profile_memory** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - track tensor memory allocation/deallocation.
+- **with_stack** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - record source information (file and line number) for the ops.
+- **with_flops** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - use formula to estimate the FLOPs (floating point operations) of specific operators
+(matrix multiplication and 2D convolution).
+- **with_modules** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) -
+
+record module hierarchy (including function names)
+corresponding to the callstack of the op. e.g. If module A's forward call's
+module B's forward which contains an aten::add op,
+then aten::add's module hierarchy is A.B
+
+Deprecated since version ``with_modules``: is deprecated and will be removed in a future version.
+It only collects data for TorchScript models, which are themselves
+deprecated, and does nothing in eager mode. Use `with_stack=True`,
+which records `nn.Module` events for eager models.
+- **experimental_config** (*_ExperimentalConfig*) - A set of experimental options
+used for Kineto library features. Note, backward compatibility is not guaranteed.
+- **execution_trace_observer** (*ExecutionTraceObserver*) - A PyTorch Execution Trace Observer object.
+[PyTorch Execution Traces](https://arxiv.org/pdf/2305.14516.pdf) offer a graph based
+representation of AI/ML workloads and enable replay benchmarks, simulators, and emulators.
+When this argument is included the observer start() and stop() will be called for the
+same time window as PyTorch profiler. See the examples section below for a code sample.
+- **acc_events** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Enable the accumulation of FunctionEvents across multiple profiling cycles
+- **post_processing_timeout_s** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - Optional timeout in seconds for post-processing profiler
+results. If specified, event parsing will stop after this duration and return partial
+results. Useful for handling large traces that may take too long to process.
+- **custom_trace_id_callback** (*Callable**[**[**]**,*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*]**,**optional*) - User-supplied trace ID generator,
+invoked once per profiling cycle. Defaults to a random UUID; retrieve via
+`get_trace_id()`.
+
+Note
+
+Use `schedule()` to generate the callable schedule.
+Non-default schedules are useful when profiling long training jobs
+and allow the user to obtain multiple traces at the different iterations
+of the training process.
+The default schedule simply records all the events continuously for the
+duration of the context manager.
+
+Note
+
+Use `tensorboard_trace_handler()` to generate result files for TensorBoard:
+
+`on_trace_ready=torch.profiler.tensorboard_trace_handler(dir_name)`
+
+After profiling, result files can be found in the specified directory. Use the command:
+
+`tensorboard --logdir dir_name`
+
+to see the results in TensorBoard.
+For more information, see
+[PyTorch Profiler TensorBoard Plugin](https://github.com/pytorch/kineto/tree/master/tb_plugin)
+
+Note
+
+Enabling shape and stack tracing results in additional overhead.
+When record_shapes=True is specified, profiler will temporarily hold references to the tensors;
+that may further prevent certain optimizations that depend on the reference count and introduce
+extra tensor copies.
+
+Examples:
+
+```
+with torch.profiler.profile(
+ activities=[
+ torch.profiler.ProfilerActivity.CPU,
+ torch.profiler.ProfilerActivity.CUDA,
+ ]
+) as p:
+ code_to_profile()
+print(p.key_averages().table(sort_by="self_cuda_time_total", row_limit=-1))
+```
+
+Using the profiler's `schedule`, `on_trace_ready` and `step` functions:
+
+```
+# Non-default profiler schedule allows user to turn profiler on and off
+# on different iterations of the training loop;
+# trace_handler is called every time a new trace becomes available
+def trace_handler(prof):
+ print(
+ prof.key_averages().table(sort_by="self_cuda_time_total", row_limit=-1)
+ )
+ # prof.export_chrome_trace("/tmp/test_trace_" + str(prof.step_num) + ".json")
+
+with torch.profiler.profile(
+ activities=[
+ torch.profiler.ProfilerActivity.CPU,
+ torch.profiler.ProfilerActivity.CUDA,
+ ],
+ # In this example with wait=1, warmup=1, active=2, repeat=1,
+ # profiler will skip the first step/iteration,
+ # start warming up on the second, record
+ # the third and the fourth iterations,
+ # after which the trace will become available
+ # and on_trace_ready (when set) is called;
+ # the cycle repeats starting with the next step
+ schedule=torch.profiler.schedule(wait=1, warmup=1, active=2, repeat=1),
+ on_trace_ready=trace_handler,
+ # on_trace_ready=torch.profiler.tensorboard_trace_handler('./log')
+ # used when outputting for tensorboard
+) as p:
+ for iter in range(N):
+ code_iteration_to_profile(iter)
+ # send a signal to the profiler that the next iteration has started
+ p.step()
+```
+
+The following sample shows how to setup up an Execution Trace Observer (execution_trace_observer)
+
+```
+with torch.profiler.profile(
+ ...
+ execution_trace_observer=(
+ ExecutionTraceObserver().register_callback("./execution_trace.json")
+ ),
+) as p:
+ for iter in range(N):
+ code_iteration_to_profile(iter)
+ p.step()
+```
+
+You can also refer to test_execution_trace_with_kineto() in tests/profiler/test_profiler.py.
+Note: One can also pass any object satisfying the _ITraceObserver interface.
+
+add_metadata(*key*, *value*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/profiler/profiler.py#L834)
+
+Adds a user defined metadata with a string key and a string value
+into the trace file
+
+add_metadata_json(*key*, *value*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/profiler/profiler.py#L843)
+
+Adds a user defined metadata with a string key and a valid json value
+into the trace file
+
+events()[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/profiler/profiler.py#L820)
+
+Return the list of unaggregated [`FunctionEvent`](generated/torch.autograd.profiler_util.FunctionEvent.html#torch.autograd.profiler_util.FunctionEvent)
+objects, for use in the trace callback or after profiling has finished.
+
+export_chrome_trace(*path*, *use_python_export=False*, *cuda_graph_annotations=None*, *graph_lanes='none'*, *default_stream=7*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/profiler/profiler.py#L637)
+
+Exports the collected trace in Chrome JSON format. If kineto is enabled, only
+last cycle in schedule is exported.
+
+`cuda_graph_annotations` bakes CUDA-graph kernel annotations into the trace:
+matching graphed work carries its annotation's fields in `args`. Pass
+[`torch.cuda.graph_annotations.get_kernel_annotations()`](generated/torch.cuda.graph_annotations.get_kernel_annotations.html#torch.cuda.graph_annotations.get_kernel_annotations) to use what
+[`mark_kernels()`](generated/torch.cuda.graph_annotations.mark_kernels.html#torch.cuda.graph_annotations.mark_kernels) recorded, or any mapping in
+that shape - a filtered or edited copy, or one unpickled from an earlier run.
+An empty mapping is treated as no annotations at all. Passing it implies
+`use_python_export`, the export path able to inject (the `cuspy`
+backend does its own injection and ignores this argument).
+
+`graph_lanes` decides whether graphed events are moved onto display lanes.
+`"none"` (default) leaves the trace's stream layout alone, reporting a recorded
+lane as `args["annotated_stream"]` instead of acting on it. `"all"` moves each
+graphed event to the lane its annotation names (as
+`mark_stream()` records) and the rest onto
+`default_stream` - what a replay scattered over many hardware streams needs,
+at the cost of piling everything onto one lane when no annotation names a stream.
+A moved event keeps the stream it ran on as `args["original_stream"]`. `"all"`
+requires `cuda_graph_annotations` and raises without them, since on its own it
+would only do the collapsing half.
+
+export_memory_timeline(*path*, *device=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/profiler/profiler.py#L891)
+
+Export memory event information from the profiler collected
+tree for a given device, and export a timeline plot. There are 3
+exportable files using `export_memory_timeline`, each controlled by the
+`path`'s suffix.
+
+- For an HTML compatible plot, use the suffix `.html`, and a memory timeline
+plot will be embedded as a PNG file in the HTML file.
+- For plot points consisting of `[times, [sizes by category]]`, where
+`times` are timestamps and `sizes` are memory usage for each category.
+The memory timeline plot will be saved a JSON (`.json`) or gzipped JSON
+(`.json.gz`) depending on the suffix.
+- For raw memory points, use the suffix `.raw.json.gz`. Each raw memory
+event will consist of `(timestamp, action, numbytes, category)`, where
+`action` is one of `[PREEXISTING, CREATE, INCREMENT_VERSION, DESTROY]`,
+and `category` is one of the enums from
+`torch.profiler._memory_profiler.Category`.
+
+Output: Memory timeline written as gzipped JSON, JSON, or HTML.
+
+Deprecated since version ``export_memory_timeline``: is deprecated and will be removed in a future version.
+Please use `torch.cuda.memory._record_memory_history` and
+`torch.cuda.memory._export_memory_snapshot` instead.
+
+export_stacks(*path*, *metric='self_cpu_time_total'*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/profiler/profiler.py#L746)
+
+Save stack traces to a file
+
+Parameters:
+
+- **path** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - save stacks file to this location;
+- **metric** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - metric to use: "self_cpu_time_total" or "self_cuda_time_total"
+
+get_trace_id()[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/profiler/profiler.py#L1539)
+
+Returns the current trace ID.
+
+key_averages(*group_by_input_shape=False*, *group_by_stack_n=0*, *group_by_overload_name=False*, *include_python_functions=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/profiler/profiler.py#L793)
+
+Averages events, grouping them by operator name and (optionally) input shapes, stack
+and overload name.
+
+Returns an [`EventList`](generated/torch.autograd.profiler_util.EventList.html#torch.autograd.profiler_util.EventList) of the aggregated events.
+
+Note
+
+To use shape/stack functionality make sure to set record_shapes/with_stack
+when creating profiler context manager.
+
+preset_metadata_json(*key*, *value*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/profiler/profiler.py#L851)
+
+Preset a user defined metadata when the profiler is not started
+and added into the trace file later.
+Metadata is in the format of a string key and a valid json value
+
+set_custom_trace_id_callback(*callback*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/profiler/profiler.py#L1532)
+
+Set the trace ID generator. Called at the start of each cycle, so updating
+it between cycles yields distinct IDs per cycle.
+
+step()[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/profiler/profiler.py#L1443)
+
+Signals the profiler that the next profiling step has started.
+
+take_pending_cuspy_export()[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/profiler/profiler.py#L735)
+
+Detach this cycle's cuspy ProfilerObserver (with its unwritten window) so
+the deferred export can be finalized OFF the training thread (call
+`obs.join(force=False)` on a worker). None for non-cuspy backends.
+
+Return type:
+
+[*Any*](https://docs.python.org/3/library/typing.html#typing.Any)
+
+toggle_collection_dynamic(*enable*, *activities*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/profiler/profiler.py#L757)
+
+Toggle collection of activities on/off at any point of collection. Currently supports toggling Torch Ops
+(CPU) and CUDA activity supported in Kineto
+
+Parameters:
+
+**activities** (*iterable*) - list of activity groups to use in profiling, supported values:
+`torch.profiler.ProfilerActivity.CPU`, `torch.profiler.ProfilerActivity.CUDA`
+
+Examples:
+
+```
+with torch.profiler.profile(
+ activities=[
+ torch.profiler.ProfilerActivity.CPU,
+ torch.profiler.ProfilerActivity.CUDA,
+ ]
+) as p:
+ code_to_profile_0()
+ # turn off collection of all CUDA activity
+ p.toggle_collection_dynamic(
+ False, [torch.profiler.ProfilerActivity.CUDA]
+ )
+ code_to_profile_1()
+ # turn on collection of all CUDA activity
+ p.toggle_collection_dynamic(
+ True, [torch.profiler.ProfilerActivity.CUDA]
+ )
+ code_to_profile_2()
+print(p.key_averages().table(sort_by="self_cuda_time_total", row_limit=-1))
+```
+
+wait_for_exports()[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/profiler/profiler.py#L726)
+
+Block until every deferred cuspy export is written, then unregister.
+No-op unless the cuspy backend is active. Call on the training thread when
+you need the file(s) on disk; the finalize force-flushes CUPTI (safe here).
+
+*class*torch.profiler.ProfilerAction(*value*, *names=None*, ***, *module=None*, *qualname=None*, *type=None*, *start=1*, *boundary=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/profiler/profiler.py#L949)
+
+Profiler actions that can be taken at the specified intervals.
+
+NONE, WARMUP, RECORD, and RECORD_AND_SAVE are user-facing values that may
+be returned from a user-provided schedule. DEVICE_STOPPED is set
+internally by the profiler when device collection stops early due to
+errors; it must not be returned from a user-provided schedule.
+
+*class*torch.profiler.ProfilerActivity
+
+Device kinds that the profiler supports.
+
+Members:
+
+> CPU : CPU events (operators, runtime, ...).
+> 
+> 
+> 
+> 
+> XPU : Intel XPU device activity. In a fine-grained activity dict (`{ProfilerActivity.XPU: [...]}`), names that are not XPU activity types are interpreted as Intel XPU hardware metric names and enable the per-kernel scope profiler, e.g. `{ProfilerActivity.XPU: ["GpuTime", "GpuCoreClocks"]}`. The metric values are attached to each kernel as Perfetto counters. Hardware metric collection requires `ZET_ENABLE_METRICS=1` and access to the GPU performance counters (`perf_stream_paranoid`/`observation_paranoid` set to `0`). Metric names are device-specific and defined by the driver, not by PyTorch. Because a dict entry collects exactly what it lists, requesting only metrics (e.g. `{ProfilerActivity.XPU: ["GpuTime"]}`) does not also collect the default XPU activities; list the desired activity type names alongside the metrics to keep tracing them, e.g. `{ProfilerActivity.XPU: ["CONCURRENT_KERNEL", "XPU_RUNTIME", "GpuTime"]}`.
+> 
+> 
+> 
+> 
+> MTIA : MTIA device activity.
+> 
+> 
+> 
+> 
+> CUDA : CUDA kernels and runtime. To sample CUDA hardware performance counters, use `ProfilerActivityConfig` with a `PerformanceMetricsConfig` in the activity dict, e.g. `{ProfilerActivity.CUDA: ProfilerActivityConfig(profiler_configs=[PerformanceMetricsConfig(metric_names=["sm__cycles_active.avg"])])}`. Metric names are CUPTI PM sampling metrics supported by the current CUDA device. Hardware counter collection requires a Kineto build with CUPTI PM sampling support.
+> 
+> 
+> 
+> 
+> HPU : HPU device activity.
+> 
+> 
+> 
+> 
+> PrivateUse1 : PrivateUse1 backend activity.
+
+*property*name
+
+*class*torch.profiler.CuspyConfig(*enable_cuda_sync_events=False*, *enable_environment_counters=False*, *enable_graph_dependencies=False*, *enable_event_node_ids=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/profiler/profiler.py#L138)
+
+Configure Cuspy CUDA activity collection.
+
+CPU activity is currently required because Cuspy merges its trace with the
+CPU trace.
+
+Parameters:
+
+- **enable_cuda_sync_events** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - Collect CUDA synchronization
+activities.
+- **enable_environment_counters** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - Collect GPU environment
+counters.
+- **enable_graph_dependencies** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - Record CUDA graph
+dependency edges.
+- **enable_event_node_ids** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - Associate CUDA events with CUDA
+graph event-record nodes.
+
+*class*torch.profiler.ProfilerActivityConfig(*activity_types=None*, *profiler_configs=<factory>*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/profiler/profiler.py#L200)
+
+Configure collection for an activity group.
+
+Parameters:
+
+- **activity_types** ([*list*](https://docs.python.org/3/builtins/stdtypes.html#list)*[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*]**,**optional*) - Fine-grained activity types to
+collect. `None` collects the group's default activity types,
+while an empty list collects none.
+- **profiler_configs** ([*list*](https://docs.python.org/3/builtins/stdtypes.html#list)) - Additional profiler configurations associated
+with this activity group, such as `PerformanceMetricsConfig`
+and `CuspyConfig`.
+
+*class*torch.profiler.PerformanceMetricsConfig(*metric_names*, *sampling_interval_ms=None*, *lookback_window_ms=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/profiler/profiler.py#L165)
+
+Configure hardware performance-counter metric collection.
+
+This configuration collects hardware counters.
+
+Parameters:
+
+- **metric_names** ([*list*](https://docs.python.org/3/builtins/stdtypes.html#list)*[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*]*) - Backend-specific hardware metric names to collect.
+- **sampling_interval_ms** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*,**optional*) - CUDA PM-sampling interval in
+milliseconds. Defaults to 1 millisecond.
+- **lookback_window_ms** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*,**optional*) - CUDA PM-sampling look-back window
+in milliseconds. This bounds the recent sample history retained for
+decoding; the capacity is the look-back window divided by the
+sampling interval. Defaults to 10 seconds.
+
+CUDA PM sampling uses the current CUDA device.
+
+## Intel Instrumentation and Tracing Technology APIs
+
+torch.profiler.itt.is_available()[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/profiler/itt.py#L31)
+
+Check if ITT feature is available or not
+
+torch.profiler.itt.mark(*msg*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/profiler/itt.py#L57)
+
+Describe an instantaneous event that occurred at some point.
+
+Parameters:
+
+**msg** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - ASCII message to associate with the event.
+
+torch.profiler.itt.range_push(*msg*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/profiler/itt.py#L38)
+
+Pushes a range onto a stack of nested range span. Returns zero-based
+depth of the range that is started.
+
+Parameters:
+
+**msg** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - ASCII message to associate with range
+
+torch.profiler.itt.range_pop()[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/profiler/itt.py#L49)
+
+Pops a range off of a stack of nested range spans. Returns the
+zero-based depth of the range that is ended.
+
+torch.profiler.itt.range(*msg*, **args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/profiler/itt.py#L67)
+
+Context manager / decorator that pushes an ITT range at the beginning
+of its scope, and pops it at the end. If extra arguments are given,
+they are passed as arguments to msg.format().
+
+Parameters:
+
+**msg** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - message to associate with the range
+
+ This module needs to be documented. Adding here in the meantime
+for tracking purposes

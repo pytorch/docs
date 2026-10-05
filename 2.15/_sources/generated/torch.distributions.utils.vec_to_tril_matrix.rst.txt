@@ -1,0 +1,6 @@
+﻿torch.distributions.utils.vec\_to\_tril\_matrix
+===============================================
+
+.. currentmodule:: torch.distributions.utils
+
+.. autofunction:: vec_to_tril_matrix

@@ -1,0 +1,6 @@
+﻿torch.pairwise\_distance
+========================
+
+.. currentmodule:: torch
+
+.. autofunction:: pairwise_distance

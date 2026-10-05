@@ -1,0 +1,6 @@
+﻿torch.cuda.export\_graph\_data
+==============================
+
+.. currentmodule:: torch.cuda
+
+.. autofunction:: export_graph_data

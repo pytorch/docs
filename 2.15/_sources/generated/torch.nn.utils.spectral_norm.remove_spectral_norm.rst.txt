@@ -1,0 +1,6 @@
+﻿torch.nn.utils.spectral\_norm.remove\_spectral\_norm
+====================================================
+
+.. currentmodule:: torch.nn.utils.spectral_norm
+
+.. autofunction:: remove_spectral_norm

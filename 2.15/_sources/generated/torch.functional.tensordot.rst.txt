@@ -1,0 +1,6 @@
+﻿torch.functional.tensordot
+==========================
+
+.. currentmodule:: torch.functional
+
+.. autofunction:: tensordot

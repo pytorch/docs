@@ -1,0 +1,6 @@
+﻿torch.utils.model\_dump.get\_inline\_skeleton
+=============================================
+
+.. currentmodule:: torch.utils.model_dump
+
+.. autofunction:: get_inline_skeleton

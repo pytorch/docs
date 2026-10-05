@@ -1,0 +1,6 @@
+﻿torch.miopen\_convolution\_add\_relu
+====================================
+
+.. currentmodule:: torch
+
+.. autofunction:: miopen_convolution_add_relu

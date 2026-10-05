@@ -1,0 +1,27 @@
+# torch.sinh
+
+torch.sinh(*input*, ***, *out=None*) → [Tensor](../tensors.html#torch.Tensor)
+
+Returns a new tensor with the hyperbolic sine of the elements of
+`input`.
+
+outi=sinh⁡(inputi)\text{out}_{i} = \sinh(\text{input}_{i})
+
+outi​=sinh(inputi​)
+Parameters:
+
+**input** ([*Tensor*](../tensors.html#torch.Tensor)) - the input tensor.
+
+Keyword Arguments:
+
+**out** ([*Tensor*](../tensors.html#torch.Tensor)*,**optional*) - the output tensor.
+
+Example:
+
+```
+>>> a = torch.randn(4)
+>>> a
+tensor([ 0.5380, -0.8632, -0.1265, 0.9399])
+>>> torch.sinh(a)
+tensor([ 0.5644, -0.9744, -0.1268, 1.0845])
+```

@@ -1,0 +1,6 @@
+﻿torch.accelerator.memory.reset\_accumulated\_memory\_stats
+==========================================================
+
+.. currentmodule:: torch.accelerator.memory
+
+.. autofunction:: reset_accumulated_memory_stats

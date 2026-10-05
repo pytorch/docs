@@ -1,0 +1,6 @@
+﻿torch.utils.model\_dump.get\_model\_info
+========================================
+
+.. currentmodule:: torch.utils.model_dump
+
+.. autofunction:: get_model_info

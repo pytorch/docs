@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.unification.multipledispatch.core.dispatch
+================================================================
+
+.. currentmodule:: torch.fx.experimental.unification.multipledispatch.core
+
+.. autofunction:: dispatch

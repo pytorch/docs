@@ -1,0 +1,6 @@
+﻿torch.selu
+==========
+
+.. currentmodule:: torch
+
+.. autofunction:: selu

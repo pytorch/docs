@@ -1,0 +1,6 @@
+﻿torch.utils.hipify.hipify\_python.preprocessor
+==============================================
+
+.. currentmodule:: torch.utils.hipify.hipify_python
+
+.. autofunction:: preprocessor

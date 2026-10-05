@@ -1,0 +1,6 @@
+﻿torch.optim.adagrad.adagrad
+===========================
+
+.. currentmodule:: torch.optim.adagrad
+
+.. autofunction:: adagrad

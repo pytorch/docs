@@ -1,0 +1,6 @@
+﻿torch.foreach.tan\_
+===================
+
+.. currentmodule:: torch.foreach
+
+.. autofunction:: tan_

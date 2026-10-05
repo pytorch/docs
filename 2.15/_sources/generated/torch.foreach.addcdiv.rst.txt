@@ -1,0 +1,6 @@
+﻿torch.foreach.addcdiv
+=====================
+
+.. currentmodule:: torch.foreach
+
+.. autofunction:: addcdiv

@@ -1,0 +1,6 @@
+﻿torch.fx.traceback.get\_graph\_provenance\_json
+===============================================
+
+.. currentmodule:: torch.fx.traceback
+
+.. autofunction:: get_graph_provenance_json

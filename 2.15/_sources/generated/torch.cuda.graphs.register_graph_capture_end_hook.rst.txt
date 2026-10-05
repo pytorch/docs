@@ -1,0 +1,6 @@
+﻿torch.cuda.graphs.register\_graph\_capture\_end\_hook
+=====================================================
+
+.. currentmodule:: torch.cuda.graphs
+
+.. autofunction:: register_graph_capture_end_hook

@@ -1,0 +1,6 @@
+﻿torch.foreach.neg
+=================
+
+.. currentmodule:: torch.foreach
+
+.. autofunction:: neg

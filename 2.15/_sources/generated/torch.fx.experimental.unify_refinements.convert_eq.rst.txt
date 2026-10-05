@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.unify\_refinements.convert\_eq
+====================================================
+
+.. currentmodule:: torch.fx.experimental.unify_refinements
+
+.. autofunction:: convert_eq

@@ -1,0 +1,6 @@
+﻿torch.xpu.graphs.make\_graphed\_callables
+=========================================
+
+.. currentmodule:: torch.xpu.graphs
+
+.. autofunction:: make_graphed_callables

@@ -1,0 +1,6 @@
+﻿torch.fx.operator\_schemas.create\_type\_hint
+=============================================
+
+.. currentmodule:: torch.fx.operator_schemas
+
+.. autofunction:: create_type_hint

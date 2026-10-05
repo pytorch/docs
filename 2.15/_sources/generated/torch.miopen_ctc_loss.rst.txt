@@ -1,0 +1,6 @@
+﻿torch.miopen\_ctc\_loss
+=======================
+
+.. currentmodule:: torch
+
+.. autofunction:: miopen_ctc_loss

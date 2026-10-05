@@ -1,0 +1,6 @@
+﻿torch.utils.hipify.hipify\_python.preprocess\_file\_and\_save\_result
+=====================================================================
+
+.. currentmodule:: torch.utils.hipify.hipify_python
+
+.. autofunction:: preprocess_file_and_save_result

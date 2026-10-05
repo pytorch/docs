@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.unify\_refinements.infer\_symbolic\_types
+===============================================================
+
+.. currentmodule:: torch.fx.experimental.unify_refinements
+
+.. autofunction:: infer_symbolic_types

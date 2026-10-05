@@ -1,0 +1,6 @@
+﻿torch.fbgemm\_linear\_int8\_weight
+==================================
+
+.. currentmodule:: torch
+
+.. autofunction:: fbgemm_linear_int8_weight

@@ -1,0 +1,6 @@
+﻿torch.quantized\_max\_pool3d
+============================
+
+.. currentmodule:: torch
+
+.. autofunction:: quantized_max_pool3d

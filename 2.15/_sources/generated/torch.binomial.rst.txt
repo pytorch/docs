@@ -1,0 +1,6 @@
+﻿torch.binomial
+==============
+
+.. currentmodule:: torch
+
+.. autofunction:: binomial

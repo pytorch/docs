@@ -1,0 +1,6 @@
+﻿torch.fx.operator\_schemas.normalize\_module
+============================================
+
+.. currentmodule:: torch.fx.operator_schemas
+
+.. autofunction:: normalize_module

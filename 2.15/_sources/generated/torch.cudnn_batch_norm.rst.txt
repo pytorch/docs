@@ -1,0 +1,6 @@
+﻿torch.cudnn\_batch\_norm
+========================
+
+.. currentmodule:: torch
+
+.. autofunction:: cudnn_batch_norm

@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.proxy\_tensor.track\_tensor\_tree
+=======================================================
+
+.. currentmodule:: torch.fx.experimental.proxy_tensor
+
+.. autofunction:: track_tensor_tree

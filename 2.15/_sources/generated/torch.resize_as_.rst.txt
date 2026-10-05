@@ -1,0 +1,6 @@
+﻿torch.resize\_as\_
+==================
+
+.. currentmodule:: torch
+
+.. autofunction:: resize_as_

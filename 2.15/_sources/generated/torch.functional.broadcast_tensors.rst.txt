@@ -1,0 +1,6 @@
+﻿torch.functional.broadcast\_tensors
+===================================
+
+.. currentmodule:: torch.functional
+
+.. autofunction:: broadcast_tensors

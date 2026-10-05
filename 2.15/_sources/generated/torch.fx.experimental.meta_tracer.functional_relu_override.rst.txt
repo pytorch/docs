@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.meta\_tracer.functional\_relu\_override
+=============================================================
+
+.. currentmodule:: torch.fx.experimental.meta_tracer
+
+.. autofunction:: functional_relu_override

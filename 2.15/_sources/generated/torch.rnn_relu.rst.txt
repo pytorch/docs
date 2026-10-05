@@ -1,0 +1,6 @@
+﻿torch.rnn\_relu
+===============
+
+.. currentmodule:: torch
+
+.. autofunction:: rnn_relu

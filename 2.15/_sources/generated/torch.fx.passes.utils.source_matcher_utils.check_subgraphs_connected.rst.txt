@@ -1,0 +1,6 @@
+﻿torch.fx.passes.utils.source\_matcher\_utils.check\_subgraphs\_connected
+========================================================================
+
+.. currentmodule:: torch.fx.passes.utils.source_matcher_utils
+
+.. autofunction:: check_subgraphs_connected

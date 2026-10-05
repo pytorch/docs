@@ -1,0 +1,6 @@
+﻿torch.nn.attention.current\_flash\_attention\_impl
+==================================================
+
+.. currentmodule:: torch.nn.attention
+
+.. autofunction:: current_flash_attention_impl

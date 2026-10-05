@@ -1,0 +1,6 @@
+﻿torch.autograd.gradcheck.get\_analytical\_jacobian
+==================================================
+
+.. currentmodule:: torch.autograd.gradcheck
+
+.. autofunction:: get_analytical_jacobian

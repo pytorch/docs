@@ -1,0 +1,6 @@
+﻿torch.utils.hipify.hipify\_python.match\_extensions
+===================================================
+
+.. currentmodule:: torch.utils.hipify.hipify_python
+
+.. autofunction:: match_extensions

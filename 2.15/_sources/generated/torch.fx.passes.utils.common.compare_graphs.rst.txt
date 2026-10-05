@@ -1,0 +1,6 @@
+﻿torch.fx.passes.utils.common.compare\_graphs
+============================================
+
+.. currentmodule:: torch.fx.passes.utils.common
+
+.. autofunction:: compare_graphs

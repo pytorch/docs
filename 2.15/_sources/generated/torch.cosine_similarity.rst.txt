@@ -1,0 +1,6 @@
+﻿torch.cosine\_similarity
+========================
+
+.. currentmodule:: torch
+
+.. autofunction:: cosine_similarity

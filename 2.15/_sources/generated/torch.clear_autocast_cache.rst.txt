@@ -1,0 +1,6 @@
+﻿torch.clear\_autocast\_cache
+============================
+
+.. currentmodule:: torch
+
+.. autofunction:: clear_autocast_cache

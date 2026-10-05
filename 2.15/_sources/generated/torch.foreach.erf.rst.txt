@@ -1,0 +1,6 @@
+﻿torch.foreach.erf
+=================
+
+.. currentmodule:: torch.foreach
+
+.. autofunction:: erf

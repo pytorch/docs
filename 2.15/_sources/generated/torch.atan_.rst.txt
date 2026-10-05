@@ -1,0 +1,6 @@
+﻿torch.atan\_
+============
+
+.. currentmodule:: torch
+
+.. autofunction:: atan_

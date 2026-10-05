@@ -1,0 +1,6 @@
+﻿torch.is\_anomaly\_enabled
+==========================
+
+.. currentmodule:: torch
+
+.. autofunction:: is_anomaly_enabled

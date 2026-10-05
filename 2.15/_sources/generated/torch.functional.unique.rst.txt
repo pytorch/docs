@@ -1,0 +1,6 @@
+﻿torch.functional.unique
+=======================
+
+.. currentmodule:: torch.functional
+
+.. autofunction:: unique

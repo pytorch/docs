@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.symbolic\_shapes.optimization\_hint
+=========================================================
+
+.. currentmodule:: torch.fx.experimental.symbolic_shapes
+
+.. autofunction:: optimization_hint

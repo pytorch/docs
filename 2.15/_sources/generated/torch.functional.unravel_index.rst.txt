@@ -1,0 +1,6 @@
+﻿torch.functional.unravel\_index
+===============================
+
+.. currentmodule:: torch.functional
+
+.. autofunction:: unravel_index

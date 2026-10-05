@@ -1,0 +1,6 @@
+﻿torch.affine\_grid\_generator
+=============================
+
+.. currentmodule:: torch
+
+.. autofunction:: affine_grid_generator

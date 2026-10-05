@@ -1,0 +1,6 @@
+﻿torch.cuda.memory.memory\_allocated
+===================================
+
+.. currentmodule:: torch.cuda.memory
+
+.. autofunction:: memory_allocated

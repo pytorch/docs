@@ -1,0 +1,6 @@
+﻿torch.view\_copy
+================
+
+.. currentmodule:: torch
+
+.. autofunction:: view_copy

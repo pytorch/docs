@@ -1,0 +1,6 @@
+﻿torch.select\_copy
+==================
+
+.. currentmodule:: torch
+
+.. autofunction:: select_copy

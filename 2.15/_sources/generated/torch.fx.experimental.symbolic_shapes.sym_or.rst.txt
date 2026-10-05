@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.symbolic\_shapes.sym\_or
+==============================================
+
+.. currentmodule:: torch.fx.experimental.symbolic_shapes
+
+.. autofunction:: sym_or

@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.migrate\_gradual\_types.constraint.is\_bool\_expr
+=======================================================================
+
+.. currentmodule:: torch.fx.experimental.migrate_gradual_types.constraint
+
+.. autofunction:: is_bool_expr

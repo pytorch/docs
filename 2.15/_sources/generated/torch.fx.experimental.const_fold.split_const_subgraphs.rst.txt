@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.const\_fold.split\_const\_subgraphs
+=========================================================
+
+.. currentmodule:: torch.fx.experimental.const_fold
+
+.. autofunction:: split_const_subgraphs

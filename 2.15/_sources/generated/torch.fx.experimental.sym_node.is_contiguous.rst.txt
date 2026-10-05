@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.sym\_node.is\_contiguous
+==============================================
+
+.. currentmodule:: torch.fx.experimental.sym_node
+
+.. autofunction:: is_contiguous

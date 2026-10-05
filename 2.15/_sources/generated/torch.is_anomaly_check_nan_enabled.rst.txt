@@ -1,0 +1,6 @@
+﻿torch.is\_anomaly\_check\_nan\_enabled
+======================================
+
+.. currentmodule:: torch
+
+.. autofunction:: is_anomaly_check_nan_enabled

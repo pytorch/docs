@@ -1,0 +1,6 @@
+﻿torch.lstm\_cell
+================
+
+.. currentmodule:: torch
+
+.. autofunction:: lstm_cell

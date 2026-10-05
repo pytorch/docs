@@ -1,0 +1,6 @@
+﻿torch.accelerator.memory.empty\_host\_cache
+===========================================
+
+.. currentmodule:: torch.accelerator.memory
+
+.. autofunction:: empty_host_cache

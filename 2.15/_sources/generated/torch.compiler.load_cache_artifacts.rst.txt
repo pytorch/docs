@@ -1,0 +1,6 @@
+﻿torch.compiler.load\_cache\_artifacts
+=====================================
+
+.. currentmodule:: torch.compiler
+
+.. autofunction:: load_cache_artifacts

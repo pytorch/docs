@@ -1,0 +1,6 @@
+﻿torch.cuda.profiler.stop
+========================
+
+.. currentmodule:: torch.cuda.profiler
+
+.. autofunction:: stop

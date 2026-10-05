@@ -1,0 +1,6 @@
+﻿torch.foreach.expm1
+===================
+
+.. currentmodule:: torch.foreach
+
+.. autofunction:: expm1

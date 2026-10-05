@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.unification.unification\_tools.get\_in
+============================================================
+
+.. currentmodule:: torch.fx.experimental.unification.unification_tools
+
+.. autofunction:: get_in

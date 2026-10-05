@@ -1,0 +1,6 @@
+﻿torch.set\_autocast\_cpu\_enabled
+=================================
+
+.. currentmodule:: torch
+
+.. autofunction:: set_autocast_cpu_enabled

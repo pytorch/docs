@@ -1,0 +1,6 @@
+﻿torch.distributions.constraint\_registry.biject\_to
+===================================================
+
+.. currentmodule:: torch.distributions.constraint_registry
+
+.. autodata:: biject_to

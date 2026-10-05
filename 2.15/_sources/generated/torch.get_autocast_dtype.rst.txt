@@ -1,0 +1,6 @@
+﻿torch.get\_autocast\_dtype
+==========================
+
+.. currentmodule:: torch
+
+.. autofunction:: get_autocast_dtype

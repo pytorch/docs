@@ -1,0 +1,3 @@
+# torch.batch_norm_gather_stats_with_counts
+
+torch.batch_norm_gather_stats_with_counts()

@@ -1,0 +1,6 @@
+﻿torch.foreach.add
+=================
+
+.. currentmodule:: torch.foreach
+
+.. autofunction:: add

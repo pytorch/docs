@@ -1,0 +1,6 @@
+﻿torch.cpu.is\_initialized
+=========================
+
+.. currentmodule:: torch.cpu
+
+.. autofunction:: is_initialized

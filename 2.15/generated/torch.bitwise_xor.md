@@ -1,0 +1,24 @@
+# torch.bitwise_xor
+
+torch.bitwise_xor(*input*, *other*, ***, *out=None*) → [Tensor](../tensors.html#torch.Tensor)
+
+Computes the bitwise XOR of `input` and `other`. The input tensor must be of
+integral or Boolean types. For bool tensors, it computes the logical XOR.
+
+Parameters:
+
+- **input** - the first input tensor
+- **other** - the second input tensor
+
+Keyword Arguments:
+
+**out** ([*Tensor*](../tensors.html#torch.Tensor)*,**optional*) - the output tensor.
+
+Example:
+
+```
+>>> torch.bitwise_xor(torch.tensor([-1, -2, 3], dtype=torch.int8), torch.tensor([1, 0, 3], dtype=torch.int8))
+tensor([-2, -2, 0], dtype=torch.int8)
+>>> torch.bitwise_xor(torch.tensor([True, True, False]), torch.tensor([False, True, False]))
+tensor([ True, False, False])
+```

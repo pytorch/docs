@@ -1,0 +1,6 @@
+﻿torch.compiler.skip\_guard\_on\_all\_nn\_modules\_unsafe
+========================================================
+
+.. currentmodule:: torch.compiler
+
+.. autofunction:: skip_guard_on_all_nn_modules_unsafe

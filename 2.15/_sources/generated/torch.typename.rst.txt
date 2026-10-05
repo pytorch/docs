@@ -1,0 +1,6 @@
+﻿torch.typename
+==============
+
+.. currentmodule:: torch
+
+.. autofunction:: typename

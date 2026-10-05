@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.proxy\_tensor.fake\_signature
+===================================================
+
+.. currentmodule:: torch.fx.experimental.proxy_tensor
+
+.. autofunction:: fake_signature

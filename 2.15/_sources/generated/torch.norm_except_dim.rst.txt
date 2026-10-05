@@ -1,0 +1,6 @@
+﻿torch.norm\_except\_dim
+=======================
+
+.. currentmodule:: torch
+
+.. autofunction:: norm_except_dim

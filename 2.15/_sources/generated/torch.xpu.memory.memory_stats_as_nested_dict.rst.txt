@@ -1,0 +1,6 @@
+﻿torch.xpu.memory.memory\_stats\_as\_nested\_dict
+================================================
+
+.. currentmodule:: torch.xpu.memory
+
+.. autofunction:: memory_stats_as_nested_dict

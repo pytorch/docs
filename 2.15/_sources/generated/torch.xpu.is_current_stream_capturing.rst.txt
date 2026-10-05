@@ -1,0 +1,6 @@
+﻿torch.xpu.is\_current\_stream\_capturing
+========================================
+
+.. currentmodule:: torch.xpu
+
+.. autofunction:: is_current_stream_capturing

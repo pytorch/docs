@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.unification.match.supercedes
+==================================================
+
+.. currentmodule:: torch.fx.experimental.unification.match
+
+.. autofunction:: supercedes

@@ -1,0 +1,6 @@
+﻿torch.batch\_norm\_elemt
+========================
+
+.. currentmodule:: torch
+
+.. autofunction:: batch_norm_elemt

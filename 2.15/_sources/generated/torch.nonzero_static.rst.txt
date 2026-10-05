@@ -1,0 +1,6 @@
+﻿torch.nonzero\_static
+=====================
+
+.. currentmodule:: torch
+
+.. autofunction:: nonzero_static

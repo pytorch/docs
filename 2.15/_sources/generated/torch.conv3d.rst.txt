@@ -1,0 +1,6 @@
+﻿torch.conv3d
+============
+
+.. currentmodule:: torch
+
+.. autofunction:: conv3d

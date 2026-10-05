@@ -1,0 +1,6 @@
+﻿torch.fx.passes.operator\_support.create\_op\_support
+=====================================================
+
+.. currentmodule:: torch.fx.passes.operator_support
+
+.. autofunction:: create_op_support

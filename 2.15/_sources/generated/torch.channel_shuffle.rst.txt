@@ -1,0 +1,6 @@
+﻿torch.channel\_shuffle
+======================
+
+.. currentmodule:: torch
+
+.. autofunction:: channel_shuffle

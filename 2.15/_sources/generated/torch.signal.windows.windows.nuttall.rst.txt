@@ -1,0 +1,6 @@
+﻿torch.signal.windows.windows.nuttall
+====================================
+
+.. currentmodule:: torch.signal.windows.windows
+
+.. autofunction:: nuttall

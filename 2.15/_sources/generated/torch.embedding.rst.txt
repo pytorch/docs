@@ -1,0 +1,6 @@
+﻿torch.embedding
+===============
+
+.. currentmodule:: torch
+
+.. autofunction:: embedding

@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.proxy\_tensor.snapshot\_fake
+==================================================
+
+.. currentmodule:: torch.fx.experimental.proxy_tensor
+
+.. autofunction:: snapshot_fake

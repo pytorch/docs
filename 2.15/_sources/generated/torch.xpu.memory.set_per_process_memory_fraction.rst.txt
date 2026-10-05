@@ -1,0 +1,6 @@
+﻿torch.xpu.memory.set\_per\_process\_memory\_fraction
+====================================================
+
+.. currentmodule:: torch.xpu.memory
+
+.. autofunction:: set_per_process_memory_fraction

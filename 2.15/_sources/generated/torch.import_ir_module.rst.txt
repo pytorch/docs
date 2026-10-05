@@ -1,0 +1,6 @@
+﻿torch.import\_ir\_module
+========================
+
+.. currentmodule:: torch
+
+.. autofunction:: import_ir_module

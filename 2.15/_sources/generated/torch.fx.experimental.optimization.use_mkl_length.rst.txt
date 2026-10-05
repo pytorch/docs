@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.optimization.use\_mkl\_length
+===================================================
+
+.. currentmodule:: torch.fx.experimental.optimization
+
+.. autofunction:: use_mkl_length

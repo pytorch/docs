@@ -1,0 +1,6 @@
+﻿torch.set\_anomaly\_enabled
+===========================
+
+.. currentmodule:: torch
+
+.. autofunction:: set_anomaly_enabled

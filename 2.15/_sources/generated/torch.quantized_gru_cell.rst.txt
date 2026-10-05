@@ -1,0 +1,6 @@
+﻿torch.quantized\_gru\_cell
+==========================
+
+.. currentmodule:: torch
+
+.. autofunction:: quantized_gru_cell

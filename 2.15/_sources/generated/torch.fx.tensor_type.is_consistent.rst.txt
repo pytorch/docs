@@ -1,0 +1,6 @@
+﻿torch.fx.tensor\_type.is\_consistent
+====================================
+
+.. currentmodule:: torch.fx.tensor_type
+
+.. autofunction:: is_consistent

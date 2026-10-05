@@ -1,0 +1,6 @@
+﻿torch.fx.node.has\_side\_effect
+===============================
+
+.. currentmodule:: torch.fx.node
+
+.. autofunction:: has_side_effect

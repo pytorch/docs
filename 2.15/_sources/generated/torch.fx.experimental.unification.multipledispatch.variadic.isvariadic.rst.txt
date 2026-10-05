@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.unification.multipledispatch.variadic.isvariadic
+======================================================================
+
+.. currentmodule:: torch.fx.experimental.unification.multipledispatch.variadic
+
+.. autofunction:: isvariadic

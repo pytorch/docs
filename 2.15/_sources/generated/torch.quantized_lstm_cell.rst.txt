@@ -1,0 +1,6 @@
+﻿torch.quantized\_lstm\_cell
+===========================
+
+.. currentmodule:: torch
+
+.. autofunction:: quantized_lstm_cell

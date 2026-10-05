@@ -1,0 +1,6 @@
+﻿torch.utils.collect\_env.is\_xnnpack\_available
+===============================================
+
+.. currentmodule:: torch.utils.collect_env
+
+.. autofunction:: is_xnnpack_available

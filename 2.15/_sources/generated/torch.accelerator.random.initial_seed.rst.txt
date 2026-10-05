@@ -1,0 +1,6 @@
+﻿torch.accelerator.random.initial\_seed
+======================================
+
+.. currentmodule:: torch.accelerator.random
+
+.. autofunction:: initial_seed

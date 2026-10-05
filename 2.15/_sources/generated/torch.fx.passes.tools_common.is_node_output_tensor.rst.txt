@@ -1,0 +1,6 @@
+﻿torch.fx.passes.tools\_common.is\_node\_output\_tensor
+======================================================
+
+.. currentmodule:: torch.fx.passes.tools_common
+
+.. autofunction:: is_node_output_tensor

@@ -1,0 +1,6 @@
+﻿torch.foreach.mm
+================
+
+.. currentmodule:: torch.foreach
+
+.. autofunction:: mm

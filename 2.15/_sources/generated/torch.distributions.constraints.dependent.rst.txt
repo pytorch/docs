@@ -1,0 +1,6 @@
+﻿torch.distributions.constraints.dependent
+=========================================
+
+.. currentmodule:: torch.distributions.constraints
+
+.. autodata:: dependent

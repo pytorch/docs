@@ -1,0 +1,6 @@
+﻿torch.cuda.memory.memory\_reserved
+==================================
+
+.. currentmodule:: torch.cuda.memory
+
+.. autofunction:: memory_reserved

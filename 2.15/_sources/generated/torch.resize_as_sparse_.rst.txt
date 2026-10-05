@@ -1,0 +1,6 @@
+﻿torch.resize\_as\_sparse\_
+==========================
+
+.. currentmodule:: torch
+
+.. autofunction:: resize_as_sparse_

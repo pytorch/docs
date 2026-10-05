@@ -1,0 +1,6 @@
+﻿torch.foreach.log1p
+===================
+
+.. currentmodule:: torch.foreach
+
+.. autofunction:: log1p

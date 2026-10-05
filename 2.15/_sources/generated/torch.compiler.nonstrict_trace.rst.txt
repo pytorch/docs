@@ -1,0 +1,6 @@
+﻿torch.compiler.nonstrict\_trace
+===============================
+
+.. currentmodule:: torch.compiler
+
+.. autofunction:: nonstrict_trace

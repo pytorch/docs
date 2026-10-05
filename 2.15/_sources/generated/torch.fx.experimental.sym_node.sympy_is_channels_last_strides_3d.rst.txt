@@ -1,0 +1,6 @@
+﻿torch.fx.experimental.sym\_node.sympy\_is\_channels\_last\_strides\_3d
+======================================================================
+
+.. currentmodule:: torch.fx.experimental.sym_node
+
+.. autofunction:: sympy_is_channels_last_strides_3d
