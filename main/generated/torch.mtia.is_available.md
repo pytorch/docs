@@ -1,6 +1,6 @@
 # torch.mtia.is_available
 
-torch.mtia.is_available()[[source]](https://github.com/pytorch/pytorch/blob/496340f06ef7bda2800522429ba3f4e3473a92fa/torch/mtia/__init__.py#L155)
+torch.mtia.is_available()[[source]](https://github.com/pytorch/pytorch/blob/33758f2ecb591b1bafb30f385b1acb73b6367ba9/torch/mtia/__init__.py#L155)
 
 Return true if MTIA device is available
 
