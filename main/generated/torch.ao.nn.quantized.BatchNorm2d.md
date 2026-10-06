@@ -1,5 +1,5 @@
 # BatchNorm2d
 
-*class*torch.ao.nn.quantized.BatchNorm2d(*num_features*, *eps=1e-05*, *momentum=0.1*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/33758f2ecb591b1bafb30f385b1acb73b6367ba9/torch/ao/nn/quantized/modules/batchnorm.py#L51)
+*class*torch.ao.nn.quantized.BatchNorm2d(*num_features*, *eps=1e-05*, *momentum=0.1*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/2dc676a67d91491beadb4615ae9fe15e144086ea/torch/ao/nn/quantized/modules/batchnorm.py#L51)
 
 This is the quantized version of [`BatchNorm2d`](torch.nn.BatchNorm2d.html#torch.nn.BatchNorm2d).

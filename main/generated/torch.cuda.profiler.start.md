@@ -1,6 +1,6 @@
 # torch.cuda.profiler.start
 
-torch.cuda.profiler.start()[[source]](https://github.com/pytorch/pytorch/blob/33758f2ecb591b1bafb30f385b1acb73b6367ba9/torch/cuda/profiler.py#L20)
+torch.cuda.profiler.start()[[source]](https://github.com/pytorch/pytorch/blob/2dc676a67d91491beadb4615ae9fe15e144086ea/torch/cuda/profiler.py#L20)
 
 Starts cuda profiler data collection.
 
