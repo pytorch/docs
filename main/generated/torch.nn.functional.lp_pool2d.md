@@ -1,6 +1,6 @@
 # torch.nn.functional.lp_pool2d
 
-torch.nn.functional.lp_pool2d(*input*, *norm_type*, *kernel_size*, *stride=None*, *ceil_mode=False*)[[source]](https://github.com/pytorch/pytorch/blob/2dc676a67d91491beadb4615ae9fe15e144086ea/torch/nn/functional.py#L1160)
+torch.nn.functional.lp_pool2d(*input*, *norm_type*, *kernel_size*, *stride=None*, *ceil_mode=False*)[[source]](https://github.com/pytorch/pytorch/blob/80b434f9a9e9f3dd439f5883f376326e470526ff/torch/nn/functional.py#L1170)
 
 Apply a 2D power-average pooling over an input signal composed of several input planes.
 
@@ -11,6 +11,17 @@ When `ceil_mode` is `True`, sliding windows may go off-bounds if they start with
 padding or the input. Sliding windows that would start in the right padded region are ignored.
 
 See [`LPPool2d`](torch.nn.LPPool2d.html#torch.nn.LPPool2d) for details.
+
+Parameters:
+
+- **input** ([*Tensor*](../tensors.html#torch.Tensor)) - the input tensor.
+- **norm_type** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*or*[*float*](https://docs.python.org/3/builtins/functions.html#float)) - the power ppp used to compute pooling.
+Must be non-zero; positive and negative infinity are supported.
+- **kernel_size** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*or*[*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*of*[*int*](https://docs.python.org/3/builtins/functions.html#int)) - the size of the pooling window.
+- **stride** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*or*[*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*of*[*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - the stride between windows.
+Default: `kernel_size`.
+- **ceil_mode** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - when `True`, use `ceil` instead of
+`floor` to compute the output shape. Default: `False`.
 
 Return type:
 

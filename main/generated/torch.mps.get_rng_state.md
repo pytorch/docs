@@ -1,6 +1,6 @@
 # torch.mps.get_rng_state
 
-torch.mps.get_rng_state(*device='mps'*)[[source]](https://github.com/pytorch/pytorch/blob/2dc676a67d91491beadb4615ae9fe15e144086ea/torch/mps/__init__.py#L35)
+torch.mps.get_rng_state(*device='mps'*)[[source]](https://github.com/pytorch/pytorch/blob/80b434f9a9e9f3dd439f5883f376326e470526ff/torch/mps/__init__.py#L35)
 
 Returns the random number generator state as a ByteTensor.
 

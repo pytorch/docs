@@ -1,6 +1,6 @@
 # MultiLabelMarginLoss
 
-*class*torch.nn.MultiLabelMarginLoss(*size_average=None*, *reduce=None*, *reduction='mean'*)[[source]](https://github.com/pytorch/pytorch/blob/2dc676a67d91491beadb4615ae9fe15e144086ea/torch/nn/modules/loss.py#L925)
+*class*torch.nn.MultiLabelMarginLoss(*size_average=None*, *reduce=None*, *reduction='mean'*)[[source]](https://github.com/pytorch/pytorch/blob/80b434f9a9e9f3dd439f5883f376326e470526ff/torch/nn/modules/loss.py#L925)
 
 Creates a criterion that optimizes a multi-class multi-classification
 hinge loss (margin-based loss) between input xxx (a 2D mini-batch Tensor)
@@ -57,7 +57,7 @@ Examples
 tensor(0.85...)
 ```
 
-forward(*input*, *target*)[[source]](https://github.com/pytorch/pytorch/blob/2dc676a67d91491beadb4615ae9fe15e144086ea/torch/nn/modules/loss.py#L983)
+forward(*input*, *target*)[[source]](https://github.com/pytorch/pytorch/blob/80b434f9a9e9f3dd439f5883f376326e470526ff/torch/nn/modules/loss.py#L983)
 
 Runs the forward pass.
 

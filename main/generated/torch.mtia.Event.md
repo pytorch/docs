@@ -14,7 +14,7 @@ If not given, the current [accelerator](../torch.html#accelerators) type will be
 
 Warning
 
-Both blocking and interprocess are not supported right now and are noops.
+The `interprocess` argument is not honored right now and is a noop.
 
 Returns:
 

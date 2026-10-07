@@ -1,6 +1,6 @@
 # torch.sparse.mm
 
-torch.sparse.mm()[[source]](https://github.com/pytorch/pytorch/blob/2dc676a67d91491beadb4615ae9fe15e144086ea/torch/sparse/__init__.py#L77)
+torch.sparse.mm()[[source]](https://github.com/pytorch/pytorch/blob/80b434f9a9e9f3dd439f5883f376326e470526ff/torch/sparse/__init__.py#L77)
 
 > Performs a matrix multiplication of the sparse matrix `mat1`
 > and the (sparse or strided) matrix `mat2`. Similar to [`torch.mm()`](torch.mm.html#torch.mm), if `mat1` is a

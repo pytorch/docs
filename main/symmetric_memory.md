@@ -598,7 +598,7 @@ communicator for the process group if it doesn't already exist.
 
 ## API Reference
 
-torch.distributed._symmetric_memory.empty(**size: _int*, *dtype: _dtype | [None](https://docs.python.org/3/builtins/constants.html#None) = None*, *device: _device | [None](https://docs.python.org/3/builtins/constants.html#None) = None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/2dc676a67d91491beadb4615ae9fe15e144086ea/torch/distributed/_symmetric_memory/__init__.py#L2191)
+torch.distributed._symmetric_memory.empty(**size: _int*, *dtype: _dtype | [None](https://docs.python.org/3/builtins/constants.html#None) = None*, *device: _device | [None](https://docs.python.org/3/builtins/constants.html#None) = None*) → [Tensor](tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/80b434f9a9e9f3dd439f5883f376326e470526ff/torch/distributed/_symmetric_memory/__init__.py#L2276)
 
 torch.distributed._symmetric_memory.empty(*size: Sequence[_int]*, ***, *dtype: _dtype | [None](https://docs.python.org/3/builtins/constants.html#None) = None*, *device: _device | [None](https://docs.python.org/3/builtins/constants.html#None) = None*) → [Tensor](tensors.html#torch.Tensor)
 
@@ -611,7 +611,9 @@ Note
 This is a host-synchronous allocation. Together with
 `rendezvous()`, it is intended as an initialization-time
 operation: allocate a symmetric memory tensor once and reuse it,
-rather than allocating in hot code paths.
+rather than allocating in hot code paths. It cannot be captured in a
+CUDA graph; the CUDA backend raises an error if it is called while
+the current stream is capturing. Allocate before capture instead.
 
 Parameters:
 
@@ -628,7 +630,7 @@ Default: if `None`, uses the current device for the default tensor type
 for CPU tensor types, the current CUDA device for CUDA tensor types,
 and the current XPU device for XPU tensor types.
 
-torch.distributed._symmetric_memory.rendezvous(*tensor*, *group*) → _SymmetricMemory[[source]](https://github.com/pytorch/pytorch/blob/2dc676a67d91491beadb4615ae9fe15e144086ea/torch/distributed/_symmetric_memory/__init__.py#L2254)
+torch.distributed._symmetric_memory.rendezvous(*tensor*, *group*) → _SymmetricMemory[[source]](https://github.com/pytorch/pytorch/blob/80b434f9a9e9f3dd439f5883f376326e470526ff/torch/distributed/_symmetric_memory/__init__.py#L2341)
 
 Establish a symmetric memory tensor among participating processes. This is
 a collective operation.
@@ -638,9 +640,15 @@ Note
 This is a host-blocking initialization operation: the first rendezvous
 of a tensor performs handle exchange and mapping across processes, and
 synchronizes the host with the device. It cannot be ordered onto a
-CUDA stream or captured in a CUDA graph. Rendezvous a buffer once and
-reuse the returned handle rather than calling this in hot code paths;
-subsequent calls on the same tensor return the cached handle.
+CUDA stream or captured in a CUDA graph; the CUDA backend raises an
+error if the first rendezvous of a tensor happens while the current
+stream is capturing. Rendezvous a buffer once and reuse the returned
+handle rather than calling this in hot code paths; subsequent calls on
+the same tensor return the cached handle and are safe to capture.
+Symmetric memory collectives on a rendezvoused buffer can be captured
+after they have run once eagerly. Every rank must then replay the
+captured graph the same number of times, because each replay performs
+the peer synchronization for that rank.
 
 Parameters:
 
@@ -654,7 +662,7 @@ Return type:
 
 _SymmetricMemory
 
-torch.distributed._symmetric_memory.get(*dst*, *hdl*, *peer*, *offset=0*)[[source]](https://github.com/pytorch/pytorch/blob/2dc676a67d91491beadb4615ae9fe15e144086ea/torch/distributed/_symmetric_memory/__init__.py#L2442)
+torch.distributed._symmetric_memory.get(*dst*, *hdl*, *peer*, *offset=0*)[[source]](https://github.com/pytorch/pytorch/blob/80b434f9a9e9f3dd439f5883f376326e470526ff/torch/distributed/_symmetric_memory/__init__.py#L2535)
 
 Copy `dst.numel()` elements starting at `offset` from `peer`'s
 symmetric allocation into local `dst` using one-sided symmetric memory
@@ -678,7 +686,7 @@ source.
 - **offset** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - element offset into the peer allocation to
 start reading from. Defaults to `0`.
 
-torch.distributed._symmetric_memory.is_nvshmem_available() → [bool](https://docs.python.org/3/builtins/functions.html#bool)[[source]](https://github.com/pytorch/pytorch/blob/2dc676a67d91491beadb4615ae9fe15e144086ea/torch/distributed/_symmetric_memory/__init__.py#L2282)
+torch.distributed._symmetric_memory.is_nvshmem_available() → [bool](https://docs.python.org/3/builtins/functions.html#bool)[[source]](https://github.com/pytorch/pytorch/blob/80b434f9a9e9f3dd439f5883f376326e470526ff/torch/distributed/_symmetric_memory/__init__.py#L2375)
 
 Check if NVSHMEM (CUDA) or rocSHMEM (ROCm) is available in the current
 build and usable at runtime. On ROCm, rocSHMEM `VERSION` must be at
@@ -688,7 +696,7 @@ Return type:
 
 [bool](https://docs.python.org/3/builtins/functions.html#bool)
 
-torch.distributed._symmetric_memory.set_backend(*name*)[[source]](https://github.com/pytorch/pytorch/blob/2dc676a67d91491beadb4615ae9fe15e144086ea/torch/distributed/_symmetric_memory/__init__.py#L2300)
+torch.distributed._symmetric_memory.set_backend(*name*)[[source]](https://github.com/pytorch/pytorch/blob/80b434f9a9e9f3dd439f5883f376326e470526ff/torch/distributed/_symmetric_memory/__init__.py#L2393)
 
 Set the backend for symmetric memory allocation. This is a global setting
 and affects all subsequent calls to
@@ -700,7 +708,7 @@ Parameters:
 **backend** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - the backend for symmetric memory allocation. Currently,
 only "NVSHMEM", "CUDA", "NCCL" are supported.
 
-torch.distributed._symmetric_memory.get_backend(*device*)[[source]](https://github.com/pytorch/pytorch/blob/2dc676a67d91491beadb4615ae9fe15e144086ea/torch/distributed/_symmetric_memory/__init__.py#L2314)
+torch.distributed._symmetric_memory.get_backend(*device*)[[source]](https://github.com/pytorch/pytorch/blob/80b434f9a9e9f3dd439f5883f376326e470526ff/torch/distributed/_symmetric_memory/__init__.py#L2407)
 
 Get the backend for symmetric memory allocation for a given device. If not
 found, return None.
@@ -713,7 +721,7 @@ Return type:
 
 [str](https://docs.python.org/3/builtins/stdtypes.html#str) | None
 
-torch.distributed._symmetric_memory.get_mem_pool(*device*)[[source]](https://github.com/pytorch/pytorch/blob/2dc676a67d91491beadb4615ae9fe15e144086ea/torch/distributed/_symmetric_memory/__init__.py#L2384)
+torch.distributed._symmetric_memory.get_mem_pool(*device*)[[source]](https://github.com/pytorch/pytorch/blob/80b434f9a9e9f3dd439f5883f376326e470526ff/torch/distributed/_symmetric_memory/__init__.py#L2477)
 
 Get the symmetric memory pool for a given device. If not found, create a new
 pool.
@@ -745,7 +753,7 @@ Example:
 >>> tensor = torch.ops.symm_mem.one_shot_all_reduce(tensor, "sum", group_name)
 ```
 
-torch.distributed._symmetric_memory.is_symm_mem_tensor(*tensor*) → [bool](https://docs.python.org/3/builtins/functions.html#bool)[[source]](https://github.com/pytorch/pytorch/blob/2dc676a67d91491beadb4615ae9fe15e144086ea/torch/distributed/_symmetric_memory/__init__.py#L2624)
+torch.distributed._symmetric_memory.is_symm_mem_tensor(*tensor*) → [bool](https://docs.python.org/3/builtins/functions.html#bool)[[source]](https://github.com/pytorch/pytorch/blob/80b434f9a9e9f3dd439f5883f376326e470526ff/torch/distributed/_symmetric_memory/__init__.py#L2717)
 
 Returns `True` if `tensor` was allocated via symmetric memory
 (i.e. via `torch.distributed._symmetric_memory.empty()` or
@@ -761,7 +769,7 @@ Return type:
 
 [bool](https://docs.python.org/3/builtins/functions.html#bool)
 
-torch.distributed._symmetric_memory.set_signal_pad_size(*size*)[[source]](https://github.com/pytorch/pytorch/blob/2dc676a67d91491beadb4615ae9fe15e144086ea/torch/distributed/_symmetric_memory/__init__.py#L2336)
+torch.distributed._symmetric_memory.set_signal_pad_size(*size*)[[source]](https://github.com/pytorch/pytorch/blob/80b434f9a9e9f3dd439f5883f376326e470526ff/torch/distributed/_symmetric_memory/__init__.py#L2429)
 
 Set the signal pad size for future symmetric memory allocations.
 
@@ -786,7 +794,7 @@ Example:
 >>> torch.distributed._symmetric_memory.set_signal_pad_size(1024 * 1024) # 1MB
 ```
 
-torch.distributed._symmetric_memory.get_signal_pad_size()[[source]](https://github.com/pytorch/pytorch/blob/2dc676a67d91491beadb4615ae9fe15e144086ea/torch/distributed/_symmetric_memory/__init__.py#L2361)
+torch.distributed._symmetric_memory.get_signal_pad_size()[[source]](https://github.com/pytorch/pytorch/blob/80b434f9a9e9f3dd439f5883f376326e470526ff/torch/distributed/_symmetric_memory/__init__.py#L2454)
 
 Get the current signal pad size for symmetric memory allocations.
 
@@ -815,7 +823,7 @@ Note
 The following ops are hosted in the `torch.ops.symm_mem` namespace. You can call
 them directly via `torch.ops.symm_mem.<op_name>`.
 
-torch.distributed._symmetric_memory.reduce_scatter_offset(*input*, *out*, *group*, ***, *dim*, *offsets*, *dst_ranks*, *red_op='sum'*) → [None](https://docs.python.org/3/builtins/constants.html#None)[[source]](https://github.com/pytorch/pytorch/blob/2dc676a67d91491beadb4615ae9fe15e144086ea/torch/distributed/_symmetric_memory/__init__.py#L2549)
+torch.distributed._symmetric_memory.reduce_scatter_offset(*input*, *out*, *group*, ***, *dim*, *offsets*, *dst_ranks*, *red_op='sum'*) → [None](https://docs.python.org/3/builtins/constants.html#None)[[source]](https://github.com/pytorch/pytorch/blob/80b434f9a9e9f3dd439f5883f376326e470526ff/torch/distributed/_symmetric_memory/__init__.py#L2642)
 
 Simultaneously reduce N blocks of a 2-D `input` tensor from a symmetric
 memory buffer, routing each block to a specific destination rank. Only

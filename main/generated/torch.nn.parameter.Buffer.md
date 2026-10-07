@@ -1,6 +1,6 @@
 # Buffer
 
-*class*torch.nn.parameter.Buffer(*data=None*, ***, *persistent=True*)[[source]](https://github.com/pytorch/pytorch/blob/2dc676a67d91491beadb4615ae9fe15e144086ea/torch/nn/parameter.py#L249)
+*class*torch.nn.parameter.Buffer(*data=None*, ***, *persistent=True*)[[source]](https://github.com/pytorch/pytorch/blob/80b434f9a9e9f3dd439f5883f376326e470526ff/torch/nn/parameter.py#L249)
 
 A kind of Tensor that should not be considered a model
 parameter. For example, BatchNorm's `running_mean` is not a parameter, but is part of the module's state.

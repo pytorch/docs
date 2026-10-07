@@ -1,6 +1,6 @@
 # torch.cuda.memory.change_current_allocator
 
-torch.cuda.memory.change_current_allocator(*allocator*)[[source]](https://github.com/pytorch/pytorch/blob/2dc676a67d91491beadb4615ae9fe15e144086ea/torch/cuda/memory.py#L1364)
+torch.cuda.memory.change_current_allocator(*allocator*)[[source]](https://github.com/pytorch/pytorch/blob/80b434f9a9e9f3dd439f5883f376326e470526ff/torch/cuda/memory.py#L1364)
 
 Change the currently used memory allocator to be the one provided.
 

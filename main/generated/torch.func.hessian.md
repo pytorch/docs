@@ -1,6 +1,6 @@
 # torch.func.hessian
 
-torch.func.hessian(*func*, *argnums=0*)[[source]](https://github.com/pytorch/pytorch/blob/2dc676a67d91491beadb4615ae9fe15e144086ea/torch/_functorch/eager_transforms.py#L1432)
+torch.func.hessian(*func*, *argnums=0*)[[source]](https://github.com/pytorch/pytorch/blob/80b434f9a9e9f3dd439f5883f376326e470526ff/torch/_functorch/eager_transforms.py#L1432)
 
 Computes the Hessian of `func` with respect to the arg(s) at index
 `argnum` via a forward-over-reverse strategy.

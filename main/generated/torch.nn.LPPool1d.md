@@ -1,6 +1,6 @@
 # LPPool1d
 
-*class*torch.nn.LPPool1d(*norm_type*, *kernel_size*, *stride=None*, *ceil_mode=False*)[[source]](https://github.com/pytorch/pytorch/blob/2dc676a67d91491beadb4615ae9fe15e144086ea/torch/nn/modules/pooling.py#L1127)
+*class*torch.nn.LPPool1d(*norm_type*, *kernel_size*, *stride=None*, *ceil_mode=False*)[[source]](https://github.com/pytorch/pytorch/blob/80b434f9a9e9f3dd439f5883f376326e470526ff/torch/nn/modules/pooling.py#L1127)
 
 Applies a 1D power-average pooling over an input signal composed of several input planes.
 
@@ -20,9 +20,13 @@ not defined. This implementation will set the gradient to zero in this case.
 
 Parameters:
 
-- **kernel_size** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*|*[*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*[*[*int*](https://docs.python.org/3/builtins/functions.html#int)*]*) - a single int, the size of the window
-- **stride** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*|*[*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*[*[*int*](https://docs.python.org/3/builtins/functions.html#int)*]*) - a single int, the stride of the window. Default value is `kernel_size`
-- **ceil_mode** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - when True, will use ceil instead of floor to compute the output shape
+- **norm_type** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*or*[*float*](https://docs.python.org/3/builtins/functions.html#float)) - the power ppp used to compute pooling.
+Must be non-zero; positive and negative infinity are supported.
+- **kernel_size** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - the size of the window.
+- **stride** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*or*[*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*of*[*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - the stride of the window.
+Default: `kernel_size`.
+- **ceil_mode** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - when `True`, use `ceil` instead of
+`floor` to compute the output shape. Default: `False`.
 
 Note
 
@@ -47,7 +51,7 @@ Examples::
 >>> output = m(input)
 ```
 
-forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/2dc676a67d91491beadb4615ae9fe15e144086ea/torch/nn/modules/pooling.py#L1167)
+forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/80b434f9a9e9f3dd439f5883f376326e470526ff/torch/nn/modules/pooling.py#L1171)
 
 Runs the forward pass.
 

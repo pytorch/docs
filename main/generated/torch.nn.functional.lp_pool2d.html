@@ -80,7 +80,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.16.0a0+git2dc676a )">
+<meta name="llm:version" content="main (2.16.0a0+git80b434f )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -186,7 +186,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.16.0a0+git2dc676a )');
+  document.documentElement.setAttribute('data-version', 'main (2.16.0a0+git80b434f )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3711,7 +3711,7 @@ document.write(`
 <h1>torch.nn.functional.lp_pool2d<a class="headerlink" href="#torch-nn-functional-lp-pool2d" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.nn.functional.lp_pool2d">
-<span class="sig-prename descclassname"><span class="pre">torch.nn.functional.</span></span><span class="sig-name descname"><span class="pre">lp_pool2d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stride</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ceil_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/2dc676a67d91491beadb4615ae9fe15e144086ea/torch/nn/functional.py#L1160"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.functional.lp_pool2d" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.nn.functional.</span></span><span class="sig-name descname"><span class="pre">lp_pool2d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stride</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ceil_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/80b434f9a9e9f3dd439f5883f376326e470526ff/torch/nn/functional.py#L1170"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.functional.lp_pool2d" title="Link to this definition">#</a></dt>
 <dd><p>Apply a 2D power-average pooling over an input signal composed of several input planes.</p>
 <p>If the sum of all inputs to the power of <cite>p</cite> is
 zero, the gradient is set to zero as well.</p>
@@ -3719,8 +3719,20 @@ zero, the gradient is set to zero as well.</p>
 padding or the input. Sliding windows that would start in the right padded region are ignored.</p>
 <p>See <a class="reference internal" href="torch.nn.LPPool2d.html#torch.nn.LPPool2d" title="torch.nn.LPPool2d"><code class="xref py py-class docutils literal notranslate"><span class="pre">LPPool2d</span></code></a> for details.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a></p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input</strong> (<a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a>) – the input tensor.</p></li>
+<li><p><strong>norm_type</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – the power <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi></mrow><annotation encoding="application/x-tex">p</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">p</span></span></span></span></span> used to compute pooling.
+Must be non-zero; positive and negative infinity are supported.</p></li>
+<li><p><strong>kernel_size</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a><em> of </em><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – the size of the pooling window.</p></li>
+<li><p><strong>stride</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a><em> of </em><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) – the stride between windows.
+Default: <code class="xref py py-attr docutils literal notranslate"><span class="pre">kernel_size</span></code>.</p></li>
+<li><p><strong>ceil_mode</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – when <code class="docutils literal notranslate"><span class="pre">True</span></code>, use <code class="docutils literal notranslate"><span class="pre">ceil</span></code> instead of
+<code class="docutils literal notranslate"><span class="pre">floor</span></code> to compute the output shape. Default: <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -4081,7 +4093,7 @@ padding or the input. Sliding windows that would start in the right padded regio
        "headline": "torch.nn.functional.lp_pool2d",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/generated/torch.nn.functional.lp_pool2d.html",
-       "articleBody": "torch.nn.functional.lp_pool2d# torch.nn.functional.lp_pool2d(input, norm_type, kernel_size, stride=None, ceil_mode=False)[source]# Apply a 2D power-average pooling over an input signal composed of several input planes. If the sum of all inputs to the power of p is zero, the gradient is set to zero as well. When ceil_mode is True, sliding windows may go off-bounds if they start within the left padding or the input. Sliding windows that would start in the right padded region are ignored. See LPPool2d for details. Return type: Tensor",
+       "articleBody": "torch.nn.functional.lp_pool2d# torch.nn.functional.lp_pool2d(input, norm_type, kernel_size, stride=None, ceil_mode=False)[source]# Apply a 2D power-average pooling over an input signal composed of several input planes. If the sum of all inputs to the power of p is zero, the gradient is set to zero as well. When ceil_mode is True, sliding windows may go off-bounds if they start within the left padding or the input. Sliding windows that would start in the right padded region are ignored. See LPPool2d for details. Parameters: input (Tensor) \u2013 the input tensor. norm_type (int or float) \u2013 the power ppp used to compute pooling. Must be non-zero; positive and negative infinity are supported. kernel_size (int or tuple of int) \u2013 the size of the pooling window. stride (int or tuple of int, optional) \u2013 the stride between windows. Default: kernel_size. ceil_mode (bool, optional) \u2013 when True, use ceil instead of floor to compute the output shape. Default: False. Return type: Tensor",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",

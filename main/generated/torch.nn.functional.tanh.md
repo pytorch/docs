@@ -1,6 +1,6 @@
 # torch.nn.functional.tanh
 
-torch.nn.functional.tanh(*input*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/2dc676a67d91491beadb4615ae9fe15e144086ea/torch/nn/functional.py#L2339)
+torch.nn.functional.tanh(*input*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/80b434f9a9e9f3dd439f5883f376326e470526ff/torch/nn/functional.py#L2369)
 
 Applies element-wise,
 Tanh(x)=tanh⁡(x)=exp⁡(x)−exp⁡(−x)exp⁡(x)+exp⁡(−x)\text{Tanh}(x) = \tanh(x) = \frac{\exp(x) - \exp(-x)}{\exp(x) + \exp(-x)}Tanh(x)=tanh(x)=exp(x)+exp(−x)exp(x)−exp(−x)​

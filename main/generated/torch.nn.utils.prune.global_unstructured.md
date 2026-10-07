@@ -1,6 +1,6 @@
 # torch.nn.utils.prune.global_unstructured
 
-torch.nn.utils.prune.global_unstructured(*parameters*, *pruning_method*, *importance_scores=None*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/2dc676a67d91491beadb4615ae9fe15e144086ea/torch/nn/utils/prune.py#L1038)
+torch.nn.utils.prune.global_unstructured(*parameters*, *pruning_method*, *importance_scores=None*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/80b434f9a9e9f3dd439f5883f376326e470526ff/torch/nn/utils/prune.py#L1038)
 
 Globally prunes tensors corresponding to all parameters in `parameters` by applying the specified `pruning_method`.
 

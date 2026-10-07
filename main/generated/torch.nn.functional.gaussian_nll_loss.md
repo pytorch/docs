@@ -1,6 +1,6 @@
 # torch.nn.functional.gaussian_nll_loss
 
-torch.nn.functional.gaussian_nll_loss(*input*, *target*, *var*, *full=False*, *eps=1e-06*, *reduction='mean'*)[[source]](https://github.com/pytorch/pytorch/blob/2dc676a67d91491beadb4615ae9fe15e144086ea/torch/nn/functional.py#L3307)
+torch.nn.functional.gaussian_nll_loss(*input*, *target*, *var*, *full=False*, *eps=1e-06*, *reduction='mean'*)[[source]](https://github.com/pytorch/pytorch/blob/80b434f9a9e9f3dd439f5883f376326e470526ff/torch/nn/functional.py#L3337)
 
 Compute the Gaussian negative log likelihood loss.
 

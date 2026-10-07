@@ -1,6 +1,6 @@
 # ReLU
 
-*class*torch.nn.ReLU(*inplace=False*)[[source]](https://github.com/pytorch/pytorch/blob/2dc676a67d91491beadb4615ae9fe15e144086ea/torch/nn/modules/activation.py#L104)
+*class*torch.nn.ReLU(*inplace=False*)[[source]](https://github.com/pytorch/pytorch/blob/80b434f9a9e9f3dd439f5883f376326e470526ff/torch/nn/modules/activation.py#L104)
 
 Applies the rectified linear unit function element-wise.
 
@@ -31,7 +31,7 @@ An implementation of CReLU - https://arxiv.org/abs/1603.05201
  >>> output = torch.cat((m(input), m(-input)))
 ```
 
-extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/2dc676a67d91491beadb4615ae9fe15e144086ea/torch/nn/modules/activation.py#L145)
+extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/80b434f9a9e9f3dd439f5883f376326e470526ff/torch/nn/modules/activation.py#L145)
 
 Return the extra representation of the module.
 
@@ -39,7 +39,7 @@ Return type:
 
 [str](https://docs.python.org/3/builtins/stdtypes.html#str)
 
-forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/2dc676a67d91491beadb4615ae9fe15e144086ea/torch/nn/modules/activation.py#L139)
+forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/80b434f9a9e9f3dd439f5883f376326e470526ff/torch/nn/modules/activation.py#L139)
 
 Runs the forward pass.
 

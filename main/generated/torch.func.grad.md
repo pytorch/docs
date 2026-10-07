@@ -1,6 +1,6 @@
 # torch.func.grad
 
-torch.func.grad(*func*, *argnums=0*, *has_aux=False*)[[source]](https://github.com/pytorch/pytorch/blob/2dc676a67d91491beadb4615ae9fe15e144086ea/torch/_functorch/apis.py#L355)
+torch.func.grad(*func*, *argnums=0*, *has_aux=False*)[[source]](https://github.com/pytorch/pytorch/blob/80b434f9a9e9f3dd439f5883f376326e470526ff/torch/_functorch/apis.py#L355)
 
 `grad` operator helps computing gradients of `func` with respect to the
 input(s) specified by `argnums`. This operator can be nested to

@@ -1,6 +1,6 @@
 # torch.optim.functional.adafactor
 
-torch.optim.functional.adafactor(*params*, *grads*, *row_vars*, *col_vars*, *variances*, *state_steps*, *foreach=None*, *grad_scale=None*, *found_inf=None*, *has_complex=False*, ***, *d*, *lr*, *beta2_decay*, *weight_decay*, *eps1*, *eps2*, *maximize*)[[source]](https://github.com/pytorch/pytorch/blob/2dc676a67d91491beadb4615ae9fe15e144086ea/torch/optim/_adafactor.py#L606)
+torch.optim.functional.adafactor(*params*, *grads*, *row_vars*, *col_vars*, *variances*, *state_steps*, *foreach=None*, *grad_scale=None*, *found_inf=None*, *has_complex=False*, ***, *d*, *lr*, *beta2_decay*, *weight_decay*, *eps1*, *eps2*, *maximize*)[[source]](https://github.com/pytorch/pytorch/blob/80b434f9a9e9f3dd439f5883f376326e470526ff/torch/optim/_adafactor.py#L606)
 
 Functional API that performs Adafactor algorithm computation.
 

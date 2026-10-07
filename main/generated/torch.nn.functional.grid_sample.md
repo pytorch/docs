@@ -1,6 +1,6 @@
 # torch.nn.functional.grid_sample
 
-torch.nn.functional.grid_sample(*input*, *grid*, *mode='bilinear'*, *padding_mode='zeros'*, *align_corners=None*)[[source]](https://github.com/pytorch/pytorch/blob/2dc676a67d91491beadb4615ae9fe15e144086ea/torch/nn/functional.py#L5543)
+torch.nn.functional.grid_sample(*input*, *grid*, *mode='bilinear'*, *padding_mode='zeros'*, *align_corners=None*)[[source]](https://github.com/pytorch/pytorch/blob/80b434f9a9e9f3dd439f5883f376326e470526ff/torch/nn/functional.py#L5573)
 
 Compute grid sample.
 

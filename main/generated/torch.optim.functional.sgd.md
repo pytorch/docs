@@ -1,6 +1,6 @@
 # torch.optim.functional.sgd
 
-torch.optim.functional.sgd(*params*, *d_p_list*, *momentum_buffer_list*, *has_sparse_grad=False*, *foreach=None*, *fused=None*, *grad_scale=None*, *found_inf=None*, ***, *weight_decay*, *momentum*, *lr*, *dampening*, *nesterov*, *maximize*)[[source]](https://github.com/pytorch/pytorch/blob/2dc676a67d91491beadb4615ae9fe15e144086ea/torch/optim/sgd.py#L253)
+torch.optim.functional.sgd(*params*, *d_p_list*, *momentum_buffer_list*, *has_sparse_grad=False*, *foreach=None*, *fused=None*, *grad_scale=None*, *found_inf=None*, ***, *weight_decay*, *momentum*, *lr*, *dampening*, *nesterov*, *maximize*)[[source]](https://github.com/pytorch/pytorch/blob/80b434f9a9e9f3dd439f5883f376326e470526ff/torch/optim/sgd.py#L253)
 
 Functional API that performs SGD algorithm computation.
 

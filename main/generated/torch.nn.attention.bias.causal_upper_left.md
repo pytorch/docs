@@ -1,6 +1,6 @@
 # torch.nn.attention.bias.causal_upper_left
 
-torch.nn.attention.bias.causal_upper_left(**size*)[[source]](https://github.com/pytorch/pytorch/blob/2dc676a67d91491beadb4615ae9fe15e144086ea/torch/nn/attention/bias.py#L308)
+torch.nn.attention.bias.causal_upper_left(**size*)[[source]](https://github.com/pytorch/pytorch/blob/80b434f9a9e9f3dd439f5883f376326e470526ff/torch/nn/attention/bias.py#L308)
 
 Creates an upper-left triangular causal bias.
 

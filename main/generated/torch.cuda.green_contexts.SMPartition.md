@@ -1,6 +1,6 @@
 # SMPartition
 
-*class*torch.cuda.green_contexts.SMPartition(*_resource*, *_device_id*, *_owner=None*)[[source]](https://github.com/pytorch/pytorch/blob/2dc676a67d91491beadb4615ae9fe15e144086ea/torch/cuda/green_contexts.py#L271)
+*class*torch.cuda.green_contexts.SMPartition(*_resource*, *_device_id*, *_owner=None*)[[source]](https://github.com/pytorch/pytorch/blob/80b434f9a9e9f3dd439f5883f376326e470526ff/torch/cuda/green_contexts.py#L271)
 
 An SM resource selected by CUDA, with its device and allocation metadata.
 
@@ -19,7 +19,7 @@ The co-scheduled SM alignment reported by CUDA for this resource.
 
 The device index of this SM resource.
 
-*classmethod*from_device(*device_id=None*)[[source]](https://github.com/pytorch/pytorch/blob/2dc676a67d91491beadb4615ae9fe15e144086ea/torch/cuda/green_contexts.py#L292)
+*classmethod*from_device(*device_id=None*)[[source]](https://github.com/pytorch/pytorch/blob/80b434f9a9e9f3dd439f5883f376326e470526ff/torch/cuda/green_contexts.py#L292)
 
 Return the full device SM resource.
 
@@ -41,7 +41,7 @@ metadata rather than inferring a domain from the requested split.
 
 The actual number of SMs in this resource.
 
-split(***, *num_sms=0*, *coscheduled_sm_count=0*, *preferred_coscheduled_sm_count=0*, *backfill=False*, *locality_domain_ids=None*)[[source]](https://github.com/pytorch/pytorch/blob/2dc676a67d91491beadb4615ae9fe15e144086ea/torch/cuda/green_contexts.py#L344)
+split(***, *num_sms=0*, *coscheduled_sm_count=0*, *preferred_coscheduled_sm_count=0*, *backfill=False*, *locality_domain_ids=None*)[[source]](https://github.com/pytorch/pytorch/blob/80b434f9a9e9f3dd439f5883f376326e470526ff/torch/cuda/green_contexts.py#L344)
 
 Split this resource into disjoint groups and an optional remainder.
 

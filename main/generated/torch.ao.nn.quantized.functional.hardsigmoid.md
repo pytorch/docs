@@ -1,6 +1,6 @@
 # hardsigmoid
 
-*class*torch.ao.nn.quantized.functional.hardsigmoid(*input*, *inplace=False*)[[source]](https://github.com/pytorch/pytorch/blob/2dc676a67d91491beadb4615ae9fe15e144086ea/torch/ao/nn/quantized/functional.py#L654)
+*class*torch.ao.nn.quantized.functional.hardsigmoid(*input*, *inplace=False*)[[source]](https://github.com/pytorch/pytorch/blob/80b434f9a9e9f3dd439f5883f376326e470526ff/torch/ao/nn/quantized/functional.py#L654)
 
 This is the quantized version of [`hardsigmoid()`](torch.nn.functional.hardsigmoid.html#torch.nn.functional.hardsigmoid).
 
