@@ -1,6 +1,6 @@
 # torch.xpu.set_rng_state
 
-torch.xpu.set_rng_state(*new_state*, *device='xpu'*)[[source]](https://github.com/pytorch/pytorch/blob/80b434f9a9e9f3dd439f5883f376326e470526ff/torch/xpu/random.py#L38)
+torch.xpu.set_rng_state(*new_state*, *device='xpu'*)[[source]](https://github.com/pytorch/pytorch/blob/5ba7f2bf58f6177091cdf890429ffd5f5dc2139a/torch/xpu/random.py#L38)
 
 Set the random number generator state of the specified GPU.
 

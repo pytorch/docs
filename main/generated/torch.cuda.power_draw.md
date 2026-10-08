@@ -1,6 +1,6 @@
 # torch.cuda.power_draw
 
-torch.cuda.power_draw(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/80b434f9a9e9f3dd439f5883f376326e470526ff/torch/cuda/__init__.py#L1741)
+torch.cuda.power_draw(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ba7f2bf58f6177091cdf890429ffd5f5dc2139a/torch/cuda/__init__.py#L1741)
 
 Return the average power draw of the GPU sensor in mW (MilliWatts)
 

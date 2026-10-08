@@ -1,6 +1,6 @@
 # torch.linalg.det
 
-torch.linalg.det(*A*, ***, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/80b434f9a9e9f3dd439f5883f376326e470526ff/torch/linalg/__init__.py#L390)
+torch.linalg.det(*A*, ***, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/5ba7f2bf58f6177091cdf890429ffd5f5dc2139a/torch/linalg/__init__.py#L390)
 
 Computes the determinant of a square matrix.
 

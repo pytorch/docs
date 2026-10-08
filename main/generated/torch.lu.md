@@ -1,6 +1,6 @@
 # torch.lu
 
-torch.lu(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/80b434f9a9e9f3dd439f5883f376326e470526ff/torch/_jit_internal.py#L627)
+torch.lu(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/5ba7f2bf58f6177091cdf890429ffd5f5dc2139a/torch/_jit_internal.py#L627)
 
 Computes the LU factorization of a matrix or batches of matrices
 `A`. Returns a tuple containing the LU factorization and

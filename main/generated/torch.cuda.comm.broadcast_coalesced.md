@@ -1,6 +1,6 @@
 # torch.cuda.comm.broadcast_coalesced
 
-torch.cuda.comm.broadcast_coalesced(*tensors*, *devices*, *buffer_size=10485760*)[[source]](https://github.com/pytorch/pytorch/blob/80b434f9a9e9f3dd439f5883f376326e470526ff/torch/nn/parallel/comm.py#L50)
+torch.cuda.comm.broadcast_coalesced(*tensors*, *devices*, *buffer_size=10485760*)[[source]](https://github.com/pytorch/pytorch/blob/5ba7f2bf58f6177091cdf890429ffd5f5dc2139a/torch/nn/parallel/comm.py#L50)
 
 Broadcast a sequence of tensors to the specified GPUs.
 

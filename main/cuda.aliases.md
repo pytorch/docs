@@ -24,3 +24,4 @@ The following are aliases to their counterparts in `torch.cuda` in the nested na
 | --- | --- |
 | [`ExternalStream`](generated/torch.cuda.streams.ExternalStream.html#torch.cuda.streams.ExternalStream) | Wrapper around an externally allocated CUDA stream. |
 | [`Event`](generated/torch.cuda.streams.Event.html#torch.cuda.streams.Event) | Wrapper around a CUDA event. |
+| [`execute_on_streams`](generated/torch.cuda.streams.execute_on_streams.html#torch.cuda.streams.execute_on_streams) | Enqueue a callback on each stream and join its work to the caller stream. |

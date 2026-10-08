@@ -1,6 +1,6 @@
 # torch.foreach.atan
 
-torch.foreach.atan(*inputs: TensorList*, */*) → [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...][[source]](https://github.com/pytorch/pytorch/blob/80b434f9a9e9f3dd439f5883f376326e470526ff/torch/foreach/__init__.py#L369)
+torch.foreach.atan(*inputs: TensorList*, */*) → [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...][[source]](https://github.com/pytorch/pytorch/blob/5ba7f2bf58f6177091cdf890429ffd5f5dc2139a/torch/foreach/__init__.py#L369)
 
 Applies [`torch.atan()`](torch.atan.html#torch.atan) to each tensor in `inputs`.
 

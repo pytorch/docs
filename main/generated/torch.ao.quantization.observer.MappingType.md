@@ -1,6 +1,6 @@
 # MappingType
 
-*class*torch.ao.quantization.observer.MappingType(*value*, *names=None*, ***, *module=None*, *qualname=None*, *type=None*, *start=1*, *boundary=None*)[[source]](https://github.com/pytorch/pytorch/blob/80b434f9a9e9f3dd439f5883f376326e470526ff/torch/ao/quantization/observer.py#L1636)
+*class*torch.ao.quantization.observer.MappingType(*value*, *names=None*, ***, *module=None*, *qualname=None*, *type=None*, *start=1*, *boundary=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ba7f2bf58f6177091cdf890429ffd5f5dc2139a/torch/ao/quantization/observer.py#L1636)
 
 How floating point number is mapped to integer number
 

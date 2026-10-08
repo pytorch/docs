@@ -1,6 +1,6 @@
 # torch.nn.functional.scaled_addmm_
 
-torch.nn.functional.scaled_addmm_(*input*, *mat1*, *mat2*, *scale_a*, *scale_recipe_a*, *scale_b*, *scale_recipe_b*, *swizzle_a=None*, *swizzle_b=None*, *contraction_dim=()*, *use_fast_accum=False*, ***, *beta=1.0*, *alpha=1.0*)[[source]](https://github.com/pytorch/pytorch/blob/80b434f9a9e9f3dd439f5883f376326e470526ff/torch/nn/functional.py#L7408)
+torch.nn.functional.scaled_addmm_(*input*, *mat1*, *mat2*, *scale_a*, *scale_recipe_a*, *scale_b*, *scale_recipe_b*, *swizzle_a=None*, *swizzle_b=None*, *contraction_dim=()*, *use_fast_accum=False*, ***, *beta=1.0*, *alpha=1.0*)[[source]](https://github.com/pytorch/pytorch/blob/5ba7f2bf58f6177091cdf890429ffd5f5dc2139a/torch/nn/functional.py#L7408)
 
 In-place version of [`scaled_addmm()`](torch.nn.functional.scaled_addmm.html#torch.nn.functional.scaled_addmm).
 

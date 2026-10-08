@@ -80,7 +80,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.16.0a0+git80b434f )">
+<meta name="llm:version" content="main (2.16.0a0+git5ba7f2b )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -186,7 +186,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.16.0a0+git80b434f )');
+  document.documentElement.setAttribute('data-version', 'main (2.16.0a0+git5ba7f2b )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3818,7 +3818,7 @@ document.write(`
 <h1>torch.nn.utils.get_total_norm<a class="headerlink" href="#torch-nn-utils-get-total-norm" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.nn.utils.get_total_norm">
-<span class="sig-prename descclassname"><span class="pre">torch.nn.utils.</span></span><span class="sig-name descname"><span class="pre">get_total_norm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensors</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error_if_nonfinite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">foreach</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/80b434f9a9e9f3dd439f5883f376326e470526ff/torch/nn/utils/clip_grad.py#L48"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.utils.get_total_norm" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.nn.utils.</span></span><span class="sig-name descname"><span class="pre">get_total_norm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensors</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error_if_nonfinite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">foreach</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/5ba7f2bf58f6177091cdf890429ffd5f5dc2139a/torch/nn/utils/clip_grad.py#L48"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.utils.get_total_norm" title="Link to this definition">#</a></dt>
 <dd><p>Compute the norm of an iterable of tensors.</p>
 <p>The norm is computed over the norms of the individual tensors, as if the norms of
 the individual tensors were concatenated into a single vector.</p>
@@ -3836,6 +3836,13 @@ Default: <code class="docutils literal notranslate"><span class="pre">False</spa
 If <code class="docutils literal notranslate"><span class="pre">None</span></code>, use the foreach implementation for CUDA and CPU native tensors and silently
 fall back to the slow implementation for other device types.
 Default: <code class="docutils literal notranslate"><span class="pre">None</span></code></p></li>
+<li><p><strong>dtype</strong> (<a class="reference internal" href="../tensor_attributes.html#torch.dtype" title="torch.dtype"><em>torch.dtype</em></a><em>, </em><em>optional</em>) – if set, the per-tensor norms and the norm-of-norms are
+accumulated in this dtype and the result is returned in it. Otherwise, inputs accumulate
+in their own dtype by default, which may be undesirable for lower precision inputs
+(e.g. <code class="docutils literal notranslate"><span class="pre">bfloat16</span></code>). It must be a floating point dtype that the inputs promote to
+(<code class="docutils literal notranslate"><span class="pre">torch.promote_types(input.dtype,</span> <span class="pre">dtype)</span> <span class="pre">==</span> <span class="pre">dtype</span></code>) which is a constraint
+of passing <code class="docutils literal notranslate"><span class="pre">dtype</span></code> to <a class="reference internal" href="torch.linalg.vector_norm.html#torch.linalg.vector_norm" title="torch.linalg.vector_norm"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.linalg.vector_norm()</span></code></a>.
+Default: <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -4203,7 +4210,7 @@ Default: <code class="docutils literal notranslate"><span class="pre">None</span
        "headline": "torch.nn.utils.get_total_norm",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/generated/torch.nn.utils.get_total_norm.html",
-       "articleBody": "torch.nn.utils.get_total_norm# torch.nn.utils.get_total_norm(tensors, norm_type=2.0, error_if_nonfinite=False, foreach=None)[source]# Compute the norm of an iterable of tensors. The norm is computed over the norms of the individual tensors, as if the norms of the individual tensors were concatenated into a single vector. Parameters: tensors (Iterable[Tensor] or Tensor) \u2013 an iterable of Tensors or a single Tensor that will be normalized norm_type (float) \u2013 type of the used p-norm. Can be \u0027inf\u0027 for infinity norm. error_if_nonfinite (bool) \u2013 if True, an error is thrown if the total norm of tensors is nan, inf, or -inf. Default: False foreach (bool) \u2013 use the faster foreach-based implementation. If None, use the foreach implementation for CUDA and CPU native tensors and silently fall back to the slow implementation for other device types. Default: None Returns: Total norm of the tensors (viewed as a single vector). Return type: Tensor",
+       "articleBody": "torch.nn.utils.get_total_norm# torch.nn.utils.get_total_norm(tensors, norm_type=2.0, error_if_nonfinite=False, foreach=None, dtype=None)[source]# Compute the norm of an iterable of tensors. The norm is computed over the norms of the individual tensors, as if the norms of the individual tensors were concatenated into a single vector. Parameters: tensors (Iterable[Tensor] or Tensor) \u2013 an iterable of Tensors or a single Tensor that will be normalized norm_type (float) \u2013 type of the used p-norm. Can be \u0027inf\u0027 for infinity norm. error_if_nonfinite (bool) \u2013 if True, an error is thrown if the total norm of tensors is nan, inf, or -inf. Default: False foreach (bool) \u2013 use the faster foreach-based implementation. If None, use the foreach implementation for CUDA and CPU native tensors and silently fall back to the slow implementation for other device types. Default: None dtype (torch.dtype, optional) \u2013 if set, the per-tensor norms and the norm-of-norms are accumulated in this dtype and the result is returned in it. Otherwise, inputs accumulate in their own dtype by default, which may be undesirable for lower precision inputs (e.g. bfloat16). It must be a floating point dtype that the inputs promote to (torch.promote_types(input.dtype, dtype) == dtype) which is a constraint of passing dtype to torch.linalg.vector_norm(). Default: None. Returns: Total norm of the tensors (viewed as a single vector). Return type: Tensor",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",

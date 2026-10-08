@@ -1,6 +1,6 @@
 # torch.autograd.functional.vjp
 
-torch.autograd.functional.vjp(*func*, *inputs*, *v=None*, *create_graph=False*, *strict=False*)[[source]](https://github.com/pytorch/pytorch/blob/80b434f9a9e9f3dd439f5883f376326e470526ff/torch/autograd/functional.py#L271)
+torch.autograd.functional.vjp(*func*, *inputs*, *v=None*, *create_graph=False*, *strict=False*)[[source]](https://github.com/pytorch/pytorch/blob/5ba7f2bf58f6177091cdf890429ffd5f5dc2139a/torch/autograd/functional.py#L271)
 
 Compute the dot product between a vector `v` and the Jacobian of the given function at the point given by the inputs.
 

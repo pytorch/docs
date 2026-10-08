@@ -1,6 +1,6 @@
 # torch.use_deterministic_algorithms
 
-torch.use_deterministic_algorithms(*mode*, ***, *warn_only=False*)[[source]](https://github.com/pytorch/pytorch/blob/80b434f9a9e9f3dd439f5883f376326e470526ff/torch/__init__.py#L1765)
+torch.use_deterministic_algorithms(*mode*, ***, *warn_only=False*)[[source]](https://github.com/pytorch/pytorch/blob/5ba7f2bf58f6177091cdf890429ffd5f5dc2139a/torch/__init__.py#L1765)
 
 Sets whether PyTorch operations must use "deterministic"
 algorithms. That is, algorithms which, given the same input, and when
@@ -85,7 +85,6 @@ The following normally-nondeterministic operations will throw a
 > - [`torch.histc()`](torch.histc.html#torch.histc) when called on a CUDA tensor
 > - [`torch.bincount()`](torch.bincount.html#torch.bincount) when called on a CUDA tensor and `weights`
 > tensor is given
-> - [`torch.median()`](torch.median.html#torch.median) with indices output when called on a CUDA tensor
 > - [`torch.nn.functional.grid_sample()`](torch.nn.functional.grid_sample.html#torch.nn.functional.grid_sample) when attempting to differentiate a CUDA tensor
 > - [`torch.Tensor.scatter_reduce()`](torch.Tensor.scatter_reduce.html#torch.Tensor.scatter_reduce) when called on CUDA or MPS tensor
 > - [`torch.Tensor.index_put()`](torch.Tensor.index_put.html#torch.Tensor.index_put) with `accumulate=True` when called on

@@ -1,5 +1,5 @@
 # CUDAPluggableAllocator
 
-*class*torch.cuda.memory.CUDAPluggableAllocator(*path_to_so_file*, *alloc_fn_name*, *free_fn_name*)[[source]](https://github.com/pytorch/pytorch/blob/80b434f9a9e9f3dd439f5883f376326e470526ff/torch/cuda/memory.py#L1330)
+*class*torch.cuda.memory.CUDAPluggableAllocator(*path_to_so_file*, *alloc_fn_name*, *free_fn_name*)[[source]](https://github.com/pytorch/pytorch/blob/5ba7f2bf58f6177091cdf890429ffd5f5dc2139a/torch/cuda/memory.py#L1555)
 
 CUDA memory allocator loaded from a so file.

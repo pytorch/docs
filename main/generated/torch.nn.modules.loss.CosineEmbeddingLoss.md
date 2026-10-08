@@ -1,6 +1,6 @@
 # CosineEmbeddingLoss
 
-*class*torch.nn.modules.loss.CosineEmbeddingLoss(*margin=0.0*, *size_average=None*, *reduce=None*, *reduction='mean'*)[[source]](https://github.com/pytorch/pytorch/blob/80b434f9a9e9f3dd439f5883f376326e470526ff/torch/nn/modules/loss.py#L1671)
+*class*torch.nn.modules.loss.CosineEmbeddingLoss(*margin=0.0*, *size_average=None*, *reduce=None*, *reduction='mean'*)[[source]](https://github.com/pytorch/pytorch/blob/5ba7f2bf58f6177091cdf890429ffd5f5dc2139a/torch/nn/modules/loss.py#L1671)
 
 Creates a criterion that measures the loss given input tensors
 x1x_1x1​, x2x_2x2​ and a Tensor label yyy with values 1 or -1.
@@ -56,7 +56,7 @@ Examples
 >>> output.backward()
 ```
 
-forward(*input1*, *input2*, *target*)[[source]](https://github.com/pytorch/pytorch/blob/80b434f9a9e9f3dd439f5883f376326e470526ff/torch/nn/modules/loss.py#L1736)
+forward(*input1*, *input2*, *target*)[[source]](https://github.com/pytorch/pytorch/blob/5ba7f2bf58f6177091cdf890429ffd5f5dc2139a/torch/nn/modules/loss.py#L1736)
 
 Runs the forward pass.
 

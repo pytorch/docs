@@ -1,6 +1,6 @@
 # entry_to_pretty_str
 
-*class*torch.ao.quantization.backend_config.utils.entry_to_pretty_str(*entry*)[[source]](https://github.com/pytorch/pytorch/blob/80b434f9a9e9f3dd439f5883f376326e470526ff/torch/ao/quantization/backend_config/utils.py#L193)
+*class*torch.ao.quantization.backend_config.utils.entry_to_pretty_str(*entry*)[[source]](https://github.com/pytorch/pytorch/blob/5ba7f2bf58f6177091cdf890429ffd5f5dc2139a/torch/ao/quantization/backend_config/utils.py#L193)
 
 Given a backend_config_dict entry, returns a string with the human readable
 representation of it.

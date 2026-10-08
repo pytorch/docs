@@ -1,6 +1,6 @@
 # torch.Tensor.unique_consecutive
 
-Tensor.unique_consecutive(*return_inverse=False*, *return_counts=False*, *dim=None*)[[source]](https://github.com/pytorch/pytorch/blob/80b434f9a9e9f3dd439f5883f376326e470526ff/torch/_tensor.py#L1100)
+Tensor.unique_consecutive(*return_inverse=False*, *return_counts=False*, *dim=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ba7f2bf58f6177091cdf890429ffd5f5dc2139a/torch/_tensor.py#L1100)
 
 Eliminates all but the first element from every consecutive group of equivalent elements.
 

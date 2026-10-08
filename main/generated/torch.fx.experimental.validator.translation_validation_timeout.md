@@ -1,6 +1,6 @@
 # torch.fx.experimental.validator.translation_validation_timeout
 
-torch.fx.experimental.validator.translation_validation_timeout()[[source]](https://github.com/pytorch/pytorch/blob/80b434f9a9e9f3dd439f5883f376326e470526ff/torch/fx/experimental/validator.py#L686)
+torch.fx.experimental.validator.translation_validation_timeout()[[source]](https://github.com/pytorch/pytorch/blob/5ba7f2bf58f6177091cdf890429ffd5f5dc2139a/torch/fx/experimental/validator.py#L686)
 
 Return type:
 

@@ -79,6 +79,30 @@ It is lazily initialized, so you can always import it, and use
 | --- | --- |
 | [`ExternalStream`](generated/torch.cuda.ExternalStream.html#torch.cuda.ExternalStream) | Wrapper around an externally allocated CUDA stream. |
 | [`Event`](generated/torch.cuda.Event.html#torch.cuda.Event) | Wrapper around a CUDA event. |
+| [`execute_on_streams`](generated/torch.cuda.execute_on_streams.html#torch.cuda.execute_on_streams) | Enqueue a callback on each stream and join its work to the caller stream. |
+
+### Fork/join execution
+
+`torch.cuda.execute_on_streams(streams, fn, *inputs)` calls `fn` with corresponding
+items from each input sequence on each supplied stream, and returns a list of
+results in stream order. Each input sequence must have one item per stream.
+Ordinary streams, green-context streams, and mixtures are supported.
+Callbacks run sequentially on the host, but their CUDA work can run concurrently.
+Each stream waits for work already queued on the caller's current stream;
+subsequent caller-stream work waits for all work queued by the callbacks.
+This also applies to a single stream and to work queued before a callback raises.
+
+On the caller's device, the helper switches directly between streams and restores
+the caller once. Cross-device execution uses `torch.cuda.stream` to restore
+per-device stream state. Neither path synchronizes the host. After an exception,
+remaining callbacks are not invoked. Callbacks must enqueue work on the supplied
+stream or explicitly join other streams they use. The caller stream is the
+fork/join point, not every device's current stream.
+
+Keep tensors and any owning green contexts alive until their work completes;
+the usual cross-stream tensor lifetime rules still apply.
+Callbacks can enter `torch.cuda.use_mem_pool` themselves to choose the allocator
+used for their results.
 
 ## Graphs (beta)
 
@@ -277,12 +301,13 @@ This package adds support for device memory management implemented in CUDA.
 | [`CUDAPluggableAllocator`](generated/torch.cuda.memory.CUDAPluggableAllocator.html#torch.cuda.memory.CUDAPluggableAllocator) | CUDA memory allocator loaded from a so file. |
 | [`change_current_allocator`](generated/torch.cuda.memory.change_current_allocator.html#torch.cuda.memory.change_current_allocator) | Change the currently used memory allocator to be the one provided. |
 | [`MemPool`](generated/torch.cuda.memory.MemPool.html#torch.cuda.memory.MemPool) | MemPool represents a pool of memory in a caching allocator. |
+| [`LocalizedAllocator`](generated/torch.cuda.memory.LocalizedAllocator.html#torch.cuda.memory.LocalizedAllocator) | Allocate physical CUDA memory on one locality domain. |
 
 | [`caching_allocator_disabled`](generated/torch.cuda.memory.caching_allocator_disabled.html#torch.cuda.memory.caching_allocator_disabled) | Context manager that temporarily disables the CUDA caching allocator. |
 | --- | --- |
 | [`caching_allocator_enable`](generated/torch.cuda.memory.caching_allocator_enable.html#torch.cuda.memory.caching_allocator_enable) | Enable or disable the CUDA memory allocator. |
 
-*class*torch.cuda.use_mem_pool(*pool*, *device=None*)[[source]](https://github.com/pytorch/pytorch/blob/80b434f9a9e9f3dd439f5883f376326e470526ff/torch/cuda/memory.py#L1442)
+*class*torch.cuda.use_mem_pool(*pool*, *device=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ba7f2bf58f6177091cdf890429ffd5f5dc2139a/torch/cuda/memory.py#L1735)
 
 A context manager that routes allocations to a given pool.
 
@@ -306,7 +331,7 @@ Note
 When used during [`CUDAGraph`](generated/torch.cuda.CUDAGraph.html#torch.cuda.CUDAGraph) capture, the graph
 retains the pool until the graph is reset or destroyed.
 
-torch.cuda.nccl.version()[[source]](https://github.com/pytorch/pytorch/blob/80b434f9a9e9f3dd439f5883f376326e470526ff/torch/cuda/nccl.py#L35)
+torch.cuda.nccl.version()[[source]](https://github.com/pytorch/pytorch/blob/5ba7f2bf58f6177091cdf890429ffd5f5dc2139a/torch/cuda/nccl.py#L35)
 
 Returns the version of the NCCL.
 
@@ -498,12 +523,98 @@ it does not poison subsequent forks.
 Actual splitting and context creation always use CUDA, independently of this
 capability check.
 
+### Fork/join execution with green contexts
+
+Use `torch.cuda.execute_on_streams` with green-context streams to localize the
+execution of each callback's CUDA work:
+
+```
+from torch.cuda.green_contexts import GreenContext
+
+contexts = GreenContext.split(num_sms=(24, 24), device_id=0)
+streams = [ctx.Stream() for ctx in contexts]
+inputs = [torch.randn(1024, device="cuda:0") for _ in streams]
+
+def compute(value: torch.Tensor) -> torch.Tensor:
+ return value * 2
+
+with torch.cuda.device(0):
+ outputs = torch.cuda.execute_on_streams(streams, compute, inputs)
+ result = outputs[0] + outputs[1]
+ torch.cuda.current_stream().synchronize()
+```
+
+### Localized allocations
+
+With CUDA driver and cuda.bindings 13.4+, `LocalizedAllocator` allocates physical
+memory on a specified locality domain. Use it with the existing `MemPool` API
+to cache and suballocate that memory. Construction initializes CUDA so validation
+uses the actual CUDA-visible topology. Allocation does not localize execution;
+use a green-context stream separately when compute localization is also desired.
+
+```
+allocator = torch.cuda.LocalizedAllocator(locality_domain_id=0, device="cuda:0")
+with torch.cuda.device(allocator.device_id):
+ pool = torch.cuda.MemPool(allocator=allocator.allocator())
+with torch.cuda.use_mem_pool(pool, device="cuda:0"):
+ # x is allocated on locality domain 0
+ # the randn kernel runs non-localized
+ x = torch.randn(1024, device="cuda:0")
+```
+
+Use the allocator only on its owning device; cross-device access is not supported.
+Callback owners are retained for the process lifetime, so tensors can outlive the
+Python allocator and pool objects. One owner and primary-context reference per
+device/domain are deliberately retained through interpreter shutdown. Reclaiming
+physical memory waits for the allocation stream. Cleanup failures are logged, not
+raised; memory still in use after a failed stream wait is left for process exit
+to reclaim. During interpreter shutdown, callbacks skip CUDA cleanup entirely.
+
+Warning
+
+Concurrent allocator activity is unsupported. Other threads must not allocate,
+free, or query allocator state (including `MemPool.use_count()`) concurrently
+with this allocator. The ctypes callbacks acquire the GIL while holding the
+native allocator mutex; an allocator-state query can acquire these locks in the
+opposite order and deadlock.
+
+#### Fork/join execution with localized outputs
+
+On GPUs with at least two locality domains, one can pair each green-context
+stream with a memory pool for the same domain, along with `execute_on_streams`
+to return localized outputs in stream order.
+
+```
+from torch.cuda.green_contexts import GreenContext
+
+def compute(value: torch.Tensor, pool: torch.cuda.MemPool) -> torch.Tensor:
+ with torch.cuda.use_mem_pool(pool, device="cuda:0"):
+ return value * 2
+
+with torch.cuda.device(0):
+ domains = (0, 1)
+ contexts = GreenContext.split(locality_domain_ids=domains, device_id=0)
+ streams = [ctx.Stream() for ctx in contexts]
+ allocators = [torch.cuda.LocalizedAllocator(d, device="cuda:0") for d in domains]
+ pools = []
+ for allocator in allocators:
+ with torch.cuda.device(allocator.device_id):
+ pools.append(torch.cuda.MemPool(allocator=allocator.allocator()))
+ # non-localized inputs
+ inputs = [torch.randn(1024, device="cuda:0") for _ in streams]
+ # localized outputs: callback `compute` uses local pool for its allocations
+ outputs = torch.cuda.execute_on_streams(streams, compute, inputs, pools)
+ torch.cuda.current_stream().synchronize()
+```
+
+Keep the contexts, pools, and tensors alive until their GPU work completes.
+
 | [`GreenContext`](generated/torch.cuda.green_contexts.GreenContext.html#torch.cuda.green_contexts.GreenContext) | Wrapper around a CUDA green context. |
 | --- | --- |
 | [`SMPartition`](generated/torch.cuda.green_contexts.SMPartition.html#torch.cuda.green_contexts.SMPartition) | An SM resource selected by CUDA, with its device and allocation metadata. |
 | [`get_num_locality_domains`](generated/torch.cuda.green_contexts.get_num_locality_domains.html#torch.cuda.green_contexts.get_num_locality_domains) | Return the device's locality-domain count reported by CUDA. |
 | [`is_localization_supported`](generated/torch.cuda.green_contexts.is_localization_supported.html#torch.cuda.green_contexts.is_localization_supported) | Return whether the software supports localization on a multi-domain GPU. |
 
-torch.cuda.nccl.is_available(*tensors*)[[source]](https://github.com/pytorch/pytorch/blob/80b434f9a9e9f3dd439f5883f376326e470526ff/torch/cuda/nccl.py#L14)
+torch.cuda.nccl.is_available(*tensors*)[[source]](https://github.com/pytorch/pytorch/blob/5ba7f2bf58f6177091cdf890429ffd5f5dc2139a/torch/cuda/nccl.py#L14)
 
 This package adds support for NVIDIA Tools Extension (NVTX) used in profiling.

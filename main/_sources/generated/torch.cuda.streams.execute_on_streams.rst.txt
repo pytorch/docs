@@ -1,0 +1,6 @@
+﻿torch.cuda.streams.execute\_on\_streams
+=======================================
+
+.. currentmodule:: torch.cuda.streams
+
+.. autofunction:: execute_on_streams

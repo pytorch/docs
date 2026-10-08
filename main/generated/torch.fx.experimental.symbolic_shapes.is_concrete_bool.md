@@ -1,6 +1,6 @@
 # torch.fx.experimental.symbolic_shapes.is_concrete_bool
 
-torch.fx.experimental.symbolic_shapes.is_concrete_bool(*a*)[[source]](https://github.com/pytorch/pytorch/blob/80b434f9a9e9f3dd439f5883f376326e470526ff/torch/fx/experimental/symbolic_shapes.py#L483)
+torch.fx.experimental.symbolic_shapes.is_concrete_bool(*a*)[[source]](https://github.com/pytorch/pytorch/blob/5ba7f2bf58f6177091cdf890429ffd5f5dc2139a/torch/fx/experimental/symbolic_shapes.py#L483)
 
 Utility to check if underlying object
 in SymBool is concrete value. Also returns

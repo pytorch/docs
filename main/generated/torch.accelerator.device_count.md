@@ -1,6 +1,6 @@
 # torch.accelerator.device_count
 
-torch.accelerator.device_count()[[source]](https://github.com/pytorch/pytorch/blob/80b434f9a9e9f3dd439f5883f376326e470526ff/torch/accelerator/__init__.py#L56)
+torch.accelerator.device_count()[[source]](https://github.com/pytorch/pytorch/blob/5ba7f2bf58f6177091cdf890429ffd5f5dc2139a/torch/accelerator/__init__.py#L56)
 
 Return the number of current [accelerator](../torch.html#accelerators) available.
 

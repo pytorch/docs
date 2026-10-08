@@ -80,7 +80,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.16.0a0+git80b434f )">
+<meta name="llm:version" content="main (2.16.0a0+git5ba7f2b )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -186,7 +186,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.16.0a0+git80b434f )');
+  document.documentElement.setAttribute('data-version', 'main (2.16.0a0+git5ba7f2b )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -4293,7 +4293,8 @@ compute the mean of both medians, use <a class="reference internal" href="torch.
 </div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>This function produces deterministic (sub)gradients unlike <code class="docutils literal notranslate"><span class="pre">median(dim=0)</span></code></p>
+<p>This function spreads the (sub)gradient evenly over every element equal to the
+median, while <code class="docutils literal notranslate"><span class="pre">median(dim=0)</span></code> sends it to the element at the returned index.</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -4331,9 +4332,9 @@ two medians is returned. To compute the mean of both medians in
 <p class="admonition-title">Warning</p>
 <p><code class="docutils literal notranslate"><span class="pre">indices</span></code> does not necessarily contain the first occurrence of each
 median value found, unless it is unique.
-The exact implementation details are device-specific.
-Do not expect the same result when run on CPU and GPU in general.
-For the same reason do not expect the gradients to be deterministic.</p>
+The exact implementation details are device-specific: CUDA returns the
+first occurrence, while other devices may return another one.
+Do not expect the same indices, or the same gradients, on CPU and GPU.</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -4719,7 +4720,7 @@ tensor, which must have dtype long, with their indices in the dimension
        "headline": "torch.median",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/generated/torch.median.html",
-       "articleBody": "torch.median# torch.median(input) \u2192 Tensor# Returns the median of the values in input. Note The median is not unique for input tensors with an even number of elements. In this case the lower of the two medians is returned. To compute the mean of both medians, use torch.quantile() with q=0.5 instead. Warning This function produces deterministic (sub)gradients unlike median(dim=0) Parameters: input (Tensor) \u2013 the input tensor. Example: \u003e\u003e\u003e a = torch.randn(1, 3) \u003e\u003e\u003e a tensor([[ 1.5219, -1.5212, 0.2202]]) \u003e\u003e\u003e torch.median(a) tensor(0.2202) torch.median(input, dim=-1, keepdim=False, *, out=None) Returns a namedtuple (values, indices) where values contains the median of each row of input in the dimension dim, and indices contains the index of the median values found in the dimension dim. By default, dim is the last dimension of the input tensor. If keepdim is True, the output tensors are of the same size as input except in the dimension dim where they are of size 1. Otherwise, dim is squeezed (see torch.squeeze()), resulting in the outputs tensor having 1 fewer dimension than input. Note The median is not unique for input tensors with an even number of elements in the dimension dim. In this case the lower of the two medians is returned. To compute the mean of both medians in input, use torch.quantile() with q=0.5 instead. Warning indices does not necessarily contain the first occurrence of each median value found, unless it is unique. The exact implementation details are device-specific. Do not expect the same result when run on CPU and GPU in general. For the same reason do not expect the gradients to be deterministic. Parameters: input (Tensor) \u2013 the input tensor. dim (int, optional) \u2013 the dimension to reduce. If None, all dimensions are reduced. keepdim (bool, optional) \u2013 whether the output tensor has dim retained or not. Default: False. Keyword Arguments: out ((Tensor, Tensor), optional) \u2013 The first tensor will be populated with the median values and the second tensor, which must have dtype long, with their indices in the dimension dim of input. Example: \u003e\u003e\u003e a = torch.randn(4, 5) \u003e\u003e\u003e a tensor([[ 0.2505, -0.3982, -0.9948, 0.3518, -1.3131], [ 0.3180, -0.6993, 1.0436, 0.0438, 0.2270], [-0.2751, 0.7303, 0.2192, 0.3321, 0.2488], [ 1.0778, -1.9510, 0.7048, 0.4742, -0.7125]]) \u003e\u003e\u003e torch.median(a, 1) torch.return_types.median(values=tensor([-0.3982, 0.2270, 0.2488, 0.4742]), indices=tensor([1, 4, 4, 3]))",
+       "articleBody": "torch.median# torch.median(input) \u2192 Tensor# Returns the median of the values in input. Note The median is not unique for input tensors with an even number of elements. In this case the lower of the two medians is returned. To compute the mean of both medians, use torch.quantile() with q=0.5 instead. Warning This function spreads the (sub)gradient evenly over every element equal to the median, while median(dim=0) sends it to the element at the returned index. Parameters: input (Tensor) \u2013 the input tensor. Example: \u003e\u003e\u003e a = torch.randn(1, 3) \u003e\u003e\u003e a tensor([[ 1.5219, -1.5212, 0.2202]]) \u003e\u003e\u003e torch.median(a) tensor(0.2202) torch.median(input, dim=-1, keepdim=False, *, out=None) Returns a namedtuple (values, indices) where values contains the median of each row of input in the dimension dim, and indices contains the index of the median values found in the dimension dim. By default, dim is the last dimension of the input tensor. If keepdim is True, the output tensors are of the same size as input except in the dimension dim where they are of size 1. Otherwise, dim is squeezed (see torch.squeeze()), resulting in the outputs tensor having 1 fewer dimension than input. Note The median is not unique for input tensors with an even number of elements in the dimension dim. In this case the lower of the two medians is returned. To compute the mean of both medians in input, use torch.quantile() with q=0.5 instead. Warning indices does not necessarily contain the first occurrence of each median value found, unless it is unique. The exact implementation details are device-specific: CUDA returns the first occurrence, while other devices may return another one. Do not expect the same indices, or the same gradients, on CPU and GPU. Parameters: input (Tensor) \u2013 the input tensor. dim (int, optional) \u2013 the dimension to reduce. If None, all dimensions are reduced. keepdim (bool, optional) \u2013 whether the output tensor has dim retained or not. Default: False. Keyword Arguments: out ((Tensor, Tensor), optional) \u2013 The first tensor will be populated with the median values and the second tensor, which must have dtype long, with their indices in the dimension dim of input. Example: \u003e\u003e\u003e a = torch.randn(4, 5) \u003e\u003e\u003e a tensor([[ 0.2505, -0.3982, -0.9948, 0.3518, -1.3131], [ 0.3180, -0.6993, 1.0436, 0.0438, 0.2270], [-0.2751, 0.7303, 0.2192, 0.3321, 0.2488], [ 1.0778, -1.9510, 0.7048, 0.4742, -0.7125]]) \u003e\u003e\u003e torch.median(a, 1) torch.return_types.median(values=tensor([-0.3982, 0.2270, 0.2488, 0.4742]), indices=tensor([1, 4, 4, 3]))",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",

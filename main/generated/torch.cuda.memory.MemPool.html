@@ -61,7 +61,7 @@
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/generated/torch.cuda.memory.MemPool.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="torch.cuda.memory.caching_allocator_disabled" href="torch.cuda.memory.caching_allocator_disabled.html" />
+    <link rel="next" title="LocalizedAllocator" href="torch.cuda.memory.LocalizedAllocator.html" />
     <link rel="prev" title="torch.cuda.memory.change_current_allocator" href="torch.cuda.memory.change_current_allocator.html" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -80,7 +80,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.16.0a0+git80b434f )">
+<meta name="llm:version" content="main (2.16.0a0+git5ba7f2b )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -186,7 +186,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.16.0a0+git80b434f )');
+  document.documentElement.setAttribute('data-version', 'main (2.16.0a0+git5ba7f2b )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3449,6 +3449,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.Stream_class.html">Stream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.ExternalStream.html">ExternalStream</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.Event.html">Event</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.cuda.execute_on_streams.html">torch.cuda.execute_on_streams</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.is_current_stream_capturing.html">torch.cuda.is_current_stream_capturing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.graph_pool_handle.html">torch.cuda.graph_pool_handle</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.CUDAGraph.html">CUDAGraph</a></li>
@@ -3497,6 +3498,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.memory.CUDAPluggableAllocator.html">CUDAPluggableAllocator</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.memory.change_current_allocator.html">torch.cuda.memory.change_current_allocator</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">MemPool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="torch.cuda.memory.LocalizedAllocator.html">LocalizedAllocator</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.memory.caching_allocator_disabled.html">torch.cuda.memory.caching_allocator_disabled</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.memory.caching_allocator_enable.html">torch.cuda.memory.caching_allocator_enable</a></li>
 <li class="toctree-l2"><a class="reference internal" href="torch.cuda.profiler.profile.html">torch.cuda.profiler.profile</a></li>
@@ -3716,7 +3718,7 @@ document.write(`
 <h1>MemPool<a class="headerlink" href="#mempool" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.cuda.memory.MemPool">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.cuda.memory.</span></span><span class="sig-name descname"><span class="pre">MemPool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/80b434f9a9e9f3dd439f5883f376326e470526ff/torch/cuda/memory.py#L1387"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.memory.MemPool" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.cuda.memory.</span></span><span class="sig-name descname"><span class="pre">MemPool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/5ba7f2bf58f6177091cdf890429ffd5f5dc2139a/torch/cuda/memory.py#L1612"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.memory.MemPool" title="Link to this definition">#</a></dt>
 <dd><p>MemPool represents a pool of memory in a caching allocator. Currently,
 it’s just the ID of the pool object maintained in the CUDACachingAllocator.</p>
 <dl class="field-list simple">
@@ -3743,7 +3745,7 @@ This is False by default.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.cuda.memory.MemPool.snapshot">
-<span class="sig-name descname"><span class="pre">snapshot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">include_traces</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/80b434f9a9e9f3dd439f5883f376326e470526ff/torch/cuda/memory.py#L1422"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.memory.MemPool.snapshot" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">snapshot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">include_traces</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/5ba7f2bf58f6177091cdf890429ffd5f5dc2139a/torch/cuda/memory.py#L1647"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.memory.MemPool.snapshot" title="Link to this definition">#</a></dt>
 <dd><p>Return a snapshot of the CUDA memory allocator pool state across all
 devices.</p>
 <p>Interpreting the output of this function requires familiarity with the
@@ -3764,7 +3766,7 @@ management.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.cuda.memory.MemPool.use_count">
-<span class="sig-name descname"><span class="pre">use_count</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/80b434f9a9e9f3dd439f5883f376326e470526ff/torch/cuda/memory.py#L1418"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.memory.MemPool.use_count" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">use_count</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/5ba7f2bf58f6177091cdf890429ffd5f5dc2139a/torch/cuda/memory.py#L1643"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.memory.MemPool.use_count" title="Link to this definition">#</a></dt>
 <dd><p>Returns the reference count of this pool.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -3829,11 +3831,11 @@ management.</p>
       </div>
     </a>
     <a class="right-next"
-       href="torch.cuda.memory.caching_allocator_disabled.html"
+       href="torch.cuda.memory.LocalizedAllocator.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">torch.cuda.memory.caching_allocator_disabled</p>
+        <p class="prev-next-title">LocalizedAllocator</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -3868,11 +3870,11 @@ management.</p>
       </div>
     </a>
     <a class="right-next"
-       href="torch.cuda.memory.caching_allocator_disabled.html"
+       href="torch.cuda.memory.LocalizedAllocator.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">torch.cuda.memory.caching_allocator_disabled</p>
+        <p class="prev-next-title">LocalizedAllocator</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
