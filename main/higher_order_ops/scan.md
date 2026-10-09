@@ -79,7 +79,7 @@ Notice that the combine function becomes a sub-graph attribute of the top-level 
 
 ## API Reference
 
-torch._higher_order_ops.scan.scan(*combine_fn*, *init*, *xs*, ***, *dim=0*, *reverse=False*, *length=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ba7f2bf58f6177091cdf890429ffd5f5dc2139a/torch/_higher_order_ops/scan.py#L112)
+torch._higher_order_ops.scan.scan(*combine_fn*, *init*, *xs*, ***, *dim=0*, *reverse=False*, *length=None*)[[source]](https://github.com/pytorch/pytorch/blob/263689def4523511f77298ad022a780a83a5b69b/torch/_higher_order_ops/scan.py#L112)
 
 Performs an inclusive scan with a combine function.
 
@@ -137,9 +137,10 @@ Return type:
 
 Restrictions:
 
-- The combine_fn shouldn't have any aliasing between input-input, input-output, and output-output. E.g. return a view
+- The combine_fn shouldn't have any aliasing between input-output and output-output. E.g. return a view
 
 or the same tensor as input is not supported. As a workaround, can clone the output to avoid aliasing.
+Inputs may share storage (e.g. views of one tensor), as long as none of them is mutated.
 - The combine_fn shouldn't mutate any inputs. We'll remove the mutation restriction for inference soon. Please file an issue
 
 if you input mutation support for training is needed.

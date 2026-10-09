@@ -1,6 +1,6 @@
 # torch.fx.experimental.symbolic_shapes.has_symbolic_sizes_strides
 
-torch.fx.experimental.symbolic_shapes.has_symbolic_sizes_strides(*elem*)[[source]](https://github.com/pytorch/pytorch/blob/5ba7f2bf58f6177091cdf890429ffd5f5dc2139a/torch/fx/experimental/symbolic_shapes.py#L413)
+torch.fx.experimental.symbolic_shapes.has_symbolic_sizes_strides(*elem*)[[source]](https://github.com/pytorch/pytorch/blob/263689def4523511f77298ad022a780a83a5b69b/torch/fx/experimental/symbolic_shapes.py#L413)
 
 Return type:
 

@@ -1,6 +1,6 @@
 # torch.cuda.green_contexts.is_localization_supported
 
-torch.cuda.green_contexts.is_localization_supported(*device_id=None*)[[source]](https://github.com/pytorch/pytorch/blob/5ba7f2bf58f6177091cdf890429ffd5f5dc2139a/torch/cuda/green_contexts.py#L139)
+torch.cuda.green_contexts.is_localization_supported(*device_id=None*)[[source]](https://github.com/pytorch/pytorch/blob/263689def4523511f77298ad022a780a83a5b69b/torch/cuda/green_contexts.py#L139)
 
 Return whether the software supports localization on a multi-domain GPU.
 
@@ -12,6 +12,11 @@ is initialized, queries CUDA directly; invalid devices and failed queries
 raise. This function does not initialize the driver or a context and does
 not poison subsequent forks. Splitting and context creation always use CUDA
 to validate the actual resources.
+
+The NVML check does not support predicting a later attachment to an MPS
+server. Do not reuse a pre-initialization result after such an attachment;
+query again instead. An already attached MPS client has initialized CUDA,
+so subsequent queries use the driver path and its actual device topology.
 
 Parameters:
 

@@ -1,6 +1,6 @@
 # torch.foreach.sqrt
 
-torch.foreach.sqrt(*inputs: TensorList*, */*) → [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...][[source]](https://github.com/pytorch/pytorch/blob/5ba7f2bf58f6177091cdf890429ffd5f5dc2139a/torch/foreach/__init__.py#L634)
+torch.foreach.sqrt(*inputs: TensorList*, */*) → [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...][[source]](https://github.com/pytorch/pytorch/blob/263689def4523511f77298ad022a780a83a5b69b/torch/foreach/__init__.py#L634)
 
 Applies [`torch.sqrt()`](torch.sqrt.html#torch.sqrt) to each tensor in `inputs`.
 

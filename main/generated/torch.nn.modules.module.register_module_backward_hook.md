@@ -1,6 +1,6 @@
 # torch.nn.modules.module.register_module_backward_hook
 
-torch.nn.modules.module.register_module_backward_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/5ba7f2bf58f6177091cdf890429ffd5f5dc2139a/torch/nn/modules/module.py#L296)
+torch.nn.modules.module.register_module_backward_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/263689def4523511f77298ad022a780a83a5b69b/torch/nn/modules/module.py#L296)
 
 Register a backward hook common to all the modules.
 

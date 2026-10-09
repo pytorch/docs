@@ -1,6 +1,6 @@
 # torch.fx.experimental.graph_gradual_typechecker.adaptiveavgpool2d_inference_rule
 
-torch.fx.experimental.graph_gradual_typechecker.adaptiveavgpool2d_inference_rule(*n*, *module_instance*)[[source]](https://github.com/pytorch/pytorch/blob/5ba7f2bf58f6177091cdf890429ffd5f5dc2139a/torch/fx/experimental/graph_gradual_typechecker.py#L577)
+torch.fx.experimental.graph_gradual_typechecker.adaptiveavgpool2d_inference_rule(*n*, *module_instance*)[[source]](https://github.com/pytorch/pytorch/blob/263689def4523511f77298ad022a780a83a5b69b/torch/fx/experimental/graph_gradual_typechecker.py#L577)
 
 The input and output sizes should be the same except for the last
 two dimensions taken from the input, which represent width and height

@@ -80,7 +80,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.16.0a0+git5ba7f2b )">
+<meta name="llm:version" content="main (2.16.0a0+git263689d )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -186,7 +186,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.16.0a0+git5ba7f2b )');
+  document.documentElement.setAttribute('data-version', 'main (2.16.0a0+git263689d )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3718,7 +3718,7 @@ document.write(`
 <h1>torch.cuda.green_contexts.is_localization_supported<a class="headerlink" href="#torch-cuda-green-contexts-is-localization-supported" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.cuda.green_contexts.is_localization_supported">
-<span class="sig-prename descclassname"><span class="pre">torch.cuda.green_contexts.</span></span><span class="sig-name descname"><span class="pre">is_localization_supported</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/5ba7f2bf58f6177091cdf890429ffd5f5dc2139a/torch/cuda/green_contexts.py#L139"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.green_contexts.is_localization_supported" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.cuda.green_contexts.</span></span><span class="sig-name descname"><span class="pre">is_localization_supported</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/263689def4523511f77298ad022a780a83a5b69b/torch/cuda/green_contexts.py#L139"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.green_contexts.is_localization_supported" title="Link to this definition">#</a></dt>
 <dd><p>Return whether the software supports localization on a multi-domain GPU.</p>
 <p>Returns <code class="docutils literal notranslate"><span class="pre">False</span></code> when the required software is unavailable or the device
 has at most one locality domain. Before driver initialization, attempts a
@@ -3728,6 +3728,10 @@ is initialized, queries CUDA directly; invalid devices and failed queries
 raise. This function does not initialize the driver or a context and does
 not poison subsequent forks. Splitting and context creation always use CUDA
 to validate the actual resources.</p>
+<p>The NVML check does not support predicting a later attachment to an MPS
+server. Do not reuse a pre-initialization result after such an attachment;
+query again instead. An already attached MPS client has initialized CUDA,
+so subsequent queries use the driver path and its actual device topology.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>device_id</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) – Device index. Default: current PyTorch device
@@ -4095,7 +4099,7 @@ if PyTorch CUDA is initialized, otherwise <code class="docutils literal notransl
        "headline": "torch.cuda.green_contexts.is_localization_supported",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/generated/torch.cuda.green_contexts.is_localization_supported.html",
-       "articleBody": "torch.cuda.green_contexts.is_localization_supported# torch.cuda.green_contexts.is_localization_supported(device_id=None)[source]# Return whether the software supports localization on a multi-domain GPU. Returns False when the required software is unavailable or the device has at most one locality domain. Before driver initialization, attempts a best-effort NVML capability check based on architecture and system configuration, raising if NVML cannot determine support. Once the driver is initialized, queries CUDA directly; invalid devices and failed queries raise. This function does not initialize the driver or a context and does not poison subsequent forks. Splitting and context creation always use CUDA to validate the actual resources. Parameters: device_id (int, optional) \u2013 Device index. Default: current PyTorch device if PyTorch CUDA is initialized, otherwise 0. Return type: bool",
+       "articleBody": "torch.cuda.green_contexts.is_localization_supported# torch.cuda.green_contexts.is_localization_supported(device_id=None)[source]# Return whether the software supports localization on a multi-domain GPU. Returns False when the required software is unavailable or the device has at most one locality domain. Before driver initialization, attempts a best-effort NVML capability check based on architecture and system configuration, raising if NVML cannot determine support. Once the driver is initialized, queries CUDA directly; invalid devices and failed queries raise. This function does not initialize the driver or a context and does not poison subsequent forks. Splitting and context creation always use CUDA to validate the actual resources. The NVML check does not support predicting a later attachment to an MPS server. Do not reuse a pre-initialization result after such an attachment; query again instead. An already attached MPS client has initialized CUDA, so subsequent queries use the driver path and its actual device topology. Parameters: device_id (int, optional) \u2013 Device index. Default: current PyTorch device if PyTorch CUDA is initialized, otherwise 0. Return type: bool",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
