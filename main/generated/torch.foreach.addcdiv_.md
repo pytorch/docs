@@ -1,6 +1,6 @@
 # torch.foreach.addcdiv_
 
-torch.foreach.addcdiv_(*inputs: TensorList*, *tensor1: TensorList*, *tensor2: TensorList*, */*, ***, *value: ScalarList*) → [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...] | [list](https://docs.python.org/3/builtins/stdtypes.html#list)[[Tensor](../tensors.html#torch.Tensor)][[source]](https://github.com/pytorch/pytorch/blob/263689def4523511f77298ad022a780a83a5b69b/torch/foreach/__init__.py#L1359)
+torch.foreach.addcdiv_(*inputs: TensorList*, *tensor1: TensorList*, *tensor2: TensorList*, */*, ***, *value: ScalarList*) → [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...] | [list](https://docs.python.org/3/builtins/stdtypes.html#list)[[Tensor](../tensors.html#torch.Tensor)][[source]](https://github.com/pytorch/pytorch/blob/1b51ed6169475ed863f4ee43b7eaa52ecda0f862/torch/foreach/__init__.py#L1359)
 
 torch.foreach.addcdiv_(*inputs: TensorList*, *tensor1: TensorList*, *tensor2: TensorList*, */*, ***, *value: [Tensor](../tensors.html#torch.Tensor)*) → [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...] | [list](https://docs.python.org/3/builtins/stdtypes.html#list)[[Tensor](../tensors.html#torch.Tensor)]
 

@@ -1,6 +1,6 @@
 # torch.fx.experimental.migrate_gradual_types.constraint_generator.embedding_inference_rule
 
-torch.fx.experimental.migrate_gradual_types.constraint_generator.embedding_inference_rule(*n*, *module_instance*, *symbols*, *constraints*, *counter*)[[source]](https://github.com/pytorch/pytorch/blob/263689def4523511f77298ad022a780a83a5b69b/torch/fx/experimental/migrate_gradual_types/constraint_generator.py#L531)
+torch.fx.experimental.migrate_gradual_types.constraint_generator.embedding_inference_rule(*n*, *module_instance*, *symbols*, *constraints*, *counter*)[[source]](https://github.com/pytorch/pytorch/blob/1b51ed6169475ed863f4ee43b7eaa52ecda0f862/torch/fx/experimental/migrate_gradual_types/constraint_generator.py#L531)
 
 The output shape differs from the input shape in the last dimension
 

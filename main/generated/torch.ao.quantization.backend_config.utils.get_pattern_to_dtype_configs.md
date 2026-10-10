@@ -1,6 +1,6 @@
 # get_pattern_to_dtype_configs
 
-*class*torch.ao.quantization.backend_config.utils.get_pattern_to_dtype_configs(*backend_config*)[[source]](https://github.com/pytorch/pytorch/blob/263689def4523511f77298ad022a780a83a5b69b/torch/ao/quantization/backend_config/utils.py#L30)
+*class*torch.ao.quantization.backend_config.utils.get_pattern_to_dtype_configs(*backend_config*)[[source]](https://github.com/pytorch/pytorch/blob/1b51ed6169475ed863f4ee43b7eaa52ecda0f862/torch/ao/quantization/backend_config/utils.py#L30)
 
 Return type:
 

@@ -1,6 +1,6 @@
 # torch.fx.experimental.unification.multipledispatch.conflict.edge
 
-torch.fx.experimental.unification.multipledispatch.conflict.edge(*a*, *b*, *tie_breaker=<built-in function hash>*)[[source]](https://github.com/pytorch/pytorch/blob/263689def4523511f77298ad022a780a83a5b69b/torch/fx/experimental/unification/multipledispatch/conflict.py#L132)
+torch.fx.experimental.unification.multipledispatch.conflict.edge(*a*, *b*, *tie_breaker=<built-in function hash>*)[[source]](https://github.com/pytorch/pytorch/blob/1b51ed6169475ed863f4ee43b7eaa52ecda0f862/torch/fx/experimental/unification/multipledispatch/conflict.py#L132)
 
 A should be checked before B
 Tie broken by tie_breaker, defaults to `hash`

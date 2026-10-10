@@ -1,6 +1,6 @@
 # torch.foreach.lgamma
 
-torch.foreach.lgamma(*inputs: TensorList*, */*) → [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...][[source]](https://github.com/pytorch/pytorch/blob/263689def4523511f77298ad022a780a83a5b69b/torch/foreach/__init__.py#L479)
+torch.foreach.lgamma(*inputs: TensorList*, */*) → [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...][[source]](https://github.com/pytorch/pytorch/blob/1b51ed6169475ed863f4ee43b7eaa52ecda0f862/torch/foreach/__init__.py#L479)
 
 Applies [`torch.lgamma()`](torch.lgamma.html#torch.lgamma) to each tensor in `inputs`.
 

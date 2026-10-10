@@ -1,6 +1,6 @@
 # torch.cuda.random.seed
 
-torch.cuda.random.seed()[[source]](https://github.com/pytorch/pytorch/blob/263689def4523511f77298ad022a780a83a5b69b/torch/cuda/random.py#L131)
+torch.cuda.random.seed()[[source]](https://github.com/pytorch/pytorch/blob/1b51ed6169475ed863f4ee43b7eaa52ecda0f862/torch/cuda/random.py#L131)
 
 Set the seed for generating random numbers to a random number for the current GPU.
 

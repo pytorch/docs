@@ -1,6 +1,6 @@
 # torch.foreach.pow
 
-torch.foreach.pow(*input: Scalar*, *exponent: TensorList*, */*) → [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...][[source]](https://github.com/pytorch/pytorch/blob/263689def4523511f77298ad022a780a83a5b69b/torch/foreach/__init__.py#L1478)
+torch.foreach.pow(*input: Scalar*, *exponent: TensorList*, */*) → [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...][[source]](https://github.com/pytorch/pytorch/blob/1b51ed6169475ed863f4ee43b7eaa52ecda0f862/torch/foreach/__init__.py#L1478)
 
 torch.foreach.pow(*input: TensorList*, *exponent: Scalar*, */*) → [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...]
 

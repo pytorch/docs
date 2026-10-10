@@ -1,6 +1,6 @@
 # torch.fx.experimental.symbolic_shapes.has_free_symbols
 
-torch.fx.experimental.symbolic_shapes.has_free_symbols(*val*)[[source]](https://github.com/pytorch/pytorch/blob/263689def4523511f77298ad022a780a83a5b69b/torch/fx/experimental/symbolic_shapes.py#L1077)
+torch.fx.experimental.symbolic_shapes.has_free_symbols(*val*)[[source]](https://github.com/pytorch/pytorch/blob/1b51ed6169475ed863f4ee43b7eaa52ecda0f862/torch/fx/experimental/symbolic_shapes.py#L1077)
 
 Faster version of bool(free_symbols(val))
 

@@ -1,6 +1,6 @@
 # torch.mps.recommended_max_memory
 
-torch.mps.recommended_max_memory()[[source]](https://github.com/pytorch/pytorch/blob/263689def4523511f77298ad022a780a83a5b69b/torch/mps/__init__.py#L130)
+torch.mps.recommended_max_memory()[[source]](https://github.com/pytorch/pytorch/blob/1b51ed6169475ed863f4ee43b7eaa52ecda0f862/torch/mps/__init__.py#L130)
 
 Returns recommended max Working set size for GPU memory in bytes.
 
