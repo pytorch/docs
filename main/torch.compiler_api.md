@@ -46,19 +46,24 @@ a self-contained Python source artifact plus an acceleration cache that a fresh 
 reloads. No weights are baked in, so the model is passed again at runtime:
 
 ```
+# step is a module-level function: def step(model, x): return model(x)
 with torch.compiler.precompile.capture(
- lambda model, x: model(x), artifact_path="m.py", cache_path="m.cache"
+ step, artifact_path="m.py", cache_path="m.cache"
 ) as cap:
- y = cap(model, x)
+ y1 = cap(model, x1)
+ y2 = cap(model, x2) # a recompile or graph break becomes another variant
 
-f = torch.compiler.precompile.load("m.py", "m.cache")
-y = f(model, x)
+f = torch.compiler.precompile.load("m.py", "m.cache") # in a fresh process
+y = f(model, x1)
 ```
 
-The contract is Note [precompile programming model] in `torch/_precompile.py`. It is
-distinct from `torch._dynamo.config.caching_precompile` (a `torch.compile` caching mode).
+The default `DynamoTracer` records every frame Dynamo compiles while your calls run and
+the artifact dispatches among them by their guards; `MakeFxTracer` is a single non-strict
+trace under the contract of Note [precompile programming model] in `torch/_precompile.py`.
+`torch.compiler.precompile` is distinct from `torch._dynamo.config.caching_precompile`
+(a `torch.compile` caching mode).
 
-torch.compiler.precompile.capture(*fn*, */*, ***, *artifact_path*, *cache_path*, *tracer=MakeFxTracer(decompositions=None)*, *backend='inductor'*)[[source]](https://github.com/pytorch/pytorch/blob/1b51ed6169475ed863f4ee43b7eaa52ecda0f862/torch/_precompile.py#L2895)
+torch.compiler.precompile.capture(*fn*, */*, ***, *artifact_path*, *cache_path*, *tracer=DynamoTracer(guard_filter_fn=None, recompile_limit=256, dynamic=None, require_complete=True, require_no_risky_drops=True)*, *backend='inductor'*)[[source]](https://github.com/pytorch/pytorch/blob/e97ee94e32f26ccec33db4c1411bddc4cc9e1a31/torch/_precompile.py#L3120)
 
 Capture `fn` across the calls YOUR loop makes, writing the artifact on exit.
 
@@ -87,27 +92,51 @@ values stay available, so the capture drops into an ordinary pipeline loop.
 To write the artifact before the block ends, call `cap.save()` inside it.
 A block that raises writes nothing it has not already saved, and a block
 that made no call raises `PrecompileError` on exit. A capture is single-use:
-to capture again, call `capture()` again.
+to capture again, call `capture()` again. A `DynamoTracer` capture
+records the kernel-cache artifacts of everything compiled inside the block,
+so compile nothing else there, and do not overlap two such captures.
 
 `tracer` picks the capture front-end and carries its tracer-specific
-configuration. `MakeFxTracer` is one non-strict ATen trace: the capture
-takes exactly ONE call, refuses a second, and specializes control flow and
-shapes to that call, with the contract of Note [precompile programming model]
-in `torch/_precompile.py`. Arguments are matched positionally at capture and
-at load. `fn` is the whole computation, e.g. `lambda model, x: model(x)`:
-the `nn.Module` arguments have their params/buffers lifted to graph inputs
-(no weights are baked in) and the rest are the runtime inputs; the reloaded
+configuration. `DynamoTracer` (the default) is an execution-driven
+multi-graph capture: it analyzes the Python rather than tracing one path,
+records every graph-break continuation and guarded recompilation the calls
+exercise, takes as many calls as you make (keyword arguments included), and
+the artifact dispatches among the captured variants by their guards - a call
+no variant covers RAISES rather than silently serving, since there is no
+compiler behind a source artifact. `MakeFxTracer` is one non-strict
+ATen trace: the capture takes exactly ONE positional call, refuses a second,
+and specializes control flow and shapes to that call, with the contract of
+Note [precompile programming model] in `torch/_precompile.py`. `fn` is
+the whole computation, e.g. a module-level `def step(model, x): return
+model(x)` (only a `MakeFxTracer` capture also takes a lambda): the
+`nn.Module` arguments have their params/buffers lifted to graph inputs (no
+weights are baked in) and the rest are the runtime inputs; the reloaded
 callable is invoked with the same argument structure, and the runtime model
 must match the captured model's parameter/buffer structure.
+
+A Dynamo artifact is STANDALONE: it rebuilds the entry from its code object
+and installs nothing, so `fn` must be a module-level function of an
+importable module (not a closure, not defined in `__main__`), and a frame
+the entry cannot reach through a graph-break continuation - a graph break
+inside a child module's forward - is refused at write time. It is locked
+to the producing Python version and torch build. The guards that could not
+be serialized are reported in the capture's `summary()` rather than
+checked, and the `DynamoTracer` `require_*` gates refuse the risky
+ones by default.
 
 `backend` selects how the captured graph is realized: `"inductor"`
 (default) lowers through AOTAutograd + Inductor into one self-contained
 module, and the cache holds the bundle that primes the inductor kernel caches
 on load; `"eager"` keeps the captured ATen graph and runs it as-is (no
-kernels, so the cache carries no artifact). A `fn` that runs a backward
-captures it: the trace runs with grad enabled, the resulting parameter
-gradients are scattered onto the runtime model exactly like eager
-`.backward()`, and the artifact returns `fn`'s own result.
+kernels, so the cache carries no artifact). A make_fx `fn` that runs a
+backward captures it: the trace runs with grad enabled, the resulting
+parameter gradients are scattered onto the runtime model exactly like eager
+`.backward()`, and the artifact returns `fn`'s own result. A Dynamo
+capture runs every call in the caller's own grad mode and lowers a backward
+whenever grad is enabled (a `.backward()` in `fn` graph-breaks and
+re-runs at serve time through the live autograd engine, accumulating
+`.grad` like eager); serve the artifact under the grad mode it was
+captured in.
 
 Note
 
@@ -118,9 +147,9 @@ lowers it to a self-contained Python source artifact.
 
 Return type:
 
-*Capture*
+*Capture*[~_P, *_R*]
 
-torch.compiler.precompile.load(*artifact_path*, *cache_path*)[[source]](https://github.com/pytorch/pytorch/blob/1b51ed6169475ed863f4ee43b7eaa52ecda0f862/torch/_precompile.py#L2980)
+torch.compiler.precompile.load(*artifact_path*, *cache_path*)[[source]](https://github.com/pytorch/pytorch/blob/e97ee94e32f26ccec33db4c1411bddc4cc9e1a31/torch/_precompile.py#L3256)
 
 Reconstruct a runnable from the two files a precompile capture wrote.
 
@@ -138,15 +167,22 @@ The driver runs from `python_code` - the single source of truth for the whole
 calling convention. `load` reads the source's `BACKEND`, checks the cache's
 `backend` tag against it, primes the inductor kernel caches when the cache
 carries a bundle so a warm reload loads precompiled kernels instead of
-JIT-compiling, and then exec's `python_code`. With no usable cache it degrades to JIT'ing from
-`python_code`. Both files are trusted, EXECUTABLE input: load only artifacts
-you produced or otherwise trust.
+JIT-compiling, and then exec's `python_code`. With no usable cache a
+`MakeFxTracer` artifact degrades to JIT'ing from `python_code`; a
+`DynamoTracer` artifact carries its compiled subgraphs inside
+`python_code`, with their kernels under inductor's default bundling, so it
+serves without JIT either way. Both files are trusted, EXECUTABLE input: load
+only artifacts you produced or otherwise trust.
 
 Call the result with the SAME argument structure `fn` took - the model(s)
-in their original positions plus the runtime inputs. The runtime model must
-match the captured model's parameter/buffer structure; precompile re-derives
-the param/buffer list from it. The result is a
-`torch.compiler.precompile.PrecompiledRunnable`.
+in their original positions plus the runtime inputs (keyword arguments too,
+for a `DynamoTracer` artifact). The runtime model must match the
+captured model's parameter/buffer structure. The result is a
+`torch.compiler.precompile.PrecompiledRunnable`; a Dynamo artifact
+is standalone, so entering and unloading it are no-ops, and it re-seeds the
+names Dynamo minted into the captured module. A Dynamo artifact whose
+capture graph-broke cannot load beside the live compile that captured it
+(the continuation names collide): load it in a fresh process.
 
 Raises `PrecompileError` if either file cannot be read, if `python_code` is
 not a `torch.compiler.precompile` artifact, or if the cache's `backend`,
@@ -170,6 +206,31 @@ effectful op, a nested example input, which capture does not support on either p
 non-tensor output the inductor backend cannot lower, or a runtime input whose shape or
 memory format differs from the example (invariants 3 and 6).
 See Note [precompile programming model] in this module for the full contract.
+
+*class*torch.compiler.precompile.DynamoTracer(*guard_filter_fn=None*, *recompile_limit=256*, *dynamic=None*, *require_complete=True*, *require_no_risky_drops=True*)
+
+The `dynamo` capture front-end (the default), passed as `tracer=` to
+`torch.compiler.precompile.capture()`.
+
+An execution-driven multi-graph capture that analyzes the Python (bytecode)
+rather than tracing one path: it records graph-break continuations and every
+guarded recompilation the calls exercise, so a capture with this tracer takes
+as many calls as you make, keyword arguments included. Part of the prototype
+`torch.compiler.precompile` API, so it may change without a deprecation cycle.
+
+`guard_filter_fn` takes the `GuardFilterEntry` records (`guard_type`,
+`name`, ...) and returns one keep flag per entry, filtering the guards kept
+in the SERIALIZED artifact (runtime capture guards are always retained; the
+default drops only what cannot be serialized); `recompile_limit` caps
+recompilations per frame, and a call past it runs eager and is absent from
+the artifact without any gate refusing it; `dynamic` forces dynamic shapes
+as `torch.compile(dynamic=)` does. The `require_*` gates refuse, at write
+time, an artifact with a coverage gap (`require_complete`: a bypassed or
+uncovered frame, a call that raised) or one whose dropped guards told
+captured variants apart or hang off a configuration-chosen slot
+(`require_no_risky_drops`). Other dropped guards,
+such as the identity guards every model drops because they cannot be
+serialized, are listed in the artifact rather than refused.
 
 *class*torch.compiler.precompile.MakeFxTracer(*decompositions=None*)
 
@@ -218,11 +279,15 @@ exits it cannot be entered again, so call `capture()` again to retry.
 That includes a failed write at exit: the spent capture does not keep its
 pair, so fix the path and capture again.
 
-save()[[source]](https://github.com/pytorch/pytorch/blob/1b51ed6169475ed863f4ee43b7eaa52ecda0f862/torch/_precompile.py#L425)
+save()[[source]](https://github.com/pytorch/pytorch/blob/e97ee94e32f26ccec33db4c1411bddc4cc9e1a31/torch/_precompile.py#L511)
 
 Write everything captured so far to the artifact files without ending the capture.
 
-Raises `PrecompileError` outside the capture's `with` block.
+Each call re-renders and rewrites both files, so a job that dies between
+saves leaves the last checkpoint loadable. A refusal (such as a
+`DynamoTracer` `require_*` gate) or a failed write raises but
+writes nothing partial, and the capture stays open. Raises
+`PrecompileError` outside the capture's `with` block.
 
 *class*torch.compiler.precompile.PrecompiledRunnable
 
@@ -239,7 +304,7 @@ Variables:
 **installed** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Whether calling this handle installs onto the captured code
 objects; `False` for a standalone artifact.
 
-unload()[[source]](https://github.com/pytorch/pytorch/blob/1b51ed6169475ed863f4ee43b7eaa52ecda0f862/torch/_precompile.py#L393)
+unload()[[source]](https://github.com/pytorch/pytorch/blob/e97ee94e32f26ccec33db4c1411bddc4cc9e1a31/torch/_precompile.py#L453)
 
 Remove whatever this loaded artifact installed; a no-op when it installed nothing.
 

@@ -4,7 +4,7 @@
 
 Note
 
-Tags: python.control-flow, [torch.dynamic-shape](torch.dynamic-shape.html)
+Tags: [torch.dynamic-shape](torch.dynamic-shape.html), python.control-flow
 
 Support Level: SUPPORTED
 

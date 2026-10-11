@@ -1,5 +1,5 @@
 # torch.mps.profiler.stop
 
-torch.mps.profiler.stop()[[source]](https://github.com/pytorch/pytorch/blob/1b51ed6169475ed863f4ee43b7eaa52ecda0f862/torch/mps/profiler.py#L47)
+torch.mps.profiler.stop()[[source]](https://github.com/pytorch/pytorch/blob/e97ee94e32f26ccec33db4c1411bddc4cc9e1a31/torch/mps/profiler.py#L47)
 
 Stops generating OS Signpost tracing from MPS backend.

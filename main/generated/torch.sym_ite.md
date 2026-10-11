@@ -1,6 +1,6 @@
 # torch.sym_ite
 
-torch.sym_ite(*b*, *t*, *f*)[[source]](https://github.com/pytorch/pytorch/blob/1b51ed6169475ed863f4ee43b7eaa52ecda0f862/torch/__init__.py#L1402)
+torch.sym_ite(*b*, *t*, *f*)[[source]](https://github.com/pytorch/pytorch/blob/e97ee94e32f26ccec33db4c1411bddc4cc9e1a31/torch/__init__.py#L1402)
 
 SymInt-aware utility for ternary operator (`t if b else f`.)
 
