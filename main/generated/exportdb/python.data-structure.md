@@ -138,7 +138,7 @@ Range constraints: {}
 
 Note
 
-Tags: [torch.dynamic-shape](torch.dynamic-shape.html), python.data-structure, [python.assert](python.assert.html)
+Tags: python.data-structure, [python.assert](python.assert.html), [torch.dynamic-shape](torch.dynamic-shape.html)
 
 Support Level: SUPPORTED
 

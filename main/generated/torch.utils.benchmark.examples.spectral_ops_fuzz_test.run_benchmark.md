@@ -1,3 +1,3 @@
 # torch.utils.benchmark.examples.spectral_ops_fuzz_test.run_benchmark
 
-torch.utils.benchmark.examples.spectral_ops_fuzz_test.run_benchmark(*name*, *function*, *dtype*, *seed*, *device*, *samples*, *probability_regular*)[[source]](https://github.com/pytorch/pytorch/blob/e97ee94e32f26ccec33db4c1411bddc4cc9e1a31/torch/utils/benchmark/examples/spectral_ops_fuzz_test.py#L23)
+torch.utils.benchmark.examples.spectral_ops_fuzz_test.run_benchmark(*name*, *function*, *dtype*, *seed*, *device*, *samples*, *probability_regular*)[[source]](https://github.com/pytorch/pytorch/blob/44a629b353df33cd84f67a031bba5b6313160a1c/torch/utils/benchmark/examples/spectral_ops_fuzz_test.py#L23)

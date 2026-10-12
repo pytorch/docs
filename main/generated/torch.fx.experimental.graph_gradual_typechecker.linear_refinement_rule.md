@@ -1,6 +1,6 @@
 # torch.fx.experimental.graph_gradual_typechecker.linear_refinement_rule
 
-torch.fx.experimental.graph_gradual_typechecker.linear_refinement_rule(*n*)[[source]](https://github.com/pytorch/pytorch/blob/e97ee94e32f26ccec33db4c1411bddc4cc9e1a31/torch/fx/experimental/graph_gradual_typechecker.py#L745)
+torch.fx.experimental.graph_gradual_typechecker.linear_refinement_rule(*n*)[[source]](https://github.com/pytorch/pytorch/blob/44a629b353df33cd84f67a031bba5b6313160a1c/torch/fx/experimental/graph_gradual_typechecker.py#L745)
 
 The equality constraints are between the first dimension of
 the input and output

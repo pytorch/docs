@@ -63,7 +63,7 @@ trace under the contract of Note [precompile programming model] in `torch/_preco
 `torch.compiler.precompile` is distinct from `torch._dynamo.config.caching_precompile`
 (a `torch.compile` caching mode).
 
-torch.compiler.precompile.capture(*fn*, */*, ***, *artifact_path*, *cache_path*, *tracer=DynamoTracer(guard_filter_fn=None, recompile_limit=256, dynamic=None, require_complete=True, require_no_risky_drops=True)*, *backend='inductor'*)[[source]](https://github.com/pytorch/pytorch/blob/e97ee94e32f26ccec33db4c1411bddc4cc9e1a31/torch/_precompile.py#L3120)
+torch.compiler.precompile.capture(*fn*, */*, ***, *artifact_path*, *cache_path*, *tracer=DynamoTracer(guard_filter_fn=None, recompile_limit=256, dynamic=None, require_complete=True, require_no_risky_drops=True)*, *backend='inductor'*)[[source]](https://github.com/pytorch/pytorch/blob/44a629b353df33cd84f67a031bba5b6313160a1c/torch/_precompile.py#L3141)
 
 Capture `fn` across the calls YOUR loop makes, writing the artifact on exit.
 
@@ -116,9 +116,11 @@ must match the captured model's parameter/buffer structure.
 
 A Dynamo artifact is STANDALONE: it rebuilds the entry from its code object
 and installs nothing, so `fn` must be a module-level function of an
-importable module (not a closure, not defined in `__main__`), and a frame
-the entry cannot reach through a graph-break continuation - a graph break
-inside a child module's forward - is refused at write time. It is locked
+importable module (not a closure, not defined in `__main__`). The
+exception is a capture that compiled a frame the entry cannot reach through
+a graph-break continuation - a graph break inside a child module's forward:
+its artifact has `SERVING_MODE = "installed"` and serves by installing the
+captured entries onto the live code objects when loaded. It is locked
 to the producing Python version and torch build. The guards that could not
 be serialized are reported in the capture's `summary()` rather than
 checked, and the `DynamoTracer` `require_*` gates refuse the risky
@@ -149,7 +151,7 @@ Return type:
 
 *Capture*[~_P, *_R*]
 
-torch.compiler.precompile.load(*artifact_path*, *cache_path*)[[source]](https://github.com/pytorch/pytorch/blob/e97ee94e32f26ccec33db4c1411bddc4cc9e1a31/torch/_precompile.py#L3256)
+torch.compiler.precompile.load(*artifact_path*, *cache_path*)[[source]](https://github.com/pytorch/pytorch/blob/44a629b353df33cd84f67a031bba5b6313160a1c/torch/_precompile.py#L3279)
 
 Reconstruct a runnable from the two files a precompile capture wrote.
 
@@ -180,14 +182,28 @@ for a `DynamoTracer` artifact). The runtime model must match the
 captured model's parameter/buffer structure. The result is a
 `torch.compiler.precompile.PrecompiledRunnable`; a Dynamo artifact
 is standalone, so entering and unloading it are no-ops, and it re-seeds the
-names Dynamo minted into the captured module. A Dynamo artifact whose
+names Dynamo minted into the captured module. The exception is a capture that
+compiled a frame the entry reaches only by an ordinary call (a graph break
+inside a child module's forward): its artifact has `SERVING_MODE =
+"installed"` and serves by installing the captured entries onto the live
+code objects; its calls refuse to compile, as under the `fail_on_recompile`
+stance, without setting that process-wide stance, and keep refusing under
+every process-wide stance that would compile (`force_backend`,
+`"eager_then_compile"`, ...). Under `"force_eager"` every call runs
+eagerly, bypassing the installed entries; under `"eager_on_recompile"` the
+captured variants are served and any other call runs eagerly. An installed
+artifact refuses to load with `torch._dynamo.config.compiled_autograd`
+enabled, which would compile backward graphs outside it, and with Dynamo
+disabled (`TORCHDYNAMO_DISABLE=1` or the `enable_dynamo` killswitch),
+which it serves through. A Dynamo artifact whose
 capture graph-broke cannot load beside the live compile that captured it
 (the continuation names collide): load it in a fresh process.
 
 Raises `PrecompileError` if either file cannot be read, if `python_code` is
 not a `torch.compiler.precompile` artifact, or if the cache's `backend`,
 `tracer` or `code_hash` does not match `python_code` - the pair came from different
-captures. A cache whose `format`/`version` does not match (a foreign or
+captures - or if an installed artifact cannot install onto the serving process (for
+example, a captured source changed since capture). A cache whose `format`/`version` does not match (a foreign or
 different-build envelope) is NOT fatal: the cache is acceleration only, so
 `load` degrades to JIT'ing from `python_code` rather than crashing.
 
@@ -279,7 +295,7 @@ exits it cannot be entered again, so call `capture()` again to retry.
 That includes a failed write at exit: the spent capture does not keep its
 pair, so fix the path and capture again.
 
-save()[[source]](https://github.com/pytorch/pytorch/blob/e97ee94e32f26ccec33db4c1411bddc4cc9e1a31/torch/_precompile.py#L511)
+save()[[source]](https://github.com/pytorch/pytorch/blob/44a629b353df33cd84f67a031bba5b6313160a1c/torch/_precompile.py#L516)
 
 Write everything captured so far to the artifact files without ending the capture.
 
@@ -296,17 +312,21 @@ What `torch.compiler.precompile.load` returns.
 A callable with the captured `fn`'s calling convention that can also be
 entered as a context manager and unloaded. A standalone artifact installs
 nothing, so for it `__enter__`/`__exit__`/`unload()` are no-ops.
+Removing an installed artifact's entries is not implemented yet either, so
+they stay installed until the process exits: serve an installed artifact
+from a process you can throw away.
 Part of the prototype `torch.compiler.precompile` API, so it may change
 without a deprecation cycle.
 
 Variables:
 
-**installed** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Whether calling this handle installs onto the captured code
-objects; `False` for a standalone artifact.
+**installed** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Whether loading this artifact installed onto the captured
+code objects (`SERVING_MODE = "installed"`); `False` for a
+standalone artifact.
 
-unload()[[source]](https://github.com/pytorch/pytorch/blob/e97ee94e32f26ccec33db4c1411bddc4cc9e1a31/torch/_precompile.py#L453)
+unload()[[source]](https://github.com/pytorch/pytorch/blob/44a629b353df33cd84f67a031bba5b6313160a1c/torch/_precompile.py#L458)
 
-Remove whatever this loaded artifact installed; a no-op when it installed nothing.
+Remove whatever this loaded artifact installed; currently a no-op in every mode.
 
 *class*torch.compiler.precompile.PrecompileSummary(***, *frames*, *resume_functions*, *guarded_codes*, *backend_graphs*, *bypassed=()*, *truncated=()*, *uncovered_frames=()*, *wont_generalize=()*, *dropped_guards=()*, *kept_guards=()*, *risky_dropped_guards=()*, *policy_dropped_guards=()*, *dropped_guard_code=()*, *capture_errors=()*)
 

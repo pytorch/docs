@@ -1,3 +1,3 @@
 # torch.distributed.run.parse_args
 
-torch.distributed.run.parse_args(*args*)[[source]](https://github.com/pytorch/pytorch/blob/e97ee94e32f26ccec33db4c1411bddc4cc9e1a31/torch/distributed/run.py#L845)
+torch.distributed.run.parse_args(*args*)[[source]](https://github.com/pytorch/pytorch/blob/44a629b353df33cd84f67a031bba5b6313160a1c/torch/distributed/run.py#L845)
