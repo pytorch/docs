@@ -7388,55 +7388,55 @@ to ONNX.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>model</strong> (<a class="reference internal" href="generated/torch.nn.Module.html#torch.nn.Module" title="torch.nn.Module"><em>torch.nn.Module</em></a><em> | </em><a class="reference internal" href="user_guide/torch_compiler/export/api_reference.html#torch.export.ExportedProgram" title="torch.export.ExportedProgram"><em>torch.export.ExportedProgram</em></a><em> | </em><em>torch.jit.ScriptModule</em><em> | </em><em>torch.jit.ScriptFunction</em>) – The model to be exported.</p></li>
-<li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a><em>[</em><em>Any</em><em>, </em><em>...</em><em>]</em>) – Example positional inputs. Any non-Tensor arguments will be hard-coded into the
+<li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.15)"><em>tuple</em></a><em>[</em><em>Any</em><em>, </em><em>...</em><em>]</em>) – Example positional inputs. Any non-Tensor arguments will be hard-coded into the
 exported model; any Tensor arguments will become inputs of the exported model,
 in the order they occur in the tuple.</p></li>
-<li><p><strong>f</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.14)"><em>os.PathLike</em></a><em> | </em><em>None</em>) – Path to the output ONNX model file. E.g. “model.onnx”. This argument is kept for
+<li><p><strong>f</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.15)"><em>os.PathLike</em></a><em> | </em><em>None</em>) – Path to the output ONNX model file. E.g. “model.onnx”. This argument is kept for
 backward compatibility. It is recommended to leave unspecified (None)
 and use the returned <a class="reference internal" href="#torch.onnx.ONNXProgram" title="torch.onnx.ONNXProgram"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.onnx.ONNXProgram</span></code></a> to serialize the model
 to a file instead.</p></li>
-<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>Any</em><em>] </em><em>| </em><em>None</em>) – Optional example keyword inputs.</p></li>
-<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em> | </em><em>None</em>) – Whether to enable verbose logging.</p></li>
-<li><p><strong>input_names</strong> (<em>Sequence</em><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>] </em><em>| </em><em>None</em>) – names to assign to the input nodes of the graph, in order.</p></li>
-<li><p><strong>output_names</strong> (<em>Sequence</em><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>] </em><em>| </em><em>None</em>) – names to assign to the output nodes of the graph, in order.
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>, </em><em>Any</em><em>] </em><em>| </em><em>None</em>) – Optional example keyword inputs.</p></li>
+<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a><em> | </em><em>None</em>) – Whether to enable verbose logging.</p></li>
+<li><p><strong>input_names</strong> (<em>Sequence</em><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>] </em><em>| </em><em>None</em>) – names to assign to the input nodes of the graph, in order.</p></li>
+<li><p><strong>output_names</strong> (<em>Sequence</em><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>] </em><em>| </em><em>None</em>) – names to assign to the output nodes of the graph, in order.
 These are labels only and do not affect the order of outputs. If the model
 returns a dictionary, outputs are flattened in the dictionary’s iteration
 order regardless of the names specified here.</p></li>
-<li><p><strong>opset_version</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> | </em><em>None</em>) – The version of the
+<li><p><strong>opset_version</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a><em> | </em><em>None</em>) – The version of the
 <a class="reference external" href="https://github.com/onnx/onnx/blob/master/docs/Operators.md">default (ai.onnx) opset</a>
 to target. You should set <code class="docutils literal notranslate"><span class="pre">opset_version</span></code> according to the supported opset versions
 of the runtime backend or compiler you want to run the exported model with.
 Leave as default (<code class="docutils literal notranslate"><span class="pre">None</span></code>) to use the recommended version, or refer to
 the ONNX operators documentation for more information.</p></li>
-<li><p><strong>dynamo</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Whether to export the model with <code class="docutils literal notranslate"><span class="pre">torch.export</span></code> ExportedProgram instead of TorchScript.</p></li>
-<li><p><strong>external_data</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Whether to save the model weights as an external data file.
+<li><p><strong>dynamo</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a>) – Whether to export the model with <code class="docutils literal notranslate"><span class="pre">torch.export</span></code> ExportedProgram instead of TorchScript.</p></li>
+<li><p><strong>external_data</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a>) – Whether to save the model weights as an external data file.
 This is required for models with large weights that exceed the ONNX file size limit (2GB).
 When False, the weights are saved in the ONNX file with the model architecture.</p></li>
-<li><p><strong>dynamic_shapes</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>Any</em><em>] </em><em>| </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a><em>[</em><em>Any</em><em>, </em><em>...</em><em>] </em><em>| </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>[</em><em>Any</em><em>] </em><em>| </em><em>None</em>) – A dictionary or a tuple of dynamic shapes for the model inputs. Refer to
+<li><p><strong>dynamic_shapes</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>, </em><em>Any</em><em>] </em><em>| </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.15)"><em>tuple</em></a><em>[</em><em>Any</em><em>, </em><em>...</em><em>] </em><em>| </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><em>list</em></a><em>[</em><em>Any</em><em>] </em><em>| </em><em>None</em>) – A dictionary or a tuple of dynamic shapes for the model inputs. Refer to
 <a class="reference internal" href="user_guide/torch_compiler/export/api_reference.html#torch.export.export" title="torch.export.export"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.export.export()</span></code></a> for more details. This is only used (and preferred) when dynamo is True.
 Note that dynamic_shapes is designed to be used when the model is exported with dynamo=True, while
 dynamic_axes is used when dynamo=False.</p></li>
-<li><p><strong>custom_translation_table</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a><em>[</em><em>Callable</em><em>, </em><em>Callable</em><em>] </em><em>| </em><em>None</em>) – A dictionary of custom decompositions for operators in the model.
+<li><p><strong>custom_translation_table</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><em>dict</em></a><em>[</em><em>Callable</em><em>, </em><em>Callable</em><em>] </em><em>| </em><em>None</em>) – A dictionary of custom decompositions for operators in the model.
 The dictionary should have the callable target in the fx Node as the key (e.g. <code class="docutils literal notranslate"><span class="pre">torch.ops.aten.stft.default</span></code>),
 and the value should be a function that builds that graph using ONNX Script. This option
 is only valid when dynamo is True.</p></li>
-<li><p><strong>report</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Whether to generate a markdown report for the export process. This option
+<li><p><strong>report</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a>) – Whether to generate a markdown report for the export process. This option
 is only valid when dynamo is True.</p></li>
-<li><p><strong>optimize</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Whether to optimize the exported model. This option
+<li><p><strong>optimize</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a>) – Whether to optimize the exported model. This option
 is only valid when dynamo is True. Default is True.</p></li>
-<li><p><strong>verify</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Whether to verify the exported model using ONNX Runtime. This option
+<li><p><strong>verify</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a>) – Whether to verify the exported model using ONNX Runtime. This option
 is only valid when dynamo is True.</p></li>
-<li><p><strong>profile</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Whether to profile the export process. This option
+<li><p><strong>profile</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a>) – Whether to profile the export process. This option
 is only valid when dynamo is True.</p></li>
-<li><p><strong>dump_exported_program</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Whether to dump the <a class="reference internal" href="user_guide/torch_compiler/export/api_reference.html#torch.export.ExportedProgram" title="torch.export.ExportedProgram"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.export.ExportedProgram</span></code></a> to a file.
+<li><p><strong>dump_exported_program</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a>) – Whether to dump the <a class="reference internal" href="user_guide/torch_compiler/export/api_reference.html#torch.export.ExportedProgram" title="torch.export.ExportedProgram"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.export.ExportedProgram</span></code></a> to a file.
 This is useful for debugging the exporter. This option is only valid when dynamo is True.</p></li>
-<li><p><strong>artifacts_dir</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.14)"><em>os.PathLike</em></a>) – The directory to save the debugging artifacts like the report and the serialized
+<li><p><strong>artifacts_dir</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.15)"><em>os.PathLike</em></a>) – The directory to save the debugging artifacts like the report and the serialized
 exported program. This option is only valid when dynamo is True.</p></li>
-<li><p><strong>export_params</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – <p><strong>When ``f`` is specified</strong>: If false, parameters (weights) will not be exported.</p>
+<li><p><strong>export_params</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a>) – <p><strong>When ``f`` is specified</strong>: If false, parameters (weights) will not be exported.</p>
 <p>You can also leave it unspecified and use the returned <a class="reference internal" href="#torch.onnx.ONNXProgram" title="torch.onnx.ONNXProgram"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.onnx.ONNXProgram</span></code></a>
 to control how initializers are treated when serializing the model.</p>
 </p></li>
-<li><p><strong>keep_initializers_as_inputs</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – <p><strong>When ``f`` is specified</strong>: If True, all the
+<li><p><strong>keep_initializers_as_inputs</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a>) – <p><strong>When ``f`` is specified</strong>: If True, all the
 initializers (typically corresponding to model weights) in the
 exported graph will also be added as inputs to the graph. If False,
 then initializers are not added as inputs to the graph, and only
@@ -7447,7 +7447,7 @@ Set it to False if the weights are static to allow for better optimizations
 <p>You can also leave it unspecified and use the returned <a class="reference internal" href="#torch.onnx.ONNXProgram" title="torch.onnx.ONNXProgram"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.onnx.ONNXProgram</span></code></a>
 to control how initializers are treated when serializing the model.</p>
 </p></li>
-<li><p><strong>dynamic_axes</strong> (<em>Mapping</em><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>Mapping</em><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>]</em><em>] </em><em>| </em><em>Mapping</em><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>Sequence</em><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>]</em><em>] </em><em>| </em><em>None</em>) – <p>Deprecated: Prefer specifying <code class="docutils literal notranslate"><span class="pre">dynamic_shapes</span></code> when <code class="docutils literal notranslate"><span class="pre">dynamo=True</span></code>.</p>
+<li><p><strong>dynamic_axes</strong> (<em>Mapping</em><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>, </em><em>Mapping</em><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>]</em><em>] </em><em>| </em><em>Mapping</em><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>, </em><em>Sequence</em><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a><em>]</em><em>] </em><em>| </em><em>None</em>) – <p>Deprecated: Prefer specifying <code class="docutils literal notranslate"><span class="pre">dynamic_shapes</span></code> when <code class="docutils literal notranslate"><span class="pre">dynamo=True</span></code>.</p>
 <p>By default the exported model will have the shapes of all input and output tensors
 set to exactly match those given in <code class="docutils literal notranslate"><span class="pre">args</span></code>. To specify axes of tensors as
 dynamic (i.e. known only at run-time), set <code class="docutils literal notranslate"><span class="pre">dynamic_axes</span></code> to a dict with schema:</p>
@@ -7537,10 +7537,10 @@ dynamic (i.e. known only at run-time), set <code class="docutils literal notrans
 </p></li>
 <li><p><strong>training</strong> (<em>_C_onnx.TrainingMode</em>) – Deprecated option. Instead, set the training mode of the model before exporting.</p></li>
 <li><p><strong>operator_export_type</strong> (<em>_C_onnx.OperatorExportTypes</em>) – Deprecated option. Only ONNX is supported.</p></li>
-<li><p><strong>do_constant_folding</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Deprecated option.</p></li>
-<li><p><strong>custom_opsets</strong> (<em>Mapping</em><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>] </em><em>| </em><em>None</em>) – Deprecated option.</p></li>
-<li><p><strong>export_modules_as_functions</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em> | </em><em>Collection</em><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#type" title="(in Python v3.14)"><em>type</em></a><em>[</em><a class="reference internal" href="generated/torch.nn.Module.html#torch.nn.Module" title="torch.nn.Module"><em>torch.nn.Module</em></a><em>]</em><em>]</em>) – Deprecated option.</p></li>
-<li><p><strong>autograd_inlining</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Deprecated option.</p></li>
+<li><p><strong>do_constant_folding</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a>) – Deprecated option.</p></li>
+<li><p><strong>custom_opsets</strong> (<em>Mapping</em><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a><em>] </em><em>| </em><em>None</em>) – Deprecated option.</p></li>
+<li><p><strong>export_modules_as_functions</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a><em> | </em><em>Collection</em><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#type" title="(in Python v3.15)"><em>type</em></a><em>[</em><a class="reference internal" href="generated/torch.nn.Module.html#torch.nn.Module" title="torch.nn.Module"><em>torch.nn.Module</em></a><em>]</em><em>]</em>) – Deprecated option.</p></li>
+<li><p><strong>autograd_inlining</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a>) – Deprecated option.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -7587,7 +7587,7 @@ dynamic (i.e. known only at run-time), set <code class="docutils literal notrans
 <p>Use this method to replace FakeTensors or other weights.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>state_dict</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a><em>]</em>) – The state dict containing the weights to apply to the ONNX model.</p>
+<dd class="field-odd"><p><strong>state_dict</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>, </em><a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a><em>]</em>) – The state dict containing the weights to apply to the ONNX model.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -7598,7 +7598,7 @@ dynamic (i.e. known only at run-time), set <code class="docutils literal notrans
 <dd><p>Run the ONNX model using the reference backend.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.14)"><em>Sequence</em></a>[<a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a>]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.15)"><em>Sequence</em></a>[<a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -7611,13 +7611,13 @@ dynamic (i.e. known only at run-time), set <code class="docutils literal notrans
 The values are returned as a dictionary mapping names to tensors.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>value_names</strong> (<a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.14)"><em>Sequence</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>]</em>) – The names of the values to compute.</p>
+<dd class="field-odd"><p><strong>value_names</strong> (<a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.15)"><em>Sequence</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>]</em>) – The names of the values to compute.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A dictionary mapping names to tensors.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.14)"><em>Sequence</em></a>[<a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a>]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.15)"><em>Sequence</em></a>[<a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -7628,7 +7628,7 @@ The values are returned as a dictionary mapping names to tensors.</p>
 <dd><p>Initialize the ONNX Runtime inference session.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>initializer</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#bytes" title="(in Python v3.14)"><em>bytes</em></a><em>]</em><em>, </em><em>ort.InferenceSession</em><em>]</em>) – The function to initialize the ONNX Runtime inference
+<dd class="field-odd"><p><strong>initializer</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#bytes" title="(in Python v3.15)"><em>bytes</em></a><em>]</em><em>, </em><em>ort.InferenceSession</em><em>]</em>) – The function to initialize the ONNX Runtime inference
 session with the specified model. By default, it uses the
 <code class="xref py py-func docutils literal notranslate"><span class="pre">_ort_session_initializer()</span></code> function.</p>
 </dd>
@@ -7676,7 +7676,7 @@ eliminating redundancies in the graph. The optimization is done in-place.</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>rename_mapping</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em> | </em><em>SymbolicDim</em><em>, </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>]</em>) – <p>A dictionary mapping old axes to new axis names.
+<dd class="field-odd"><p><strong>rename_mapping</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em> | </em><em>SymbolicDim</em><em>, </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>]</em>) – <p>A dictionary mapping old axes to new axis names.
 Keys can be either:</p>
 <ul class="simple">
 <li><p>String axis names (e.g., “s1”, “s2”)</p></li>
@@ -7715,16 +7715,16 @@ inference and want to minimize the size of the saved model.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>destination</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.14)"><em>PathLike</em></a>) – The path to save the ONNX model to.</p></li>
-<li><p><strong>include_initializers</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Whether to include the initializers in the saved model.</p></li>
-<li><p><strong>keep_initializers_as_inputs</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Whether to keep the initializers as inputs in the saved model.
+<li><p><strong>destination</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.15)"><em>PathLike</em></a>) – The path to save the ONNX model to.</p></li>
+<li><p><strong>include_initializers</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a>) – Whether to include the initializers in the saved model.</p></li>
+<li><p><strong>keep_initializers_as_inputs</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a>) – Whether to keep the initializers as inputs in the saved model.
 If <cite>True</cite>, the initializers are added as inputs to the model which means they can be overwritten.
 by providing the initializers as model inputs.</p></li>
-<li><p><strong>external_data</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em> | </em><em>None</em>) – Whether to save the weights as external data in a separate file.</p></li>
+<li><p><strong>external_data</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a><em> | </em><em>None</em>) – Whether to save the weights as external data in a separate file.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#TypeError" title="(in Python v3.14)"><strong>TypeError</strong></a> – If <code class="docutils literal notranslate"><span class="pre">external_data</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code> and <code class="docutils literal notranslate"><span class="pre">destination</span></code> is not a file path.</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#TypeError" title="(in Python v3.15)"><strong>TypeError</strong></a> – If <code class="docutils literal notranslate"><span class="pre">external_data</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code> and <code class="docutils literal notranslate"><span class="pre">destination</span></code> is not a file path.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -7809,7 +7809,7 @@ Return None if all input dimensions should be static. The format can be:</p>
 </p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -7877,7 +7877,7 @@ The number of names should match the number of positional arguments in the
 forward method.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>Sequence[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)">str</a>] | None</p>
+<dd class="field-even"><p>Sequence[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)">str</a>] | None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -7910,7 +7910,7 @@ The number of names should match the number of outputs from the forward method.
 For models returning multiple outputs, provide a name for each output.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>Sequence[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)">str</a>] | None</p>
+<dd class="field-even"><p>Sequence[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)">str</a>] | None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -7926,7 +7926,7 @@ keyword arguments.</p>
 <p>See Also: <code class="docutils literal notranslate"><span class="pre">torch.onnx.export</span></code> for complete documentation of export options.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>) – <p>Additional keyword arguments to pass to <code class="docutils literal notranslate"><span class="pre">torch.onnx.export</span></code>.
+<dd class="field-odd"><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a>) – <p>Additional keyword arguments to pass to <code class="docutils literal notranslate"><span class="pre">torch.onnx.export</span></code>.
 Common options include:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">opset_version</span></code> (int): The ONNX opset version to target</p></li>
@@ -7951,7 +7951,7 @@ Common options include:</p>
 <dd><p>Returns whether it is in the middle of ONNX export.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)">bool</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -7970,7 +7970,7 @@ This information is used to infer dynamic shapes and
 export arguments.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>value_if_missing</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>Any</em><em>] </em><em>| </em><em>None</em>) – If an argument is missing,
+<dd class="field-odd"><p><strong>value_if_missing</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a><em>, </em><em>Any</em><em>] </em><em>| </em><em>None</em>) – If an argument is missing,
 a default value will be taken in this dictionary,
 this is used when after the prefill step, an argument
 disappears (such as <cite>pixel_values</cite>) and another one
@@ -8060,20 +8060,20 @@ with the saved onnx model.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>onnx_program</strong> (<a class="reference internal" href="#torch.onnx.ONNXProgram" title="torch.onnx.ONNXProgram"><em>torch.onnx.ONNXProgram</em></a>) – Exported Model to verify.</p></li>
-<li><p><strong>atol</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Absolute tolerance, recommended values, 1e-4 for float, 1e-2 for float16.</p></li>
-<li><p><strong>rtol</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Relative tolerance.</p></li>
-<li><p><strong>progress_bar</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Shows a progress bar (requires <cite>tqdm</cite>).</p></li>
-<li><p><strong>initializer</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#bytes" title="(in Python v3.14)"><em>bytes</em></a><em>]</em><em>, </em><em>ort.InferenceSession</em><em>]</em>) – The function called to initialize the ONNX Runtime inference
+<li><p><strong>atol</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><em>float</em></a>) – Absolute tolerance, recommended values, 1e-4 for float, 1e-2 for float16.</p></li>
+<li><p><strong>rtol</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><em>float</em></a>) – Relative tolerance.</p></li>
+<li><p><strong>progress_bar</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a>) – Shows a progress bar (requires <cite>tqdm</cite>).</p></li>
+<li><p><strong>initializer</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#bytes" title="(in Python v3.15)"><em>bytes</em></a><em>]</em><em>, </em><em>ort.InferenceSession</em><em>]</em>) – The function called to initialize the ONNX Runtime inference
 session with the specified model. By default, it uses the
 <cite>_ort_session_initializer</cite> function.</p></li>
-<li><p><strong>skip_none</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Does not check discrepancies when an output is None.</p></li>
+<li><p><strong>skip_none</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a>) – Does not check discrepancies when an output is None.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A list of dictionaries, ready to be consumed by a dataframe.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)">dict</a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)">str</a>, <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)">str</a> | <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)">int</a> | <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)">float</a> | <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)">bool</a>]]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)">list</a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)">dict</a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)">str</a>, <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)">str</a> | <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)">int</a> | <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)">float</a> | <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)">bool</a>]]</p>
 </dd>
 </dl>
 <p>The function catches exceptions, it shows the error in the returned
@@ -8087,13 +8087,13 @@ summary.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>index_or_args_or_kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a><em>] </em><em>| </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a><em>] </em><em>| </em><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> | </em><em>None</em>) – If missing, the method selects one set of inputs
+<li><p><strong>index_or_args_or_kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.15)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a><em>] </em><em>| </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a><em>] </em><em>| </em><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a><em> | </em><em>None</em>) – If missing, the method selects one set of inputs
 among the available ones, usually the set of inputs containing
 with the highest number of tensors.
 It then replaces None values and missing tensors with empty tensors.
 If not missing, it can be an integer to fetch one of the stored set
 or some inputs.</p></li>
-<li><p><strong>flat</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – If True, it returns a flattened list of tensors,
+<li><p><strong>flat</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a>) – If True, it returns a flattened list of tensors,
 if False, it returns a tuple or a dictionary preserving
 the nested structures. The flat version is used internally.
 It produces a single list of tensors easier to process or modify
@@ -8101,7 +8101,7 @@ rather than a nested structure holding the same tensors.
 The original structure can be restored with
 <code class="docutils literal notranslate"><span class="pre">torch.utils._pytree.tree_unflatten(flat_list,</span> <span class="pre">self.aligned_spec)</span></code>.
 This mechanism is used to replace None values by empty tensors.</p></li>
-<li><p><strong>as_args_kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – If True, the method always returns <cite>(args, kwargs)</cite>,
+<li><p><strong>as_args_kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a>) – If True, the method always returns <cite>(args, kwargs)</cite>,
 otherwise, it returns either a tuple (only args) or a dictionary
 (only kwargs) or raises an exception if it cannot do so.</p></li>
 </ul>
@@ -8110,7 +8110,7 @@ otherwise, it returns either a tuple (only args) or a dictionary
 <dd class="field-even"><p>Inferred arguments, every optional tensor is replaced by an empty tensor.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a> | None] | <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)">tuple</a>[<a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a>, …] | <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)">dict</a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)">str</a>, <a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a>] | <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)">tuple</a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a>] | <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)">tuple</a>[<a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a>, …], <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)">dict</a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)">str</a>, <a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a>]]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)">list</a>[<a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a> | None] | <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.15)">tuple</a>[<a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a>, …] | <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)">dict</a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)">str</a>, <a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a>] | <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.15)">tuple</a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)">list</a>[<a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a>] | <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.15)">tuple</a>[<a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a>, …], <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)">dict</a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)">str</a>, <a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a>]]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -8125,14 +8125,14 @@ can be used to tell the first dimension is a dynamic dimension for a particular
 set of inputs referenced by their name (str) or their position (int).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>set_batch_dimension_for</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#set" title="(in Python v3.14)"><em>set</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>] </em><em>| </em><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em> | </em><em>None</em>) – A set of input
+<dd class="field-odd"><p><strong>set_batch_dimension_for</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#set" title="(in Python v3.15)"><em>set</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>] </em><em>| </em><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a><em> | </em><em>None</em>) – A set of input
 identifiers (by position as <code class="docutils literal notranslate"><span class="pre">int</span></code> or by name as <code class="docutils literal notranslate"><span class="pre">str</span></code>) for
 which the first dimension should be treated as a dynamic batch
 dimension. If <code class="docutils literal notranslate"><span class="pre">None</span></code>, no dimensions are explicitly marked as
 dynamic.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)">tuple</a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)">dict</a>[<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)">int</a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>] | None, …] | <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)">dict</a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)">str</a>, <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)">dict</a>[<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)">int</a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>] | None]</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.15)">tuple</a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)">dict</a>[<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)">int</a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a>] | None, …] | <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)">dict</a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)">str</a>, <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)">dict</a>[<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)">int</a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a>] | None]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -8143,7 +8143,7 @@ dynamic.</p>
 <dd><p>Returns the number of stored set of inputs.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)">int</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)">int</a></p>
 </dd>
 </dl>
 </dd></dl>

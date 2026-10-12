@@ -3665,53 +3665,53 @@ mimic the behaviour of the original paper instead, set <code class="docutils lit
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>optimizer</strong> (<a class="reference internal" href="../optim.html#torch.optim.Optimizer" title="torch.optim.Optimizer"><em>Optimizer</em></a>) – Wrapped optimizer.</p></li>
-<li><p><strong>max_lr</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a>) – Upper learning rate boundaries in the cycle
+<li><p><strong>max_lr</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><em>float</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><em>list</em></a>) – Upper learning rate boundaries in the cycle
 for each parameter group.</p></li>
-<li><p><strong>total_steps</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – The total number of steps in the cycle. Note that
+<li><p><strong>total_steps</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – The total number of steps in the cycle. Note that
 if a value is not provided here, then it must be inferred by providing
 a value for epochs and steps_per_epoch.
 Default: None</p></li>
-<li><p><strong>epochs</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – The number of epochs to train for. This is used along
+<li><p><strong>epochs</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – The number of epochs to train for. This is used along
 with steps_per_epoch in order to infer the total number of steps in the cycle
 if a value for total_steps is not provided.
 Default: None</p></li>
-<li><p><strong>steps_per_epoch</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – The number of steps per epoch to train for. This is
+<li><p><strong>steps_per_epoch</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – The number of steps per epoch to train for. This is
 used along with epochs in order to infer the total number of steps in the
 cycle if a value for total_steps is not provided.
 Default: None</p></li>
-<li><p><strong>pct_start</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – The percentage of the cycle (in number of steps) spent
+<li><p><strong>pct_start</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><em>float</em></a>) – The percentage of the cycle (in number of steps) spent
 increasing the learning rate.
 Default: 0.3</p></li>
-<li><p><strong>anneal_strategy</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – {‘cos’, ‘linear’}
+<li><p><strong>anneal_strategy</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a>) – {‘cos’, ‘linear’}
 Specifies the annealing strategy: “cos” for cosine annealing, “linear” for
 linear annealing.
 Default: ‘cos’</p></li>
-<li><p><strong>cycle_momentum</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, momentum is cycled inversely
+<li><p><strong>cycle_momentum</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, momentum is cycled inversely
 to learning rate between ‘base_momentum’ and ‘max_momentum’.
 Default: True</p></li>
-<li><p><strong>base_momentum</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a>) – Lower momentum boundaries in the cycle
+<li><p><strong>base_momentum</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><em>float</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><em>list</em></a>) – Lower momentum boundaries in the cycle
 for each parameter group. Note that momentum is cycled inversely
 to learning rate; at the peak of a cycle, momentum is
 ‘base_momentum’ and learning rate is ‘max_lr’.
 Default: 0.85</p></li>
-<li><p><strong>max_momentum</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a>) – Upper momentum boundaries in the cycle
+<li><p><strong>max_momentum</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><em>float</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><em>list</em></a>) – Upper momentum boundaries in the cycle
 for each parameter group. Functionally,
 it defines the cycle amplitude (max_momentum - base_momentum).
 Note that momentum is cycled inversely
 to learning rate; at the start of a cycle, momentum is ‘max_momentum’
 and learning rate is ‘base_lr’
 Default: 0.95</p></li>
-<li><p><strong>div_factor</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Determines the initial learning rate via
+<li><p><strong>div_factor</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><em>float</em></a>) – Determines the initial learning rate via
 initial_lr = max_lr/div_factor
 Default: 25</p></li>
-<li><p><strong>final_div_factor</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Determines the minimum learning rate via
+<li><p><strong>final_div_factor</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><em>float</em></a>) – Determines the minimum learning rate via
 min_lr = initial_lr/final_div_factor
 Default: 1e4</p></li>
-<li><p><strong>three_phase</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, use a third phase of the schedule to annihilate the
+<li><p><strong>three_phase</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, use a third phase of the schedule to annihilate the
 learning rate according to ‘final_div_factor’ instead of modifying the second
 phase (the first two phases will be symmetrical about the step indicated by
 ‘pct_start’).</p></li>
-<li><p><strong>last_epoch</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – The index of the last batch. This parameter is used when
+<li><p><strong>last_epoch</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – The index of the last batch. This parameter is used when
 resuming a training job. Since <cite>step()</cite> should be invoked after each
 batch instead of after each epoch, this number represents the total
 number of <em>batches</em> computed, not the total number of epochs computed.
@@ -3740,13 +3740,13 @@ Default: -1</p></li>
 <dd><p>Get the most recent learning rates computed by this scheduler.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>A <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a> of learning rates with entries
+<dd class="field-odd"><p>A <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a> of learning rates with entries
 for each of the optimizer’s
 <code class="xref py py-attr docutils literal notranslate"><span class="pre">param_groups</span></code>, with the same types as
 their <code class="docutils literal notranslate"><span class="pre">group[&quot;lr&quot;]</span></code>s.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)">float</a> | <a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor">Tensor</a>]</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)">list</a>[<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)">float</a> | <a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor">Tensor</a>]</p>
 </dd>
 </dl>
 <div class="admonition note">
@@ -3766,12 +3766,12 @@ step and interpolates between its <code class="docutils literal notranslate"><sp
 <code class="xref py py-meth docutils literal notranslate"><span class="pre">_anneal_func()</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>A <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a> of learning rates for each of
+<dd class="field-odd"><p>A <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a> of learning rates for each of
 the optimizer’s <code class="xref py py-attr docutils literal notranslate"><span class="pre">param_groups</span></code> with the
 same types as their current <code class="docutils literal notranslate"><span class="pre">group[&quot;lr&quot;]</span></code>s.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)">float</a> | <a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor">Tensor</a>]</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)">list</a>[<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)">float</a> | <a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor">Tensor</a>]</p>
 </dd>
 </dl>
 <div class="admonition note">
@@ -3797,7 +3797,7 @@ effect of updating the optimizer’s momentum.</p>
 <dd><p>Load the scheduler’s state.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>state_dict</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a>) – scheduler state. Should be an object returned
+<dd class="field-odd"><p><strong>state_dict</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><em>dict</em></a>) – scheduler state. Should be an object returned
 from a call to <a class="reference internal" href="#torch.optim.lr_scheduler.OneCycleLR.state_dict" title="torch.optim.lr_scheduler.OneCycleLR.state_dict"><code class="xref py py-meth docutils literal notranslate"><span class="pre">state_dict()</span></code></a>.</p>
 </dd>
 </dl>
@@ -3806,12 +3806,12 @@ from a call to <a class="reference internal" href="#torch.optim.lr_scheduler.One
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.optim.lr_scheduler.OneCycleLR.state_dict">
 <span class="sig-name descname"><span class="pre">state_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/v2.15.0/torch/optim/lr_scheduler.py#L182"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.lr_scheduler.OneCycleLR.state_dict" title="Link to this definition">#</a></dt>
-<dd><p>Return the state of the scheduler as a <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>.</p>
+<dd><p>Return the state of the scheduler as a <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>.</p>
 <p>It contains an entry for every variable in <code class="docutils literal notranslate"><span class="pre">self.__dict__</span></code> which
 is not the optimizer.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)">dict</a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)">dict</a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -3822,7 +3822,7 @@ is not the optimizer.</p>
 <dd><p>Step the scheduler.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>epoch</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) – <div class="deprecated">
+<dd class="field-odd"><p><strong>epoch</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a><em>, </em><em>optional</em>) – <div class="deprecated">
 <p><span class="versionmodified deprecated">Deprecated since version 1.4: </span>If provided, sets <code class="xref py py-attr docutils literal notranslate"><span class="pre">last_epoch</span></code> to <code class="docutils literal notranslate"><span class="pre">epoch</span></code> and uses
 <code class="xref py py-meth docutils literal notranslate"><span class="pre">_get_closed_form_lr()</span></code> if it is available. This is not
 universally supported. Use <a class="reference internal" href="#torch.optim.lr_scheduler.OneCycleLR.step" title="torch.optim.lr_scheduler.OneCycleLR.step"><code class="xref py py-meth docutils literal notranslate"><span class="pre">step()</span></code></a> without arguments

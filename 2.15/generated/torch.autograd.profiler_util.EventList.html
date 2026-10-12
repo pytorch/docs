@@ -3660,17 +3660,17 @@ instantiated directly by users.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>*args</strong> – Standard list arguments.</p></li>
-<li><p><strong>use_device</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – Device type for profiling (“cuda”, “xpu”, etc.).</p></li>
-<li><p><strong>profile_memory</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – Whether memory profiling was enabled. Default: False.</p></li>
-<li><p><strong>with_flops</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – Whether to include FLOP counts. Default: False.</p></li>
+<li><p><strong>use_device</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>, </em><em>optional</em>) – Device type for profiling (“cuda”, “xpu”, etc.).</p></li>
+<li><p><strong>profile_memory</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a><em>, </em><em>optional</em>) – Whether memory profiling was enabled. Default: False.</p></li>
+<li><p><strong>with_flops</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a><em>, </em><em>optional</em>) – Whether to include FLOP counts. Default: False.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Variables<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>_use_device</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Device type being profiled.</p></li>
-<li><p><strong>_profile_memory</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Whether memory profiling is enabled.</p></li>
-<li><p><strong>_with_flops</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Whether FLOP counting is enabled.</p></li>
-<li><p><strong>_tree_built</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Whether the event tree structure has been built.</p></li>
+<li><p><strong>_use_device</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a>) – Device type being profiled.</p></li>
+<li><p><strong>_profile_memory</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a>) – Whether memory profiling is enabled.</p></li>
+<li><p><strong>_with_flops</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a>) – Whether FLOP counting is enabled.</p></li>
+<li><p><strong>_tree_built</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a>) – Whether the event tree structure has been built.</p></li>
 </ul>
 </dd>
 </dl>
@@ -3753,7 +3753,7 @@ total_average(): Compute aggregate totals across all events (sums, not averages)
 <p>The checkpoint can be later loaded and inspected under <code class="docutils literal notranslate"><span class="pre">chrome://tracing</span></code> URL.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Path where the trace will be written.</p>
+<dd class="field-odd"><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a>) – Path where the trace will be written.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -3844,19 +3844,19 @@ ascending or descending, according to their function values.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>sort_by</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – Attribute used to sort entries. By default
+<li><p><strong>sort_by</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>, </em><em>optional</em>) – Attribute used to sort entries. By default
 they are printed in the same order as they were registered.
 Valid keys include: <code class="docutils literal notranslate"><span class="pre">cpu_time</span></code>, <code class="docutils literal notranslate"><span class="pre">cuda_time</span></code>, <code class="docutils literal notranslate"><span class="pre">xpu_time</span></code>,
 <code class="docutils literal notranslate"><span class="pre">cpu_time_total</span></code>, <code class="docutils literal notranslate"><span class="pre">cuda_time_total</span></code>, <code class="docutils literal notranslate"><span class="pre">xpu_time_total</span></code>,
 <code class="docutils literal notranslate"><span class="pre">cpu_memory_usage</span></code>, <code class="docutils literal notranslate"><span class="pre">cuda_memory_usage</span></code>, <code class="docutils literal notranslate"><span class="pre">xpu_memory_usage</span></code>,
 <code class="docutils literal notranslate"><span class="pre">self_cpu_memory_usage</span></code>, <code class="docutils literal notranslate"><span class="pre">self_cuda_memory_usage</span></code>,
 <code class="docutils literal notranslate"><span class="pre">self_xpu_memory_usage</span></code>, <code class="docutils literal notranslate"><span class="pre">count</span></code>.</p></li>
-<li><p><strong>top_level_events_only</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – Boolean flag to determine the
+<li><p><strong>top_level_events_only</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a><em>, </em><em>optional</em>) – Boolean flag to determine the
 selection of events to display. If true, the profiler will only
 display events at top level like top-level invocation of python
 <cite>lstm</cite>, python <cite>add</cite> or other functions, nested events like low-level
 cpu/cuda/xpu ops events are omitted for profiler result readability.</p></li>
-<li><p><strong>time_unit</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – A time unit to be used for all values in the
+<li><p><strong>time_unit</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>, </em><em>optional</em>) – A time unit to be used for all values in the
 table. Valid options are: <code class="docutils literal notranslate"><span class="pre">s</span></code>, <code class="docutils literal notranslate"><span class="pre">ms</span></code> and <code class="docutils literal notranslate"><span class="pre">us</span></code>.</p></li>
 </ul>
 </dd>

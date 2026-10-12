@@ -3646,14 +3646,14 @@ from outside this scheduler. When last_epoch=-1, sets initial lr as lr.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>optimizer</strong> (<a class="reference internal" href="../optim.html#torch.optim.Optimizer" title="torch.optim.Optimizer"><em>Optimizer</em></a>) – Wrapped optimizer.</p></li>
-<li><p><strong>start_factor</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – The number we multiply learning rate in the first epoch.
+<li><p><strong>start_factor</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><em>float</em></a>) – The number we multiply learning rate in the first epoch.
 The multiplication factor changes towards end_factor in the following epochs.
 Default: 1./3.</p></li>
-<li><p><strong>end_factor</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – The number we multiply learning rate at the end of linear changing
+<li><p><strong>end_factor</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><em>float</em></a>) – The number we multiply learning rate at the end of linear changing
 process. Default: 1.0.</p></li>
-<li><p><strong>total_iters</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – The number of iterations that multiplicative factor reaches to 1.
+<li><p><strong>total_iters</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – The number of iterations that multiplicative factor reaches to 1.
 Default: 5.</p></li>
-<li><p><strong>last_epoch</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – The index of the last epoch. Default: -1.</p></li>
+<li><p><strong>last_epoch</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – The index of the last epoch. Default: -1.</p></li>
 </ul>
 </dd>
 </dl>
@@ -3679,13 +3679,13 @@ Default: 5.</p></li>
 <dd><p>Get the most recent learning rates computed by this scheduler.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>A <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a> of learning rates with entries
+<dd class="field-odd"><p>A <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a> of learning rates with entries
 for each of the optimizer’s
 <code class="xref py py-attr docutils literal notranslate"><span class="pre">param_groups</span></code>, with the same types as
 their <code class="docutils literal notranslate"><span class="pre">group[&quot;lr&quot;]</span></code>s.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)">float</a> | <a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor">Tensor</a>]</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)">list</a>[<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)">float</a> | <a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor">Tensor</a>]</p>
 </dd>
 </dl>
 <div class="admonition note">
@@ -3706,12 +3706,12 @@ interpolate linearly from <code class="xref py py-attr docutils literal notransl
 across <code class="xref py py-attr docutils literal notranslate"><span class="pre">total_iters</span></code> steps.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>A <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a> of learning rates for each of
+<dd class="field-odd"><p>A <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a> of learning rates for each of
 the optimizer’s <code class="xref py py-attr docutils literal notranslate"><span class="pre">param_groups</span></code> with the
 same types as their current <code class="docutils literal notranslate"><span class="pre">group[&quot;lr&quot;]</span></code>s.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)">float</a> | <a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor">Tensor</a>]</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)">list</a>[<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)">float</a> | <a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor">Tensor</a>]</p>
 </dd>
 </dl>
 <div class="admonition note">
@@ -3732,7 +3732,7 @@ the optimizer’s <code class="docutils literal notranslate"><span class="pre">g
 <dd><p>Load the scheduler’s state.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>state_dict</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a>) – scheduler state. Should be an object returned
+<dd class="field-odd"><p><strong>state_dict</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><em>dict</em></a>) – scheduler state. Should be an object returned
 from a call to <a class="reference internal" href="#torch.optim.lr_scheduler.LinearLR.state_dict" title="torch.optim.lr_scheduler.LinearLR.state_dict"><code class="xref py py-meth docutils literal notranslate"><span class="pre">state_dict()</span></code></a>.</p>
 </dd>
 </dl>
@@ -3741,12 +3741,12 @@ from a call to <a class="reference internal" href="#torch.optim.lr_scheduler.Lin
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.optim.lr_scheduler.LinearLR.state_dict">
 <span class="sig-name descname"><span class="pre">state_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/v2.15.0/torch/optim/lr_scheduler.py#L182"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.lr_scheduler.LinearLR.state_dict" title="Link to this definition">#</a></dt>
-<dd><p>Return the state of the scheduler as a <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>.</p>
+<dd><p>Return the state of the scheduler as a <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>.</p>
 <p>It contains an entry for every variable in <code class="docutils literal notranslate"><span class="pre">self.__dict__</span></code> which
 is not the optimizer.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)">dict</a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)">dict</a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -3757,7 +3757,7 @@ is not the optimizer.</p>
 <dd><p>Step the scheduler.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>epoch</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) – <div class="deprecated">
+<dd class="field-odd"><p><strong>epoch</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a><em>, </em><em>optional</em>) – <div class="deprecated">
 <p><span class="versionmodified deprecated">Deprecated since version 1.4: </span>If provided, sets <code class="xref py py-attr docutils literal notranslate"><span class="pre">last_epoch</span></code> to <code class="docutils literal notranslate"><span class="pre">epoch</span></code> and uses
 <code class="xref py py-meth docutils literal notranslate"><span class="pre">_get_closed_form_lr()</span></code> if it is available. This is not
 universally supported. Use <a class="reference internal" href="#torch.optim.lr_scheduler.LinearLR.step" title="torch.optim.lr_scheduler.LinearLR.step"><code class="xref py py-meth docutils literal notranslate"><span class="pre">step()</span></code></a> without arguments

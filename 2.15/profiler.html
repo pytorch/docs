@@ -7231,12 +7231,12 @@ activity type names and device-specific behavior.</p>
 (when <code class="docutils literal notranslate"><span class="pre">schedule</span></code> returns <code class="docutils literal notranslate"><span class="pre">ProfilerAction.RECORD_AND_SAVE</span></code>). Receives the
 <a class="reference internal" href="#torch.profiler.profile" title="torch.profiler.profile"><code class="xref py py-class docutils literal notranslate"><span class="pre">profile</span></code></a> instance as its only argument, typically used to export the
 trace (e.g. via <a class="reference internal" href="#torch.profiler.profile.export_chrome_trace" title="torch.profiler.profile.export_chrome_trace"><code class="xref py py-meth docutils literal notranslate"><span class="pre">export_chrome_trace()</span></code></a>) or print a summary.</p></li>
-<li><p><strong>record_shapes</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – save information about operator’s input shapes.</p></li>
-<li><p><strong>profile_memory</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – track tensor memory allocation/deallocation.</p></li>
-<li><p><strong>with_stack</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – record source information (file and line number) for the ops.</p></li>
-<li><p><strong>with_flops</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – use formula to estimate the FLOPs (floating point operations) of specific operators
+<li><p><strong>record_shapes</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a>) – save information about operator’s input shapes.</p></li>
+<li><p><strong>profile_memory</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a>) – track tensor memory allocation/deallocation.</p></li>
+<li><p><strong>with_stack</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a>) – record source information (file and line number) for the ops.</p></li>
+<li><p><strong>with_flops</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a>) – use formula to estimate the FLOPs (floating point operations) of specific operators
 (matrix multiplication and 2D convolution).</p></li>
-<li><p><strong>with_modules</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – <p>record module hierarchy (including function names)
+<li><p><strong>with_modules</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a>) – <p>record module hierarchy (including function names)
 corresponding to the callstack of the op. e.g. If module A’s forward call’s
 module B’s forward which contains an aten::add op,
 then aten::add’s module hierarchy is A.B</p>
@@ -7254,11 +7254,11 @@ used for Kineto library features. Note, backward compatibility is not guaranteed
 representation of AI/ML workloads and enable replay benchmarks, simulators, and emulators.
 When this argument is included the observer start() and stop() will be called for the
 same time window as PyTorch profiler. See the examples section below for a code sample.</p></li>
-<li><p><strong>acc_events</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Enable the accumulation of FunctionEvents across multiple profiling cycles</p></li>
-<li><p><strong>post_processing_timeout_s</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Optional timeout in seconds for post-processing profiler
+<li><p><strong>acc_events</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a>) – Enable the accumulation of FunctionEvents across multiple profiling cycles</p></li>
+<li><p><strong>post_processing_timeout_s</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><em>float</em></a>) – Optional timeout in seconds for post-processing profiler
 results. If specified, event parsing will stop after this duration and return partial
 results. Useful for handling large traces that may take too long to process.</p></li>
-<li><p><strong>custom_trace_id_callback</strong> (<em>Callable</em><em>[</em><em>[</em><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>]</em><em>, </em><em>optional</em>) – User-supplied trace ID generator,
+<li><p><strong>custom_trace_id_callback</strong> (<em>Callable</em><em>[</em><em>[</em><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>]</em><em>, </em><em>optional</em>) – User-supplied trace ID generator,
 invoked once per profiling cycle. Defaults to a random UUID; retrieve via
 <a class="reference internal" href="#torch.profiler.profile.get_trace_id" title="torch.profiler.profile.get_trace_id"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_trace_id()</span></code></a>.</p></li>
 </ul>
@@ -7438,8 +7438,8 @@ Please use <code class="docutils literal notranslate"><span class="pre">torch.cu
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – save stacks file to this location;</p></li>
-<li><p><strong>metric</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – metric to use: “self_cpu_time_total” or “self_cuda_time_total”</p></li>
+<li><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a>) – save stacks file to this location;</p></li>
+<li><p><strong>metric</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a>) – metric to use: “self_cpu_time_total” or “self_cuda_time_total”</p></li>
 </ul>
 </dd>
 </dl>
@@ -7501,7 +7501,7 @@ the deferred export can be finalized OFF the training thread (call
 <code class="docutils literal notranslate"><span class="pre">obs.join(force=False)</span></code> on a worker). None for non-cuspy backends.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -7591,13 +7591,13 @@ CPU trace.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>enable_cuda_sync_events</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – Collect CUDA synchronization
+<li><p><strong>enable_cuda_sync_events</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a><em>, </em><em>optional</em>) – Collect CUDA synchronization
 activities.</p></li>
-<li><p><strong>enable_environment_counters</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – Collect GPU environment
+<li><p><strong>enable_environment_counters</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a><em>, </em><em>optional</em>) – Collect GPU environment
 counters.</p></li>
-<li><p><strong>enable_graph_dependencies</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – Record CUDA graph
+<li><p><strong>enable_graph_dependencies</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a><em>, </em><em>optional</em>) – Record CUDA graph
 dependency edges.</p></li>
-<li><p><strong>enable_event_node_ids</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – Associate CUDA events with CUDA
+<li><p><strong>enable_event_node_ids</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a><em>, </em><em>optional</em>) – Associate CUDA events with CUDA
 graph event-record nodes.</p></li>
 </ul>
 </dd>
@@ -7611,10 +7611,10 @@ graph event-record nodes.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>activity_types</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>]</em><em>, </em><em>optional</em>) – Fine-grained activity types to
+<li><p><strong>activity_types</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>]</em><em>, </em><em>optional</em>) – Fine-grained activity types to
 collect. <code class="docutils literal notranslate"><span class="pre">None</span></code> collects the group’s default activity types,
 while an empty list collects none.</p></li>
-<li><p><strong>profiler_configs</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a>) – Additional profiler configurations associated
+<li><p><strong>profiler_configs</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><em>list</em></a>) – Additional profiler configurations associated
 with this activity group, such as <a class="reference internal" href="#torch.profiler.PerformanceMetricsConfig" title="torch.profiler.PerformanceMetricsConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">PerformanceMetricsConfig</span></code></a>
 and <a class="reference internal" href="#torch.profiler.CuspyConfig" title="torch.profiler.CuspyConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">CuspyConfig</span></code></a>.</p></li>
 </ul>
@@ -7630,10 +7630,10 @@ and <a class="reference internal" href="#torch.profiler.CuspyConfig" title="torc
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>metric_names</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>]</em>) – Backend-specific hardware metric names to collect.</p></li>
-<li><p><strong>sampling_interval_ms</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>, </em><em>optional</em>) – CUDA PM-sampling interval in
+<li><p><strong>metric_names</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>]</em>) – Backend-specific hardware metric names to collect.</p></li>
+<li><p><strong>sampling_interval_ms</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><em>float</em></a><em>, </em><em>optional</em>) – CUDA PM-sampling interval in
 milliseconds. Defaults to 1 millisecond.</p></li>
-<li><p><strong>lookback_window_ms</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>, </em><em>optional</em>) – CUDA PM-sampling look-back window
+<li><p><strong>lookback_window_ms</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><em>float</em></a><em>, </em><em>optional</em>) – CUDA PM-sampling look-back window
 in milliseconds. This bounds the recent sample history retained for
 decoding; the capacity is the look-back window divided by the
 sampling interval. Defaults to 10 seconds.</p></li>
@@ -7658,7 +7658,7 @@ sampling interval. Defaults to 10 seconds.</p></li>
 <dd><p>Describe an instantaneous event that occurred at some point.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>msg</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – ASCII message to associate with the event.</p>
+<dd class="field-odd"><p><strong>msg</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a>) – ASCII message to associate with the event.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -7670,7 +7670,7 @@ sampling interval. Defaults to 10 seconds.</p></li>
 depth of the range that is started.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>msg</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – ASCII message to associate with range</p>
+<dd class="field-odd"><p><strong>msg</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a>) – ASCII message to associate with range</p>
 </dd>
 </dl>
 </dd></dl>
@@ -7690,7 +7690,7 @@ of its scope, and pops it at the end. If extra arguments are given,
 they are passed as arguments to msg.format().</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>msg</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – message to associate with the range</p>
+<dd class="field-odd"><p><strong>msg</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a>) – message to associate with the range</p>
 </dd>
 </dl>
 </dd></dl>

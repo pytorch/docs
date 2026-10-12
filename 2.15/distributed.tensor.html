@@ -7239,7 +7239,7 @@ have the same number of elements as <code class="docutils literal notranslate"><
 </dd>
 <dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>run_check</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – at a cost of extra communications, perform
+<li><p><strong>run_check</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a><em>, </em><em>optional</em>) – at a cost of extra communications, perform
 sanity check across ranks to check each local tensor’s meta information
 to ensure correctness. If have <code class="xref py py-class docutils literal notranslate"><span class="pre">Replicate</span></code> in <code class="docutils literal notranslate"><span class="pre">placements</span></code>, the
 data on first rank of the device mesh dimension will be broadcasted
@@ -7249,7 +7249,7 @@ DTensor which build on top of <cite>local_tensor</cite>. Note this needs to be
 provided if the shape of <code class="docutils literal notranslate"><span class="pre">local_tensor</span></code> are different across the ranks.
 If not provided, <code class="docutils literal notranslate"><span class="pre">shape</span></code> will be computed assuming the given distributed
 tensor is evenly sharded across ranks. default: None</p></li>
-<li><p><strong>stride</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a><em>, </em><em>optional</em>) – A List of int which specifies the stride of DTensor.
+<li><p><strong>stride</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.15)"><em>tuple</em></a><em>, </em><em>optional</em>) – A List of int which specifies the stride of DTensor.
 If not provided, <code class="docutils literal notranslate"><span class="pre">stride</span></code> will be computed assuming the given distributed
 tensor is evenly sharded across ranks. default: None</p></li>
 <li><p><strong>grad_placements</strong> (List[<code class="xref py py-class docutils literal notranslate"><span class="pre">Placement</span></code>], optional) – specifies the expected
@@ -7262,7 +7262,7 @@ specified, follows the default placement guarantees below. default: None</p></li
 <dd class="field-odd"><p>A <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a> object</p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#ValueError" title="(in Python v3.14)"><strong>ValueError</strong></a> – If <code class="docutils literal notranslate"><span class="pre">placements</span></code> contains mixed <code class="xref py py-class docutils literal notranslate"><span class="pre">Partial</span></code> reduce types
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#ValueError" title="(in Python v3.15)"><strong>ValueError</strong></a> – If <code class="docutils literal notranslate"><span class="pre">placements</span></code> contains mixed <code class="xref py py-class docutils literal notranslate"><span class="pre">Partial</span></code> reduce types
     (e.g., both <code class="docutils literal notranslate"><span class="pre">Partial(&quot;sum&quot;)</span></code> and <code class="docutils literal notranslate"><span class="pre">Partial(&quot;max&quot;)</span></code>). All Partial
     placements must use the same reduce operation.</p>
 </dd>
@@ -7381,7 +7381,7 @@ default: replicate on all mesh dimensions</p></li>
 </dd>
 <dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>async_op</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – whether to perform the DTensor redistribute operation
+<li><p><strong>async_op</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a><em>, </em><em>optional</em>) – whether to perform the DTensor redistribute operation
 asynchronously or not. Default: False</p></li>
 <li><p><strong>forward_dtype</strong> (<a class="reference internal" href="tensor_attributes.html#torch.dtype" title="torch.dtype"><em>torch.dtype</em></a><em>, </em><em>optional</em>) – cast the local tensor to
 <code class="docutils literal notranslate"><span class="pre">forward_dtype</span></code> before running the forward collective.
@@ -7462,7 +7462,7 @@ will depend on if the <cite>DTensor</cite> requires_grad or not.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="torch.distributed.tensor.DTensor.placements">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">placements</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#torch.distributed.tensor.placement_types.Placement" title="torch.distributed.tensor.placement_types.Placement"><span class="pre">Placement</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#torch.distributed.tensor.DTensor.placements" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">placements</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.15)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#torch.distributed.tensor.placement_types.Placement" title="torch.distributed.tensor.placement_types.Placement"><span class="pre">Placement</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#torch.distributed.tensor.DTensor.placements" title="Link to this definition">#</a></dt>
 <dd><p>The placements attribute of this DTensor that describes the layout of this
 DTensor on the its DeviceMesh.</p>
 <div class="admonition note">
@@ -7495,7 +7495,7 @@ is not evenly divisible on the DeviceMesh dimension. The <code class="docutils l
 used by all DTensor APIs (i.e. distribute_tensor, from_local, etc.)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>dim</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – The tensor dimension that describes the DTensor is sharded over its
+<dd class="field-odd"><p><strong>dim</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – The tensor dimension that describes the DTensor is sharded over its
 corresponding DeviceMesh dimension.</p>
 </dd>
 </dl>
@@ -7521,7 +7521,7 @@ See <cite>_utils.compute_local_shape_and_global_offset</cite> for computing glob
 <p>Returns (new local shard size, offset)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)">tuple</a>[<em>_RankTypeT</em>, <em>_RankTypeT</em>]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.15)">tuple</a>[<em>_RankTypeT</em>, <em>_RankTypeT</em>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -7600,8 +7600,8 @@ This method computes the actual indices that belong to the local shard.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>self</strong> (<a class="reference internal" href="#torch.distributed.tensor.placement_types._StridedShard" title="torch.distributed.tensor.placement_types._StridedShard"><em>_StridedShard</em></a>) – The _StridedShard placement instance.</p></li>
-<li><p><strong>curr_local_size</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – The current size of the tensor dimension to be sharded.</p></li>
-<li><p><strong>num_chunks</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Number of chunks to split the dimension into (typically the mesh dimension size).</p></li>
+<li><p><strong>curr_local_size</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – The current size of the tensor dimension to be sharded.</p></li>
+<li><p><strong>num_chunks</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – Number of chunks to split the dimension into (typically the mesh dimension size).</p></li>
 <li><p><strong>rank</strong> (<em>RankType</em>) – The rank index to compute the shard for.</p></li>
 <li><p><strong>offset_mode</strong> (<em>_StridedShardOffsetMode</em>) – Controls offset materialization.
 FIRST returns only the first offset as an int, ALL returns all offsets
@@ -7622,14 +7622,14 @@ and NONE returns None.</p></li>
 </p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)">tuple</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.15)">tuple</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="torch.distributed.tensor.placement_types._StridedShard.split_factor">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">split_factor</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="torch.html#torch.SymInt" title="torch.SymInt"><span class="pre">SymInt</span></a></em><a class="headerlink" href="#torch.distributed.tensor.placement_types._StridedShard.split_factor" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">split_factor</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="torch.html#torch.SymInt" title="torch.SymInt"><span class="pre">SymInt</span></a></em><a class="headerlink" href="#torch.distributed.tensor.placement_types._StridedShard.split_factor" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -7648,7 +7648,7 @@ DTensor APIs (i.e. <code class="docutils literal notranslate"><span class="pre">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.tensor.placement_types.</span></span><span class="sig-name descname"><span class="pre">Partial</span></span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/v2.15.0/torch/distributed/tensor/placement_types.py#L1762"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.tensor.placement_types.Partial" title="Link to this definition">#</a></dt>
 <dd><dl class="py attribute">
 <dt class="sig sig-object py" id="torch.distributed.tensor.placement_types.Partial.ALL_REDUCE_OPS">
-<span class="sig-name descname"><span class="pre">ALL_REDUCE_OPS</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('sum',</span> <span class="pre">'avg',</span> <span class="pre">'min',</span> <span class="pre">'max',</span> <span class="pre">'product')</span></em><a class="headerlink" href="#torch.distributed.tensor.placement_types.Partial.ALL_REDUCE_OPS" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">ALL_REDUCE_OPS</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.15)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('sum',</span> <span class="pre">'avg',</span> <span class="pre">'min',</span> <span class="pre">'max',</span> <span class="pre">'product')</span></em><a class="headerlink" href="#torch.distributed.tensor.placement_types.Partial.ALL_REDUCE_OPS" title="Link to this definition">#</a></dt>
 <dd><p>The <code class="docutils literal notranslate"><span class="pre">Partial(reduce_op)</span></code> placement describes the DTensor that is pending
 reduction on a specified <code class="docutils literal notranslate"><span class="pre">DeviceMesh</span></code> dimension, where each rank on the
 DeviceMesh dimension holds the partial value of the global Tensor. User can
@@ -7658,7 +7658,7 @@ which would trigger necessary communication operations under the hood (i.e.
 <code class="docutils literal notranslate"><span class="pre">allreduce</span></code>, <code class="docutils literal notranslate"><span class="pre">reduce_scatter</span></code>).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>reduce_op</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – <p>The reduction op to be used for the partial DTensor
+<dd class="field-odd"><p><strong>reduce_op</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>, </em><em>optional</em>) – <p>The reduction op to be used for the partial DTensor
 to produce Replicated/Sharded DTensor. Corresponds to the reduce operations
 supported by <code class="docutils literal notranslate"><span class="pre">torch.distributed.ReduceOp</span></code>. Default: “sum”.</p>
 <p>Supported values:</p>
@@ -7685,7 +7685,7 @@ placement to <code class="docutils literal notranslate"><span class="pre">Partia
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="torch.distributed.tensor.placement_types.Partial.LINEAR_REDUCE_OPS">
-<span class="sig-name descname"><span class="pre">LINEAR_REDUCE_OPS</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('sum',</span> <span class="pre">'avg')</span></em><a class="headerlink" href="#torch.distributed.tensor.placement_types.Partial.LINEAR_REDUCE_OPS" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">LINEAR_REDUCE_OPS</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.15)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('sum',</span> <span class="pre">'avg')</span></em><a class="headerlink" href="#torch.distributed.tensor.placement_types.Partial.LINEAR_REDUCE_OPS" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -7707,12 +7707,12 @@ lifecycle, i.e. the indices_mask would only be alive during the lifetime of the 
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="torch.distributed.tensor.placement_types._MaskPartial.offset_dim">
-<span class="sig-name descname"><span class="pre">offset_dim</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#torch.distributed.tensor.placement_types._MaskPartial.offset_dim" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">offset_dim</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#torch.distributed.tensor.placement_types._MaskPartial.offset_dim" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="torch.distributed.tensor.placement_types._MaskPartial.offset_shape">
-<span class="sig-name descname"><span class="pre">offset_shape</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="size.html#torch.Size" title="torch.Size"><span class="pre">Size</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#torch.distributed.tensor.placement_types._MaskPartial.offset_shape" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">offset_shape</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="size.html#torch.Size" title="torch.Size"><span class="pre">Size</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#torch.distributed.tensor.placement_types._MaskPartial.offset_shape" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -7727,17 +7727,17 @@ and <code class="docutils literal notranslate"><span class="pre">Partial</span><
 <p>This class is not meant to be used directly, mainly served as a typing stub.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.tensor.placement_types.Placement.is_partial">
-<span class="sig-name descname"><span class="pre">is_partial</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch._C._distributed.Placement</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reduce_op</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></span><a class="headerlink" href="#torch.distributed.tensor.placement_types.Placement.is_partial" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">is_partial</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch._C._distributed.Placement</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reduce_op</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><span class="pre">bool</span></a></span></span><a class="headerlink" href="#torch.distributed.tensor.placement_types.Placement.is_partial" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.tensor.placement_types.Placement.is_replicate">
-<span class="sig-name descname"><span class="pre">is_replicate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch._C._distributed.Placement</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></span><a class="headerlink" href="#torch.distributed.tensor.placement_types.Placement.is_replicate" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">is_replicate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch._C._distributed.Placement</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><span class="pre">bool</span></a></span></span><a class="headerlink" href="#torch.distributed.tensor.placement_types.Placement.is_replicate" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.distributed.tensor.placement_types.Placement.is_shard">
-<span class="sig-name descname"><span class="pre">is_shard</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch._C._distributed.Placement</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.SupportsInt" title="(in Python v3.14)"><span class="pre">SupportsInt</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.SupportsIndex" title="(in Python v3.14)"><span class="pre">SupportsIndex</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></span><a class="headerlink" href="#torch.distributed.tensor.placement_types.Placement.is_shard" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">is_shard</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch._C._distributed.Placement</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.SupportsInt" title="(in Python v3.15)"><span class="pre">SupportsInt</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.SupportsIndex" title="(in Python v3.15)"><span class="pre">SupportsIndex</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><span class="pre">bool</span></a></span></span><a class="headerlink" href="#torch.distributed.tensor.placement_types.Placement.is_shard" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -7798,7 +7798,7 @@ first rank of each dimension of the <cite>device_mesh</cite>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>src_data_rank</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) – the rank of the source data for the logical/global tensor, it is
+<dd class="field-even"><p><strong>src_data_rank</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a><em>, </em><em>optional</em>) – the rank of the source data for the logical/global tensor, it is
 used by <a class="reference internal" href="#torch.distributed.tensor.distribute_tensor" title="torch.distributed.tensor.distribute_tensor"><code class="xref py py-meth docutils literal notranslate"><span class="pre">distribute_tensor()</span></code></a> to scatter/broadcast the shards/replicas to other ranks.
 By default, we use <code class="docutils literal notranslate"><span class="pre">group_rank=0</span></code> on each DeviceMesh dimension as the source data to preserve
 the single-device semantic. If passing <code class="docutils literal notranslate"><span class="pre">None</span></code> explicitly, <a class="reference internal" href="#torch.distributed.tensor.distribute_tensor" title="torch.distributed.tensor.distribute_tensor"><code class="xref py py-meth docutils literal notranslate"><span class="pre">distribute_tensor()</span></code></a> simply uses
@@ -7809,7 +7809,7 @@ Default: 0</p>
 <dd class="field-odd"><p>A <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a> or <code class="docutils literal notranslate"><span class="pre">XLAShardedTensor</span></code> object.</p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#ValueError" title="(in Python v3.14)"><strong>ValueError</strong></a> – If <code class="docutils literal notranslate"><span class="pre">placements</span></code> contains mixed <code class="xref py py-class docutils literal notranslate"><span class="pre">Partial</span></code> reduce types
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#ValueError" title="(in Python v3.15)"><strong>ValueError</strong></a> – If <code class="docutils literal notranslate"><span class="pre">placements</span></code> contains mixed <code class="xref py py-class docutils literal notranslate"><span class="pre">Partial</span></code> reduce types
     (e.g., both <code class="docutils literal notranslate"><span class="pre">Partial(&quot;sum&quot;)</span></code> and <code class="docutils literal notranslate"><span class="pre">Partial(&quot;max&quot;)</span></code>). All Partial
     placements must use the same reduce operation.</p>
 </dd>
@@ -7971,13 +7971,13 @@ specifying the <code class="xref py py-class docutils literal notranslate"><span
 <dd><p>Returns a <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a> filled with the scalar value 0.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>size</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>...</em>) – a sequence of integers defining the shape of the output <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a>.
+<dd class="field-odd"><p><strong>size</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a><em>...</em>) – a sequence of integers defining the shape of the output <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a>.
 Can be a variable number of arguments or a collection like a list or tuple.
 E.g.: zeros(1,2,3..) or zeros([1,2,3..]) or zeros((1,2,3..))</p>
 </dd>
 <dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>requires_grad</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – If autograd should record operations on the
+<li><p><strong>requires_grad</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a><em>, </em><em>optional</em>) – If autograd should record operations on the
 returned <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a>. Default: <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
 <li><p><strong>dtype</strong> (<a class="reference internal" href="tensor_attributes.html#torch.dtype" title="torch.dtype"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.dtype</span></code></a>, optional) – the desired data type of returned <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a>.
 Default: if <code class="docutils literal notranslate"><span class="pre">None</span></code>, uses a global default (see <a class="reference internal" href="generated/torch.set_default_dtype.html#torch.set_default_dtype" title="torch.set_default_dtype"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.set_default_dtype()</span></code></a>).</p></li>
@@ -8003,7 +8003,7 @@ Default: <code class="docutils literal notranslate"><span class="pre">torch.stri
 by the variable argument <code class="docutils literal notranslate"><span class="pre">size</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>size</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>...</em>) – a sequence of integers defining the shape of the output <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a>.
+<dd class="field-odd"><p><strong>size</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a><em>...</em>) – a sequence of integers defining the shape of the output <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a>.
 Can be a variable number of arguments or a collection like a list or tuple.
 E.g.: ones(1,2,3..) or ones([1,2,3..]) or ones((1,2,3..))</p>
 </dd>
@@ -8013,7 +8013,7 @@ E.g.: ones(1,2,3..) or ones([1,2,3..]) or ones((1,2,3..))</p>
 Default: if <code class="docutils literal notranslate"><span class="pre">None</span></code>, uses a global default (see <a class="reference internal" href="generated/torch.set_default_dtype.html#torch.set_default_dtype" title="torch.set_default_dtype"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.set_default_dtype()</span></code></a>).</p></li>
 <li><p><strong>layout</strong> (<a class="reference internal" href="tensor_attributes.html#torch.layout" title="torch.layout"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.layout</span></code></a>, optional) – the desired layout of returned DTensor.
 Default: <code class="docutils literal notranslate"><span class="pre">torch.strided</span></code>.</p></li>
-<li><p><strong>requires_grad</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – If autograd should record operations on the
+<li><p><strong>requires_grad</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a><em>, </em><em>optional</em>) – If autograd should record operations on the
 returned <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a>. Default: <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
 <li><p><strong>device_mesh</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">DeviceMesh</span></code> type, contains the mesh info of ranks</p></li>
 <li><p><strong>placements</strong> – a sequence of <code class="xref py py-class docutils literal notranslate"><span class="pre">Placement</span></code> type: <code class="docutils literal notranslate"><span class="pre">Shard</span></code>, <code class="docutils literal notranslate"><span class="pre">Replicate</span></code></p></li>
@@ -8035,7 +8035,7 @@ returned <a class="reference internal" href="#torch.distributed.tensor.DTensor" 
 is defined by the variable argument <code class="docutils literal notranslate"><span class="pre">size</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>size</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>...</em>) – a sequence of integers defining the shape of the output <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a>.
+<dd class="field-odd"><p><strong>size</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a><em>...</em>) – a sequence of integers defining the shape of the output <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a>.
 Can be a variable number of arguments or a collection like a list or tuple.
 E.g.: empty(1,2,3..) or empty([1,2,3..]) or empty((1,2,3..))</p>
 </dd>
@@ -8044,7 +8044,7 @@ E.g.: empty(1,2,3..) or empty([1,2,3..]) or empty((1,2,3..))</p>
 <li><p><strong>dtype</strong> (<a class="reference internal" href="tensor_attributes.html#torch.dtype" title="torch.dtype"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.dtype</span></code></a>, optional) – the desired data type of returned <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a>.
 Default: if <code class="docutils literal notranslate"><span class="pre">None</span></code>, uses a global default (see <a class="reference internal" href="generated/torch.set_default_dtype.html#torch.set_default_dtype" title="torch.set_default_dtype"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.set_default_dtype()</span></code></a>).        layout (<a class="reference internal" href="tensor_attributes.html#torch.layout" title="torch.layout"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.layout</span></code></a>, optional): the desired layout of returned <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a>.
 Default: <code class="docutils literal notranslate"><span class="pre">torch.strided</span></code>.</p></li>
-<li><p><strong>requires_grad</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – If autograd should record operations on the
+<li><p><strong>requires_grad</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a><em>, </em><em>optional</em>) – If autograd should record operations on the
 returned <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a>. Default: <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
 <li><p><strong>device_mesh</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">DeviceMesh</span></code> type, contains the mesh info of ranks</p></li>
 <li><p><strong>placements</strong> – a sequence of <code class="xref py py-class docutils literal notranslate"><span class="pre">Placement</span></code> type: <code class="docutils literal notranslate"><span class="pre">Shard</span></code>, <code class="docutils literal notranslate"><span class="pre">Replicate</span></code></p></li>
@@ -8067,7 +8067,7 @@ returned <a class="reference internal" href="#torch.distributed.tensor.DTensor" 
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>size</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>...</em>) – a sequence of integers defining the shape of the output <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a>.
+<li><p><strong>size</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a><em>...</em>) – a sequence of integers defining the shape of the output <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a>.
 Can be a variable number of arguments or a collection like a list or tuple.
 E.g.: ones(1,2,3..) or ones([1,2,3..]) or ones((1,2,3..))</p></li>
 <li><p><strong>fill_value</strong> (<em>Scalar</em>) – the value to fill the output tensor with.</p></li>
@@ -8079,7 +8079,7 @@ E.g.: ones(1,2,3..) or ones([1,2,3..]) or ones((1,2,3..))</p></li>
 Default: if <code class="docutils literal notranslate"><span class="pre">None</span></code>, uses a global default (see <a class="reference internal" href="generated/torch.set_default_dtype.html#torch.set_default_dtype" title="torch.set_default_dtype"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.set_default_dtype()</span></code></a>).</p></li>
 <li><p><strong>layout</strong> (<a class="reference internal" href="tensor_attributes.html#torch.layout" title="torch.layout"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.layout</span></code></a>, optional) – the desired layout of returned DTensor.
 Default: <code class="docutils literal notranslate"><span class="pre">torch.strided</span></code>.</p></li>
-<li><p><strong>requires_grad</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – If autograd should record operations on the
+<li><p><strong>requires_grad</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a><em>, </em><em>optional</em>) – If autograd should record operations on the
 returned <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a>. Default: <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
 <li><p><strong>device_mesh</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">DeviceMesh</span></code> type, contains the mesh info of ranks.</p></li>
 <li><p><strong>placements</strong> – a sequence of <code class="xref py py-class docutils literal notranslate"><span class="pre">Placement</span></code> type: <code class="docutils literal notranslate"><span class="pre">Shard</span></code>, <code class="docutils literal notranslate"><span class="pre">Replicate</span></code></p></li>
@@ -8106,7 +8106,7 @@ returned <a class="reference internal" href="#torch.distributed.tensor.DTensor" 
 <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a>, it must be 0-dimensional</p></li>
 <li><p><strong>end</strong> (float or <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a>) – the ending value for the set of points. If
 <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a>, it must be 0-dimensional</p></li>
-<li><p><strong>steps</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – size of the constructed <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a></p></li>
+<li><p><strong>steps</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – size of the constructed <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a></p></li>
 </ul>
 </dd>
 <dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
@@ -8117,7 +8117,7 @@ in. Default: if <code class="docutils literal notranslate"><span class="pre">Non
 and corresponding complex dtype when either is complex.</p></li>
 <li><p><strong>layout</strong> (<a class="reference internal" href="tensor_attributes.html#torch.layout" title="torch.layout"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.layout</span></code></a>, optional) – the desired layout of returned
 <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a>. Default: <code class="docutils literal notranslate"><span class="pre">torch.strided</span></code>.</p></li>
-<li><p><strong>requires_grad</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – If autograd should record operations on the
+<li><p><strong>requires_grad</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a><em>, </em><em>optional</em>) – If autograd should record operations on the
 returned <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a>. Default: <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
 <li><p><strong>device_mesh</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">DeviceMesh</span></code> type, contains the mesh info of ranks</p></li>
 <li><p><strong>placements</strong> – a sequence of <code class="xref py py-class docutils literal notranslate"><span class="pre">Placement</span></code> type: <code class="docutils literal notranslate"><span class="pre">Shard</span></code>, <code class="docutils literal notranslate"><span class="pre">Replicate</span></code></p></li>
@@ -8145,19 +8145,19 @@ with base <code class="docutils literal notranslate"><span class="pre">base</spa
 <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a>, it must be 0-dimensional</p></li>
 <li><p><strong>end</strong> (float or <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a>) – the ending value for the set of points. If
 <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a>, it must be 0-dimensional</p></li>
-<li><p><strong>steps</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – size of the constructed <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a></p></li>
+<li><p><strong>steps</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – size of the constructed <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a></p></li>
 </ul>
 </dd>
 <dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>base</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>, </em><em>optional</em>) – base of the logarithm function. Default: <code class="docutils literal notranslate"><span class="pre">10.0</span></code>.</p></li>
+<li><p><strong>base</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><em>float</em></a><em>, </em><em>optional</em>) – base of the logarithm function. Default: <code class="docutils literal notranslate"><span class="pre">10.0</span></code>.</p></li>
 <li><p><strong>dtype</strong> (<a class="reference internal" href="tensor_attributes.html#torch.dtype" title="torch.dtype"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.dtype</span></code></a>, optional) – the data type to perform the computation
 in. Default: if <code class="docutils literal notranslate"><span class="pre">None</span></code>, uses the global default dtype
 (see <a class="reference internal" href="generated/torch.set_default_dtype.html#torch.set_default_dtype" title="torch.set_default_dtype"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.set_default_dtype()</span></code></a>) when both <cite>start</cite> and <cite>end</cite> are real,
 and corresponding complex dtype when either is complex.</p></li>
 <li><p><strong>layout</strong> (<a class="reference internal" href="tensor_attributes.html#torch.layout" title="torch.layout"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.layout</span></code></a>, optional) – the desired layout of returned
 <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a>. Default: <code class="docutils literal notranslate"><span class="pre">torch.strided</span></code>.</p></li>
-<li><p><strong>requires_grad</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – If autograd should record operations on the
+<li><p><strong>requires_grad</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a><em>, </em><em>optional</em>) – If autograd should record operations on the
 returned <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a>. Default: <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
 <li><p><strong>device_mesh</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">DeviceMesh</span></code> type, contains the mesh info of ranks</p></li>
 <li><p><strong>placements</strong> – a sequence of <code class="xref py py-class docutils literal notranslate"><span class="pre">Placement</span></code> type: <code class="docutils literal notranslate"><span class="pre">Shard</span></code>, <code class="docutils literal notranslate"><span class="pre">Replicate</span></code></p></li>
@@ -8180,7 +8180,7 @@ on the interval <code class="docutils literal notranslate"><span class="pre">[0,
 argument <code class="docutils literal notranslate"><span class="pre">size</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>size</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>...</em>) – a sequence of integers defining the shape of the output <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a>.
+<dd class="field-odd"><p><strong>size</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a><em>...</em>) – a sequence of integers defining the shape of the output <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a>.
 Can be a variable number of arguments or a collection like a list or tuple.
 E.g.: ones(1,2,3..) or ones([1,2,3..]) or ones((1,2,3..))</p>
 </dd>
@@ -8190,7 +8190,7 @@ E.g.: ones(1,2,3..) or ones([1,2,3..]) or ones((1,2,3..))</p>
 Default: if <code class="docutils literal notranslate"><span class="pre">None</span></code>, uses a global default (see <a class="reference internal" href="generated/torch.set_default_dtype.html#torch.set_default_dtype" title="torch.set_default_dtype"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.set_default_dtype()</span></code></a>).</p></li>
 <li><p><strong>layout</strong> (<a class="reference internal" href="tensor_attributes.html#torch.layout" title="torch.layout"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.layout</span></code></a>, optional) – the desired layout of returned DTensor.
 Default: <code class="docutils literal notranslate"><span class="pre">torch.strided</span></code>.</p></li>
-<li><p><strong>requires_grad</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – If autograd should record operations on the
+<li><p><strong>requires_grad</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a><em>, </em><em>optional</em>) – If autograd should record operations on the
 returned <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a>. Default: <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
 <li><p><strong>device_mesh</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">DeviceMesh</span></code> type, contains the mesh info of ranks.</p></li>
 <li><p><strong>placements</strong> – a sequence of <code class="xref py py-class docutils literal notranslate"><span class="pre">Placement</span></code> type: <code class="docutils literal notranslate"><span class="pre">Shard</span></code>, <code class="docutils literal notranslate"><span class="pre">Replicate</span></code></p></li>
@@ -8213,7 +8213,7 @@ with mean 0 and variance 1. The shape of the tensor is defined by the variable
 argument <code class="docutils literal notranslate"><span class="pre">size</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>size</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>...</em>) – a sequence of integers defining the shape of the output <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a>.
+<dd class="field-odd"><p><strong>size</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a><em>...</em>) – a sequence of integers defining the shape of the output <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a>.
 Can be a variable number of arguments or a collection like a list or tuple.
 E.g.: ones(1,2,3..) or ones([1,2,3..]) or ones((1,2,3..))</p>
 </dd>
@@ -8223,7 +8223,7 @@ E.g.: ones(1,2,3..) or ones([1,2,3..]) or ones((1,2,3..))</p>
 Default: if <code class="docutils literal notranslate"><span class="pre">None</span></code>, uses a global default (see <a class="reference internal" href="generated/torch.set_default_dtype.html#torch.set_default_dtype" title="torch.set_default_dtype"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.set_default_dtype()</span></code></a>).</p></li>
 <li><p><strong>layout</strong> (<a class="reference internal" href="tensor_attributes.html#torch.layout" title="torch.layout"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.layout</span></code></a>, optional) – the desired layout of returned DTensor.
 Default: <code class="docutils literal notranslate"><span class="pre">torch.strided</span></code>.</p></li>
-<li><p><strong>requires_grad</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – If autograd should record operations on the
+<li><p><strong>requires_grad</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a><em>, </em><em>optional</em>) – If autograd should record operations on the
 returned <a class="reference internal" href="#torch.distributed.tensor.DTensor" title="torch.distributed.tensor.DTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code></a>. Default: <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
 <li><p><strong>device_mesh</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">DeviceMesh</span></code> type, contains the mesh info of ranks.</p></li>
 <li><p><strong>placements</strong> – a sequence of <code class="xref py py-class docutils literal notranslate"><span class="pre">Placement</span></code> type: <code class="docutils literal notranslate"><span class="pre">Shard</span></code>, <code class="docutils literal notranslate"><span class="pre">Replicate</span></code></p></li>
@@ -8315,7 +8315,7 @@ on a module level. Amount of information is dependent on noise_level</p>
 <dd class="field-odd"><p>The communication counts as a dictionary.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>Dict[Any, <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)">int</a>]</p>
+<dd class="field-even"><p>Dict[Any, <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)">int</a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -8325,7 +8325,7 @@ on a module level. Amount of information is dependent on noise_level</p>
 <span class="sig-name descname"><span class="pre">get_parameter_info</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/v2.15.0/torch/distributed/tensor/debug/_comm_mode.py#L582"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.tensor.debug.CommDebugMode.get_parameter_info" title="Link to this definition">#</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)">dict</a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)">str</a>, <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)">dict</a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>]]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)">dict</a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)">str</a>, <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)">dict</a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a>]]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -8335,7 +8335,7 @@ on a module level. Amount of information is dependent on noise_level</p>
 <span class="sig-name descname"><span class="pre">get_sharding_info</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/v2.15.0/torch/distributed/tensor/debug/_comm_mode.py#L585"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.tensor.debug.CommDebugMode.get_sharding_info" title="Link to this definition">#</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)">dict</a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)">str</a>, <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)">dict</a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>]]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)">dict</a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)">str</a>, <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)">dict</a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a>]]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -8345,7 +8345,7 @@ on a module level. Amount of information is dependent on noise_level</p>
 <span class="sig-name descname"><span class="pre">get_total_counts</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/v2.15.0/torch/distributed/tensor/debug/_comm_mode.py#L571"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.tensor.debug.CommDebugMode.get_total_counts" title="Link to this definition">#</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)">int</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)">int</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -8400,7 +8400,7 @@ The buffers will be restored after the context finishes.
 <code class="docutils literal notranslate"><span class="pre">no_restore_buffers</span></code> can be used to specify which buffers don’t
 need to be restored. Note that <code class="docutils literal notranslate"><span class="pre">buffers</span></code> should not contain any
 nn.Parameter.</p></li>
-<li><p><strong>buffer_seq_dims</strong> (<em>Optional</em><em>[</em><em>List</em><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>]</em><em>]</em>) – the sequence dimensions of <code class="docutils literal notranslate"><span class="pre">buffers</span></code>.</p></li>
+<li><p><strong>buffer_seq_dims</strong> (<em>Optional</em><em>[</em><em>List</em><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a><em>]</em><em>]</em>) – the sequence dimensions of <code class="docutils literal notranslate"><span class="pre">buffers</span></code>.</p></li>
 <li><p><strong>no_restore_buffers</strong> (<em>Optional</em><em>[</em><em>Set</em><em>[</em><a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><em>torch.Tensor</em></a><em>]</em><em>]</em>) – buffers in these set
 won’t be restored after the context exits. This set must be a subset
 of <code class="docutils literal notranslate"><span class="pre">buffers</span></code>. If the buffers won’t be used after the context exits,
@@ -8408,7 +8408,7 @@ these buffers can be put in this list to avoid extra restore time.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Generator" title="(in Python v3.14)"><em>Generator</em></a>[None, None, None]</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Generator" title="(in Python v3.15)"><em>Generator</em></a>[None, None, None]</p>
 </dd>
 </dl>
 <div class="admonition warning">
@@ -8468,11 +8468,11 @@ mesh. Default: None.</p></li>
 </dd>
 <dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>redistribute_inputs</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – the bool value indicating whether to reshard the input <code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code> s when
+<li><p><strong>redistribute_inputs</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a><em>, </em><em>optional</em>) – the bool value indicating whether to reshard the input <code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code> s when
 their placements are different from the required input placements. If this
 value is <code class="docutils literal notranslate"><span class="pre">False</span></code> and some <code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code> input has a different placement,
 an exception will be raised. Default: False.</p></li>
-<li><p><strong>spmd_types</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – if <code class="docutils literal notranslate"><span class="pre">True</span></code>, enable runtime SPMD type checking for <code class="docutils literal notranslate"><span class="pre">func</span></code>. Local
+<li><p><strong>spmd_types</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a><em>, </em><em>optional</em>) – if <code class="docutils literal notranslate"><span class="pre">True</span></code>, enable runtime SPMD type checking for <code class="docutils literal notranslate"><span class="pre">func</span></code>. Local
 tensors are annotated with SPMD types (V, R, I, P) inferred from
 <code class="docutils literal notranslate"><span class="pre">in_placements</span></code> and <code class="docutils literal notranslate"><span class="pre">in_grad_placements</span></code>, and <code class="docutils literal notranslate"><span class="pre">func</span></code> is executed
 under strict type checking. This helps surface distributed correctness
@@ -8492,10 +8492,10 @@ and returns a <code class="xref py py-class docutils literal notranslate"><span 
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#AssertionError" title="(in Python v3.14)"><strong>AssertionError</strong></a> – For any non-DTensor output, we require its corresponding
+<li><p><a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#AssertionError" title="(in Python v3.15)"><strong>AssertionError</strong></a> – For any non-DTensor output, we require its corresponding
     output placement in <code class="docutils literal notranslate"><span class="pre">out_placements</span></code> be None. An AssertionError will be raised
     if this is not the case.</p></li>
-<li><p><a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#ValueError" title="(in Python v3.14)"><strong>ValueError</strong></a> – If <code class="docutils literal notranslate"><span class="pre">redistribute_inputs=False</span></code> but the input <code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code> needs
+<li><p><a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#ValueError" title="(in Python v3.15)"><strong>ValueError</strong></a> – If <code class="docutils literal notranslate"><span class="pre">redistribute_inputs=False</span></code> but the input <code class="xref py py-class docutils literal notranslate"><span class="pre">DTensor</span></code> needs
     a redistribution according to <code class="docutils literal notranslate"><span class="pre">in_placements</span></code>.</p></li>
 </ul>
 </dd>
@@ -8598,7 +8598,7 @@ in practice, please use it at your discretion.</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterator" title="(in Python v3.14)"><em>Iterator</em></a>[None]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterator" title="(in Python v3.15)"><em>Iterator</em></a>[None]</p>
 </dd>
 </dl>
 </dd></dl>

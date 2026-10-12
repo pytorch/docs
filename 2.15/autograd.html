@@ -7533,11 +7533,11 @@ Note: profiler is thread local and is automatically propagated into the async ta
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>enabled</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – Setting this to False makes this context manager a no-op.</p></li>
-<li><p><strong>use_device</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – Enables timing of device events.
+<li><p><strong>enabled</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a><em>, </em><em>optional</em>) – Setting this to False makes this context manager a no-op.</p></li>
+<li><p><strong>use_device</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>, </em><em>optional</em>) – Enables timing of device events.
 Adds approximately 4us of overhead to each tensor operation when use cuda.
 The valid devices options are ‘cuda’, ‘xpu’, ‘mtia’ and ‘privateuseone’.</p></li>
-<li><p><strong>record_shapes</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – If shapes recording is set, information
+<li><p><strong>record_shapes</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a><em>, </em><em>optional</em>) – If shapes recording is set, information
 about input dimensions will be collected. This allows one to see which
 dimensions have been used under the hood and further group by them
 using prof.key_averages(group_by_input_shape=True). Please note that
@@ -7547,13 +7547,13 @@ Most likely the skew will be negligible for bottom most events (in a case
 of nested function calls). But for higher level functions the total
 self cpu time might be artificially increased because of the shape
 collection.</p></li>
-<li><p><strong>with_flops</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – If with_flops is set, the profiler will estimate
+<li><p><strong>with_flops</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a><em>, </em><em>optional</em>) – If with_flops is set, the profiler will estimate
 the FLOPs (floating point operations) value using the operator’s input shape.
 This allows one to estimate the hardware performance. Currently,
 this option only works for the matrix multiplication and 2D convolution operators.</p></li>
-<li><p><strong>profile_memory</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – track tensor memory allocation/deallocation.</p></li>
-<li><p><strong>with_stack</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – record source information (file and line number) for the ops.</p></li>
-<li><p><strong>with_modules</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – <p>record module hierarchy (including function names)
+<li><p><strong>profile_memory</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a><em>, </em><em>optional</em>) – track tensor memory allocation/deallocation.</p></li>
+<li><p><strong>with_stack</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a><em>, </em><em>optional</em>) – record source information (file and line number) for the ops.</p></li>
+<li><p><strong>with_modules</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a>) – <p>record module hierarchy (including function names)
 corresponding to the callstack of the op. e.g. If module A’s forward call’s
 module B’s forward which contains an aten::add op,
 then aten::add’s module hierarchy is A.B</p>
@@ -7564,13 +7564,13 @@ deprecated, and does nothing in eager mode. Use <code class="docutils literal no
 which records <code class="docutils literal notranslate"><span class="pre">nn.Module</span></code> events for eager models.</p>
 </div>
 </p></li>
-<li><p><strong>use_kineto</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – experimental, enable profiling with Kineto profiler.</p></li>
-<li><p><strong>use_cpu</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – profile CPU events; setting to <code class="docutils literal notranslate"><span class="pre">False</span></code> requires
+<li><p><strong>use_kineto</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a><em>, </em><em>optional</em>) – experimental, enable profiling with Kineto profiler.</p></li>
+<li><p><strong>use_cpu</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a><em>, </em><em>optional</em>) – profile CPU events; setting to <code class="docutils literal notranslate"><span class="pre">False</span></code> requires
 <code class="docutils literal notranslate"><span class="pre">use_kineto=True</span></code> and can be used to lower the overhead for GPU-only profiling.</p></li>
 <li><p><strong>experimental_config</strong> (<em>_ExperimentalConfig</em>) – A set of experimental options
 used by profiler libraries like Kineto. Note, backward compatibility is not guaranteed.</p></li>
-<li><p><strong>acc_events</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Enable the accumulation of FunctionEvents across multiple profiling cycles</p></li>
-<li><p><strong>post_processing_timeout_s</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Optional timeout in seconds for post-processing profiler
+<li><p><strong>acc_events</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a>) – Enable the accumulation of FunctionEvents across multiple profiling cycles</p></li>
+<li><p><strong>post_processing_timeout_s</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><em>float</em></a>) – Optional timeout in seconds for post-processing profiler
 results. In this context, post-processing happens after the profiling itself has finished.
 If specified, event parsing will stop after this duration and return partial results. Useful
 for handling large traces that may take too long to process.</p></li>
@@ -7685,9 +7685,9 @@ e.g. in Python REPL.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>enabled</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – Setting <code class="docutils literal notranslate"><span class="pre">enabled=False</span></code> makes this context manager a no-op.
+<li><p><strong>enabled</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a><em>, </em><em>optional</em>) – Setting <code class="docutils literal notranslate"><span class="pre">enabled=False</span></code> makes this context manager a no-op.
 Default: <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p></li>
-<li><p><strong>record_shapes</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – If <code class="docutils literal notranslate"><span class="pre">record_shapes=True</span></code>, the nvtx range wrapping
+<li><p><strong>record_shapes</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a><em>, </em><em>optional</em>) – If <code class="docutils literal notranslate"><span class="pre">record_shapes=True</span></code>, the nvtx range wrapping
 each autograd op will append information about the sizes of Tensor arguments received
 by that op, in the following format:
 <code class="docutils literal notranslate"><span class="pre">[[arg0.size(0),</span> <span class="pre">arg0.size(1),</span> <span class="pre">...],</span> <span class="pre">[arg1.size(0),</span> <span class="pre">arg1.size(1),</span> <span class="pre">...],</span> <span class="pre">...]</span></code>
@@ -7752,9 +7752,9 @@ you will be able to see labeled ranges in Intel(R) VTune Profiler GUI.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>enabled</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – Setting <code class="docutils literal notranslate"><span class="pre">enabled=False</span></code> makes this context manager a no-op.
+<li><p><strong>enabled</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a><em>, </em><em>optional</em>) – Setting <code class="docutils literal notranslate"><span class="pre">enabled=False</span></code> makes this context manager a no-op.
 Default: <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p></li>
-<li><p><strong>record_shapes</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – If <code class="docutils literal notranslate"><span class="pre">record_shapes=True</span></code>, the itt range wrapping
+<li><p><strong>record_shapes</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a><em>, </em><em>optional</em>) – If <code class="docutils literal notranslate"><span class="pre">record_shapes=True</span></code>, the itt range wrapping
 each autograd op will append information about the sizes of Tensor arguments received
 by that op, in the following format:
 <code class="docutils literal notranslate"><span class="pre">[[arg0.size(0),</span> <span class="pre">arg0.size(1),</span> <span class="pre">...],</span> <span class="pre">[arg1.size(0),</span> <span class="pre">arg1.size(1),</span> <span class="pre">...],</span> <span class="pre">...]</span></code>
@@ -7866,9 +7866,9 @@ It can be used as a context-manager or as a function.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>mode</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Flag whether to enable anomaly detection (<code class="docutils literal notranslate"><span class="pre">True</span></code>),
+<li><p><strong>mode</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a>) – Flag whether to enable anomaly detection (<code class="docutils literal notranslate"><span class="pre">True</span></code>),
 or disable (<code class="docutils literal notranslate"><span class="pre">False</span></code>).</p></li>
-<li><p><strong>check_nan</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Flag whether to raise an error when the backward
+<li><p><strong>check_nan</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a>) – Flag whether to raise an error when the backward
 generate “nan”</p></li>
 </ul>
 </dd>
@@ -8035,7 +8035,7 @@ if you need to read them.</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>pin_memory</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code> tensors will be saved to CPU pinned memory
+<dd class="field-odd"><p><strong>pin_memory</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code> tensors will be saved to CPU pinned memory
 during packing and copied to GPU asynchronously during both
 packing and unpacking.
 Defaults to <code class="docutils literal notranslate"><span class="pre">False</span></code>.
@@ -8072,12 +8072,12 @@ Also see <a class="reference internal" href="notes/cuda.html#cuda-memory-pinning
 tensors default hooks.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>error_message</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – When saved tensors default hooks are used when they
+<dd class="field-odd"><p><strong>error_message</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a>) – When saved tensors default hooks are used when they
 have been disabled, a RuntimeError with this
 error message gets raised.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Generator" title="(in Python v3.14)"><em>Generator</em></a>[None, None, None]</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Generator" title="(in Python v3.15)"><em>Generator</em></a>[None, None, None]</p>
 </dd>
 </dl>
 <p>Example:</p>
@@ -8222,7 +8222,7 @@ context manager. This object can be useful for debugging purposes. The state
 managed by the context manager is automatically cleared upon exiting.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Generator" title="(in Python v3.14)"><em>Generator</em></a>[<em>_AllowMutationOnSavedContext</em>, None, None]</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Generator" title="(in Python v3.15)"><em>Generator</em></a>[<em>_AllowMutationOnSavedContext</em>, None, None]</p>
 </dd>
 </dl>
 <p>Example:</p>
@@ -8330,10 +8330,10 @@ graph breaks, but a graph with no annotated operations uses the global
 compiled region raises a <code class="docutils literal notranslate"><span class="pre">RuntimeError</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>budget</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Activation memory budget ratio in <code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">1]</span></code>.</p>
+<dd class="field-odd"><p><strong>budget</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><em>float</em></a>) – Activation memory budget ratio in <code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">1]</span></code>.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/contextlib.html#contextlib.AbstractContextManager" title="(in Python v3.14)"><em>AbstractContextManager</em></a>[None]</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/contextlib.html#contextlib.AbstractContextManager" title="(in Python v3.15)"><em>AbstractContextManager</em></a>[None]</p>
 </dd>
 </dl>
 <p>Example:</p>
@@ -8381,7 +8381,7 @@ a non-capturing stream is not part of the capture, so the ordering has no
 effect on it); with the flag disabled a <code class="docutils literal notranslate"><span class="pre">RuntimeError</span></code> is raised.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>enabled</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, override stale non-capturing streams with
+<dd class="field-odd"><p><strong>enabled</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, override stale non-capturing streams with
 the producer’s capturing stream during CUDA graph capture, and
 skip end-of-backward leaf syncs that would cross the capture
 boundary. If <code class="docutils literal notranslate"><span class="pre">False</span></code> (the process-initial state), raise an error

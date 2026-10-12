@@ -7214,7 +7214,7 @@ It handles load-time resharding which enables saving in one cluster topology and
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)">dict</a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)">str</a>, <em>StatefulT</em> | <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)">dict</a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)">str</a>, <em>StatefulT</em> | <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -7228,7 +7228,7 @@ to satisfy <code class="docutils literal notranslate"><span class="pre">local_ch
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>fqn</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – The state_dict FQN to pass to <code class="docutils literal notranslate"><span class="pre">ReadItem</span></code>.</p></li>
+<li><p><strong>fqn</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a>) – The state_dict FQN to pass to <code class="docutils literal notranslate"><span class="pre">ReadItem</span></code>.</p></li>
 <li><p><strong>checkpoint_md</strong> (<a class="reference internal" href="#torch.distributed.checkpoint.metadata.TensorStorageMetadata" title="torch.distributed.checkpoint.metadata.TensorStorageMetadata"><em>TensorStorageMetadata</em></a>) – metadata for a given tensor
 from a checkpoint.</p></li>
 <li><p><strong>local_chunks</strong> (<em>List</em><em>[</em><em>ChunkStorageMetadata</em><em>]</em>) – Local chunks that needs to be
@@ -7239,7 +7239,7 @@ loaded.</p></li>
 <dd class="field-even"><p>A list of <code class="docutils literal notranslate"><span class="pre">ReadItem</span></code> that will satisfy all input chunks.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference internal" href="#torch.distributed.checkpoint.ReadItem" title="torch.distributed.checkpoint.planner.ReadItem"><em>ReadItem</em></a>]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)">list</a>[<a class="reference internal" href="#torch.distributed.checkpoint.ReadItem" title="torch.distributed.checkpoint.planner.ReadItem"><em>ReadItem</em></a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -7252,7 +7252,7 @@ loaded.</p></li>
 currently doesn’t change the local plans.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference internal" href="#torch.distributed.checkpoint.LoadPlan" title="torch.distributed.checkpoint.planner.LoadPlan"><em>LoadPlan</em></a>]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)">list</a>[<a class="reference internal" href="#torch.distributed.checkpoint.LoadPlan" title="torch.distributed.checkpoint.planner.LoadPlan"><em>LoadPlan</em></a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -7266,7 +7266,7 @@ currently doesn’t change the local plans.</p>
 <code class="docutils literal notranslate"><span class="pre">rewrite_index_hints</span></code> is True.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)">tuple</a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference internal" href="#torch.distributed.checkpoint.SavePlan" title="torch.distributed.checkpoint.planner.SavePlan"><em>SavePlan</em></a>], <em>Metadata</em>]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.15)">tuple</a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)">list</a>[<a class="reference internal" href="#torch.distributed.checkpoint.SavePlan" title="torch.distributed.checkpoint.planner.SavePlan"><em>SavePlan</em></a>], <em>Metadata</em>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -7338,8 +7338,8 @@ group needs to be passed in.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>state_dict</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – The state_dict to save.</p></li>
-<li><p><strong>checkpoint_id</strong> (<em>Union</em><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.14)"><em>os.PathLike</em></a><em>, </em><em>None</em><em>]</em>) – The ID of this checkpoint instance. The meaning of the checkpoint_id
+<li><p><strong>state_dict</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – The state_dict to save.</p></li>
+<li><p><strong>checkpoint_id</strong> (<em>Union</em><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.15)"><em>os.PathLike</em></a><em>, </em><em>None</em><em>]</em>) – The ID of this checkpoint instance. The meaning of the checkpoint_id
 depends on the storage. It can be a path to a folder or to a file.
 It can also be a key if the storage is a key-value store.
 (Default: <code class="docutils literal notranslate"><span class="pre">None</span></code>)</p></li>
@@ -7351,10 +7351,10 @@ be raised. (Default: <code class="docutils literal notranslate"><span class="pre
 planner will be used. (Default: <code class="docutils literal notranslate"><span class="pre">None</span></code>)</p></li>
 <li><p><strong>process_group</strong> (<em>Optional</em><em>[</em><em>ProcessGroup</em><em>]</em>) – ProcessGroup to be used for cross-rank synchronization.
 (Default: <code class="docutils literal notranslate"><span class="pre">None</span></code>)</p></li>
-<li><p><strong>no_dist</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, this function will assume the intent is to load
+<li><p><strong>no_dist</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, this function will assume the intent is to load
 a checkpoint on a single rank/process.
 (Default: <code class="docutils literal notranslate"><span class="pre">False</span></code>)</p></li>
-<li><p><strong>use_collectives</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – If <code class="docutils literal notranslate"><span class="pre">False</span></code>, this function will assume the intent is to save
+<li><p><strong>use_collectives</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a>) – If <code class="docutils literal notranslate"><span class="pre">False</span></code>, this function will assume the intent is to save
 a checkpoint without using cross-rank synchronization.
 (Default: <code class="docutils literal notranslate"><span class="pre">True</span></code>)
 This configuration is experimental and should be used with caution.
@@ -7410,8 +7410,8 @@ automatically.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>state_dict</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – The state_dict to save.</p></li>
-<li><p><strong>checkpoint_id</strong> (<em>Union</em><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.14)"><em>os.PathLike</em></a><em>, </em><em>None</em><em>]</em>) – The ID of this checkpoint instance. The meaning of the checkpoint_id
+<li><p><strong>state_dict</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – The state_dict to save.</p></li>
+<li><p><strong>checkpoint_id</strong> (<em>Union</em><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.15)"><em>os.PathLike</em></a><em>, </em><em>None</em><em>]</em>) – The ID of this checkpoint instance. The meaning of the checkpoint_id
 depends on the storage. It can be a path to a folder or to a file.
 It can also be a key if the storage is a key-value store.
 (Default: <code class="docutils literal notranslate"><span class="pre">None</span></code>)</p></li>
@@ -7429,10 +7429,10 @@ planner will be used. (Default: <code class="docutils literal notranslate"><span
 <code class="docutils literal notranslate"><span class="pre">AsyncStager</span></code> and <code class="docutils literal notranslate"><span class="pre">async_stager</span></code> is not provided, <code class="docutils literal notranslate"><span class="pre">storage_writer</span></code>
 will be used for staging. User-provided stagers remain owned by the
 caller and should be closed after the last checkpoint is saved.</p></li>
-<li><p><strong>no_dist</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, this function will assume the intent is to save
+<li><p><strong>no_dist</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, this function will assume the intent is to save
 a checkpoint on a single rank/process.
 (Default: <code class="docutils literal notranslate"><span class="pre">False</span></code>)</p></li>
-<li><p><strong>use_collectives</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – If False, Save the checkpoint without rank coordination. (Default: <code class="docutils literal notranslate"><span class="pre">True</span></code>)
+<li><p><strong>use_collectives</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a>) – If False, Save the checkpoint without rank coordination. (Default: <code class="docutils literal notranslate"><span class="pre">True</span></code>)
 This configuration is experimental and should be used with caution.
 It will change the format of the saved checkpoint and may not be backward compatible.</p></li>
 </ul>
@@ -7508,8 +7508,8 @@ post-processing and non-tensor data properly propagates.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>state_dict</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – The state_dict to load the checkpoint into.</p></li>
-<li><p><strong>checkpoint_id</strong> (<em>Union</em><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.14)"><em>os.PathLike</em></a><em>, </em><em>None</em><em>]</em>) – The ID of this checkpoint instance. The meaning of the checkpoint_id
+<li><p><strong>state_dict</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – The state_dict to load the checkpoint into.</p></li>
+<li><p><strong>checkpoint_id</strong> (<em>Union</em><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.15)"><em>os.PathLike</em></a><em>, </em><em>None</em><em>]</em>) – The ID of this checkpoint instance. The meaning of the checkpoint_id
 depends on the storage. It can be a path to a folder or to a file.
 It can also be a key if the storage is a key-value store.
 (Default: <code class="docutils literal notranslate"><span class="pre">None</span></code>)</p></li>
@@ -7521,7 +7521,7 @@ be raised. (Default: <code class="docutils literal notranslate"><span class="pre
 planner will be used. (Default: <code class="docutils literal notranslate"><span class="pre">None</span></code>)</p></li>
 <li><p><strong>process_group</strong> (<em>Optional</em><em>[</em><em>ProcessGroup</em><em>]</em>) – ProcessGroup to be used for cross-rank synchronization.
 (Default: <code class="docutils literal notranslate"><span class="pre">None</span></code>)</p></li>
-<li><p><strong>no_dist</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, this function will assume the intent is to load
+<li><p><strong>no_dist</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, this function will assume the intent is to load
 a checkpoint without using cross-rank synchronization. (Default: <code class="docutils literal notranslate"><span class="pre">False</span></code>)</p></li>
 </ul>
 </dd>
@@ -7618,7 +7618,7 @@ at the appropriate time.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="torch.distributed.checkpoint.staging.AsyncStager.should_synchronize_after_execute">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">should_synchronize_after_execute</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></em><a class="headerlink" href="#torch.distributed.checkpoint.staging.AsyncStager.should_synchronize_after_execute" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">should_synchronize_after_execute</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><span class="pre">bool</span></a></em><a class="headerlink" href="#torch.distributed.checkpoint.staging.AsyncStager.should_synchronize_after_execute" title="Link to this definition">#</a></dt>
 <dd><p>Whether to synchronize after executing the stage.</p>
 </dd></dl>
 
@@ -7629,7 +7629,7 @@ at the appropriate time.</p>
 inoculated from any updates incurred after the stage call is complete.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><em>Future</em>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)">dict</a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)">str</a>, <em>StatefulT</em> | <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>]] | <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)">dict</a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)">str</a>, <em>StatefulT</em> | <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>]</p>
+<dd class="field-odd"><p><em>Future</em>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)">dict</a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)">str</a>, <em>StatefulT</em> | <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a>]] | <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)">dict</a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)">str</a>, <em>StatefulT</em> | <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -7713,7 +7713,7 @@ If use_async_staging is False, it will return the fully staged state_dict.</p>
 <dd class="field-odd"><p><strong>state_dict</strong> (<em>STATE_DICT_TYPE</em>) – The state_dict to be staged.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)">dict</a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)">str</a>, <em>StatefulT</em> | <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>] | <em>Future</em>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)">dict</a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)">str</a>, <em>StatefulT</em> | <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>]]</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)">dict</a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)">str</a>, <em>StatefulT</em> | <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a>] | <em>Future</em>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)">dict</a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)">str</a>, <em>StatefulT</em> | <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a>]]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -7736,15 +7736,15 @@ If use_async_staging is False, this method is a no-op.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Variables<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>use_pinned_memory</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Enable pinned memory allocation for faster
+<li><p><strong>use_pinned_memory</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a>) – Enable pinned memory allocation for faster
 CPU-GPU transfers. Requires CUDA to be available. Default: True</p></li>
-<li><p><strong>use_shared_memory</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Enable shared memory for multi-process
+<li><p><strong>use_shared_memory</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a>) – Enable shared memory for multi-process
 scenarios. Useful when multiple processes need access to the
 same staged data. Default: True</p></li>
-<li><p><strong>use_async_staging</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Enable asynchronous staging using a
+<li><p><strong>use_async_staging</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a>) – Enable asynchronous staging using a
 background thread pool. Allows overlapping computation with
 staging operations. Requires CUDA. Default: True</p></li>
-<li><p><strong>use_non_blocking_copy</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Use non-blocking device memory
+<li><p><strong>use_non_blocking_copy</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a>) – Use non-blocking device memory
 copies with stream synchronization. Improves performance by
 allowing CPU work to continue during GPU transfers. Default: True</p></li>
 </ul>
@@ -7770,7 +7770,7 @@ This implementation also provides an option to optimize stage latency using pinn
 <dd><p>Returns a copy of <cite>state_dict</cite> on the CPU.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)">dict</a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)">str</a>, <em>StatefulT</em> | <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)">dict</a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)">str</a>, <em>StatefulT</em> | <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -7796,7 +7796,7 @@ This implementation also provides an option to optimize stage latency using pinn
 <dd><p>Restore the object’s state from the provided state_dict.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>state_dict</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a><em>]</em>) – The state dict to restore from</p>
+<dd class="field-odd"><p><strong>state_dict</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a><em>]</em>) – The state dict to restore from</p>
 </dd>
 </dl>
 </dd></dl>
@@ -7851,13 +7851,13 @@ is told its role.</p>
 way is to store storage specific data in LoadPlan::storage_data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>plans</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>[</em><a class="reference internal" href="#torch.distributed.checkpoint.LoadPlan" title="torch.distributed.checkpoint.planner.LoadPlan"><em>LoadPlan</em></a><em>]</em>) – A list of <code class="docutils literal notranslate"><span class="pre">LoadPlan</span></code> instances, one for each rank.</p>
+<dd class="field-odd"><p><strong>plans</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><em>list</em></a><em>[</em><a class="reference internal" href="#torch.distributed.checkpoint.LoadPlan" title="torch.distributed.checkpoint.planner.LoadPlan"><em>LoadPlan</em></a><em>]</em>) – A list of <code class="docutils literal notranslate"><span class="pre">LoadPlan</span></code> instances, one for each rank.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A list of transformed <code class="docutils literal notranslate"><span class="pre">LoadPlan</span></code> after storage global planning</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference internal" href="#torch.distributed.checkpoint.LoadPlan" title="torch.distributed.checkpoint.planner.LoadPlan"><em>LoadPlan</em></a>]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)">list</a>[<a class="reference internal" href="#torch.distributed.checkpoint.LoadPlan" title="torch.distributed.checkpoint.planner.LoadPlan"><em>LoadPlan</em></a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -7931,7 +7931,7 @@ storage-dependent. It can be a path to a folder/file or a key for
 a key-value storage.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>checkpoint_id</strong> (<em>Union</em><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.14)"><em>os.PathLike</em></a><em>, </em><em>None</em><em>]</em>) – The ID of this checkpoint instance. The meaning of the checkpoint_id
+<dd class="field-odd"><p><strong>checkpoint_id</strong> (<em>Union</em><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.15)"><em>os.PathLike</em></a><em>, </em><em>None</em><em>]</em>) – The ID of this checkpoint instance. The meaning of the checkpoint_id
 depends on the storage. It can be a path to a folder or to a file.
 It can also be a key if the storage is more like a key-value store.
 (Default: <code class="docutils literal notranslate"><span class="pre">None</span></code>)</p>
@@ -7947,7 +7947,7 @@ It can also be a key if the storage is more like a key-value store.
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>metadata</strong> (<em>Metadata</em>) – The metadata schema to use.</p></li>
-<li><p><strong>is_coordinator</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Whether this instance is responsible for coordinating
+<li><p><strong>is_coordinator</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a>) – Whether this instance is responsible for coordinating
 the checkpoint.</p></li>
 </ul>
 </dd>
@@ -7961,7 +7961,7 @@ the checkpoint.</p></li>
 us to enable automatic storage selection.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)">bool</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -7995,7 +7995,7 @@ in to the same object graph.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>metadata</strong> (<em>Metadata</em>) – metadata for the new checkpoint</p></li>
-<li><p><strong>results</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>[</em><em>WriteResult</em><em>]</em><em>]</em>) – A list of WriteResults from all ranks.</p></li>
+<li><p><strong>results</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><em>list</em></a><em>[</em><em>WriteResult</em><em>]</em><em>]</em>) – A list of WriteResults from all ranks.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -8016,13 +8016,13 @@ in to the same object graph.</p>
 way is to store storage specific data in SavePlan::storage_data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>plans</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>[</em><a class="reference internal" href="#torch.distributed.checkpoint.SavePlan" title="torch.distributed.checkpoint.planner.SavePlan"><em>SavePlan</em></a><em>]</em>) – A list of <code class="docutils literal notranslate"><span class="pre">SavePlan</span></code> instances, one for each rank.</p>
+<dd class="field-odd"><p><strong>plans</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><em>list</em></a><em>[</em><a class="reference internal" href="#torch.distributed.checkpoint.SavePlan" title="torch.distributed.checkpoint.planner.SavePlan"><em>SavePlan</em></a><em>]</em>) – A list of <code class="docutils literal notranslate"><span class="pre">SavePlan</span></code> instances, one for each rank.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A list of transformed <code class="docutils literal notranslate"><span class="pre">SavePlan</span></code> after storage global planning</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference internal" href="#torch.distributed.checkpoint.SavePlan" title="torch.distributed.checkpoint.planner.SavePlan"><em>SavePlan</em></a>]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)">list</a>[<a class="reference internal" href="#torch.distributed.checkpoint.SavePlan" title="torch.distributed.checkpoint.planner.SavePlan"><em>SavePlan</em></a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -8056,7 +8056,7 @@ storage-dependent. It can be a path to a folder/file or a key for
 a key-value storage.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>checkpoint_id</strong> (<em>Union</em><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.14)"><em>os.PathLike</em></a><em>, </em><em>None</em><em>]</em>) – The ID of this checkpoint instance. The meaning of the checkpoint_id
+<dd class="field-odd"><p><strong>checkpoint_id</strong> (<em>Union</em><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.15)"><em>os.PathLike</em></a><em>, </em><em>None</em><em>]</em>) – The ID of this checkpoint instance. The meaning of the checkpoint_id
 depends on the storage. It can be a path to a folder or to a file.
 It can also be a key if the storage is a key-value store.
 (Default: <code class="docutils literal notranslate"><span class="pre">None</span></code>)</p>
@@ -8070,7 +8070,7 @@ It can also be a key if the storage is a key-value store.
 <dd><p>Initialize this instance.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>is_coordinator</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Whether this instance is responsible for coordinating
+<dd class="field-odd"><p><strong>is_coordinator</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a>) – Whether this instance is responsible for coordinating
 the checkpoint.</p>
 </dd>
 </dl>
@@ -8097,7 +8097,7 @@ is passed to the <code class="docutils literal notranslate"><span class="pre">Sa
 us to enable automatic storage selection.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)">bool</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -8125,7 +8125,7 @@ In case of tensors, make following assumptions:</p>
 <dd class="field-even"><p>A future that completes to a list of WriteResult</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="futures.html#torch.futures.Future" title="torch.jit.Future"><em>Future</em></a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)">list</a>[<em>WriteResult</em>]]</p>
+<dd class="field-odd"><p><a class="reference internal" href="futures.html#torch.futures.Future" title="torch.jit.Future"><em>Future</em></a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)">list</a>[<em>WriteResult</em>]]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -8150,7 +8150,7 @@ In case of tensors, make following assumptions:</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.checkpoint.metadata.TensorStorageMetadata">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.checkpoint.metadata.</span></span><span class="sig-name descname"><span class="pre">TensorStorageMetadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">properties</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#torch.distributed.checkpoint.metadata.TensorProperties" title="torch.distributed.checkpoint.metadata.TensorProperties"><span class="pre">torch.distributed.checkpoint.metadata.TensorProperties</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="size.html#torch.Size" title="torch.Size"><span class="pre">torch.Size</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">chunks</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><span class="pre">torch.distributed.checkpoint.metadata.ChunkStorageMetadata</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/v2.15.0/torch/distributed/checkpoint/metadata.py#L129"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.checkpoint.metadata.TensorStorageMetadata" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.checkpoint.metadata.</span></span><span class="sig-name descname"><span class="pre">TensorStorageMetadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">properties</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#torch.distributed.checkpoint.metadata.TensorProperties" title="torch.distributed.checkpoint.metadata.TensorProperties"><span class="pre">torch.distributed.checkpoint.metadata.TensorProperties</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="size.html#torch.Size" title="torch.Size"><span class="pre">torch.Size</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">chunks</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><span class="pre">torch.distributed.checkpoint.metadata.ChunkStorageMetadata</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/v2.15.0/torch/distributed/checkpoint/metadata.py#L129"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.checkpoint.metadata.TensorStorageMetadata" title="Link to this definition">#</a></dt>
 <dd><dl class="field-list simple">
 </dl>
 </dd></dl>
@@ -8252,7 +8252,7 @@ copying it back to the one in the state_dict.</p>
 <p>. N.B. This is called on the coordinator rank only</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference internal" href="#torch.distributed.checkpoint.LoadPlan" title="torch.distributed.checkpoint.planner.LoadPlan"><em>LoadPlan</em></a>]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)">list</a>[<a class="reference internal" href="#torch.distributed.checkpoint.LoadPlan" title="torch.distributed.checkpoint.planner.LoadPlan"><em>LoadPlan</em></a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -8330,7 +8330,7 @@ back to the one in state_dict.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.checkpoint.LoadPlan">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.checkpoint.</span></span><span class="sig-name descname"><span class="pre">LoadPlan</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">items</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#torch.distributed.checkpoint.ReadItem" title="torch.distributed.checkpoint.planner.ReadItem"><span class="pre">torch.distributed.checkpoint.planner.ReadItem</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">storage_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">planner_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/v2.15.0/torch/distributed/checkpoint/planner.py#L114"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.checkpoint.LoadPlan" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.checkpoint.</span></span><span class="sig-name descname"><span class="pre">LoadPlan</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">items</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#torch.distributed.checkpoint.ReadItem" title="torch.distributed.checkpoint.planner.ReadItem"><span class="pre">torch.distributed.checkpoint.planner.ReadItem</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">storage_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">planner_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/v2.15.0/torch/distributed/checkpoint/planner.py#L114"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.checkpoint.LoadPlan" title="Link to this definition">#</a></dt>
 <dd><dl class="field-list simple">
 </dl>
 </dd></dl>
@@ -8448,7 +8448,7 @@ the global planner aggregate them:</p>
 <p>This is called on the coordinator rank only.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)">tuple</a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference internal" href="#torch.distributed.checkpoint.SavePlan" title="torch.distributed.checkpoint.planner.SavePlan"><em>SavePlan</em></a>], <em>Metadata</em>]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.15)">tuple</a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)">list</a>[<a class="reference internal" href="#torch.distributed.checkpoint.SavePlan" title="torch.distributed.checkpoint.planner.SavePlan"><em>SavePlan</em></a>], <em>Metadata</em>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -8513,7 +8513,7 @@ It’s the storage layer responsibility to figure out how to save them.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.checkpoint.SavePlan">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.checkpoint.</span></span><span class="sig-name descname"><span class="pre">SavePlan</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">items</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#torch.distributed.checkpoint.planner.WriteItem" title="torch.distributed.checkpoint.planner.WriteItem"><span class="pre">torch.distributed.checkpoint.planner.WriteItem</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">storage_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">planner_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">usable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/v2.15.0/torch/distributed/checkpoint/planner.py#L104"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.checkpoint.SavePlan" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.checkpoint.</span></span><span class="sig-name descname"><span class="pre">SavePlan</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">items</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#torch.distributed.checkpoint.planner.WriteItem" title="torch.distributed.checkpoint.planner.WriteItem"><span class="pre">torch.distributed.checkpoint.planner.WriteItem</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">storage_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">planner_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">usable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/v2.15.0/torch/distributed/checkpoint/planner.py#L104"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.checkpoint.SavePlan" title="Link to this definition">#</a></dt>
 <dd><dl class="field-list simple">
 </dl>
 </dd></dl>
@@ -8533,7 +8533,7 @@ It’s the storage layer responsibility to figure out how to save them.</p>
 <dd class="field-odd"><p>Optional[int] storage size, in bytes of underlying tensor if any.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)">int</a> | None</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)">int</a> | None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -8542,7 +8542,7 @@ It’s the storage layer responsibility to figure out how to save them.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.distributed.checkpoint.planner.BytesIOWriteData">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.checkpoint.planner.</span></span><span class="sig-name descname"><span class="pre">BytesIOWriteData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nbytes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/v2.15.0/torch/distributed/checkpoint/planner.py#L45"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.checkpoint.planner.BytesIOWriteData" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.distributed.checkpoint.planner.</span></span><span class="sig-name descname"><span class="pre">BytesIOWriteData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nbytes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/v2.15.0/torch/distributed/checkpoint/planner.py#L45"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.checkpoint.planner.BytesIOWriteData" title="Link to this definition">#</a></dt>
 <dd><dl class="field-list simple">
 </dl>
 </dd></dl>
@@ -8577,7 +8577,7 @@ It’s the storage layer responsibility to figure out how to save them.</p>
 </dl>
 <dl class="py property">
 <dt class="sig sig-object py" id="torch.distributed.checkpoint.FileSystemReader.checkpoint_id">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">checkpoint_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.14)"><span class="pre">PathLike</span></a></em><a class="headerlink" href="#torch.distributed.checkpoint.FileSystemReader.checkpoint_id" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">checkpoint_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.15)"><span class="pre">PathLike</span></a></em><a class="headerlink" href="#torch.distributed.checkpoint.FileSystemReader.checkpoint_id" title="Link to this definition">#</a></dt>
 <dd><p>return the checkpoint_id that will be used to load the checkpoint.</p>
 </dd></dl>
 
@@ -8603,7 +8603,7 @@ a rank local <cite>__{rank}.metadata</cite> file with the serialized metadata if
 <dd><p>Override of AsyncStager.stage</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)">dict</a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)">str</a>, <em>StatefulT</em> | <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)">dict</a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)">str</a>, <em>StatefulT</em> | <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -8630,7 +8630,7 @@ can handle all of torch.distributed constructs such as FSDP, DDP, ShardedTensor 
 <dd><p>Extension from the planner interface to make it easy to extend the default planner.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -8746,7 +8746,7 @@ model state_dict and optimizer state_dict should be returned. See
 <dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">Tuple</span></code> that contain model state_dict and optimizer state_dict.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.14)"><em>Tuple</em></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.14)"><em>Dict</em></a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)">str</a>, ValueType], OptimizerStateType]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.15)"><em>Tuple</em></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.15)"><em>Dict</em></a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)">str</a>, ValueType], OptimizerStateType]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -8771,7 +8771,7 @@ model state_dict and optimizer state_dict should be returned. See
 <dd class="field-even"><p>The state_dict for <code class="docutils literal notranslate"><span class="pre">model</span></code>.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.14)"><em>Dict</em></a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)">str</a>, ValueType]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.15)"><em>Dict</em></a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)">str</a>, ValueType]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -8823,7 +8823,7 @@ correctly.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>model</strong> (<a class="reference internal" href="generated/torch.nn.Module.html#torch.nn.Module" title="torch.nn.Module"><em>nn.Module</em></a>) – the nn.Module to the model.</p></li>
 <li><p><strong>optimizers</strong> (<em>Union</em><em>[</em><a class="reference internal" href="optim.html#torch.optim.Optimizer" title="torch.optim.Optimizer"><em>Optimizer</em></a><em>, </em><em>Iterable</em><em>[</em><a class="reference internal" href="optim.html#torch.optim.Optimizer" title="torch.optim.Optimizer"><em>Optimizer</em></a><em>]</em><em>]</em>) – The optimizers that are used to optimize <code class="docutils literal notranslate"><span class="pre">model</span></code>.</p></li>
-<li><p><strong>model_state_dict</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.14)"><em>Dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>ValueType</em><em>]</em>) – (Union[Dict[nn.Module, Dict[str, ValueType]], Dict[str, ValueType]]):
+<li><p><strong>model_state_dict</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.15)"><em>Dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>, </em><em>ValueType</em><em>]</em>) – (Union[Dict[nn.Module, Dict[str, ValueType]], Dict[str, ValueType]]):
 the model state_dict to load. If the key of the <code class="docutils literal notranslate"><span class="pre">model_state_dict</span></code>
 is nn.Module, the key is a submodule of <code class="docutils literal notranslate"><span class="pre">model</span></code> and the value should
 be the state_dict of the submodule. When loading the state_dict,
@@ -8858,7 +8858,7 @@ model. See <code class="docutils literal notranslate"><span class="pre">set_stat
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>model</strong> (<a class="reference internal" href="generated/torch.nn.Module.html#torch.nn.Module" title="torch.nn.Module"><em>nn.Module</em></a>) – the nn.Module to the model.</p></li>
-<li><p><strong>model_state_dict</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.14)"><em>Dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>ValueType</em><em>]</em>) – (Dict[str, ValueType]):
+<li><p><strong>model_state_dict</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.15)"><em>Dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>, </em><em>ValueType</em><em>]</em>) – (Dict[str, ValueType]):
 the model state_dict to load. If the key of the <code class="docutils literal notranslate"><span class="pre">model_state_dict</span></code>
 is nn.Module, the key is a submodule of <code class="docutils literal notranslate"><span class="pre">model</span></code> and the value should
 be the state_dict of the submodule. When loading the state_dict,
@@ -8961,8 +8961,8 @@ Torch save file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>dcp_checkpoint_dir</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.14)"><em>PathLike</em></a>) – Directory containing the DCP checkpoint.</p></li>
-<li><p><strong>torch_save_path</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.14)"><em>PathLike</em></a>) – Filename to store the converted Torch save file.</p></li>
+<li><p><strong>dcp_checkpoint_dir</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.15)"><em>PathLike</em></a>) – Directory containing the DCP checkpoint.</p></li>
+<li><p><strong>torch_save_path</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.15)"><em>PathLike</em></a>) – Filename to store the converted Torch save file.</p></li>
 </ul>
 </dd>
 </dl>
@@ -8979,8 +8979,8 @@ Torch save file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>torch_save_path</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.14)"><em>PathLike</em></a>) – Filename of the Torch save file.</p></li>
-<li><p><strong>dcp_checkpoint_dir</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.14)"><em>PathLike</em></a>) – Directory to store the DCP checkpoint.</p></li>
+<li><p><strong>torch_save_path</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.15)"><em>PathLike</em></a>) – Filename of the Torch save file.</p></li>
+<li><p><strong>dcp_checkpoint_dir</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.15)"><em>PathLike</em></a>) – Directory to store the DCP checkpoint.</p></li>
 </ul>
 </dd>
 </dl>
@@ -9018,7 +9018,7 @@ on the coordinator rank, and then broadcast and shard each tensor to all ranks.<
 <dd><p>Implementation of the StorageReader method</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference internal" href="#torch.distributed.checkpoint.LoadPlan" title="torch.distributed.checkpoint.planner.LoadPlan"><em>LoadPlan</em></a>]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)">list</a>[<a class="reference internal" href="#torch.distributed.checkpoint.LoadPlan" title="torch.distributed.checkpoint.planner.LoadPlan"><em>LoadPlan</em></a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -9080,7 +9080,7 @@ the entire checkpoint on each rank, hopefully preventing OOM issues</p>
 <dd><p>Implementation of the StorageReader method</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)">bool</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>

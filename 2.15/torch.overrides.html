@@ -7163,7 +7163,7 @@ be overridden with <code class="docutils literal notranslate"><span class="pre">
 arguments of these functions are tensors or tensor-likes.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#set" title="(in Python v3.14)">set</a>[Callable]</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#set" title="(in Python v3.15)">set</a>[Callable]</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
@@ -7204,7 +7204,7 @@ __torch_function__</p>
 function.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -7246,8 +7246,8 @@ function in the C++ implementation.</p>
 <code class="docutils literal notranslate"><span class="pre">public_api(*args,</span> <span class="pre">**kwargs)</span></code> on which arguments are now being
 checked.</p></li>
 <li><p><strong>relevant_args</strong> (<em>iterable</em>) – Iterable of arguments to check for __torch_function__ methods.</p></li>
-<li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a>) – Arbitrary positional arguments originally passed into <code class="docutils literal notranslate"><span class="pre">public_api</span></code>.</p></li>
-<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a>) – Arbitrary keyword arguments originally passed into <code class="docutils literal notranslate"><span class="pre">public_api</span></code>.</p></li>
+<li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.15)"><em>tuple</em></a>) – Arbitrary positional arguments originally passed into <code class="docutils literal notranslate"><span class="pre">public_api</span></code>.</p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.15)"><em>tuple</em></a>) – Arbitrary keyword arguments originally passed into <code class="docutils literal notranslate"><span class="pre">public_api</span></code>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -7255,7 +7255,7 @@ checked.</p></li>
 method, as appropriate.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.14)">object</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)">object</a></p>
 </dd>
 </dl>
 <p>:raises TypeError : if no implementation is found.:</p>
@@ -7284,7 +7284,7 @@ is Tensor-like, use <a class="reference internal" href="#torch.overrides.is_tens
 implementations, False otherwise.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)">bool</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)">bool</a></p>
 </dd>
 </dl>
 <div class="admonition seealso">
@@ -7355,7 +7355,7 @@ of <code class="docutils literal notranslate"><span class="pre">torch.Tensor</sp
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)">bool</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -7369,7 +7369,7 @@ of <code class="docutils literal notranslate"><span class="pre">torch.Tensor</sp
 <dd class="field-odd"><p><strong>dispatcher</strong> (<em>Callable</em>) – A callable that returns an iterable of Tensor-likes passed into the function.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.14)"><em>Callable</em></a>[[<a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.14)"><em>Callable</em></a>[[~_P], <em>_R</em>]], <a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.14)"><em>Callable</em></a>[[~_P], <em>_R</em>]]</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.15)"><em>Callable</em></a>[[<a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.15)"><em>Callable</em></a>[[~_P], <em>_R</em>]], <a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.15)"><em>Callable</em></a>[[~_P], <em>_R</em>]]</p>
 </dd>
 </dl>
 <div class="admonition note">

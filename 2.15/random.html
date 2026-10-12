@@ -7160,17 +7160,17 @@ the RNG. CPU RNG state is always forked. By default, <a class="reference interna
 on all devices, but will emit a warning if your machine has a lot
 of devices, since this function will run very slowly in that case.
 If you explicitly specify devices, this warning will be suppressed</p></li>
-<li><p><strong>enabled</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – if <code class="docutils literal notranslate"><span class="pre">False</span></code>, the RNG is not forked.  This is a convenience
+<li><p><strong>enabled</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a>) – if <code class="docutils literal notranslate"><span class="pre">False</span></code>, the RNG is not forked.  This is a convenience
 argument for easily disabling the context manager without having
 to delete it and unindent your Python code under it.</p></li>
-<li><p><strong>device_type</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – device type str, default is <code class="docutils literal notranslate"><span class="pre">None</span></code>, in which case the type
+<li><p><strong>device_type</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a>) – device type str, default is <code class="docutils literal notranslate"><span class="pre">None</span></code>, in which case the type
 is taken from <a class="reference internal" href="generated/torch.accelerator.current_accelerator.html#torch.accelerator.current_accelerator" title="torch.accelerator.current_accelerator"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.accelerator.current_accelerator()</span></code></a>, falling back
 to <code class="docutils literal notranslate"><span class="pre">&quot;cuda&quot;</span></code> when the type cannot be determined. As for supported devices,
 see details in <a class="reference internal" href="torch.html#accelerators"><span class="std std-ref">accelerator</span></a></p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Generator" title="(in Python v3.14)"><em>Generator</em></a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Generator" title="(in Python v3.15)"><em>Generator</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -7202,7 +7202,7 @@ Python <cite>long</cite>.</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)">int</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)">int</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -7214,7 +7214,7 @@ Python <cite>long</cite>.</p>
 <cite>torch.Generator</cite> object.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>seed</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – The desired seed. Value must be within the inclusive range
+<dd class="field-odd"><p><strong>seed</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – The desired seed. Value must be within the inclusive range
 <cite>[-0x8000_0000_0000_0000, 0xffff_ffff_ffff_ffff]</cite>. Otherwise, a RuntimeError
 is raised. Negative inputs are remapped to positive values with the formula
 <cite>0xffff_ffff_ffff_ffff + seed</cite>.</p>
@@ -7232,7 +7232,7 @@ is raised. Negative inputs are remapped to positive values with the formula
 random number on all devices. Returns a 64 bit number used to seed the RNG.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)">int</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)">int</a></p>
 </dd>
 </dl>
 </dd></dl>

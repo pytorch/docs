@@ -3834,9 +3834,9 @@ total norm.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>parameters</strong> (<em>Iterable</em><em>[</em><a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a><em>] or </em><a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a>) – an iterable of Tensors or a
 single Tensor that will have gradients normalized</p></li>
-<li><p><strong>max_norm</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – max norm of the gradients</p></li>
+<li><p><strong>max_norm</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><em>float</em></a>) – max norm of the gradients</p></li>
 <li><p><strong>total_norm</strong> (<a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a>) – total norm of the gradients to use for clipping</p></li>
-<li><p><strong>foreach</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – use the faster foreach-based implementation.
+<li><p><strong>foreach</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a>) – use the faster foreach-based implementation.
 If <code class="docutils literal notranslate"><span class="pre">None</span></code>, use the foreach implementation for CUDA and CPU native tensors and silently
 fall back to the slow implementation for other device types.
 Default: <code class="docutils literal notranslate"><span class="pre">None</span></code></p></li>

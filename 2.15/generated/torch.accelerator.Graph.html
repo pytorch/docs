@@ -3622,13 +3622,13 @@ to automatically capture operations on the current stream.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>keep_graph</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – If <code class="docutils literal notranslate"><span class="pre">False</span></code>, the underlying graph is destroyed and the
+<li><p><strong>keep_graph</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a><em>, </em><em>optional</em>) – If <code class="docutils literal notranslate"><span class="pre">False</span></code>, the underlying graph is destroyed and the
 executable graph is instantiated on the GPU at the end of <code class="docutils literal notranslate"><span class="pre">capture_end</span></code>.
 If <code class="docutils literal notranslate"><span class="pre">True</span></code>, the underlying graph is preserved after <code class="docutils literal notranslate"><span class="pre">capture_end</span></code>. In this case,
 the executable graph is not instantiated automatically; it must be explicitly created
 by calling <code class="docutils literal notranslate"><span class="pre">instantiate</span></code>, or it will be instantiated on the first call to <code class="docutils literal notranslate"><span class="pre">replay</span></code>.
 Defaults to <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
-<li><p><strong>pool</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>]</em><em>, </em><em>optional</em>) – Memory pool identifier for this graph. Multiple graphs
+<li><p><strong>pool</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.15)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a><em>]</em><em>, </em><em>optional</em>) – Memory pool identifier for this graph. Multiple graphs
 can share the same pool by passing the same identifier, which can reduce memory overhead.
 Defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
 <li><p><strong>capture_error_mode</strong> (<em>Literal</em><em>[</em><em>&quot;default&quot;</em><em>, </em><em>&quot;global&quot;</em><em>, </em><em>&quot;thread_local&quot;</em><em>, </em><em>&quot;relaxed&quot;</em><em>]</em><em>, </em><em>optional</em>) – Specifies the behavior of graph capture. The exact semantics are backend-specific.
@@ -3643,7 +3643,7 @@ Default: <code class="docutils literal notranslate"><span class="pre">&quot;defa
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Self" title="(in Python v3.14)"><em>Self</em></a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Self" title="(in Python v3.15)"><em>Self</em></a></p>
 </dd>
 </dl>
 <p>Example:</p>
@@ -3683,7 +3683,7 @@ Default: <code class="docutils literal notranslate"><span class="pre">&quot;defa
 enabled via <code class="docutils literal notranslate"><span class="pre">enable_debug_mode</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Path to dump the graph to.</p>
+<dd class="field-odd"><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a>) – Path to dump the graph to.</p>
 </dd>
 </dl>
 <dl>
@@ -3744,7 +3744,7 @@ which hints the other graph may share the same memory pool.</p>
 </dl>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)">tuple</a>[<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)">int</a>, <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)">int</a>]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.15)">tuple</a>[<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)">int</a>, <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)">int</a>]</p>
 </dd>
 </dl>
 </dd></dl>

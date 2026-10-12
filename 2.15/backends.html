@@ -7180,7 +7180,7 @@ document.write(`
 - “SVE256”</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -7199,7 +7199,7 @@ binary were run on a machine with working CUDA drivers and devices, we would be 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="torch.backends.cuda.matmul.fp32_precision">
 <span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.matmul.</span></span><span class="sig-name descname"><span class="pre">fp32_precision</span></span><a class="headerlink" href="#torch.backends.cuda.matmul.fp32_precision" title="Link to this definition">#</a></dt>
-<dd><p>A <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> that controls the internal computation precision of CUDA
+<dd><p>A <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> that controls the internal computation precision of CUDA
 matrix multiplications with FP32 inputs and outputs. Supported values are
 <code class="docutils literal notranslate"><span class="pre">&quot;ieee&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;tf32&quot;</span></code>, and <code class="docutils literal notranslate"><span class="pre">&quot;bfx9&quot;</span></code>. The <code class="docutils literal notranslate"><span class="pre">&quot;bfx9&quot;</span></code> value allows
 cuBLAS BF16x9 and requires a PyTorch build with CUDA 12.9 or newer. BF16x9
@@ -7210,14 +7210,14 @@ cuBLAS uses native FP32 on other architectures. See <a class="reference internal
 <dl class="py attribute">
 <dt class="sig sig-object py" id="torch.backends.cuda.matmul.allow_tf32">
 <span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.matmul.</span></span><span class="sig-name descname"><span class="pre">allow_tf32</span></span><a class="headerlink" href="#torch.backends.cuda.matmul.allow_tf32" title="Link to this definition">#</a></dt>
-<dd><p>A <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a> that controls whether TensorFloat-32 tensor cores may be used in matrix
+<dd><p>A <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a> that controls whether TensorFloat-32 tensor cores may be used in matrix
 multiplications on Ampere or newer GPUs. allow_tf32 is going to be deprecated. See <a class="reference internal" href="notes/cuda.html#tf32-on-ampere"><span class="std std-ref">TensorFloat-32 (TF32) on Ampere (and later) devices</span></a>.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="torch.backends.cuda.matmul.allow_fp16_reduced_precision_reduction">
 <span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.matmul.</span></span><span class="sig-name descname"><span class="pre">allow_fp16_reduced_precision_reduction</span></span><a class="headerlink" href="#torch.backends.cuda.matmul.allow_fp16_reduced_precision_reduction" title="Link to this definition">#</a></dt>
-<dd><p>A <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a> that controls whether reduced precision reductions (e.g.,
+<dd><p>A <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a> that controls whether reduced precision reductions (e.g.,
 with fp16 accumulation type) are allowed with fp16 GEMMs.
 For tuple assignment and split-k behavior, see
 <a class="reference internal" href="notes/cuda.html#fp16reducedprecision"><span class="std std-ref">Reduced Precision Reduction in FP16 GEMMs</span></a>.</p>
@@ -7226,7 +7226,7 @@ For tuple assignment and split-k behavior, see
 <dl class="py attribute">
 <dt class="sig sig-object py" id="torch.backends.cuda.matmul.allow_fp16_reduced_precision_reduction_split_k">
 <span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.matmul.</span></span><span class="sig-name descname"><span class="pre">allow_fp16_reduced_precision_reduction_split_k</span></span><a class="headerlink" href="#torch.backends.cuda.matmul.allow_fp16_reduced_precision_reduction_split_k" title="Link to this definition">#</a></dt>
-<dd><p>A readonly <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a> that reports whether split-K heuristics may be used
+<dd><p>A readonly <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a> that reports whether split-K heuristics may be used
 for fp16 GEMMs when dispatching to cuBLASLt. For how this value is
 controlled, see
 <a class="reference internal" href="notes/cuda.html#fp16reducedprecision"><span class="std std-ref">Reduced Precision Reduction in FP16 GEMMs</span></a>.</p>
@@ -7235,14 +7235,14 @@ controlled, see
 <dl class="py attribute">
 <dt class="sig sig-object py" id="torch.backends.cuda.matmul.prefer_cublaslt_grouped_gemm">
 <span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.matmul.</span></span><span class="sig-name descname"><span class="pre">prefer_cublaslt_grouped_gemm</span></span><a class="headerlink" href="#torch.backends.cuda.matmul.prefer_cublaslt_grouped_gemm" title="Link to this definition">#</a></dt>
-<dd><p>A <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a> that controls whether supported grouped GEMMs prefer the
+<dd><p>A <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a> that controls whether supported grouped GEMMs prefer the
 cuBLASLt backend.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="torch.backends.cuda.matmul.allow_bf16_reduced_precision_reduction">
 <span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.matmul.</span></span><span class="sig-name descname"><span class="pre">allow_bf16_reduced_precision_reduction</span></span><a class="headerlink" href="#torch.backends.cuda.matmul.allow_bf16_reduced_precision_reduction" title="Link to this definition">#</a></dt>
-<dd><p>A <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a> that controls whether reduced precision reductions are
+<dd><p>A <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a> that controls whether reduced precision reductions are
 allowed with bf16 GEMMs.
 For tuple assignment and split-k behavior, see
 <a class="reference internal" href="notes/cuda.html#bf16reducedprecision"><span class="std std-ref">Reduced Precision Reduction in BF16 GEMMs</span></a>.</p>
@@ -7251,7 +7251,7 @@ For tuple assignment and split-k behavior, see
 <dl class="py attribute">
 <dt class="sig sig-object py" id="torch.backends.cuda.matmul.allow_bf16_reduced_precision_reduction_split_k">
 <span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.matmul.</span></span><span class="sig-name descname"><span class="pre">allow_bf16_reduced_precision_reduction_split_k</span></span><a class="headerlink" href="#torch.backends.cuda.matmul.allow_bf16_reduced_precision_reduction_split_k" title="Link to this definition">#</a></dt>
-<dd><p>A readonly <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a> that reports whether split-K heuristics may be used
+<dd><p>A readonly <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a> that reports whether split-K heuristics may be used
 for bf16 GEMMs when dispatching to cuBLASLt. For how this value is
 controlled, see
 <a class="reference internal" href="notes/cuda.html#bf16reducedprecision"><span class="std std-ref">Reduced Precision Reduction in BF16 GEMMs</span></a>.</p>
@@ -7265,13 +7265,13 @@ Query a specific device <cite>i</cite>’s cache via <cite>torch.backends.cuda.c
 <dl class="py attribute">
 <dt class="sig sig-object py" id="torch.backends.cuda.cufft_plan_cache.size">
 <span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.cufft_plan_cache.</span></span><span class="sig-name descname"><span class="pre">size</span></span><a class="headerlink" href="#torch.backends.cuda.cufft_plan_cache.size" title="Link to this definition">#</a></dt>
-<dd><p>A readonly <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a> that shows the number of plans currently in a cuFFT plan cache.</p>
+<dd><p>A readonly <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a> that shows the number of plans currently in a cuFFT plan cache.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="torch.backends.cuda.cufft_plan_cache.max_size">
 <span class="sig-prename descclassname"><span class="pre">torch.backends.cuda.cufft_plan_cache.</span></span><span class="sig-name descname"><span class="pre">max_size</span></span><a class="headerlink" href="#torch.backends.cuda.cufft_plan_cache.max_size" title="Link to this definition">#</a></dt>
-<dd><p>A <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a> that controls the capacity of a cuFFT plan cache.</p>
+<dd><p>A <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a> that controls the capacity of a cuFFT plan cache.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -7292,7 +7292,7 @@ Query a specific device <cite>i</cite>’s cache via <cite>torch.backends.cuda.c
 </div>
 <p>When PyTorch runs a CUDA BLAS operation it defaults to cuBLAS even if both cuBLAS and cuBLASLt are available.
 For PyTorch built for ROCm, hipBLAS, hipBLASLt, and CK may offer different performance.
-This flag (a <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) allows overriding which BLAS library to use.</p>
+This flag (a <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) allows overriding which BLAS library to use.</p>
 <ul class="simple">
 <li><p>If <cite>“cublas”</cite> is set then cuBLAS will be used wherever possible.</p></li>
 <li><p>If <cite>“cublaslt”</cite> is set then cuBLASLt will be used wherever possible.</p></li>
@@ -7326,13 +7326,13 @@ Changes affect subsequent cuBLAS operations. When workspace caching is enabled,
 cached allocations are resized lazily as their handle and stream pairs are used.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>size</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) – workspace size in bytes. Must be non-negative.</p>
+<dd class="field-odd"><p><strong>size</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a><em>, </em><em>optional</em>) – workspace size in bytes. Must be non-negative.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>the current (or newly set) workspace size in bytes.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)">int</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)">int</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -7348,13 +7348,13 @@ Changes affect subsequent cuBLASLt operations. When workspace caching is enabled
 cached allocations are resized lazily as their handle and stream pairs are used.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>size</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) – workspace size in bytes. Must be non-negative.</p>
+<dd class="field-odd"><p><strong>size</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a><em>, </em><em>optional</em>) – workspace size in bytes. Must be non-negative.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>the current (or newly set) workspace size in bytes.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)">int</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)">int</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -7387,9 +7387,9 @@ CUBLASLT_WORKSPACE_SIZE environment variable.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>size</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) – workspace size in bytes.  Must be non-negative.
+<li><p><strong>size</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a><em>, </em><em>optional</em>) – workspace size in bytes.  Must be non-negative.
 When omitted the current size is returned without modification.</p></li>
-<li><p><strong>backend</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em> | </em><em>torch._C._BlasBackend</em><em>, </em><em>optional</em>) – which backend’s
+<li><p><strong>backend</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em> | </em><em>torch._C._BlasBackend</em><em>, </em><em>optional</em>) – which backend’s
 workspace to query/set.  Accepts the same strings as
 <a class="reference internal" href="#torch.backends.cuda.preferred_blas_library" title="torch.backends.cuda.preferred_blas_library"><code class="xref py py-func docutils literal notranslate"><span class="pre">preferred_blas_library()</span></code></a> (e.g. <code class="docutils literal notranslate"><span class="pre">&quot;cublas&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;cublaslt&quot;</span></code>).</p></li>
 </ul>
@@ -7398,10 +7398,10 @@ workspace to query/set.  Accepts the same strings as
 <dd class="field-even"><p>the current (or newly set) workspace size in bytes.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)">int</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)">int</a></p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#RuntimeError" title="(in Python v3.14)"><strong>RuntimeError</strong></a> – if the resolved backend is CK (no workspace concept).</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#RuntimeError" title="(in Python v3.15)"><strong>RuntimeError</strong></a> – if the resolved backend is CK (no workspace concept).</p>
 </dd>
 </dl>
 </dd></dl>
@@ -7416,7 +7416,7 @@ Override the backend PyTorch uses in ROCm environments for Flash Attention. Choo
 <p>This flag is experimental and subject to change.</p>
 </div>
 <p>When Flash Attention is enabled and desired, PyTorch defaults to using AOTriton as the backend.
-This flag (a <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) allows users to override this backend to use composable_kernel</p>
+This flag (a <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) allows users to override this backend to use composable_kernel</p>
 <ul class="simple">
 <li><p>If <cite>“default”</cite> is set then the default backend will be used wherever possible. Currently AOTriton.</p></li>
 <li><p>If <cite>“aotriton”</cite> is set then AOTriton will be used wherever possible.</p></li>
@@ -7447,7 +7447,7 @@ for your application’s inputs.</p>
 scaled-dot-product-attention.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)">bool</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -7462,7 +7462,7 @@ scaled-dot-product-attention.</p>
 </div>
 <p>When PyTorch runs a CUDA linear algebra operation it often uses the cuSOLVER or MAGMA libraries,
 and if both are available it decides which to use with a heuristic.
-This flag (a <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) allows overriding those heuristics.</p>
+This flag (a <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) allows overriding those heuristics.</p>
 <ul class="simple">
 <li><p>If <cite>“cusolver”</cite> is set then cuSOLVER will be used wherever possible.</p></li>
 <li><p>If <cite>“magma”</cite> is set then MAGMA will be used wherever possible.</p></li>
@@ -7626,7 +7626,7 @@ for your application’s inputs.</p>
 <dd class="field-odd"><p>True if FlashAttention is built and available; otherwise, False.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)">bool</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)">bool</a></p>
 </dd>
 </dl>
 <div class="admonition note">
@@ -7646,7 +7646,7 @@ in non-CUDA environments.</p>
 <li><p><strong>params</strong> (<a class="reference internal" href="#torch.backends.cuda.SDPAParams" title="torch.backends.cuda._SDPAParams"><em>_SDPAParams</em></a>) – An instance of SDPAParams containing the tensors for query,
 key, value, an optional attention mask, dropout rate, and
 a flag indicating if the attention is causal.</p></li>
-<li><p><strong>debug</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Whether to logging.warn debug information as to why FlashAttention could not be run.
+<li><p><strong>debug</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a>) – Whether to logging.warn debug information as to why FlashAttention could not be run.
 Defaults to False.</p></li>
 </ul>
 </dd>
@@ -7654,7 +7654,7 @@ Defaults to False.</p></li>
 <dd class="field-even"><p>True if FlashAttention can be used with the given parameters; otherwise, False.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)">bool</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)">bool</a></p>
 </dd>
 </dl>
 <div class="admonition note">
@@ -7674,7 +7674,7 @@ in non-CUDA environments.</p>
 <li><p><strong>params</strong> (<a class="reference internal" href="#torch.backends.cuda.SDPAParams" title="torch.backends.cuda._SDPAParams"><em>_SDPAParams</em></a>) – An instance of SDPAParams containing the tensors for query,
 key, value, an optional attention mask, dropout rate, and
 a flag indicating if the attention is causal.</p></li>
-<li><p><strong>debug</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Whether to logging.warn with information as to why efficient_attention could not be run.
+<li><p><strong>debug</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a>) – Whether to logging.warn with information as to why efficient_attention could not be run.
 Defaults to False.</p></li>
 </ul>
 </dd>
@@ -7682,7 +7682,7 @@ Defaults to False.</p></li>
 <dd class="field-even"><p>True if efficient_attention can be used with the given parameters; otherwise, False.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)">bool</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)">bool</a></p>
 </dd>
 </dl>
 <div class="admonition note">
@@ -7702,7 +7702,7 @@ in non-CUDA environments.</p>
 <li><p><strong>params</strong> (<a class="reference internal" href="#torch.backends.cuda.SDPAParams" title="torch.backends.cuda._SDPAParams"><em>_SDPAParams</em></a>) – An instance of SDPAParams containing the tensors for query,
 key, value, an optional attention mask, dropout rate, and
 a flag indicating if the attention is causal.</p></li>
-<li><p><strong>debug</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Whether to logging.warn with information as to why cuDNN attention could not be run.
+<li><p><strong>debug</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a>) – Whether to logging.warn with information as to why cuDNN attention could not be run.
 Defaults to False.</p></li>
 </ul>
 </dd>
@@ -7710,7 +7710,7 @@ Defaults to False.</p></li>
 <dd class="field-even"><p>True if cuDNN can be used with the given parameters; otherwise, False.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)">bool</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)">bool</a></p>
 </dd>
 </dl>
 <div class="admonition note">
@@ -7751,20 +7751,20 @@ Upon exiting the context manager, the previous state of the flags will be restor
 <dl class="py attribute">
 <dt class="sig sig-object py" id="torch.backends.cudnn.enabled">
 <span class="sig-prename descclassname"><span class="pre">torch.backends.cudnn.</span></span><span class="sig-name descname"><span class="pre">enabled</span></span><a class="headerlink" href="#torch.backends.cudnn.enabled" title="Link to this definition">#</a></dt>
-<dd><p>A <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a> that controls whether cuDNN is enabled.</p>
+<dd><p>A <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a> that controls whether cuDNN is enabled.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="torch.backends.cudnn.allow_tf32">
 <span class="sig-prename descclassname"><span class="pre">torch.backends.cudnn.</span></span><span class="sig-name descname"><span class="pre">allow_tf32</span></span><a class="headerlink" href="#torch.backends.cudnn.allow_tf32" title="Link to this definition">#</a></dt>
-<dd><p>A <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a> that controls where TensorFloat-32 tensor cores may be used in cuDNN
+<dd><p>A <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a> that controls where TensorFloat-32 tensor cores may be used in cuDNN
 convolutions on Ampere or newer GPUs. allow_tf32 is going to be deprecated. See <a class="reference internal" href="notes/cuda.html#tf32-on-ampere"><span class="std std-ref">TensorFloat-32 (TF32) on Ampere (and later) devices</span></a>.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="torch.backends.cudnn.deterministic">
 <span class="sig-prename descclassname"><span class="pre">torch.backends.cudnn.</span></span><span class="sig-name descname"><span class="pre">deterministic</span></span><a class="headerlink" href="#torch.backends.cudnn.deterministic" title="Link to this definition">#</a></dt>
-<dd><p>A <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a> that, if True, causes cuDNN to only use deterministic convolution algorithms.
+<dd><p>A <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a> that, if True, causes cuDNN to only use deterministic convolution algorithms.
 See also <a class="reference internal" href="generated/torch.are_deterministic_algorithms_enabled.html#torch.are_deterministic_algorithms_enabled" title="torch.are_deterministic_algorithms_enabled"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.are_deterministic_algorithms_enabled()</span></code></a> and
 <a class="reference internal" href="generated/torch.use_deterministic_algorithms.html#torch.use_deterministic_algorithms" title="torch.use_deterministic_algorithms"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.use_deterministic_algorithms()</span></code></a>.</p>
 </dd></dl>
@@ -7772,14 +7772,14 @@ See also <a class="reference internal" href="generated/torch.are_deterministic_a
 <dl class="py attribute">
 <dt class="sig sig-object py" id="torch.backends.cudnn.benchmark">
 <span class="sig-prename descclassname"><span class="pre">torch.backends.cudnn.</span></span><span class="sig-name descname"><span class="pre">benchmark</span></span><a class="headerlink" href="#torch.backends.cudnn.benchmark" title="Link to this definition">#</a></dt>
-<dd><p>A <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a> that, if True, causes cuDNN to benchmark multiple convolution algorithms
+<dd><p>A <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a> that, if True, causes cuDNN to benchmark multiple convolution algorithms
 and select the fastest.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="torch.backends.cudnn.benchmark_limit">
 <span class="sig-prename descclassname"><span class="pre">torch.backends.cudnn.</span></span><span class="sig-name descname"><span class="pre">benchmark_limit</span></span><a class="headerlink" href="#torch.backends.cudnn.benchmark_limit" title="Link to this definition">#</a></dt>
-<dd><p>A <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a> that specifies the maximum number of cuDNN convolution algorithms to try when
+<dd><p>A <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a> that specifies the maximum number of cuDNN convolution algorithms to try when
 <cite>torch.backends.cudnn.benchmark</cite> is True. Set <cite>benchmark_limit</cite> to zero to try every
 available algorithm. Note that this setting only affects convolutions dispatched via the
 cuDNN v8 API.</p>
@@ -7794,7 +7794,7 @@ cuDNN v8 API.</p>
 <dd><p>Return the version of cuSPARSELt</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)">int</a> | None</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)">int</a> | None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -7805,7 +7805,7 @@ cuDNN v8 API.</p>
 <dd><p>Return a bool indicating if cuSPARSELt is currently available.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)">bool</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -7815,7 +7815,7 @@ cuDNN v8 API.</p>
 <span class="sig-prename descclassname"><span class="pre">torch.backends.cusparselt.</span></span><span class="sig-name descname"><span class="pre">get_max_alg_id</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/v2.15.0/torch/backends/cusparselt/__init__.py#L54"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.backends.cusparselt.get_max_alg_id" title="Link to this definition">#</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)">int</a> | None</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)">int</a> | None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -7835,7 +7835,7 @@ is enabled, or <code class="docutils literal notranslate"><span class="pre">True
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)">bool</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -7854,7 +7854,7 @@ is enabled, or <code class="docutils literal notranslate"><span class="pre">True
 <dl class="py attribute">
 <dt class="sig sig-object py" id="torch.backends.miopen.immediate">
 <span class="sig-prename descclassname"><span class="pre">torch.backends.miopen.</span></span><span class="sig-name descname"><span class="pre">immediate</span></span><a class="headerlink" href="#torch.backends.miopen.immediate" title="Link to this definition">#</a></dt>
-<dd><p>A <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a> that, if True, causes MIOpen to use Immediate Mode
+<dd><p>A <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a> that, if True, causes MIOpen to use Immediate Mode
 (<a class="reference external" href="https://rocm.docs.amd.com/projects/MIOpen/en/latest/how-to/find-and-immediate.html">https://rocm.docs.amd.com/projects/MIOpen/en/latest/how-to/find-and-immediate.html</a>).</p>
 </dd></dl>
 
@@ -7867,7 +7867,7 @@ is enabled, or <code class="docutils literal notranslate"><span class="pre">True
 <dd><p>Return a bool indicating if MPS is currently available.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)">bool</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -7881,7 +7881,7 @@ if this PyTorch binary were run on a machine with working MPS drivers
 and devices, we would be able to use it.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)">bool</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -7895,7 +7895,7 @@ One execution Unit has 8 ALUs.
 And one ALU can run 24 threads, i.e. one core is capable of executing 3072 threads concurrently.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)">int</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)">int</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -7906,7 +7906,7 @@ And one ALU can run 24 threads, i.e. one core is capable of executing 3072 threa
 <dd><p>Return Metal device name</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -7917,7 +7917,7 @@ And one ALU can run 24 threads, i.e. one core is capable of executing 3072 threa
 <dd><p>Return a bool indicating whether MPS is running on MacOS 13 or newer.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)">bool</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -7928,7 +7928,7 @@ And one ALU can run 24 threads, i.e. one core is capable of executing 3072 threa
 <dd><p>Return a bool indicating whether MPS is running on given MacOS or newer.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)">bool</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -8061,7 +8061,7 @@ it automatically and use it accordingly. Use this function to check whether opt-
 was installed and properly imported by torch.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)">bool</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -8072,7 +8072,7 @@ was installed and properly imported by torch.</p>
 <dd><p>Return the opt_einsum package if opt_einsum is currently available, else None.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -8080,7 +8080,7 @@ was installed and properly imported by torch.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="torch.backends.opt_einsum.enabled">
 <span class="sig-prename descclassname"><span class="pre">torch.backends.opt_einsum.</span></span><span class="sig-name descname"><span class="pre">enabled</span></span><a class="headerlink" href="#torch.backends.opt_einsum.enabled" title="Link to this definition">#</a></dt>
-<dd><p>A <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a> that controls whether opt_einsum is enabled (<code class="docutils literal notranslate"><span class="pre">True</span></code> by default). If so,
+<dd><p>A <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a> that controls whether opt_einsum is enabled (<code class="docutils literal notranslate"><span class="pre">True</span></code> by default). If so,
 torch.einsum will use opt_einsum (<a class="reference external" href="https://optimized-einsum.readthedocs.io/en/stable/path_finding.html">https://optimized-einsum.readthedocs.io/en/stable/path_finding.html</a>)
 if available to calculate an optimal path of contraction for faster performance.</p>
 <p>If opt_einsum is not available, torch.einsum will fall back to the default contraction path
@@ -8090,7 +8090,7 @@ of left to right.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="torch.backends.opt_einsum.strategy">
 <span class="sig-prename descclassname"><span class="pre">torch.backends.opt_einsum.</span></span><span class="sig-name descname"><span class="pre">strategy</span></span><a class="headerlink" href="#torch.backends.opt_einsum.strategy" title="Link to this definition">#</a></dt>
-<dd><p>A <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> that specifies which strategies to try when <code class="docutils literal notranslate"><span class="pre">torch.backends.opt_einsum.enabled</span></code>
+<dd><p>A <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> that specifies which strategies to try when <code class="docutils literal notranslate"><span class="pre">torch.backends.opt_einsum.enabled</span></code>
 is <code class="docutils literal notranslate"><span class="pre">True</span></code>. By default, torch.einsum will try the “auto” strategy, but the “greedy” and “optimal”
 strategies are also supported. Note that the “optimal” strategy is factorial on the number of
 inputs as it tries all possible paths. See more details in opt_einsum’s docs
@@ -8112,8 +8112,8 @@ enable or disable high-performance implementations from various DSLs like Triton
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>dsl_name</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Name of the DSL to query (e.g., ‘triton’, ‘cutedsl’).</p></li>
-<li><p><strong>lib_symbol</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Namespace to report on, <code class="docutils literal notranslate"><span class="pre">&quot;aten&quot;</span></code> by default.
+<li><p><strong>dsl_name</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a>) – Name of the DSL to query (e.g., ‘triton’, ‘cutedsl’).</p></li>
+<li><p><strong>lib_symbol</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a>) – Namespace to report on, <code class="docutils literal notranslate"><span class="pre">&quot;aten&quot;</span></code> by default.
 One namespace per call: op symbols are unique within a
 namespace but not across them.</p></li>
 </ul>
@@ -8123,7 +8123,7 @@ namespace but not across them.</p></li>
 <code class="docutils literal notranslate"><span class="pre">lib_symbol</span></code>.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)">str</a>]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)">list</a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)">str</a>]</p>
 </dd>
 </dl>
 <p>Example:</p>
@@ -8139,7 +8139,7 @@ namespace but not across them.</p></li>
 <dd><p>Disable specific operations across all DSLs.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>*op_symbols</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Names of operations to disable.</p>
+<dd class="field-odd"><p><strong>*op_symbols</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a>) – Names of operations to disable.</p>
 </dd>
 </dl>
 <p>Example:</p>
@@ -8160,7 +8160,7 @@ namespace but not across them.</p></li>
 <dd><p>Re-enable specific operations across all DSLs.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>*op_symbols</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Names of operations to re-enable.</p>
+<dd class="field-odd"><p><strong>*op_symbols</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a>) – Names of operations to re-enable.</p>
 </dd>
 </dl>
 <p>Example:</p>
@@ -8178,7 +8178,7 @@ namespace but not across them.</p></li>
 <dd><p>Disable operations at specific dispatch keys.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>*dispatch_keys</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Dispatch keys to disable (e.g., ‘CUDA’, ‘CPU’).</p>
+<dd class="field-odd"><p><strong>*dispatch_keys</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a>) – Dispatch keys to disable (e.g., ‘CUDA’, ‘CPU’).</p>
 </dd>
 </dl>
 <p>Example:</p>
@@ -8194,7 +8194,7 @@ namespace but not across them.</p></li>
 <dd><p>Re-enable operations at specific dispatch keys.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>*dispatch_keys</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Dispatch keys to re-enable (e.g., ‘CUDA’, ‘CPU’).</p>
+<dd class="field-odd"><p><strong>*dispatch_keys</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a>) – Dispatch keys to re-enable (e.g., ‘CUDA’, ‘CPU’).</p>
 </dd>
 </dl>
 <p>Example:</p>
@@ -8210,7 +8210,7 @@ namespace but not across them.</p></li>
 <dd><p>Context manager to temporarily disable operations.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>*op_symbols</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Names of operations to temporarily disable.</p>
+<dd class="field-odd"><p><strong>*op_symbols</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a>) – Names of operations to temporarily disable.</p>
 </dd>
 </dl>
 <p>Example:</p>
@@ -8228,14 +8228,14 @@ namespace but not across them.</p></li>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="torch.backends.python_native.available_dsls">
 <span class="sig-prename descclassname"><span class="pre">torch.backends.python_native.</span></span><span class="sig-name descname"><span class="pre">available_dsls</span></span><a class="headerlink" href="#torch.backends.python_native.available_dsls" title="Link to this definition">#</a></dt>
-<dd><p>A <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a> of <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> containing the names of DSLs that are available at runtime.
+<dd><p>A <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a> of <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> containing the names of DSLs that are available at runtime.
 This is a subset of <a class="reference internal" href="#torch.backends.python_native.all_dsls" title="torch.backends.python_native.all_dsls"><code class="xref py py-attr docutils literal notranslate"><span class="pre">all_dsls</span></code></a> that have their runtime dependencies satisfied.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="torch.backends.python_native.all_dsls">
 <span class="sig-prename descclassname"><span class="pre">torch.backends.python_native.</span></span><span class="sig-name descname"><span class="pre">all_dsls</span></span><a class="headerlink" href="#torch.backends.python_native.all_dsls" title="Link to this definition">#</a></dt>
-<dd><p>A <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a> of <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> containing the names of all registered DSLs, whether
+<dd><p>A <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a> of <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> containing the names of all registered DSLs, whether
 available at runtime or not.</p>
 </dd></dl>
 

@@ -3858,7 +3858,7 @@ to ignore for the purpose of attention (i.e. treat as “padding”). For unbatc
 Binary and float masks are supported.
 For a binary mask, a <code class="docutils literal notranslate"><span class="pre">True</span></code> value indicates that the corresponding <code class="docutils literal notranslate"><span class="pre">key</span></code> value will be ignored for
 the purpose of attention. For a float mask, it will be directly added to the corresponding <code class="docutils literal notranslate"><span class="pre">key</span></code> value.</p></li>
-<li><p><strong>need_weights</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – If specified, returns <code class="docutils literal notranslate"><span class="pre">attn_output_weights</span></code> in addition to <code class="docutils literal notranslate"><span class="pre">attn_outputs</span></code>.
+<li><p><strong>need_weights</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a>) – If specified, returns <code class="docutils literal notranslate"><span class="pre">attn_output_weights</span></code> in addition to <code class="docutils literal notranslate"><span class="pre">attn_outputs</span></code>.
 Set <code class="docutils literal notranslate"><span class="pre">need_weights=False</span></code> to use the optimized <code class="docutils literal notranslate"><span class="pre">scaled_dot_product_attention</span></code>
 and achieve the best performance for MHA.
 Default: <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p></li>
@@ -3870,10 +3870,10 @@ Binary and float masks are supported. For a binary mask, a <code class="docutils
 corresponding position is not allowed to attend. For a float mask, the mask values will be added to
 the attention weight.
 If both attn_mask and key_padding_mask are supplied, their types should match.</p></li>
-<li><p><strong>average_attn_weights</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – If true, indicates that the returned <code class="docutils literal notranslate"><span class="pre">attn_weights</span></code> should be averaged across
+<li><p><strong>average_attn_weights</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a>) – If true, indicates that the returned <code class="docutils literal notranslate"><span class="pre">attn_weights</span></code> should be averaged across
 heads. Otherwise, <code class="docutils literal notranslate"><span class="pre">attn_weights</span></code> are provided separately per head. Note that this flag only has an
 effect when <code class="docutils literal notranslate"><span class="pre">need_weights=True</span></code>. Default: <code class="docutils literal notranslate"><span class="pre">True</span></code> (i.e. average weights across heads)</p></li>
-<li><p><strong>is_causal</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – If specified, applies a causal mask as attention mask.
+<li><p><strong>is_causal</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a>) – If specified, applies a causal mask as attention mask.
 Default: <code class="docutils literal notranslate"><span class="pre">False</span></code>.
 Warning:
 <code class="docutils literal notranslate"><span class="pre">is_causal</span></code> provides a hint that <code class="docutils literal notranslate"><span class="pre">attn_mask</span></code> is the
@@ -3883,7 +3883,7 @@ compatibility.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.14)">tuple</a>[<a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a>, <a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a> | None]</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.15)">tuple</a>[<a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a>, <a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a> | None]</p>
 </dd>
 </dl>
 <dl>

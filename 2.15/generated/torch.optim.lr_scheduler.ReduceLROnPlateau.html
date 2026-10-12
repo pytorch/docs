@@ -3647,13 +3647,13 @@ of epochs, the learning rate is reduced.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>optimizer</strong> (<a class="reference internal" href="../optim.html#torch.optim.Optimizer" title="torch.optim.Optimizer"><em>Optimizer</em></a>) – Wrapped optimizer.</p></li>
-<li><p><strong>mode</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – One of <cite>min</cite>, <cite>max</cite>. In <cite>min</cite> mode, lr will
+<li><p><strong>mode</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a>) – One of <cite>min</cite>, <cite>max</cite>. In <cite>min</cite> mode, lr will
 be reduced when the quantity monitored has stopped
 decreasing; in <cite>max</cite> mode it will be reduced when the
 quantity monitored has stopped increasing. Default: ‘min’.</p></li>
-<li><p><strong>factor</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Factor by which the learning rate will be
+<li><p><strong>factor</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><em>float</em></a>) – Factor by which the learning rate will be
 reduced. new_lr = lr * factor. Default: 0.1.</p></li>
-<li><p><strong>patience</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – The number of allowed epochs with no improvement after
+<li><p><strong>patience</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – The number of allowed epochs with no improvement after
 which the learning rate will be reduced.
 For example, consider the case of having no patience (<cite>patience = 0</cite>).
 In the first epoch, a baseline is established and is always considered good as there’s no previous baseline.
@@ -3665,9 +3665,9 @@ From the third epoch onwards, the learning rate continues to be reduced at the e
 if the performance is worse than the baseline. If the performance improves or remains the same,
 the learning rate is not adjusted.
 Default: 10.</p></li>
-<li><p><strong>threshold</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Threshold for measuring the new optimum,
+<li><p><strong>threshold</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><em>float</em></a>) – Threshold for measuring the new optimum,
 to only focus on significant changes. Default: 1e-4.</p></li>
-<li><p><strong>threshold_mode</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – <p>One of <cite>rel</cite>, <cite>abs</cite>.
+<li><p><strong>threshold_mode</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a>) – <p>One of <cite>rel</cite>, <cite>abs</cite>.
 In <cite>rel</cite> mode, the dynamic threshold is computed as:</p>
 <ul>
 <li><p>best * (1 + threshold) if mode == ‘max’</p></li>
@@ -3680,12 +3680,12 @@ In <cite>rel</cite> mode, the dynamic threshold is computed as:</p>
 </ul>
 <p>Default: ‘rel’.</p>
 </p></li>
-<li><p><strong>cooldown</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Number of epochs to wait before resuming
+<li><p><strong>cooldown</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – Number of epochs to wait before resuming
 normal operation after lr has been reduced. Default: 0.</p></li>
-<li><p><strong>min_lr</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a>) – A scalar or a list of scalars. A
+<li><p><strong>min_lr</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><em>float</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><em>list</em></a>) – A scalar or a list of scalars. A
 lower bound on the learning rate of all param groups
 or each group respectively. Default: 0.</p></li>
-<li><p><strong>eps</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Minimal decay applied to lr. If the difference
+<li><p><strong>eps</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><em>float</em></a>) – Minimal decay applied to lr. If the difference
 between new and old lr is smaller than eps, the update is
 ignored. Default: 1e-8.</p></li>
 </ul>
@@ -3708,13 +3708,13 @@ ignored. Default: 1e-8.</p></li>
 <dd><p>Get the most recent learning rates computed by this scheduler.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>A <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a> of learning rates with entries
+<dd class="field-odd"><p>A <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a> of learning rates with entries
 for each of the optimizer’s
 <code class="xref py py-attr docutils literal notranslate"><span class="pre">param_groups</span></code>, with the same types as
 their <code class="docutils literal notranslate"><span class="pre">group[&quot;lr&quot;]</span></code>s.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)">float</a> | <a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor">Tensor</a>]</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)">list</a>[<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)">float</a> | <a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor">Tensor</a>]</p>
 </dd>
 </dl>
 <div class="admonition note">
@@ -3731,12 +3731,12 @@ the optimizer’s <code class="docutils literal notranslate"><span class="pre">g
 <code class="xref py py-attr docutils literal notranslate"><span class="pre">param_groups</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>A <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a> of learning rates for each of
+<dd class="field-odd"><p>A <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a> of learning rates for each of
 the optimizer’s <code class="xref py py-attr docutils literal notranslate"><span class="pre">param_groups</span></code> with the
 same types as their current <code class="docutils literal notranslate"><span class="pre">group[&quot;lr&quot;]</span></code>s.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)">float</a> | <a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor">Tensor</a>]</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)">list</a>[<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)">float</a> | <a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor">Tensor</a>]</p>
 </dd>
 </dl>
 <div class="admonition note">
@@ -3762,12 +3762,12 @@ the optimizer’s <code class="docutils literal notranslate"><span class="pre">g
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.optim.lr_scheduler.ReduceLROnPlateau.state_dict">
 <span class="sig-name descname"><span class="pre">state_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/v2.15.0/torch/optim/lr_scheduler.py#L182"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.optim.lr_scheduler.ReduceLROnPlateau.state_dict" title="Link to this definition">#</a></dt>
-<dd><p>Return the state of the scheduler as a <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>.</p>
+<dd><p>Return the state of the scheduler as a <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>.</p>
 <p>It contains an entry for every variable in <code class="docutils literal notranslate"><span class="pre">self.__dict__</span></code> which
 is not the optimizer.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)">dict</a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)">dict</a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a>]</p>
 </dd>
 </dl>
 </dd></dl>
