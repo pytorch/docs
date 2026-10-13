@@ -1,13 +1,13 @@
 # torch.nn.functional.grouped_mm
 
-torch.nn.functional.grouped_mm(*mat_a*, *mat_b*, ***, *offs=None*, *bias=None*, *out_dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/44a629b353df33cd84f67a031bba5b6313160a1c/torch/nn/functional.py#L7200)
+torch.nn.functional.grouped_mm(*mat_a*, *mat_b*, ***, *offs=None*, *bias=None*, *out_dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/f6c4d435cf6682e89d565983c0975951782dc5e2/torch/nn/functional.py#L7200)
 
 Computes a grouped matrix multiply that shares weight shapes across experts but
 allows jagged token counts per expert, which is common in Mixture-of-Experts
-(MoE) layers. Both `mat_a` and `mat_b` must be 2D or 3D tensors that already
-satisfy the physical layout restrictions of grouped GEMM kernels (e.g., row-major
-`mat_a` and column-major `mat_b` for FP8 inputs). Inputs are currently
-expected to be `torch.bfloat16` values on CUDA devices with SM≥80SM \ge 80SM≥80.
+(MoE) layers. Both `mat_a` and `mat_b` must be 2D or 3D tensors that satisfy
+the physical layout restrictions of grouped GEMM kernels. Inputs may be
+`torch.float16`, `torch.bfloat16`, or `torch.float32` values. CUDA
+execution is supported on devices with SM≥80SM \ge 80SM≥80.
 
 Parameters:
 
@@ -26,11 +26,9 @@ delimit the jagged dimension of any 2D operand. `offs[i]` marks the end
 of group `i` and `offs[-1]` must be strictly less than the total
 length of that operand's sliced dimension; elements beyond `offs[-1]`
 are ignored.
-- **bias** ([*Tensor*](../tensors.html#torch.Tensor)*|**None*) - Optional tensor that is added to the grouped outputs. Bias is not
-jagged and must be broadcastable to the result shape of each group.
-- **out_dtype** ([*dtype*](../tensor_attributes.html#torch.dtype)*|**None*) - Optional dtype that controls the accumulation/output dtype.
-Passing `torch.float32` accumulates BF16 inputs in FP32 while keeping
-the grouped GEMM API non-differentiable.
+- **bias** ([*Tensor*](../tensors.html#torch.Tensor)*|**None*) - Reserved for future use. It must currently be `None`.
+- **out_dtype** ([*dtype*](../tensor_attributes.html#torch.dtype)*|**None*) - Optional output dtype. When provided, it must match the dtype of
+`mat_a`.
 
 Returns:
 

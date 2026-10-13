@@ -13,7 +13,7 @@
 
 # torch.utils.hooks
 
-torch.utils.hooks.unserializable_hook(*f*)[[source]](https://github.com/pytorch/pytorch/blob/44a629b353df33cd84f67a031bba5b6313160a1c/torch/utils/hooks.py#L72)
+torch.utils.hooks.unserializable_hook(*f*)[[source]](https://github.com/pytorch/pytorch/blob/f6c4d435cf6682e89d565983c0975951782dc5e2/torch/utils/hooks.py#L72)
 
 Mark a function as an unserializable hook with this decorator.
 
@@ -22,7 +22,7 @@ to serialize a tensor that has a hook.
 
 # torch.utils.throughput_benchmark
 
-torch.utils.throughput_benchmark.format_time(*time_us=None*, *time_ms=None*, *time_s=None*)[[source]](https://github.com/pytorch/pytorch/blob/44a629b353df33cd84f67a031bba5b6313160a1c/torch/utils/throughput_benchmark.py#L6)
+torch.utils.throughput_benchmark.format_time(*time_us=None*, *time_ms=None*, *time_s=None*)[[source]](https://github.com/pytorch/pytorch/blob/f6c4d435cf6682e89d565983c0975951782dc5e2/torch/utils/throughput_benchmark.py#L6)
 
 Define time formatting.
 
@@ -190,7 +190,6 @@ The Python Hipify script.
 | [`preprocessor`](generated/torch.utils.hipify.hipify_python.preprocessor.html#torch.utils.hipify.hipify_python.preprocessor) | Executes the CUDA -> HIP conversion on the specified file. |
 | [`processKernelLaunches`](generated/torch.utils.hipify.hipify_python.processKernelLaunches.html#torch.utils.hipify.hipify_python.processKernelLaunches) | Replace the CUDA style Kernel launches with the HIP style kernel launches. |
 | [`replace_extern_shared`](generated/torch.utils.hipify.hipify_python.replace_extern_shared.html#torch.utils.hipify.hipify_python.replace_extern_shared) | Match 'extern __shared__ type foo[];' syntax and use HIP_DYNAMIC_SHARED() MACRO instead. |
-| [`replace_math_functions`](generated/torch.utils.hipify.hipify_python.replace_math_functions.html#torch.utils.hipify.hipify_python.replace_math_functions) | FIXME: Temporarily replace std:: invocations of math functions with non-std:: versions to prevent linker errors NOTE: This can lead to correctness issues when running tests, since the correct version of the math function (exp/expf) might not get called. |
 | [`str2bool`](generated/torch.utils.hipify.hipify_python.str2bool.html#torch.utils.hipify.hipify_python.str2bool) | ArgumentParser doesn't support type=bool. |
 
  This module needs to be documented. Adding here in the meantime

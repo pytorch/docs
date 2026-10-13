@@ -1,6 +1,6 @@
 # torch.linalg.tensorsolve
 
-torch.linalg.tensorsolve(*A*, *B*, *dims=None*, ***, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/44a629b353df33cd84f67a031bba5b6313160a1c/torch/linalg/__init__.py#L2799)
+torch.linalg.tensorsolve(*A*, *B*, *dims=None*, ***, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/f6c4d435cf6682e89d565983c0975951782dc5e2/torch/linalg/__init__.py#L2799)
 
 Computes the solution X to the system torch.tensordot(A, X) = B.
 

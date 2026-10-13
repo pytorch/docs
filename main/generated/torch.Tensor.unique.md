@@ -1,6 +1,6 @@
 # torch.Tensor.unique
 
-Tensor.unique(*sorted=True*, *return_inverse=False*, *return_counts=False*, *dim=None*)[[source]](https://github.com/pytorch/pytorch/blob/44a629b353df33cd84f67a031bba5b6313160a1c/torch/_tensor.py#L1077)
+Tensor.unique(*sorted=True*, *return_inverse=False*, *return_counts=False*, *dim=None*)[[source]](https://github.com/pytorch/pytorch/blob/f6c4d435cf6682e89d565983c0975951782dc5e2/torch/_tensor.py#L1077)
 
 Returns the unique elements of the input tensor.
 

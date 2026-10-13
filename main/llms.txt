@@ -3222,7 +3222,6 @@
 - [torch.utils.hipify.hipify_python.preprocessor](https://docs.pytorch.org/docs/stable/generated/torch.utils.hipify.hipify_python.preprocessor.md)
 - [torch.utils.hipify.hipify_python.processKernelLaunches](https://docs.pytorch.org/docs/stable/generated/torch.utils.hipify.hipify_python.processKernelLaunches.md)
 - [torch.utils.hipify.hipify_python.replace_extern_shared](https://docs.pytorch.org/docs/stable/generated/torch.utils.hipify.hipify_python.replace_extern_shared.md)
-- [torch.utils.hipify.hipify_python.replace_math_functions](https://docs.pytorch.org/docs/stable/generated/torch.utils.hipify.hipify_python.replace_math_functions.md)
 - [torch.utils.hipify.hipify_python.str2bool](https://docs.pytorch.org/docs/stable/generated/torch.utils.hipify.hipify_python.str2bool.md)
 - [torch.utils.jit.log_extract.run_baseline_no_fusion](https://docs.pytorch.org/docs/stable/generated/torch.utils.jit.log_extract.run_baseline_no_fusion.md)
 - [torch.utils.jit.log_extract.run_nnc](https://docs.pytorch.org/docs/stable/generated/torch.utils.jit.log_extract.run_nnc.md)

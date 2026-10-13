@@ -1,6 +1,6 @@
 # LocalizedAllocator
 
-*class*torch.cuda.memory.LocalizedAllocator(*locality_domain_id*, ***, *device=None*)[[source]](https://github.com/pytorch/pytorch/blob/44a629b353df33cd84f67a031bba5b6313160a1c/torch/cuda/memory.py#L1786)
+*class*torch.cuda.memory.LocalizedAllocator(*locality_domain_id*, ***, *device=None*)[[source]](https://github.com/pytorch/pytorch/blob/f6c4d435cf6682e89d565983c0975951782dc5e2/torch/cuda/memory.py#L1786)
 
 Allocate physical CUDA memory on one locality domain.
 

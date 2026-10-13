@@ -118,14 +118,14 @@ combine function becomes a sub-graph attribute of the top-level graph module.
 
 ## API Reference
 
-torch._higher_order_ops.associative_scan.associative_scan(*combine_fn*, *xs*, *dim*, *reverse=False*, *combine_mode='pointwise'*)[[source]](https://github.com/pytorch/pytorch/blob/44a629b353df33cd84f67a031bba5b6313160a1c/torch/_higher_order_ops/associative_scan.py#L153)
+torch._higher_order_ops.associative_scan.associative_scan(*combine_fn*, *xs*, *dim*, *reverse=False*, *combine_mode='pointwise'*)[[source]](https://github.com/pytorch/pytorch/blob/f6c4d435cf6682e89d565983c0975951782dc5e2/torch/_higher_order_ops/associative_scan.py#L153)
 
 Performs an inclusive scan with an associative combine function.
 
 Warning
 
-`torch.associative_scan` is a prototype feature in PyTorch. It currently
-does not support autograd and you may run into miscompiles.
+`torch.associative_scan` is a prototype feature in PyTorch. You may run
+into miscompiles.
 Read more about feature classification at:
 [https://pytorch.org/blog/pytorch-feature-classification-changes/#prototype](https://pytorch.org/blog/pytorch-feature-classification-changes/#prototype)
 
@@ -139,11 +139,10 @@ Parameters:
 - **combine_fn** (*Callable*) - A binary callable with type `(Tensor, Tensor) -> Tensor`,
 or if input is a pytree `(pytree, pytree) -> pytree`.
 This function must be pure, satisfy the associative property and have no
-side-effects. It may close over lifted arguments (e.g. freevars). On the
-autograd path in eager mode, tensor freevars are permitted as long as they do
-not require gradients (gradients for lifted arguments are not supported). Under
-`torch.compile` with `backend="inductor"` tensor freevars are still rejected
-outright; only `int`/`SymInt` lifted arguments are supported there.
+side-effects. It may close over lifted arguments (e.g. freevars), which may
+require gradients. Without gradients, under `torch.compile` with
+`backend="inductor"` tensor freevars are rejected; only `int`/`SymInt`
+lifted arguments are supported there.
 - **xs** ([*torch.Tensor*](../tensors.html#torch.Tensor)) - The input tensor, or nested pytree of tensors.
 - **dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - the dimension to scan over
 - **reverse** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - A boolean stating if the scan should be reversed with respect to `dim`, default `False`.
@@ -153,6 +152,8 @@ operations; under `torch.compile` `xs` must be on a backend with scan codegen su
 (CUDA or XPU), otherwise the generic fallback is used.
 In all other cases `combine_mode=generic` should be used.
 Note: `combine_mode=pointwise` is more efficient than `combine_mode=generic`.
+If gradients are required, `combine_mode=pointwise` uses the generic
+implementation as well.
 
 Returns:
 

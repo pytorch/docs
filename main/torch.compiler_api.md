@@ -63,7 +63,7 @@ trace under the contract of Note [precompile programming model] in `torch/_preco
 `torch.compiler.precompile` is distinct from `torch._dynamo.config.caching_precompile`
 (a `torch.compile` caching mode).
 
-torch.compiler.precompile.capture(*fn*, */*, ***, *artifact_path*, *cache_path*, *tracer=DynamoTracer(guard_filter_fn=None, recompile_limit=256, dynamic=None, require_complete=True, require_no_risky_drops=True)*, *backend='inductor'*)[[source]](https://github.com/pytorch/pytorch/blob/44a629b353df33cd84f67a031bba5b6313160a1c/torch/_precompile.py#L3141)
+torch.compiler.precompile.capture(*fn*, */*, ***, *artifact_path*, *cache_path*, *tracer=DynamoTracer(guard_filter_fn=None, recompile_limit=256, dynamic=None, require_complete=True, require_no_risky_drops=True)*, *backend='inductor'*)[[source]](https://github.com/pytorch/pytorch/blob/f6c4d435cf6682e89d565983c0975951782dc5e2/torch/_precompile.py#L3148)
 
 Capture `fn` across the calls YOUR loop makes, writing the artifact on exit.
 
@@ -151,7 +151,7 @@ Return type:
 
 *Capture*[~_P, *_R*]
 
-torch.compiler.precompile.load(*artifact_path*, *cache_path*)[[source]](https://github.com/pytorch/pytorch/blob/44a629b353df33cd84f67a031bba5b6313160a1c/torch/_precompile.py#L3279)
+torch.compiler.precompile.load(*artifact_path*, *cache_path*)[[source]](https://github.com/pytorch/pytorch/blob/f6c4d435cf6682e89d565983c0975951782dc5e2/torch/_precompile.py#L3286)
 
 Reconstruct a runnable from the two files a precompile capture wrote.
 
@@ -197,7 +197,11 @@ enabled, which would compile backward graphs outside it, and with Dynamo
 disabled (`TORCHDYNAMO_DISABLE=1` or the `enable_dynamo` killswitch),
 which it serves through. A Dynamo artifact whose
 capture graph-broke cannot load beside the live compile that captured it
-(the continuation names collide): load it in a fresh process.
+(the continuation names collide), and an installed artifact is refused
+wherever any frame it installs onto already has live Dynamo cache entries:
+load it in a fresh process. That check runs only at load: compiling those
+frames after load adds live entries that serve the calls the installed
+ones miss.
 
 Raises `PrecompileError` if either file cannot be read, if `python_code` is
 not a `torch.compiler.precompile` artifact, or if the cache's `backend`,
@@ -295,7 +299,7 @@ exits it cannot be entered again, so call `capture()` again to retry.
 That includes a failed write at exit: the spent capture does not keep its
 pair, so fix the path and capture again.
 
-save()[[source]](https://github.com/pytorch/pytorch/blob/44a629b353df33cd84f67a031bba5b6313160a1c/torch/_precompile.py#L516)
+save()[[source]](https://github.com/pytorch/pytorch/blob/f6c4d435cf6682e89d565983c0975951782dc5e2/torch/_precompile.py#L516)
 
 Write everything captured so far to the artifact files without ending the capture.
 
@@ -324,7 +328,7 @@ Variables:
 code objects (`SERVING_MODE = "installed"`); `False` for a
 standalone artifact.
 
-unload()[[source]](https://github.com/pytorch/pytorch/blob/44a629b353df33cd84f67a031bba5b6313160a1c/torch/_precompile.py#L458)
+unload()[[source]](https://github.com/pytorch/pytorch/blob/f6c4d435cf6682e89d565983c0975951782dc5e2/torch/_precompile.py#L458)
 
 Remove whatever this loaded artifact installed; currently a no-op in every mode.
 
