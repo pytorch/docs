@@ -1,6 +1,6 @@
 # torch.fx.experimental.symbolic_shapes.create_contiguous
 
-torch.fx.experimental.symbolic_shapes.create_contiguous(*shape*)[[source]](https://github.com/pytorch/pytorch/blob/f6c4d435cf6682e89d565983c0975951782dc5e2/torch/fx/experimental/symbolic_shapes.py#L420)
+torch.fx.experimental.symbolic_shapes.create_contiguous(*shape*)[[source]](https://github.com/pytorch/pytorch/blob/4581144c216b65e4e1b5c6eea26d4212239a231d/torch/fx/experimental/symbolic_shapes.py#L420)
 
 Return type:
 

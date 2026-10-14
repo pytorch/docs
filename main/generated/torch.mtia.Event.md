@@ -12,10 +12,6 @@ If not given, the current [accelerator](../torch.html#accelerators) type will be
 - **blocking** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - if `True`, `wait()` will be blocking (default: `False`)
 - **interprocess** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - if `True`, the event can be shared between processes (default: `False`)
 
-Warning
-
-The `interprocess` argument is not honored right now and is a noop.
-
 Returns:
 
 An torch.Event object.
@@ -55,6 +51,58 @@ Example:
 >>> e1_cuda = s_cuda.record_event()
 >>> e2_cuda = s_cuda.record_event()
 >>> ms = e1_cuda.elapsed_time(e2_cuda)
+```
+
+from_ipc_handle(*device*, *ipc_handle*) → Event
+
+Class method. Reconstruct an event from an IPC handle on the given device.
+
+Parameters:
+
+- **device** ([`torch.device`](../tensor_attributes.html#torch.device)) - the device on which to open the handle.
+- **ipc_handle** ([*bytes*](https://docs.python.org/3/builtins/stdtypes.html#bytes)) - the IPC handle returned by `ipc_handle()`.
+
+Returns:
+
+an event reconstructed from the IPC handle.
+
+Return type:
+
+Event
+
+Example:
+
+```
+>>> e_cuda = torch.Event(device='cuda', interprocess=True)
+>>> e_cuda.record()
+>>> ipc_handle = e_cuda.ipc_handle()
+>>> # pass ipc handle to another process and reconstruct the event with it there
+>>> ipc_event = torch.Event.from_ipc_handle(torch.device('cuda'), ipc_handle)
+```
+
+ipc_handle() → [bytes](https://docs.python.org/3/builtins/stdtypes.html#bytes)
+
+Return an IPC handle of this event.
+
+The event must have been constructed with `interprocess=True`.
+If not yet recorded, the event is eagerly initialized on the current device.
+.. note:: The event reconstructed with `from_ipc_handle()` cannot be re-exported via `ipc_handle()`.
+
+Returns:
+
+an opaque byte string that can be passed to `from_ipc_handle()`
+
+in another process to reconstruct this event.
+
+Return type:
+
+[bytes](https://docs.python.org/3/builtins/stdtypes.html#bytes)
+
+Example:
+
+```
+>>> e_cuda = torch.Event(device='cuda', interprocess=True)
+>>> ipc_handle = e_cuda.ipc_handle()
 ```
 
 query() → [bool](https://docs.python.org/3/builtins/functions.html#bool)
