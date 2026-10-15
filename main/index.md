@@ -48,6 +48,7 @@ The APIs and performance characteristics of these features may change.
 - [torch.export](user_guide/torch_compiler/export.html)
 - [torch.distributed](distributed.html)
 - [torch.distributed.tensor](distributed.tensor.html)
+- [torch.distributed.functional_collectives](distributed.functional_collectives.html)
 - [torch.distributed.algorithms.join](distributed.algorithms.join.html)
 - [torch.distributed.elastic](distributed.elastic.html)
 - [torch.distributed.fsdp](fsdp.html)

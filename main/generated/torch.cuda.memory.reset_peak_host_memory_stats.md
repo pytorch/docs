@@ -1,6 +1,6 @@
 # torch.cuda.memory.reset_peak_host_memory_stats
 
-torch.cuda.memory.reset_peak_host_memory_stats()[[source]](https://github.com/pytorch/pytorch/blob/4581144c216b65e4e1b5c6eea26d4212239a231d/torch/cuda/memory.py#L467)
+torch.cuda.memory.reset_peak_host_memory_stats()[[source]](https://github.com/pytorch/pytorch/blob/2b0c4f59ccd6d695a849965e24aaadab868e2c3e/torch/cuda/memory.py#L467)
 
 Reset the "peak" stats tracked by the host memory allocator.
 

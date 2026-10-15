@@ -1,6 +1,6 @@
 # torch.cuda.profiler.profile
 
-torch.cuda.profiler.profile()[[source]](https://github.com/pytorch/pytorch/blob/4581144c216b65e4e1b5c6eea26d4212239a231d/torch/cuda/profiler.py#L38)
+torch.cuda.profiler.profile()[[source]](https://github.com/pytorch/pytorch/blob/2b0c4f59ccd6d695a849965e24aaadab868e2c3e/torch/cuda/profiler.py#L38)
 
 Enable profiling.
 

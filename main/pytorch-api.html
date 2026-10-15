@@ -80,7 +80,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.16.0a0+git4581144 )">
+<meta name="llm:version" content="main (2.16.0a0+git2b0c4f5 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -186,7 +186,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.16.0a0+git4581144 )');
+  document.documentElement.setAttribute('data-version', 'main (2.16.0a0+git2b0c4f5 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -726,6 +726,12 @@ document.write(`
               <li class=" ">
                 <a class="nav-link dropdown-item nav-internal" href="distributed.tensor.html">
                   torch.distributed.tensor
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="distributed.functional_collectives.html">
+                  Functional Collectives
                 </a>
               </li>
             
@@ -2187,6 +2193,12 @@ document.write(`
               <li class=" ">
                 <a class="nav-link dropdown-item nav-internal" href="distributed.tensor.html">
                   torch.distributed.tensor
+                </a>
+              </li>
+            
+              <li class=" ">
+                <a class="nav-link dropdown-item nav-internal" href="distributed.functional_collectives.html">
+                  Functional Collectives
                 </a>
               </li>
             
@@ -5642,6 +5654,7 @@ document.write(`
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="distributed.html">torch.distributed</a></li>
 <li class="toctree-l1"><a class="reference internal" href="distributed.tensor.html">torch.distributed.tensor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="distributed.functional_collectives.html">torch.distributed.functional_collectives</a></li>
 <li class="toctree-l1"><a class="reference internal" href="distributed.algorithms.join.html">torch.distributed.algorithms.join</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="distributed.elastic.html">torch.distributed.elastic</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="elastic/quickstart.html">Quickstart</a></li>
@@ -7140,7 +7153,7 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="reference-api">
 <span id="pytorch-api"></span><h1>Reference API<a class="headerlink" href="#reference-api" title="Link to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Apr 16, 2025 | Last Updated On: Aug 20, 2026</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Apr 16, 2025 | Last Updated On: Oct 12, 2026</p>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://docs.pytorch.org/cppdocs/">C++</a></li>
@@ -7172,6 +7185,7 @@ document.write(`
 <li class="toctree-l1"><a class="reference internal" href="user_guide/torch_compiler/export.html">torch.export</a></li>
 <li class="toctree-l1"><a class="reference internal" href="distributed.html">torch.distributed</a></li>
 <li class="toctree-l1"><a class="reference internal" href="distributed.tensor.html">torch.distributed.tensor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="distributed.functional_collectives.html">torch.distributed.functional_collectives</a></li>
 <li class="toctree-l1"><a class="reference internal" href="distributed.algorithms.join.html">torch.distributed.algorithms.join</a></li>
 <li class="toctree-l1"><a class="reference internal" href="distributed.elastic.html">torch.distributed.elastic</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fsdp.html">torch.distributed.fsdp</a></li>
@@ -7601,7 +7615,7 @@ document.write(`
        "headline": "Reference API",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/pytorch-api.html",
-       "articleBody": "Reference API# Created On: Apr 16, 2025 | Last Updated On: Aug 20, 2026 C++ Python API torch torch.nn torch.nn.functional torch.Tensor Tensor Attributes Tensor Views torch.amp torch.autograd torch.library torch.accelerator torch.cpu torch.cuda torch.cuda.memory torch.mps torch.xpu torch.mtia torch.mtia.memory torch.mtia.mtia_graph Meta device torch.backends torch.export torch.distributed torch.distributed.tensor torch.distributed.algorithms.join torch.distributed.elastic torch.distributed.fsdp torch.distributed.fsdp.fully_shard torch.distributed.tensor.parallel torch.distributed.optim torch.distributed.pipelining torch.distributed._symmetric_memory torch.distributed.checkpoint torch.distributions torch.compiler torch.fft torch.foreach torch.func torch.futures torch.fx torch.fx.experimental torch.hub torch.linalg torch.monitor torch.signal torch.special torch.overrides torch.nativert torch.package torch.profiler torch.nn.init torch.nn.attention torch.onnx torch.optim Complex Numbers DDP Communication Hooks Quantization Distributed RPC Framework torch.random torch.masked torch.nested torch.Size torch.sparse torch.Storage torch.testing torch.utils torch.utils.backend_registration torch.utils.hooks torch.utils.throughput_benchmark torch.utils.collect_env torch.utils.flop_counter torch.utils.hipify.hipify_python Benchmark Utils - torch.utils.benchmark torch.utils.benchmark.examples torch.utils.benchmark.examples.spectral_ops_fuzz_test torch.utils.checkpoint torch.utils.cpp_extension torch.utils.data torch.utils.deterministic JIT Utils - torch.utils.jit torch.utils.jit.log_extract torch.utils.dlpack torch.utils.mobile_optimizer torch.utils.model_zoo torch.utils.tensorboard torch.utils.module_tracker Type Info torch.__config__ torch.__future__ torch._logging Torch Environment Variables",
+       "articleBody": "Reference API# Created On: Apr 16, 2025 | Last Updated On: Oct 12, 2026 C++ Python API torch torch.nn torch.nn.functional torch.Tensor Tensor Attributes Tensor Views torch.amp torch.autograd torch.library torch.accelerator torch.cpu torch.cuda torch.cuda.memory torch.mps torch.xpu torch.mtia torch.mtia.memory torch.mtia.mtia_graph Meta device torch.backends torch.export torch.distributed torch.distributed.tensor torch.distributed.functional_collectives torch.distributed.algorithms.join torch.distributed.elastic torch.distributed.fsdp torch.distributed.fsdp.fully_shard torch.distributed.tensor.parallel torch.distributed.optim torch.distributed.pipelining torch.distributed._symmetric_memory torch.distributed.checkpoint torch.distributions torch.compiler torch.fft torch.foreach torch.func torch.futures torch.fx torch.fx.experimental torch.hub torch.linalg torch.monitor torch.signal torch.special torch.overrides torch.nativert torch.package torch.profiler torch.nn.init torch.nn.attention torch.onnx torch.optim Complex Numbers DDP Communication Hooks Quantization Distributed RPC Framework torch.random torch.masked torch.nested torch.Size torch.sparse torch.Storage torch.testing torch.utils torch.utils.backend_registration torch.utils.hooks torch.utils.throughput_benchmark torch.utils.collect_env torch.utils.flop_counter torch.utils.hipify.hipify_python Benchmark Utils - torch.utils.benchmark torch.utils.benchmark.examples torch.utils.benchmark.examples.spectral_ops_fuzz_test torch.utils.checkpoint torch.utils.cpp_extension torch.utils.data torch.utils.deterministic JIT Utils - torch.utils.jit torch.utils.jit.log_extract torch.utils.dlpack torch.utils.mobile_optimizer torch.utils.model_zoo torch.utils.tensorboard torch.utils.module_tracker Type Info torch.__config__ torch.__future__ torch._logging Torch Environment Variables",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -7613,7 +7627,7 @@ document.write(`
          "@id": "/pytorch-api.html"
        },
        "datePublished": "Apr 16, 2025T00:00:00Z",
-       "dateModified": "Aug 20, 2026T00:00:00Z"
+       "dateModified": "Oct 12, 2026T00:00:00Z"
      }
  </script>
   <script>

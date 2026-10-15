@@ -49,6 +49,7 @@
 - [Distributed Checkpoint - torch.distributed.checkpoint](https://docs.pytorch.org/docs/stable/distributed.checkpoint.md)
 - [Torch Distributed Elastic](https://docs.pytorch.org/docs/stable/distributed.elastic.md)
 - [torch.distributed.fsdp.fully_shard](https://docs.pytorch.org/docs/stable/distributed.fsdp.fully_shard.md)
+- [Functional Collectives](https://docs.pytorch.org/docs/stable/distributed.functional_collectives.md)
 - [Distributed Optimizers](https://docs.pytorch.org/docs/stable/distributed.optim.md)
 - [Pipeline Parallelism](https://docs.pytorch.org/docs/stable/distributed.pipelining.md)
 - [torch.distributed.tensor](https://docs.pytorch.org/docs/stable/distributed.tensor.md)

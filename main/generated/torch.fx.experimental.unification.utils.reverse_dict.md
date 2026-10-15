@@ -1,6 +1,6 @@
 # torch.fx.experimental.unification.utils.reverse_dict
 
-torch.fx.experimental.unification.utils.reverse_dict(*d*)[[source]](https://github.com/pytorch/pytorch/blob/4581144c216b65e4e1b5c6eea26d4212239a231d/torch/fx/experimental/unification/utils.py#L84)
+torch.fx.experimental.unification.utils.reverse_dict(*d*)[[source]](https://github.com/pytorch/pytorch/blob/2b0c4f59ccd6d695a849965e24aaadab868e2c3e/torch/fx/experimental/unification/utils.py#L84)
 
 Reverses direction of dependence dict.
 
