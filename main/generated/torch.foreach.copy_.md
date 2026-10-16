@@ -1,6 +1,6 @@
 # torch.foreach.copy_
 
-torch.foreach.copy_(*inputs: TensorList*, *src: TensorList*, */*, ***, *non_blocking: [bool](https://docs.python.org/3/builtins/functions.html#bool) = False*) → [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...] | [list](https://docs.python.org/3/builtins/stdtypes.html#list)[[Tensor](../tensors.html#torch.Tensor)][[source]](https://github.com/pytorch/pytorch/blob/2b0c4f59ccd6d695a849965e24aaadab868e2c3e/torch/foreach/__init__.py#L1606)
+torch.foreach.copy_(*inputs: TensorList*, *src: TensorList*, */*, ***, *non_blocking: [bool](https://docs.python.org/3/builtins/functions.html#bool) = False*) → [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...] | [list](https://docs.python.org/3/builtins/stdtypes.html#list)[[Tensor](../tensors.html#torch.Tensor)][[source]](https://github.com/pytorch/pytorch/blob/be79392a0cedbbc0b5d2d3288173316425f90af4/torch/foreach/__init__.py#L1606)
 
 Copies each tensor in `src` into the corresponding tensor in
 `inputs`, following [`torch.Tensor.copy_()`](torch.Tensor.copy_.html#torch.Tensor.copy_).

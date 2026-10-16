@@ -312,7 +312,7 @@ output.sum().backward() # gradients flow correctly
 ### Distributed training with DTensor
 
 When training with tensor-parallelized models using
-[`DTensor`](../../distributed.tensor.html#torch.distributed.tensor.DTensor), `aot_compile()` can be combined
+[`DTensor`](../../distributed/tensor.html#torch.distributed.tensor.DTensor), `aot_compile()` can be combined
 with `compile_on_one_rank` to produce rank-independent compiled graphs. Without
 this flag, rank-specific values (mesh coordinates, shard offsets) get baked into
 the compiled graph as constants, producing a different graph per rank. With the

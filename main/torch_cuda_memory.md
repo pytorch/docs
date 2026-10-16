@@ -101,7 +101,7 @@ print(torch.cuda.device_memory_used(device_idx))
 
 ## Snapshot API Reference
 
-torch.cuda.memory._record_memory_history(*enabled='all'*, *context='all'*, *stacks='all'*, *max_entries=9223372036854775807*, *device=None*, *clear_history=False*, *compile_context=False*, *global_record_annotations=False*, *skip_actions=None*, *record_pinned_host_memory=False*, *record_cuda=True*)[[source]](https://github.com/pytorch/pytorch/blob/2b0c4f59ccd6d695a849965e24aaadab868e2c3e/torch/cuda/memory.py#L981)
+torch.cuda.memory._record_memory_history(*enabled='all'*, *context='all'*, *stacks='all'*, *max_entries=9223372036854775807*, *device=None*, *clear_history=False*, *compile_context=False*, *global_record_annotations=False*, *skip_actions=None*, *record_pinned_host_memory=False*, *record_cuda=True*)[[source]](https://github.com/pytorch/pytorch/blob/be79392a0cedbbc0b5d2d3288173316425f90af4/torch/cuda/memory.py#L981)
 
 Enable recording of stack traces associated with memory
 allocations, so you can tell what allocated any piece of memory in
@@ -243,7 +243,7 @@ type record_cuda:
 
 bool, optional
 
-torch.cuda.memory._snapshot(*device=None*, *augment_with_fx_traces=False*)[[source]](https://github.com/pytorch/pytorch/blob/2b0c4f59ccd6d695a849965e24aaadab868e2c3e/torch/cuda/memory.py#L1128)
+torch.cuda.memory._snapshot(*device=None*, *augment_with_fx_traces=False*)[[source]](https://github.com/pytorch/pytorch/blob/be79392a0cedbbc0b5d2d3288173316425f90af4/torch/cuda/memory.py#L1128)
 
 Save a snapshot of CUDA memory state at the time it was called.
 
@@ -347,7 +347,7 @@ Returns:
 
 The Snapshot dictionary object
 
-torch.cuda.memory._dump_snapshot(*filename='dump_snapshot.pickle'*, *augment_with_fx_traces=False*)[[source]](https://github.com/pytorch/pytorch/blob/2b0c4f59ccd6d695a849965e24aaadab868e2c3e/torch/cuda/memory.py#L1239)
+torch.cuda.memory._dump_snapshot(*filename='dump_snapshot.pickle'*, *augment_with_fx_traces=False*)[[source]](https://github.com/pytorch/pytorch/blob/be79392a0cedbbc0b5d2d3288173316425f90af4/torch/cuda/memory.py#L1239)
 
 Save a pickled version of the torch.memory._snapshot() dictionary to a file.
 

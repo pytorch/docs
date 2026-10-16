@@ -1,6 +1,6 @@
 # torch.foreach.tan
 
-torch.foreach.tan(*inputs: TensorList*, */*) → [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...][[source]](https://github.com/pytorch/pytorch/blob/2b0c4f59ccd6d695a849965e24aaadab868e2c3e/torch/foreach/__init__.py#L645)
+torch.foreach.tan(*inputs: TensorList*, */*) → [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...][[source]](https://github.com/pytorch/pytorch/blob/be79392a0cedbbc0b5d2d3288173316425f90af4/torch/foreach/__init__.py#L645)
 
 Applies [`torch.tan()`](torch.tan.html#torch.tan) to each tensor in `inputs`.
 

@@ -1,6 +1,6 @@
 # torch.utils.flop_counter.register_flop_formula
 
-torch.utils.flop_counter.register_flop_formula(*targets*, *get_raw=False*)[[source]](https://github.com/pytorch/pytorch/blob/2b0c4f59ccd6d695a849965e24aaadab868e2c3e/torch/utils/flop_counter.py#L133)
+torch.utils.flop_counter.register_flop_formula(*targets*, *get_raw=False*)[[source]](https://github.com/pytorch/pytorch/blob/be79392a0cedbbc0b5d2d3288173316425f90af4/torch/utils/flop_counter.py#L133)
 
 Register a FLOP counting formula for custom operations.
 

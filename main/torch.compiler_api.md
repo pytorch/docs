@@ -63,7 +63,7 @@ trace under the contract of Note [precompile programming model] in `torch/_preco
 `torch.compiler.precompile` is distinct from `torch._dynamo.config.caching_precompile`
 (a `torch.compile` caching mode).
 
-torch.compiler.precompile.capture(*fn*, */*, ***, *artifact_path*, *cache_path*, *tracer=DynamoTracer(guard_filter_fn=None, recompile_limit=256, dynamic=None, require_complete=True, require_no_risky_drops=True)*, *backend='inductor'*)[[source]](https://github.com/pytorch/pytorch/blob/2b0c4f59ccd6d695a849965e24aaadab868e2c3e/torch/_precompile.py#L3148)
+torch.compiler.precompile.capture(*fn*, */*, ***, *artifact_path*, *cache_path*, *tracer=DynamoTracer(guard_filter_fn=None, recompile_limit=256, dynamic=None, require_complete=True, require_no_risky_drops=True)*, *backend='inductor'*)[[source]](https://github.com/pytorch/pytorch/blob/be79392a0cedbbc0b5d2d3288173316425f90af4/torch/_precompile.py#L3253)
 
 Capture `fn` across the calls YOUR loop makes, writing the artifact on exit.
 
@@ -94,7 +94,12 @@ A block that raises writes nothing it has not already saved, and a block
 that made no call raises `PrecompileError` on exit. A capture is single-use:
 to capture again, call `capture()` again. A `DynamoTracer` capture
 records the kernel-cache artifacts of everything compiled inside the block,
-so compile nothing else there, and do not overlap two such captures.
+so compile nothing else there, and do not overlap two such captures. Only
+what runs inside the block is carried: run every kernel the serving process
+needs there, since one compiled or launched only before the block is not in
+the cache. Each write also freezes the compiled kernels the serving process
+needs, and raises `PrecompileError` for one it cannot
+freeze.
 
 `tracer` picks the capture front-end and carries its tracer-specific
 configuration. `DynamoTracer` (the default) is an execution-driven
@@ -151,7 +156,7 @@ Return type:
 
 *Capture*[~_P, *_R*]
 
-torch.compiler.precompile.load(*artifact_path*, *cache_path*)[[source]](https://github.com/pytorch/pytorch/blob/2b0c4f59ccd6d695a849965e24aaadab868e2c3e/torch/_precompile.py#L3286)
+torch.compiler.precompile.load(*artifact_path*, *cache_path*)[[source]](https://github.com/pytorch/pytorch/blob/be79392a0cedbbc0b5d2d3288173316425f90af4/torch/_precompile.py#L3396)
 
 Reconstruct a runnable from the two files a precompile capture wrote.
 
@@ -214,6 +219,35 @@ different-build envelope) is NOT fatal: the cache is acceleration only, so
 Return type:
 
 *PrecompiledRunnable*
+
+torch.compiler.precompile.no_compilation()[[source]](https://github.com/pytorch/pytorch/blob/be79392a0cedbbc0b5d2d3288173316425f90af4/torch/_precompile.py#L3141)
+
+Forbid graph/kernel compilation and autotuning on every thread of this process.
+
+Use it around a serving worker's lifetime to prove that a loaded artifact
+and its kernel/autotune cache cover every execution: anything that would
+trace a graph, compile a kernel, benchmark or autotune raises
+`PrecompileError` instead of silently compiling:
+
+```
+runnable = torch.compiler.precompile.load(artifact_path, cache_path)
+with torch.compiler.precompile.no_compilation():
+ serve(runnable) # raises rather than compiling on a cache miss
+```
+
+Only kernels already in the in-process kernel cache may run.
+
+Unlike `precompile.serving()`, which is thread-local, the policy is
+process-wide. Nested and overlapping uses are depth-counted, so it stays
+active until the last owner exits; callers must drain work they dispatched
+(e.g. to compile workers) before that exit. While active,
+`TORCH_PRECOMPILE_NO_COMPILATION=1` is exported so child processes
+inherit it, and setting exactly `"1"` before startup enables the policy
+for the whole process.
+
+Return type:
+
+[*AbstractContextManager*](https://docs.python.org/3/library/contextlib.html#contextlib.AbstractContextManager)[None]
 
 *exception*torch.compiler.PrecompileError
 
@@ -299,7 +333,7 @@ exits it cannot be entered again, so call `capture()` again to retry.
 That includes a failed write at exit: the spent capture does not keep its
 pair, so fix the path and capture again.
 
-save()[[source]](https://github.com/pytorch/pytorch/blob/2b0c4f59ccd6d695a849965e24aaadab868e2c3e/torch/_precompile.py#L516)
+save()[[source]](https://github.com/pytorch/pytorch/blob/be79392a0cedbbc0b5d2d3288173316425f90af4/torch/_precompile.py#L516)
 
 Write everything captured so far to the artifact files without ending the capture.
 
@@ -328,7 +362,7 @@ Variables:
 code objects (`SERVING_MODE = "installed"`); `False` for a
 standalone artifact.
 
-unload()[[source]](https://github.com/pytorch/pytorch/blob/2b0c4f59ccd6d695a849965e24aaadab868e2c3e/torch/_precompile.py#L458)
+unload()[[source]](https://github.com/pytorch/pytorch/blob/be79392a0cedbbc0b5d2d3288173316425f90af4/torch/_precompile.py#L458)
 
 Remove whatever this loaded artifact installed; currently a no-op in every mode.
 

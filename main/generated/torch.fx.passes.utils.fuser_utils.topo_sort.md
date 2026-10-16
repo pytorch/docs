@@ -1,6 +1,6 @@
 # torch.fx.passes.utils.fuser_utils.topo_sort
 
-torch.fx.passes.utils.fuser_utils.topo_sort(*nodes*)[[source]](https://github.com/pytorch/pytorch/blob/2b0c4f59ccd6d695a849965e24aaadab868e2c3e/torch/fx/passes/utils/fuser_utils.py#L13)
+torch.fx.passes.utils.fuser_utils.topo_sort(*nodes*)[[source]](https://github.com/pytorch/pytorch/blob/be79392a0cedbbc0b5d2d3288173316425f90af4/torch/fx/passes/utils/fuser_utils.py#L13)
 
 Warning
 

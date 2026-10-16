@@ -1,6 +1,6 @@
 # DistributedDataParallel
 
-*class*torch.nn.parallel.DistributedDataParallel(*module*, *device_ids=None*, *output_device=None*, *dim=0*, *broadcast_buffers=None*, *init_sync=True*, *process_group=None*, *bucket_cap_mb=None*, *find_unused_parameters=False*, *check_reduction=False*, *gradient_as_bucket_view=False*, *static_graph=False*, *delay_all_reduce_named_params=None*, *param_to_hook_all_reduce=None*, *mixed_precision=None*, *device_mesh=None*, *skip_all_reduce_unused_params=False*, *bucket_cap_mb_list=None*, *batched_grad_copy=False*, *forward_sync_buffers=None*, *lazy_bucket_allocation=False*)[[source]](https://github.com/pytorch/pytorch/blob/2b0c4f59ccd6d695a849965e24aaadab868e2c3e/torch/nn/parallel/distributed.py#L465)
+*class*torch.nn.parallel.DistributedDataParallel(*module*, *device_ids=None*, *output_device=None*, *dim=0*, *broadcast_buffers=None*, *init_sync=True*, *process_group=None*, *bucket_cap_mb=None*, *find_unused_parameters=False*, *check_reduction=False*, *gradient_as_bucket_view=False*, *static_graph=False*, *delay_all_reduce_named_params=None*, *param_to_hook_all_reduce=None*, *mixed_precision=None*, *device_mesh=None*, *skip_all_reduce_unused_params=False*, *bucket_cap_mb_list=None*, *batched_grad_copy=False*, *forward_sync_buffers=None*, *lazy_bucket_allocation=False*)[[source]](https://github.com/pytorch/pytorch/blob/be79392a0cedbbc0b5d2d3288173316425f90af4/torch/nn/parallel/distributed.py#L465)
 
 Implement distributed data parallelism based on `torch.distributed` at module level.
 
@@ -68,7 +68,7 @@ for a brief introduction to all features related to distributed training.
 Note
 
 `DistributedDataParallel` can be used in conjunction with
-[`torch.distributed.optim.ZeroRedundancyOptimizer`](../distributed.optim.html#torch.distributed.optim.ZeroRedundancyOptimizer) to reduce
+[`torch.distributed.optim.ZeroRedundancyOptimizer`](../distributed/optim.html#torch.distributed.optim.ZeroRedundancyOptimizer) to reduce
 per-rank optimizer states memory footprint. Please refer to
 [ZeroRedundancyOptimizer recipe](https://pytorch.org/tutorials/recipes/zero_redundancy_optimizer.html)
 for more details.
@@ -118,9 +118,9 @@ by the optimizer in all processes in the same way. Buffers
 Note
 
 If you are using DistributedDataParallel in conjunction with the
-[Distributed RPC Framework](../rpc.html#distributed-rpc-framework), you should always use
-[`torch.distributed.autograd.backward()`](../rpc.html#torch.distributed.autograd.backward) to compute gradients and
-[`torch.distributed.optim.DistributedOptimizer`](../distributed.optim.html#torch.distributed.optim.DistributedOptimizer) for optimizing
+[Distributed RPC Framework](../distributed/rpc.html#distributed-rpc-framework), you should always use
+[`torch.distributed.autograd.backward()`](../distributed/rpc.html#torch.distributed.autograd.backward) to compute gradients and
+[`torch.distributed.optim.DistributedOptimizer`](../distributed/optim.html#torch.distributed.optim.DistributedOptimizer) for optimizing
 parameters.
 
 Example:
@@ -236,7 +236,7 @@ parameters.
 Warning
 
 Using `DistributedDataParallel` in conjunction with the
-[Distributed RPC Framework](../rpc.html#distributed-rpc-framework) is experimental and subject to change.
+[Distributed RPC Framework](../distributed/rpc.html#distributed-rpc-framework) is experimental and subject to change.
 
 Parameters:
 
@@ -392,7 +392,7 @@ Example:
 >>> net = torch.nn.parallel.DistributedDataParallel(model)
 ```
 
-finalize_backward()[[source]](https://github.com/pytorch/pytorch/blob/2b0c4f59ccd6d695a849965e24aaadab868e2c3e/torch/nn/parallel/distributed.py#L2703)
+finalize_backward()[[source]](https://github.com/pytorch/pytorch/blob/be79392a0cedbbc0b5d2d3288173316425f90af4/torch/nn/parallel/distributed.py#L2703)
 
 Finalize a backward pass that requires manual finalization.
 
@@ -417,7 +417,7 @@ Raises:
  during `no_sync()` or with an unsupported DDP reducer
  configuration.
 
-join(*divide_by_initial_world_size=True*, *enable=True*, *throw_on_early_termination=False*)[[source]](https://github.com/pytorch/pytorch/blob/2b0c4f59ccd6d695a849965e24aaadab868e2c3e/torch/nn/parallel/distributed.py#L2011)
+join(*divide_by_initial_world_size=True*, *enable=True*, *throw_on_early_termination=False*)[[source]](https://github.com/pytorch/pytorch/blob/be79392a0cedbbc0b5d2d3288173316425f90af4/torch/nn/parallel/distributed.py#L2011)
 
 Context manager for training with uneven inputs across processes in DDP.
 
@@ -513,7 +513,7 @@ Example:
 >>> torch.cuda.synchronize(device=rank)
 ```
 
-join_hook(***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/2b0c4f59ccd6d695a849965e24aaadab868e2c3e/torch/nn/parallel/distributed.py#L2117)
+join_hook(***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/be79392a0cedbbc0b5d2d3288173316425f90af4/torch/nn/parallel/distributed.py#L2117)
 
 DDP join hook enables training on uneven inputs by mirroring communications in forward and backward passes.
 
@@ -537,7 +537,7 @@ unevenness is small but can be set to `False` in extreme
 cases for possibly better results.
 Default is `True`.
 
-no_sync()[[source]](https://github.com/pytorch/pytorch/blob/2b0c4f59ccd6d695a849965e24aaadab868e2c3e/torch/nn/parallel/distributed.py#L1680)
+no_sync()[[source]](https://github.com/pytorch/pytorch/blob/be79392a0cedbbc0b5d2d3288173316425f90af4/torch/nn/parallel/distributed.py#L1680)
 
 Context manager to disable gradient synchronizations across DDP processes.
 
@@ -560,7 +560,7 @@ Warning
 The forward pass should be included inside the context manager, or
 else gradients will still be synchronized.
 
-register_comm_hook(*state*, *hook*)[[source]](https://github.com/pytorch/pytorch/blob/2b0c4f59ccd6d695a849965e24aaadab868e2c3e/torch/nn/parallel/distributed.py#L2200)
+register_comm_hook(*state*, *hook*)[[source]](https://github.com/pytorch/pytorch/blob/be79392a0cedbbc0b5d2d3288173316425f90af4/torch/nn/parallel/distributed.py#L2200)
 
 Register communication hook for user-defined DDP aggregation of gradients across multiple workers.
 

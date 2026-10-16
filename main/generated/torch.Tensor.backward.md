@@ -1,6 +1,6 @@
 # torch.Tensor.backward
 
-Tensor.backward(*gradient=None*, *retain_graph=None*, *create_graph=False*, *inputs=None*)[[source]](https://github.com/pytorch/pytorch/blob/2b0c4f59ccd6d695a849965e24aaadab868e2c3e/torch/_tensor.py#L566)
+Tensor.backward(*gradient=None*, *retain_graph=None*, *create_graph=False*, *inputs=None*)[[source]](https://github.com/pytorch/pytorch/blob/be79392a0cedbbc0b5d2d3288173316425f90af4/torch/_tensor.py#L566)
 
 Computes the gradient of current tensor wrt graph leaves.
 
@@ -40,9 +40,9 @@ setting this option to True is not needed and often can be worked around in a mu
 - **create_graph** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If `True`, graph of the derivative will
 be constructed, allowing to compute higher order derivative
 products. Defaults to `False`.
-- **inputs** (*Sequence**[*[*Tensor*](../tensors.html#torch.Tensor)*] or*[*dict*](https://docs.python.org/3/builtins/stdtypes.html#dict)*[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,*[*Tensor*](../tensors.html#torch.Tensor)*]**,**optional*) - Inputs w.r.t. which
+- **inputs** (*Sequence**[*[*Tensor*](../tensors.html#torch.Tensor)*] or**Mapping**[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,*[*Tensor*](../tensors.html#torch.Tensor)*]**,**optional*) - Inputs w.r.t. which
 the gradient will be accumulated into `.grad`. All other tensors will be
 ignored. If not provided, the gradient is accumulated into all the leaf
-Tensors that were used to compute the `tensors`. A dict of tensors
+Tensors that were used to compute the `tensors`. A mapping of tensors
 (e.g. `dict(model.named_parameters())`) is also accepted.
 Defaults to `None`.

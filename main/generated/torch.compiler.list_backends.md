@@ -1,6 +1,6 @@
 # torch.compiler.list_backends
 
-torch.compiler.list_backends(*exclude_tags=('debug', 'experimental')*)[[source]](https://github.com/pytorch/pytorch/blob/2b0c4f59ccd6d695a849965e24aaadab868e2c3e/torch/compiler/__init__.py#L311)
+torch.compiler.list_backends(*exclude_tags=('debug', 'experimental')*)[[source]](https://github.com/pytorch/pytorch/blob/be79392a0cedbbc0b5d2d3288173316425f90af4/torch/compiler/__init__.py#L311)
 
 Return valid strings that can be passed to torch.compile(..., backend="name").
 

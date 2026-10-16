@@ -47,3 +47,4 @@ Next, we will delve into each chapter of this guide. Each chapter focuses on a k
 - [Profiler Integration](profiler.html)
 - [Distributed Training Integration](distributed.html)
 - [CI Integration](ci.html)
+- [Test Suite Reuse](testing.html)

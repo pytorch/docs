@@ -1,6 +1,6 @@
 # torch.autograd.backward
 
-torch.autograd.backward(*tensors*, *grad_tensors=None*, *retain_graph=None*, *create_graph=False*, *grad_variables=None*, *inputs=None*)[[source]](https://github.com/pytorch/pytorch/blob/2b0c4f59ccd6d695a849965e24aaadab868e2c3e/torch/autograd/__init__.py#L255)
+torch.autograd.backward(*tensors*, *grad_tensors=None*, *retain_graph=None*, *create_graph=False*, *grad_variables=None*, *inputs=None*)[[source]](https://github.com/pytorch/pytorch/blob/be79392a0cedbbc0b5d2d3288173316425f90af4/torch/autograd/__init__.py#L256)
 
 Compute the sum of gradients of given tensors with respect to graph leaves.
 
@@ -55,9 +55,9 @@ way. Defaults to the value of `create_graph`.
 - **create_graph** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If `True`, graph of the derivative will
 be constructed, allowing to compute higher order derivative products.
 Defaults to `False`.
-- **inputs** (*Sequence**[*[*Tensor*](../tensors.html#torch.Tensor)*] or*[*Tensor*](../tensors.html#torch.Tensor)*or**Sequence**[*[*GradientEdge*](../autograd.html#torch.autograd.graph.GradientEdge)*] or*[*dict*](https://docs.python.org/3/builtins/stdtypes.html#dict)*[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,*[*Tensor*](../tensors.html#torch.Tensor)*]**,**optional*) - Inputs w.r.t. which the gradient will be accumulated into `.grad`.
+- **inputs** (*Sequence**[*[*Tensor*](../tensors.html#torch.Tensor)*] or*[*Tensor*](../tensors.html#torch.Tensor)*or**Sequence**[*[*GradientEdge*](../autograd.html#torch.autograd.graph.GradientEdge)*] or**Mapping**[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,*[*Tensor*](../tensors.html#torch.Tensor)*]**,**optional*) - Inputs w.r.t. which the gradient will be accumulated into `.grad`.
 All other Tensors will be ignored. If not provided, the gradient is
 accumulated into all the leaf Tensors that were used to compute the
-`tensors`. A dict of tensors (e.g.
+`tensors`. A mapping of tensors (e.g.
 `dict(model.named_parameters())`) is also accepted, in which case
 the values are used as the input tensors.
