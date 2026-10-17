@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>PYTORCH ProcessGroupNCCL Environment Variables &#8212; PyTorch main documentation</title>
+    <title>PYTORCH NCCL Backend Environment Variables &#8212; PyTorch main documentation</title>
   
   
   
@@ -72,7 +72,7 @@
 <meta name="llm:site-type" content="documentation">
 <meta name="llm:framework" content="PyTorch">
 
-<meta name="llm:description" content="PYTORCH ProcessGroupNCCL Environment Variables - Documentation for PyTorch, part of the PyTorch ecosystem.">
+<meta name="llm:description" content="PYTORCH NCCL Backend Environment Variables - Documentation for PyTorch, part of the PyTorch ecosystem.">
 
 
 
@@ -80,7 +80,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.16.0a0+gitbe79392 )">
+<meta name="llm:version" content="main (2.16.0a0+git64cf217 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -186,7 +186,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.16.0a0+gitbe79392 )');
+  document.documentElement.setAttribute('data-version', 'main (2.16.0a0+git64cf217 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -724,72 +724,6 @@ document.write(`
               </li>
             
               <li class=" ">
-                <a class="nav-link dropdown-item nav-internal" href="distributed/tensor.html">
-                  torch.distributed.tensor
-                </a>
-              </li>
-            
-              <li class=" ">
-                <a class="nav-link dropdown-item nav-internal" href="distributed/functional_collectives.html">
-                  Functional Collectives
-                </a>
-              </li>
-            
-              <li class=" ">
-                <a class="nav-link dropdown-item nav-internal" href="distributed/algorithms.join.html">
-                  Generic Join Context Manager
-                </a>
-              </li>
-            
-              <li class=" ">
-                <a class="nav-link dropdown-item nav-internal" href="distributed/elastic.html">
-                  Torch Distributed Elastic
-                </a>
-              </li>
-            
-              <li class=" ">
-                <a class="nav-link dropdown-item nav-internal" href="distributed/fsdp.html">
-                  FullyShardedDataParallel
-                </a>
-              </li>
-            
-              <li class=" ">
-                <a class="nav-link dropdown-item nav-internal" href="distributed/fsdp.fully_shard.html">
-                  torch.distributed.fsdp.fully_shard
-                </a>
-              </li>
-            
-              <li class=" ">
-                <a class="nav-link dropdown-item nav-internal" href="distributed/tensor.parallel.html">
-                  Tensor Parallelism - torch.distributed.tensor.parallel
-                </a>
-              </li>
-            
-              <li class=" ">
-                <a class="nav-link dropdown-item nav-internal" href="distributed/optim.html">
-                  Distributed Optimizers
-                </a>
-              </li>
-            
-              <li class=" ">
-                <a class="nav-link dropdown-item nav-internal" href="distributed/pipelining.html">
-                  Pipeline Parallelism
-                </a>
-              </li>
-            
-              <li class=" ">
-                <a class="nav-link dropdown-item nav-internal" href="distributed/symmetric_memory.html">
-                  PyTorch Symmetric Memory
-                </a>
-              </li>
-            
-              <li class=" ">
-                <a class="nav-link dropdown-item nav-internal" href="distributed/checkpoint.html">
-                  Distributed Checkpoint - torch.distributed.checkpoint
-                </a>
-              </li>
-            
-              <li class=" ">
                 <a class="nav-link dropdown-item nav-internal" href="distributions.html">
                   Probability distributions - torch.distributions
                 </a>
@@ -922,20 +856,8 @@ document.write(`
               </li>
             
               <li class=" ">
-                <a class="nav-link dropdown-item nav-internal" href="distributed/ddp_comm_hooks.html">
-                  DDP Communication Hooks
-                </a>
-              </li>
-            
-              <li class=" ">
                 <a class="nav-link dropdown-item nav-internal" href="quantization.html">
                   Quantization
-                </a>
-              </li>
-            
-              <li class=" ">
-                <a class="nav-link dropdown-item nav-internal" href="distributed/rpc.html">
-                  Distributed RPC Framework
                 </a>
               </li>
             
@@ -2191,72 +2113,6 @@ document.write(`
               </li>
             
               <li class=" ">
-                <a class="nav-link dropdown-item nav-internal" href="distributed/tensor.html">
-                  torch.distributed.tensor
-                </a>
-              </li>
-            
-              <li class=" ">
-                <a class="nav-link dropdown-item nav-internal" href="distributed/functional_collectives.html">
-                  Functional Collectives
-                </a>
-              </li>
-            
-              <li class=" ">
-                <a class="nav-link dropdown-item nav-internal" href="distributed/algorithms.join.html">
-                  Generic Join Context Manager
-                </a>
-              </li>
-            
-              <li class=" ">
-                <a class="nav-link dropdown-item nav-internal" href="distributed/elastic.html">
-                  Torch Distributed Elastic
-                </a>
-              </li>
-            
-              <li class=" ">
-                <a class="nav-link dropdown-item nav-internal" href="distributed/fsdp.html">
-                  FullyShardedDataParallel
-                </a>
-              </li>
-            
-              <li class=" ">
-                <a class="nav-link dropdown-item nav-internal" href="distributed/fsdp.fully_shard.html">
-                  torch.distributed.fsdp.fully_shard
-                </a>
-              </li>
-            
-              <li class=" ">
-                <a class="nav-link dropdown-item nav-internal" href="distributed/tensor.parallel.html">
-                  Tensor Parallelism - torch.distributed.tensor.parallel
-                </a>
-              </li>
-            
-              <li class=" ">
-                <a class="nav-link dropdown-item nav-internal" href="distributed/optim.html">
-                  Distributed Optimizers
-                </a>
-              </li>
-            
-              <li class=" ">
-                <a class="nav-link dropdown-item nav-internal" href="distributed/pipelining.html">
-                  Pipeline Parallelism
-                </a>
-              </li>
-            
-              <li class=" ">
-                <a class="nav-link dropdown-item nav-internal" href="distributed/symmetric_memory.html">
-                  PyTorch Symmetric Memory
-                </a>
-              </li>
-            
-              <li class=" ">
-                <a class="nav-link dropdown-item nav-internal" href="distributed/checkpoint.html">
-                  Distributed Checkpoint - torch.distributed.checkpoint
-                </a>
-              </li>
-            
-              <li class=" ">
                 <a class="nav-link dropdown-item nav-internal" href="distributions.html">
                   Probability distributions - torch.distributions
                 </a>
@@ -2389,20 +2245,8 @@ document.write(`
               </li>
             
               <li class=" ">
-                <a class="nav-link dropdown-item nav-internal" href="distributed/ddp_comm_hooks.html">
-                  DDP Communication Hooks
-                </a>
-              </li>
-            
-              <li class=" ">
                 <a class="nav-link dropdown-item nav-internal" href="quantization.html">
                   Quantization
-                </a>
-              </li>
-            
-              <li class=" ">
-                <a class="nav-link dropdown-item nav-internal" href="distributed/rpc.html">
-                  Distributed RPC Framework
                 </a>
               </li>
             
@@ -5607,8 +5451,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -5652,45 +5496,56 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="user_guide/torch_compiler/torch.compiler_transformations.html">Writing Graph Transformations on ATen IR</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1"><a class="reference internal" href="distributed.html">torch.distributed</a></li>
-<li class="toctree-l1"><a class="reference internal" href="distributed/tensor.html">torch.distributed.tensor</a></li>
-<li class="toctree-l1"><a class="reference internal" href="distributed/functional_collectives.html">torch.distributed.functional_collectives</a></li>
-<li class="toctree-l1"><a class="reference internal" href="distributed/algorithms.join.html">torch.distributed.algorithms.join</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="distributed/elastic.html">torch.distributed.elastic</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="distributed/elastic/quickstart.html">Quickstart</a></li>
-<li class="toctree-l2"><a class="reference internal" href="distributed/elastic/train_script.html">Train script</a></li>
-<li class="toctree-l2"><a class="reference internal" href="distributed/elastic/examples.html">Examples</a></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="distributed/elastic/run.html">torchrun (Elastic Launch)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="distributed/elastic/generated/torch.distributed.run.config_from_args.html">torch.distributed.run.config_from_args</a></li>
-<li class="toctree-l3"><a class="reference internal" href="distributed/elastic/generated/torch.distributed.run.determine_local_world_size.html">torch.distributed.run.determine_local_world_size</a></li>
-<li class="toctree-l3"><a class="reference internal" href="distributed/elastic/generated/torch.distributed.run.main.html">torch.distributed.run.main</a></li>
-<li class="toctree-l3"><a class="reference internal" href="distributed/elastic/generated/torch.distributed.run.parse_args.html">torch.distributed.run.parse_args</a></li>
-<li class="toctree-l3"><a class="reference internal" href="distributed/elastic/generated/torch.distributed.run.parse_min_max_nnodes.html">torch.distributed.run.parse_min_max_nnodes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="distributed/elastic/generated/torch.distributed.run.run.html">torch.distributed.run.run</a></li>
-<li class="toctree-l3"><a class="reference internal" href="distributed/elastic/generated/torch.distributed.run.run_script_path.html">torch.distributed.run.run_script_path</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="distributed.html">torch.distributed</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="distributed/custom_backends.html">Custom backends</a></li>
+<li class="toctree-l2"><a class="reference internal" href="distributed/tensor.html">torch.distributed.tensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="distributed/functional_collectives.html">torch.distributed.functional_collectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="distributed/algorithms.join.html">torch.distributed.algorithms.join</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="distributed/elastic.html">torch.distributed.elastic</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="distributed/elastic/quickstart.html">Quickstart</a></li>
+<li class="toctree-l3"><a class="reference internal" href="distributed/elastic/train_script.html">Train script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="distributed/elastic/examples.html">Examples</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="distributed/elastic/run.html">torchrun (Elastic Launch)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="distributed/elastic/generated/torch.distributed.run.config_from_args.html">torch.distributed.run.config_from_args</a></li>
+<li class="toctree-l4"><a class="reference internal" href="distributed/elastic/generated/torch.distributed.run.determine_local_world_size.html">torch.distributed.run.determine_local_world_size</a></li>
+<li class="toctree-l4"><a class="reference internal" href="distributed/elastic/generated/torch.distributed.run.main.html">torch.distributed.run.main</a></li>
+<li class="toctree-l4"><a class="reference internal" href="distributed/elastic/generated/torch.distributed.run.parse_args.html">torch.distributed.run.parse_args</a></li>
+<li class="toctree-l4"><a class="reference internal" href="distributed/elastic/generated/torch.distributed.run.parse_min_max_nnodes.html">torch.distributed.run.parse_min_max_nnodes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="distributed/elastic/generated/torch.distributed.run.run.html">torch.distributed.run.run</a></li>
+<li class="toctree-l4"><a class="reference internal" href="distributed/elastic/generated/torch.distributed.run.run_script_path.html">torch.distributed.run.run_script_path</a></li>
 </ul>
 </details></li>
-<li class="toctree-l2"><a class="reference internal" href="distributed/elastic/agent.html">Elastic Agent</a></li>
-<li class="toctree-l2"><a class="reference internal" href="distributed/elastic/multiprocessing.html">Multiprocessing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="distributed/elastic/errors.html">Error Propagation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="distributed/elastic/rendezvous.html">Rendezvous</a></li>
-<li class="toctree-l2"><a class="reference internal" href="distributed/elastic/timer.html">Expiration Timers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="distributed/elastic/metrics.html">Metrics</a></li>
-<li class="toctree-l2"><a class="reference internal" href="distributed/elastic/events.html">Events</a></li>
-<li class="toctree-l2"><a class="reference internal" href="distributed/elastic/subprocess_handler.html">Subprocess Handling</a></li>
-<li class="toctree-l2"><a class="reference internal" href="distributed/elastic/control_plane.html">Control Plane</a></li>
-<li class="toctree-l2"><a class="reference internal" href="distributed/elastic/numa.html">NUMA Binding</a></li>
-<li class="toctree-l2"><a class="reference internal" href="distributed/elastic/customization.html">Customization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="distributed/elastic/kubernetes.html">TorchElastic Kubernetes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="distributed/elastic/agent.html">Elastic Agent</a></li>
+<li class="toctree-l3"><a class="reference internal" href="distributed/elastic/multiprocessing.html">Multiprocessing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="distributed/elastic/errors.html">Error Propagation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="distributed/elastic/rendezvous.html">Rendezvous</a></li>
+<li class="toctree-l3"><a class="reference internal" href="distributed/elastic/timer.html">Expiration Timers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="distributed/elastic/metrics.html">Metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="distributed/elastic/events.html">Events</a></li>
+<li class="toctree-l3"><a class="reference internal" href="distributed/elastic/subprocess_handler.html">Subprocess Handling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="distributed/elastic/control_plane.html">Control Plane</a></li>
+<li class="toctree-l3"><a class="reference internal" href="distributed/elastic/numa.html">NUMA Binding</a></li>
+<li class="toctree-l3"><a class="reference internal" href="distributed/elastic/utils.html">Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="distributed/elastic/customization.html">Customization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="distributed/elastic/kubernetes.html">TorchElastic Kubernetes</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1"><a class="reference internal" href="distributed/fsdp.html">torch.distributed.fsdp</a></li>
-<li class="toctree-l1"><a class="reference internal" href="distributed/fsdp.fully_shard.html">torch.distributed.fsdp.fully_shard</a></li>
-<li class="toctree-l1"><a class="reference internal" href="distributed/tensor.parallel.html">torch.distributed.tensor.parallel</a></li>
-<li class="toctree-l1"><a class="reference internal" href="distributed/optim.html">torch.distributed.optim</a></li>
-<li class="toctree-l1"><a class="reference internal" href="distributed/pipelining.html">torch.distributed.pipelining</a></li>
-<li class="toctree-l1"><a class="reference internal" href="distributed/symmetric_memory.html">torch.distributed._symmetric_memory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="distributed/checkpoint.html">torch.distributed.checkpoint</a></li>
+<li class="toctree-l2"><a class="reference internal" href="distributed/fsdp.html">torch.distributed.fsdp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="distributed/fsdp.fully_shard.html">torch.distributed.fsdp.fully_shard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="distributed/tensor.parallel.html">torch.distributed.tensor.parallel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="distributed/optim.html">torch.distributed.optim</a></li>
+<li class="toctree-l2"><a class="reference internal" href="distributed/pipelining.html">torch.distributed.pipelining</a></li>
+<li class="toctree-l2"><a class="reference internal" href="distributed/symmetric_memory.html">torch.distributed._symmetric_memory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="distributed/transport.html">torch.distributed._transport</a></li>
+<li class="toctree-l2"><a class="reference internal" href="distributed/checkpoint.html">torch.distributed.checkpoint</a></li>
+<li class="toctree-l2"><a class="reference internal" href="distributed/ddp_comm_hooks.html">DDP Communication Hooks</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="distributed/rpc.html">Distributed RPC Framework</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="distributed/rpc/rref.html">Remote Reference Protocol</a></li>
+<li class="toctree-l3"><a class="reference internal" href="distributed/rpc/distributed_autograd.html">Distributed Autograd Design</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="distributions.html">torch.distributions</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.distributions.transforms.identity_transform.html">torch.distributions.transforms.identity_transform</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.distributions.constraints.dependent.html">torch.distributions.constraints.dependent</a></li>
@@ -6455,7 +6310,6 @@ document.write(`
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="complex_numbers.html">Complex Numbers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="distributed/ddp_comm_hooks.html">DDP Communication Hooks</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="quantization.html">Quantization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="quantization-support.html">Quantization API Reference</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.ao.quantization.quantize.html">quantize</a></li>
@@ -6801,11 +6655,6 @@ document.write(`
 </details></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="distributed/rpc.html">Distributed RPC Framework</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="distributed/rpc/rref.html">Remote Reference Protocol</a></li>
-<li class="toctree-l2"><a class="reference internal" href="distributed/rpc/distributed_autograd.html">Distributed Autograd Design</a></li>
-</ul>
-</details></li>
 <li class="toctree-l1"><a class="reference internal" href="random.html">torch.random</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="masked.html">torch.masked</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.abs.html">torch.abs</a></li>
@@ -7055,7 +6904,7 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="generated/torch._logging.set_logs.html">torch._logging.set_logs</a></li>
 </ul>
 </details></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">PYTORCH ProcessGroupNCCL Environment Variables</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">PYTORCH NCCL Backend Environment Variables</a></li>
 </ul>
 </details></li>
 </ul>
@@ -7155,7 +7004,7 @@ document.write(`
     </div>
     
     <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-      <meta itemprop="name" content="PYTORCH ProcessGroupNCCL Environment Variables">
+      <meta itemprop="name" content="PYTORCH NCCL Backend Environment Variables">
       <meta itemprop="position" content="3">
     </div>
   </div>
@@ -7169,10 +7018,11 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="pytorch-processgroupnccl-environment-variables">
-<span id="torch-nccl-environment-variables"></span><h1>PYTORCH ProcessGroupNCCL Environment Variables<a class="headerlink" href="#pytorch-processgroupnccl-environment-variables" title="Link to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jun 10, 2025 | Last Updated On: Jun 10, 2025</p>
-<p>For more information on the environment variables, see <a class="reference external" href="https://github.com/pytorch/pytorch/blob/main/torch/csrc/distributed/c10d/ProcessGroupNCCL.hpp">ProcessGroupNCCL Environment Variables</a>.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="pytorch-nccl-backend-environment-variables">
+<span id="torch-nccl-environment-variables"></span><h1>PYTORCH NCCL Backend Environment Variables<a class="headerlink" href="#pytorch-nccl-backend-environment-variables" title="Link to this heading">#</a></h1>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jun 10, 2025 | Last Updated On: Oct 15, 2026</p>
+<p>These variables configure the <code class="docutils literal notranslate"><span class="pre">nccl</span></code>, <code class="docutils literal notranslate"><span class="pre">nccl-lazy</span></code> and <code class="docutils literal notranslate"><span class="pre">nccl-legacy</span></code> backends. Each entry below states which backends read it: <strong>nccl-legacy only</strong>, <strong>All NCCL backends</strong>, or the backends it applies to.</p>
+<p><code class="docutils literal notranslate"><span class="pre">nccl-legacy</span></code> records into the flight recorder natively and dumps it itself. For <code class="docutils literal notranslate"><span class="pre">nccl</span></code>, <code class="docutils literal notranslate"><span class="pre">nccl-lazy</span></code> and other backends without native support, <code class="docutils literal notranslate"><span class="pre">FlightRecorderHook</span></code> records and dumps the trace. The recorder reads the buffer size, C++ stack and dump file variables; the dump-on-failure variables are read by <code class="docutils literal notranslate"><span class="pre">nccl-legacy</span></code> or by <code class="docutils literal notranslate"><span class="pre">FlightRecorderHook</span></code>, as noted per entry. Where both are read, the <code class="docutils literal notranslate"><span class="pre">TORCH_FR_*</span></code> name takes precedence over its <code class="docutils literal notranslate"><span class="pre">TORCH_NCCL_*</span></code> alias.</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p><strong>Variable</strong></p></th>
@@ -7180,50 +7030,107 @@ document.write(`
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">TORCH_NCCL_ASYNC_ERROR_HANDLING</span></code></p></td>
-<td><p>Control how we perform Async Error Handling with NCCL when an exception is observed in watchdog. If set to 0, no handling of asynchronous NCCL errors. If set to 1, aborting NCCL communicator and tearing down process upon error. If set to 2, only abort NCCL communicator and if set to 3, tearing down process without aborting NCCL communicator. By default, it is set to 3.</p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">TORCH_DIST_NAN_CHECK</span></code></p></td>
+<td><p><strong>All backends.</strong> If set to <code class="docutils literal notranslate"><span class="pre">1</span></code>, attach a backend-agnostic NaN check to every new process group; input buffers of collectives are checked for NaNs. Use this with <code class="docutils literal notranslate"><span class="pre">nccl</span></code>, which ignores <code class="docutils literal notranslate"><span class="pre">TORCH_NCCL_NAN_CHECK</span></code>. Default: <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">TORCH_NCCL_HIGH_PRIORITY</span></code></p></td>
-<td><p>Control whether to use high priority stream for the NCCL communicator.</p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">TORCH_NCCL_ASYNC_ERROR_HANDLING</span></code></p></td>
+<td><p><strong>All NCCL backends.</strong> Control how we perform Async Error Handling with NCCL when an exception is observed in watchdog. If set to 0, no handling of asynchronous NCCL errors. If set to 1, aborting NCCL communicator and tearing down process upon error. If set to 2, only abort NCCL communicator and if set to 3, tearing down process without aborting NCCL communicator. By default, it is set to 3; <code class="docutils literal notranslate"><span class="pre">torchrun</span></code> sets it to 1 for its workers if it is unset.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">TORCH_NCCL_BLOCKING_WAIT</span></code></p></td>
-<td><p>Control whether or not wait() is blocking or non-blocking.</p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">TORCH_NCCL_HIGH_PRIORITY</span></code></p></td>
+<td><p><strong>All NCCL backends.</strong> Control whether to use high priority stream for the NCCL communicator. Default: <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">TORCH_NCCL_BLOCKING_WAIT</span></code></p></td>
+<td><p><strong>All NCCL backends.</strong> Control whether or not wait() is blocking or non-blocking. Default: <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">TORCH_NCCL_USE_COMM_NONBLOCKING</span></code></p></td>
+<td><p><strong>All NCCL backends.</strong> If set to <code class="docutils literal notranslate"><span class="pre">1</span></code>, create NCCL communicators in nonblocking mode. An explicit <code class="docutils literal notranslate"><span class="pre">blocking</span></code> value in the NCCL config takes precedence. Default: <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">TORCH_NCCL_NONBLOCKING_TIMEOUT</span></code></p></td>
+<td><p><strong>nccl-legacy only.</strong> Timeout in seconds for nonblocking NCCL communicator operations (init, abort, finalize). Default: <code class="docutils literal notranslate"><span class="pre">1800</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">TORCH_NCCL_RANKS_PER_ROOT</span></code></p></td>
+<td><p><strong>All NCCL backends.</strong> Number of ranks each root covers during scalable NCCL communicator init; groups larger than this use multiple roots. <code class="docutils literal notranslate"><span class="pre">nccl</span></code> rejects values less than 1. Default: <code class="docutils literal notranslate"><span class="pre">128</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">TORCH_NCCL_BCAST_UNIQUEID</span></code></p></td>
+<td><p><strong>nccl-legacy only.</strong> Whether to broadcast the NCCL unique ID through the store when creating a communicator. Default: <code class="docutils literal notranslate"><span class="pre">1</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">TORCH_NCCL_CUDA_EVENT_CACHE</span></code></p></td>
+<td><p><strong>All NCCL backends.</strong> Whether to reuse CUDA events through a cache instead of creating and destroying them per collective. Destroying a CUDA event while the CUDA global lock is held can hang. Default: <code class="docutils literal notranslate"><span class="pre">1</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">TORCH_NCCL_USE_TENSOR_REGISTER_ALLOCATOR_HOOK</span></code></p></td>
+<td><p><strong>nccl-legacy only.</strong> If set to <code class="docutils literal notranslate"><span class="pre">1</span></code>, register CUDA caching allocator hooks so that allocated and freed segments are registered and deregistered with all NCCL communicators. Default: <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">TORCH_NCCL_SHOW_EAGER_INIT_P2P_SERIALIZATION_WARNING</span></code></p></td>
+<td><p><strong>nccl-legacy only.</strong> Whether to warn that point-to-point operations are serialized when the communicator is eagerly initialized. Default: <code class="docutils literal notranslate"><span class="pre">1</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">TORCH_NCCL_DESYNC_DEBUG</span></code></p></td>
+<td><p><strong>nccl-legacy only.</strong> Control whether Desync Debug is enabled. This is helpful in figuring out the culprit rank of collective desync.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">TORCH_NCCL_ENABLE_TIMING</span></code></p></td>
+<td><p><strong>All NCCL backends.</strong> If set to <code class="docutils literal notranslate"><span class="pre">1</span></code>, enable recording start-events for all ProcessGroupNCCL collectives, and compute accurate collective timing per-collective. Default: <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">TORCH_NCCL_ENABLE_MONITORING</span></code></p></td>
+<td><p><strong>nccl-legacy only.</strong> If set to <code class="docutils literal notranslate"><span class="pre">1</span></code>, enable monitoring thread which aborts the process when the ProcessGroupNCCL Watchdog thread gets stuck and no heartbeat is detected after TORCH_NCCL_HEARTBEAT_TIMEOUT_SEC. This can happen due to calling CUDA/NCCL APIs that may hang. It is Useful to prevent jobs being stuck for a prolonged time than necessary tying up cluster resources. Default: <code class="docutils literal notranslate"><span class="pre">1</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">TORCH_NCCL_HEARTBEAT_TIMEOUT_SEC</span></code></p></td>
+<td><p><strong>nccl-legacy only.</strong> Control the watchdog heartbeat timeout period after which the monitoring thread will abort the process. Default: <code class="docutils literal notranslate"><span class="pre">480</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">TORCH_NCCL_PROPAGATE_ERROR</span></code></p></td>
+<td><p><strong>nccl-legacy only.</strong> If set to <code class="docutils literal notranslate"><span class="pre">1</span></code>, propagate NCCL errors to all ranks through the store. Default: <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">TORCH_NCCL_RETHROW_CUDA_ERRORS</span></code></p></td>
+<td><p><strong>nccl-legacy only.</strong> Whether the watchdog rethrows CUDA errors. Default: <code class="docutils literal notranslate"><span class="pre">1</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">TORCH_NCCL_TEARDOWN_ON_TIMEOUT</span></code></p></td>
+<td><p><strong>nccl-legacy only.</strong> If set to <code class="docutils literal notranslate"><span class="pre">1</span></code>, a collective timeout tears down the process even when <code class="docutils literal notranslate"><span class="pre">TORCH_NCCL_RETHROW_CUDA_ERRORS=0</span></code>. Only applies when <code class="docutils literal notranslate"><span class="pre">TORCH_NCCL_ASYNC_ERROR_HANDLING</span></code> is 1 or 3. Default: <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">TORCH_NCCL_LOG_CPP_STACK_ON_UNCLEAN_SHUTDOWN</span></code></p></td>
+<td><p><strong>nccl-legacy only.</strong> Whether to log C++ stack traces on unclean shutdown. Default: <code class="docutils literal notranslate"><span class="pre">1</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">TORCH_NCCL_COORD_CHECK_MILSEC</span></code></p></td>
+<td><p><strong>nccl-legacy only.</strong> Control the interval inside the monitoring thread to check the coordinated signal from other ranks, e.g. to dump the debugging information. Default value is 1000 ms.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">TORCH_NCCL_WAIT_TIMEOUT_DUMP_MILSEC</span></code></p></td>
+<td><p><strong>All NCCL backends.</strong> Control how much extra time we will wait for dumping the debugging info before we exit and throws timeout exception. <code class="docutils literal notranslate"><span class="pre">nccl</span></code> waits this long before aborting the process; its flight recorder dump reads <code class="docutils literal notranslate"><span class="pre">TORCH_FR_WAIT_TIMEOUT_DUMP_MILSEC</span></code> first. Default: <code class="docutils literal notranslate"><span class="pre">15000</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">TORCH_FR_WAIT_TIMEOUT_DUMP_MILSEC</span></code></p></td>
+<td><p><strong><code class="docutils literal notranslate"><span class="pre">nccl</span></code>, <code class="docutils literal notranslate"><span class="pre">nccl-lazy</span></code> and other hooked backends.</strong> Time limit in milliseconds for a flight recorder dump on failure. Falls back to <code class="docutils literal notranslate"><span class="pre">TORCH_NCCL_WAIT_TIMEOUT_DUMP_MILSEC</span></code>. Default: <code class="docutils literal notranslate"><span class="pre">15000</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">TORCH_FR_DUMP_ON_TIMEOUT</span></code></p></td>
+<td><p><strong><code class="docutils literal notranslate"><span class="pre">nccl</span></code>, <code class="docutils literal notranslate"><span class="pre">nccl-lazy</span></code> and other hooked backends.</strong> Whether to dump the flight recorder trace when a collective times out or fails. Falls back to <code class="docutils literal notranslate"><span class="pre">TORCH_NCCL_DUMP_ON_TIMEOUT</span></code>. Default: <code class="docutils literal notranslate"><span class="pre">1</span></code>.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">TORCH_NCCL_DUMP_ON_TIMEOUT</span></code></p></td>
-<td><p>Control whether dumping debug info on watchdog timeout or exception is detected. This variable must be set together with TORCH_NCCL_TRACE_BUFFER_SIZE larger than 0.</p></td>
+<td><p><strong>All NCCL backends.</strong> Control whether dumping debug info on watchdog timeout or exception is detected. <code class="docutils literal notranslate"><span class="pre">nccl-legacy</span></code> reads only this name; for <code class="docutils literal notranslate"><span class="pre">nccl</span></code> it is the alias of <code class="docutils literal notranslate"><span class="pre">TORCH_FR_DUMP_ON_TIMEOUT</span></code>. Has no effect if the trace buffer size is 0. Default: <code class="docutils literal notranslate"><span class="pre">1</span></code>.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">TORCH_NCCL_DESYNC_DEBUG</span></code></p></td>
-<td><p>Control whether Desync Debug is enabled. This is helpful in figuring out the culprit rank of collective desync.</p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">TORCH_FR_BUFFER_SIZE</span></code>, <code class="docutils literal notranslate"><span class="pre">TORCH_NCCL_TRACE_BUFFER_SIZE</span></code></p></td>
+<td><p><strong>All NCCL backends.</strong> The maximum number of events we store in the flight recorder’s ring buffer. One event could be the start or end of a collective, for example. Set to 0 to disable recording. Default: <code class="docutils literal notranslate"><span class="pre">2000</span></code>. <code class="docutils literal notranslate"><span class="pre">nccl-legacy</span></code> decides whether to dump, and whether to create the <code class="docutils literal notranslate"><span class="pre">TORCH_NCCL_DEBUG_INFO_PIPE_FILE</span></code> pipe, from <code class="docutils literal notranslate"><span class="pre">TORCH_NCCL_TRACE_BUFFER_SIZE</span></code> alone, so <code class="docutils literal notranslate"><span class="pre">TORCH_FR_BUFFER_SIZE=0</span></code> stops recording but <code class="docutils literal notranslate"><span class="pre">nccl-legacy</span></code> still dumps an empty trace. For <code class="docutils literal notranslate"><span class="pre">nccl</span></code>, the first name that is set controls both recording and dumping.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">TORCH_NCCL_ENABLE_TIMING</span></code></p></td>
-<td><p>If set to <code class="docutils literal notranslate"><span class="pre">1</span></code>, enable recording start-events for all ProcessGroupNCCL collectives, and compute accurate collective timing per-collective.</p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">TORCH_FR_CPP_STACK</span></code>, <code class="docutils literal notranslate"><span class="pre">TORCH_NCCL_TRACE_CPP_STACK</span></code></p></td>
+<td><p><strong>All NCCL backends.</strong> Whether to collect cpp stack traces for flight recorder. Default: <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">TORCH_NCCL_ENABLE_MONITORING</span></code></p></td>
-<td><p>If set to <code class="docutils literal notranslate"><span class="pre">1</span></code>,enable monitoring thread which aborts the process when the ProcessGroupNCCL Watchdog thread gets stuck and no heartbeat is detected after TORCH_NCCL_HEARTBEAT_TIMEOUT_SEC. This can happen due to calling CUDA/NCCL APIs that may hang. It is Useful to prevent jobs being stuck for a prolonged time than necessary tying up cluster resources.</p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">TORCH_FR_DUMP_TEMP_FILE</span></code>, <code class="docutils literal notranslate"><span class="pre">TORCH_NCCL_DEBUG_INFO_TEMP_FILE</span></code></p></td>
+<td><p><strong>All NCCL backends.</strong> Prefix of the file into which the debugging info is dumped; the rank is appended. Default: <code class="docutils literal notranslate"><span class="pre">$XDG_CACHE_HOME/torch/comm_lib_trace_rank_</span></code> (<code class="docutils literal notranslate"><span class="pre">XDG_CACHE_HOME</span></code> defaults to <code class="docutils literal notranslate"><span class="pre">~/.cache</span></code>).</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">TORCH_NCCL_HEARTBEAT_TIMEOUT_SEC</span></code></p></td>
-<td><p>Control the watchdog heartbeat timeout period after which the monitoring thread will abort the process.</p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">TORCH_FR_DUMP_DYNAMIC_FILE_NAME</span></code></p></td>
+<td><p><strong>All NCCL backends.</strong> If set to <code class="docutils literal notranslate"><span class="pre">1</span></code>, reread <code class="docutils literal notranslate"><span class="pre">TORCH_FR_DUMP_TEMP_FILE</span></code> at each dump and use its value as the full file path, without appending the rank. The <code class="docutils literal notranslate"><span class="pre">TORCH_NCCL_DEBUG_INFO_TEMP_FILE</span></code> alias is not reread. Default: <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">TORCH_NCCL_TRACE_BUFFER_SIZE</span></code></p></td>
-<td><p>The maximum number of events we store in the flight recorder’s ring buffer. One event could be the start or end of a collective, for example. Set to 0 to disable the tracebuffer and debugging info dump.</p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">TORCH_INCLUDE_STACK_TRACE</span></code></p></td>
+<td><p><strong>All NCCL backends.</strong> Whether a flight recorder dump on timeout or failure includes stack traces. If the dump does not finish within the wait timeout, it is retried without them. Default: <code class="docutils literal notranslate"><span class="pre">1</span></code>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">TORCH_NCCL_TRACE_CPP_STACK</span></code></p></td>
-<td><p>Whether to collect cpp stack traces for flight recorder. Default value is False.</p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">TORCH_INCLUDE_ONLY_ACTIVE</span></code></p></td>
+<td><p><strong>All NCCL backends.</strong> Whether a flight recorder dump includes only collectives that have not completed. Default: <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">TORCH_NCCL_COORD_CHECK_MILSEC</span></code></p></td>
-<td><p>Control the interval inside the monitoring thread to check the coordinated signal from other ranks, e.g. to dump the debugging information. Default value is 1000 ms.</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">TORCH_NCCL_WAIT_TIMEOUT_DUMP_MILSEC</span></code></p></td>
-<td><p>Control how much extra time we will wait for dumping the debugging info before we exit and throws timeout exception.</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">TORCH_NCCL_DEBUG_INFO_TEMP_FILE</span></code></p></td>
-<td><p>The file into which the debugging info would be dumped.</p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">TORCH_NCCL_EXTRA_DUMP_ON_EXEC</span></code></p></td>
+<td><p><strong>nccl-legacy only.</strong> If set to <code class="docutils literal notranslate"><span class="pre">1</span></code>, also dump the debugging info when the process group is aborted or its watchdog hits an exception. Default: <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">TORCH_NCCL_DEBUG_INFO_PIPE_FILE</span></code></p></td>
-<td><p>The pipe file to trigger debugging dump manually, write anything into the pipe would trigger the dump.</p></td>
+<td><p><strong>nccl-legacy only.</strong> The pipe file to trigger debugging dump manually, write anything into the pipe would trigger the dump.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">TORCH_NCCL_NAN_CHECK</span></code></p></td>
-<td><p>Control whether to enable NAN check for the input, Error would be thrown if NAN is detected.</p></td>
+<td><p><strong>nccl-legacy only.</strong> Control whether to enable NAN check for the input, Error would be thrown if NAN is detected. For other backends, including <code class="docutils literal notranslate"><span class="pre">nccl</span></code>, use <code class="docutils literal notranslate"><span class="pre">TORCH_DIST_NAN_CHECK</span></code>. Default: <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">TORCH_NCCL2_RECONFIGURE_SHRINK_GROW</span></code></p></td>
+<td><p><strong><code class="docutils literal notranslate"><span class="pre">nccl</span></code> and <code class="docutils literal notranslate"><span class="pre">nccl-lazy</span></code> only.</strong> If set to <code class="docutils literal notranslate"><span class="pre">1</span></code>, <code class="docutils literal notranslate"><span class="pre">reconfigure</span></code> uses NCCL’s shrink/grow fast path (NCCL 2.29 or later) when NCCL’s rank order matches c10d’s; otherwise it creates a new communicator. Set the same value on every rank. Default: <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p></td>
 </tr>
 </tbody>
 </table>
@@ -7584,11 +7491,11 @@ document.write(`
     {
        "@context": "https://schema.org",
        "@type": "Article",
-       "name": "PYTORCH ProcessGroupNCCL Environment Variables",
-       "headline": "PYTORCH ProcessGroupNCCL Environment Variables",
+       "name": "PYTORCH NCCL Backend Environment Variables",
+       "headline": "PYTORCH NCCL Backend Environment Variables",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/torch_nccl_environment_variables.html",
-       "articleBody": "PYTORCH ProcessGroupNCCL Environment Variables# Created On: Jun 10, 2025 | Last Updated On: Jun 10, 2025 For more information on the environment variables, see ProcessGroupNCCL Environment Variables. Variable Description TORCH_NCCL_ASYNC_ERROR_HANDLING Control how we perform Async Error Handling with NCCL when an exception is observed in watchdog. If set to 0, no handling of asynchronous NCCL errors. If set to 1, aborting NCCL communicator and tearing down process upon error. If set to 2, only abort NCCL communicator and if set to 3, tearing down process without aborting NCCL communicator. By default, it is set to 3. TORCH_NCCL_HIGH_PRIORITY Control whether to use high priority stream for the NCCL communicator. TORCH_NCCL_BLOCKING_WAIT Control whether or not wait() is blocking or non-blocking. TORCH_NCCL_DUMP_ON_TIMEOUT Control whether dumping debug info on watchdog timeout or exception is detected. This variable must be set together with TORCH_NCCL_TRACE_BUFFER_SIZE larger than 0. TORCH_NCCL_DESYNC_DEBUG Control whether Desync Debug is enabled. This is helpful in figuring out the culprit rank of collective desync. TORCH_NCCL_ENABLE_TIMING If set to 1, enable recording start-events for all ProcessGroupNCCL collectives, and compute accurate collective timing per-collective. TORCH_NCCL_ENABLE_MONITORING If set to 1,enable monitoring thread which aborts the process when the ProcessGroupNCCL Watchdog thread gets stuck and no heartbeat is detected after TORCH_NCCL_HEARTBEAT_TIMEOUT_SEC. This can happen due to calling CUDA/NCCL APIs that may hang. It is Useful to prevent jobs being stuck for a prolonged time than necessary tying up cluster resources. TORCH_NCCL_HEARTBEAT_TIMEOUT_SEC Control the watchdog heartbeat timeout period after which the monitoring thread will abort the process. TORCH_NCCL_TRACE_BUFFER_SIZE The maximum number of events we store in the flight recorder\u2019s ring buffer. One event could be the start or end of a collective, for example. Set to 0 to disable the tracebuffer and debugging info dump. TORCH_NCCL_TRACE_CPP_STACK Whether to collect cpp stack traces for flight recorder. Default value is False. TORCH_NCCL_COORD_CHECK_MILSEC Control the interval inside the monitoring thread to check the coordinated signal from other ranks, e.g. to dump the debugging information. Default value is 1000 ms. TORCH_NCCL_WAIT_TIMEOUT_DUMP_MILSEC Control how much extra time we will wait for dumping the debugging info before we exit and throws timeout exception. TORCH_NCCL_DEBUG_INFO_TEMP_FILE The file into which the debugging info would be dumped. TORCH_NCCL_DEBUG_INFO_PIPE_FILE The pipe file to trigger debugging dump manually, write anything into the pipe would trigger the dump. TORCH_NCCL_NAN_CHECK Control whether to enable NAN check for the input, Error would be thrown if NAN is detected.",
+       "articleBody": "PYTORCH NCCL Backend Environment Variables# Created On: Jun 10, 2025 | Last Updated On: Oct 15, 2026 These variables configure the nccl, nccl-lazy and nccl-legacy backends. Each entry below states which backends read it: nccl-legacy only, All NCCL backends, or the backends it applies to. nccl-legacy records into the flight recorder natively and dumps it itself. For nccl, nccl-lazy and other backends without native support, FlightRecorderHook records and dumps the trace. The recorder reads the buffer size, C++ stack and dump file variables; the dump-on-failure variables are read by nccl-legacy or by FlightRecorderHook, as noted per entry. Where both are read, the TORCH_FR_* name takes precedence over its TORCH_NCCL_* alias. Variable Description TORCH_DIST_NAN_CHECK All backends. If set to 1, attach a backend-agnostic NaN check to every new process group; input buffers of collectives are checked for NaNs. Use this with nccl, which ignores TORCH_NCCL_NAN_CHECK. Default: 0. TORCH_NCCL_ASYNC_ERROR_HANDLING All NCCL backends. Control how we perform Async Error Handling with NCCL when an exception is observed in watchdog. If set to 0, no handling of asynchronous NCCL errors. If set to 1, aborting NCCL communicator and tearing down process upon error. If set to 2, only abort NCCL communicator and if set to 3, tearing down process without aborting NCCL communicator. By default, it is set to 3; torchrun sets it to 1 for its workers if it is unset. TORCH_NCCL_HIGH_PRIORITY All NCCL backends. Control whether to use high priority stream for the NCCL communicator. Default: 0. TORCH_NCCL_BLOCKING_WAIT All NCCL backends. Control whether or not wait() is blocking or non-blocking. Default: 0. TORCH_NCCL_USE_COMM_NONBLOCKING All NCCL backends. If set to 1, create NCCL communicators in nonblocking mode. An explicit blocking value in the NCCL config takes precedence. Default: 0. TORCH_NCCL_NONBLOCKING_TIMEOUT nccl-legacy only. Timeout in seconds for nonblocking NCCL communicator operations (init, abort, finalize). Default: 1800. TORCH_NCCL_RANKS_PER_ROOT All NCCL backends. Number of ranks each root covers during scalable NCCL communicator init; groups larger than this use multiple roots. nccl rejects values less than 1. Default: 128. TORCH_NCCL_BCAST_UNIQUEID nccl-legacy only. Whether to broadcast the NCCL unique ID through the store when creating a communicator. Default: 1. TORCH_NCCL_CUDA_EVENT_CACHE All NCCL backends. Whether to reuse CUDA events through a cache instead of creating and destroying them per collective. Destroying a CUDA event while the CUDA global lock is held can hang. Default: 1. TORCH_NCCL_USE_TENSOR_REGISTER_ALLOCATOR_HOOK nccl-legacy only. If set to 1, register CUDA caching allocator hooks so that allocated and freed segments are registered and deregistered with all NCCL communicators. Default: 0. TORCH_NCCL_SHOW_EAGER_INIT_P2P_SERIALIZATION_WARNING nccl-legacy only. Whether to warn that point-to-point operations are serialized when the communicator is eagerly initialized. Default: 1. TORCH_NCCL_DESYNC_DEBUG nccl-legacy only. Control whether Desync Debug is enabled. This is helpful in figuring out the culprit rank of collective desync. TORCH_NCCL_ENABLE_TIMING All NCCL backends. If set to 1, enable recording start-events for all ProcessGroupNCCL collectives, and compute accurate collective timing per-collective. Default: 0. TORCH_NCCL_ENABLE_MONITORING nccl-legacy only. If set to 1, enable monitoring thread which aborts the process when the ProcessGroupNCCL Watchdog thread gets stuck and no heartbeat is detected after TORCH_NCCL_HEARTBEAT_TIMEOUT_SEC. This can happen due to calling CUDA/NCCL APIs that may hang. It is Useful to prevent jobs being stuck for a prolonged time than necessary tying up cluster resources. Default: 1. TORCH_NCCL_HEARTBEAT_TIMEOUT_SEC nccl-legacy only. Control the watchdog heartbeat timeout period after which the monitoring thread will abort the process. Default: 480. TORCH_NCCL_PROPAGATE_ERROR nccl-legacy only. If set to 1, propagate NCCL errors to all ranks through the store. Default: 0. TORCH_NCCL_RETHROW_CUDA_ERRORS nccl-legacy only. Whether the watchdog rethrows CUDA errors. Default: 1. TORCH_NCCL_TEARDOWN_ON_TIMEOUT nccl-legacy only. If set to 1, a collective timeout tears down the process even when TORCH_NCCL_RETHROW_CUDA_ERRORS=0. Only applies when TORCH_NCCL_ASYNC_ERROR_HANDLING is 1 or 3. Default: 0. TORCH_NCCL_LOG_CPP_STACK_ON_UNCLEAN_SHUTDOWN nccl-legacy only. Whether to log C++ stack traces on unclean shutdown. Default: 1. TORCH_NCCL_COORD_CHECK_MILSEC nccl-legacy only. Control the interval inside the monitoring thread to check the coordinated signal from other ranks, e.g. to dump the debugging information. Default value is 1000 ms. TORCH_NCCL_WAIT_TIMEOUT_DUMP_MILSEC All NCCL backends. Control how much extra time we will wait for dumping the debugging info before we exit and throws timeout exception. nccl waits this long before aborting the process; its flight recorder dump reads TORCH_FR_WAIT_TIMEOUT_DUMP_MILSEC first. Default: 15000. TORCH_FR_WAIT_TIMEOUT_DUMP_MILSEC nccl, nccl-lazy and other hooked backends. Time limit in milliseconds for a flight recorder dump on failure. Falls back to TORCH_NCCL_WAIT_TIMEOUT_DUMP_MILSEC. Default: 15000. TORCH_FR_DUMP_ON_TIMEOUT nccl, nccl-lazy and other hooked backends. Whether to dump the flight recorder trace when a collective times out or fails. Falls back to TORCH_NCCL_DUMP_ON_TIMEOUT. Default: 1. TORCH_NCCL_DUMP_ON_TIMEOUT All NCCL backends. Control whether dumping debug info on watchdog timeout or exception is detected. nccl-legacy reads only this name; for nccl it is the alias of TORCH_FR_DUMP_ON_TIMEOUT. Has no effect if the trace buffer size is 0. Default: 1. TORCH_FR_BUFFER_SIZE, TORCH_NCCL_TRACE_BUFFER_SIZE All NCCL backends. The maximum number of events we store in the flight recorder\u2019s ring buffer. One event could be the start or end of a collective, for example. Set to 0 to disable recording. Default: 2000. nccl-legacy decides whether to dump, and whether to create the TORCH_NCCL_DEBUG_INFO_PIPE_FILE pipe, from TORCH_NCCL_TRACE_BUFFER_SIZE alone, so TORCH_FR_BUFFER_SIZE=0 stops recording but nccl-legacy still dumps an empty trace. For nccl, the first name that is set controls both recording and dumping. TORCH_FR_CPP_STACK, TORCH_NCCL_TRACE_CPP_STACK All NCCL backends. Whether to collect cpp stack traces for flight recorder. Default: 0. TORCH_FR_DUMP_TEMP_FILE, TORCH_NCCL_DEBUG_INFO_TEMP_FILE All NCCL backends. Prefix of the file into which the debugging info is dumped; the rank is appended. Default: $XDG_CACHE_HOME/torch/comm_lib_trace_rank_ (XDG_CACHE_HOME defaults to ~/.cache). TORCH_FR_DUMP_DYNAMIC_FILE_NAME All NCCL backends. If set to 1, reread TORCH_FR_DUMP_TEMP_FILE at each dump and use its value as the full file path, without appending the rank. The TORCH_NCCL_DEBUG_INFO_TEMP_FILE alias is not reread. Default: 0. TORCH_INCLUDE_STACK_TRACE All NCCL backends. Whether a flight recorder dump on timeout or failure includes stack traces. If the dump does not finish within the wait timeout, it is retried without them. Default: 1. TORCH_INCLUDE_ONLY_ACTIVE All NCCL backends. Whether a flight recorder dump includes only collectives that have not completed. Default: 0. TORCH_NCCL_EXTRA_DUMP_ON_EXEC nccl-legacy only. If set to 1, also dump the debugging info when the process group is aborted or its watchdog hits an exception. Default: 0. TORCH_NCCL_DEBUG_INFO_PIPE_FILE nccl-legacy only. The pipe file to trigger debugging dump manually, write anything into the pipe would trigger the dump. TORCH_NCCL_NAN_CHECK nccl-legacy only. Control whether to enable NAN check for the input, Error would be thrown if NAN is detected. For other backends, including nccl, use TORCH_DIST_NAN_CHECK. Default: 0. TORCH_NCCL2_RECONFIGURE_SHRINK_GROW nccl and nccl-lazy only. If set to 1, reconfigure uses NCCL\u2019s shrink/grow fast path (NCCL 2.29 or later) when NCCL\u2019s rank order matches c10d\u2019s; otherwise it creates a new communicator. Set the same value on every rank. Default: 0.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -7600,7 +7507,7 @@ document.write(`
          "@id": "/torch_nccl_environment_variables.html"
        },
        "datePublished": "Jun 10, 2025T00:00:00Z",
-       "dateModified": "Jun 10, 2025T00:00:00Z"
+       "dateModified": "Oct 15, 2026T00:00:00Z"
      }
  </script>
   <script>

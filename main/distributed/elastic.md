@@ -25,6 +25,7 @@ API
 - [Subprocess Handling](elastic/subprocess_handler.html)
 - [Control Plane](elastic/control_plane.html)
 - [NUMA Binding](elastic/numa.html)
+- [Utilities](elastic/utils.html)
 
 Advanced
 

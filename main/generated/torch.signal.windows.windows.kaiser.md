@@ -1,6 +1,6 @@
 # torch.signal.windows.windows.kaiser
 
-torch.signal.windows.windows.kaiser(*M*, ***, *beta=12.0*, *sym=True*, *dtype=None*, *layout=torch.strided*, *device=None*, *requires_grad=False*)[[source]](https://github.com/pytorch/pytorch/blob/be79392a0cedbbc0b5d2d3288173316425f90af4/torch/signal/windows/windows.py#L332)
+torch.signal.windows.windows.kaiser(*M*, ***, *beta=12.0*, *sym=True*, *dtype=None*, *layout=torch.strided*, *device=None*, *requires_grad=False*)[[source]](https://github.com/pytorch/pytorch/blob/64cf21712548b5b1ea993d13784345169fb72869/torch/signal/windows/windows.py#L332)
 
 Computes the Kaiser window.
 

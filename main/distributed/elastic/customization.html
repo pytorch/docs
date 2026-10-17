@@ -62,7 +62,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="TorchElastic Kubernetes" href="kubernetes.html" />
-    <link rel="prev" title="NUMA Binding" href="numa.html" />
+    <link rel="prev" title="Utilities" href="utils.html" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -80,7 +80,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.16.0a0+gitbe79392 )">
+<meta name="llm:version" content="main (2.16.0a0+git64cf217 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -186,7 +186,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.16.0a0+gitbe79392 )');
+  document.documentElement.setAttribute('data-version', 'main (2.16.0a0+git64cf217 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -724,72 +724,6 @@ document.write(`
               </li>
             
               <li class=" ">
-                <a class="nav-link dropdown-item nav-internal" href="../tensor.html">
-                  torch.distributed.tensor
-                </a>
-              </li>
-            
-              <li class=" ">
-                <a class="nav-link dropdown-item nav-internal" href="../functional_collectives.html">
-                  Functional Collectives
-                </a>
-              </li>
-            
-              <li class=" ">
-                <a class="nav-link dropdown-item nav-internal" href="../algorithms.join.html">
-                  Generic Join Context Manager
-                </a>
-              </li>
-            
-              <li class=" ">
-                <a class="nav-link dropdown-item nav-internal" href="../elastic.html">
-                  Torch Distributed Elastic
-                </a>
-              </li>
-            
-              <li class=" ">
-                <a class="nav-link dropdown-item nav-internal" href="../fsdp.html">
-                  FullyShardedDataParallel
-                </a>
-              </li>
-            
-              <li class=" ">
-                <a class="nav-link dropdown-item nav-internal" href="../fsdp.fully_shard.html">
-                  torch.distributed.fsdp.fully_shard
-                </a>
-              </li>
-            
-              <li class=" ">
-                <a class="nav-link dropdown-item nav-internal" href="../tensor.parallel.html">
-                  Tensor Parallelism - torch.distributed.tensor.parallel
-                </a>
-              </li>
-            
-              <li class=" ">
-                <a class="nav-link dropdown-item nav-internal" href="../optim.html">
-                  Distributed Optimizers
-                </a>
-              </li>
-            
-              <li class=" ">
-                <a class="nav-link dropdown-item nav-internal" href="../pipelining.html">
-                  Pipeline Parallelism
-                </a>
-              </li>
-            
-              <li class=" ">
-                <a class="nav-link dropdown-item nav-internal" href="../symmetric_memory.html">
-                  PyTorch Symmetric Memory
-                </a>
-              </li>
-            
-              <li class=" ">
-                <a class="nav-link dropdown-item nav-internal" href="../checkpoint.html">
-                  Distributed Checkpoint - torch.distributed.checkpoint
-                </a>
-              </li>
-            
-              <li class=" ">
                 <a class="nav-link dropdown-item nav-internal" href="../../distributions.html">
                   Probability distributions - torch.distributions
                 </a>
@@ -922,20 +856,8 @@ document.write(`
               </li>
             
               <li class=" ">
-                <a class="nav-link dropdown-item nav-internal" href="../ddp_comm_hooks.html">
-                  DDP Communication Hooks
-                </a>
-              </li>
-            
-              <li class=" ">
                 <a class="nav-link dropdown-item nav-internal" href="../../quantization.html">
                   Quantization
-                </a>
-              </li>
-            
-              <li class=" ">
-                <a class="nav-link dropdown-item nav-internal" href="../rpc.html">
-                  Distributed RPC Framework
                 </a>
               </li>
             
@@ -2191,72 +2113,6 @@ document.write(`
               </li>
             
               <li class=" ">
-                <a class="nav-link dropdown-item nav-internal" href="../tensor.html">
-                  torch.distributed.tensor
-                </a>
-              </li>
-            
-              <li class=" ">
-                <a class="nav-link dropdown-item nav-internal" href="../functional_collectives.html">
-                  Functional Collectives
-                </a>
-              </li>
-            
-              <li class=" ">
-                <a class="nav-link dropdown-item nav-internal" href="../algorithms.join.html">
-                  Generic Join Context Manager
-                </a>
-              </li>
-            
-              <li class=" ">
-                <a class="nav-link dropdown-item nav-internal" href="../elastic.html">
-                  Torch Distributed Elastic
-                </a>
-              </li>
-            
-              <li class=" ">
-                <a class="nav-link dropdown-item nav-internal" href="../fsdp.html">
-                  FullyShardedDataParallel
-                </a>
-              </li>
-            
-              <li class=" ">
-                <a class="nav-link dropdown-item nav-internal" href="../fsdp.fully_shard.html">
-                  torch.distributed.fsdp.fully_shard
-                </a>
-              </li>
-            
-              <li class=" ">
-                <a class="nav-link dropdown-item nav-internal" href="../tensor.parallel.html">
-                  Tensor Parallelism - torch.distributed.tensor.parallel
-                </a>
-              </li>
-            
-              <li class=" ">
-                <a class="nav-link dropdown-item nav-internal" href="../optim.html">
-                  Distributed Optimizers
-                </a>
-              </li>
-            
-              <li class=" ">
-                <a class="nav-link dropdown-item nav-internal" href="../pipelining.html">
-                  Pipeline Parallelism
-                </a>
-              </li>
-            
-              <li class=" ">
-                <a class="nav-link dropdown-item nav-internal" href="../symmetric_memory.html">
-                  PyTorch Symmetric Memory
-                </a>
-              </li>
-            
-              <li class=" ">
-                <a class="nav-link dropdown-item nav-internal" href="../checkpoint.html">
-                  Distributed Checkpoint - torch.distributed.checkpoint
-                </a>
-              </li>
-            
-              <li class=" ">
                 <a class="nav-link dropdown-item nav-internal" href="../../distributions.html">
                   Probability distributions - torch.distributions
                 </a>
@@ -2389,20 +2245,8 @@ document.write(`
               </li>
             
               <li class=" ">
-                <a class="nav-link dropdown-item nav-internal" href="../ddp_comm_hooks.html">
-                  DDP Communication Hooks
-                </a>
-              </li>
-            
-              <li class=" ">
                 <a class="nav-link dropdown-item nav-internal" href="../../quantization.html">
                   Quantization
-                </a>
-              </li>
-            
-              <li class=" ">
-                <a class="nav-link dropdown-item nav-internal" href="../rpc.html">
-                  Distributed RPC Framework
                 </a>
               </li>
             
@@ -5607,8 +5451,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -5652,45 +5496,56 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../../user_guide/torch_compiler/torch.compiler_transformations.html">Writing Graph Transformations on ATen IR</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1"><a class="reference internal" href="../../distributed.html">torch.distributed</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tensor.html">torch.distributed.tensor</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../functional_collectives.html">torch.distributed.functional_collectives</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../algorithms.join.html">torch.distributed.algorithms.join</a></li>
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="../elastic.html">torch.distributed.elastic</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
-<li class="toctree-l2"><a class="reference internal" href="train_script.html">Train script</a></li>
-<li class="toctree-l2"><a class="reference internal" href="examples.html">Examples</a></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="run.html">torchrun (Elastic Launch)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.distributed.run.config_from_args.html">torch.distributed.run.config_from_args</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.distributed.run.determine_local_world_size.html">torch.distributed.run.determine_local_world_size</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.distributed.run.main.html">torch.distributed.run.main</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.distributed.run.parse_args.html">torch.distributed.run.parse_args</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.distributed.run.parse_min_max_nnodes.html">torch.distributed.run.parse_min_max_nnodes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.distributed.run.run.html">torch.distributed.run.run</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/torch.distributed.run.run_script_path.html">torch.distributed.run.run_script_path</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../../distributed.html">torch.distributed</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../custom_backends.html">Custom backends</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tensor.html">torch.distributed.tensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functional_collectives.html">torch.distributed.functional_collectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../algorithms.join.html">torch.distributed.algorithms.join</a></li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="../elastic.html">torch.distributed.elastic</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
+<li class="toctree-l3"><a class="reference internal" href="train_script.html">Train script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="run.html">torchrun (Elastic Launch)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="generated/torch.distributed.run.config_from_args.html">torch.distributed.run.config_from_args</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/torch.distributed.run.determine_local_world_size.html">torch.distributed.run.determine_local_world_size</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/torch.distributed.run.main.html">torch.distributed.run.main</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/torch.distributed.run.parse_args.html">torch.distributed.run.parse_args</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/torch.distributed.run.parse_min_max_nnodes.html">torch.distributed.run.parse_min_max_nnodes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/torch.distributed.run.run.html">torch.distributed.run.run</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/torch.distributed.run.run_script_path.html">torch.distributed.run.run_script_path</a></li>
 </ul>
 </details></li>
-<li class="toctree-l2"><a class="reference internal" href="agent.html">Elastic Agent</a></li>
-<li class="toctree-l2"><a class="reference internal" href="multiprocessing.html">Multiprocessing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="errors.html">Error Propagation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="rendezvous.html">Rendezvous</a></li>
-<li class="toctree-l2"><a class="reference internal" href="timer.html">Expiration Timers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="metrics.html">Metrics</a></li>
-<li class="toctree-l2"><a class="reference internal" href="events.html">Events</a></li>
-<li class="toctree-l2"><a class="reference internal" href="subprocess_handler.html">Subprocess Handling</a></li>
-<li class="toctree-l2"><a class="reference internal" href="control_plane.html">Control Plane</a></li>
-<li class="toctree-l2"><a class="reference internal" href="numa.html">NUMA Binding</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Customization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="kubernetes.html">TorchElastic Kubernetes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="agent.html">Elastic Agent</a></li>
+<li class="toctree-l3"><a class="reference internal" href="multiprocessing.html">Multiprocessing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="errors.html">Error Propagation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="rendezvous.html">Rendezvous</a></li>
+<li class="toctree-l3"><a class="reference internal" href="timer.html">Expiration Timers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="metrics.html">Metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="events.html">Events</a></li>
+<li class="toctree-l3"><a class="reference internal" href="subprocess_handler.html">Subprocess Handling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="control_plane.html">Control Plane</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numa.html">NUMA Binding</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html">Utilities</a></li>
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">Customization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="kubernetes.html">TorchElastic Kubernetes</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1"><a class="reference internal" href="../fsdp.html">torch.distributed.fsdp</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../fsdp.fully_shard.html">torch.distributed.fsdp.fully_shard</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tensor.parallel.html">torch.distributed.tensor.parallel</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../optim.html">torch.distributed.optim</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../pipelining.html">torch.distributed.pipelining</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../symmetric_memory.html">torch.distributed._symmetric_memory</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../checkpoint.html">torch.distributed.checkpoint</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fsdp.html">torch.distributed.fsdp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fsdp.fully_shard.html">torch.distributed.fsdp.fully_shard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tensor.parallel.html">torch.distributed.tensor.parallel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../optim.html">torch.distributed.optim</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pipelining.html">torch.distributed.pipelining</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../symmetric_memory.html">torch.distributed._symmetric_memory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../transport.html">torch.distributed._transport</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../checkpoint.html">torch.distributed.checkpoint</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ddp_comm_hooks.html">DDP Communication Hooks</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../rpc.html">Distributed RPC Framework</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../rpc/rref.html">Remote Reference Protocol</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rpc/distributed_autograd.html">Distributed Autograd Design</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../distributions.html">torch.distributions</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../generated/torch.distributions.transforms.identity_transform.html">torch.distributions.transforms.identity_transform</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../generated/torch.distributions.constraints.dependent.html">torch.distributions.constraints.dependent</a></li>
@@ -6455,7 +6310,6 @@ document.write(`
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../../complex_numbers.html">Complex Numbers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ddp_comm_hooks.html">DDP Communication Hooks</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../quantization.html">Quantization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../quantization-support.html">Quantization API Reference</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../generated/torch.ao.quantization.quantize.html">quantize</a></li>
@@ -6801,11 +6655,6 @@ document.write(`
 </details></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../rpc.html">Distributed RPC Framework</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../rpc/rref.html">Remote Reference Protocol</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../rpc/distributed_autograd.html">Distributed Autograd Design</a></li>
-</ul>
-</details></li>
 <li class="toctree-l1"><a class="reference internal" href="../../random.html">torch.random</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../masked.html">torch.masked</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../generated/torch.abs.html">torch.abs</a></li>
@@ -7055,7 +6904,7 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="../../generated/torch._logging.set_logs.html">torch._logging.set_logs</a></li>
 </ul>
 </details></li>
-<li class="toctree-l2"><a class="reference internal" href="../../torch_nccl_environment_variables.html">PYTORCH ProcessGroupNCCL Environment Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../torch_nccl_environment_variables.html">PYTORCH NCCL Backend Environment Variables</a></li>
 </ul>
 </details></li>
 </ul>
@@ -7087,6 +6936,8 @@ document.write(`
 
 
 
+
+
 <nav aria-label="Breadcrumb" class="d-print-none">
   <ul class="bd-breadcrumbs">
     
@@ -7097,6 +6948,9 @@ document.write(`
     </li>
     
     <li class="breadcrumb-item"><a href="../../pytorch-api.html" class="nav-link">Reference API</a></li>
+    
+    
+    <li class="breadcrumb-item"><i class="fa-solid fa-ellipsis"></i></li>
     
     
     <li class="breadcrumb-item"><a href="../elastic.html" class="nav-link">Torch Distributed Elastic</a></li>
@@ -7149,14 +7003,20 @@ document.write(`
     </div>
     
     <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-      <link itemprop="item" href="../elastic.html">
-      <meta itemprop="name" content="Torch Distributed Elastic">
+      <link itemprop="item" href="../../distributed.html">
+      <meta itemprop="name" content="Distributed communication package - torch.distributed">
       <meta itemprop="position" content="2">
     </div>
     
     <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-      <meta itemprop="name" content="Customization">
+      <link itemprop="item" href="../elastic.html">
+      <meta itemprop="name" content="Torch Distributed Elastic">
       <meta itemprop="position" content="3">
+    </div>
+    
+    <div itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+      <meta itemprop="name" content="Customization">
+      <meta itemprop="position" content="4">
     </div>
   </div>
 
@@ -7182,27 +7042,48 @@ programmatically creating an agent and passing it specs for your workers as
 shown below.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># my_launcher.py</span>
 
+<span class="kn">import</span><span class="w"> </span><span class="nn">uuid</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch.distributed.elastic.agent.server</span><span class="w"> </span><span class="kn">import</span> <span class="n">WorkerSpec</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch.distributed.elastic.agent.server.local_elastic_agent</span><span class="w"> </span><span class="kn">import</span> <span class="n">LocalElasticAgent</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch.distributed.elastic.multiprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">DefaultLogsSpecs</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch.distributed.elastic.rendezvous</span><span class="w"> </span><span class="kn">import</span> <span class="n">RendezvousParameters</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch.distributed.elastic.rendezvous.registry</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_rendezvous_handler</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">trainer</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">2</span>
+
+
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-    <span class="n">args</span> <span class="o">=</span> <span class="n">parse_args</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
-    <span class="n">rdzv_handler</span> <span class="o">=</span> <span class="n">RendezvousHandler</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+    <span class="n">rdzv_handler</span> <span class="o">=</span> <span class="n">get_rendezvous_handler</span><span class="p">(</span>
+        <span class="n">RendezvousParameters</span><span class="p">(</span>
+            <span class="n">backend</span><span class="o">=</span><span class="s2">&quot;c10d&quot;</span><span class="p">,</span>
+            <span class="n">endpoint</span><span class="o">=</span><span class="s2">&quot;localhost:0&quot;</span><span class="p">,</span>
+            <span class="n">run_id</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()),</span>
+            <span class="n">min_nodes</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+            <span class="n">max_nodes</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
     <span class="n">spec</span> <span class="o">=</span> <span class="n">WorkerSpec</span><span class="p">(</span>
-        <span class="n">local_world_size</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">nproc_per_node</span><span class="p">,</span>
-        <span class="n">fn</span><span class="o">=</span><span class="n">trainer_entrypoint_fn</span><span class="p">,</span>
-        <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">trainer_entrypoint_fn</span> <span class="n">args</span><span class="o">.</span><span class="n">fn_args</span><span class="p">,</span><span class="o">...</span><span class="p">),</span>
+        <span class="n">role</span><span class="o">=</span><span class="s2">&quot;trainer&quot;</span><span class="p">,</span>
+        <span class="n">local_world_size</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="n">entrypoint</span><span class="o">=</span><span class="n">trainer</span><span class="p">,</span>
+        <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="mi">21</span><span class="p">,),</span>
         <span class="n">rdzv_handler</span><span class="o">=</span><span class="n">rdzv_handler</span><span class="p">,</span>
-        <span class="n">max_restarts</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">max_restarts</span><span class="p">,</span>
-        <span class="n">monitor_interval</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">monitor_interval</span><span class="p">,</span>
+        <span class="n">max_restarts</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+        <span class="n">monitor_interval</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
     <span class="p">)</span>
 
-    <span class="n">agent</span> <span class="o">=</span> <span class="n">LocalElasticAgent</span><span class="p">(</span><span class="n">spec</span><span class="p">,</span> <span class="n">start_method</span><span class="o">=</span><span class="s2">&quot;spawn&quot;</span><span class="p">)</span>
+    <span class="n">agent</span> <span class="o">=</span> <span class="n">LocalElasticAgent</span><span class="p">(</span><span class="n">spec</span><span class="p">,</span> <span class="n">logs_specs</span><span class="o">=</span><span class="n">DefaultLogsSpecs</span><span class="p">(),</span> <span class="n">start_method</span><span class="o">=</span><span class="s2">&quot;spawn&quot;</span><span class="p">)</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">run_result</span> <span class="o">=</span> <span class="n">agent</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">run_result</span><span class="o">.</span><span class="n">is_failed</span><span class="p">():</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;worker 0 failed with: run_result.failures[0]&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;worker 0 failed with: </span><span class="si">{</span><span class="n">run_result</span><span class="o">.</span><span class="n">failures</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;worker 0 return value is: run_result.return_values[0]&quot;</span><span class="p">)</span>
-    <span class="k">except</span> <span class="ne">Exception</span> <span class="n">ex</span><span class="p">:</span>
-        <span class="c1"># handle exception</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;worker 0 return value is: </span><span class="si">{</span><span class="n">run_result</span><span class="o">.</span><span class="n">return_values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">rdzv_handler</span><span class="o">.</span><span class="n">shutdown</span><span class="p">()</span>
 </pre></div>
 </div>
 </section>
@@ -7219,11 +7100,25 @@ Please refer to <a class="reference internal" href="rendezvous.html#rendezvous-a
 <p>Once implemented you can pass your custom rendezvous handler to the worker
 spec when creating the agent.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">spec</span> <span class="o">=</span> <span class="n">WorkerSpec</span><span class="p">(</span>
+    <span class="n">role</span><span class="o">=</span><span class="s2">&quot;trainer&quot;</span><span class="p">,</span>
     <span class="n">rdzv_handler</span><span class="o">=</span><span class="n">MyRendezvousHandler</span><span class="p">(</span><span class="n">params</span><span class="p">),</span>
     <span class="o">...</span>
 <span class="p">)</span>
-<span class="n">elastic_agent</span> <span class="o">=</span> <span class="n">LocalElasticAgent</span><span class="p">(</span><span class="n">spec</span><span class="p">,</span> <span class="n">start_method</span><span class="o">=</span><span class="n">start_method</span><span class="p">)</span>
+<span class="n">elastic_agent</span> <span class="o">=</span> <span class="n">LocalElasticAgent</span><span class="p">(</span><span class="n">spec</span><span class="p">,</span> <span class="n">logs_specs</span><span class="o">=</span><span class="n">DefaultLogsSpecs</span><span class="p">())</span>
 <span class="n">elastic_agent</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">role</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To create it by name with <code class="docutils literal notranslate"><span class="pre">get_rendezvous_handler</span></code>, register a <code class="docutils literal notranslate"><span class="pre">creator</span></code>
+that takes a <code class="docutils literal notranslate"><span class="pre">RendezvousParameters</span></code> and returns the handler with
+<code class="docutils literal notranslate"><span class="pre">torch.distributed.elastic.rendezvous.rendezvous_handler_registry.register(name,</span> <span class="pre">creator)</span></code>.
+The handler’s <code class="docutils literal notranslate"><span class="pre">get_backend()</span></code> must return <code class="docutils literal notranslate"><span class="pre">name</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">torchrun</span></code> runs in its own process, so to make the backend available to
+<code class="docutils literal notranslate"><span class="pre">torchrun</span> <span class="pre">--rdzv-backend=&lt;name&gt;</span></code>, expose it through the <code class="docutils literal notranslate"><span class="pre">torchrun.handlers</span></code>
+entry-point group of an installed package. The entry point is a zero-argument
+function that returns the <code class="docutils literal notranslate"><span class="pre">creator</span></code>:</p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="c1"># pyproject.toml</span>
+<span class="k">[project.entry-points.</span><span class="s2">&quot;torchrun.handlers&quot;</span><span class="k">]</span>
+<span class="n">my_backend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;my_package.rendezvous:get_creator&quot;</span>
 </pre></div>
 </div>
 </section>
@@ -7238,42 +7133,52 @@ custom launcher.</p>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">torch.distributed.elastic.metrics</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">metrics</span>
 
+
 <span class="k">class</span><span class="w"> </span><span class="nc">MyMetricHandler</span><span class="p">(</span><span class="n">metrics</span><span class="o">.</span><span class="n">MetricHandler</span><span class="p">):</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">emit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">metric_data</span><span class="p">:</span> <span class="n">metrics</span><span class="o">.</span><span class="n">MetricData</span><span class="p">):</span>
-        <span class="c1"># push metric_data to your metric sink</span>
+        <span class="o">...</span>  <span class="c1"># push metric_data to your metric sink</span>
+
 
 <span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
-    <span class="n">metrics</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">MyMetricHandler</span><span class="p">())</span>
+    <span class="n">metrics</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">MyMetricHandler</span><span class="p">(),</span> <span class="n">group</span><span class="o">=</span><span class="s2">&quot;torchelastic&quot;</span><span class="p">)</span>
 
     <span class="n">spec</span> <span class="o">=</span> <span class="n">WorkerSpec</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
-    <span class="n">agent</span> <span class="o">=</span> <span class="n">LocalElasticAgent</span><span class="p">(</span><span class="n">spec</span><span class="p">)</span>
+    <span class="n">agent</span> <span class="o">=</span> <span class="n">LocalElasticAgent</span><span class="p">(</span><span class="n">spec</span><span class="p">,</span> <span class="n">logs_specs</span><span class="o">=</span><span class="n">DefaultLogsSpecs</span><span class="p">())</span>
     <span class="n">agent</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </pre></div>
 </div>
 </section>
 <section id="events-handler">
 <h2>Events Handler<a class="headerlink" href="#events-handler" title="Link to this heading">#</a></h2>
-<p>TorchElastic supports events recording (see <a class="reference internal" href="events.html#events-api"><span class="std std-ref">Events</span></a>).
-The events module defines API that allows you to record events and
-implement custom EventHandler. EventHandler is used for publishing events
-produced during torchelastic execution to different sources, e.g. AWS CloudWatch.
-By default it uses <code class="docutils literal notranslate"><span class="pre">torch.distributed.elastic.events.NullEventHandler</span></code> that ignores
-events. To configure custom events handler you need to implement
-<code class="docutils literal notranslate"><span class="pre">torch.distributed.elastic.events.EventHandler</span></code> interface and <code class="docutils literal notranslate"><span class="pre">configure</span></code> it
-in your custom launcher.</p>
+<p>TorchElastic records events (see <a class="reference internal" href="events.html#events-api"><span class="std std-ref">Events</span></a>) through Python <code class="docutils literal notranslate"><span class="pre">logging</span></code>.
+The destination is chosen by name with <code class="docutils literal notranslate"><span class="pre">torchrun</span> <span class="pre">--event-log-handler</span></code> or
+<code class="docutils literal notranslate"><span class="pre">WorkerSpec.event_log_handler</span></code>; <code class="docutils literal notranslate"><span class="pre">null</span></code> (default) drops events and <code class="docutils literal notranslate"><span class="pre">console</span></code>
+prints them. Each event is logged as a JSON string to the logger
+<code class="docutils literal notranslate"><span class="pre">torchelastic-events-&lt;destination&gt;</span></code>, so you can forward events elsewhere
+(e.g. AWS CloudWatch) by attaching a <code class="docutils literal notranslate"><span class="pre">logging.Handler</span></code> to that logger in
+your custom launcher. Rendezvous events (<code class="docutils literal notranslate"><span class="pre">RdzvEvent</span></code>) ignore the destination
+and always go to the <code class="docutils literal notranslate"><span class="pre">torchelastic-events-dynamic_rendezvous</span></code> logger. They
+are not recorded at all while the <code class="docutils literal notranslate"><span class="pre">dynamic_rendezvous</span></code> entry in
+<code class="docutils literal notranslate"><span class="pre">torch.distributed.elastic.events.handlers</span></code> is a <code class="docutils literal notranslate"><span class="pre">logging.NullHandler</span></code> (the
+default); attaching a handler to the logger alone is not enough.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># my_launcher.py</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="nn">torch.distributed.elastic.events</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">events</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
 
-<span class="k">class</span><span class="w"> </span><span class="nc">MyEventHandler</span><span class="p">(</span><span class="n">events</span><span class="o">.</span><span class="n">EventHandler</span><span class="p">):</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">record</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">events</span><span class="o">.</span><span class="n">Event</span><span class="p">):</span>
-        <span class="c1"># process event</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch.distributed.elastic.events</span><span class="w"> </span><span class="kn">import</span> <span class="n">Event</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">MyEventHandler</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">Handler</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">emit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">record</span><span class="p">:</span> <span class="n">logging</span><span class="o">.</span><span class="n">LogRecord</span><span class="p">):</span>
+        <span class="n">event</span> <span class="o">=</span> <span class="n">Event</span><span class="o">.</span><span class="n">deserialize</span><span class="p">(</span><span class="n">record</span><span class="o">.</span><span class="n">getMessage</span><span class="p">())</span>
+        <span class="o">...</span>  <span class="c1"># process event</span>
+
 
 <span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
-    <span class="n">events</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">MyEventHandler</span><span class="p">())</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;torchelastic-events-console&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">MyEventHandler</span><span class="p">())</span>
 
-    <span class="n">spec</span> <span class="o">=</span> <span class="n">WorkerSpec</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
-    <span class="n">agent</span> <span class="o">=</span> <span class="n">LocalElasticAgent</span><span class="p">(</span><span class="n">spec</span><span class="p">)</span>
+    <span class="n">spec</span> <span class="o">=</span> <span class="n">WorkerSpec</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">event_log_handler</span><span class="o">=</span><span class="s2">&quot;console&quot;</span><span class="p">)</span>
+    <span class="n">agent</span> <span class="o">=</span> <span class="n">LocalElasticAgent</span><span class="p">(</span><span class="n">spec</span><span class="p">,</span> <span class="n">logs_specs</span><span class="o">=</span><span class="n">DefaultLogsSpecs</span><span class="p">())</span>
     <span class="n">agent</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -7323,12 +7228,12 @@ in your custom launcher.</p>
 
 <div class="prev-next-area">
     <a class="left-prev"
-       href="numa.html"
+       href="utils.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">NUMA Binding</p>
+        <p class="prev-next-title">Utilities</p>
       </div>
     </a>
     <a class="right-next"
@@ -7362,12 +7267,12 @@ in your custom launcher.</p>
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="numa.html"
+       href="utils.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">NUMA Binding</p>
+        <p class="prev-next-title">Utilities</p>
       </div>
     </a>
     <a class="right-next"
@@ -7653,7 +7558,7 @@ in your custom launcher.</p>
        "headline": "Customization",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/distributed/elastic/customization.html",
-       "articleBody": "Customization# Created On: May 04, 2021 | Last Updated On: Oct 15, 2026 This section describes how to customize TorchElastic to fit your needs. Launcher# The launcher program that ships with TorchElastic should be sufficient for most use-cases (see torchrun (Elastic Launch)). You can implement a custom launcher by programmatically creating an agent and passing it specs for your workers as shown below. # my_launcher.py if __name__ == \"__main__\": args = parse_args(sys.argv[1:]) rdzv_handler = RendezvousHandler(...) spec = WorkerSpec( local_world_size=args.nproc_per_node, fn=trainer_entrypoint_fn, args=(trainer_entrypoint_fn args.fn_args,...), rdzv_handler=rdzv_handler, max_restarts=args.max_restarts, monitor_interval=args.monitor_interval, ) agent = LocalElasticAgent(spec, start_method=\"spawn\") try: run_result = agent.run() if run_result.is_failed(): print(f\"worker 0 failed with: run_result.failures[0]\") else: print(f\"worker 0 return value is: run_result.return_values[0]\") except Exception ex: # handle exception Rendezvous Handler# To implement your own rendezvous, extend torch.distributed.elastic.rendezvous.RendezvousHandler and implement its methods. Warning Rendezvous handlers are tricky to implement. Before you begin make sure you completely understand the properties of rendezvous. Please refer to Rendezvous for more information. Once implemented you can pass your custom rendezvous handler to the worker spec when creating the agent. spec = WorkerSpec( rdzv_handler=MyRendezvousHandler(params), ... ) elastic_agent = LocalElasticAgent(spec, start_method=start_method) elastic_agent.run(spec.role) Metric Handler# TorchElastic emits platform level metrics (see Metrics). By default metrics are emitted to /dev/null so you will not see them. To have the metrics pushed to a metric handling service in your infrastructure, implement a torch.distributed.elastic.metrics.MetricHandler and configure it in your custom launcher. # my_launcher.py import torch.distributed.elastic.metrics as metrics class MyMetricHandler(metrics.MetricHandler): def emit(self, metric_data: metrics.MetricData): # push metric_data to your metric sink def main(): metrics.configure(MyMetricHandler()) spec = WorkerSpec(...) agent = LocalElasticAgent(spec) agent.run() Events Handler# TorchElastic supports events recording (see Events). The events module defines API that allows you to record events and implement custom EventHandler. EventHandler is used for publishing events produced during torchelastic execution to different sources, e.g. AWS CloudWatch. By default it uses torch.distributed.elastic.events.NullEventHandler that ignores events. To configure custom events handler you need to implement torch.distributed.elastic.events.EventHandler interface and configure it in your custom launcher. # my_launcher.py import torch.distributed.elastic.events as events class MyEventHandler(events.EventHandler): def record(self, event: events.Event): # process event def main(): events.configure(MyEventHandler()) spec = WorkerSpec(...) agent = LocalElasticAgent(spec) agent.run()",
+       "articleBody": "Customization# Created On: May 04, 2021 | Last Updated On: Oct 15, 2026 This section describes how to customize TorchElastic to fit your needs. Launcher# The launcher program that ships with TorchElastic should be sufficient for most use-cases (see torchrun (Elastic Launch)). You can implement a custom launcher by programmatically creating an agent and passing it specs for your workers as shown below. # my_launcher.py import uuid from torch.distributed.elastic.agent.server import WorkerSpec from torch.distributed.elastic.agent.server.local_elastic_agent import LocalElasticAgent from torch.distributed.elastic.multiprocessing import DefaultLogsSpecs from torch.distributed.elastic.rendezvous import RendezvousParameters from torch.distributed.elastic.rendezvous.registry import get_rendezvous_handler def trainer(x): return x * 2 if __name__ == \"__main__\": rdzv_handler = get_rendezvous_handler( RendezvousParameters( backend=\"c10d\", endpoint=\"localhost:0\", run_id=str(uuid.uuid4()), min_nodes=1, max_nodes=1, ) ) spec = WorkerSpec( role=\"trainer\", local_world_size=2, entrypoint=trainer, args=(21,), rdzv_handler=rdzv_handler, max_restarts=3, monitor_interval=1, ) agent = LocalElasticAgent(spec, logs_specs=DefaultLogsSpecs(), start_method=\"spawn\") try: run_result = agent.run() if run_result.is_failed(): print(f\"worker 0 failed with: {run_result.failures[0]}\") else: print(f\"worker 0 return value is: {run_result.return_values[0]}\") finally: rdzv_handler.shutdown() Rendezvous Handler# To implement your own rendezvous, extend torch.distributed.elastic.rendezvous.RendezvousHandler and implement its methods. Warning Rendezvous handlers are tricky to implement. Before you begin make sure you completely understand the properties of rendezvous. Please refer to Rendezvous for more information. Once implemented you can pass your custom rendezvous handler to the worker spec when creating the agent. spec = WorkerSpec( role=\"trainer\", rdzv_handler=MyRendezvousHandler(params), ... ) elastic_agent = LocalElasticAgent(spec, logs_specs=DefaultLogsSpecs()) elastic_agent.run(spec.role) To create it by name with get_rendezvous_handler, register a creator that takes a RendezvousParameters and returns the handler with torch.distributed.elastic.rendezvous.rendezvous_handler_registry.register(name, creator). The handler\u2019s get_backend() must return name. torchrun runs in its own process, so to make the backend available to torchrun --rdzv-backend=\u003cname\u003e, expose it through the torchrun.handlers entry-point group of an installed package. The entry point is a zero-argument function that returns the creator: # pyproject.toml [project.entry-points.\"torchrun.handlers\"] my_backend = \"my_package.rendezvous:get_creator\" Metric Handler# TorchElastic emits platform level metrics (see Metrics). By default metrics are emitted to /dev/null so you will not see them. To have the metrics pushed to a metric handling service in your infrastructure, implement a torch.distributed.elastic.metrics.MetricHandler and configure it in your custom launcher. # my_launcher.py import torch.distributed.elastic.metrics as metrics class MyMetricHandler(metrics.MetricHandler): def emit(self, metric_data: metrics.MetricData): ... # push metric_data to your metric sink def main(): metrics.configure(MyMetricHandler(), group=\"torchelastic\") spec = WorkerSpec(...) agent = LocalElasticAgent(spec, logs_specs=DefaultLogsSpecs()) agent.run() Events Handler# TorchElastic records events (see Events) through Python logging. The destination is chosen by name with torchrun --event-log-handler or WorkerSpec.event_log_handler; null (default) drops events and console prints them. Each event is logged as a JSON string to the logger torchelastic-events-\u003cdestination\u003e, so you can forward events elsewhere (e.g. AWS CloudWatch) by attaching a logging.Handler to that logger in your custom launcher. Rendezvous events (RdzvEvent) ignore the destination and always go to the torchelastic-events-dynamic_rendezvous logger. They are not recorded at all while the dynamic_rendezvous entry in torch.distributed.elastic.events.handlers is a logging.NullHandler (the default); attaching a handler to the logger alone is not enough. # my_launcher.py import logging from torch.distributed.elastic.events import Event class MyEventHandler(logging.Handler): def emit(self, record: logging.LogRecord): event = Event.deserialize(record.getMessage()) ... # process event def main(): logging.getLogger(\"torchelastic-events-console\").addHandler(MyEventHandler()) spec = WorkerSpec(..., event_log_handler=\"console\") agent = LocalElasticAgent(spec, logs_specs=DefaultLogsSpecs()) agent.run()",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",

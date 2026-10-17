@@ -1,6 +1,6 @@
 # graph
 
-*class*torch.cuda.graph(*cuda_graph*, *pool=None*, *stream=None*, *capture_error_mode='global'*, *enable_annotations=False*, *annotation_config=None*, *check_input_liveness=False*)[[source]](https://github.com/pytorch/pytorch/blob/be79392a0cedbbc0b5d2d3288173316425f90af4/torch/cuda/graphs.py#L1215)
+*class*torch.cuda.graph(*cuda_graph*, *pool=None*, *stream=None*, *capture_error_mode='global'*, *enable_annotations=False*, *annotation_config=None*, *check_input_liveness=False*)[[source]](https://github.com/pytorch/pytorch/blob/64cf21712548b5b1ea993d13784345169fb72869/torch/cuda/graphs.py#L1215)
 
 Context-manager that captures CUDA work into a [`torch.cuda.CUDAGraph`](torch.cuda.CUDAGraph.html#torch.cuda.CUDAGraph) object for later replay.
 
@@ -25,7 +25,10 @@ unless you're familiar with [cudaStreamCaptureMode](https://docs.nvidia.com/cuda
 recording on entry and automatically calls
 `resolve_pending_annotations()` before
 the capture ends. Annotations are **not** cleared on exit so that multiple
-graphs in the same workload can accumulate annotations.
+graphs in the same workload can accumulate annotations. The kernels of
+captured c10d collectives are tagged with the fields `record_param_comms`
+gives them in eager mode (`"Collective name"`, `"Process Group Name"`,
+`"Seq"`, ...).
 Requires `cuda.bindings` package and cuda-compat >= 13.1 or CUDA driver >= 13.1.
 Requires single-threaded autograd; wrap the capture in
 `torch.autograd.grad_mode.set_multithreading_enabled(False)`.

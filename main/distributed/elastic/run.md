@@ -31,23 +31,13 @@ or equal to the number of GPUs on the current system (`nproc_per_node`),
 and each process will be operating on a single GPU from *GPU 0 to
 GPU (nproc_per_node - 1)*.
 
-Changed in version 2.0.0: `torchrun` will pass the `--local-rank=<rank>` argument to your script.
-From PyTorch 2.0.0 onwards, the dashed `--local-rank` is preferred over the
-previously used underscored `--local_rank`.
+Note
 
-For backward compatibility, it may be necessary for users to handle both
-cases in their argument parsing code. This means including both `"--local-rank"`
-and `"--local_rank"` in the argument parser. If only `"--local_rank"` is
-provided, `torchrun` will trigger an error: "error: unrecognized arguments:
--local-rank=<rank>". For training code that only supports PyTorch 2.0.0+,
-including `"--local-rank"` should be sufficient.
-
-```
->>> import argparse
->>> parser = argparse.ArgumentParser()
->>> parser.add_argument("--local-rank", "--local_rank", type=int)
->>> args = parser.parse_args()
-```
+`torchrun` sets `LOCAL_RANK` in the environment of each worker and does
+not pass `--local-rank` to your script; read it with
+`int(os.environ["LOCAL_RANK"])`. Only the deprecated
+`torch.distributed.launch` passes `--local-rank=<rank>`, and only
+when `--use-env` is not set.
 
 ## Usage
 
@@ -67,11 +57,11 @@ Note
 `"gpu"` (spawn one process per GPU),
 `"cpu"` (spawn one process per CPU),
 `"xpu"` (spawn one process per XPU),
-`"auto"` (equivalent to `"gpu"` if CUDA is available,
-else equivalent to `"xpu"` if XPU is available,
-else equivalent to `"cpu"`),
+the PrivateUse1 backend name (spawn one process per device),
+`"auto"` (one process per device of the current
+[`torch.accelerator`](../../accelerator.html#module-torch.accelerator) if available, else one per CPU),
 or an integer specifying the number of processes.
-See [torch.distributed.run.determine_local_world_size](https://github.com/pytorch/pytorch/blob/0a94bb432ed75cc2d950d81b2921363218a7e459/torch/distributed/run.py#L673-L716)
+See [`torch.distributed.run.determine_local_world_size()`](generated/torch.distributed.run.determine_local_world_size.html#torch.distributed.run.determine_local_world_size)
 for more details.
 
 ### Stacked single-node multi-worker
@@ -81,7 +71,7 @@ same host, we need to make sure that each instance (job) is
 setup on different ports to avoid port conflicts (or worse, two jobs being merged
 as a single job). To do this you have to run with `--rdzv-backend=c10d`
 and specify a different port by setting `--rdzv-endpoint=localhost:$PORT_k`.
-For `--nodes=1`, its often convenient to let `torchrun` pick a free random
+For `--nnodes=1`, it's often convenient to let `torchrun` pick a free random
 port automatically instead of manually assigning different ports for each run.
 
 ```
@@ -163,9 +153,12 @@ For multi-node training you need to specify:
 3. `--rdzv-endpoint`: The endpoint where the rendezvous backend is running; usually in form
 `host:port`.
 
-Currently `c10d` (recommended), `etcd-v2`, and `etcd` (legacy) rendezvous backends are
-supported out of the box. To use `etcd-v2` or `etcd`, setup an etcd server with the `v2` api
-enabled (e.g. `--enable-v2`).
+Currently `static` (the default), `c10d` (recommended), `etcd-v2`, and `etcd` (legacy)
+rendezvous backends are supported out of the box. `static` uses `--master-addr`,
+`--master-port` and `--node-rank` and does not support elasticity. If the backend is
+`static`, `--rdzv-endpoint` and `--master-port` are unset, and `--nnodes` has a maximum
+of 1, `torchrun` switches to `c10d` on `localhost:0`. To use `etcd-v2` or `etcd`,
+setup an etcd server with the `v2` api enabled (e.g. `--enable-v2`).
 
 Warning
 
@@ -190,10 +183,9 @@ removed in a future version.
 8. `LOCAL_WORLD_SIZE` - The size of the local worker group.
 9. `rdzv_id` - A user-defined id that uniquely identifies the worker group for a job. This id is
 used by each node to join as a member of a particular worker group.
-
-1. `rdzv_backend` - The backend of the rendezvous (e.g. `c10d`). This is typically a strongly
+10. `rdzv_backend` - The backend of the rendezvous (e.g. `c10d`). This is typically a strongly
 consistent key-value store.
-2. `rdzv_endpoint` - The rendezvous backend endpoint; usually in form `<host>:<port>`.
+11. `rdzv_endpoint` - The rendezvous backend endpoint; usually in form `<host>:<port>`.
 
 A `Node` runs `LOCAL_WORLD_SIZE` workers which comprise a `LocalWorkerGroup`. The union of
 all `LocalWorkerGroups` in the nodes in the job comprise the `WorkerGroup`.
@@ -322,8 +314,8 @@ model = torch.nn.parallel.DistributedDataParallel(
 
 Please ensure that `device_ids` argument is set to be the only GPU device id
 that your code will be operating on. This is generally the local rank of the
-process. In other words, the `device_ids` needs to be `[int(os.environ("LOCAL_RANK"))]`,
-and `output_device` needs to be `int(os.environ("LOCAL_RANK"))` in order to use this
+process. In other words, the `device_ids` needs to be `[int(os.environ["LOCAL_RANK"])]`,
+and `output_device` needs to be `int(os.environ["LOCAL_RANK"])` in order to use this
 utility
 
 1. On failures or membership changes ALL surviving workers are killed immediately. Make sure to
@@ -358,7 +350,7 @@ is heuristically reported as the "Root Cause" error. To get tracebacks as part o
 error summary print out, you must decorate your main entrypoint function in your
 training script as shown in the example below. If not decorated, then the summary
 will not include the traceback of the exception and will only contain the exitcode.
-For details on torchelastic error handling see: [https://pytorch.org/docs/stable/elastic/errors.html](https://pytorch.org/docs/stable/elastic/errors.html)
+For details on torchelastic error handling see [Error Propagation](errors.html#elastic-errors-api).
 
 ```
 from torch.distributed.elastic.multiprocessing.errors import record

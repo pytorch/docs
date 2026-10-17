@@ -1,6 +1,6 @@
 # torch.foreach.asin
 
-torch.foreach.asin(*inputs: TensorList*, */*) → [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...][[source]](https://github.com/pytorch/pytorch/blob/be79392a0cedbbc0b5d2d3288173316425f90af4/torch/foreach/__init__.py#L358)
+torch.foreach.asin(*inputs: TensorList*, */*) → [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...][[source]](https://github.com/pytorch/pytorch/blob/64cf21712548b5b1ea993d13784345169fb72869/torch/foreach/__init__.py#L358)
 
 Applies [`torch.asin()`](torch.asin.html#torch.asin) to each tensor in `inputs`.
 

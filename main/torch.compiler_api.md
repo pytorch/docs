@@ -63,7 +63,7 @@ trace under the contract of Note [precompile programming model] in `torch/_preco
 `torch.compiler.precompile` is distinct from `torch._dynamo.config.caching_precompile`
 (a `torch.compile` caching mode).
 
-torch.compiler.precompile.capture(*fn*, */*, ***, *artifact_path*, *cache_path*, *tracer=DynamoTracer(guard_filter_fn=None, recompile_limit=256, dynamic=None, require_complete=True, require_no_risky_drops=True)*, *backend='inductor'*)[[source]](https://github.com/pytorch/pytorch/blob/be79392a0cedbbc0b5d2d3288173316425f90af4/torch/_precompile.py#L3253)
+torch.compiler.precompile.capture(*fn*, */*, ***, *artifact_path*, *cache_path*, *tracer=DynamoTracer(guard_filter_fn=None, recompile_limit=256, dynamic=None, require_complete=True, require_no_risky_drops=True)*, *backend='inductor'*)[[source]](https://github.com/pytorch/pytorch/blob/64cf21712548b5b1ea993d13784345169fb72869/torch/_precompile.py#L3253)
 
 Capture `fn` across the calls YOUR loop makes, writing the artifact on exit.
 
@@ -99,7 +99,16 @@ what runs inside the block is carried: run every kernel the serving process
 needs there, since one compiled or launched only before the block is not in
 the cache. Each write also freezes the compiled kernels the serving process
 needs, and raises `PrecompileError` for one it cannot
-freeze.
+freeze. That includes kernels launched directly through `@triton.jit` and
+`@triton.autotune` inside the block: Triton compiles into a fresh cache
+directory there, with its autotuning cache on, so a `TRITON_CACHE_DIR`
+you set is not used inside the block and its kernels compile again. A JIT
+kernel or autotuner already used before the block reuses what it compiled
+or tuned then, which is not carried, so launch each one for the first time
+inside the block.
+Triton does not cache the decision of an autotuner with `pre_hook`
+configs, so such a kernel is benchmarked again on first use in the serving
+process.
 
 `tracer` picks the capture front-end and carries its tracer-specific
 configuration. `DynamoTracer` (the default) is an execution-driven
@@ -156,7 +165,7 @@ Return type:
 
 *Capture*[~_P, *_R*]
 
-torch.compiler.precompile.load(*artifact_path*, *cache_path*)[[source]](https://github.com/pytorch/pytorch/blob/be79392a0cedbbc0b5d2d3288173316425f90af4/torch/_precompile.py#L3396)
+torch.compiler.precompile.load(*artifact_path*, *cache_path*)[[source]](https://github.com/pytorch/pytorch/blob/64cf21712548b5b1ea993d13784345169fb72869/torch/_precompile.py#L3405)
 
 Reconstruct a runnable from the two files a precompile capture wrote.
 
@@ -208,6 +217,12 @@ load it in a fresh process. That check runs only at load: compiling those
 frames after load adds live entries that serve the calls the installed
 ones miss.
 
+Frozen C++ kernels are keyed by their full build command, which includes
+the producer's absolute PyTorch include and library paths, so they serve
+only a host whose PyTorch install and toolchain paths match the producer's.
+Any other host rebuilds them, which needs a C++ compiler there:
+`no_compilation()` does not gate C++ builds.
+
 Raises `PrecompileError` if either file cannot be read, if `python_code` is
 not a `torch.compiler.precompile` artifact, or if the cache's `backend`,
 `tracer` or `code_hash` does not match `python_code` - the pair came from different
@@ -220,7 +235,7 @@ Return type:
 
 *PrecompiledRunnable*
 
-torch.compiler.precompile.no_compilation()[[source]](https://github.com/pytorch/pytorch/blob/be79392a0cedbbc0b5d2d3288173316425f90af4/torch/_precompile.py#L3141)
+torch.compiler.precompile.no_compilation()[[source]](https://github.com/pytorch/pytorch/blob/64cf21712548b5b1ea993d13784345169fb72869/torch/_precompile.py#L3141)
 
 Forbid graph/kernel compilation and autotuning on every thread of this process.
 
@@ -333,7 +348,7 @@ exits it cannot be entered again, so call `capture()` again to retry.
 That includes a failed write at exit: the spent capture does not keep its
 pair, so fix the path and capture again.
 
-save()[[source]](https://github.com/pytorch/pytorch/blob/be79392a0cedbbc0b5d2d3288173316425f90af4/torch/_precompile.py#L516)
+save()[[source]](https://github.com/pytorch/pytorch/blob/64cf21712548b5b1ea993d13784345169fb72869/torch/_precompile.py#L516)
 
 Write everything captured so far to the artifact files without ending the capture.
 
@@ -362,7 +377,7 @@ Variables:
 code objects (`SERVING_MODE = "installed"`); `False` for a
 standalone artifact.
 
-unload()[[source]](https://github.com/pytorch/pytorch/blob/be79392a0cedbbc0b5d2d3288173316425f90af4/torch/_precompile.py#L458)
+unload()[[source]](https://github.com/pytorch/pytorch/blob/64cf21712548b5b1ea993d13784345169fb72869/torch/_precompile.py#L458)
 
 Remove whatever this loaded artifact installed; currently a no-op in every mode.
 

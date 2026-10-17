@@ -1,6 +1,6 @@
 # torch.nn.functional.alpha_dropout
 
-torch.nn.functional.alpha_dropout(*input*, *p=0.5*, *training=False*, *inplace=False*)[[source]](https://github.com/pytorch/pytorch/blob/be79392a0cedbbc0b5d2d3288173316425f90af4/torch/nn/functional.py#L1531)
+torch.nn.functional.alpha_dropout(*input*, *p=0.5*, *training=False*, *inplace=False*)[[source]](https://github.com/pytorch/pytorch/blob/64cf21712548b5b1ea993d13784345169fb72869/torch/nn/functional.py#L1531)
 
 Apply alpha dropout to the input.
 
