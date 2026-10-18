@@ -1,6 +1,6 @@
 # torch.xpu.graph_pool_handle
 
-torch.xpu.graph_pool_handle()[[source]](https://github.com/pytorch/pytorch/blob/64cf21712548b5b1ea993d13784345169fb72869/torch/xpu/graphs.py#L48)
+torch.xpu.graph_pool_handle()[[source]](https://github.com/pytorch/pytorch/blob/8fcaa153fa223ca9f7844513d86d4d30a0cf2533/torch/xpu/graphs.py#L48)
 
 Return an opaque token representing the id of a graph memory pool.
 

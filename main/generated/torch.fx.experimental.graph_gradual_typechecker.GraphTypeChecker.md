@@ -1,8 +1,8 @@
 # GraphTypeChecker
 
-*class*torch.fx.experimental.graph_gradual_typechecker.GraphTypeChecker(*env*, *traced*)[[source]](https://github.com/pytorch/pytorch/blob/64cf21712548b5b1ea993d13784345169fb72869/torch/fx/experimental/graph_gradual_typechecker.py#L649)
+*class*torch.fx.experimental.graph_gradual_typechecker.GraphTypeChecker(*env*, *traced*)[[source]](https://github.com/pytorch/pytorch/blob/8fcaa153fa223ca9f7844513d86d4d30a0cf2533/torch/fx/experimental/graph_gradual_typechecker.py#L649)
 
-type_check()[[source]](https://github.com/pytorch/pytorch/blob/64cf21712548b5b1ea993d13784345169fb72869/torch/fx/experimental/graph_gradual_typechecker.py#L654)
+type_check()[[source]](https://github.com/pytorch/pytorch/blob/8fcaa153fa223ca9f7844513d86d4d30a0cf2533/torch/fx/experimental/graph_gradual_typechecker.py#L654)
 
 A gradual type checker for graphs
 Effect: every node's field type will be
@@ -12,7 +12,7 @@ Return type:
 
 [bool](https://docs.python.org/3/builtins/functions.html#bool)
 
-type_check_node(*n*)[[source]](https://github.com/pytorch/pytorch/blob/64cf21712548b5b1ea993d13784345169fb72869/torch/fx/experimental/graph_gradual_typechecker.py#L668)
+type_check_node(*n*)[[source]](https://github.com/pytorch/pytorch/blob/8fcaa153fa223ca9f7844513d86d4d30a0cf2533/torch/fx/experimental/graph_gradual_typechecker.py#L668)
 
 Type check a given fx node.
 Current operations:

@@ -80,7 +80,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.16.0a0+git64cf217 )">
+<meta name="llm:version" content="main (2.16.0a0+git8fcaa15 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -186,7 +186,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.16.0a0+git64cf217 )');
+  document.documentElement.setAttribute('data-version', 'main (2.16.0a0+git8fcaa15 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3445,22 +3445,20 @@ document.write(`
 <dt class="sig sig-object py" id="torch.nn.attention.SDPBackend">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.nn.attention.</span></span><span class="sig-name descname"><span class="pre">SDPBackend</span></span><a class="headerlink" href="#torch.nn.attention.SDPBackend" title="Link to this definition">#</a></dt>
 <dd><p>An enum-like class that contains the different backends for scaled dot product attention.</p>
-<p>… warning:: This class is in beta and subject to change.</p>
-<p>This backend class is designed to be used with the sdpa_kernel context manager.See :func: torch.nn.attention.sdpa_kernel for more details.</p>
-<p>Members:</p>
-<blockquote>
-<div><p>ERROR</p>
-<p>MATH</p>
-<p>FLASH_ATTENTION</p>
-<p>EFFICIENT_ATTENTION</p>
-<p>CUDNN_ATTENTION</p>
-<p>OVERRIDEABLE</p>
-</div></blockquote>
-<dl class="py property">
-<dt class="sig sig-object py" id="torch.nn.attention.SDPBackend.name">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#torch.nn.attention.SDPBackend.name" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This class is in beta and subject to change.</p>
+</div>
+<p>This backend class is designed to be used with the sdpa_kernel context manager. See <a class="reference internal" href="torch.nn.attention.sdpa_kernel.html#torch.nn.attention.sdpa_kernel" title="torch.nn.attention.sdpa_kernel"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.nn.attention.sdpa_kernel()</span></code></a> for more details.</p>
+<p>The following members are available:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ERROR</span></code>: Represents an error while determining the backend.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MATH</span></code>: Selects the PyTorch implementation defined in C++ that matches the formulation in <a class="reference internal" href="torch.nn.functional.scaled_dot_product_attention.html#torch.nn.functional.scaled_dot_product_attention" title="torch.nn.functional.scaled_dot_product_attention"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.nn.functional.scaled_dot_product_attention()</span></code></a>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FLASH_ATTENTION</span></code>: Selects the FlashAttention backend. The default CUDA implementation uses <a class="reference external" href="https://arxiv.org/abs/2307.08691">FlashAttention-2</a>: Faster Attention with Better Parallelism and Work Partitioning.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">EFFICIENT_ATTENTION</span></code>: Selects <a class="reference external" href="https://github.com/facebookresearch/xformers">Memory-Efficient Attention</a>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CUDNN_ATTENTION</span></code>: Selects the cuDNN scaled dot product attention implementation.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">OVERRIDEABLE</span></code>: Selects an overrideable backend provided by an extension.</p></li>
+</ul>
 </dd></dl>
 
 </section>
@@ -3582,10 +3580,7 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.nn.attention.SDPBackend"><code class="docutils literal notranslate"><span class="pre">SDPBackend</span></code></a><ul class="visible nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.nn.attention.SDPBackend.name"><code class="docutils literal notranslate"><span class="pre">SDPBackend.name</span></code></a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.nn.attention.SDPBackend"><code class="docutils literal notranslate"><span class="pre">SDPBackend</span></code></a></li>
 </ul>
   </nav></div>
     
@@ -3822,7 +3817,7 @@ document.write(`
        "headline": "SDPBackend",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/generated/torch.nn.attention.SDPBackend.html",
-       "articleBody": "SDPBackend# class torch.nn.attention.SDPBackend# An enum-like class that contains the different backends for scaled dot product attention. \u2026 warning:: This class is in beta and subject to change. This backend class is designed to be used with the sdpa_kernel context manager.See :func: torch.nn.attention.sdpa_kernel for more details. Members: ERROR MATH FLASH_ATTENTION EFFICIENT_ATTENTION CUDNN_ATTENTION OVERRIDEABLE property name#",
+       "articleBody": "SDPBackend# class torch.nn.attention.SDPBackend# An enum-like class that contains the different backends for scaled dot product attention. Warning This class is in beta and subject to change. This backend class is designed to be used with the sdpa_kernel context manager. See torch.nn.attention.sdpa_kernel() for more details. The following members are available: ERROR: Represents an error while determining the backend. MATH: Selects the PyTorch implementation defined in C++ that matches the formulation in torch.nn.functional.scaled_dot_product_attention(). FLASH_ATTENTION: Selects the FlashAttention backend. The default CUDA implementation uses FlashAttention-2: Faster Attention with Better Parallelism and Work Partitioning. EFFICIENT_ATTENTION: Selects Memory-Efficient Attention. CUDNN_ATTENTION: Selects the cuDNN scaled dot product attention implementation. OVERRIDEABLE: Selects an overrideable backend provided by an extension.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",

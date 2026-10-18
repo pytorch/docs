@@ -1,6 +1,6 @@
 # get_default_static_sparse_quant_module_mappings
 
-*class*torch.ao.quantization.quantization_mappings.get_default_static_sparse_quant_module_mappings[[source]](https://github.com/pytorch/pytorch/blob/64cf21712548b5b1ea993d13784345169fb72869/torch/ao/quantization/quantization_mappings.py#L233)
+*class*torch.ao.quantization.quantization_mappings.get_default_static_sparse_quant_module_mappings[[source]](https://github.com/pytorch/pytorch/blob/8fcaa153fa223ca9f7844513d86d4d30a0cf2533/torch/ao/quantization/quantization_mappings.py#L233)
 
 Get module mapping for post training static sparse quantization
 

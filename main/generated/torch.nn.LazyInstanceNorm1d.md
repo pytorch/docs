@@ -1,6 +1,6 @@
 # LazyInstanceNorm1d
 
-*class*torch.nn.LazyInstanceNorm1d(*eps=1e-05*, *momentum=0.1*, *affine=True*, *track_running_stats=True*, *device=None*, *dtype=None*, ***, *bias=True*)[[source]](https://github.com/pytorch/pytorch/blob/64cf21712548b5b1ea993d13784345169fb72869/torch/nn/modules/instancenorm.py#L215)
+*class*torch.nn.LazyInstanceNorm1d(*eps=1e-05*, *momentum=0.1*, *affine=True*, *track_running_stats=True*, *device=None*, *dtype=None*, ***, *bias=True*)[[source]](https://github.com/pytorch/pytorch/blob/8fcaa153fa223ca9f7844513d86d4d30a0cf2533/torch/nn/modules/instancenorm.py#L215)
 
 A [`torch.nn.InstanceNorm1d`](torch.nn.InstanceNorm1d.html#torch.nn.InstanceNorm1d) module with lazy initialization of the `num_features` argument.
 
@@ -31,6 +31,6 @@ Shape:
 - Input: (N,C,L)(N, C, L)(N,C,L) or (C,L)(C, L)(C,L)
 - Output: (N,C,L)(N, C, L)(N,C,L) or (C,L)(C, L)(C,L) (same shape as input)
 
-cls_to_become[[source]](https://github.com/pytorch/pytorch/blob/64cf21712548b5b1ea993d13784345169fb72869/torch/nn/modules/instancenorm.py#L136)
+cls_to_become[[source]](https://github.com/pytorch/pytorch/blob/8fcaa153fa223ca9f7844513d86d4d30a0cf2533/torch/nn/modules/instancenorm.py#L136)
 
 alias of [`InstanceNorm1d`](torch.nn.modules.instancenorm.InstanceNorm1d.html#torch.nn.modules.instancenorm.InstanceNorm1d)

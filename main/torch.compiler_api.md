@@ -63,7 +63,7 @@ trace under the contract of Note [precompile programming model] in `torch/_preco
 `torch.compiler.precompile` is distinct from `torch._dynamo.config.caching_precompile`
 (a `torch.compile` caching mode).
 
-torch.compiler.precompile.capture(*fn*, */*, ***, *artifact_path*, *cache_path*, *tracer=DynamoTracer(guard_filter_fn=None, recompile_limit=256, dynamic=None, require_complete=True, require_no_risky_drops=True)*, *backend='inductor'*)[[source]](https://github.com/pytorch/pytorch/blob/64cf21712548b5b1ea993d13784345169fb72869/torch/_precompile.py#L3253)
+torch.compiler.precompile.capture(*fn*, */*, ***, *artifact_path*, *cache_path*, *tracer=DynamoTracer(guard_filter_fn=None, recompile_limit=256, dynamic=None, require_complete=True, require_no_risky_drops=True)*, *backend='inductor'*)[[source]](https://github.com/pytorch/pytorch/blob/8fcaa153fa223ca9f7844513d86d4d30a0cf2533/torch/_precompile.py#L3294)
 
 Capture `fn` across the calls YOUR loop makes, writing the artifact on exit.
 
@@ -102,13 +102,21 @@ needs, and raises `PrecompileError` for one it cannot
 freeze. That includes kernels launched directly through `@triton.jit` and
 `@triton.autotune` inside the block: Triton compiles into a fresh cache
 directory there, with its autotuning cache on, so a `TRITON_CACHE_DIR`
-you set is not used inside the block and its kernels compile again. A JIT
-kernel or autotuner already used before the block reuses what it compiled
-or tuned then, which is not carried, so launch each one for the first time
-inside the block.
+you set is not used inside the block, and a JIT kernel or autotuner already
+used before the block compiles and tunes again on its first launch inside
+it. That retune benchmarks on the block's real inputs, and the config it
+picks, which is what ships and what the process keeps using afterwards, may
+differ from the one picked before the block. Compiled JIT kernel
+specializations and autotuning decisions the block does not produce again
+are kept afterwards.
 Triton does not cache the decision of an autotuner with `pre_hook`
-configs, so such a kernel is benchmarked again on first use in the serving
-process.
+configs, so one that does not prune its configs keeps its earlier decision
+in the block and is benchmarked again on first use in the serving process.
+No other thread should launch Triton kernels while the block opens or
+closes: the in-memory caches are dropped and restored then without
+synchronizing with launches, so a concurrent autotuner launch can fail.
+Triton kernels another thread compiles or tunes while the block is open
+go into the block's cache directory and ship with it.
 
 `tracer` picks the capture front-end and carries its tracer-specific
 configuration. `DynamoTracer` (the default) is an execution-driven
@@ -165,7 +173,7 @@ Return type:
 
 *Capture*[~_P, *_R*]
 
-torch.compiler.precompile.load(*artifact_path*, *cache_path*)[[source]](https://github.com/pytorch/pytorch/blob/64cf21712548b5b1ea993d13784345169fb72869/torch/_precompile.py#L3405)
+torch.compiler.precompile.load(*artifact_path*, *cache_path*, ***, *allow_serve_time_compiles=False*)[[source]](https://github.com/pytorch/pytorch/blob/8fcaa153fa223ca9f7844513d86d4d30a0cf2533/torch/_precompile.py#L3454)
 
 Reconstruct a runnable from the two files a precompile capture wrote.
 
@@ -223,6 +231,22 @@ only a host whose PyTorch install and toolchain paths match the producer's.
 Any other host rebuilds them, which needs a C++ compiler there:
 `no_compilation()` does not gate C++ builds.
 
+`allow_serve_time_compiles=True` opts an installed artifact out of the
+refusal: a call no captured variant covers compiles with the artifact's
+backend, as `torch.compile` would, under the process-wide stance like any
+other compile. The captured variants are still served first and do not
+count toward `torch._dynamo.config.recompile_limit`, so each frame gets
+that many serve-time compiles on top of them; a missed call past the limit
+runs eagerly instead of compiling.
+Serve-time compiles are recorded nowhere, but they are built under the
+process's Dynamo config: with `torch._dynamo.config.caching_precompile` on
+they drop identity guards (`ID_MATCH`, `CLOSURE_MATCH`, ...) exactly as
+any other compile in that process does.
+The flag does not lift the `compiled_autograd` refusal above. A standalone
+artifact has no compiler behind it, and an installed artifact captured
+before the flag existed cannot honor it, so passing the flag for either
+raises `PrecompileError`.
+
 Raises `PrecompileError` if either file cannot be read, if `python_code` is
 not a `torch.compiler.precompile` artifact, or if the cache's `backend`,
 `tracer` or `code_hash` does not match `python_code` - the pair came from different
@@ -235,7 +259,7 @@ Return type:
 
 *PrecompiledRunnable*
 
-torch.compiler.precompile.no_compilation()[[source]](https://github.com/pytorch/pytorch/blob/64cf21712548b5b1ea993d13784345169fb72869/torch/_precompile.py#L3141)
+torch.compiler.precompile.no_compilation()[[source]](https://github.com/pytorch/pytorch/blob/8fcaa153fa223ca9f7844513d86d4d30a0cf2533/torch/_precompile.py#L3156)
 
 Forbid graph/kernel compilation and autotuning on every thread of this process.
 
@@ -348,7 +372,7 @@ exits it cannot be entered again, so call `capture()` again to retry.
 That includes a failed write at exit: the spent capture does not keep its
 pair, so fix the path and capture again.
 
-save()[[source]](https://github.com/pytorch/pytorch/blob/64cf21712548b5b1ea993d13784345169fb72869/torch/_precompile.py#L516)
+save()[[source]](https://github.com/pytorch/pytorch/blob/8fcaa153fa223ca9f7844513d86d4d30a0cf2533/torch/_precompile.py#L516)
 
 Write everything captured so far to the artifact files without ending the capture.
 
@@ -377,7 +401,7 @@ Variables:
 code objects (`SERVING_MODE = "installed"`); `False` for a
 standalone artifact.
 
-unload()[[source]](https://github.com/pytorch/pytorch/blob/64cf21712548b5b1ea993d13784345169fb72869/torch/_precompile.py#L458)
+unload()[[source]](https://github.com/pytorch/pytorch/blob/8fcaa153fa223ca9f7844513d86d4d30a0cf2533/torch/_precompile.py#L458)
 
 Remove whatever this loaded artifact installed; currently a no-op in every mode.
 
@@ -420,7 +444,10 @@ is the kept count beside the drops, not the other half of a total), and a
 slot one frame's filter rejected and another frame's invariance policy
 dropped is in both drop lists. Nothing is enforced, as for the frame lists
 below: a report that raised on its own bookkeeping would lose the coverage
-it exists to describe.
+it exists to describe. The one exception to "every captured frame" is a
+frame the artifact runs as plain Python (see `frames`): its guards are left
+out, so a slot only such frames kept, dropped or riskily dropped is not in
+that list.
 
 The frame lists differ in what an entry is. `bypassed` and
 `uncovered_frames` hold one bare `co_name` per frame, read off the
@@ -436,7 +463,13 @@ Variables:
 - **frames** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Captured frames: every frame the package holds an entry for, the
 `bypassed`, `truncated` and `uncovered_frames` ones included,
 so the digest's frame clauses cut into this count rather than add
-to it.
+to it. Also included are the frames the artifact deliberately runs
+as plain Python: a frame other than the entry that compiled no
+graph or graph-break continuation and either lost a guard to the
+filter or was bypassed. Running its original bytecode gives up no
+compiled code, so it is served that way rather than through a
+variant missing a guard, and it is listed in neither `bypassed`
+nor `uncovered_frames`.
 - **resume_functions** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Of those, the graph-break continuations.
 - **guarded_codes** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Guarded code objects across all frames.
 - **backend_graphs** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Compiled backend graphs.
@@ -444,7 +477,8 @@ to it.
 servable for: no compile of the frame recorded a guarded code and
 one was bypassed (its guards could not be serialized, or its graph
 held parameters by static address), or a backend artifact was
-missing when the package was saved. Not an eager fallback: the
+missing when the package was saved. A graphless frame run as plain
+Python (see `frames`) is not listed. Not an eager fallback: the
 frame ran compiled during capture, but the package kept no variant
 of it a load can serve, so a call that reaches it raises.
 - **truncated** ([*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**...**]*) - `co_name (filename:firstlineno)` of each frame that hit the

@@ -1,6 +1,6 @@
 # torch.cuda.graph_annotations.clear_kernel_annotations
 
-torch.cuda.graph_annotations.clear_kernel_annotations() → [None](https://docs.python.org/3/builtins/constants.html#None)[[source]](https://github.com/pytorch/pytorch/blob/64cf21712548b5b1ea993d13784345169fb72869/torch/cuda/_graph_annotations.py#L1355)
+torch.cuda.graph_annotations.clear_kernel_annotations() → [None](https://docs.python.org/3/builtins/constants.html#None)[[source]](https://github.com/pytorch/pytorch/blob/8fcaa153fa223ca9f7844513d86d4d30a0cf2533/torch/cuda/_graph_annotations.py#L1355)
 
 Clear all recorded kernel annotations.
 

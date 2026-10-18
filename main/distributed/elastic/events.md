@@ -15,9 +15,9 @@ events.record(event, destination="console")
 
 ## API Methods
 
-torch.distributed.elastic.events.record(*event*, *destination='null'*)[[source]](https://github.com/pytorch/pytorch/blob/64cf21712548b5b1ea993d13784345169fb72869/torch/distributed/elastic/events/__init__.py#L69)
+torch.distributed.elastic.events.record(*event*, *destination='null'*)[[source]](https://github.com/pytorch/pytorch/blob/8fcaa153fa223ca9f7844513d86d4d30a0cf2533/torch/distributed/elastic/events/__init__.py#L69)
 
-torch.distributed.elastic.events.construct_and_record_rdzv_event(*run_id*, *message*, *node_state*, *name=''*, *hostname=''*, *pid=None*, *master_endpoint=''*, *local_id=None*, *rank=None*)[[source]](https://github.com/pytorch/pytorch/blob/64cf21712548b5b1ea993d13784345169fb72869/torch/distributed/elastic/events/__init__.py#L77)
+torch.distributed.elastic.events.construct_and_record_rdzv_event(*run_id*, *message*, *node_state*, *name=''*, *hostname=''*, *pid=None*, *master_endpoint=''*, *local_id=None*, *rank=None*)[[source]](https://github.com/pytorch/pytorch/blob/8fcaa153fa223ca9f7844513d86d4d30a0cf2533/torch/distributed/elastic/events/__init__.py#L77)
 
 Initialize rendezvous event object and record its operations.
 
@@ -63,17 +63,17 @@ Example
 ... )
 ```
 
-torch.distributed.elastic.events.get_logging_handler(*destination='null'*)[[source]](https://github.com/pytorch/pytorch/blob/64cf21712548b5b1ea993d13784345169fb72869/torch/distributed/elastic/events/handlers.py#L19)
+torch.distributed.elastic.events.get_logging_handler(*destination='null'*)[[source]](https://github.com/pytorch/pytorch/blob/8fcaa153fa223ca9f7844513d86d4d30a0cf2533/torch/distributed/elastic/events/handlers.py#L19)
 
 Return type:
 
 [*Handler*](https://docs.python.org/3/library/logging.html#logging.Handler)
 
-torch.distributed.elastic.events.record_rdzv_event(*event*)[[source]](https://github.com/pytorch/pytorch/blob/64cf21712548b5b1ea993d13784345169fb72869/torch/distributed/elastic/events/__init__.py#L73)
+torch.distributed.elastic.events.record_rdzv_event(*event*)[[source]](https://github.com/pytorch/pytorch/blob/8fcaa153fa223ca9f7844513d86d4d30a0cf2533/torch/distributed/elastic/events/__init__.py#L73)
 
 ## Event Objects
 
-*class*torch.distributed.elastic.events.api.Event(*name*, *source*, *timestamp=0*, *metadata=<factory>*)[[source]](https://github.com/pytorch/pytorch/blob/64cf21712548b5b1ea993d13784345169fb72869/torch/distributed/elastic/events/api.py#L28)
+*class*torch.distributed.elastic.events.api.Event(*name*, *source*, *timestamp=0*, *metadata=<factory>*)[[source]](https://github.com/pytorch/pytorch/blob/8fcaa153fa223ca9f7844513d86d4d30a0cf2533/torch/distributed/elastic/events/api.py#L28)
 
 The class represents the generic event that occurs during the torchelastic job execution.
 
@@ -86,7 +86,7 @@ Parameters:
 - **timestamp** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - timestamp in milliseconds when event occurred.
 - **metadata** ([*dict*](https://docs.python.org/3/builtins/stdtypes.html#dict)*[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*|*[*int*](https://docs.python.org/3/builtins/functions.html#int)*|*[*float*](https://docs.python.org/3/builtins/functions.html#float)*|*[*bool*](https://docs.python.org/3/builtins/functions.html#bool)*|**None**]*) - additional data that is associated with the event.
 
-*static*deserialize(*data*)[[source]](https://github.com/pytorch/pytorch/blob/64cf21712548b5b1ea993d13784345169fb72869/torch/distributed/elastic/events/api.py#L50)
+*static*deserialize(*data*)[[source]](https://github.com/pytorch/pytorch/blob/8fcaa153fa223ca9f7844513d86d4d30a0cf2533/torch/distributed/elastic/events/api.py#L50)
 
 Return a `Event` from a JSON string; `Event` inputs are returned as is.
 
@@ -94,7 +94,7 @@ Return type:
 
 *Event*
 
-serialize()[[source]](https://github.com/pytorch/pytorch/blob/64cf21712548b5b1ea993d13784345169fb72869/torch/distributed/elastic/events/api.py#L61)
+serialize()[[source]](https://github.com/pytorch/pytorch/blob/8fcaa153fa223ca9f7844513d86d4d30a0cf2533/torch/distributed/elastic/events/api.py#L61)
 
 Return the event as a JSON string.
 
@@ -102,7 +102,7 @@ Return type:
 
 [str](https://docs.python.org/3/builtins/stdtypes.html#str)
 
-*class*torch.distributed.elastic.events.api.EventSource(*value*, *names=None*, ***, *module=None*, *qualname=None*, *type=None*, *start=1*, *boundary=None*)[[source]](https://github.com/pytorch/pytorch/blob/64cf21712548b5b1ea993d13784345169fb72869/torch/distributed/elastic/events/api.py#L21)
+*class*torch.distributed.elastic.events.api.EventSource(*value*, *names=None*, ***, *module=None*, *qualname=None*, *type=None*, *start=1*, *boundary=None*)[[source]](https://github.com/pytorch/pytorch/blob/8fcaa153fa223ca9f7844513d86d4d30a0cf2533/torch/distributed/elastic/events/api.py#L21)
 
 Known identifiers of the event producers.
 
@@ -110,11 +110,11 @@ torch.distributed.elastic.events.api.EventMetadataValue
 
 alias of [`str`](https://docs.python.org/3/builtins/stdtypes.html#str) | [`int`](https://docs.python.org/3/builtins/functions.html#int) | [`float`](https://docs.python.org/3/builtins/functions.html#float) | [`bool`](https://docs.python.org/3/builtins/functions.html#bool) | [`None`](https://docs.python.org/3/builtins/constants.html#None)
 
-*class*torch.distributed.elastic.events.api.NodeState(*value*, *names=None*, ***, *module=None*, *qualname=None*, *type=None*, *start=1*, *boundary=None*)[[source]](https://github.com/pytorch/pytorch/blob/64cf21712548b5b1ea993d13784345169fb72869/torch/distributed/elastic/events/api.py#L66)
+*class*torch.distributed.elastic.events.api.NodeState(*value*, *names=None*, ***, *module=None*, *qualname=None*, *type=None*, *start=1*, *boundary=None*)[[source]](https://github.com/pytorch/pytorch/blob/8fcaa153fa223ca9f7844513d86d4d30a0cf2533/torch/distributed/elastic/events/api.py#L66)
 
 The states that a node can be in rendezvous.
 
-*class*torch.distributed.elastic.events.api.RdzvEvent(*name*, *run_id*, *message*, *hostname*, *pid*, *node_state*, *master_endpoint=''*, *rank=None*, *local_id=None*, *error_trace=''*)[[source]](https://github.com/pytorch/pytorch/blob/64cf21712548b5b1ea993d13784345169fb72869/torch/distributed/elastic/events/api.py#L75)
+*class*torch.distributed.elastic.events.api.RdzvEvent(*name*, *run_id*, *message*, *hostname*, *pid*, *node_state*, *master_endpoint=''*, *rank=None*, *local_id=None*, *error_trace=''*)[[source]](https://github.com/pytorch/pytorch/blob/8fcaa153fa223ca9f7844513d86d4d30a0cf2533/torch/distributed/elastic/events/api.py#L75)
 
 Dataclass to represent any rendezvous event.
 
@@ -131,7 +131,7 @@ Parameters:
 - **local_id** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*|**None*) - The local_id of the node, if defined in dynamic_rendezvous.py
 - **error_trace** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - Error stack trace, if this is an error event.
 
-*static*deserialize(*data*)[[source]](https://github.com/pytorch/pytorch/blob/64cf21712548b5b1ea993d13784345169fb72869/torch/distributed/elastic/events/api.py#L107)
+*static*deserialize(*data*)[[source]](https://github.com/pytorch/pytorch/blob/8fcaa153fa223ca9f7844513d86d4d30a0cf2533/torch/distributed/elastic/events/api.py#L107)
 
 Return a `RdzvEvent` from a JSON string; `RdzvEvent` inputs are returned as is.
 
@@ -139,7 +139,7 @@ Return type:
 
 *RdzvEvent*
 
-serialize()[[source]](https://github.com/pytorch/pytorch/blob/64cf21712548b5b1ea993d13784345169fb72869/torch/distributed/elastic/events/api.py#L118)
+serialize()[[source]](https://github.com/pytorch/pytorch/blob/8fcaa153fa223ca9f7844513d86d4d30a0cf2533/torch/distributed/elastic/events/api.py#L118)
 
 Return the event as a JSON string.
 

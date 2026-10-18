@@ -1,6 +1,6 @@
 # torch.compiler.skip_guard_on_globals_unsafe
 
-torch.compiler.skip_guard_on_globals_unsafe(*guard_entries*)[[source]](https://github.com/pytorch/pytorch/blob/64cf21712548b5b1ea993d13784345169fb72869/torch/compiler/__init__.py#L887)
+torch.compiler.skip_guard_on_globals_unsafe(*guard_entries*)[[source]](https://github.com/pytorch/pytorch/blob/8fcaa153fa223ca9f7844513d86d4d30a0cf2533/torch/compiler/__init__.py#L887)
 
 A common function to skip guards on all globals. This is unsafe to use by
 default. But if you don't expect any changes in the globals, you can just

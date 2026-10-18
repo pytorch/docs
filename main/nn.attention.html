@@ -80,7 +80,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.16.0a0+git64cf217 )">
+<meta name="llm:version" content="main (2.16.0a0+git8fcaa15 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -186,7 +186,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.16.0a0+git64cf217 )');
+  document.documentElement.setAttribute('data-version', 'main (2.16.0a0+git8fcaa15 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -7011,7 +7011,7 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="module-torch.nn.attention">
 <span id="torch-nn-attention"></span><h1>torch.nn.attention<a class="headerlink" href="#module-torch.nn.attention" title="Link to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jan 24, 2024 | Last Updated On: May 07, 2026</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jan 24, 2024 | Last Updated On: Oct 17, 2026</p>
 <p>This module contains functions and classes that alter the behavior of torch.nn.functional.scaled_dot_product_attention</p>
 <section id="utils">
 <h2>Utils<a class="headerlink" href="#utils" title="Link to this heading">#</a></h2>
@@ -7020,9 +7020,19 @@ document.write(`
 <tr class="row-odd"><td><p><p id="torch.nn.attention.sdpa_kernel"/><p id="torch.nn.attention.sdpa_kernel"/><a class="reference internal" href="generated/torch.nn.attention.sdpa_kernel.html#torch.nn.attention.sdpa_kernel" title="torch.nn.attention.sdpa_kernel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sdpa_kernel</span></code></a></p></td>
 <td><p>Context manager to select which backend to use for scaled dot product attention.</p></td>
 </tr>
-<tr class="row-even"><td><p><p id="torch.nn.attention.SDPBackend"/><p id="torch.nn.attention.SDPBackend"/><a class="reference internal" href="generated/torch.nn.attention.SDPBackend.html#torch.nn.attention.SDPBackend" title="torch.nn.attention.SDPBackend"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SDPBackend</span></code></a></p></td>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><p id="torch.nn.attention.SDPBackend"/><p id="torch.nn.attention.SDPBackend"/><a class="reference internal" href="generated/torch.nn.attention.SDPBackend.html#torch.nn.attention.SDPBackend" title="torch.nn.attention.SDPBackend"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SDPBackend</span></code></a></p></td>
 <td><p>An enum-like class that contains the different backends for scaled dot product attention.</p></td>
 </tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
+<tbody>
 <tr class="row-odd"><td><p><p id="torch.nn.attention.register_flash_attention_impl"/><p id="torch.nn.attention.register_flash_attention_impl"/><a class="reference internal" href="generated/torch.nn.attention.register_flash_attention_impl.html#torch.nn.attention.register_flash_attention_impl" title="torch.nn.attention.register_flash_attention_impl"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_flash_attention_impl</span></code></a></p></td>
 <td><p>Register the callable that activates a flash attention impl.</p></td>
 </tr>
@@ -7183,7 +7193,9 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#utils">Utils</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#utils">Utils</a><ul class="visible nav section-nav flex-column">
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
 </ul>
   </nav></div>
@@ -7437,7 +7449,7 @@ document.write(`
        "headline": "torch.nn.attention",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/nn.attention.html",
-       "articleBody": "torch.nn.attention# Created On: Jan 24, 2024 | Last Updated On: May 07, 2026 This module contains functions and classes that alter the behavior of torch.nn.functional.scaled_dot_product_attention Utils# sdpa_kernel Context manager to select which backend to use for scaled dot product attention. SDPBackend An enum-like class that contains the different backends for scaled dot product attention. register_flash_attention_impl Register the callable that activates a flash attention impl. activate_flash_attention_impl Activate into the dispatcher a previously registered flash attention impl. list_flash_attention_impls Return the names of all available flash attention implementations. current_flash_attention_impl Return the currently activated flash attention impl name, if any. restore_flash_attention_impl Restore the default FA2 implementation Submodules# flex_attention This module implements the user facing API for flex_attention in PyTorch. bias Defines bias subclasses that work with scaled_dot_product_attention experimental varlen Variable-length attention implementation using Flash Attention.",
+       "articleBody": "torch.nn.attention# Created On: Jan 24, 2024 | Last Updated On: Oct 17, 2026 This module contains functions and classes that alter the behavior of torch.nn.functional.scaled_dot_product_attention Utils# sdpa_kernel Context manager to select which backend to use for scaled dot product attention. SDPBackend An enum-like class that contains the different backends for scaled dot product attention. register_flash_attention_impl Register the callable that activates a flash attention impl. activate_flash_attention_impl Activate into the dispatcher a previously registered flash attention impl. list_flash_attention_impls Return the names of all available flash attention implementations. current_flash_attention_impl Return the currently activated flash attention impl name, if any. restore_flash_attention_impl Restore the default FA2 implementation Submodules# flex_attention This module implements the user facing API for flex_attention in PyTorch. bias Defines bias subclasses that work with scaled_dot_product_attention experimental varlen Variable-length attention implementation using Flash Attention.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -7449,7 +7461,7 @@ document.write(`
          "@id": "/nn.attention.html"
        },
        "datePublished": "Jan 24, 2024T00:00:00Z",
-       "dateModified": "May 07, 2026T00:00:00Z"
+       "dateModified": "Oct 17, 2026T00:00:00Z"
      }
  </script>
   <script>
