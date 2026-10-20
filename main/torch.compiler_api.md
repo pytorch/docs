@@ -63,7 +63,7 @@ trace under the contract of Note [precompile programming model] in `torch/_preco
 `torch.compiler.precompile` is distinct from `torch._dynamo.config.caching_precompile`
 (a `torch.compile` caching mode).
 
-torch.compiler.precompile.capture(*fn*, */*, ***, *artifact_path*, *cache_path*, *tracer=DynamoTracer(guard_filter_fn=None, recompile_limit=256, dynamic=None, require_complete=True, require_no_risky_drops=True)*, *backend='inductor'*)[[source]](https://github.com/pytorch/pytorch/blob/9d18b95219c1c16b653b5e43e8201c0d80e98b8f/torch/_precompile.py#L3294)
+torch.compiler.precompile.capture(*fn*, */*, ***, *artifact_path*, *cache_path*, *tracer=DynamoTracer(guard_filter_fn=None, recompile_limit=256, dynamic=None, require_complete=True, require_no_risky_drops=True)*, *backend='inductor'*)[[source]](https://github.com/pytorch/pytorch/blob/a84b7baa33f893ab92176c08a85b14455e60b2fc/torch/_precompile.py#L3310)
 
 Capture `fn` across the calls YOUR loop makes, writing the artifact on exit.
 
@@ -123,18 +123,21 @@ configuration. `DynamoTracer` (the default) is an execution-driven
 multi-graph capture: it analyzes the Python rather than tracing one path,
 records every graph-break continuation and guarded recompilation the calls
 exercise, takes as many calls as you make (keyword arguments included), and
-the artifact dispatches among the captured variants by their guards - a call
-no variant covers RAISES rather than silently serving, since there is no
-compiler behind a source artifact. `MakeFxTracer` is one non-strict
-ATen trace: the capture takes exactly ONE positional call, refuses a second,
-and specializes control flow and shapes to that call, with the contract of
-Note [precompile programming model] in `torch/_precompile.py`. `fn` is
-the whole computation, e.g. a module-level `def step(model, x): return
-model(x)` (only a `MakeFxTracer` capture also takes a lambda): the
-`nn.Module` arguments have their params/buffers lifted to graph inputs (no
-weights are baked in) and the rest are the runtime inputs; the reloaded
-callable is invoked with the same argument structure, and the runtime model
-must match the captured model's parameter/buffer structure.
+the artifact dispatches among the captured variants by their guards - a
+call no variant covers RAISES rather than silently serving, since there is
+no compiler behind a source artifact, unless Dynamo gave up on that frame
+during the capture (`PrecompileSummary.eager_fallbacks`): the capture ran
+that frame eagerly, so the call runs eagerly too. `MakeFxTracer` is
+one non-strict ATen trace: the capture takes exactly ONE positional call,
+refuses a second, and specializes control flow and shapes to that call, with
+the contract of Note [precompile programming model] in
+`torch/_precompile.py`. `fn` is the whole computation, e.g. a
+module-level `def step(model, x): return model(x)` (only a
+`MakeFxTracer` capture also takes a lambda): the `nn.Module`
+arguments have their params/buffers lifted to graph inputs (no weights are
+baked in) and the rest are the runtime inputs; the reloaded callable is
+invoked with the same argument structure, and the runtime model must match
+the captured model's parameter/buffer structure.
 
 A Dynamo artifact is STANDALONE: it rebuilds the entry from its code object
 and installs nothing, so `fn` must be a module-level function of an
@@ -173,7 +176,7 @@ Return type:
 
 *Capture*[~_P, *_R*]
 
-torch.compiler.precompile.load(*artifact_path*, *cache_path*, ***, *allow_serve_time_compiles=False*)[[source]](https://github.com/pytorch/pytorch/blob/9d18b95219c1c16b653b5e43e8201c0d80e98b8f/torch/_precompile.py#L3454)
+torch.compiler.precompile.load(*artifact_path*, *cache_path*, ***, *allow_serve_time_compiles=False*)[[source]](https://github.com/pytorch/pytorch/blob/a84b7baa33f893ab92176c08a85b14455e60b2fc/torch/_precompile.py#L3473)
 
 Reconstruct a runnable from the two files a precompile capture wrote.
 
@@ -225,6 +228,19 @@ load it in a fresh process. That check runs only at load: compiling those
 frames after load adds live entries that serve the calls the installed
 ones miss.
 
+Either kind of artifact runs a call eagerly instead of refusing it when the
+missed frame is one Dynamo gave up on during the capture (listed in
+`PrecompileSummary.eager_fallbacks` and marked `# eager fallback` in the
+artifact's `FRAMES`), since the capture ran that frame eagerly too. A
+frame that kept variants logs a warning the first time a call misses them;
+one that compiled none is served as plain Python from the start, as a
+trivial frame is, with no warning, since there is no compiled code to lose.
+Under an installed artifact only that frame runs eagerly: the frames it
+calls still dispatch to their own variants. A standalone artifact installs
+nothing, so the rest of the call from that frame on, its callees included,
+runs as plain Python; whatever ran before it, such as the entry's variant
+up to a graph break whose continuation fell back, still ran compiled.
+
 Frozen C++ kernels are keyed by their full build command, which includes
 the producer's absolute PyTorch include and library paths, so they serve
 only a host whose PyTorch install and toolchain paths match the producer's.
@@ -259,7 +275,7 @@ Return type:
 
 *PrecompiledRunnable*
 
-torch.compiler.precompile.no_compilation()[[source]](https://github.com/pytorch/pytorch/blob/9d18b95219c1c16b653b5e43e8201c0d80e98b8f/torch/_precompile.py#L3156)
+torch.compiler.precompile.no_compilation()[[source]](https://github.com/pytorch/pytorch/blob/a84b7baa33f893ab92176c08a85b14455e60b2fc/torch/_precompile.py#L3172)
 
 Forbid graph/kernel compilation and autotuning on every thread of this process.
 
@@ -372,7 +388,7 @@ exits it cannot be entered again, so call `capture()` again to retry.
 That includes a failed write at exit: the spent capture does not keep its
 pair, so fix the path and capture again.
 
-save()[[source]](https://github.com/pytorch/pytorch/blob/9d18b95219c1c16b653b5e43e8201c0d80e98b8f/torch/_precompile.py#L516)
+save()[[source]](https://github.com/pytorch/pytorch/blob/a84b7baa33f893ab92176c08a85b14455e60b2fc/torch/_precompile.py#L518)
 
 Write everything captured so far to the artifact files without ending the capture.
 
@@ -401,11 +417,11 @@ Variables:
 code objects (`SERVING_MODE = "installed"`); `False` for a
 standalone artifact.
 
-unload()[[source]](https://github.com/pytorch/pytorch/blob/9d18b95219c1c16b653b5e43e8201c0d80e98b8f/torch/_precompile.py#L458)
+unload()[[source]](https://github.com/pytorch/pytorch/blob/a84b7baa33f893ab92176c08a85b14455e60b2fc/torch/_precompile.py#L460)
 
 Remove whatever this loaded artifact installed; currently a no-op in every mode.
 
-*class*torch.compiler.precompile.PrecompileSummary(***, *frames*, *resume_functions*, *guarded_codes*, *backend_graphs*, *bypassed=()*, *truncated=()*, *uncovered_frames=()*, *wont_generalize=()*, *dropped_guards=()*, *kept_guards=()*, *risky_dropped_guards=()*, *policy_dropped_guards=()*, *dropped_guard_code=()*, *capture_errors=()*)
+*class*torch.compiler.precompile.PrecompileSummary(***, *frames*, *resume_functions*, *guarded_codes*, *backend_graphs*, *bypassed=()*, *truncated=()*, *uncovered_frames=()*, *eager_fallbacks=()*, *wont_generalize=()*, *dropped_guards=()*, *kept_guards=()*, *risky_dropped_guards=()*, *policy_dropped_guards=()*, *dropped_guard_code=()*, *capture_errors=()*)
 
 Coverage and guard information from an observed precompile capture.
 
@@ -453,23 +469,24 @@ The frame lists differ in what an entry is. `bypassed` and
 `uncovered_frames` hold one bare `co_name` per frame, read off the
 package's entries, so a name can repeat (every `nn.Module` has a
 `forward`: `['forward', 'forward']` is two frames, not a repeat) and
-their lengths count frames. `truncated` holds `co_name
-(filename:firstlineno)`, recorded once per code object that hit the limit,
-so its entries do identify a frame. A bare name identifies none, so the two
+their lengths count frames. `truncated` and `eager_fallbacks` hold
+`co_name (filename:firstlineno)`, once per code object, so their entries
+do identify a frame. A bare name identifies none, so the two
 bare lists cannot be checked disjoint.
 
 Variables:
 
 - **frames** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Captured frames: every frame the package holds an entry for, the
-`bypassed`, `truncated` and `uncovered_frames` ones included,
-so the digest's frame clauses cut into this count rather than add
-to it. Also included are the frames the artifact deliberately runs
-as plain Python: a frame other than the entry that compiled no
-graph or graph-break continuation and either lost a guard to the
-filter or was bypassed. Running its original bytecode gives up no
-compiled code, so it is served that way rather than through a
-variant missing a guard, and it is listed in neither `bypassed`
-nor `uncovered_frames`.
+`bypassed`, `truncated`, `uncovered_frames` and
+`eager_fallbacks` ones included, so the digest's frame clauses
+cut into this count rather than add to it. Also included are the
+frames the artifact deliberately runs as plain Python: a frame
+other than the entry that compiled no graph or graph-break
+continuation and either lost a guard to the filter or was
+bypassed. Running its original bytecode gives up no compiled
+code, so it is served that way rather than through a variant
+missing a guard, and it is listed in neither `bypassed` nor
+`uncovered_frames`.
 - **resume_functions** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Of those, the graph-break continuations.
 - **guarded_codes** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Guarded code objects across all frames.
 - **backend_graphs** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Compiled backend graphs.
@@ -489,15 +506,36 @@ never recorded.
 - **uncovered_frames** ([*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**...**]*) - The `co_name` of each frame the capture ran that
 ended with no guarded code and was not bypassed, so the artifact
 cannot serve it: a thin wrapper whose graphs all landed in an inner
-frame, a frame Dynamo gave up on, or a frame whose compile raised
-(its message is in `capture_errors`, so one failure shows in both
-digest clauses). A different cause from `bypassed`,
-never the same frame; a frame that hit the recompile limit before it
-recorded a guarded code is in `truncated` too. Not a remainder:
-which frames count as a gap is the producer's decision, and a frame
-the package holds an entry for but never ran is not one, so this is
-not `frames` minus `bypassed` minus the frames that hold guarded
-code.
+frame, a frame whose compile raised (its message is in
+`capture_errors`, so one failure shows in both digest clauses), a
+frame whose compile error `suppress_errors=True` swallowed, or an
+entry frame Dynamo gave up on at its first call. A different cause
+from `bypassed`, never the same frame; a frame that hit the
+recompile limit before it recorded a guarded code is in
+`truncated` too. Not a remainder: which frames count as a gap is
+the producer's decision, and a frame the package holds an entry for
+but never ran is not one, so this is not `frames` minus
+`bypassed` minus the frames that hold guarded code.
+- **eager_fallbacks** ([*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**...**]*) - `co_name (filename:firstlineno)` of each frame Dynamo
+gave up on during the capture and skipped for the rest of it, for
+any of Dynamo's soft reasons: a graph break it could
+not resume from (such as one inside a loop), a
+`torch._dynamo.skip_frame()` call, a frame it refuses to trace, a
+`UserError` it suppressed by skipping the frame, or a backend that
+declined the graph by raising `SkipFrame` or failed on it with an
+error Dynamo falls back on (such as
+`DynamicOutputShapeException`). A compile error
+`suppress_errors=True` swallows is not one: Dynamo skips that
+frame too, but it stays in `uncovered_frames` so the failure is
+seen. Not a gap, and not in `uncovered_frames`: a load serves the
+variants its earlier calls compiled and runs any call they miss
+eagerly, logging a warning once per frame (the capture skipped every
+later call, even one a variant matches). A frame that compiled no
+variant is served as plain Python from the start, as a trivial frame
+is, with no warning. The exception is an entry frame that fell back
+on its first call, such as an entry generator, which Dynamo refuses
+before tracing: it has no variant to dispatch to, so it is in
+`uncovered_frames` instead.
 - **wont_generalize** ([*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**...**]*) - Guard *sources* (not frame names) a kept value-equality
 guard on a bare argument name pins in some variant (`self.eps` is
 not a bare name) while no other variant of the same frame guards the
@@ -554,10 +592,18 @@ Whether the capture covers everything it exercised.
 Coverage only: False if a frame was `bypassed`, hit the recompile
 limit (`truncated`) or ended with no guarded code
 (`uncovered_frames`), if a capture call raised (`capture_errors`),
-or if nothing was compiled. Both `guarded_codes` and `backend_graphs`
-must be non-zero for the last check, because a frame that compiled
-nothing can still count as one guarded code, so `guarded_codes` alone
-cannot tell a real capture from an empty one.
+or if nothing was compiled. `eager_fallbacks` never makes a capture
+incomplete: a load runs those frames eagerly, as Dynamo chose to (an
+entry frame with no variant is not one, see `uncovered_frames`). Both
+`guarded_codes` and `backend_graphs` must be non-zero for the last
+check, because a frame that compiled nothing can still count as one
+guarded code, so `guarded_codes` alone cannot tell a real capture
+from an empty one.
+Nor does it promise that a load serves every call the capture ran: once
+a frame falls back, the capture runs its later calls eagerly, even one
+an earlier variant matches, and records nothing past it. A load serves
+such a call through that variant, and a continuation or callee it then
+reaches may have no variant for it and refuse the call.
 The guard fields never enter: `risky_dropped_guards` is a lint
 finding, not a proof, and `wont_generalize` follows from any value the
 capture pinned, so both describe how far a complete capture generalizes

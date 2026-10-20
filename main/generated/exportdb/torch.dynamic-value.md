@@ -4,7 +4,7 @@
 
 Note
 
-Tags: torch.dynamic-value, [torch.escape-hatch](torch.escape-hatch.html)
+Tags: [torch.escape-hatch](torch.escape-hatch.html), torch.dynamic-value
 
 Support Level: SUPPORTED
 
@@ -65,7 +65,7 @@ Range constraints: {u0: VR[0, 5], u1: VR[0, 5]}
 
 Note
 
-Tags: torch.dynamic-value, [torch.escape-hatch](torch.escape-hatch.html)
+Tags: [torch.escape-hatch](torch.escape-hatch.html), torch.dynamic-value
 
 Support Level: SUPPORTED
 

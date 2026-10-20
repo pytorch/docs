@@ -1,6 +1,6 @@
 # ZeroPad1d
 
-*class*torch.nn.ZeroPad1d(*padding*)[[source]](https://github.com/pytorch/pytorch/blob/9d18b95219c1c16b653b5e43e8201c0d80e98b8f/torch/nn/modules/padding.py#L687)
+*class*torch.nn.ZeroPad1d(*padding*)[[source]](https://github.com/pytorch/pytorch/blob/a84b7baa33f893ab92176c08a85b14455e60b2fc/torch/nn/modules/padding.py#L687)
 
 Pads the input tensor boundaries with zero.
 
@@ -47,7 +47,7 @@ tensor([[[ 0.0000, 0.0000, 0.0000, 1.6616, 1.4523, -1.1255, 0.0000],
  [ 0.0000, 0.0000, 0.0000, -3.6372, 0.1182, -1.8652, 0.0000]]])
 ```
 
-extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/9d18b95219c1c16b653b5e43e8201c0d80e98b8f/torch/nn/modules/padding.py#L736)
+extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/a84b7baa33f893ab92176c08a85b14455e60b2fc/torch/nn/modules/padding.py#L736)
 
 Return the extra representation of the module.
 
