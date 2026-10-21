@@ -1,6 +1,6 @@
 # torch.use_deterministic_algorithms
 
-torch.use_deterministic_algorithms(*mode*, ***, *warn_only=False*)[[source]](https://github.com/pytorch/pytorch/blob/a84b7baa33f893ab92176c08a85b14455e60b2fc/torch/__init__.py#L1777)
+torch.use_deterministic_algorithms(*mode*, ***, *warn_only=False*)[[source]](https://github.com/pytorch/pytorch/blob/7ffd47d270087d6dbafb876c0549d949aabf0a5a/torch/__init__.py#L1777)
 
 Sets whether PyTorch operations must use "deterministic"
 algorithms. That is, algorithms which, given the same input, and when
@@ -103,7 +103,7 @@ The following normally-nondeterministic operations will throw a
 
 In addition, several operations fill uninitialized memory when this setting
 is turned on and when
-[`torch.utils.deterministic.fill_uninitialized_memory`](../deterministic.html#torch.utils.deterministic.fill_uninitialized_memory) is turned on.
+[`torch.utils.deterministic.fill_uninitialized_memory`](../utils/deterministic.html#torch.utils.deterministic.fill_uninitialized_memory) is turned on.
 See the documentation for that attribute for more information.
 
 Note that deterministic operations tend to have worse performance than

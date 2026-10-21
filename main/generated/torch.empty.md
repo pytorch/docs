@@ -8,7 +8,7 @@ defined by the variable argument `size`.
 Note
 
 If [`torch.use_deterministic_algorithms()`](torch.use_deterministic_algorithms.html#torch.use_deterministic_algorithms) and
-[`torch.utils.deterministic.fill_uninitialized_memory`](../deterministic.html#torch.utils.deterministic.fill_uninitialized_memory) are both set to
+[`torch.utils.deterministic.fill_uninitialized_memory`](../utils/deterministic.html#torch.utils.deterministic.fill_uninitialized_memory) are both set to
 `True`, the output tensor is initialized to prevent any possible
 nondeterministic behavior from using the data as an input to an operation.
 Floating point and complex tensors are filled with NaN, and integer tensors

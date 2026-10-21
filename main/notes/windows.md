@@ -174,7 +174,7 @@ BrokenPipeError: [Errno 32] Broken pipe
 This issue happens when the child process ends before the parent process
 finishes sending data. There may be something wrong with your code. You
 can debug your code by reducing the `num_worker` of
-[`DataLoader`](../data.html#torch.utils.data.DataLoader) to zero and see if the issue persists.
+[`DataLoader`](../utils/data.html#torch.utils.data.DataLoader) to zero and see if the issue persists.
 
 ### Multiprocessing error "driver shut down"
 
@@ -198,6 +198,6 @@ They are not supported on Windows. Something like doing multiprocessing on CUDA
 tensors cannot succeed, there are two alternatives for this.
 
 1. Don't use `multiprocessing`. Set the `num_worker` of
-[`DataLoader`](../data.html#torch.utils.data.DataLoader) to zero.
+[`DataLoader`](../utils/data.html#torch.utils.data.DataLoader) to zero.
 2. Share CPU tensors instead. Make sure your custom
 `DataSet` returns CPU tensors.

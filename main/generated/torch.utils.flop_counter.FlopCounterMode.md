@@ -1,6 +1,6 @@
 # FlopCounterMode
 
-*class*torch.utils.flop_counter.FlopCounterMode(*mods=None*, *depth=2*, *display=True*, *custom_mapping=None*, *skip_unsupported=False*)[[source]](https://github.com/pytorch/pytorch/blob/a84b7baa33f893ab92176c08a85b14455e60b2fc/torch/utils/flop_counter.py#L950)
+*class*torch.utils.flop_counter.FlopCounterMode(*mods=None*, *depth=2*, *display=True*, *custom_mapping=None*, *skip_unsupported=False*)[[source]](https://github.com/pytorch/pytorch/blob/7ffd47d270087d6dbafb876c0549d949aabf0a5a/torch/utils/flop_counter.py#L950)
 
 Count theoretical FLOPs for operators that run inside the context.
 
@@ -65,7 +65,7 @@ See also
 
 [`register_flop_formula()`](torch.utils.flop_counter.register_flop_formula.html#torch.utils.flop_counter.register_flop_formula): Register custom FLOP counting formulas for operations
 
-get_flop_counts()[[source]](https://github.com/pytorch/pytorch/blob/a84b7baa33f893ab92176c08a85b14455e60b2fc/torch/utils/flop_counter.py#L1050)
+get_flop_counts()[[source]](https://github.com/pytorch/pytorch/blob/7ffd47d270087d6dbafb876c0549d949aabf0a5a/torch/utils/flop_counter.py#L1050)
 
 Return the flop counts as a dictionary of dictionaries.
 
@@ -81,7 +81,7 @@ Return type:
 
 Dict[[str](https://docs.python.org/3/builtins/stdtypes.html#str), Dict[Any, [int](https://docs.python.org/3/builtins/functions.html#int)]]
 
-get_unsupported_ops()[[source]](https://github.com/pytorch/pytorch/blob/a84b7baa33f893ab92176c08a85b14455e60b2fc/torch/utils/flop_counter.py#L1041)
+get_unsupported_ops()[[source]](https://github.com/pytorch/pytorch/blob/7ffd47d270087d6dbafb876c0549d949aabf0a5a/torch/utils/flop_counter.py#L1041)
 
 Return a Counter of unsupported operations encountered.
 

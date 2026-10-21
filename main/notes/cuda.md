@@ -1326,7 +1326,7 @@ Just pass an additional `non_blocking=True` argument to a
 [`to()`](../generated/torch.Tensor.to.html#torch.Tensor.to) or a [`cuda()`](../generated/torch.Tensor.cuda.html#torch.Tensor.cuda) call. This can be used
 to overlap data transfers with computation.
 
-You can make the [`DataLoader`](../data.html#torch.utils.data.DataLoader) return batches placed in
+You can make the [`DataLoader`](../utils/data.html#torch.utils.data.DataLoader) return batches placed in
 pinned memory by passing `pin_memory=True` to its constructor.
 
 ### Use nn.parallel.DistributedDataParallel instead of multiprocessing or nn.DataParallel

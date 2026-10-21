@@ -61,7 +61,7 @@ the PrivateUse1 backend name (spawn one process per device),
 `"auto"` (one process per device of the current
 [`torch.accelerator`](../../accelerator.html#module-torch.accelerator) if available, else one per CPU),
 or an integer specifying the number of processes.
-See [`torch.distributed.run.determine_local_world_size()`](generated/torch.distributed.run.determine_local_world_size.html#torch.distributed.run.determine_local_world_size)
+See [`torch.distributed.run.determine_local_world_size()`](../../generated/torch.distributed.run.determine_local_world_size.html#torch.distributed.run.determine_local_world_size)
 for more details.
 
 ### Stacked single-node multi-worker
@@ -364,11 +364,11 @@ if __name__ == "__main__":
  main()
 ```
 
-| [`config_from_args`](generated/torch.distributed.run.config_from_args.html#torch.distributed.run.config_from_args) | |
+| [`config_from_args`](../../generated/torch.distributed.run.config_from_args.html#torch.distributed.run.config_from_args) | |
 | --- | --- |
-| [`determine_local_world_size`](generated/torch.distributed.run.determine_local_world_size.html#torch.distributed.run.determine_local_world_size) | |
-| [`main`](generated/torch.distributed.run.main.html#torch.distributed.run.main) | |
-| [`parse_args`](generated/torch.distributed.run.parse_args.html#torch.distributed.run.parse_args) | |
-| [`parse_min_max_nnodes`](generated/torch.distributed.run.parse_min_max_nnodes.html#torch.distributed.run.parse_min_max_nnodes) | |
-| [`run`](generated/torch.distributed.run.run.html#torch.distributed.run.run) | |
-| [`run_script_path`](generated/torch.distributed.run.run_script_path.html#torch.distributed.run.run_script_path) | Run the provided training_script from within this interpreter. |
+| [`determine_local_world_size`](../../generated/torch.distributed.run.determine_local_world_size.html#torch.distributed.run.determine_local_world_size) | |
+| [`main`](../../generated/torch.distributed.run.main.html#torch.distributed.run.main) | |
+| [`parse_args`](../../generated/torch.distributed.run.parse_args.html#torch.distributed.run.parse_args) | |
+| [`parse_min_max_nnodes`](../../generated/torch.distributed.run.parse_min_max_nnodes.html#torch.distributed.run.parse_min_max_nnodes) | |
+| [`run`](../../generated/torch.distributed.run.run.html#torch.distributed.run.run) | |
+| [`run_script_path`](../../generated/torch.distributed.run.run_script_path.html#torch.distributed.run.run_script_path) | Run the provided training_script from within this interpreter. |

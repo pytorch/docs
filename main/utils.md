@@ -5,6 +5,25 @@
 | [`set_module`](generated/torch.utils.set_module.html#torch.utils.set_module) | Set the module attribute on a python object for a given object for nicer printing |
 | [`swap_tensors`](generated/torch.utils.swap_tensors.html#torch.utils.swap_tensors) | This function swaps the content of the two Tensor objects. |
 
+## Submodules
+
+torch.utils submodules
+
+- [Benchmark Utils - torch.utils.benchmark](utils/benchmark.html)
+- [torch.utils.benchmark.examples](utils/benchmark.html#module-torch.utils.benchmark.examples)
+- [torch.utils.benchmark.examples.spectral_ops_fuzz_test](utils/benchmark.html#module-torch.utils.benchmark.examples.spectral_ops_fuzz_test)
+- [torch.utils.checkpoint](utils/checkpoint.html)
+- [torch.utils.cpp_extension](utils/cpp_extension.html)
+- [torch.utils.data](utils/data.html)
+- [torch.utils.deterministic](utils/deterministic.html)
+- [JIT Utils - torch.utils.jit](utils/jit.html)
+- [torch.utils.jit.log_extract](utils/jit.html#module-torch.utils.jit.log_extract)
+- [torch.utils.dlpack](utils/dlpack.html)
+- [torch.utils.mobile_optimizer](utils/mobile_optimizer.html)
+- [torch.utils.model_zoo](utils/model_zoo.html)
+- [torch.utils.tensorboard](utils/tensorboard.html)
+- [torch.utils.module_tracker](utils/module_tracker.html)
+
 # torch.utils.backend_registration
 
 | [`generate_methods_for_privateuse1_backend`](generated/torch.utils.backend_registration.generate_methods_for_privateuse1_backend.html#torch.utils.backend_registration.generate_methods_for_privateuse1_backend) | Automatically generate attributes and methods for the custom backend after rename privateuse1 backend. |
@@ -13,7 +32,7 @@
 
 # torch.utils.hooks
 
-torch.utils.hooks.unserializable_hook(*f*)[[source]](https://github.com/pytorch/pytorch/blob/a84b7baa33f893ab92176c08a85b14455e60b2fc/torch/utils/hooks.py#L72)
+torch.utils.hooks.unserializable_hook(*f*)[[source]](https://github.com/pytorch/pytorch/blob/7ffd47d270087d6dbafb876c0549d949aabf0a5a/torch/utils/hooks.py#L72)
 
 Mark a function as an unserializable hook with this decorator.
 
@@ -22,7 +41,7 @@ to serialize a tensor that has a hook.
 
 # torch.utils.throughput_benchmark
 
-torch.utils.throughput_benchmark.format_time(*time_us=None*, *time_ms=None*, *time_s=None*)[[source]](https://github.com/pytorch/pytorch/blob/a84b7baa33f893ab92176c08a85b14455e60b2fc/torch/utils/throughput_benchmark.py#L6)
+torch.utils.throughput_benchmark.format_time(*time_us=None*, *time_ms=None*, *time_s=None*)[[source]](https://github.com/pytorch/pytorch/blob/7ffd47d270087d6dbafb876c0549d949aabf0a5a/torch/utils/throughput_benchmark.py#L6)
 
 Define time formatting.
 

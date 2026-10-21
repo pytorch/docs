@@ -20,7 +20,7 @@ change the size in-place with custom strides, see [`set_()`](torch.Tensor.set_.h
 Note
 
 If [`torch.use_deterministic_algorithms()`](torch.use_deterministic_algorithms.html#torch.use_deterministic_algorithms) and
-[`torch.utils.deterministic.fill_uninitialized_memory`](../deterministic.html#torch.utils.deterministic.fill_uninitialized_memory) are both set to
+[`torch.utils.deterministic.fill_uninitialized_memory`](../utils/deterministic.html#torch.utils.deterministic.fill_uninitialized_memory) are both set to
 `True`, new elements are initialized to prevent nondeterministic behavior
 from using the result as an input to an operation. Floating point and
 complex values are set to NaN, and integer values are set to the maximum

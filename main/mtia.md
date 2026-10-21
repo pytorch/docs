@@ -43,3 +43,10 @@ This package enables an interface for accessing MTIA backend in python
 | [`Event`](generated/torch.mtia.Event.html#torch.mtia.Event) | Query and record Stream status to identify or control dependencies across Stream and measure timing. |
 | --- | --- |
 | [`Stream`](generated/torch.mtia.Stream_class.html#torch.mtia.Stream) | An in-order queue of executing the respective tasks asynchronously in first in first out (FIFO) order. |
+
+## Read More
+
+torch.mtia submodules
+
+- [torch.mtia.memory](mtia/memory.html)
+- [torch.mtia.mtia_graph](mtia/mtia_graph.html)

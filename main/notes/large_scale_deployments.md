@@ -96,4 +96,4 @@ PyTorch APIs are generally loosely coupled and it's easy to replace a component
 with specialized version. Common extension points include:
 
 - Custom operators implemented in C++ - see [tutorial for more details](https://pytorch.org/tutorials/advanced/cpp_extension.html).
-- Custom data reading can be often integrated directly by invoking corresponding python library. Existing functionality of [`torch.utils.data`](../data.html#module-torch.utils.data) can be utilized by extending [`Dataset`](../data.html#torch.utils.data.Dataset) or [`IterableDataset`](../data.html#torch.utils.data.IterableDataset).
+- Custom data reading can be often integrated directly by invoking corresponding python library. Existing functionality of [`torch.utils.data`](../utils/data.html#module-torch.utils.data) can be utilized by extending [`Dataset`](../utils/data.html#torch.utils.data.Dataset) or [`IterableDataset`](../utils/data.html#torch.utils.data.IterableDataset).

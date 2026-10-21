@@ -203,7 +203,7 @@ tensors with uninitialized memory that contain undefined values. Using such a
 tensor as an input to another operation is invalid if determinism is required,
 because the output will be nondeterministic. But there is nothing to actually
 prevent such invalid code from being run. So for safety,
-[`torch.utils.deterministic.fill_uninitialized_memory`](../deterministic.html#torch.utils.deterministic.fill_uninitialized_memory) is set to `True`
+[`torch.utils.deterministic.fill_uninitialized_memory`](../utils/deterministic.html#torch.utils.deterministic.fill_uninitialized_memory) is set to `True`
 by default, which will fill the uninitialized memory with a known value if
 `torch.use_deterministic_algorithms(True)` is set. This will prevent the
 possibility of this kind of nondeterministic behavior.
@@ -214,7 +214,7 @@ operation, then this setting can be turned off for better performance.
 
 ## DataLoader
 
-DataLoader will reseed workers following the [Randomness in multi-process data loading](../data.html#data-loading-randomness) algorithm.
+DataLoader will reseed workers following the [Randomness in multi-process data loading](../utils/data.html#data-loading-randomness) algorithm.
 Use `worker_init_fn()` and `generator` to preserve reproducibility:
 
 ```

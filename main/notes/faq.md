@@ -127,7 +127,7 @@ if oom:
 
 You are likely using other libraries to generate random numbers in the dataset
 and worker subprocesses are started via `fork`. See
-[`torch.utils.data.DataLoader`](../data.html#torch.utils.data.DataLoader)'s documentation for how to
+[`torch.utils.data.DataLoader`](../utils/data.html#torch.utils.data.DataLoader)'s documentation for how to
 properly set up random seeds in workers with its `worker_init_fn` option.
 
 ## My recurrent network doesn't work with data parallelism
