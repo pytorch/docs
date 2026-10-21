@@ -1,6 +1,6 @@
 # torch.signal.windows.windows.hann
 
-torch.signal.windows.windows.hann(*M*, ***, *sym=True*, *dtype=None*, *layout=torch.strided*, *device=None*, *requires_grad=False*)[[source]](https://github.com/pytorch/pytorch/blob/7ffd47d270087d6dbafb876c0549d949aabf0a5a/torch/signal/windows/windows.py#L483)
+torch.signal.windows.windows.hann(*M*, ***, *sym=True*, *dtype=None*, *layout=torch.strided*, *device=None*, *requires_grad=False*)[[source]](https://github.com/pytorch/pytorch/blob/1404563568be4b2d23634a409bd7a9c7972c1c5c/torch/signal/windows/windows.py#L483)
 
 Computes the Hann window.
 

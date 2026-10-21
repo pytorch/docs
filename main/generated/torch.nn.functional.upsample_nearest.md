@@ -1,6 +1,6 @@
 # torch.nn.functional.upsample_nearest
 
-torch.nn.functional.upsample_nearest(*input*, *size=None*, *scale_factor=None*)[[source]](https://github.com/pytorch/pytorch/blob/7ffd47d270087d6dbafb876c0549d949aabf0a5a/torch/nn/functional.py#L5455)
+torch.nn.functional.upsample_nearest(*input*, *size=None*, *scale_factor=None*)[[source]](https://github.com/pytorch/pytorch/blob/1404563568be4b2d23634a409bd7a9c7972c1c5c/torch/nn/functional.py#L5455)
 
 Upsamples the input, using nearest neighbours' pixel values.
 

@@ -1,6 +1,6 @@
 # torch.fx.experimental.graph_gradual_typechecker.first_two_eq
 
-torch.fx.experimental.graph_gradual_typechecker.first_two_eq(*n*)[[source]](https://github.com/pytorch/pytorch/blob/7ffd47d270087d6dbafb876c0549d949aabf0a5a/torch/fx/experimental/graph_gradual_typechecker.py#L777)
+torch.fx.experimental.graph_gradual_typechecker.first_two_eq(*n*)[[source]](https://github.com/pytorch/pytorch/blob/1404563568be4b2d23634a409bd7a9c7972c1c5c/torch/fx/experimental/graph_gradual_typechecker.py#L777)
 
 For operations where the first two dimensions of the input and output shape
 are equal

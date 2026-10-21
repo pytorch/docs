@@ -1,6 +1,6 @@
 # torch.fx.experimental.graph_gradual_typechecker.maxpool2d_inference_rule
 
-torch.fx.experimental.graph_gradual_typechecker.maxpool2d_inference_rule(*n*, *module_instance*)[[source]](https://github.com/pytorch/pytorch/blob/7ffd47d270087d6dbafb876c0549d949aabf0a5a/torch/fx/experimental/graph_gradual_typechecker.py#L497)
+torch.fx.experimental.graph_gradual_typechecker.maxpool2d_inference_rule(*n*, *module_instance*)[[source]](https://github.com/pytorch/pytorch/blob/1404563568be4b2d23634a409bd7a9c7972c1c5c/torch/fx/experimental/graph_gradual_typechecker.py#L497)
 
 Given a MaxPool2D instance and a node check the following conditions:
 

@@ -1,6 +1,6 @@
 # torch.Tensor.to_sparse_coo
 
-Tensor.to_sparse_coo()[[source]](https://github.com/pytorch/pytorch/blob/7ffd47d270087d6dbafb876c0549d949aabf0a5a/torch/_tensor.py#L1377)
+Tensor.to_sparse_coo()[[source]](https://github.com/pytorch/pytorch/blob/1404563568be4b2d23634a409bd7a9c7972c1c5c/torch/_tensor.py#L1377)
 
 Convert a tensor to [coordinate format](../sparse.html#sparse-coo-docs).
 

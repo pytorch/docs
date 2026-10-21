@@ -1,6 +1,6 @@
 # torch.distributed.run.config_from_args
 
-torch.distributed.run.config_from_args(*args*)[[source]](https://github.com/pytorch/pytorch/blob/7ffd47d270087d6dbafb876c0549d949aabf0a5a/torch/distributed/run.py#L948)
+torch.distributed.run.config_from_args(*args*)[[source]](https://github.com/pytorch/pytorch/blob/1404563568be4b2d23634a409bd7a9c7972c1c5c/torch/distributed/run.py#L948)
 
 Return type:
 

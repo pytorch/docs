@@ -1,3 +1,3 @@
 # torch.distributed.run.determine_local_world_size
 
-torch.distributed.run.determine_local_world_size(*nproc_per_node*)[[source]](https://github.com/pytorch/pytorch/blob/7ffd47d270087d6dbafb876c0549d949aabf0a5a/torch/distributed/run.py#L853)
+torch.distributed.run.determine_local_world_size(*nproc_per_node*)[[source]](https://github.com/pytorch/pytorch/blob/1404563568be4b2d23634a409bd7a9c7972c1c5c/torch/distributed/run.py#L853)
