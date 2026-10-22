@@ -1,6 +1,6 @@
 # torch.fx.experimental.migrate_gradual_types.transform_to_z3.transform_var
 
-torch.fx.experimental.migrate_gradual_types.transform_to_z3.transform_var(*tensor*, *counter*, *dimension_dict*)[[source]](https://github.com/pytorch/pytorch/blob/1404563568be4b2d23634a409bd7a9c7972c1c5c/torch/fx/experimental/migrate_gradual_types/transform_to_z3.py#L269)
+torch.fx.experimental.migrate_gradual_types.transform_to_z3.transform_var(*tensor*, *counter*, *dimension_dict*)[[source]](https://github.com/pytorch/pytorch/blob/89a8b1cfbad1eafcade9ad8ed84db0d2399b0ce4/torch/fx/experimental/migrate_gradual_types/transform_to_z3.py#L269)
 
 Transforms tensor variables to a format understood by z3
 :param tensor: Tensor variable or a tensor type potentially with variable dimensions

@@ -1,6 +1,6 @@
 # torch.fx.experimental.migrate_gradual_types.constraint_transformation.generate_d_gub
 
-torch.fx.experimental.migrate_gradual_types.constraint_transformation.generate_d_gub(*constraint*, *counter*)[[source]](https://github.com/pytorch/pytorch/blob/1404563568be4b2d23634a409bd7a9c7972c1c5c/torch/fx/experimental/migrate_gradual_types/constraint_transformation.py#L488)
+torch.fx.experimental.migrate_gradual_types.constraint_transformation.generate_d_gub(*constraint*, *counter*)[[source]](https://github.com/pytorch/pytorch/blob/89a8b1cfbad1eafcade9ad8ed84db0d2399b0ce4/torch/fx/experimental/migrate_gradual_types/constraint_transformation.py#L488)
 
 Transform greatest upper bound for dimensions into equality constraints
 

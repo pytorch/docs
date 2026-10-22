@@ -1,6 +1,6 @@
 # torch.foreach.acos
 
-torch.foreach.acos(*inputs: TensorList*, */*) → [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...][[source]](https://github.com/pytorch/pytorch/blob/1404563568be4b2d23634a409bd7a9c7972c1c5c/torch/foreach/__init__.py#L347)
+torch.foreach.acos(*inputs: TensorList*, */*) → [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...][[source]](https://github.com/pytorch/pytorch/blob/89a8b1cfbad1eafcade9ad8ed84db0d2399b0ce4/torch/foreach/__init__.py#L347)
 
 Applies [`torch.acos()`](torch.acos.html#torch.acos) to each tensor in `inputs`.
 

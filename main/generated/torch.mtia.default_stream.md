@@ -1,6 +1,6 @@
 # torch.mtia.default_stream
 
-torch.mtia.default_stream(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/1404563568be4b2d23634a409bd7a9c7972c1c5c/torch/mtia/__init__.py#L193)
+torch.mtia.default_stream(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/89a8b1cfbad1eafcade9ad8ed84db0d2399b0ce4/torch/mtia/__init__.py#L193)
 
 Return the default [`Stream`](torch.mtia.Stream_class.html#torch.mtia.Stream) for a given device.
 

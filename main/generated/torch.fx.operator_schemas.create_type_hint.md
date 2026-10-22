@@ -1,6 +1,6 @@
 # torch.fx.operator_schemas.create_type_hint
 
-torch.fx.operator_schemas.create_type_hint(*x*)[[source]](https://github.com/pytorch/pytorch/blob/1404563568be4b2d23634a409bd7a9c7972c1c5c/torch/fx/operator_schemas.py#L267)
+torch.fx.operator_schemas.create_type_hint(*x*)[[source]](https://github.com/pytorch/pytorch/blob/89a8b1cfbad1eafcade9ad8ed84db0d2399b0ce4/torch/fx/operator_schemas.py#L267)
 
 Produces a type hint for the given argument.
 

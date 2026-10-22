@@ -1,6 +1,6 @@
 # LSTMCell
 
-*class*torch.ao.nn.quantized.dynamic.modules.rnn.LSTMCell(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/1404563568be4b2d23634a409bd7a9c7972c1c5c/torch/ao/nn/quantized/dynamic/modules/rnn.py#L1277)
+*class*torch.ao.nn.quantized.dynamic.modules.rnn.LSTMCell(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/89a8b1cfbad1eafcade9ad8ed84db0d2399b0ce4/torch/ao/nn/quantized/dynamic/modules/rnn.py#L1277)
 
 A long short-term memory (LSTM) cell.
 

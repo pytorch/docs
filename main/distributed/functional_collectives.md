@@ -19,7 +19,7 @@ out = funcol.all_reduce(tensor, "sum", group=dist.group.WORLD)
 gathered = funcol.all_gather_single(tensor, gather_dim=0, group=mesh)
 ```
 
-torch.distributed.functional_collectives.all_reduce(*self*, *reduceOp*, *group*, *tag=''*, ***, *config=None*)[[source]](https://github.com/pytorch/pytorch/blob/1404563568be4b2d23634a409bd7a9c7972c1c5c/torch/distributed/_functional_collectives.py#L234)
+torch.distributed.functional_collectives.all_reduce(*self*, *reduceOp*, *group*, *tag=''*, ***, *config=None*)[[source]](https://github.com/pytorch/pytorch/blob/89a8b1cfbad1eafcade9ad8ed84db0d2399b0ce4/torch/distributed/_functional_collectives.py#L234)
 
 Reduces the tensor data across all machines in such a way that all get
 the final result.
@@ -42,7 +42,7 @@ every rank. With a per-rank (or tensor) factor the backward is incorrect: it
 re-applies `premul_sum` to the gradient, yielding `sum_s k_s * g_s`,
 instead of scaling the summed gradient locally by this rank's `k_r`.
 
-torch.distributed.functional_collectives.all_reduce_coalesced(*self*, *reduceOp*, *group*, *tag=''*, ***, *config=None*)[[source]](https://github.com/pytorch/pytorch/blob/1404563568be4b2d23634a409bd7a9c7972c1c5c/torch/distributed/_functional_collectives.py#L487)
+torch.distributed.functional_collectives.all_reduce_coalesced(*self*, *reduceOp*, *group*, *tag=''*, ***, *config=None*)[[source]](https://github.com/pytorch/pytorch/blob/89a8b1cfbad1eafcade9ad8ed84db0d2399b0ce4/torch/distributed/_functional_collectives.py#L487)
 
 Reduces a list of tensors across all machines in such a way that all get
 the final result.
@@ -69,7 +69,7 @@ Return type:
 
 [list](https://docs.python.org/3/builtins/stdtypes.html#list)[[*Tensor*](../tensors.html#torch.Tensor)]
 
-torch.distributed.functional_collectives.all_gather_single(*self*, *gather_dim*, *group*, *tag=''*, ***, *config=None*)[[source]](https://github.com/pytorch/pytorch/blob/1404563568be4b2d23634a409bd7a9c7972c1c5c/torch/distributed/_functional_collectives.py#L274)
+torch.distributed.functional_collectives.all_gather_single(*self*, *gather_dim*, *group*, *tag=''*, ***, *config=None*)[[source]](https://github.com/pytorch/pytorch/blob/89a8b1cfbad1eafcade9ad8ed84db0d2399b0ce4/torch/distributed/_functional_collectives.py#L274)
 
 Gather tensor data across from all machines and concatenate over `gather_dim`.
 
@@ -90,7 +90,7 @@ Return type:
 
 [*Tensor*](../tensors.html#torch.Tensor)
 
-torch.distributed.functional_collectives.all_gather_single_coalesced(*self*, *group*, *tag=''*, ***, *config=None*)[[source]](https://github.com/pytorch/pytorch/blob/1404563568be4b2d23634a409bd7a9c7972c1c5c/torch/distributed/_functional_collectives.py#L527)
+torch.distributed.functional_collectives.all_gather_single_coalesced(*self*, *group*, *tag=''*, ***, *config=None*)[[source]](https://github.com/pytorch/pytorch/blob/89a8b1cfbad1eafcade9ad8ed84db0d2399b0ce4/torch/distributed/_functional_collectives.py#L527)
 
 Gather a list of tensors across from all machines.
 
@@ -113,7 +113,7 @@ Return type:
 
 [list](https://docs.python.org/3/builtins/stdtypes.html#list)[[*Tensor*](../tensors.html#torch.Tensor)]
 
-torch.distributed.functional_collectives.reduce_scatter_single(*self*, *reduceOp*, *scatter_dim*, *group*, *tag=''*, ***, *config=None*)[[source]](https://github.com/pytorch/pytorch/blob/1404563568be4b2d23634a409bd7a9c7972c1c5c/torch/distributed/_functional_collectives.py#L342)
+torch.distributed.functional_collectives.reduce_scatter_single(*self*, *reduceOp*, *scatter_dim*, *group*, *tag=''*, ***, *config=None*)[[source]](https://github.com/pytorch/pytorch/blob/89a8b1cfbad1eafcade9ad8ed84db0d2399b0ce4/torch/distributed/_functional_collectives.py#L342)
 
 Reduces the tensor data across all machines in such a way that all get
 the final result, then scatter the results to corresponding ranks.
@@ -131,7 +131,7 @@ DeviceMesh: Do a SPMD collective over all ranks of the mesh
 :: N.B. If you pass a PG or a 1D list to perform a MPMD collective, the compiler won't be able to recover
 that information and perform collective algebraic optimization. Use other forms of input for that.
 
-torch.distributed.functional_collectives.reduce_scatter_single_coalesced(*inputs*, *reduceOp*, *scatter_dim*, *group*, *tag=''*, ***, *config=None*)[[source]](https://github.com/pytorch/pytorch/blob/1404563568be4b2d23634a409bd7a9c7972c1c5c/torch/distributed/_functional_collectives.py#L558)
+torch.distributed.functional_collectives.reduce_scatter_single_coalesced(*inputs*, *reduceOp*, *scatter_dim*, *group*, *tag=''*, ***, *config=None*)[[source]](https://github.com/pytorch/pytorch/blob/89a8b1cfbad1eafcade9ad8ed84db0d2399b0ce4/torch/distributed/_functional_collectives.py#L558)
 
 Reduces a list of tensors across all machines in such a way that all get
 the final result, then scatter the results to corresponding ranks.
@@ -153,7 +153,7 @@ Return type:
 
 [list](https://docs.python.org/3/builtins/stdtypes.html#list)[[*Tensor*](../tensors.html#torch.Tensor)]
 
-torch.distributed.functional_collectives.all_to_all_single(*self*, *output_split_sizes*, *input_split_sizes*, *group*, *tag=''*, ***, *config=None*)[[source]](https://github.com/pytorch/pytorch/blob/1404563568be4b2d23634a409bd7a9c7972c1c5c/torch/distributed/_functional_collectives.py#L661)
+torch.distributed.functional_collectives.all_to_all_single(*self*, *output_split_sizes*, *input_split_sizes*, *group*, *tag=''*, ***, *config=None*)[[source]](https://github.com/pytorch/pytorch/blob/89a8b1cfbad1eafcade9ad8ed84db0d2399b0ce4/torch/distributed/_functional_collectives.py#L661)
 
 Each process splits input tensor and then scatters the split list
 to all processes in a group. Then concatenate the received tensors from all
@@ -174,7 +174,7 @@ Return type:
 
 [*Tensor*](../tensors.html#torch.Tensor)
 
-torch.distributed.functional_collectives.broadcast(*self*, *src*, *group*, *tag=''*)[[source]](https://github.com/pytorch/pytorch/blob/1404563568be4b2d23634a409bd7a9c7972c1c5c/torch/distributed/_functional_collectives.py#L154)
+torch.distributed.functional_collectives.broadcast(*self*, *src*, *group*, *tag=''*)[[source]](https://github.com/pytorch/pytorch/blob/89a8b1cfbad1eafcade9ad8ed84db0d2399b0ce4/torch/distributed/_functional_collectives.py#L154)
 
 Broadcasts the tensor to all processes in the given process group.
 
@@ -184,7 +184,7 @@ Parameters:
 - **group** ([*ProcessGroup*](../distributed.html#torch.distributed.ProcessGroup)*or**List**[*[*int*](https://docs.python.org/3/builtins/functions.html#int)*]*) - The process group to work on.
 - **tag** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**optional*) - A unique identifier for the collective. Default: empty string
 
-torch.distributed.functional_collectives.permute_tensor(*self*, *src_dst*, *group*, *tag=''*)[[source]](https://github.com/pytorch/pytorch/blob/1404563568be4b2d23634a409bd7a9c7972c1c5c/torch/distributed/_functional_collectives.py#L1353)
+torch.distributed.functional_collectives.permute_tensor(*self*, *src_dst*, *group*, *tag=''*)[[source]](https://github.com/pytorch/pytorch/blob/89a8b1cfbad1eafcade9ad8ed84db0d2399b0ce4/torch/distributed/_functional_collectives.py#L1353)
 
 Permutes the elements of the tensor according to the given source/destination pairs. src_dst should
 be defined such that src_dst[m] == n means m sends to n.
@@ -201,13 +201,13 @@ Return type:
 
 [*Tensor*](../tensors.html#torch.Tensor)
 
-torch.distributed.functional_collectives.wait_tensor(*tensor*)[[source]](https://github.com/pytorch/pytorch/blob/1404563568be4b2d23634a409bd7a9c7972c1c5c/torch/distributed/_functional_collectives.py#L138)
+torch.distributed.functional_collectives.wait_tensor(*tensor*)[[source]](https://github.com/pytorch/pytorch/blob/89a8b1cfbad1eafcade9ad8ed84db0d2399b0ce4/torch/distributed/_functional_collectives.py#L138)
 
 Wait on a tensor returned by the collectives ops.
 
 Waiting follows device semantics, which means blocking on CPU and synchronizing streams on CUDA.
 
-torch.distributed.functional_collectives.wait_tensors(*tensors*)[[source]](https://github.com/pytorch/pytorch/blob/1404563568be4b2d23634a409bd7a9c7972c1c5c/torch/distributed/_functional_collectives.py#L147)
+torch.distributed.functional_collectives.wait_tensors(*tensors*)[[source]](https://github.com/pytorch/pytorch/blob/89a8b1cfbad1eafcade9ad8ed84db0d2399b0ce4/torch/distributed/_functional_collectives.py#L147)
 
 Wait on tensors returned by the same multi-output collective.
 
@@ -228,19 +228,19 @@ def functional_collective(self, group, tag):
  return _maybe_wrap_tensor(tensor)
 ```
 
-numpy()[[source]](https://github.com/pytorch/pytorch/blob/1404563568be4b2d23634a409bd7a9c7972c1c5c/torch/distributed/_functional_collectives.py#L1500)
+numpy()[[source]](https://github.com/pytorch/pytorch/blob/89a8b1cfbad1eafcade9ad8ed84db0d2399b0ce4/torch/distributed/_functional_collectives.py#L1500)
 
 Wait on the collective and return the result as a NumPy array.
 
-tolist()[[source]](https://github.com/pytorch/pytorch/blob/1404563568be4b2d23634a409bd7a9c7972c1c5c/torch/distributed/_functional_collectives.py#L1420)
+tolist()[[source]](https://github.com/pytorch/pytorch/blob/89a8b1cfbad1eafcade9ad8ed84db0d2399b0ce4/torch/distributed/_functional_collectives.py#L1420)
 
 Wait on the collective and return the result as a list.
 
-trigger_wait()[[source]](https://github.com/pytorch/pytorch/blob/1404563568be4b2d23634a409bd7a9c7972c1c5c/torch/distributed/_functional_collectives.py#L1444)
+trigger_wait()[[source]](https://github.com/pytorch/pytorch/blob/89a8b1cfbad1eafcade9ad8ed84db0d2399b0ce4/torch/distributed/_functional_collectives.py#L1444)
 
 Wait on the collective if not yet completed and return the result tensor.
 
-wait()[[source]](https://github.com/pytorch/pytorch/blob/1404563568be4b2d23634a409bd7a9c7972c1c5c/torch/distributed/_functional_collectives.py#L1453)
+wait()[[source]](https://github.com/pytorch/pytorch/blob/89a8b1cfbad1eafcade9ad8ed84db0d2399b0ce4/torch/distributed/_functional_collectives.py#L1453)
 
 Wait on the collective and return the result tensor.
 

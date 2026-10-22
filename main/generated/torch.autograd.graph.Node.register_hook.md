@@ -1,6 +1,6 @@
 # torch.autograd.graph.Node.register_hook
 
-*abstract*Node.register_hook(*fn*)[[source]](https://github.com/pytorch/pytorch/blob/1404563568be4b2d23634a409bd7a9c7972c1c5c/torch/autograd/graph.py#L104)
+*abstract*Node.register_hook(*fn*)[[source]](https://github.com/pytorch/pytorch/blob/89a8b1cfbad1eafcade9ad8ed84db0d2399b0ce4/torch/autograd/graph.py#L104)
 
 Register a backward hook.
 

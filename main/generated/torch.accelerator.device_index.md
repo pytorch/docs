@@ -1,6 +1,6 @@
 # device_index
 
-*class*torch.accelerator.device_index(*device*, */*)[[source]](https://github.com/pytorch/pytorch/blob/1404563568be4b2d23634a409bd7a9c7972c1c5c/torch/accelerator/__init__.py#L275)
+*class*torch.accelerator.device_index(*device*, */*)[[source]](https://github.com/pytorch/pytorch/blob/89a8b1cfbad1eafcade9ad8ed84db0d2399b0ce4/torch/accelerator/__init__.py#L275)
 
 Context manager to set the current device index for the current [accelerator](../torch.html#accelerators).
 Temporarily changes the current device index to the specified value for the duration

@@ -1,6 +1,6 @@
 # torch.nn.utils.parametrizations.weight_norm
 
-torch.nn.utils.parametrizations.weight_norm(*module*, *name='weight'*, *dim=0*)[[source]](https://github.com/pytorch/pytorch/blob/1404563568be4b2d23634a409bd7a9c7972c1c5c/torch/nn/utils/parametrizations.py#L336)
+torch.nn.utils.parametrizations.weight_norm(*module*, *name='weight'*, *dim=0*)[[source]](https://github.com/pytorch/pytorch/blob/89a8b1cfbad1eafcade9ad8ed84db0d2399b0ce4/torch/nn/utils/parametrizations.py#L336)
 
 Apply weight normalization to a parameter in the given module.
 

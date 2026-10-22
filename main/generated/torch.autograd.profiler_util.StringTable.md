@@ -1,6 +1,6 @@
 # StringTable
 
-*class*torch.autograd.profiler_util.StringTable[[source]](https://github.com/pytorch/pytorch/blob/1404563568be4b2d23634a409bd7a9c7972c1c5c/torch/autograd/profiler_util.py#L1146)
+*class*torch.autograd.profiler_util.StringTable[[source]](https://github.com/pytorch/pytorch/blob/89a8b1cfbad1eafcade9ad8ed84db0d2399b0ce4/torch/autograd/profiler_util.py#L1146)
 
 clear() → None. Remove all items from D.
 

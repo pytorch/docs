@@ -1,6 +1,6 @@
 # torch.fx.experimental.unify_refinements.check_for_type_equality
 
-torch.fx.experimental.unify_refinements.check_for_type_equality(*g1*, *g2*)[[source]](https://github.com/pytorch/pytorch/blob/1404563568be4b2d23634a409bd7a9c7972c1c5c/torch/fx/experimental/unify_refinements.py#L130)
+torch.fx.experimental.unify_refinements.check_for_type_equality(*g1*, *g2*)[[source]](https://github.com/pytorch/pytorch/blob/89a8b1cfbad1eafcade9ad8ed84db0d2399b0ce4/torch/fx/experimental/unify_refinements.py#L130)
 
 A check equality to be used in fixed points.
 We do not use graph equality but instead type

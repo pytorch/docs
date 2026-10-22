@@ -1,6 +1,6 @@
 # torch.functional.unique_consecutive
 
-torch.functional.unique_consecutive(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/1404563568be4b2d23634a409bd7a9c7972c1c5c/torch/_jit_internal.py#L627)
+torch.functional.unique_consecutive(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/89a8b1cfbad1eafcade9ad8ed84db0d2399b0ce4/torch/_jit_internal.py#L627)
 
 Eliminates all but the first element from every consecutive group of equivalent elements.
 

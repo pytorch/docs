@@ -1,6 +1,6 @@
 # torch.fx.experimental.symbolic_shapes.guard_scalar
 
-torch.fx.experimental.symbolic_shapes.guard_scalar(*a*)[[source]](https://github.com/pytorch/pytorch/blob/1404563568be4b2d23634a409bd7a9c7972c1c5c/torch/fx/experimental/symbolic_shapes.py#L1721)
+torch.fx.experimental.symbolic_shapes.guard_scalar(*a*)[[source]](https://github.com/pytorch/pytorch/blob/89a8b1cfbad1eafcade9ad8ed84db0d2399b0ce4/torch/fx/experimental/symbolic_shapes.py#L1721)
 
 Guard a scalar value, which can be a symbolic or concrete boolean, integer, or float.
 

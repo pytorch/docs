@@ -1,6 +1,6 @@
 # torch.nn.utils.parametrize.is_parametrized
 
-torch.nn.utils.parametrize.is_parametrized(*module*, *tensor_name=None*)[[source]](https://github.com/pytorch/pytorch/blob/1404563568be4b2d23634a409bd7a9c7972c1c5c/torch/nn/utils/parametrize.py#L674)
+torch.nn.utils.parametrize.is_parametrized(*module*, *tensor_name=None*)[[source]](https://github.com/pytorch/pytorch/blob/89a8b1cfbad1eafcade9ad8ed84db0d2399b0ce4/torch/nn/utils/parametrize.py#L674)
 
 Determine if a module has a parametrization.
 

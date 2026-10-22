@@ -1,6 +1,6 @@
 # torch.cuda.streams.execute_on_streams
 
-torch.cuda.streams.execute_on_streams(*streams*, *fn*, **inputs*)[[source]](https://github.com/pytorch/pytorch/blob/1404563568be4b2d23634a409bd7a9c7972c1c5c/torch/cuda/streams.py#L283)
+torch.cuda.streams.execute_on_streams(*streams*, *fn*, **inputs*)[[source]](https://github.com/pytorch/pytorch/blob/89a8b1cfbad1eafcade9ad8ed84db0d2399b0ce4/torch/cuda/streams.py#L283)
 
 Enqueue a callback on each stream and join its work to the caller stream.
 

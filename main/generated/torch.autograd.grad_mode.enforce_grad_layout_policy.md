@@ -1,6 +1,6 @@
 # enforce_grad_layout_policy
 
-*class*torch.autograd.grad_mode.enforce_grad_layout_policy(*enable=True*)[[source]](https://github.com/pytorch/pytorch/blob/1404563568be4b2d23634a409bd7a9c7972c1c5c/torch/autograd/grad_mode.py#L356)
+*class*torch.autograd.grad_mode.enforce_grad_layout_policy(*enable=True*)[[source]](https://github.com/pytorch/pytorch/blob/89a8b1cfbad1eafcade9ad8ed84db0d2399b0ce4/torch/autograd/grad_mode.py#L356)
 
 Context-manager that controls the gradient layout policy enforcement.
 
@@ -39,7 +39,7 @@ Example::
 ... # gradient rather than being forced to match p's strides.
 ```
 
-clone()[[source]](https://github.com/pytorch/pytorch/blob/1404563568be4b2d23634a409bd7a9c7972c1c5c/torch/autograd/grad_mode.py#L407)
+clone()[[source]](https://github.com/pytorch/pytorch/blob/89a8b1cfbad1eafcade9ad8ed84db0d2399b0ce4/torch/autograd/grad_mode.py#L407)
 
 Create a copy of this class
 
