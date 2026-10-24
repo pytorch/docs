@@ -1,6 +1,6 @@
 # torch.fx.experimental.symbolic_shapes.guarding_hint_or_throw
 
-torch.fx.experimental.symbolic_shapes.guarding_hint_or_throw(*a*)[[source]](https://github.com/pytorch/pytorch/blob/8fdc6530233b7482bb73269b47190767c3cfb0b3/torch/fx/experimental/symbolic_shapes.py#L131)
+torch.fx.experimental.symbolic_shapes.guarding_hint_or_throw(*a*)[[source]](https://github.com/pytorch/pytorch/blob/9aee436a1bfc7a0bd2c40f48f128cb185ee3d75e/torch/fx/experimental/symbolic_shapes.py#L131)
 
 Return a concrete hint for a symbolic value, for use in guarding decisions.
 

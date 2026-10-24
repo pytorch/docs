@@ -1,6 +1,6 @@
 # AvgPool1d
 
-*class*torch.nn.AvgPool1d(*kernel_size*, *stride=None*, *padding=0*, *ceil_mode=False*, *count_include_pad=True*)[[source]](https://github.com/pytorch/pytorch/blob/8fdc6530233b7482bb73269b47190767c3cfb0b3/torch/nn/modules/pooling.py#L595)
+*class*torch.nn.AvgPool1d(*kernel_size*, *stride=None*, *padding=0*, *ceil_mode=False*, *count_include_pad=True*)[[source]](https://github.com/pytorch/pytorch/blob/9aee436a1bfc7a0bd2c40f48f128cb185ee3d75e/torch/nn/modules/pooling.py#L595)
 
 Applies a 1D average pooling over an input signal composed of several input planes.
 
@@ -57,7 +57,7 @@ Examples:
 tensor([[[2., 4., 6.]]])
 ```
 
-forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/8fdc6530233b7482bb73269b47190767c3cfb0b3/torch/nn/modules/pooling.py#L668)
+forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/9aee436a1bfc7a0bd2c40f48f128cb185ee3d75e/torch/nn/modules/pooling.py#L668)
 
 Runs the forward pass.
 

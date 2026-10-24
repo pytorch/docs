@@ -1,6 +1,6 @@
 # torch.get_device_module
 
-torch.get_device_module(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/8fdc6530233b7482bb73269b47190767c3cfb0b3/torch/__init__.py#L3487)
+torch.get_device_module(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/9aee436a1bfc7a0bd2c40f48f128cb185ee3d75e/torch/__init__.py#L3489)
 
 Returns the module associated with a given device(e.g., torch.device('cuda'), "mtia:0", "xpu", ...).
 If no device is given, return the module for the current accelerator or CPU if none is present.

@@ -1,6 +1,6 @@
 # create_getattr_from_value
 
-*class*torch.ao.quantization.fx.utils.create_getattr_from_value(*module*, *graph*, *prefix*, *value*, *device=None*)[[source]](https://github.com/pytorch/pytorch/blob/8fdc6530233b7482bb73269b47190767c3cfb0b3/torch/ao/quantization/fx/utils.py#L259)
+*class*torch.ao.quantization.fx.utils.create_getattr_from_value(*module*, *graph*, *prefix*, *value*, *device=None*)[[source]](https://github.com/pytorch/pytorch/blob/9aee436a1bfc7a0bd2c40f48f128cb185ee3d75e/torch/ao/quantization/fx/utils.py#L259)
 
 Given a value of any type, creates a getattr node corresponding to the value and
 registers the value as a buffer to the module.

@@ -1,6 +1,6 @@
 # torch.accelerator.current_device_index
 
-torch.accelerator.current_device_index()[[source]](https://github.com/pytorch/pytorch/blob/8fdc6530233b7482bb73269b47190767c3cfb0b3/torch/accelerator/__init__.py#L136)
+torch.accelerator.current_device_index()[[source]](https://github.com/pytorch/pytorch/blob/9aee436a1bfc7a0bd2c40f48f128cb185ee3d75e/torch/accelerator/__init__.py#L136)
 
 Return the index of a currently selected device for the current [accelerator](../torch.html#accelerators).
 

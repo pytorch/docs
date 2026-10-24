@@ -1,6 +1,6 @@
 # torch.linalg.vander
 
-torch.linalg.vander(*x*, *N=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/8fdc6530233b7482bb73269b47190767c3cfb0b3/torch/linalg/__init__.py#L3037)
+torch.linalg.vander(*x*, *N=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/9aee436a1bfc7a0bd2c40f48f128cb185ee3d75e/torch/linalg/__init__.py#L3037)
 
 Generates a Vandermonde matrix.
 

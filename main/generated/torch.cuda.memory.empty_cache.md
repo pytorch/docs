@@ -1,6 +1,6 @@
 # torch.cuda.memory.empty_cache
 
-torch.cuda.memory.empty_cache()[[source]](https://github.com/pytorch/pytorch/blob/8fdc6530233b7482bb73269b47190767c3cfb0b3/torch/cuda/memory.py#L222)
+torch.cuda.memory.empty_cache()[[source]](https://github.com/pytorch/pytorch/blob/9aee436a1bfc7a0bd2c40f48f128cb185ee3d75e/torch/cuda/memory.py#L222)
 
 Release all unoccupied cached memory currently held by the caching
 allocator so that those can be used in other GPU application and visible in

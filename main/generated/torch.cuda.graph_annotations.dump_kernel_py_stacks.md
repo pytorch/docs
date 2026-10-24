@@ -1,6 +1,6 @@
 # torch.cuda.graph_annotations.dump_kernel_py_stacks
 
-torch.cuda.graph_annotations.dump_kernel_py_stacks(*path*)[[source]](https://github.com/pytorch/pytorch/blob/8fdc6530233b7482bb73269b47190767c3cfb0b3/torch/cuda/_graph_annotations.py#L1322)
+torch.cuda.graph_annotations.dump_kernel_py_stacks(*path*)[[source]](https://github.com/pytorch/pytorch/blob/9aee436a1bfc7a0bd2c40f48f128cb185ee3d75e/torch/cuda/_graph_annotations.py#L1322)
 
 Save recorded CUDA graph launch stacks as gzip-compressed JSON.
 

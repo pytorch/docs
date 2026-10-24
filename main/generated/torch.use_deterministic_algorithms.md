@@ -1,6 +1,6 @@
 # torch.use_deterministic_algorithms
 
-torch.use_deterministic_algorithms(*mode*, ***, *warn_only=False*)[[source]](https://github.com/pytorch/pytorch/blob/8fdc6530233b7482bb73269b47190767c3cfb0b3/torch/__init__.py#L1777)
+torch.use_deterministic_algorithms(*mode*, ***, *warn_only=False*)[[source]](https://github.com/pytorch/pytorch/blob/9aee436a1bfc7a0bd2c40f48f128cb185ee3d75e/torch/__init__.py#L1777)
 
 Sets whether PyTorch operations must use "deterministic"
 algorithms. That is, algorithms which, given the same input, and when
@@ -50,6 +50,15 @@ deterministically when `mode=True`:
 > - [`torch.Tensor.scatter_reduce()`](torch.Tensor.scatter_reduce.html#torch.Tensor.scatter_reduce) when `reduce='sum'` or `reduce='mean'` and called on CUDA tensor
 > - [`torch.nn.MaxPool3d`](torch.nn.MaxPool3d.html#torch.nn.MaxPool3d) when attempting to differentiate a CUDA tensor
 > - [`torch.nn.Embedding`](torch.nn.Embedding.html#torch.nn.Embedding) when attempting to differentiate a CUDA tensor
+> - [`torch.Tensor.scatter_reduce()`](torch.Tensor.scatter_reduce.html#torch.Tensor.scatter_reduce) when called on MPS tensor
+> - [`torch.Tensor.index_reduce()`](torch.Tensor.index_reduce.html#torch.Tensor.index_reduce) with `reduce='prod'\'mean'`
+> when called on an MPS tensor with floating or complex dtype
+> - [`torch.nn.functional.grid_sample()`](torch.nn.functional.grid_sample.html#torch.nn.functional.grid_sample) when attempting to differentiate an MPS tensor
+> - [`torch.nn.MaxPool2d()`](torch.nn.MaxPool2d.html#torch.nn.MaxPool2d), [`torch.nn.MaxPool3d()`](torch.nn.MaxPool3d.html#torch.nn.MaxPool3d), [`torch.nn.AdaptiveMaxPool2d()`](torch.nn.AdaptiveMaxPool2d.html#torch.nn.AdaptiveMaxPool2d),
+> [`torch.nn.AvgPool2d()`](torch.nn.AvgPool2d.html#torch.nn.AvgPool2d), and [`torch.nn.AvgPool3d()`](torch.nn.AvgPool3d.html#torch.nn.AvgPool3d) when attempting to differentiate
+> an MPS tensor
+> - [`torch.nn.functional.interpolate()`](torch.nn.functional.interpolate.html#torch.nn.functional.interpolate) when attempting to differentiate an MPS tensor
+> in some cases
 
 The following normally-nondeterministic operations will throw a
 [`RuntimeError`](https://docs.python.org/3/builtins/exceptions.html#RuntimeError) when `mode=True`:
@@ -86,19 +95,12 @@ The following normally-nondeterministic operations will throw a
 > - [`torch.bincount()`](torch.bincount.html#torch.bincount) when called on a CUDA tensor and `weights`
 > tensor is given
 > - [`torch.nn.functional.grid_sample()`](torch.nn.functional.grid_sample.html#torch.nn.functional.grid_sample) when attempting to differentiate a CUDA tensor
-> - [`torch.Tensor.scatter_reduce()`](torch.Tensor.scatter_reduce.html#torch.Tensor.scatter_reduce) when called on CUDA or MPS tensor
+> - [`torch.Tensor.scatter_reduce()`](torch.Tensor.scatter_reduce.html#torch.Tensor.scatter_reduce) when called on a CUDA tensor
 > - [`torch.Tensor.index_put()`](torch.Tensor.index_put.html#torch.Tensor.index_put) with `accumulate=True` when called on
 > an MPS tensor with floating or complex dtype
-> - [`torch.Tensor.index_reduce()`](torch.Tensor.index_reduce.html#torch.Tensor.index_reduce) with `reduce='prod'\'mean'`
-> when called on an MPS tensor with floating or complex dtype
 > - [`torch.kthvalue()`](torch.kthvalue.html#torch.kthvalue) when called on an MPS tensor
 > - [`torch.nn.Embedding`](torch.nn.Embedding.html#torch.nn.Embedding) when attempting to differentiate an MPS tensor
 > - [`torch.nn.EmbeddingBag`](torch.nn.EmbeddingBag.html#torch.nn.EmbeddingBag) when attempting to differentiate an MPS tensor
-> - [`torch.nn.functional.grid_sample()`](torch.nn.functional.grid_sample.html#torch.nn.functional.grid_sample) when attempting to differentiate an MPS tensor
-> - [`torch.nn.MaxPool2d()`](torch.nn.MaxPool2d.html#torch.nn.MaxPool2d), [`torch.nn.MaxPool3d()`](torch.nn.MaxPool3d.html#torch.nn.MaxPool3d), and [`torch.nn.AvgPool3d()`](torch.nn.AvgPool3d.html#torch.nn.AvgPool3d)
-> when attempting to differentiate an MPS tensor
-> - [`torch.nn.functional.interpolate()`](torch.nn.functional.interpolate.html#torch.nn.functional.interpolate) when attempting to differentiate an MPS tensor
-> in some cases
 > - [`torch.Tensor.resize_()`](torch.Tensor.resize_.html#torch.Tensor.resize_) when called with a quantized tensor
 
 In addition, several operations fill uninitialized memory when this setting

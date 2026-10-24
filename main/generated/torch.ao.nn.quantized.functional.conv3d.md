@@ -1,6 +1,6 @@
 # conv3d
 
-*class*torch.ao.nn.quantized.functional.conv3d(*input*, *weight*, *bias*, *stride=1*, *padding=0*, *dilation=1*, *groups=1*, *padding_mode='zeros'*, *scale=1.0*, *zero_point=0*, *dtype=torch.quint8*)[[source]](https://github.com/pytorch/pytorch/blob/8fdc6530233b7482bb73269b47190767c3cfb0b3/torch/ao/nn/quantized/functional.py#L319)
+*class*torch.ao.nn.quantized.functional.conv3d(*input*, *weight*, *bias*, *stride=1*, *padding=0*, *dilation=1*, *groups=1*, *padding_mode='zeros'*, *scale=1.0*, *zero_point=0*, *dtype=torch.quint8*)[[source]](https://github.com/pytorch/pytorch/blob/9aee436a1bfc7a0bd2c40f48f128cb185ee3d75e/torch/ao/nn/quantized/functional.py#L319)
 
 Applies a 3D convolution over a quantized 3D input composed of several input
 planes.

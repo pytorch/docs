@@ -1,6 +1,6 @@
 # get_default_dynamic_quant_module_mappings
 
-*class*torch.ao.quantization.quantization_mappings.get_default_dynamic_quant_module_mappings[[source]](https://github.com/pytorch/pytorch/blob/8fdc6530233b7482bb73269b47190767c3cfb0b3/torch/ao/quantization/quantization_mappings.py#L300)
+*class*torch.ao.quantization.quantization_mappings.get_default_dynamic_quant_module_mappings[[source]](https://github.com/pytorch/pytorch/blob/9aee436a1bfc7a0bd2c40f48f128cb185ee3d75e/torch/ao/quantization/quantization_mappings.py#L300)
 
 Get module mapping for post training dynamic quantization
 

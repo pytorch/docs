@@ -1,6 +1,6 @@
 # CosineSimilarity
 
-*class*torch.nn.CosineSimilarity(*dim=1*, *eps=1e-08*)[[source]](https://github.com/pytorch/pytorch/blob/8fdc6530233b7482bb73269b47190767c3cfb0b3/torch/nn/modules/distance.py#L64)
+*class*torch.nn.CosineSimilarity(*dim=1*, *eps=1e-08*)[[source]](https://github.com/pytorch/pytorch/blob/9aee436a1bfc7a0bd2c40f48f128cb185ee3d75e/torch/nn/modules/distance.py#L64)
 
 Returns cosine similarity between x1x_1x1​ and x2x_2x2​, computed along dim.
 
@@ -29,7 +29,7 @@ Examples
 >>> output = cos(input1, input2)
 ```
 
-forward(*x1*, *x2*)[[source]](https://github.com/pytorch/pytorch/blob/8fdc6530233b7482bb73269b47190767c3cfb0b3/torch/nn/modules/distance.py#L96)
+forward(*x1*, *x2*)[[source]](https://github.com/pytorch/pytorch/blob/9aee436a1bfc7a0bd2c40f48f128cb185ee3d75e/torch/nn/modules/distance.py#L96)
 
 Runs the forward pass.
 
