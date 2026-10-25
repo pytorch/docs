@@ -1,6 +1,6 @@
 # TransformerEncoderLayer
 
-*class*torch.nn.modules.transformer.TransformerEncoderLayer(*d_model*, *nhead*, *dim_feedforward=2048*, *dropout=0.1*, *activation=<function relu>*, *layer_norm_eps=1e-05*, *batch_first=False*, *norm_first=False*, *bias=True*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/9aee436a1bfc7a0bd2c40f48f128cb185ee3d75e/torch/nn/modules/transformer.py#L663)
+*class*torch.nn.modules.transformer.TransformerEncoderLayer(*d_model*, *nhead*, *dim_feedforward=2048*, *dropout=0.1*, *activation=<function relu>*, *layer_norm_eps=1e-05*, *batch_first=False*, *norm_first=False*, *bias=True*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/c9b5004c45376c912422325d032b2d74b4828d5c/torch/nn/modules/transformer.py#L663)
 
 TransformerEncoderLayer is made up of self-attn and feedforward network.
 
@@ -84,7 +84,7 @@ mask. In this case, a [NestedTensor](https://pytorch.org/docs/stable/nested.html
 returned, and an additional speedup proportional to the fraction of the input that
 is padding can be expected.
 
-forward(*src*, *src_mask=None*, *src_key_padding_mask=None*, *is_causal=False*)[[source]](https://github.com/pytorch/pytorch/blob/9aee436a1bfc7a0bd2c40f48f128cb185ee3d75e/torch/nn/modules/transformer.py#L799)
+forward(*src*, *src_mask=None*, *src_key_padding_mask=None*, *is_causal=False*)[[source]](https://github.com/pytorch/pytorch/blob/c9b5004c45376c912422325d032b2d74b4828d5c/torch/nn/modules/transformer.py#L799)
 
 Pass the input through the encoder layer.
 

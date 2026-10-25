@@ -1,6 +1,6 @@
 # torch.xpu.power_draw
 
-torch.xpu.power_draw(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/9aee436a1bfc7a0bd2c40f48f128cb185ee3d75e/torch/xpu/__init__.py#L1132)
+torch.xpu.power_draw(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/c9b5004c45376c912422325d032b2d74b4828d5c/torch/xpu/__init__.py#L1132)
 
 Return the GPU card power draw in watts.
 

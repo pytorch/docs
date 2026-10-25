@@ -133,19 +133,19 @@ Now all metrics in the group `my_app` will be printed to stdout as:
 
 Below are the metric handlers that come included with torchelastic.
 
-*class*torch.distributed.elastic.metrics.api.MetricHandler[[source]](https://github.com/pytorch/pytorch/blob/9aee436a1bfc7a0bd2c40f48f128cb185ee3d75e/torch/distributed/elastic/metrics/api.py#L45)
+*class*torch.distributed.elastic.metrics.api.MetricHandler[[source]](https://github.com/pytorch/pytorch/blob/c9b5004c45376c912422325d032b2d74b4828d5c/torch/distributed/elastic/metrics/api.py#L45)
 
-*class*torch.distributed.elastic.metrics.api.ConsoleMetricHandler[[source]](https://github.com/pytorch/pytorch/blob/9aee436a1bfc7a0bd2c40f48f128cb185ee3d75e/torch/distributed/elastic/metrics/api.py#L51)
+*class*torch.distributed.elastic.metrics.api.ConsoleMetricHandler[[source]](https://github.com/pytorch/pytorch/blob/c9b5004c45376c912422325d032b2d74b4828d5c/torch/distributed/elastic/metrics/api.py#L51)
 
-*class*torch.distributed.elastic.metrics.api.NullMetricHandler[[source]](https://github.com/pytorch/pytorch/blob/9aee436a1bfc7a0bd2c40f48f128cb185ee3d75e/torch/distributed/elastic/metrics/api.py#L58)
+*class*torch.distributed.elastic.metrics.api.NullMetricHandler[[source]](https://github.com/pytorch/pytorch/blob/c9b5004c45376c912422325d032b2d74b4828d5c/torch/distributed/elastic/metrics/api.py#L58)
 
 *class*torch.distributed.elastic.metrics.api.MetricData(*timestamp*, *group_name*, *name*, *value*)
 
 ## Methods
 
-torch.distributed.elastic.metrics.configure(*handler*, *group=None*)[[source]](https://github.com/pytorch/pytorch/blob/9aee436a1bfc7a0bd2c40f48f128cb185ee3d75e/torch/distributed/elastic/metrics/api.py#L79)
+torch.distributed.elastic.metrics.configure(*handler*, *group=None*)[[source]](https://github.com/pytorch/pytorch/blob/c9b5004c45376c912422325d032b2d74b4828d5c/torch/distributed/elastic/metrics/api.py#L79)
 
-torch.distributed.elastic.metrics.prof(*fn=None*, *group='torchelastic'*)[[source]](https://github.com/pytorch/pytorch/blob/9aee436a1bfc7a0bd2c40f48f128cb185ee3d75e/torch/distributed/elastic/metrics/api.py#L107)
+torch.distributed.elastic.metrics.prof(*fn=None*, *group='torchelastic'*)[[source]](https://github.com/pytorch/pytorch/blob/c9b5004c45376c912422325d032b2d74b4828d5c/torch/distributed/elastic/metrics/api.py#L107)
 
 @prof decorator publishes success, failure and duration.ms metrics for the function that it decorates.
 
@@ -164,7 +164,7 @@ def y():
  pass
 ```
 
-torch.distributed.elastic.metrics.put_metric(*metric_name*, *metric_value*, *metric_group='torchelastic'*)[[source]](https://github.com/pytorch/pytorch/blob/9aee436a1bfc7a0bd2c40f48f128cb185ee3d75e/torch/distributed/elastic/metrics/api.py#L190)
+torch.distributed.elastic.metrics.put_metric(*metric_name*, *metric_value*, *metric_group='torchelastic'*)[[source]](https://github.com/pytorch/pytorch/blob/c9b5004c45376c912422325d032b2d74b4828d5c/torch/distributed/elastic/metrics/api.py#L190)
 
 Publish a metric data point.
 

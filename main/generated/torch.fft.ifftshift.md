@@ -1,6 +1,6 @@
 # torch.fft.ifftshift
 
-torch.fft.ifftshift(*input*, *dim=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/9aee436a1bfc7a0bd2c40f48f128cb185ee3d75e/torch/fft/__init__.py#L1414)
+torch.fft.ifftshift(*input*, *dim=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/c9b5004c45376c912422325d032b2d74b4828d5c/torch/fft/__init__.py#L1414)
 
 Inverse of [`fftshift()`](torch.fft.fftshift.html#torch.fft.fftshift).
 

@@ -18,7 +18,7 @@ when using `elastic_launch`.
 
 See `AffinityMode` for available binding modes.
 
-*class*torch.numa.binding.AffinityMode(*value*, *names=None*, ***, *module=None*, *qualname=None*, *type=None*, *start=1*, *boundary=None*)[[source]](https://github.com/pytorch/pytorch/blob/9aee436a1bfc7a0bd2c40f48f128cb185ee3d75e/torch/numa/binding.py#L44)
+*class*torch.numa.binding.AffinityMode(*value*, *names=None*, ***, *module=None*, *qualname=None*, *type=None*, *start=1*, *boundary=None*)[[source]](https://github.com/pytorch/pytorch/blob/c9b5004c45376c912422325d032b2d74b4828d5c/torch/numa/binding.py#L44)
 
 NODE*= 'node'*
 
@@ -61,7 +61,7 @@ possible.
 sharing another) and devices 2 and 3, then the worker whose local rank is 2 will be bound to
 cores 0-7, and the worker whose local rank is 3 will be bound to cores 8-15.
 
-*class*torch.numa.binding.NumaOptions(*affinity_mode: torch.numa.binding.AffinityMode*, *should_fall_back_if_binding_fails: [bool](https://docs.python.org/3/builtins/functions.html#bool) = False*)[[source]](https://github.com/pytorch/pytorch/blob/9aee436a1bfc7a0bd2c40f48f128cb185ee3d75e/torch/numa/binding.py#L91)
+*class*torch.numa.binding.NumaOptions(*affinity_mode: torch.numa.binding.AffinityMode*, *should_fall_back_if_binding_fails: [bool](https://docs.python.org/3/builtins/functions.html#bool) = False*)[[source]](https://github.com/pytorch/pytorch/blob/c9b5004c45376c912422325d032b2d74b4828d5c/torch/numa/binding.py#L91)
 
 affinity_mode*: AffinityMode*
 

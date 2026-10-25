@@ -1,6 +1,6 @@
 # torch.xpu.get_gencode_flags
 
-torch.xpu.get_gencode_flags()[[source]](https://github.com/pytorch/pytorch/blob/9aee436a1bfc7a0bd2c40f48f128cb185ee3d75e/torch/xpu/__init__.py#L754)
+torch.xpu.get_gencode_flags()[[source]](https://github.com/pytorch/pytorch/blob/c9b5004c45376c912422325d032b2d74b4828d5c/torch/xpu/__init__.py#L754)
 
 Return XPU AOT(ahead-of-time) build flags this library was compiled with.
 

@@ -1,6 +1,6 @@
 # torch.foreach.abs
 
-torch.foreach.abs(*inputs: TensorList*, */*) → [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...][[source]](https://github.com/pytorch/pytorch/blob/9aee436a1bfc7a0bd2c40f48f128cb185ee3d75e/torch/foreach/__init__.py#L333)
+torch.foreach.abs(*inputs: TensorList*, */*) → [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...][[source]](https://github.com/pytorch/pytorch/blob/c9b5004c45376c912422325d032b2d74b4828d5c/torch/foreach/__init__.py#L333)
 
 Applies [`torch.abs()`](torch.abs.html#torch.abs) to each tensor in `inputs`.
 

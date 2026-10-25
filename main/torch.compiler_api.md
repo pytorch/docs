@@ -63,7 +63,7 @@ trace under the contract of Note [precompile programming model] in `torch/_preco
 `torch.compiler.precompile` is distinct from `torch._dynamo.config.caching_precompile`
 (a `torch.compile` caching mode).
 
-torch.compiler.precompile.capture(*fn*, */*, ***, *artifact_path*, *cache_path*, *tracer=DynamoTracer(guard_filter_fn=None, recompile_limit=256, dynamic=None, require_complete=True, require_no_risky_drops=True)*, *backend='inductor'*)[[source]](https://github.com/pytorch/pytorch/blob/9aee436a1bfc7a0bd2c40f48f128cb185ee3d75e/torch/_precompile.py#L3311)
+torch.compiler.precompile.capture(*fn*, */*, ***, *artifact_path*, *cache_path*, *tracer=DynamoTracer(guard_filter_fn=None, recompile_limit=256, dynamic=None, require_complete=True, require_no_risky_drops=True)*, *backend='inductor'*)[[source]](https://github.com/pytorch/pytorch/blob/c9b5004c45376c912422325d032b2d74b4828d5c/torch/_precompile.py#L3311)
 
 Capture `fn` across the calls YOUR loop makes, writing the artifact on exit.
 
@@ -176,7 +176,7 @@ Return type:
 
 *Capture*[~_P, *_R*]
 
-torch.compiler.precompile.load(*artifact_path*, *cache_path*, ***, *allow_serve_time_compiles=False*)[[source]](https://github.com/pytorch/pytorch/blob/9aee436a1bfc7a0bd2c40f48f128cb185ee3d75e/torch/_precompile.py#L3474)
+torch.compiler.precompile.load(*artifact_path*, *cache_path*, ***, *allow_serve_time_compiles=False*)[[source]](https://github.com/pytorch/pytorch/blob/c9b5004c45376c912422325d032b2d74b4828d5c/torch/_precompile.py#L3474)
 
 Reconstruct a runnable from the two files a precompile capture wrote.
 
@@ -275,7 +275,7 @@ Return type:
 
 *PrecompiledRunnable*
 
-torch.compiler.precompile.no_compilation()[[source]](https://github.com/pytorch/pytorch/blob/9aee436a1bfc7a0bd2c40f48f128cb185ee3d75e/torch/_precompile.py#L3173)
+torch.compiler.precompile.no_compilation()[[source]](https://github.com/pytorch/pytorch/blob/c9b5004c45376c912422325d032b2d74b4828d5c/torch/_precompile.py#L3173)
 
 Forbid graph/kernel compilation and autotuning on every thread of this process.
 
@@ -388,7 +388,7 @@ exits it cannot be entered again, so call `capture()` again to retry.
 That includes a failed write at exit: the spent capture does not keep its
 pair, so fix the path and capture again.
 
-save()[[source]](https://github.com/pytorch/pytorch/blob/9aee436a1bfc7a0bd2c40f48f128cb185ee3d75e/torch/_precompile.py#L518)
+save()[[source]](https://github.com/pytorch/pytorch/blob/c9b5004c45376c912422325d032b2d74b4828d5c/torch/_precompile.py#L518)
 
 Write everything captured so far to the artifact files without ending the capture.
 
@@ -417,7 +417,7 @@ Variables:
 code objects (`SERVING_MODE = "installed"`); `False` for a
 standalone artifact.
 
-unload()[[source]](https://github.com/pytorch/pytorch/blob/9aee436a1bfc7a0bd2c40f48f128cb185ee3d75e/torch/_precompile.py#L460)
+unload()[[source]](https://github.com/pytorch/pytorch/blob/c9b5004c45376c912422325d032b2d74b4828d5c/torch/_precompile.py#L460)
 
 Remove whatever this loaded artifact installed; currently a no-op in every mode.
 

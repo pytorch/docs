@@ -1,6 +1,6 @@
 # torch.utils.jit.log_extract.run_test
 
-torch.utils.jit.log_extract.run_test(*ir*, *inputs*, ***, *warmup_runs=10*, *test_runs=20*)[[source]](https://github.com/pytorch/pytorch/blob/9aee436a1bfc7a0bd2c40f48f128cb185ee3d75e/torch/utils/jit/log_extract.py#L78)
+torch.utils.jit.log_extract.run_test(*ir*, *inputs*, ***, *warmup_runs=10*, *test_runs=20*)[[source]](https://github.com/pytorch/pytorch/blob/c9b5004c45376c912422325d032b2d74b4828d5c/torch/utils/jit/log_extract.py#L78)
 
 Return type:
 
