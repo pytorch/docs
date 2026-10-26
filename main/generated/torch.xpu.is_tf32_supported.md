@@ -1,6 +1,6 @@
 # torch.xpu.is_tf32_supported
 
-torch.xpu.is_tf32_supported()[[source]](https://github.com/pytorch/pytorch/blob/c9b5004c45376c912422325d032b2d74b4828d5c/torch/xpu/__init__.py#L329)
+torch.xpu.is_tf32_supported()[[source]](https://github.com/pytorch/pytorch/blob/b43489ea06ed9a3bb80dbbd18300f8b0ef6f56a1/torch/xpu/__init__.py#L329)
 
 Return a bool indicating if the current XPU device supports dtype tf32.
 
