@@ -1,6 +1,6 @@
 # node_arg_is_weight
 
-*class*torch.ao.quantization.fx.utils.node_arg_is_weight(*node*, *arg*)[[source]](https://github.com/pytorch/pytorch/blob/b43489ea06ed9a3bb80dbbd18300f8b0ef6f56a1/torch/ao/quantization/fx/utils.py#L90)
+*class*torch.ao.quantization.fx.utils.node_arg_is_weight(*node*, *arg*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/ao/quantization/fx/utils.py#L90)
 
 Returns if node arg is weight
 
