@@ -80,7 +80,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.16.0a0+git3d5976e )">
+<meta name="llm:version" content="main (2.16.0a0+git7b82415 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -186,7 +186,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.16.0a0+git3d5976e )');
+  document.documentElement.setAttribute('data-version', 'main (2.16.0a0+git7b82415 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3790,6 +3790,8 @@ document.write(`
 <dd><p>Returns a copy of this object in CPU memory.</p>
 <p>If this object is already in CPU memory,
 then no copy is performed and the original object is returned.</p>
+<p>See <a class="reference internal" href="../notes/cuda.html#cuda-device-to-host-copies"><span class="std std-ref">Device-to-host copies on NVLink-C2C systems</span></a> for guidance on repeated CUDA-to-CPU
+transfers and reusing CPU buffers.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>memory_format</strong> (<a class="reference internal" href="../tensor_attributes.html#torch.memory_format" title="torch.memory_format"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.memory_format</span></code></a>, optional) – the desired memory format of
@@ -4154,7 +4156,7 @@ returned Tensor. Default: <code class="docutils literal notranslate"><span class
        "headline": "torch.Tensor.cpu",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/generated/torch.Tensor.cpu.html",
-       "articleBody": "torch.Tensor.cpu# Tensor.cpu(memory_format=torch.preserve_format) \u2192 Tensor# Returns a copy of this object in CPU memory. If this object is already in CPU memory, then no copy is performed and the original object is returned. Parameters: memory_format (torch.memory_format, optional) \u2013 the desired memory format of returned Tensor. Default: torch.preserve_format.",
+       "articleBody": "torch.Tensor.cpu# Tensor.cpu(memory_format=torch.preserve_format) \u2192 Tensor# Returns a copy of this object in CPU memory. If this object is already in CPU memory, then no copy is performed and the original object is returned. See Device-to-host copies on NVLink-C2C systems for guidance on repeated CUDA-to-CPU transfers and reusing CPU buffers. Parameters: memory_format (torch.memory_format, optional) \u2013 the desired memory format of returned Tensor. Default: torch.preserve_format.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",

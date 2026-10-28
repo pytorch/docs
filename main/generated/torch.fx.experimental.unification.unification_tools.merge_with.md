@@ -1,6 +1,6 @@
 # torch.fx.experimental.unification.unification_tools.merge_with
 
-torch.fx.experimental.unification.unification_tools.merge_with(*func*, **dicts*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/fx/experimental/unification/unification_tools.py#L70)
+torch.fx.experimental.unification.unification_tools.merge_with(*func*, **dicts*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/fx/experimental/unification/unification_tools.py#L70)
 
 Merge dictionaries and apply function to combined values
 

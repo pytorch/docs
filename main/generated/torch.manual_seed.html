@@ -80,7 +80,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.16.0a0+git3d5976e )">
+<meta name="llm:version" content="main (2.16.0a0+git7b82415 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -186,7 +186,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.16.0a0+git3d5976e )');
+  document.documentElement.setAttribute('data-version', 'main (2.16.0a0+git7b82415 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3955,7 +3955,7 @@ document.write(`
 <h1>torch.manual_seed<a class="headerlink" href="#torch-manual-seed" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.manual_seed">
-<span class="sig-prename descclassname"><span class="pre">torch.</span></span><span class="sig-name descname"><span class="pre">manual_seed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">seed</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/random.py#L49"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.manual_seed" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.</span></span><span class="sig-name descname"><span class="pre">manual_seed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">seed</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/random.py#L49"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.manual_seed" title="Link to this definition">#</a></dt>
 <dd><p>Sets the seed for generating random numbers on all devices. Returns a
 <cite>torch.Generator</cite> object.</p>
 <dl class="field-list simple">
@@ -3969,6 +3969,12 @@ is raised. Negative inputs are remapped to positive values with the formula
 <dd class="field-even"><p><a class="reference internal" href="torch.Generator.html#torch.Generator" title="torch._C.Generator"><em>Generator</em></a></p>
 </dd>
 </dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>For a stateless, JAX-style PRNG API (explicit <code class="docutils literal notranslate"><span class="pre">key</span></code>, <code class="docutils literal notranslate"><span class="pre">split</span></code>,
+<code class="docutils literal notranslate"><span class="pre">fold_in</span></code>) that does not touch global generator state, see the
+experimental <code class="xref py py-mod docutils literal notranslate"><span class="pre">torch.func._random</span></code> module.</p>
+</div>
 </dd></dl>
 
 </section>
@@ -4327,7 +4333,7 @@ is raised. Negative inputs are remapped to positive values with the formula
        "headline": "torch.manual_seed",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/generated/torch.manual_seed.html",
-       "articleBody": "torch.manual_seed# torch.manual_seed(seed)[source]# Sets the seed for generating random numbers on all devices. Returns a torch.Generator object. Parameters: seed (int) \u2013 The desired seed. Value must be within the inclusive range [-0x8000_0000_0000_0000, 0xffff_ffff_ffff_ffff]. Otherwise, a RuntimeError is raised. Negative inputs are remapped to positive values with the formula 0xffff_ffff_ffff_ffff + seed. Return type: Generator",
+       "articleBody": "torch.manual_seed# torch.manual_seed(seed)[source]# Sets the seed for generating random numbers on all devices. Returns a torch.Generator object. Parameters: seed (int) \u2013 The desired seed. Value must be within the inclusive range [-0x8000_0000_0000_0000, 0xffff_ffff_ffff_ffff]. Otherwise, a RuntimeError is raised. Negative inputs are remapped to positive values with the formula 0xffff_ffff_ffff_ffff + seed. Return type: Generator See also For a stateless, JAX-style PRNG API (explicit key, split, fold_in) that does not touch global generator state, see the experimental torch.func._random module.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",

@@ -80,7 +80,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.16.0a0+git3d5976e )">
+<meta name="llm:version" content="main (2.16.0a0+git7b82415 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -186,7 +186,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.16.0a0+git3d5976e )');
+  document.documentElement.setAttribute('data-version', 'main (2.16.0a0+git7b82415 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -6878,7 +6878,7 @@ document.write(`
 <p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Oct 15, 2026 | Last Updated On: Oct 15, 2026</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed.elastic.utils.api.get_env_variable_or_raise">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.utils.api.</span></span><span class="sig-name descname"><span class="pre">get_env_variable_or_raise</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">env_name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/elastic/utils/api.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.utils.api.get_env_variable_or_raise" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.utils.api.</span></span><span class="sig-name descname"><span class="pre">get_env_variable_or_raise</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">env_name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/elastic/utils/api.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.utils.api.get_env_variable_or_raise" title="Link to this definition">#</a></dt>
 <dd><p>Tries to retrieve environment variable. Raises <code class="docutils literal notranslate"><span class="pre">ValueError</span></code>
 if no environment variable found.</p>
 <dl class="field-list simple">
@@ -6893,7 +6893,7 @@ if no environment variable found.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed.elastic.utils.distributed.get_free_port">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.utils.distributed.</span></span><span class="sig-name descname"><span class="pre">get_free_port</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/elastic/utils/distributed.py#L124"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.utils.distributed.get_free_port" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.utils.distributed.</span></span><span class="sig-name descname"><span class="pre">get_free_port</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/elastic/utils/distributed.py#L124"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.utils.distributed.get_free_port" title="Link to this definition">#</a></dt>
 <dd><p>Returns a port that is unused on all local addresses.</p>
 <p>This function finds an unused port by binding a socket to the wildcard
 address and then closing it.</p>
@@ -6919,7 +6919,7 @@ taken by another process after this function returns.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed.elastic.utils.log_level.get_log_level">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.utils.log_level.</span></span><span class="sig-name descname"><span class="pre">get_log_level</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/elastic/utils/log_level.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.utils.log_level.get_log_level" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.utils.log_level.</span></span><span class="sig-name descname"><span class="pre">get_log_level</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/elastic/utils/log_level.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.utils.log_level.get_log_level" title="Link to this definition">#</a></dt>
 <dd><p>Return default log level for pytorch.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -6930,7 +6930,7 @@ taken by another process after this function returns.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.distributed.elastic.utils.logging.get_logger">
-<span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.utils.logging.</span></span><span class="sig-name descname"><span class="pre">get_logger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/elastic/utils/logging.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.utils.logging.get_logger" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.distributed.elastic.utils.logging.</span></span><span class="sig-name descname"><span class="pre">get_logger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/elastic/utils/logging.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.distributed.elastic.utils.logging.get_logger" title="Link to this definition">#</a></dt>
 <dd><p>Util function to set up a simple logger that writes
 into stderr. The loglevel is fetched from the LOGLEVEL
 env. variable or WARNING as default. The function will use the

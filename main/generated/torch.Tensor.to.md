@@ -5,6 +5,9 @@ Tensor.to(**args*, ***kwargs*) → [Tensor](../tensors.html#torch.Tensor)
 Performs Tensor dtype and/or device conversion. A [`torch.dtype`](../tensor_attributes.html#torch.dtype) and [`torch.device`](../tensor_attributes.html#torch.device) are
 inferred from the arguments of `self.to(*args, **kwargs)`.
 
+See [Device-to-host copies on NVLink-C2C systems](../notes/cuda.html#cuda-device-to-host-copies) for guidance on repeated CUDA-to-CPU
+transfers and reusing CPU buffers.
+
 Note
 
 If the `self` Tensor already

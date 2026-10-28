@@ -9,6 +9,9 @@ The `src` tensor must be [broadcastable](../notes/broadcasting.html#broadcasting
 with the `self` tensor. It may be of a different data type or reside on a
 different device.
 
+See [Device-to-host copies on NVLink-C2C systems](../notes/cuda.html#cuda-device-to-host-copies) for guidance on repeated CUDA-to-CPU
+transfers and reusing CPU buffers.
+
 Parameters:
 
 - **src** ([*Tensor*](../tensors.html#torch.Tensor)) - the source tensor to copy from

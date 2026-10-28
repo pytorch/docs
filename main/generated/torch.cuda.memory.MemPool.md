@@ -1,6 +1,6 @@
 # MemPool
 
-*class*torch.cuda.memory.MemPool(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/cuda/memory.py#L1690)
+*class*torch.cuda.memory.MemPool(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/cuda/memory.py#L1690)
 
 MemPool represents a pool of memory in a caching allocator. Currently,
 it's just the ID of the pool object maintained in the CUDACachingAllocator.
@@ -18,7 +18,7 @@ to Out Of Memory. This is False by default.
 - **no_split** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - a bool that indicates if this pool should not split a segment.
 This is False by default.
 
-*classmethod*from_py_allocator(*alloc_fn*, *free_fn*, ***, *use_on_oom=False*, *no_split=False*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/cuda/memory.py#L1716)
+*classmethod*from_py_allocator(*alloc_fn*, *free_fn*, ***, *use_on_oom=False*, *no_split=False*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/cuda/memory.py#L1716)
 
 Create a MemPool backed by Python allocation callbacks.
 
@@ -52,7 +52,7 @@ examples.
 
 Returns the ID of this pool as a tuple of two ints.
 
-snapshot(*include_traces=True*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/cuda/memory.py#L1760)
+snapshot(*include_traces=True*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/cuda/memory.py#L1760)
 
 Return a snapshot of the CUDA memory allocator pool state across all
 devices.
@@ -71,7 +71,7 @@ Note
 See [Memory management](../notes/cuda.html#cuda-memory-management) for more details about GPU memory
 management.
 
-use_count()[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/cuda/memory.py#L1756)
+use_count()[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/cuda/memory.py#L1756)
 
 Returns the reference count of this pool.
 

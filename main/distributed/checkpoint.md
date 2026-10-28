@@ -15,7 +15,7 @@ DCP is different than `torch.save` and `torch.load` in a few significant ways:
 - [TorchTitan Checkpointing Docs](https://github.com/pytorch/torchtitan/blob/main/torchtitan/components/checkpointer/README.md)
 - [TorchTitan DCP Implementation](https://github.com/pytorch/torchtitan/blob/main/torchtitan/components/checkpointer/dcp.py)
 
-torch.distributed.checkpoint.optimizer.load_sharded_optimizer_state_dict(*model_state_dict*, *optimizer_key*, *storage_reader*, *planner=None*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/optimizer.py#L218)
+torch.distributed.checkpoint.optimizer.load_sharded_optimizer_state_dict(*model_state_dict*, *optimizer_key*, *storage_reader*, *planner=None*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/optimizer.py#L218)
 
 Load a state_dict in conjunction with FSDP sharded optimizer state.
 
@@ -71,7 +71,7 @@ Return type:
 
 [dict](https://docs.python.org/3/builtins/stdtypes.html#dict)[[str](https://docs.python.org/3/builtins/stdtypes.html#str), *StatefulT* | [*Any*](https://docs.python.org/3/library/typing.html#typing.Any)]
 
-torch.distributed.checkpoint.planner_helpers.create_read_items_for_chunk_list(*fqn*, *checkpoint_md*, *local_chunks*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/planner_helpers.py#L281)
+torch.distributed.checkpoint.planner_helpers.create_read_items_for_chunk_list(*fqn*, *checkpoint_md*, *local_chunks*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/planner_helpers.py#L281)
 
 Create a list of `ReadItem` based on the checkpoint and local chunks.
 
@@ -94,7 +94,7 @@ Return type:
 
 [list](https://docs.python.org/3/builtins/stdtypes.html#list)[*ReadItem*]
 
-torch.distributed.checkpoint.default_planner.create_default_global_load_plan(*all_plans*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/default_planner.py#L525)
+torch.distributed.checkpoint.default_planner.create_default_global_load_plan(*all_plans*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/default_planner.py#L525)
 
 Create global load plan used by DefaultLoadPlanner.
 
@@ -105,7 +105,7 @@ Return type:
 
 [list](https://docs.python.org/3/builtins/stdtypes.html#list)[*LoadPlan*]
 
-torch.distributed.checkpoint.default_planner.create_default_global_save_plan(*all_plans*, *rewrite_index_hints=True*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/default_planner.py#L564)
+torch.distributed.checkpoint.default_planner.create_default_global_save_plan(*all_plans*, *rewrite_index_hints=True*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/default_planner.py#L564)
 
 Create the global plan and metadata used by DefaultSavePlanner.
 
@@ -118,7 +118,7 @@ Return type:
 
 [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[list](https://docs.python.org/3/builtins/stdtypes.html#list)[*SavePlan*], *Metadata*]
 
-torch.distributed.checkpoint.default_planner.create_default_local_load_plan(*state_dict*, *metadata*, *strict=True*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/default_planner.py#L478)
+torch.distributed.checkpoint.default_planner.create_default_local_load_plan(*state_dict*, *metadata*, *strict=True*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/default_planner.py#L478)
 
 Create the `LoadPlan` used by DefaultLoadPlanner.
 
@@ -132,7 +132,7 @@ Return type:
 
 *LoadPlan*
 
-torch.distributed.checkpoint.default_planner.create_default_local_save_plan(*state_dict*, *is_coordinator*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/default_planner.py#L537)
+torch.distributed.checkpoint.default_planner.create_default_local_save_plan(*state_dict*, *is_coordinator*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/default_planner.py#L537)
 
 Create the `SavePlan` used by DefaultSavePlanner.
 
@@ -147,11 +147,11 @@ Return type:
 
 The entrypoints to load and save a checkpoint are the following:
 
-*class*torch.distributed.checkpoint.state_dict_saver.AsyncCheckpointerType(*value*, *names=None*, ***, *module=None*, *qualname=None*, *type=None*, *start=1*, *boundary=None*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/state_dict_saver.py#L52)
+*class*torch.distributed.checkpoint.state_dict_saver.AsyncCheckpointerType(*value*, *names=None*, ***, *module=None*, *qualname=None*, *type=None*, *start=1*, *boundary=None*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/state_dict_saver.py#L52)
 
 Enum for async checkpointer type.
 
-*class*torch.distributed.checkpoint.state_dict_saver.AsyncSaveResponse(*staging_completion*, *upload_completion*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/state_dict_saver.py#L206)
+*class*torch.distributed.checkpoint.state_dict_saver.AsyncSaveResponse(*staging_completion*, *upload_completion*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/state_dict_saver.py#L206)
 
 This class contains futures for staging and upload completion.
 It is returned by async_save().
@@ -160,7 +160,7 @@ of state_dict is complete.
 upload_completion is a future that indicates when a checkpoint
 completed saving.
 
-torch.distributed.checkpoint.state_dict_saver.save(*state_dict*, ***, *checkpoint_id=None*, *storage_writer=None*, *planner=None*, *process_group=None*, *no_dist=False*, *use_collectives=True*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/state_dict_saver.py#L87)
+torch.distributed.checkpoint.state_dict_saver.save(*state_dict*, ***, *checkpoint_id=None*, *storage_writer=None*, *planner=None*, *process_group=None*, *no_dist=False*, *use_collectives=True*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/state_dict_saver.py#L87)
 
 Save a distributed model in SPMD style.
 
@@ -253,7 +253,7 @@ In this case, the device used is given by `torch.cuda.current_device()`
 and it is the user's responsibility to ensure that this is set so that
 each rank has an individual GPU, via `torch.cuda.set_device()`.
 
-torch.distributed.checkpoint.state_dict_saver.async_save(*state_dict*, ***, *checkpoint_id=None*, *storage_writer=None*, *planner=None*, *process_group=None*, *async_checkpointer_type=AsyncCheckpointerType.THREAD*, *async_stager=None*, *no_dist=False*, *use_collectives=True*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/state_dict_saver.py#L220)
+torch.distributed.checkpoint.state_dict_saver.async_save(*state_dict*, ***, *checkpoint_id=None*, *storage_writer=None*, *planner=None*, *process_group=None*, *async_checkpointer_type=AsyncCheckpointerType.THREAD*, *async_stager=None*, *no_dist=False*, *use_collectives=True*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/state_dict_saver.py#L220)
 
 Asynchronous version of `save`. This code first de-stages the state_dict on to the
 staging storage (defaults to CPU memory), and then calls the save in a separate thread.
@@ -325,7 +325,7 @@ Example
 >>> checkpoint_future.result()
 ```
 
-torch.distributed.checkpoint.state_dict_saver.save_state_dict(*state_dict*, *storage_writer*, *process_group=None*, *coordinator_rank=0*, *no_dist=False*, *planner=None*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/state_dict_saver.py#L59)
+torch.distributed.checkpoint.state_dict_saver.save_state_dict(*state_dict*, *storage_writer*, *process_group=None*, *coordinator_rank=0*, *no_dist=False*, *planner=None*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/state_dict_saver.py#L59)
 
 This method is deprecated. Please switch to 'save'.
 
@@ -335,7 +335,7 @@ Return type:
 
 *Metadata*
 
-torch.distributed.checkpoint.state_dict_loader.load(*state_dict*, ***, *checkpoint_id=None*, *storage_reader=None*, *planner=None*, *process_group=None*, *no_dist=False*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/state_dict_loader.py#L58)
+torch.distributed.checkpoint.state_dict_loader.load(*state_dict*, ***, *checkpoint_id=None*, *storage_reader=None*, *planner=None*, *process_group=None*, *no_dist=False*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/state_dict_loader.py#L58)
 
 Load a checkpoint into a distributed state dict in SPMD style.
 
@@ -427,7 +427,7 @@ In this case, the device used is given by `torch.cuda.current_device()`
 and it is the user's responsibility to ensure that this is set so that each
 rank has an individual GPU, via `torch.cuda.set_device()`.
 
-torch.distributed.checkpoint.state_dict_loader.load_state_dict(*state_dict*, *storage_reader*, *process_group=None*, *coordinator_rank=0*, *no_dist=False*, *planner=None*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/state_dict_loader.py#L31)
+torch.distributed.checkpoint.state_dict_loader.load_state_dict(*state_dict*, *storage_reader*, *process_group=None*, *coordinator_rank=0*, *no_dist=False*, *planner=None*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/state_dict_loader.py#L31)
 
 This method is deprecated. Please switch to 'load'.
 
@@ -435,7 +435,7 @@ Deprecated since version 2.2: Use `load()` instead.
 
 The following module is also useful for additional customization of the staging mechanisms used for asynchronous checkpointing (`torch.distributed.checkpoint.async_save`):
 
-*class*torch.distributed.checkpoint.staging.AsyncStager(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/staging.py#L39)
+*class*torch.distributed.checkpoint.staging.AsyncStager(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/staging.py#L39)
 
 This protocol is meant to provide customization and extensibility for dcp.async_save, allowing users
 to customize how data is staged previous to executing the usual dcp.save path in parallel.
@@ -461,7 +461,7 @@ optimizing save latency in the training loop (for example, by overlapping stagin
 forward/backward pass), and it is the respondsibility of the user to call AsyncStager.synchronize_staging
 at the appropriate time.
 
-close()[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/staging.py#L99)
+close()[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/staging.py#L99)
 
 Clean up all resources used by the stager.
 
@@ -469,7 +469,7 @@ Clean up all resources used by the stager.
 
 Whether to synchronize after executing the stage.
 
-stage(*state_dict*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/staging.py#L77)
+stage(*state_dict*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/staging.py#L77)
 
 Returns a "staged" copy of state_dict. The expectation of the staged copy is that it is
 inoculated from any updates incurred after the stage call is complete.
@@ -478,12 +478,12 @@ Return type:
 
 *Future*[[dict](https://docs.python.org/3/builtins/stdtypes.html#dict)[[str](https://docs.python.org/3/builtins/stdtypes.html#str), *StatefulT* | [*Any*](https://docs.python.org/3/library/typing.html#typing.Any)]] | [dict](https://docs.python.org/3/builtins/stdtypes.html#dict)[[str](https://docs.python.org/3/builtins/stdtypes.html#str), *StatefulT* | [*Any*](https://docs.python.org/3/library/typing.html#typing.Any)]
 
-synchronize_staging()[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/staging.py#L88)
+synchronize_staging()[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/staging.py#L88)
 
 In the case stage is async in some way, this method should be called to ensure staging
 is complete and it is safe to begin modifying the original state_dict
 
-*class*torch.distributed.checkpoint.staging.DefaultStager(*config=StagingOptions(use_pinned_memory=True, use_shared_memory=True, use_async_staging=True, use_non_blocking_copy=True)*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/staging.py#L133)
+*class*torch.distributed.checkpoint.staging.DefaultStager(*config=StagingOptions(use_pinned_memory=True, use_shared_memory=True, use_async_staging=True, use_non_blocking_copy=True)*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/staging.py#L133)
 
 DefaultStager provides a full-featured staging implementation that combines
 multiple optimization techniques for efficient checkpoint preparation.
@@ -521,7 +521,7 @@ Thread Safety:
 DefaultStager is not thread-safe. Each thread should use its own
 instance, or external synchronization should be provided.
 
-close()[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/staging.py#L246)
+close()[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/staging.py#L246)
 
 Clean up all resources used by the DefaultStager. Shuts down the ThreadPoolExecutor
 used for async staging operations and cleans up the underlying StateDictStager's
@@ -536,7 +536,7 @@ future = stager.stage(state_dict)
 result = future.result()
 stager.close() # Clean up all resources
 
-stage(*state_dict*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/staging.py#L196)
+stage(*state_dict*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/staging.py#L196)
 
 This function is responsible for staging the state_dict.
 See class docstring for more details on staging.
@@ -552,12 +552,12 @@ Return type:
 
 [dict](https://docs.python.org/3/builtins/stdtypes.html#dict)[[str](https://docs.python.org/3/builtins/stdtypes.html#str), *StatefulT* | [*Any*](https://docs.python.org/3/library/typing.html#typing.Any)] | *Future*[[dict](https://docs.python.org/3/builtins/stdtypes.html#dict)[[str](https://docs.python.org/3/builtins/stdtypes.html#str), *StatefulT* | [*Any*](https://docs.python.org/3/library/typing.html#typing.Any)]]
 
-synchronize_staging()[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/staging.py#L264)
+synchronize_staging()[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/staging.py#L264)
 
 When use_async_staging is True, this method will wait until staging is complete.
 If use_async_staging is False, this method is a no-op.
 
-*class*torch.distributed.checkpoint.staging.StagingOptions(*use_pinned_memory=True*, *use_shared_memory=True*, *use_async_staging=True*, *use_non_blocking_copy=True*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/staging.py#L105)
+*class*torch.distributed.checkpoint.staging.StagingOptions(*use_pinned_memory=True*, *use_shared_memory=True*, *use_async_staging=True*, *use_non_blocking_copy=True*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/staging.py#L105)
 
 Configuration options for checkpoint staging behavior.
 
@@ -579,14 +579,14 @@ Note
 
 CUDA-dependent features will raise exception if CUDA is not available.
 
-*class*torch.distributed.checkpoint.staging.BlockingAsyncStager(*cache_staged_state_dict=False*, *type_check=False*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/staging.py#L273)
+*class*torch.distributed.checkpoint.staging.BlockingAsyncStager(*cache_staged_state_dict=False*, *type_check=False*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/staging.py#L273)
 
 An implementation of AsyncStager which stages the state_dict on CPU RAM and blocks until the copy is complete.
 This implementation also provides an option to optimize stage latency using pinned memory.
 
 N.B. synchronize_staging is a no-op in this case.
 
-stage(*state_dict*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/staging.py#L305)
+stage(*state_dict*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/staging.py#L305)
 
 Returns a copy of state_dict on the CPU.
 
@@ -594,17 +594,17 @@ Return type:
 
 [dict](https://docs.python.org/3/builtins/stdtypes.html#dict)[[str](https://docs.python.org/3/builtins/stdtypes.html#str), *StatefulT* | [*Any*](https://docs.python.org/3/library/typing.html#typing.Any)]
 
-synchronize_staging()[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/staging.py#L319)
+synchronize_staging()[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/staging.py#L319)
 
 No-op function, since staging is blocking.
 
 In addition to the above entrypoints, `Stateful` objects, as described below, provide additional customization during saving/loading
 
-*class*torch.distributed.checkpoint.stateful.Stateful(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/stateful.py#L8)
+*class*torch.distributed.checkpoint.stateful.Stateful(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/stateful.py#L8)
 
 Stateful protocol for objects that can be checkpointed and restored.
 
-load_state_dict(*state_dict*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/stateful.py#L31)
+load_state_dict(*state_dict*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/stateful.py#L31)
 
 Restore the object's state from the provided state_dict.
 
@@ -612,7 +612,7 @@ Parameters:
 
 **state_dict** ([*dict*](https://docs.python.org/3/builtins/stdtypes.html#dict)*[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,*[*Any*](https://docs.python.org/3/library/typing.html#typing.Any)*]*) - The state dict to restore from
 
-state_dict()[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/stateful.py#L14)
+state_dict()[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/stateful.py#L14)
 
 Objects should return their state_dict representation as a dictionary.
 The output of this function will be checkpointed, and later restored in
@@ -635,7 +635,7 @@ This [example](https://github.com/pytorch/pytorch/blob/main/torch/distributed/ch
 
 The following types define the IO interface used during checkpoint:
 
-*class*torch.distributed.checkpoint.StorageReader[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/storage.py#L168)
+*class*torch.distributed.checkpoint.StorageReader[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/storage.py#L168)
 
 Interface used by `load_state_dict` to read from storage.
 
@@ -652,7 +652,7 @@ A subclass should expect the following sequence of calls by `load_state_dict`:
 5. (coordinator) prepare_global_plan()
 6. (all ranks) read_data()
 
-*abstract*prepare_global_plan(*plans*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/storage.py#L242)
+*abstract*prepare_global_plan(*plans*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/storage.py#L242)
 
 Perform centralized planning of storage loading.
 
@@ -673,7 +673,7 @@ Return type:
 
 [list](https://docs.python.org/3/builtins/stdtypes.html#list)[*LoadPlan*]
 
-*abstract*prepare_local_plan(*plan*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/storage.py#L227)
+*abstract*prepare_local_plan(*plan*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/storage.py#L227)
 
 Perform storage-specific local planning.
 
@@ -692,7 +692,7 @@ Return type:
 
 *LoadPlan*
 
-*abstract*read_data(*plan*, *planner*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/storage.py#L259)
+*abstract*read_data(*plan*, *planner*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/storage.py#L259)
 
 Read all items from `plan` using `planner` to resolve the data.
 
@@ -718,7 +718,7 @@ Return type:
 
 [*Future*](../futures.html#torch.futures.Future)[None]
 
-*abstract*read_metadata(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/storage.py#L204)
+*abstract*read_metadata(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/storage.py#L204)
 
 Read the checkpoint metadata.
 
@@ -730,7 +730,7 @@ Return type:
 
 *Metadata*
 
-*abstract*reset(*checkpoint_id=None*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/storage.py#L186)
+*abstract*reset(*checkpoint_id=None*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/storage.py#L186)
 
 Calls to indicates a brand new checkpoint read is going to happen.
 A checkpoint_id may be present if users set the checkpoint_id for
@@ -745,7 +745,7 @@ depends on the storage. It can be a path to a folder or to a file.
 It can also be a key if the storage is more like a key-value store.
 (Default: `None`)
 
-*abstract*set_up_storage_reader(*metadata*, *is_coordinator*, **args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/storage.py#L214)
+*abstract*set_up_storage_reader(*metadata*, *is_coordinator*, **args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/storage.py#L214)
 
 Initialize this instance.
 
@@ -755,7 +755,7 @@ Parameters:
 - **is_coordinator** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Whether this instance is responsible for coordinating
 the checkpoint.
 
-*abstract classmethod*validate_checkpoint_id(*checkpoint_id*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/storage.py#L281)
+*abstract classmethod*validate_checkpoint_id(*checkpoint_id*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/storage.py#L281)
 
 Check if the given checkpoint_id is supported by the storage. This allows
 us to enable automatic storage selection.
@@ -764,7 +764,7 @@ Return type:
 
 [bool](https://docs.python.org/3/builtins/functions.html#bool)
 
-*class*torch.distributed.checkpoint.StorageWriter[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/storage.py#L27)
+*class*torch.distributed.checkpoint.StorageWriter[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/storage.py#L27)
 
 Interface used by `save_state_dict` to write to storage.
 
@@ -781,7 +781,7 @@ A subclass should expect the following sequence of calls.
 5. (all ranks) write_data()
 6. (coordinator) finish()
 
-*abstract*finish(*metadata*, *results*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/storage.py#L131)
+*abstract*finish(*metadata*, *results*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/storage.py#L131)
 
 Write the metadata and marks the current checkpoint as successful.
 
@@ -802,7 +802,7 @@ Return type:
 
 None
 
-*abstract*prepare_global_plan(*plans*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/storage.py#L90)
+*abstract*prepare_global_plan(*plans*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/storage.py#L90)
 
 Perform centralized planning of storage.
 
@@ -823,7 +823,7 @@ Return type:
 
 [list](https://docs.python.org/3/builtins/stdtypes.html#list)[*SavePlan*]
 
-*abstract*prepare_local_plan(*plan*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/storage.py#L75)
+*abstract*prepare_local_plan(*plan*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/storage.py#L75)
 
 Perform storage-specific local planning.
 
@@ -842,7 +842,7 @@ Return type:
 
 *SavePlan*
 
-*abstract*reset(*checkpoint_id=None*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/storage.py#L45)
+*abstract*reset(*checkpoint_id=None*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/storage.py#L45)
 
 Calls to indicates a brand new checkpoint write is going to happen.
 A checkpoint_id may be present if users set the checkpoint_id for
@@ -857,7 +857,7 @@ depends on the storage. It can be a path to a folder or to a file.
 It can also be a key if the storage is a key-value store.
 (Default: `None`)
 
-*abstract*set_up_storage_writer(*is_coordinator*, **args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/storage.py#L63)
+*abstract*set_up_storage_writer(*is_coordinator*, **args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/storage.py#L63)
 
 Initialize this instance.
 
@@ -866,7 +866,7 @@ Parameters:
 **is_coordinator** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Whether this instance is responsible for coordinating
 the checkpoint.
 
-storage_meta()[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/storage.py#L157)
+storage_meta()[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/storage.py#L157)
 
 Return the storage-specific metadata. This is used to store additional information
 in a checkpoint that can be useful for providing request-level observability. StorageMeta
@@ -878,7 +878,7 @@ Return type:
 
 *StorageMeta* | None
 
-*abstract classmethod*validate_checkpoint_id(*checkpoint_id*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/storage.py#L148)
+*abstract classmethod*validate_checkpoint_id(*checkpoint_id*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/storage.py#L148)
 
 Check if the given checkpoint_id is supported by the storage. This allows
 us to enable automatic storage selection.
@@ -887,7 +887,7 @@ Return type:
 
 [bool](https://docs.python.org/3/builtins/functions.html#bool)
 
-*abstract*write_data(*plan*, *planner*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/storage.py#L107)
+*abstract*write_data(*plan*, *planner*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/storage.py#L107)
 
 Write all items from `plan` using `planner` to resolve the data.
 
@@ -913,11 +913,11 @@ Return type:
 
 [*Future*](../futures.html#torch.futures.Future)[[list](https://docs.python.org/3/builtins/stdtypes.html#list)[*WriteResult*]]
 
-*class*torch.distributed.checkpoint.storage.WriteResult(*index: torch.distributed.checkpoint.metadata.MetadataIndex*, *size_in_bytes: [int](https://docs.python.org/3/builtins/functions.html#int)*, *storage_data: Any*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/storage.py#L19)
+*class*torch.distributed.checkpoint.storage.WriteResult(*index: torch.distributed.checkpoint.metadata.MetadataIndex*, *size_in_bytes: [int](https://docs.python.org/3/builtins/functions.html#int)*, *storage_data: Any*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/storage.py#L19)
 
 Failures on any rank during save or load are raised as:
 
-*class*torch.distributed.checkpoint.api.CheckpointException(*msg*, *failures*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/api.py#L30)
+*class*torch.distributed.checkpoint.api.CheckpointException(*msg*, *failures*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/api.py#L30)
 
 Exception raised if failure was detected as part of a checkpoint load or save.
 
@@ -927,11 +927,11 @@ Return a dictionary mapping node ranks to their associated exceptions in case of
 
 The following types define the metadata used during checkpoint:
 
-*class*torch.distributed.checkpoint.metadata.Metadata(*state_dict_metadata*, *planner_data=None*, *storage_data=None*, *storage_meta=None*, *version=None*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/metadata.py#L153)
+*class*torch.distributed.checkpoint.metadata.Metadata(*state_dict_metadata*, *planner_data=None*, *storage_data=None*, *storage_meta=None*, *version=None*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/metadata.py#L153)
 
 This class represents the metadata of the checkpoint.
 
-*class*torch.distributed.checkpoint.metadata.MetadataIndex(*fqn*, *offset=None*, *index=None*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/metadata.py#L169)
+*class*torch.distributed.checkpoint.metadata.MetadataIndex(*fqn*, *offset=None*, *index=None*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/metadata.py#L169)
 
 This class represents a lookup key for items in a state dict or Metadata.
 
@@ -954,24 +954,24 @@ offset*: [Size](../size.html#torch.Size) | [None](https://docs.python.org/3/buil
 
 If the object is a tensor, offset into the tensor we're looking for
 
-*class*torch.distributed.checkpoint.metadata.ChunkStorageMetadata(*offsets*, *sizes*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/metadata.py#L23)
+*class*torch.distributed.checkpoint.metadata.ChunkStorageMetadata(*offsets*, *sizes*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/metadata.py#L23)
 
 Each chunk is expected to have the same properties of the TensorStorageMetadata
 that includes it.
 
-*class*torch.distributed.checkpoint.metadata.BytesStorageMetadata[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/metadata.py#L136)
+*class*torch.distributed.checkpoint.metadata.BytesStorageMetadata[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/metadata.py#L136)
 
-*class*torch.distributed.checkpoint.metadata.StorageMeta(*checkpoint_id: str | os.PathLike | None = None*, *save_id: str | None = None*, *load_id: str | None = None*, *modules: list[str] = <factory>*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/metadata.py#L145)
+*class*torch.distributed.checkpoint.metadata.StorageMeta(*checkpoint_id: str | os.PathLike | None = None*, *save_id: str | None = None*, *load_id: str | None = None*, *modules: list[str] = <factory>*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/metadata.py#L145)
 
-*class*torch.distributed.checkpoint.metadata.TensorProperties(*dtype=<factory>*, *layout=torch.strided*, *requires_grad=False*, *memory_format=torch.contiguous_format*, *pin_memory=False*, *strides=None*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/metadata.py#L42)
+*class*torch.distributed.checkpoint.metadata.TensorProperties(*dtype=<factory>*, *layout=torch.strided*, *requires_grad=False*, *memory_format=torch.contiguous_format*, *pin_memory=False*, *strides=None*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/metadata.py#L42)
 
 Properties used to create `Tensor`
 
-*class*torch.distributed.checkpoint.metadata.TensorStorageMetadata(*properties: torch.distributed.checkpoint.metadata.TensorProperties*, *size: [torch.Size](../size.html#torch.Size)*, *chunks: [list](https://docs.python.org/3/builtins/stdtypes.html#list)[torch.distributed.checkpoint.metadata.ChunkStorageMetadata]*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/metadata.py#L129)
+*class*torch.distributed.checkpoint.metadata.TensorStorageMetadata(*properties: torch.distributed.checkpoint.metadata.TensorProperties*, *size: [torch.Size](../size.html#torch.Size)*, *chunks: [list](https://docs.python.org/3/builtins/stdtypes.html#list)[torch.distributed.checkpoint.metadata.ChunkStorageMetadata]*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/metadata.py#L129)
 
 The following types define the planner interface used during checkpoint:
 
-*class*torch.distributed.checkpoint.LoadPlanner[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/planner.py#L304)
+*class*torch.distributed.checkpoint.LoadPlanner[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/planner.py#L304)
 
 Abstract class defining the protocol used by load_state_dict to plan the load process.
 
@@ -1046,7 +1046,7 @@ Modifying resolve_tensor and commit_tensor to handle load time transformation.
 >>> self.state_dict[read_item.dest_index.fqn] = tensor
 ```
 
-*abstract*commit_tensor(*read_item*, *tensor*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/planner.py#L440)
+*abstract*commit_tensor(*read_item*, *tensor*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/planner.py#L440)
 
 Call once the StorageReader finished loading data into `tensor`.
 
@@ -1056,7 +1056,7 @@ copying it back to the one in the state_dict.
 
 The contents of tensor will follow its device synchronization model.
 
-*abstract*create_global_plan(*global_plan*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/planner.py#L399)
+*abstract*create_global_plan(*global_plan*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/planner.py#L399)
 
 Compute the global load plan and return plans for each rank.
 
@@ -1066,7 +1066,7 @@ Return type:
 
 [list](https://docs.python.org/3/builtins/stdtypes.html#list)[*LoadPlan*]
 
-*abstract*create_local_plan()[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/planner.py#L391)
+*abstract*create_local_plan()[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/planner.py#L391)
 
 Create a LoadPlan based on state_dict and metadata provided by set_up_planner.
 
@@ -1076,7 +1076,7 @@ Return type:
 
 *LoadPlan*
 
-*abstract*finish_plan(*central_plan*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/planner.py#L407)
+*abstract*finish_plan(*central_plan*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/planner.py#L407)
 
 Accept the plan from coordinator and return final LoadPlan.
 
@@ -1084,7 +1084,7 @@ Return type:
 
 *LoadPlan*
 
-*abstract*load_bytes(*read_item*, *value*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/planner.py#L411)
+*abstract*load_bytes(*read_item*, *value*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/planner.py#L411)
 
 Load the item described by read_item``and ``value.
 
@@ -1093,7 +1093,7 @@ This method is expected to modify in-place the underlying state_dict.
 The contents of `value` are defined by the SavePlanner used to produce
 the checkpoint being loaded.
 
-resolve_bytes(*read_item*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/planner.py#L422)
+resolve_bytes(*read_item*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/planner.py#L422)
 
 Return the BytesIO to be used by the StorageReader to load read_item.
 
@@ -1103,7 +1103,7 @@ Return type:
 
 *BytesIO*
 
-*abstract*resolve_tensor(*read_item*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/planner.py#L430)
+*abstract*resolve_tensor(*read_item*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/planner.py#L430)
 
 Return the tensor described by `read_item` to be used by the StorageReader to load read_item.
 
@@ -1115,17 +1115,17 @@ Return type:
 
 [*Tensor*](../tensors.html#torch.Tensor)
 
-*abstract*set_up_planner(*state_dict*, *metadata=None*, *is_coordinator=False*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/planner.py#L378)
+*abstract*set_up_planner(*state_dict*, *metadata=None*, *is_coordinator=False*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/planner.py#L378)
 
 Initialize this instance to load data into `state_dict`.
 
 . N.B. This is called on every rank.
 
-*class*torch.distributed.checkpoint.LoadPlan(*items: [list](https://docs.python.org/3/builtins/stdtypes.html#list)[torch.distributed.checkpoint.planner.ReadItem]*, *storage_data: Any = None*, *planner_data: Any = None*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/planner.py#L114)
+*class*torch.distributed.checkpoint.LoadPlan(*items: [list](https://docs.python.org/3/builtins/stdtypes.html#list)[torch.distributed.checkpoint.planner.ReadItem]*, *storage_data: Any = None*, *planner_data: Any = None*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/planner.py#L114)
 
-*class*torch.distributed.checkpoint.ReadItem(*type: torch.distributed.checkpoint.planner.LoadItemType*, *dest_index: torch.distributed.checkpoint.metadata.MetadataIndex*, *dest_offsets: [torch.Size](../size.html#torch.Size)*, *storage_index: torch.distributed.checkpoint.metadata.MetadataIndex*, *storage_offsets: [torch.Size](../size.html#torch.Size)*, *lengths: [torch.Size](../size.html#torch.Size)*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/planner.py#L85)
+*class*torch.distributed.checkpoint.ReadItem(*type: torch.distributed.checkpoint.planner.LoadItemType*, *dest_index: torch.distributed.checkpoint.metadata.MetadataIndex*, *dest_offsets: [torch.Size](../size.html#torch.Size)*, *storage_index: torch.distributed.checkpoint.metadata.MetadataIndex*, *storage_offsets: [torch.Size](../size.html#torch.Size)*, *lengths: [torch.Size](../size.html#torch.Size)*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/planner.py#L85)
 
-*class*torch.distributed.checkpoint.SavePlanner[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/planner.py#L121)
+*class*torch.distributed.checkpoint.SavePlanner[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/planner.py#L121)
 
 Abstract class defining the protocol used by save_state_dict to plan the save process.
 
@@ -1226,7 +1226,7 @@ the global planner aggregate them:
 >>> return global_plan, metadata
 ```
 
-*abstract*create_global_plan(*all_plans*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/planner.py#L265)
+*abstract*create_global_plan(*all_plans*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/planner.py#L265)
 
 Compute the global checkpoint plan and return the local plan of each rank.
 
@@ -1236,7 +1236,7 @@ Return type:
 
 [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[list](https://docs.python.org/3/builtins/stdtypes.html#list)[*SavePlan*], *Metadata*]
 
-*abstract*create_local_plan()[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/planner.py#L254)
+*abstract*create_local_plan()[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/planner.py#L254)
 
 Compute the save plan for the current rank.
 
@@ -1249,7 +1249,7 @@ Return type:
 
 *SavePlan*
 
-*abstract*finish_plan(*new_plan*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/planner.py#L275)
+*abstract*finish_plan(*new_plan*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/planner.py#L275)
 
 Merge the plan created by create_local_plan and the result of create_global_plan.
 
@@ -1259,7 +1259,7 @@ Return type:
 
 *SavePlan*
 
-*abstract*resolve_data(*write_item*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/planner.py#L283)
+*abstract*resolve_data(*write_item*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/planner.py#L283)
 
 Transform and prepare `write_item` from `state_dict` for storage, ensuring idempotency and thread-safety.
 
@@ -1281,7 +1281,7 @@ Return type:
 
 [*Tensor*](../tensors.html#torch.Tensor) | *BytesIO*
 
-*abstract*set_up_planner(*state_dict*, *storage_meta=None*, *is_coordinator=False*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/planner.py#L239)
+*abstract*set_up_planner(*state_dict*, *storage_meta=None*, *is_coordinator=False*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/planner.py#L239)
 
 Initialize this planner to save `state_dict`.
 
@@ -1289,13 +1289,13 @@ Implementations should save those values as they won't be provided later in the 
 
 This is called on all ranks.
 
-*class*torch.distributed.checkpoint.SavePlan(*items: [list](https://docs.python.org/3/builtins/stdtypes.html#list)[torch.distributed.checkpoint.planner.WriteItem]*, *storage_data: Any = None*, *planner_data: Any = None*, *usable: [bool](https://docs.python.org/3/builtins/functions.html#bool) = True*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/planner.py#L104)
+*class*torch.distributed.checkpoint.SavePlan(*items: [list](https://docs.python.org/3/builtins/stdtypes.html#list)[torch.distributed.checkpoint.planner.WriteItem]*, *storage_data: Any = None*, *planner_data: Any = None*, *usable: [bool](https://docs.python.org/3/builtins/functions.html#bool) = True*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/planner.py#L104)
 
-*class*torch.distributed.checkpoint.planner.WriteItem(*index*, *type*, *bytes_io_data=None*, *tensor_data=None*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/planner.py#L57)
+*class*torch.distributed.checkpoint.planner.WriteItem(*index*, *type*, *bytes_io_data=None*, *tensor_data=None*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/planner.py#L57)
 
 Dataclass which holds information about what needs to be written to storage.
 
-tensor_storage_size()[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/planner.py#L70)
+tensor_storage_size()[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/planner.py#L70)
 
 Calculates the storage size of the underlying tensor, or None if this is not a tensor write.
 
@@ -1307,29 +1307,29 @@ Return type:
 
 [int](https://docs.python.org/3/builtins/functions.html#int) | None
 
-*class*torch.distributed.checkpoint.planner.WriteItemType(*value*, *names=None*, ***, *module=None*, *qualname=None*, *type=None*, *start=1*, *boundary=None*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/planner.py#L34)
+*class*torch.distributed.checkpoint.planner.WriteItemType(*value*, *names=None*, ***, *module=None*, *qualname=None*, *type=None*, *start=1*, *boundary=None*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/planner.py#L34)
 
-*class*torch.distributed.checkpoint.planner.LoadItemType(*value*, *names=None*, ***, *module=None*, *qualname=None*, *type=None*, *start=1*, *boundary=None*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/planner.py#L40)
+*class*torch.distributed.checkpoint.planner.LoadItemType(*value*, *names=None*, ***, *module=None*, *qualname=None*, *type=None*, *start=1*, *boundary=None*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/planner.py#L40)
 
-*class*torch.distributed.checkpoint.planner.BytesIOWriteData(*nbytes: [int](https://docs.python.org/3/builtins/functions.html#int)*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/planner.py#L45)
+*class*torch.distributed.checkpoint.planner.BytesIOWriteData(*nbytes: [int](https://docs.python.org/3/builtins/functions.html#int)*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/planner.py#L45)
 
-*class*torch.distributed.checkpoint.planner.TensorWriteData(*chunk: torch.distributed.checkpoint.metadata.ChunkStorageMetadata*, *properties: torch.distributed.checkpoint.metadata.TensorProperties*, *size: [torch.Size](../size.html#torch.Size)*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/planner.py#L50)
+*class*torch.distributed.checkpoint.planner.TensorWriteData(*chunk: torch.distributed.checkpoint.metadata.ChunkStorageMetadata*, *properties: torch.distributed.checkpoint.metadata.TensorProperties*, *size: [torch.Size](../size.html#torch.Size)*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/planner.py#L50)
 
 We provide a filesystem based storage layer:
 
-*class*torch.distributed.checkpoint.filesystem.FileSystemBase[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/filesystem.py#L489)
+*class*torch.distributed.checkpoint.filesystem.FileSystemBase[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/filesystem.py#L489)
 
-*class*torch.distributed.checkpoint.filesystem.FileSystem[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/filesystem.py#L521)
+*class*torch.distributed.checkpoint.filesystem.FileSystem[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/filesystem.py#L521)
 
-*class*torch.distributed.checkpoint.filesystem.SerializationFormat(*value*, *names=None*, ***, *module=None*, *qualname=None*, *type=None*, *start=1*, *boundary=None*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/filesystem.py#L92)
+*class*torch.distributed.checkpoint.filesystem.SerializationFormat(*value*, *names=None*, ***, *module=None*, *qualname=None*, *type=None*, *start=1*, *boundary=None*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/filesystem.py#L92)
 
-*class*torch.distributed.checkpoint.FileSystemReader(*path*, *_extension_registry=None*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/filesystem.py#L849)
+*class*torch.distributed.checkpoint.FileSystemReader(*path*, *_extension_registry=None*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/filesystem.py#L849)
 
 *property*checkpoint_id*: [str](https://docs.python.org/3/builtins/stdtypes.html#str) | [PathLike](https://docs.python.org/3/library/os.html#os.PathLike)*
 
 return the checkpoint_id that will be used to load the checkpoint.
 
-*class*torch.distributed.checkpoint.FileSystemWriter(*path*, *single_file_per_rank=True*, *sync_files=True*, *thread_count=1*, *per_thread_copy_ahead=10000000*, *cache_staged_state_dict=False*, *overwrite=True*, *_extensions=None*, *serialization_format=SerializationFormat.TORCH_SAVE*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/filesystem.py#L977)
+*class*torch.distributed.checkpoint.FileSystemWriter(*path*, *single_file_per_rank=True*, *sync_files=True*, *thread_count=1*, *per_thread_copy_ahead=10000000*, *cache_staged_state_dict=False*, *overwrite=True*, *_extensions=None*, *serialization_format=SerializationFormat.TORCH_SAVE*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/filesystem.py#L977)
 
 Basic implementation of StorageWriter using file IO.
 
@@ -1342,7 +1342,7 @@ The checkpoint consist of one file per write request plus
 a global .metadata file with the serialized metadata if rank coordination is enabled.
 a rank local __{rank}.metadata file with the serialized metadata if rank coordination is NOT enabled.
 
-stage(*state_dict*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/filesystem.py#L1037)
+stage(*state_dict*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/filesystem.py#L1037)
 
 Override of AsyncStager.stage
 
@@ -1350,9 +1350,9 @@ Return type:
 
 [dict](https://docs.python.org/3/builtins/stdtypes.html#dict)[[str](https://docs.python.org/3/builtins/stdtypes.html#str), *StatefulT* | [*Any*](https://docs.python.org/3/library/typing.html#typing.Any)]
 
-*class*torch.distributed.checkpoint.fsspec_filesystem.FsspecReader(*path*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/fsspec_filesystem.py#L163)
+*class*torch.distributed.checkpoint.fsspec_filesystem.FsspecReader(*path*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/fsspec_filesystem.py#L163)
 
-*class*torch.distributed.checkpoint.fsspec_filesystem.FsspecWriter(*path*, *single_file_per_rank=True*, *sync_files=True*, *thread_count=1*, *per_thread_copy_ahead=10000000*, *cache_staged_state_dict=False*, *overwrite=True*, *_extensions=None*, *serialization_format=SerializationFormat.TORCH_SAVE*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/fsspec_filesystem.py#L100)
+*class*torch.distributed.checkpoint.fsspec_filesystem.FsspecWriter(*path*, *single_file_per_rank=True*, *sync_files=True*, *thread_count=1*, *per_thread_copy_ahead=10000000*, *cache_staged_state_dict=False*, *overwrite=True*, *_extensions=None*, *serialization_format=SerializationFormat.TORCH_SAVE*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/fsspec_filesystem.py#L100)
 
 Basic implementation of StorageWriter using fsspec.
 
@@ -1366,7 +1366,7 @@ a .metadata file with the serialized metadata.
 
 Tensors that are not DTensor or ShardedTensor can be saved as shards of a global tensor by implementing:
 
-*class*torch.distributed.checkpoint.protocol.CheckpointableTensor(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/protocol.py#L13)
+*class*torch.distributed.checkpoint.protocol.CheckpointableTensor(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/protocol.py#L13)
 
 Protocol fields for checkpointing a local tensor as global tensor shards.
 
@@ -1390,15 +1390,15 @@ chunks and slice the local tensor during load.
 
 We also provide other storage layers, including ones to interact with HuggingFace safetensors:
 
-*class*torch.distributed.checkpoint.HuggingFaceStorageReader(*path*, *thread_count=1*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/hf_storage.py#L202)
+*class*torch.distributed.checkpoint.HuggingFaceStorageReader(*path*, *thread_count=1*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/hf_storage.py#L202)
 
 A reader that reads a checkpoint in the huggingface safetensors format.
 
-*class*torch.distributed.checkpoint.HuggingFaceStorageWriter(*path*, *fqn_to_index_mapping=None*, *thread_count=1*, *save_distributed=False*, *enable_consolidation=False*, *thread_count_consolidation=1*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/hf_storage.py#L49)
+*class*torch.distributed.checkpoint.HuggingFaceStorageWriter(*path*, *fqn_to_index_mapping=None*, *thread_count=1*, *save_distributed=False*, *enable_consolidation=False*, *thread_count_consolidation=1*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/hf_storage.py#L49)
 
 A writer that writes to storage in the huggingface safetensors format.
 
-*class*torch.distributed.checkpoint.QuantizedHuggingFaceStorageReader(*path*, *thread_count=1*, *target_dtype=torch.float32*, *block_size=128*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/quantized_hf_storage.py#L25)
+*class*torch.distributed.checkpoint.QuantizedHuggingFaceStorageReader(*path*, *thread_count=1*, *target_dtype=torch.float32*, *block_size=128*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/quantized_hf_storage.py#L25)
 
 Extension of HuggingFaceStorageReader that handles quantized tensors.
 Checkpoint should have the full tensor in a SafeTensor file. The quantized
@@ -1420,9 +1420,9 @@ load raw.
 We provide default implementations of `LoadPlanner` and `SavePlanner` that
 can handle all of torch.distributed constructs such as FSDP, DDP, ShardedTensor and DistributedTensor.
 
-*class*torch.distributed.checkpoint.DefaultSavePlanner(*flatten_state_dict=True*, *flatten_sharded_tensors=True*, *dedup_replicated_tensors=None*, *dedup_save_to_lowest_rank=False*, *enable_plan_caching=False*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/default_planner.py#L71)
+*class*torch.distributed.checkpoint.DefaultSavePlanner(*flatten_state_dict=True*, *flatten_sharded_tensors=True*, *dedup_replicated_tensors=None*, *dedup_save_to_lowest_rank=False*, *enable_plan_caching=False*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/default_planner.py#L71)
 
-lookup_object(*index*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/default_planner.py#L279)
+lookup_object(*index*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/default_planner.py#L279)
 
 Extension from the planner interface to make it easy to extend the default planner.
 
@@ -1430,11 +1430,11 @@ Return type:
 
 [*Any*](https://docs.python.org/3/library/typing.html#typing.Any)
 
-transform_object(*write_item*, *object*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/default_planner.py#L283)
+transform_object(*write_item*, *object*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/default_planner.py#L283)
 
 Extension from the planner interface to make it easy to extend the default planner.
 
-*class*torch.distributed.checkpoint.DefaultLoadPlanner(*flatten_state_dict=True*, *flatten_sharded_tensors=True*, *allow_partial_load=False*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/default_planner.py#L292)
+*class*torch.distributed.checkpoint.DefaultLoadPlanner(*flatten_state_dict=True*, *flatten_sharded_tensors=True*, *allow_partial_load=False*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/default_planner.py#L292)
 
 DefaultLoadPlanner that adds multiple features on top of LoadPlanner.
 
@@ -1444,7 +1444,7 @@ flatten_state_dict: Handle state_dict with nested dicts
 flatten_sharded_tensors: For FSDP in 2D parallel mode
 allow_partial_load: If False, will raise a runtime error if a key is present in state_dict, but not in the checkpoint.
 
-lookup_tensor(*index*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/default_planner.py#L402)
+lookup_tensor(*index*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/default_planner.py#L402)
 
 Extension from the planner interface to make it easy to extend the default planner.
 
@@ -1452,7 +1452,7 @@ Return type:
 
 [*Tensor*](../tensors.html#torch.Tensor)
 
-transform_tensor(*read_item*, *tensor*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/default_planner.py#L406)
+transform_tensor(*read_item*, *tensor*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/default_planner.py#L406)
 
 Extension from the planner interface to make it easy to extend the default planner.
 
@@ -1468,7 +1468,7 @@ Note that `set_optimizer_state_dict()` can only be called before `backward()` or
 
 Note that this feature is experimental, and API signatures might change in the future.
 
-torch.distributed.checkpoint.state_dict.get_state_dict(*model*, *optimizers*, ***, *submodules=None*, *options=None*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/state_dict.py#L1278)
+torch.distributed.checkpoint.state_dict.get_state_dict(*model*, *optimizers*, ***, *submodules=None*, *options=None*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/state_dict.py#L1278)
 
 Return the model state_dict and optimizers state_dict.
 
@@ -1542,7 +1542,7 @@ Return type:
 
 [*Tuple*](https://docs.python.org/3/library/typing.html#typing.Tuple)[[*Dict*](https://docs.python.org/3/library/typing.html#typing.Dict)[[str](https://docs.python.org/3/builtins/stdtypes.html#str), ValueType], OptimizerStateType]
 
-torch.distributed.checkpoint.state_dict.get_model_state_dict(*model*, ***, *submodules=None*, *options=None*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/state_dict.py#L1196)
+torch.distributed.checkpoint.state_dict.get_model_state_dict(*model*, ***, *submodules=None*, *options=None*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/state_dict.py#L1196)
 
 Return the model state_dict of `model`.
 
@@ -1565,7 +1565,7 @@ Return type:
 
 [*Dict*](https://docs.python.org/3/library/typing.html#typing.Dict)[[str](https://docs.python.org/3/builtins/stdtypes.html#str), ValueType]
 
-torch.distributed.checkpoint.state_dict.get_optimizer_state_dict(*model*, *optimizers*, ***, *submodules=None*, *options=None*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/state_dict.py#L1233)
+torch.distributed.checkpoint.state_dict.get_optimizer_state_dict(*model*, *optimizers*, ***, *submodules=None*, *options=None*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/state_dict.py#L1233)
 
 Return the combined state_dict for optimizers.
 
@@ -1589,7 +1589,7 @@ Return type:
 
 OptimizerStateType
 
-torch.distributed.checkpoint.state_dict.set_state_dict(*model*, *optimizers*, ***, *model_state_dict*, *optim_state_dict*, *options=None*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/state_dict.py#L1488)
+torch.distributed.checkpoint.state_dict.set_state_dict(*model*, *optimizers*, ***, *model_state_dict*, *optim_state_dict*, *options=None*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/state_dict.py#L1488)
 
 Load the model state_dict and optimizers state_dict.
 
@@ -1630,7 +1630,7 @@ Return type:
 
 `NamedTuple` with `missing_keys` and `unexpected_keys` fields
 
-torch.distributed.checkpoint.state_dict.set_model_state_dict(*model*, *model_state_dict*, ***, *options=None*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/state_dict.py#L1406)
+torch.distributed.checkpoint.state_dict.set_model_state_dict(*model*, *model_state_dict*, ***, *options=None*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/state_dict.py#L1406)
 
 Load the model state_dict.
 
@@ -1658,7 +1658,7 @@ Return type:
 
 `NamedTuple` with `missing_keys` and `unexpected_keys` fields
 
-torch.distributed.checkpoint.state_dict.set_optimizer_state_dict(*model*, *optimizers*, *optim_state_dict*, ***, *options=None*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/state_dict.py#L1445)
+torch.distributed.checkpoint.state_dict.set_optimizer_state_dict(*model*, *optimizers*, *optim_state_dict*, ***, *options=None*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/state_dict.py#L1445)
 
 Load the optimizers state_dict.
 
@@ -1688,7 +1688,7 @@ Return type:
 
 None
 
-*class*torch.distributed.checkpoint.state_dict.StateDictOptions(*full_state_dict=False*, *cpu_offload=False*, *ignore_frozen_params=False*, *keep_submodule_prefixes=True*, *strict=True*, *broadcast_from_rank0=False*, *flatten_optimizer_state_dict=False*, *dsd_fqn_modifiers='_fqn_modifiers'*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/state_dict.py#L93)
+*class*torch.distributed.checkpoint.state_dict.StateDictOptions(*full_state_dict=False*, *cpu_offload=False*, *ignore_frozen_params=False*, *keep_submodule_prefixes=True*, *strict=True*, *broadcast_from_rank0=False*, *flatten_optimizer_state_dict=False*, *dsd_fqn_modifiers='_fqn_modifiers'*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/state_dict.py#L93)
 
 This dataclass specifies how get_state_dict/set_state_dict will work.
 
@@ -1722,7 +1722,7 @@ This option currently only supports DTensor, not the legacy ShardedTensor.
 
 For users which are used to using and sharing models in the `torch.save` format, the following methods are provided which provide offline utilities for converting between formats.
 
-torch.distributed.checkpoint.format_utils.dcp_to_torch_save(*dcp_checkpoint_dir*, *torch_save_path*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/format_utils.py#L208)
+torch.distributed.checkpoint.format_utils.dcp_to_torch_save(*dcp_checkpoint_dir*, *torch_save_path*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/format_utils.py#L208)
 
 Given a directory containing a DCP checkpoint, this function will convert it into a
 Torch save file.
@@ -1736,7 +1736,7 @@ Warning
 
 To avoid OOM, it's recommended to only run this function on a single rank.
 
-torch.distributed.checkpoint.format_utils.torch_save_to_dcp(*torch_save_path*, *dcp_checkpoint_dir*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/format_utils.py#L233)
+torch.distributed.checkpoint.format_utils.torch_save_to_dcp(*torch_save_path*, *dcp_checkpoint_dir*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/format_utils.py#L233)
 
 Given the location of a torch save file, converts it into a DCP checkpoint.
 
@@ -1751,7 +1751,7 @@ To avoid OOM, it's recommended to only run this function on a single rank.
 
 The following classes can also be utilized for online loading and resharding of models from the torch.save format.
 
-*class*torch.distributed.checkpoint.format_utils.BroadcastingTorchSaveReader(*checkpoint_id=None*, *coordinator_rank=0*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/format_utils.py#L39)
+*class*torch.distributed.checkpoint.format_utils.BroadcastingTorchSaveReader(*checkpoint_id=None*, *coordinator_rank=0*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/format_utils.py#L39)
 
 StorageReader for reading a Torch Save file. This reader will read the entire checkpoint
 on the coordinator rank, and then broadcast and shard each tensor to all ranks.
@@ -1772,7 +1772,7 @@ Current implementation only supports loading Tensors.
 >>> )
 ```
 
-prepare_global_plan(*global_plan*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/format_utils.py#L148)
+prepare_global_plan(*global_plan*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/format_utils.py#L148)
 
 Implementation of the StorageReader method
 
@@ -1780,7 +1780,7 @@ Return type:
 
 [list](https://docs.python.org/3/builtins/stdtypes.html#list)[*LoadPlan*]
 
-prepare_local_plan(*plan*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/format_utils.py#L144)
+prepare_local_plan(*plan*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/format_utils.py#L144)
 
 Implementation of the StorageReader method
 
@@ -1788,7 +1788,7 @@ Return type:
 
 *LoadPlan*
 
-read_data(*plan*, *planner*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/format_utils.py#L74)
+read_data(*plan*, *planner*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/format_utils.py#L74)
 
 Reads torch save data on the coordinator rank, and broadcast afterwards
 this incurrs a communication cost, but avoids having to load
@@ -1798,7 +1798,7 @@ Return type:
 
 [*Future*](../futures.html#torch.futures.Future)[None]
 
-read_metadata()[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/format_utils.py#L68)
+read_metadata()[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/format_utils.py#L68)
 
 Extends the default StorageReader to support building the metadata file
 
@@ -1806,15 +1806,15 @@ Return type:
 
 *Metadata*
 
-reset(*checkpoint_id=None*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/format_utils.py#L152)
+reset(*checkpoint_id=None*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/format_utils.py#L152)
 
 Implementation of the StorageReader method
 
-set_up_storage_reader(*metadata*, *is_coordinator*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/format_utils.py#L129)
+set_up_storage_reader(*metadata*, *is_coordinator*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/format_utils.py#L129)
 
 Implementation of the StorageReader method
 
-*classmethod*validate_checkpoint_id(*checkpoint_id*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/format_utils.py#L156)
+*classmethod*validate_checkpoint_id(*checkpoint_id*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/format_utils.py#L156)
 
 Implementation of the StorageReader method
 
@@ -1822,7 +1822,7 @@ Return type:
 
 [bool](https://docs.python.org/3/builtins/functions.html#bool)
 
-*class*torch.distributed.checkpoint.format_utils.DynamicMetaLoadPlanner(*flatten_state_dict=True*, *flatten_sharded_tensors=True*, *allow_partial_load=False*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/format_utils.py#L162)
+*class*torch.distributed.checkpoint.format_utils.DynamicMetaLoadPlanner(*flatten_state_dict=True*, *flatten_sharded_tensors=True*, *allow_partial_load=False*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/format_utils.py#L162)
 
 Extension of DefaultLoadPlanner, which creates a new Metadata object based on the passed in state dict,
 avoiding the need to read metadata from disk. This is useful when reading formats which don't have a
@@ -1844,7 +1844,7 @@ Current implementation only supports loading Tensors.
 >>> )
 ```
 
-set_up_planner(*state_dict*, *metadata=None*, *is_coordinator=False*)[[source]](https://github.com/pytorch/pytorch/blob/3d5976e3f87222f326a3b2c424828b74ec6cf594/torch/distributed/checkpoint/format_utils.py#L183)
+set_up_planner(*state_dict*, *metadata=None*, *is_coordinator=False*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/distributed/checkpoint/format_utils.py#L183)
 
 Setups of the planner, extnding default behavior by creating the Metadata object from the state dict
 
