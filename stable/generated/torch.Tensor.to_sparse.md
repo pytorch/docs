@@ -7,7 +7,7 @@ Returns a sparse copy of the tensor. PyTorch supports sparse tensors in
 
 Parameters:
 
-**sparseDims** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - the number of sparse dimensions to include in the new sparse tensor
+**sparseDims** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - the number of sparse dimensions to include in the new sparse tensor
 
 Example:
 
@@ -55,7 +55,7 @@ of the resulting BSR or BSC tensor. For other layouts,
 specifying the block size that is not `None` will result in a
 RuntimeError exception. A block size must be a tuple of length
 two such that its items evenly divide the two sparse dimensions.
-- **dense_dim** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - Number of dense dimensions of the
+- **dense_dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - Number of dense dimensions of the
 resulting CSR, CSC, BSR or BSC tensor. This argument should be
 used only if `self` is a strided tensor, and must be a
 value between 0 and dimension of `self` tensor minus two.

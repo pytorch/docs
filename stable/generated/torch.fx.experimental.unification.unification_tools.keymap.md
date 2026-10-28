@@ -1,6 +1,6 @@
 # torch.fx.experimental.unification.unification_tools.keymap
 
-torch.fx.experimental.unification.unification_tools.keymap(*func*, *d*, *factory=<class 'dict'>*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/fx/experimental/unification/unification_tools.py#L119)
+torch.fx.experimental.unification.unification_tools.keymap(*func*, *d*, *factory=<class 'dict'>*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/fx/experimental/unification/unification_tools.py#L119)
 
 Apply function to keys of dictionary
 
@@ -17,4 +17,4 @@ itemmap
 
 Return type:
 
-[dict](https://docs.python.org/3/library/stdtypes.html#dict)[_K2, _V]
+[dict](https://docs.python.org/3/builtins/stdtypes.html#dict)[_K2, _V]

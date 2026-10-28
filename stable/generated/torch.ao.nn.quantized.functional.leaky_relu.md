@@ -1,6 +1,6 @@
 # leaky_relu
 
-*class*torch.ao.nn.quantized.functional.leaky_relu(*input*, *negative_slope=0.01*, *inplace=False*, *scale=None*, *zero_point=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/ao/nn/quantized/functional.py#L559)
+*class*torch.ao.nn.quantized.functional.leaky_relu(*input*, *negative_slope=0.01*, *inplace=False*, *scale=None*, *zero_point=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/ao/nn/quantized/functional.py#L559)
 
 Quantized version of the.
 leaky_relu(input, negative_slope=0.01, inplace=False, scale, zero_point) -> Tensor
@@ -11,9 +11,9 @@ LeakyReLU(x)=max⁡(0,x)+negative_slope∗min⁡(0,x)\text{LeakyReLU}(x) = \max(
 Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - Quantized input
-- **negative_slope** ([*float*](https://docs.python.org/3/library/functions.html#float)) - The slope of the negative input
-- **inplace** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - Inplace modification of the input tensor
-- **scale** ([*float*](https://docs.python.org/3/library/functions.html#float)*|**None*) - Scale and zero point of the output tensor.
-- **zero_point** ([*int*](https://docs.python.org/3/library/functions.html#int)*|**None*) - Scale and zero point of the output tensor.
+- **negative_slope** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - The slope of the negative input
+- **inplace** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Inplace modification of the input tensor
+- **scale** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*|**None*) - Scale and zero point of the output tensor.
+- **zero_point** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*|**None*) - Scale and zero point of the output tensor.
 
 See [`LeakyReLU`](torch.nn.LeakyReLU.html#torch.nn.LeakyReLU) for more details.

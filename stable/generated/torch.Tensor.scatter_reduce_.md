@@ -40,12 +40,12 @@ This function is in beta and may change in the near future.
 
 Parameters:
 
-- **dim** ([*int*](https://docs.python.org/3/library/functions.html#int)) - the axis along which to index
+- **dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - the axis along which to index
 - **index** (*LongTensor*) - the indices of elements to scatter and reduce.
 - **src** ([*Tensor*](../tensors.html#torch.Tensor)) - the source elements to scatter and reduce
-- **reduce** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - the reduction operation to apply for non-unique indices
+- **reduce** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - the reduction operation to apply for non-unique indices
 (`"sum"`, `"prod"`, `"mean"`, `"amax"`, `"amin"`)
-- **include_self** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - whether elements from the `self` tensor are
+- **include_self** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - whether elements from the `self` tensor are
 included in the reduction
 
 Example:

@@ -1,6 +1,6 @@
 # torch.fx.experimental.unification.unification_tools.groupby
 
-torch.fx.experimental.unification.unification_tools.groupby(*key*, *seq*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/fx/experimental/unification/unification_tools.py#L420)
+torch.fx.experimental.unification.unification_tools.groupby(*key*, *seq*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/fx/experimental/unification/unification_tools.py#L420)
 
 Group a collection by a key function
 
@@ -40,4 +40,4 @@ countby
 
 Return type:
 
-[dict](https://docs.python.org/3/library/stdtypes.html#dict)[[object](https://docs.python.org/3/library/functions.html#object), [list](https://docs.python.org/3/library/stdtypes.html#list)[[object](https://docs.python.org/3/library/functions.html#object)]]
+[dict](https://docs.python.org/3/builtins/stdtypes.html#dict)[[object](https://docs.python.org/3/builtins/functions.html#object), [list](https://docs.python.org/3/builtins/stdtypes.html#list)[[object](https://docs.python.org/3/builtins/functions.html#object)]]

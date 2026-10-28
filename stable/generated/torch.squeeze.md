@@ -1,6 +1,6 @@
 # torch.squeeze
 
-torch.squeeze(*input: [Tensor](../tensors.html#torch.Tensor)*, *dim: [int](https://docs.python.org/3/library/functions.html#int) | List[[int](https://docs.python.org/3/library/functions.html#int)] | [None](https://docs.python.org/3/library/constants.html#None)*) → [Tensor](../tensors.html#torch.Tensor)
+torch.squeeze(*input: [Tensor](../tensors.html#torch.Tensor)*, *dim: [int](https://docs.python.org/3/builtins/functions.html#int) | List[[int](https://docs.python.org/3/builtins/functions.html#int)] | [None](https://docs.python.org/3/builtins/constants.html#None)*) → [Tensor](../tensors.html#torch.Tensor)
 
 Returns a tensor with all specified dimensions of `input` of size 1 removed.
 
@@ -27,7 +27,7 @@ errors. Consider specifying only the dims you wish to be squeezed.
 Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - the input tensor.
-- **dim** ([*int*](https://docs.python.org/3/library/functions.html#int)*or*[*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*of**ints**,**optional*) -
+- **dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*or*[*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*of**ints**,**optional*) -
 
 if given, the input will be squeezed
 

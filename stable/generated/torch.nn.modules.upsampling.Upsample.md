@@ -1,6 +1,6 @@
 # Upsample
 
-*class*torch.nn.modules.upsampling.Upsample(*size=None*, *scale_factor=None*, *mode='nearest'*, *align_corners=None*, *recompute_scale_factor=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/nn/modules/upsampling.py#L13)
+*class*torch.nn.modules.upsampling.Upsample(*size=None*, *scale_factor=None*, *mode='nearest'*, *align_corners=None*, *recompute_scale_factor=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/nn/modules/upsampling.py#L13)
 
 Upsamples a given multi-channel 1D (temporal), 2D (spatial) or 3D (volumetric) data.
 
@@ -17,17 +17,17 @@ calculate the output size. (You cannot give both, as it is ambiguous)
 
 Parameters:
 
-- **size** ([*int*](https://docs.python.org/3/library/functions.html#int)*or**Tuple**[*[*int*](https://docs.python.org/3/library/functions.html#int)*] or**Tuple**[*[*int*](https://docs.python.org/3/library/functions.html#int)*,*[*int*](https://docs.python.org/3/library/functions.html#int)*] or**Tuple**[*[*int*](https://docs.python.org/3/library/functions.html#int)*,*[*int*](https://docs.python.org/3/library/functions.html#int)*,*[*int*](https://docs.python.org/3/library/functions.html#int)*]**,**optional*) - output spatial sizes
-- **scale_factor** ([*float*](https://docs.python.org/3/library/functions.html#float)*or**Tuple**[*[*float*](https://docs.python.org/3/library/functions.html#float)*] or**Tuple**[*[*float*](https://docs.python.org/3/library/functions.html#float)*,*[*float*](https://docs.python.org/3/library/functions.html#float)*] or**Tuple**[*[*float*](https://docs.python.org/3/library/functions.html#float)*,*[*float*](https://docs.python.org/3/library/functions.html#float)*,*[*float*](https://docs.python.org/3/library/functions.html#float)*]**,**optional*) - multiplier for spatial size. Has to match input size if it is a tuple.
-- **mode** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**optional*) - the upsampling algorithm: one of `'nearest'`,
+- **size** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*or**Tuple**[*[*int*](https://docs.python.org/3/builtins/functions.html#int)*] or**Tuple**[*[*int*](https://docs.python.org/3/builtins/functions.html#int)*,*[*int*](https://docs.python.org/3/builtins/functions.html#int)*] or**Tuple**[*[*int*](https://docs.python.org/3/builtins/functions.html#int)*,*[*int*](https://docs.python.org/3/builtins/functions.html#int)*,*[*int*](https://docs.python.org/3/builtins/functions.html#int)*]**,**optional*) - output spatial sizes
+- **scale_factor** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*or**Tuple**[*[*float*](https://docs.python.org/3/builtins/functions.html#float)*] or**Tuple**[*[*float*](https://docs.python.org/3/builtins/functions.html#float)*,*[*float*](https://docs.python.org/3/builtins/functions.html#float)*] or**Tuple**[*[*float*](https://docs.python.org/3/builtins/functions.html#float)*,*[*float*](https://docs.python.org/3/builtins/functions.html#float)*,*[*float*](https://docs.python.org/3/builtins/functions.html#float)*]**,**optional*) - multiplier for spatial size. Has to match input size if it is a tuple.
+- **mode** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**optional*) - the upsampling algorithm: one of `'nearest'`,
 `'linear'`, `'bilinear'`, `'bicubic'` and `'trilinear'`.
 Default: `'nearest'`
-- **align_corners** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - if `True`, the corner pixels of the input
+- **align_corners** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - if `True`, the corner pixels of the input
 and output tensors are aligned, and thus preserving the values at
 those pixels. This only has effect when `mode` is
 `'linear'`, `'bilinear'`, `'bicubic'`, or `'trilinear'`.
 Default: `False`
-- **recompute_scale_factor** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - recompute the scale_factor for use in the
+- **recompute_scale_factor** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - recompute the scale_factor for use in the
 interpolation calculation. If recompute_scale_factor is `True`, then
 scale_factor must be passed in and scale_factor is used to compute the
 output size. The computed output size will be used to infer new scales for
@@ -106,7 +106,7 @@ tensor([[[[1., 2., 0.],
  [0., 0., 0.]]]])
 
 >>> m = nn.Upsample(scale_factor=2, mode='bilinear') # align_corners=False
->>> # Notice that values in top left corner are the same with the small input (except at boundary)
+>>> # Notice that values in top left corner are the same as the small input (except at boundary)
 >>> m(input_3x3)
 tensor([[[[1.0000, 1.2500, 1.7500, 1.5000, 0.5000, 0.0000],
  [1.5000, 1.7500, 2.2500, 1.8750, 0.6250, 0.0000],
@@ -126,15 +126,15 @@ tensor([[[[1.0000, 1.4000, 1.8000, 1.6000, 0.8000, 0.0000],
  [0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000]]]])
 ```
 
-extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/nn/modules/upsampling.py#L189)
+extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/nn/modules/upsampling.py#L189)
 
 Return the extra representation of the module.
 
 Return type:
 
-[str](https://docs.python.org/3/library/stdtypes.html#str)
+[str](https://docs.python.org/3/builtins/stdtypes.html#str)
 
-forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/nn/modules/upsampling.py#L170)
+forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/nn/modules/upsampling.py#L170)
 
 Runs the forward pass.
 

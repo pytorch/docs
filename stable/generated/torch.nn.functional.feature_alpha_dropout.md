@@ -1,6 +1,6 @@
 # torch.nn.functional.feature_alpha_dropout
 
-torch.nn.functional.feature_alpha_dropout(*input*, *p=0.5*, *training=False*, *inplace=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/nn/functional.py#L1687)
+torch.nn.functional.feature_alpha_dropout(*input*, *p=0.5*, *training=False*, *inplace=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/nn/functional.py#L1687)
 
 Randomly masks out entire channels (a channel is a feature map).
 
@@ -18,9 +18,9 @@ See [`FeatureAlphaDropout`](torch.nn.FeatureAlphaDropout.html#torch.nn.FeatureAl
 
 Parameters:
 
-- **p** ([*float*](https://docs.python.org/3/library/functions.html#float)) - dropout probability of a channel to be zeroed. Default: 0.5
-- **training** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - apply dropout if is `True`. Default: `True`
-- **inplace** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If set to `True`, will do this operation in-place. Default: `False`
+- **p** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - dropout probability of a channel to be zeroed. Default: 0.5
+- **training** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - apply dropout if is `True`. Default: `True`
+- **inplace** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - If set to `True`, will do this operation in-place. Default: `False`
 
 Return type:
 

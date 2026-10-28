@@ -1,6 +1,6 @@
 # torch.linalg.solve
 
-torch.linalg.solve(*A*, *B*, ***, *left=True*, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/linalg/__init__.py#L2260)
+torch.linalg.solve(*A*, *B*, ***, *left=True*, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/linalg/__init__.py#L2260)
 
 Computes the solution of a square system of linear equations with a unique solution.
 
@@ -63,12 +63,12 @@ according to the rules described above
 
 Keyword Arguments:
 
-- **left** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - whether to solve the system AX=BAX=BAX=B or XA=BXA = BXA=B. Default: True.
+- **left** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - whether to solve the system AX=BAX=BAX=B or XA=BXA = BXA=B. Default: True.
 - **out** ([*Tensor*](../tensors.html#torch.Tensor)*,**optional*) - output tensor. Ignored if None. Default: None.
 
 Raises:
 
-[**RuntimeError**](https://docs.python.org/3/library/exceptions.html#RuntimeError) - if the `A` matrix is not invertible or any matrix in a batched `A`
+[**RuntimeError**](https://docs.python.org/3/builtins/exceptions.html#RuntimeError) - if the `A` matrix is not invertible or any matrix in a batched `A`
  is not invertible.
 
 Examples:

@@ -1,6 +1,6 @@
 # torch.functional.einsum
 
-torch.functional.einsum(*equation*, **operands*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/functional.py#L175)
+torch.functional.einsum(*equation*, **operands*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/functional.py#L175)
 
 Sums the product of the elements of the input `operands` along dimensions specified using a notation
 based on the Einstein summation convention.
@@ -87,7 +87,7 @@ may be provided in a sublist to enable broadcasting as described in the Equation
 
 Parameters:
 
-- **equation** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - The subscripts for the Einstein summation.
+- **equation** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - The subscripts for the Einstein summation.
 - **operands** (*List**[*[*Tensor*](../tensors.html#torch.Tensor)*]*) - The tensors to compute the Einstein summation of.
 
 Return type:

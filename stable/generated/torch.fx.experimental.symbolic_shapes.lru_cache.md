@@ -1,6 +1,6 @@
 # torch.fx.experimental.symbolic_shapes.lru_cache
 
-torch.fx.experimental.symbolic_shapes.lru_cache(*maxsize*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/fx/experimental/symbolic_shapes.py#L321)
+torch.fx.experimental.symbolic_shapes.lru_cache(*maxsize*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/fx/experimental/symbolic_shapes.py#L322)
 
 Return type:
 

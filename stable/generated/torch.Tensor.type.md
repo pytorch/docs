@@ -11,7 +11,7 @@ original object is returned.
 Parameters:
 
 - **dtype** ([*dtype*](../tensor_attributes.html#torch.dtype)*or**string*) - The desired type
-- **non_blocking** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If `True`, and the source is in pinned memory
+- **non_blocking** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - If `True`, and the source is in pinned memory
 and destination is on the GPU or vice versa, the copy is performed
 asynchronously with respect to the host. Otherwise, the argument
 has no effect.

@@ -29,7 +29,7 @@ This is a generalized version of [`torch.hann_window()`](torch.hann_window.html#
 
 Parameters:
 
-**window_length** ([*int*](https://docs.python.org/3/library/functions.html#int)) - the size of returned window
+**window_length** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - the size of returned window
 
 Keyword Arguments:
 
@@ -41,9 +41,9 @@ Default: if `None`, uses a global default (see [`torch.set_default_dtype()`](tor
 Default: if `None`, uses the current device for the default tensor type
 (see [`torch.set_default_device()`](torch.set_default_device.html#torch.set_default_device)). [`device`](../tensor_attributes.html#torch.device) will be the CPU
 for CPU tensor types and the current CUDA device for CUDA tensor types.
-- **pin_memory** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If set, returned tensor would be allocated in
+- **pin_memory** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If set, returned tensor would be allocated in
 the pinned memory. Works only for CPU tensors. Default: `False`.
-- **requires_grad** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If autograd should record operations on the
+- **requires_grad** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If autograd should record operations on the
 returned tensor. Default: `False`.
 
 Returns:
@@ -60,8 +60,8 @@ Hamming window function with periodic specified.
 
 Parameters:
 
-- **window_length** ([*int*](https://docs.python.org/3/library/functions.html#int)) - the size of returned window
-- **periodic** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If True, returns a window to be used as periodic
+- **window_length** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - the size of returned window
+- **periodic** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - If True, returns a window to be used as periodic
 function. If False, return a symmetric window.
 
 Keyword Arguments:
@@ -74,9 +74,9 @@ Default: if `None`, uses a global default (see [`torch.set_default_dtype()`](tor
 Default: if `None`, uses the current device for the default tensor type
 (see [`torch.set_default_device()`](torch.set_default_device.html#torch.set_default_device)). [`device`](../tensor_attributes.html#torch.device) will be the CPU
 for CPU tensor types and the current CUDA device for CUDA tensor types.
-- **pin_memory** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If set, returned tensor would be allocated in
+- **pin_memory** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If set, returned tensor would be allocated in
 the pinned memory. Works only for CPU tensors. Default: `False`.
-- **requires_grad** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If autograd should record operations on the
+- **requires_grad** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If autograd should record operations on the
 returned tensor. Default: `False`.
 
 Returns:
@@ -93,10 +93,10 @@ Hamming window function with periodic and alpha specified.
 
 Parameters:
 
-- **window_length** ([*int*](https://docs.python.org/3/library/functions.html#int)) - the size of returned window
-- **periodic** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If True, returns a window to be used as periodic
+- **window_length** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - the size of returned window
+- **periodic** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - If True, returns a window to be used as periodic
 function. If False, return a symmetric window.
-- **alpha** ([*float*](https://docs.python.org/3/library/functions.html#float)) - The coefficient α\alphaα in the equation above
+- **alpha** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - The coefficient α\alphaα in the equation above
 
 Keyword Arguments:
 
@@ -108,9 +108,9 @@ Default: if `None`, uses a global default (see [`torch.set_default_dtype()`](tor
 Default: if `None`, uses the current device for the default tensor type
 (see [`torch.set_default_device()`](torch.set_default_device.html#torch.set_default_device)). [`device`](../tensor_attributes.html#torch.device) will be the CPU
 for CPU tensor types and the current CUDA device for CUDA tensor types.
-- **pin_memory** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If set, returned tensor would be allocated in
+- **pin_memory** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If set, returned tensor would be allocated in
 the pinned memory. Works only for CPU tensors. Default: `False`.
-- **requires_grad** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If autograd should record operations on the
+- **requires_grad** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If autograd should record operations on the
 returned tensor. Default: `False`.
 
 Returns:
@@ -127,11 +127,11 @@ Hamming window function with periodic, alpha and beta specified.
 
 Parameters:
 
-- **window_length** ([*int*](https://docs.python.org/3/library/functions.html#int)) - the size of returned window
-- **periodic** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If True, returns a window to be used as periodic
+- **window_length** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - the size of returned window
+- **periodic** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - If True, returns a window to be used as periodic
 function. If False, return a symmetric window.
-- **alpha** ([*float*](https://docs.python.org/3/library/functions.html#float)) - The coefficient α\alphaα in the equation above
-- **beta** ([*float*](https://docs.python.org/3/library/functions.html#float)) - The coefficient β\betaβ in the equation above
+- **alpha** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - The coefficient α\alphaα in the equation above
+- **beta** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - The coefficient β\betaβ in the equation above
 
 Keyword Arguments:
 
@@ -143,9 +143,9 @@ Default: if `None`, uses a global default (see [`torch.set_default_dtype()`](tor
 Default: if `None`, uses the current device for the default tensor type
 (see [`torch.set_default_device()`](torch.set_default_device.html#torch.set_default_device)). [`device`](../tensor_attributes.html#torch.device) will be the CPU
 for CPU tensor types and the current CUDA device for CUDA tensor types.
-- **pin_memory** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If set, returned tensor would be allocated in
+- **pin_memory** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If set, returned tensor would be allocated in
 the pinned memory. Works only for CPU tensors. Default: `False`.
-- **requires_grad** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If autograd should record operations on the
+- **requires_grad** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If autograd should record operations on the
 returned tensor. Default: `False`.
 
 Returns:

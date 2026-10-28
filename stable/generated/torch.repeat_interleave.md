@@ -11,15 +11,15 @@ This is different from [`torch.Tensor.repeat()`](torch.Tensor.repeat.html#torch.
 Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - the input tensor.
-- **repeats** ([*Tensor*](../tensors.html#torch.Tensor)*or*[*int*](https://docs.python.org/3/library/functions.html#int)) - The number of repetitions for each element.
+- **repeats** ([*Tensor*](../tensors.html#torch.Tensor)*or*[*int*](https://docs.python.org/3/builtins/functions.html#int)) - The number of repetitions for each element.
 repeats is broadcasted to fit the shape of the given axis.
-- **dim** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - The dimension along which to repeat values.
+- **dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - The dimension along which to repeat values.
 By default, use the flattened input array, and return a flat output
 array.
 
 Keyword Arguments:
 
-**output_size** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - Total output size for the given axis
+**output_size** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - Total output size for the given axis
 ( e.g. sum of repeats). If given, it will avoid stream synchronization
 needed to calculate output shape of the tensor.
 

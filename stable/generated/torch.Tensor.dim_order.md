@@ -1,6 +1,6 @@
 # torch.Tensor.dim_order
 
-Tensor.dim_order(*ambiguity_check=False*) → [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/_tensor.py#L1381)
+Tensor.dim_order(*ambiguity_check=False*) → [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/_tensor.py#L1383)
 
 Returns the uniquely determined tuple of int describing the dim order or
 physical layout of `self`.
@@ -17,7 +17,7 @@ Otherwise, it will raise TypeError.
 
 Parameters:
 
-**ambiguity_check** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*or**List**[*[*torch.memory_format*](../tensor_attributes.html#torch.memory_format)*]*) - The check method for ambiguity of dim order.
+**ambiguity_check** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*or**List**[*[*torch.memory_format*](../tensor_attributes.html#torch.memory_format)*]*) - The check method for ambiguity of dim order.
 
 Examples:
 

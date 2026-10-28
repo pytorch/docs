@@ -25,9 +25,9 @@ not provided, and the behavior is undefined if the sequence is not sorted.
 
 Keyword Arguments:
 
-- **out_int32** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - indicate the output data type. torch.int32 if True, torch.int64 otherwise.
+- **out_int32** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - indicate the output data type. torch.int32 if True, torch.int64 otherwise.
 Default value is False, i.e. default output data type is torch.int64.
-- **right** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - if False, return the first suitable location that is found. If True, return the
+- **right** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - if False, return the first suitable location that is found. If True, return the
 last such index. If no suitable index found, return 0 for non-numerical value
 (eg. nan, inf) or the size of *innermost* dimension within `sorted_sequence`
 (one pass the last index of the *innermost* dimension). In other words, if False,
@@ -35,7 +35,7 @@ gets the lower bound index for each value in `values` on the corresponding
 *innermost* dimension of the `sorted_sequence`. If True, gets the upper
 bound index instead. Default value is False. `side` does the same and is
 preferred. It will error if `side` is set to "left" while this is True.
-- **side** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**optional*) - the same as `right` but preferred. "left" corresponds to False for `right`
+- **side** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**optional*) - the same as `right` but preferred. "left" corresponds to False for `right`
 and "right" corresponds to True for `right`. It will error if this is set to
 "left" while `right` is True. Default value is None.
 - **out** ([*Tensor*](../tensors.html#torch.Tensor)*,**optional*) - the output tensor, must be the same size as `values` if provided.

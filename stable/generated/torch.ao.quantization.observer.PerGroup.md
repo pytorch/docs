@@ -1,6 +1,6 @@
 # PerGroup
 
-*class*torch.ao.quantization.observer.PerGroup(*group_size*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/ao/quantization/observer.py#L1743)
+*class*torch.ao.quantization.observer.PerGroup(*group_size*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/ao/quantization/observer.py#L1743)
 
 Represents per-channel group granularity in quantization.
 
@@ -14,4 +14,4 @@ giving a total of 64 quantization parameters.
 
 Variables:
 
-**group_size** ([*int*](https://docs.python.org/3/library/functions.html#int)) - The size of each quantization group
+**group_size** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - The size of each quantization group

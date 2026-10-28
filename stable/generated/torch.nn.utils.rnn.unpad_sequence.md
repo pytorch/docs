@@ -1,6 +1,6 @@
 # torch.nn.utils.rnn.unpad_sequence
 
-torch.nn.utils.rnn.unpad_sequence(*padded_sequences*, *lengths*, *batch_first=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/nn/utils/rnn.py#L473)
+torch.nn.utils.rnn.unpad_sequence(*padded_sequences*, *lengths*, *batch_first=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/nn/utils/rnn.py#L473)
 
 Unpad padded Tensor into a list of variable length Tensors.
 
@@ -29,7 +29,7 @@ Parameters:
 
 - **padded_sequences** ([*Tensor*](../tensors.html#torch.Tensor)) - padded sequences.
 - **lengths** ([*Tensor*](../tensors.html#torch.Tensor)) - length of original (unpadded) sequences.
-- **batch_first** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - whether batch dimension first or not. Default: `False`.
+- **batch_first** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - whether batch dimension first or not. Default: `False`.
 
 Returns:
 
@@ -37,4 +37,4 @@ a list of `Tensor` objects
 
 Return type:
 
-[list](https://docs.python.org/3/library/stdtypes.html#list)[[*Tensor*](../tensors.html#torch.Tensor)]
+[list](https://docs.python.org/3/builtins/stdtypes.html#list)[[*Tensor*](../tensors.html#torch.Tensor)]

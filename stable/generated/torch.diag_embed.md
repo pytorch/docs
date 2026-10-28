@@ -27,11 +27,11 @@ need to be explicitly specified.
 Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - the input tensor. Must be at least 1-dimensional.
-- **offset** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - which diagonal to consider. Default: 0
+- **offset** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - which diagonal to consider. Default: 0
 (main diagonal).
-- **dim1** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - first dimension with respect to which to
+- **dim1** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - first dimension with respect to which to
 take diagonal. Default: -2.
-- **dim2** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - second dimension with respect to which to
+- **dim2** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - second dimension with respect to which to
 take diagonal. Default: -1.
 
 Example:

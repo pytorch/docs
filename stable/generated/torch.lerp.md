@@ -17,7 +17,7 @@ Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - the tensor with the starting points
 - **end** ([*Tensor*](../tensors.html#torch.Tensor)) - the tensor with the ending points
-- **weight** ([*float*](https://docs.python.org/3/library/functions.html#float)*or**tensor*) - the weight for the interpolation formula
+- **weight** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*or**tensor*) - the weight for the interpolation formula
 
 Keyword Arguments:
 

@@ -1,6 +1,6 @@
 # ParametrizationList
 
-*class*torch.nn.utils.parametrize.ParametrizationList(*modules*, *original*, *unsafe=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/nn/utils/parametrize.py#L95)
+*class*torch.nn.utils.parametrize.ParametrizationList(*modules*, *original*, *unsafe=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/nn/utils/parametrize.py#L95)
 
 A sequential container that holds and manages the original parameters or buffers of a parametrized [`torch.nn.Module`](torch.nn.Module.html#torch.nn.Module).
 
@@ -22,12 +22,12 @@ Parameters:
 
 - **modules** (*sequence*) - sequence of modules representing the parametrizations
 - **original** ([*Parameter*](torch.nn.parameter.Parameter.html#torch.nn.parameter.Parameter)*or*[*Tensor*](../tensors.html#torch.Tensor)) - parameter or buffer that is parametrized
-- **unsafe** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - a boolean flag that denotes whether the parametrization
+- **unsafe** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - a boolean flag that denotes whether the parametrization
 may change the dtype and shape of the tensor. Default: False
 Warning: the parametrization is not checked for consistency upon registration.
 Enable this flag at your own risk.
 
-right_inverse(*value*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/nn/utils/parametrize.py#L255)
+right_inverse(*value*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/nn/utils/parametrize.py#L255)
 
 Call the `right_inverse` methods of the parametrizations in the inverse registration order.
 

@@ -1,6 +1,6 @@
 # torch.fx.experimental.unification.utils.reverse_dict
 
-torch.fx.experimental.unification.utils.reverse_dict(*d*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/fx/experimental/unification/utils.py#L84)
+torch.fx.experimental.unification.utils.reverse_dict(*d*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/fx/experimental/unification/utils.py#L84)
 
 Reverses direction of dependence dict.
 
@@ -12,11 +12,11 @@ Reverses direction of dependence dict.
 
 Note
 
-dict order are not deterministic. As we iterate on the
-input dict, it make the output of this function depend on the
+dict order is not deterministic. As we iterate on the
+input dict, it makes the output of this function depend on the
 dict order. So this function output order should be considered
-as undeterministic.
+as nondeterministic.
 
 Return type:
 
-[dict](https://docs.python.org/3/library/stdtypes.html#dict)[_T, [tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[_T, ...]]
+[dict](https://docs.python.org/3/builtins/stdtypes.html#dict)[_T, [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[_T, ...]]

@@ -16,7 +16,7 @@ The argument [`diagonal`](torch.diagonal.html#torch.diagonal) controls which dia
 Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - the input tensor.
-- **diagonal** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - the diagonal to consider
+- **diagonal** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - the diagonal to consider
 
 Keyword Arguments:
 

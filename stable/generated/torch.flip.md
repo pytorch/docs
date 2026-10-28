@@ -13,7 +13,7 @@ torch.flip is expected to be slower than np.flip.
 Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - the input tensor.
-- **dims** (*a list**or*[*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)) - axis to flip on
+- **dims** (*a list**or*[*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)) - axis to flip on
 
 Example:
 

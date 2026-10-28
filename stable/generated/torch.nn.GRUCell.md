@@ -1,6 +1,6 @@
 # GRUCell
 
-*class*torch.nn.GRUCell(*input_size*, *hidden_size*, *bias=True*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/nn/modules/rnn.py#L1771)
+*class*torch.nn.GRUCell(*input_size*, *hidden_size*, *bias=True*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/nn/modules/rnn.py#L1772)
 
 A gated recurrent unit (GRU) cell.
 
@@ -15,9 +15,9 @@ where σ\sigmaσ is the sigmoid function, and ⊙\odot⊙ is the Hadamard produc
 
 Parameters:
 
-- **input_size** ([*int*](https://docs.python.org/3/library/functions.html#int)) - The number of expected features in the input x
-- **hidden_size** ([*int*](https://docs.python.org/3/library/functions.html#int)) - The number of features in the hidden state h
-- **bias** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If `False`, then the layer does not use bias weights b_ih and
+- **input_size** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - The number of expected features in the input x
+- **hidden_size** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - The number of features in the hidden state h
+- **bias** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - If `False`, then the layer does not use bias weights b_ih and
 b_hh. Default: `True`
 
 Inputs: input, hidden

@@ -392,10 +392,190 @@ You can implement your own pipeline schedule by extending one of the following t
 
 `PipelineScheduleSingle` is for schedules that assigns *only one* stage per rank.
 `PipelineScheduleMulti` is for schedules that assigns multiple stages per rank.
+All stages assigned to one rank must execute on one device; adjacent same-rank
+stages pass activations and gradients directly without device copies.
 
 For example, `ScheduleGPipe` and `Schedule1F1B` are subclasses of `PipelineScheduleSingle`.
 Whereas, `ScheduleInterleaved1F1B`, `ScheduleLoopedBFS`, `ScheduleInterleavedZeroBubble`, and `ScheduleZBVZeroBubble`
 are subclasses of `PipelineScheduleMulti`.
+
+### Accessing Stage Forward Information
+
+A runtime surrounding a pipeline stage may need to select resources by the
+global logical stage and current microbatch. Physical pipeline rank is not a
+substitute for logical stage identity because one rank may own several stages
+in an interleaved schedule.
+
+Register a context factory on the stage without changing the wrapped module's
+forward signature:
+
+```
+from contextlib import contextmanager
+
+from torch.distributed.pipelining import PipelineStageInfo
+
+@contextmanager
+def stage_forward_context(info: PipelineStageInfo):
+ planner.enter(
+ stage_index=info.stage_index,
+ microbatch_index=info.microbatch_index,
+ is_metadata_inference=info.is_metadata_inference,
+ )
+ try:
+ yield
+ finally:
+ planner.exit()
+
+handle = stage.register_forward_context(stage_forward_context)
+```
+
+The factory is called around each built-in stage forward. Dynamic metadata
+inference uses microbatch zero and sets `is_metadata_inference=True`, allowing a
+consumer to distinguish the representative probe from real microbatch-zero
+execution. Static metadata setup does not execute the module and therefore does
+not enter the context.
+
+Only one context can be registered on a stage at a time. Remove its handle
+before registering another context. Register before the first schedule step if
+the consumer must observe dynamic metadata inference.
+
+The context executes outside a compiled or exported stage module, so it does
+not add graph inputs or change the module signature. CUDA graph capture runs
+the Python context while recording the stage computation, but replay does not
+re-enter Python; consumers must bind replay-stable state during capture. A
+custom schedule action receives this context only when it delegates execution
+to `stage.forward_one_chunk()`.
+
+*class*torch.distributed.pipelining.PipelineStageInfo(***, *stage_index*, *microbatch_index*, *is_metadata_inference=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/distributed/pipelining/stage.py#L73)
+
+Identify one pipeline-stage forward invocation.
+
+This immutable value owns no tensors, process groups, schedule state, or
+storage. Future fields must have defaults so existing keyword-only
+construction remains source compatible.
+
+Variables:
+
+- **stage_index** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Global logical pipeline-stage index. A physical pipeline
+rank may own several logical stages.
+- **microbatch_index** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Microbatch index within the current pipeline step.
+- **is_metadata_inference** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Whether this invocation is the representative
+dynamic metadata-inference probe rather than real execution.
+
+PipelineStage.register_forward_context(*context_factory*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/distributed/pipelining/stage.py#L267)
+
+Register a context manager around this stage's forward computation.
+
+The factory receives a `PipelineStageInfo` for every built-in
+runtime forward and dynamic metadata-inference probe. Static metadata
+setup does not execute the stage module and therefore does not invoke
+the factory. The returned handle removes the registration.
+
+Only one context may be registered at a time. A custom schedule action
+receives the context only when it delegates execution to
+`forward_one_chunk()`. CUDA graph replay does not execute this
+Python callback; consumers must bind replay-stable state during capture.
+
+Parameters:
+
+**context_factory** ([*Callable*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)*[**[**PipelineStageInfo**]**,*[*AbstractContextManager*](https://docs.python.org/3/library/contextlib.html#contextlib.AbstractContextManager)*[**None**]**]*) - Callable that returns a fresh context manager for
+each stage invocation. The context must not suppress exceptions
+raised by the stage module.
+
+Returns:
+
+A handle whose `remove()`
+method removes the registration.
+
+Raises:
+
+[**RuntimeError**](https://docs.python.org/3/builtins/exceptions.html#RuntimeError) - If a forward context is already registered.
+
+Return type:
+
+*RemovableHandle*
+
+### Controlling FSDP Unshard Lookahead
+
+Multi-stage runtime schedules lower a compute-only schedule into explicit FSDP
+`UNSHARD` and `RESHARD` actions. Two parameters control different parts of
+that lowering:
+
+- `max_active_stages` is the target parameter-residency window. It determines
+which stages remain unsharded and where `RESHARD` actions are inserted.
+- `unshard_lookahead` is the issue-distance window. It determines how many
+upcoming distinct logical stages may begin unsharding.
+
+Separating these windows allows a schedule to issue fewer all-gathers early
+without evicting parameters sooner or adding another unshard/reshard cycle.
+An asynchronous unshard is still real GPU work:
+
+```
+pre-all-gather cast or quantization
+ -> copy-in and packing
+ -> all-gather
+ -> copy-out
+ -> post-all-gather quantization or layout preparation
+ -> parameter ready
+```
+
+`async_op=True` avoids a host-side wait, but these kernels, copies, collective
+traffic, allocations, and stream dependencies can still contend with the
+forward. Issuing the entire residency window at once can therefore put
+non-critical parameter preparation ahead of useful compute.
+
+The `"auto"` policy estimates how much of this work fits into each rank's
+pipeline startup bubble. Let a balanced stage forward take `F`, and let the
+composite critical-path cost of preparing one stage's unsharded parameters be
+`U`. Ignoring pipeline transfer latency, rank `r` waits approximately
+`U + rF` before its first useful forward. This can complete approximately
+`floor((U + rF) / U)` unshards; issuing one more allows the next unshard to
+overlap that first forward. With the simplifying assumption `F = U = T`, the
+lookahead is `r + 2`, capped by `max_active_stages`.
+
+For PP4 with `max_active_stages=4`, `"auto"` resolves to `(2, 3, 4, 4)`:
+
+```
+interval | 0..T | T..2T | 2T..3T | 3T..4T | 4T..5T
+-------------------+---------+----------+----------+----------+---------
+rank 0 forward | blocked | F(first) | | |
+rank 0 preparation | U0 | U1 | | | => 2
+-------------------+---------+----------+----------+----------+---------
+rank 1 forward | blocked | blocked | F(first) | |
+rank 1 preparation | U0 | U1 | U2 | | => 3
+-------------------+---------+----------+----------+----------+---------
+rank 2 forward | blocked | blocked | blocked | F(first) |
+rank 2 preparation | U0 | U1 | U2 | U3 | => 4
+-------------------+---------+----------+----------+----------+---------
+rank 3 forward | blocked | blocked | blocked | blocked | F(first)
+rank 3 preparation | U0 | U1 | U2 | U3 | => 4
+```
+
+The diagram is an analytical starting point, not an exact CUDA-stream model.
+`Uk` denotes preparation of the kth upcoming rank-local stage, not a global
+stage index. Vertically aligned preparation and forward cells are intended to
+overlap.
+Real stages may be unbalanced, unshard phases may overlap only partially, and
+network or memory-bandwidth contention may change the best distance. Choose a
+policy accordingly:
+
+| Policy | Per-rank issue distance | Intended use |
+| --- | --- | --- |
+| `"full"` | `max_active_stages` | Compatibility default matching the original full-window behavior. |
+| `"auto"` | `min(pp_rank + 2, max_active_stages)` | Deterministic startup-bubble estimate that avoids recipe-level tuning; not a universal optimum. |
+| Tuple | The corresponding positive integer for each PP rank | Expert tuning for measured model, topology, and fabric behavior. |
+
+A custom compute-only schedule may be combined with a tuple before lowering.
+For exact `UNSHARD` and communication placement, supply an already lowered
+`compute_comms` schedule; `unshard_lookahead` cannot retune actions that are
+already present.
+
+An atomic compound action remains indivisible, so it may extend either window
+by up to the action's number of stages minus one. Non-full policies can also
+move absolute P2P action positions because unshards consume lowering rounds.
+They do not change compute order, `RESHARD` placement, residency episodes, or
+collective counts. Applications should benchmark an explicit tuple when stage
+costs differ materially from the balanced model.
 
 ## Logging
 
@@ -411,13 +591,13 @@ You can turn on additional logging using the `TORCH_LOGS` environment variable f
 
 The following set of APIs transform your model into a pipeline representation.
 
-*class*torch.distributed.pipelining.SplitPoint(*value*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/distributed/pipelining/_IR.py#L1192)
+*class*torch.distributed.pipelining.SplitPoint(*value*, *names=None*, ***, *module=None*, *qualname=None*, *type=None*, *start=1*, *boundary=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/distributed/pipelining/_IR.py#L1192)
 
 Enum representing the points at which a split can occur in the execution of a submodule.
 :ivar BEGINNING: Represents adding a split point *before* the execution of a certain submodule in the forward function.
 :ivar END: Represents adding a split point *after* the execution of a certain submodule in the forward function.
 
-torch.distributed.pipelining.pipeline(*module*, *mb_args*, *mb_kwargs=None*, *split_spec=None*, *split_policy=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/distributed/pipelining/_IR.py#L1247)
+torch.distributed.pipelining.pipeline(*module*, *mb_args*, *mb_kwargs=None*, *split_spec=None*, *split_policy=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/distributed/pipelining/_IR.py#L1247)
 
 Split a module based on a specification.
 
@@ -426,18 +606,18 @@ See Pipe for more details.
 Parameters:
 
 - **module** ([*Module*](generated/torch.nn.Module.html#torch.nn.Module)) - The module to be split.
-- **mb_args** ([*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*[*[*Any*](https://docs.python.org/3/library/typing.html#typing.Any)*,**...**]*) - Example positional inputs, in micro-batch form.
-- **mb_kwargs** ([*dict*](https://docs.python.org/3/library/stdtypes.html#dict)*[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*,*[*Any*](https://docs.python.org/3/library/typing.html#typing.Any)*]**|**None*) - Example keyword inputs, in micro-batch form. (default: None)
-- **split_spec** ([*dict*](https://docs.python.org/3/library/stdtypes.html#dict)*[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**SplitPoint**]**|**None*) - A dictionary using submodule names as split marker. (default: None)
+- **mb_args** ([*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*[*[*Any*](https://docs.python.org/3/library/typing.html#typing.Any)*,**...**]*) - Example positional inputs, in micro-batch form.
+- **mb_kwargs** ([*dict*](https://docs.python.org/3/builtins/stdtypes.html#dict)*[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,*[*Any*](https://docs.python.org/3/library/typing.html#typing.Any)*]**|**None*) - Example keyword inputs, in micro-batch form. (default: None)
+- **split_spec** ([*dict*](https://docs.python.org/3/builtins/stdtypes.html#dict)*[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**SplitPoint**]**|**None*) - A dictionary using submodule names as split marker. (default: None)
 - **split_policy** ([*Callable*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)*[**[*[*GraphModule*](fx.html#torch.fx.GraphModule)*]**,*[*GraphModule*](fx.html#torch.fx.GraphModule)*]**|**None*) - The policy to use for splitting the module. (default: None)
 
 Return type:
 
 A pipeline representation of class Pipe.
 
-*class*torch.distributed.pipelining.Pipe(*split_gm*, *num_stages*, *has_loss_and_backward*, *loss_spec*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/distributed/pipelining/_IR.py#L561)
+*class*torch.distributed.pipelining.Pipe(*split_gm*, *num_stages*, *has_loss_and_backward*, *loss_spec*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/distributed/pipelining/_IR.py#L561)
 
-torch.distributed.pipelining.pipe_split()[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/distributed/pipelining/_IR.py#L363)
+torch.distributed.pipelining.pipe_split()[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/distributed/pipelining/_IR.py#L363)
 
 pipe_split is a special operator that is used to mark the boundary between
 stages in a module. It is used to split the module into stages. It is a
@@ -458,22 +638,22 @@ The above example will be split into two stages.
 
 ### Microbatch Utilities
 
-*class*torch.distributed.pipelining.microbatch.TensorChunkSpec(*split_dim*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/distributed/pipelining/microbatch.py#L60)
+*class*torch.distributed.pipelining.microbatch.TensorChunkSpec(*split_dim*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/distributed/pipelining/microbatch.py#L60)
 
 Class used to specify chunking of inputs
 
-torch.distributed.pipelining.microbatch.split_args_kwargs_into_chunks(*args*, *kwargs*, *chunks*, *args_chunk_spec=None*, *kwargs_chunk_spec=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/distributed/pipelining/microbatch.py#L378)
+torch.distributed.pipelining.microbatch.split_args_kwargs_into_chunks(*args*, *kwargs*, *chunks*, *args_chunk_spec=None*, *kwargs_chunk_spec=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/distributed/pipelining/microbatch.py#L378)
 
 Given a sequence of args and kwargs, split them into a number of chunks
 according to their respective chunking specs.
 
 Parameters:
 
-- **args** ([*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*[*[*Any*](https://docs.python.org/3/library/typing.html#typing.Any)*,**...**]*) - Tuple of args
-- **kwargs** ([*dict*](https://docs.python.org/3/library/stdtypes.html#dict)*[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*,*[*Any*](https://docs.python.org/3/library/typing.html#typing.Any)*]**|**None*) - Dict of kwargs
-- **chunks** ([*int*](https://docs.python.org/3/library/functions.html#int)) - Number of chunks to split the args and kwargs into
-- **args_chunk_spec** ([*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*[**TensorChunkSpec**,**...**]**|**None*) - chunking specs for args, in same shape as args
-- **kwargs_chunk_spec** ([*dict*](https://docs.python.org/3/library/stdtypes.html#dict)*[*[*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**TensorChunkSpec**]**|**None*) - chunking specs for kwargs, in same shape as kwargs
+- **args** ([*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*[*[*Any*](https://docs.python.org/3/library/typing.html#typing.Any)*,**...**]*) - Tuple of args
+- **kwargs** ([*dict*](https://docs.python.org/3/builtins/stdtypes.html#dict)*[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,*[*Any*](https://docs.python.org/3/library/typing.html#typing.Any)*]**|**None*) - Dict of kwargs
+- **chunks** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Number of chunks to split the args and kwargs into
+- **args_chunk_spec** ([*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*[**TensorChunkSpec**,**...**]**|**None*) - chunking specs for args, in same shape as args
+- **kwargs_chunk_spec** ([*dict*](https://docs.python.org/3/builtins/stdtypes.html#dict)*[*[*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**TensorChunkSpec**]**|**None*) - chunking specs for kwargs, in same shape as kwargs
 
 Returns:
 
@@ -484,14 +664,14 @@ Return type:
 
 args_split
 
-torch.distributed.pipelining.microbatch.merge_chunks(*chunks*, *chunk_spec*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/distributed/pipelining/microbatch.py#L493)
+torch.distributed.pipelining.microbatch.merge_chunks(*chunks*, *chunk_spec*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/distributed/pipelining/microbatch.py#L493)
 
 Given a list of chunks, merge them into a single value according to
 the chunk spec.
 
 Parameters:
 
-- **chunks** ([*list*](https://docs.python.org/3/library/stdtypes.html#list)*[*[*Any*](https://docs.python.org/3/library/typing.html#typing.Any)*]*) - list of chunks
+- **chunks** ([*list*](https://docs.python.org/3/builtins/stdtypes.html#list)*[*[*Any*](https://docs.python.org/3/library/typing.html#typing.Any)*]*) - list of chunks
 - **chunk_spec** - Chunking spec for the chunks
 
 Returns:
@@ -504,7 +684,7 @@ value
 
 ### Pipeline Stages
 
-*class*torch.distributed.pipelining.stage.PipelineStage(*submodule*, *stage_index*, *num_stages*, *device*, *input_args=None*, *output_args=None*, *output_grads=None*, *input_grads=None*, *group=None*, *dw_builder=None*, *get_mesh=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/distributed/pipelining/stage.py#L1737)
+*class*torch.distributed.pipelining.stage.PipelineStage(*submodule*, *stage_index*, *num_stages*, *device*, *input_args=None*, *output_args=None*, *output_grads=None*, *input_grads=None*, *group=None*, *dw_builder=None*, *get_mesh=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/distributed/pipelining/stage.py#L1885)
 
 A pipeline stage for pipeline parallelism with sequential model partitioning.
 
@@ -523,13 +703,13 @@ statically provided args are used for validation only.
 Parameters:
 
 - **submodule** ([*Module*](generated/torch.nn.Module.html#torch.nn.Module)) - The `nn.Module` wrapped by this stage.
-- **stage_index** ([*int*](https://docs.python.org/3/library/functions.html#int)) - Zero-based stage ID.
-- **num_stages** ([*int*](https://docs.python.org/3/library/functions.html#int)) - Total number of stages in the pipeline.
+- **stage_index** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Zero-based stage ID.
+- **num_stages** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Total number of stages in the pipeline.
 - **device** ([*device*](tensor_attributes.html#torch.device)) - Device this stage runs on.
-- **input_args** ([*Tensor*](tensors.html#torch.Tensor)*|*[*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*[*[*Tensor*](tensors.html#torch.Tensor)*,**...**]**|**None*) - Example input tensors (single tensor or tuple). Optional.
-- **output_args** ([*Tensor*](tensors.html#torch.Tensor)*|*[*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*[*[*Tensor*](tensors.html#torch.Tensor)*,**...**]**|**None*) - Example output tensors. Optional.
-- **output_grads** ([*Tensor*](tensors.html#torch.Tensor)*|*[*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*[*[*Tensor*](tensors.html#torch.Tensor)*|**None**,**...**]**|**None*) - Example output gradients (received from next stage). Optional.
-- **input_grads** ([*Tensor*](tensors.html#torch.Tensor)*|*[*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*[*[*Tensor*](tensors.html#torch.Tensor)*|**None**,**...**]**|**None*) - Example input gradients (sent to previous stage). Optional.
+- **input_args** ([*Tensor*](tensors.html#torch.Tensor)*|*[*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*[*[*Tensor*](tensors.html#torch.Tensor)*,**...**]**|**None*) - Example input tensors (single tensor or tuple). Optional.
+- **output_args** ([*Tensor*](tensors.html#torch.Tensor)*|*[*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*[*[*Tensor*](tensors.html#torch.Tensor)*,**...**]**|**None*) - Example output tensors. Optional.
+- **output_grads** ([*Tensor*](tensors.html#torch.Tensor)*|*[*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*[*[*Tensor*](tensors.html#torch.Tensor)*|**None**,**...**]**|**None*) - Example output gradients (received from next stage). Optional.
+- **input_grads** ([*Tensor*](tensors.html#torch.Tensor)*|*[*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*[*[*Tensor*](tensors.html#torch.Tensor)*|**None**,**...**]**|**None*) - Example input gradients (sent to previous stage). Optional.
 - **group** (*ProcessGroup**|**None*) - Process group for P2P communication. Defaults to the
 world process group.
 - **dw_builder** ([*Callable*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)*[**[**]**,*[*Callable*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable)*[**[**...**]**,**None**]**]**|**None*) - Builder for deferred weight-update runners used by
@@ -537,7 +717,7 @@ zero-bubble (F/I/W) schedules.
 - **get_mesh** (*GetMeshCallback**|**None*) - GetMeshCallback used during
 dynamic DTensor inference. Ignored in fully static DTensor mode.
 
-torch.distributed.pipelining.stage.build_stage(*stage_module*, *stage_index*, *pipe_info*, *device*, *group=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/distributed/pipelining/stage.py#L1707)
+torch.distributed.pipelining.stage.build_stage(*stage_module*, *stage_index*, *pipe_info*, *device*, *group=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/distributed/pipelining/stage.py#L1855)
 
 Create a pipeline stage given a stage_module to be wrapped by this stage
 and pipeline information.
@@ -545,7 +725,7 @@ and pipeline information.
 Parameters:
 
 - **stage_module** ([*torch.nn.Module*](generated/torch.nn.Module.html#torch.nn.Module)) - the module to be wrapped by this stage
-- **stage_index** ([*int*](https://docs.python.org/3/library/functions.html#int)) - the index of this stage in the pipeline
+- **stage_index** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - the index of this stage in the pipeline
 - **pipe_info** (*PipeInfo*) - information about the pipeline, can be retrieved by pipe.info()
 - **device** ([*torch.device*](tensor_attributes.html#torch.device)) - the device to be used by this stage
 - **group** (*Optional**[**dist.ProcessGroup**]*) - the process group to be used by this stage
@@ -560,17 +740,191 @@ _PipelineStage
 
 ### Pipeline Schedules
 
-*class*torch.distributed.pipelining.schedules.ScheduleGPipe(*stage*, *n_microbatches*, *loss_fn=None*, *args_chunk_spec=None*, *kwargs_chunk_spec=None*, *output_merge_spec=None*, *scale_grads=True*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/distributed/pipelining/schedules.py#L1083)
+#### Activation-liveness analysis
+
+Pipeline runtimes and memory planners can use
+`analyze_pipeline_activation_liveness` to determine how many reusable logical
+slots are needed for activations retained from forward through backward. The
+analysis does not allocate tensors. It returns a
+`PipelineActivationLiveness` plan whose
+`slot_by_stage_and_microbatch[(stage_index, microbatch_index)]` values are slot
+IDs that a caller may map to buffers or arena regions.
+
+An activation becomes live at its forward (`F`) action. Full backward (`B`)
+releases it. For schedules that separate input backward (`I`) from weight
+backward (`W`), `I` does not release the activation because `W` may still need
+the saved forward state; `W` releases it. Lifetimes include both endpoint
+positions, so actions grouped into the same compound schedule position overlap.
+
+For example, consider two stages and two microbatches on one pipeline rank:
+
+```
+position: 0 1 2 3 4 5 6 7
+action: F0,0 F1,0 F0,1 B1,0 B0,0 F1,1 B1,1 B0,1
+```
+
+With `granularity="stage_microbatch"`, the four activation lifetimes are
+`(0, 4)`, `(1, 3)`, `(2, 7)`, and `(5, 6)`; the final lifetime may reuse the
+first slot. With `granularity="microbatch"`, the selected stages for each
+microbatch share one conservative lifetime: `(0, 4)` for microbatch 0 and
+`(2, 7)` for microbatch 1. The latter mode is useful when a consumer manages
+all selected stages for one microbatch as one storage unit. Stage indices are
+global logical indices and commonly identify virtual stages hosted by the same
+pipeline rank.
+
+torch.distributed.pipelining.schedules.analyze_pipeline_activation_liveness(*schedule*, ***, *pp_rank*, *stage_indices*, *granularity*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/distributed/pipelining/schedules.py#L5027)
+
+Analyze activation lifetimes and assign reusable pipeline slots.
+
+The analysis follows the finalized action sequence for `pp_rank`. A
+forward action starts the lifetime of activation state retained for
+backward. Full backward ends that lifetime; when input and weight backward
+are split, weight backward ends it. Input backward does not release the
+activation because weight backward may still consume it. Both interval
+endpoints are inclusive, including sub-actions in one compound schedule
+position.
+
+This utility only computes liveness and logical slot IDs. It does not
+allocate tensors or prescribe a storage layout. Consumers can use the plan
+to reason about peak activation memory or map slots to stable buffers and
+arena regions.
+
+Parameters:
+
+- **schedule** (*PipelineScheduleMulti*) - Constructed multi-stage schedule whose finalized order will
+execute the pipeline step.
+- **pp_rank** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Rank within the pipeline process group to analyze. This may
+differ from the rank constructing `schedule` because every rank
+holds the complete finalized schedule.
+- **stage_indices** ([*Sequence*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence)*[*[*int*](https://docs.python.org/3/builtins/functions.html#int)*]*) - Global logical stages whose activations should be
+analyzed. One pipeline rank commonly hosts multiple such virtual
+stages. Every selected stage must execute once per microbatch on
+`pp_rank`.
+- **granularity** ([*Literal*](https://docs.python.org/3/library/typing.html#typing.Literal)*[**'microbatch'**,**'stage_microbatch'**]*) - `"stage_microbatch"` assigns independent lifetimes to
+every selected `(stage, microbatch)` pair. `"microbatch"` uses
+one lifetime per microbatch spanning the earliest selected-stage
+forward through the latest selected-stage release.
+
+Returns:
+
+An immutable activation-liveness plan. Its
+`PipelineActivationLiveness.slot_by_stage_and_microbatch` mapping
+contains a logical slot ID for every selected stage and microbatch.
+
+Raises:
+
+[**ValueError**](https://docs.python.org/3/builtins/exceptions.html#ValueError) - If the granularity or stage selection is invalid, the rank
+ is absent, or the finalized schedule does not contain one valid
+ forward-to-backward activation lifetime for every selected pair.
+
+Return type:
+
+*PipelineActivationLiveness*
+
+*class*torch.distributed.pipelining.schedules.PipelineActivationLiveness(*pp_rank*, *granularity*, *stage_indices*, *num_microbatches*, *slot_by_stage_and_microbatch*, *num_slots*, *_activation_lifetime_by_stage_and_microbatch*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/distributed/pipelining/schedules.py#L4877)
+
+Reusable activation slots derived from a pipeline schedule.
+
+This result describes logical storage slots; it does not allocate or own
+tensors. Each key in `slot_by_stage_and_microbatch` is a global
+`(stage_index, microbatch_index)` pair, and each value is the integer ID
+of the slot assigned to that activation. A caller may map those IDs to its
+own buffers or arena regions. If activations have different sizes, the
+caller must size a shared slot for every activation assigned to it or group
+compatible activations before allocating storage.
+
+An activation becomes live when its forward action executes and remains
+live through its full-backward or weight-backward action. Input-backward
+alone does not end the lifetime because a later weight-backward action may
+still need the forward activation. Schedule positions are inclusive, so
+two lifetimes that end and begin in the same compound action cannot share a
+slot.
+
+With `granularity="stage_microbatch"`, each stage and microbatch pair has
+its own lifetime. With `granularity="microbatch"`, all selected stages
+for a microbatch share one lifetime from the earliest forward through the
+latest release, and therefore share one slot ID.
+
+Instances are returned by `analyze_pipeline_activation_liveness()`.
+
+Variables:
+
+- **pp_rank** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Rank in the pipeline process group whose schedule was
+analyzed. This is not necessarily the global distributed rank.
+- **granularity** (*Literal**[**'microbatch'**,**'stage_microbatch'**]*) - Whether slots represent individual stage/microbatch pairs
+or whole microbatches across all selected stages.
+- **stage_indices** ([*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*[*[*int*](https://docs.python.org/3/builtins/functions.html#int)*,**...**]*) - Global logical pipeline-stage indices included in the
+analysis. These commonly identify virtual stages hosted by
+`pp_rank`.
+- **num_microbatches** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Number of microbatches in the analyzed schedule.
+- **slot_by_stage_and_microbatch** ([*collections.abc.Mapping*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Mapping)*[*[*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*[*[*int*](https://docs.python.org/3/builtins/functions.html#int)*,*[*int*](https://docs.python.org/3/builtins/functions.html#int)*]**,*[*int*](https://docs.python.org/3/builtins/functions.html#int)*]*) - Immutable mapping from
+`(stage_index, microbatch_index)` to logical activation-slot ID.
+- **num_slots** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Number of logical slots required by the assignment.
+
+get_activation_lifetime(*stage_index*, *microbatch_index*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/distributed/pipelining/schedules.py#L4951)
+
+Return the inclusive schedule interval for an activation.
+
+The returned `(forward_position, release_position)` indexes the
+finalized action sequence analyzed for `pp_rank`. Runtime
+schedules use their compute-and-communication sequence; other
+multi-stage schedules use their compute sequence.
+
+At `stage_microbatch` granularity, the interval belongs to the exact
+stage and microbatch pair. At `microbatch` granularity, every selected
+stage for the microbatch returns the same interval: the convex hull from
+the earliest selected-stage forward to the latest selected-stage full-
+or weight-backward action.
+
+Parameters:
+
+- **stage_index** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Global logical pipeline-stage index.
+- **microbatch_index** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Microbatch index within the pipeline step.
+
+Returns:
+
+The inclusive `(forward_position, release_position)` interval.
+
+Raises:
+
+[**ValueError**](https://docs.python.org/3/builtins/exceptions.html#ValueError) - If the pair was not included in the analysis.
+
+Return type:
+
+[tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[int](https://docs.python.org/3/builtins/functions.html#int), [int](https://docs.python.org/3/builtins/functions.html#int)]
+
+slot_for(*stage_index*, *microbatch_index*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/distributed/pipelining/schedules.py#L4930)
+
+Return the activation slot for a stage and microbatch.
+
+Parameters:
+
+- **stage_index** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Global logical pipeline-stage index.
+- **microbatch_index** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Microbatch index within the pipeline step.
+
+Returns:
+
+The logical activation-slot ID assigned to the pair.
+
+Raises:
+
+[**ValueError**](https://docs.python.org/3/builtins/exceptions.html#ValueError) - If the pair was not included in the analysis.
+
+Return type:
+
+[int](https://docs.python.org/3/builtins/functions.html#int)
+
+*class*torch.distributed.pipelining.schedules.ScheduleGPipe(*stage*, *n_microbatches*, *loss_fn=None*, *args_chunk_spec=None*, *kwargs_chunk_spec=None*, *output_merge_spec=None*, *scale_grads=True*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/distributed/pipelining/schedules.py#L1281)
 
 The GPipe schedule.
 Will go through all the microbatches in a fill-drain manner.
 
-*class*torch.distributed.pipelining.schedules.Schedule1F1B(*stage*, *n_microbatches*, *loss_fn=None*, *args_chunk_spec=None*, *kwargs_chunk_spec=None*, *output_merge_spec=None*, *scale_grads=True*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/distributed/pipelining/schedules.py#L1206)
+*class*torch.distributed.pipelining.schedules.Schedule1F1B(*stage*, *n_microbatches*, *loss_fn=None*, *args_chunk_spec=None*, *kwargs_chunk_spec=None*, *output_merge_spec=None*, *scale_grads=True*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/distributed/pipelining/schedules.py#L1415)
 
 The 1F1B schedule.
 Will perform one forward and one backward on the microbatches in steady state.
 
-*class*torch.distributed.pipelining.schedules.ScheduleInterleaved1F1B(*stages*, *n_microbatches*, *loss_fn=None*, *args_chunk_spec=None*, *kwargs_chunk_spec=None*, *output_merge_spec=None*, *scale_grads=True*, *backward_requires_autograd=True*, *defer_pp_recv=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/distributed/pipelining/schedules.py#L3149)
+*class*torch.distributed.pipelining.schedules.ScheduleInterleaved1F1B(*stages*, *n_microbatches*, *loss_fn=None*, *args_chunk_spec=None*, *kwargs_chunk_spec=None*, *output_merge_spec=None*, *scale_grads=True*, *backward_requires_autograd=True*, *defer_pp_recv=False*, *max_active_stages=3*, *unshard_lookahead='full'*, ***, *defer_reduce_grad_wait=False*, *max_outstanding_sends=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/distributed/pipelining/schedules.py#L4048)
 
 The Interleaved 1F1B schedule.
 See [https://arxiv.org/pdf/2104.04473](https://arxiv.org/pdf/2104.04473) for details.
@@ -587,7 +941,27 @@ it works as long as n_microbatches % num_rounds is 0. As a few examples, support
 1. pp_group_size = 4, n_microbatches = 10. We will have num_rounds = 2 and n_microbatches % 2 is 0.
 2. pp_group_size = 4, n_microbatches = 3. We will have num_rounds = 1 and n_microbatches % 1 is 0.
 
-*class*torch.distributed.pipelining.schedules.ScheduleLoopedBFS(*stages*, *n_microbatches*, *loss_fn=None*, *output_merge_spec=None*, *scale_grads=True*, *backward_requires_autograd=True*, *defer_pp_recv=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/distributed/pipelining/schedules.py#L2922)
+Parameters:
+
+- **max_active_stages** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Positive target number of local FSDP stages whose
+unsharded parameters may remain resident. An atomic compound action may
+transiently require up to its size minus one additional stages.
+- **unshard_lookahead** ([*Literal*](https://docs.python.org/3/library/typing.html#typing.Literal)*[**'full'**,**'auto'**]**|**tuple**[**python:int**,**...**]*) - Number of upcoming distinct stages whose asynchronous
+unshards may be issued. `"full"` matches `max_active_stages`;
+`"auto"` uses `min(rank + 2, max_active_stages)`; a tuple
+supplies one positive integer per pipeline rank.
+- **defer_reduce_grad_wait** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - If `True`, delay each FSDP
+`WAIT_REDUCE_GRAD` until before the next reduction or schedule
+end. Otherwise, each wait follows its `REDUCE_GRAD`. At most one
+reduction may be pending per pipeline rank.
+- **max_outstanding_sends** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*|**None*) - Maximum number of pending forward and backward
+send batches on each pipeline rank. `None` applies no hard limit.
+A smaller limit may move a wait before its receive is guaranteed
+to be posted and may stall. Schedule construction raises
+`ValueError` when no causally safe wait placement can meet the
+limit.
+
+*class*torch.distributed.pipelining.schedules.ScheduleLoopedBFS(*stages*, *n_microbatches*, *loss_fn=None*, *output_merge_spec=None*, *scale_grads=True*, *backward_requires_autograd=True*, *defer_pp_recv=False*, *max_active_stages=3*, *unshard_lookahead='full'*, ***, *defer_reduce_grad_wait=False*, *max_outstanding_sends=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/distributed/pipelining/schedules.py#L3797)
 
 Breadth-First Pipeline Parallelism.
 See [https://arxiv.org/abs/2211.05953](https://arxiv.org/abs/2211.05953) for details.
@@ -596,7 +970,23 @@ What is different is that when microbatches are ready for multiple local
 stages, Loops BFS will prioritizes the earlier stage, running all available
 microbatches at once.
 
-*class*torch.distributed.pipelining.schedules.ScheduleInterleavedZeroBubble(*stages*, *n_microbatches*, *loss_fn=None*, *args_chunk_spec=None*, *kwargs_chunk_spec=None*, *output_merge_spec=None*, *scale_grads=True*, *backward_requires_autograd=True*, *defer_pp_recv=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/distributed/pipelining/schedules.py#L3265)
+Parameters:
+
+- **max_active_stages** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Positive target number of local FSDP stages whose
+unsharded parameters may remain resident. An atomic compound action may
+transiently require up to its size minus one additional stages.
+- **unshard_lookahead** ([*Literal*](https://docs.python.org/3/library/typing.html#typing.Literal)*[**'full'**,**'auto'**]**|**tuple**[**python:int**,**...**]*) - Number of upcoming distinct stages whose asynchronous
+unshards may be issued. `"full"` matches `max_active_stages`;
+`"auto"` uses `min(rank + 2, max_active_stages)`; a tuple
+supplies one positive integer per pipeline rank.
+- **defer_reduce_grad_wait** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - If `True`, delay each FSDP
+`WAIT_REDUCE_GRAD` until before the next reduction or schedule
+end. Otherwise, each wait follows its `REDUCE_GRAD`. At most one
+reduction may be pending per pipeline rank.
+- **max_outstanding_sends** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*|**None*) - Maximum number of pending forward and backward
+send batches on each pipeline rank. `None` applies no hard limit.
+
+*class*torch.distributed.pipelining.schedules.ScheduleInterleavedZeroBubble(*stages*, *n_microbatches*, *loss_fn=None*, *args_chunk_spec=None*, *kwargs_chunk_spec=None*, *output_merge_spec=None*, *scale_grads=True*, *backward_requires_autograd=True*, *defer_pp_recv=False*, *max_active_stages=3*, *unshard_lookahead='full'*, ***, *defer_reduce_grad_wait=False*, *max_outstanding_sends=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/distributed/pipelining/schedules.py#L4192)
 
 The Interleaved Zero Bubble schedule.
 See [https://arxiv.org/pdf/2401.10241](https://arxiv.org/pdf/2401.10241) for details.
@@ -606,7 +996,23 @@ the pipeline bubble.
 
 In particular this is implementing the ZB1P schedule in the paper.
 
-*class*torch.distributed.pipelining.schedules.ScheduleZBVZeroBubble(*stages*, *n_microbatches*, *loss_fn=None*, *args_chunk_spec=None*, *kwargs_chunk_spec=None*, *output_merge_spec=None*, *scale_grads=True*, *backward_requires_autograd=True*, *defer_pp_recv=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/distributed/pipelining/schedules.py#L3457)
+Parameters:
+
+- **max_active_stages** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Positive target number of local FSDP stages whose
+unsharded parameters may remain resident. An atomic compound action may
+transiently require up to its size minus one additional stages.
+- **unshard_lookahead** ([*Literal*](https://docs.python.org/3/library/typing.html#typing.Literal)*[**'full'**,**'auto'**]**|**tuple**[**python:int**,**...**]*) - Number of upcoming distinct stages whose asynchronous
+unshards may be issued. `"full"` matches `max_active_stages`;
+`"auto"` uses `min(rank + 2, max_active_stages)`; a tuple
+supplies one positive integer per pipeline rank.
+- **defer_reduce_grad_wait** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - If `True`, delay each FSDP
+`WAIT_REDUCE_GRAD` until before the next reduction or schedule
+end. Otherwise, each wait follows its `REDUCE_GRAD`. At most one
+reduction may be pending per pipeline rank.
+- **max_outstanding_sends** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*|**None*) - Maximum number of pending forward and backward
+send batches on each pipeline rank. `None` applies no hard limit.
+
+*class*torch.distributed.pipelining.schedules.ScheduleZBVZeroBubble(*stages*, *n_microbatches*, *loss_fn=None*, *args_chunk_spec=None*, *kwargs_chunk_spec=None*, *output_merge_spec=None*, *scale_grads=True*, *backward_requires_autograd=True*, *defer_pp_recv=False*, *max_active_stages=3*, *unshard_lookahead='full'*, ***, *defer_reduce_grad_wait=False*, *max_outstanding_sends=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/distributed/pipelining/schedules.py#L4408)
 
 The Zero Bubble schedule (ZBV variant).
 See [https://arxiv.org/pdf/2401.10241](https://arxiv.org/pdf/2401.10241) Section 6 for details.
@@ -621,14 +1027,46 @@ This ZB-V schedule would have the "zero bubble" property only if time forward ==
 In practice, this is not likely true for real models so alternatively
 a greedy scheduler could be implemented for unequal/unbalanced time.
 
-*class*torch.distributed.pipelining.schedules.ScheduleDualPipeV(*stages*, *n_microbatches*, *loss_fn=None*, *args_chunk_spec=None*, *kwargs_chunk_spec=None*, *output_merge_spec=None*, *scale_grads=True*, *backward_requires_autograd=True*, *defer_pp_recv=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/distributed/pipelining/schedules.py#L3651)
+Parameters:
+
+- **max_active_stages** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Positive target number of local FSDP stages whose
+unsharded parameters may remain resident. An atomic compound action may
+transiently require up to its size minus one additional stages.
+- **unshard_lookahead** ([*Literal*](https://docs.python.org/3/library/typing.html#typing.Literal)*[**'full'**,**'auto'**]**|**tuple**[**python:int**,**...**]*) - Number of upcoming distinct stages whose asynchronous
+unshards may be issued. `"full"` matches `max_active_stages`;
+`"auto"` uses `min(rank + 2, max_active_stages)`; a tuple
+supplies one positive integer per pipeline rank.
+- **defer_reduce_grad_wait** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - If `True`, delay each FSDP
+`WAIT_REDUCE_GRAD` until before the next reduction or schedule
+end. Otherwise, each wait follows its `REDUCE_GRAD`. At most one
+reduction may be pending per pipeline rank.
+- **max_outstanding_sends** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*|**None*) - Maximum number of pending forward and backward
+send batches on each pipeline rank. `None` applies no hard limit.
+
+*class*torch.distributed.pipelining.schedules.ScheduleDualPipeV(*stages*, *n_microbatches*, *loss_fn=None*, *args_chunk_spec=None*, *kwargs_chunk_spec=None*, *output_merge_spec=None*, *scale_grads=True*, *backward_requires_autograd=True*, *defer_pp_recv=False*, *max_active_stages=3*, *unshard_lookahead='full'*, ***, *defer_reduce_grad_wait=False*, *max_outstanding_sends=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/distributed/pipelining/schedules.py#L4626)
 
 The DualPipeV schedule. A more efficient schedule variant based on the
 DualPipe schedule introduced by DeepSeek in [https://arxiv.org/pdf/2412.19437](https://arxiv.org/pdf/2412.19437)
 
 Based on the open sourced code from [deepseek-ai/DualPipe](https://github.com/deepseek-ai/DualPipe)
 
-*class*torch.distributed.pipelining.schedules.PipelineScheduleSingle(*stage*, *n_microbatches*, *loss_fn=None*, *args_chunk_spec=None*, *kwargs_chunk_spec=None*, *output_merge_spec=None*, *scale_grads=True*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/distributed/pipelining/schedules.py#L852)
+Parameters:
+
+- **max_active_stages** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Positive target number of local FSDP stages whose
+unsharded parameters may remain resident. An atomic compound action may
+transiently require up to its size minus one additional stages.
+- **unshard_lookahead** ([*Literal*](https://docs.python.org/3/library/typing.html#typing.Literal)*[**'full'**,**'auto'**]**|**tuple**[**python:int**,**...**]*) - Number of upcoming distinct stages whose asynchronous
+unshards may be issued. `"full"` matches `max_active_stages`;
+`"auto"` uses `min(rank + 2, max_active_stages)`; a tuple
+supplies one positive integer per pipeline rank.
+- **defer_reduce_grad_wait** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - If `True`, delay each FSDP
+`WAIT_REDUCE_GRAD` until before the next reduction or schedule
+end. Otherwise, each wait follows its `REDUCE_GRAD`. At most one
+reduction may be pending per pipeline rank.
+- **max_outstanding_sends** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*|**None*) - Maximum number of pending forward and backward
+send batches on each pipeline rank. `None` applies no hard limit.
+
+*class*torch.distributed.pipelining.schedules.PipelineScheduleSingle(*stage*, *n_microbatches*, *loss_fn=None*, *args_chunk_spec=None*, *kwargs_chunk_spec=None*, *output_merge_spec=None*, *scale_grads=True*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/distributed/pipelining/schedules.py#L1036)
 
 Base class for single-stage schedules.
 Implements the step method.
@@ -638,7 +1076,7 @@ Gradients are scaled by num_microbatches depending on the scale_grads argument, 
 should match the configuration of your loss_fn, which may either average losses (scale_grads=True)
 or sum losses (scale_grads=False).
 
-step(**args*, *target=None*, *losses=None*, *return_outputs=True*, *loss_kwargs=None*, *arg_mbs=None*, *kwarg_mbs=None*, *target_mbs=None*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/distributed/pipelining/schedules.py#L906)
+step(**args*, *target=None*, *losses=None*, *return_outputs=True*, *loss_kwargs=None*, *arg_mbs=None*, *kwarg_mbs=None*, *target_mbs=None*, *finalize_gradients=True*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/distributed/pipelining/schedules.py#L1090)
 
 Run one training iteration of a single-stage pipeline schedule.
 
@@ -654,19 +1092,27 @@ stage. Do not pass positional inputs with pre-split inputs.
 - **target** (*Any**,**optional*) - Whole-batch target for loss computation.
 When passing pre-split inputs, pass targets through
 `target_mbs` instead. Default: `None`.
-- **losses** ([*list*](https://docs.python.org/3/library/stdtypes.html#list)*,**optional*) - Mutable list populated with one loss per
+- **losses** ([*list*](https://docs.python.org/3/builtins/stdtypes.html#list)*,**optional*) - Mutable list populated with one loss per
 microbatch when this schedule owns the last stage and a
 `loss_fn` was configured. Default: `None`.
-- **return_outputs** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - Whether to merge and return output
+- **return_outputs** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - Whether to merge and return output
 chunks on the last stage. Default: `True`.
-- **loss_kwargs** ([*dict*](https://docs.python.org/3/library/stdtypes.html#dict)*,**optional*) - Extra keyword arguments forwarded to
+- **loss_kwargs** ([*dict*](https://docs.python.org/3/builtins/stdtypes.html#dict)*,**optional*) - Extra keyword arguments forwarded to
 the configured `loss_fn`. Default: `None`.
-- **arg_mbs** ([*list*](https://docs.python.org/3/library/stdtypes.html#list)*[*[*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*]**,**optional*) - Pre-split positional inputs, one
+- **arg_mbs** ([*list*](https://docs.python.org/3/builtins/stdtypes.html#list)*[*[*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*]**,**optional*) - Pre-split positional inputs, one
 tuple per microbatch. Default: `None`.
-- **kwarg_mbs** ([*list*](https://docs.python.org/3/library/stdtypes.html#list)*[*[*dict*](https://docs.python.org/3/library/stdtypes.html#dict)*]**,**optional*) - Pre-split keyword inputs, one
+- **kwarg_mbs** ([*list*](https://docs.python.org/3/builtins/stdtypes.html#list)*[*[*dict*](https://docs.python.org/3/builtins/stdtypes.html#dict)*]**,**optional*) - Pre-split keyword inputs, one
 dict per microbatch. Default: `None`.
-- **target_mbs** ([*list*](https://docs.python.org/3/library/stdtypes.html#list)*,**optional*) - Pre-split targets, one entry per
+- **target_mbs** ([*list*](https://docs.python.org/3/builtins/stdtypes.html#list)*,**optional*) - Pre-split targets, one entry per
 microbatch. Default: `None`.
+- **finalize_gradients** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - Whether to reduce accumulated
+FSDP gradients and reshard FSDP parameters at the end of this
+call. If `False`, FSDP parameters stay unsharded, and a later
+call with `True` is required before reading `.grad`. With
+`scale_grads=True`, the final call divides by
+`n_microbatches` only. Divide by the number of accumulated
+calls separately if needed. This has no effect on non-FSDP
+stages. Default: `True`.
 - ****kwargs** (*Any*) - Whole-batch keyword inputs for the first pipeline
 stage. Do not pass keyword inputs with pre-split inputs.
 
@@ -683,11 +1129,11 @@ Any or None
 
 Raises:
 
-- [**RuntimeError**](https://docs.python.org/3/library/exceptions.html#RuntimeError) - If backward computation is enabled and `step` is
+- [**RuntimeError**](https://docs.python.org/3/builtins/exceptions.html#RuntimeError) - If backward computation is enabled and `step` is
  called under `torch.no_grad()`. Use `eval()` for
  forward-only execution.
-- [**TypeError**](https://docs.python.org/3/library/exceptions.html#TypeError) - If a pre-split microbatch container has the wrong type.
-- [**ValueError**](https://docs.python.org/3/library/exceptions.html#ValueError) - If whole-batch and pre-split inputs are mixed, or if a
+- [**TypeError**](https://docs.python.org/3/builtins/exceptions.html#TypeError) - If a pre-split microbatch container has the wrong type.
+- [**ValueError**](https://docs.python.org/3/builtins/exceptions.html#ValueError) - If whole-batch and pre-split inputs are mixed, or if a
  pre-split container does not have one entry per microbatch.
 
 Examples:
@@ -704,7 +1150,7 @@ Examples:
 ... )
 ```
 
-*class*torch.distributed.pipelining.schedules.PipelineScheduleMulti(*stages*, *n_microbatches*, *loss_fn=None*, *args_chunk_spec=None*, *kwargs_chunk_spec=None*, *output_merge_spec=None*, *use_full_backward=None*, *scale_grads=True*, *backward_requires_autograd=True*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/distributed/pipelining/schedules.py#L1960)
+*class*torch.distributed.pipelining.schedules.PipelineScheduleMulti(*stages*, *n_microbatches*, *loss_fn=None*, *args_chunk_spec=None*, *kwargs_chunk_spec=None*, *output_merge_spec=None*, *use_full_backward=None*, *scale_grads=True*, *backward_requires_autograd=True*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/distributed/pipelining/schedules.py#L2636)
 
 Base class for multi-stage schedules.
 Implements the step method.
@@ -713,7 +1159,7 @@ Gradients are scaled by num_microbatches depending on the scale_grads argument, 
 should match the configuration of your loss_fn, which may either average losses (scale_grads=True)
 or sum losses (scale_grads=False).
 
-step(**args*, *target=None*, *losses=None*, *return_outputs=True*, *loss_kwargs=None*, *arg_mbs=None*, *kwarg_mbs=None*, *target_mbs=None*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/distributed/pipelining/schedules.py#L2145)
+step(**args*, *target=None*, *losses=None*, *return_outputs=True*, *loss_kwargs=None*, *arg_mbs=None*, *kwarg_mbs=None*, *target_mbs=None*, *finalize_gradients=True*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/distributed/pipelining/schedules.py#L2821)
 
 Run one training iteration of a multi-stage pipeline schedule.
 
@@ -730,19 +1176,27 @@ pre-split inputs.
 - **target** (*Any**,**optional*) - Whole-batch target for loss computation.
 When passing pre-split inputs, pass targets through
 `target_mbs` instead. Default: `None`.
-- **losses** ([*list*](https://docs.python.org/3/library/stdtypes.html#list)*,**optional*) - Mutable list populated with one loss per
+- **losses** ([*list*](https://docs.python.org/3/builtins/stdtypes.html#list)*,**optional*) - Mutable list populated with one loss per
 microbatch when this schedule owns the last stage and a
 `loss_fn` was configured. Default: `None`.
-- **return_outputs** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - Whether to merge and return output
+- **return_outputs** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - Whether to merge and return output
 chunks on the last stage. Default: `True`.
-- **loss_kwargs** ([*dict*](https://docs.python.org/3/library/stdtypes.html#dict)*,**optional*) - Extra keyword arguments forwarded to
+- **loss_kwargs** ([*dict*](https://docs.python.org/3/builtins/stdtypes.html#dict)*,**optional*) - Extra keyword arguments forwarded to
 the configured `loss_fn`. Default: `None`.
-- **arg_mbs** ([*list*](https://docs.python.org/3/library/stdtypes.html#list)*[*[*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*]**,**optional*) - Pre-split positional inputs, one
+- **arg_mbs** ([*list*](https://docs.python.org/3/builtins/stdtypes.html#list)*[*[*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*]**,**optional*) - Pre-split positional inputs, one
 tuple per microbatch. Default: `None`.
-- **kwarg_mbs** ([*list*](https://docs.python.org/3/library/stdtypes.html#list)*[*[*dict*](https://docs.python.org/3/library/stdtypes.html#dict)*]**,**optional*) - Pre-split keyword inputs, one
+- **kwarg_mbs** ([*list*](https://docs.python.org/3/builtins/stdtypes.html#list)*[*[*dict*](https://docs.python.org/3/builtins/stdtypes.html#dict)*]**,**optional*) - Pre-split keyword inputs, one
 dict per microbatch. Default: `None`.
-- **target_mbs** ([*list*](https://docs.python.org/3/library/stdtypes.html#list)*,**optional*) - Pre-split targets, one entry per
+- **target_mbs** ([*list*](https://docs.python.org/3/builtins/stdtypes.html#list)*,**optional*) - Pre-split targets, one entry per
 microbatch. Default: `None`.
+- **finalize_gradients** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - Whether to reduce accumulated
+FSDP gradients and reshard FSDP parameters at the end of this
+call. If `False`, FSDP parameters stay unsharded, and a later
+call with `True` is required before reading `.grad`. With
+`scale_grads=True`, the final call divides by
+`n_microbatches` only. Divide by the number of accumulated
+calls separately if needed. This has no effect on non-FSDP
+stages. Default: `True`.
 - ****kwargs** (*Any*) - Whole-batch keyword root inputs when this rank owns
 the first pipeline stage. Do not pass keyword inputs with
 pre-split inputs.
@@ -760,11 +1214,11 @@ Any or None
 
 Raises:
 
-- [**RuntimeError**](https://docs.python.org/3/library/exceptions.html#RuntimeError) - If backward computation is enabled and `step` is
+- [**RuntimeError**](https://docs.python.org/3/builtins/exceptions.html#RuntimeError) - If backward computation is enabled and `step` is
  called under `torch.no_grad()`. Use `eval()` for
  forward-only execution.
-- [**TypeError**](https://docs.python.org/3/library/exceptions.html#TypeError) - If a pre-split microbatch container has the wrong type.
-- [**ValueError**](https://docs.python.org/3/library/exceptions.html#ValueError) - If whole-batch and pre-split inputs are mixed, or if a
+- [**TypeError**](https://docs.python.org/3/builtins/exceptions.html#TypeError) - If a pre-split microbatch container has the wrong type.
+- [**ValueError**](https://docs.python.org/3/builtins/exceptions.html#ValueError) - If whole-batch and pre-split inputs are mixed, or if a
  pre-split container does not have one entry per microbatch.
 
 Examples:
@@ -781,10 +1235,10 @@ Examples:
 ... )
 ```
 
-torch.distributed.pipelining.schedules.get_schedule_class(*schedule_name*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/distributed/pipelining/schedules.py#L3878)
+torch.distributed.pipelining.schedules.get_schedule_class(*schedule_name*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/distributed/pipelining/schedules.py#L5220)
 
 Maps a schedule name (case insensitive) to its corresponding class object.
 
 Parameters:
 
-**schedule_name** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - The name of the schedule.
+**schedule_name** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - The name of the schedule.

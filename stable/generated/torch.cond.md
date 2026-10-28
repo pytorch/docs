@@ -1,6 +1,6 @@
 # torch.cond
 
-torch.cond(*pred*, *true_fn*, *false_fn*, *operands=()*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/_higher_order_ops/cond.py#L94)
+torch.cond(*pred*, *true_fn*, *false_fn*, *operands=()*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/_higher_order_ops/cond.py#L94)
 
 Conditionally applies true_fn or false_fn.
 
@@ -26,7 +26,7 @@ def cond(pred, true_branch, false_branch, operands):
 
 Parameters:
 
-- **pred** (*Union**[*[*bool*](https://docs.python.org/3/library/functions.html#bool)*,*[*torch.Tensor*](../tensors.html#torch.Tensor)*]*) - A boolean expression or a tensor with one element,
+- **pred** (*Union**[*[*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,*[*torch.Tensor*](../tensors.html#torch.Tensor)*]*) - A boolean expression or a tensor with one element,
 indicating which branch function to apply.
 - **true_fn** (*Callable*) - A callable function (a -> b) that is within the
 scope that is being traced.

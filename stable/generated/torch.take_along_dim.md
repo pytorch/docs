@@ -18,7 +18,7 @@ Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - the input tensor.
 - **indices** (*LongTensor*) - the indices into `input`. Must have long dtype.
-- **dim** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - dimension to select along. Default: None.
+- **dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - dimension to select along. Default: None.
 
 Keyword Arguments:
 

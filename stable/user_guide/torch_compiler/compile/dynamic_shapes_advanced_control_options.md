@@ -14,7 +14,7 @@ its size varies across ranks.
 
 Profile-Guided Optimization (PGO) enhances automatic dynamic by sharing profiling decisions across runs of your model. Specifically, it serializes all the choices made by automatic dynamic into a file on disk. You can then copy this file--or store it in a centralized metadata service like S3--and reuse it on other machines to ensure consistent behavior across environments.
 
-For the purposes of the rest of this tutorial, you can use the following environmental variables to turn on PGO locally `TORCH_COMPILE_JOB_ID=1 TORCH_DYNAMO_AUTOMATIC_DYNAMIC_LOCAL_PGO=1`
+For the purposes of the rest of this tutorial, you can use the following environmental variables to turn on PGO locally `TORCH_COMPILE_JOB_ID=profile_1 TORCH_DYNAMO_AUTOMATIC_DYNAMIC_LOCAL_PGO=profile_1`
 
 ### Identifying Dynamic Elements Marked by PGO
 

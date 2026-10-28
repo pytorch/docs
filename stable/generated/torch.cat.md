@@ -19,7 +19,7 @@ Parameters:
 
 - **tensors** (*sequence**of**Tensors*) - Non-empty tensors provided must have the same shape,
 except in the cat dimension.
-- **dim** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - the dimension over which the tensors are concatenated
+- **dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - the dimension over which the tensors are concatenated
 
 Keyword Arguments:
 

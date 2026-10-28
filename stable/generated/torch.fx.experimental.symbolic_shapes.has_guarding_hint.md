@@ -1,6 +1,6 @@
 # torch.fx.experimental.symbolic_shapes.has_guarding_hint
 
-torch.fx.experimental.symbolic_shapes.has_guarding_hint(*a*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/fx/experimental/symbolic_shapes.py#L429)
+torch.fx.experimental.symbolic_shapes.has_guarding_hint(*a*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/fx/experimental/symbolic_shapes.py#L430)
 
 Check if a symbolic value has a hint available for guarding.
 
@@ -9,4 +9,4 @@ False otherwise.
 
 Return type:
 
-[bool](https://docs.python.org/3/library/functions.html#bool)
+[bool](https://docs.python.org/3/builtins/functions.html#bool)

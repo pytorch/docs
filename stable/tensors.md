@@ -5,7 +5,7 @@ a single data type. Please see [torch.dtype](tensor_attributes.html#dtype-doc) f
 
 ## Initializing and basic operations
 
-A tensor can be constructed from a Python [`list`](https://docs.python.org/3/library/stdtypes.html#list) or sequence using the
+A tensor can be constructed from a Python [`list`](https://docs.python.org/3/builtins/stdtypes.html#list) or sequence using the
 [`torch.tensor()`](generated/torch.tensor.html#torch.tensor) constructor:
 
 ```

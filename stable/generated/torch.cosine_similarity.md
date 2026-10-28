@@ -17,8 +17,8 @@ Parameters:
 
 - **x1** ([*Tensor*](../tensors.html#torch.Tensor)) - First input.
 - **x2** ([*Tensor*](../tensors.html#torch.Tensor)) - Second input.
-- **dim** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - Dimension along which cosine similarity is computed. Default: 1
-- **eps** ([*float*](https://docs.python.org/3/library/functions.html#float)*,**optional*) - Small value to avoid division by zero.
+- **dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - Dimension along which cosine similarity is computed. Default: 1
+- **eps** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*,**optional*) - Small value to avoid division by zero.
 Default: 1e-8
 
 Example:

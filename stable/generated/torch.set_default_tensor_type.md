@@ -1,6 +1,6 @@
 # torch.set_default_tensor_type
 
-torch.set_default_tensor_type(*t*, */*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/__init__.py#L1672)
+torch.set_default_tensor_type(*t*, */*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/__init__.py#L1681)
 
 Warning
 
@@ -15,7 +15,7 @@ The default floating point tensor type is initially `torch.FloatTensor`.
 
 Parameters:
 
-**t** ([*type*](https://docs.python.org/3/library/functions.html#type)*or**string*) - the floating point tensor type or its name
+**t** ([*type*](https://docs.python.org/3/builtins/functions.html#type)*or**string*) - the floating point tensor type or its name
 
 Example:
 

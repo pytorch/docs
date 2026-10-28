@@ -55,9 +55,9 @@ Parameters:
 
 Keyword Arguments:
 
-- **dx** ([*float*](https://docs.python.org/3/library/functions.html#float)) - constant spacing between values. If neither `x` or `dx`
+- **dx** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - constant spacing between values. If neither `x` or `dx`
 are specified then this defaults to 1. Effectively multiplies the result by its value.
-- **dim** ([*int*](https://docs.python.org/3/library/functions.html#int)) - The dimension along which to compute the trapezoidal rule.
+- **dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - The dimension along which to compute the trapezoidal rule.
 The last (inner-most) dimension by default.
 
 Examples:

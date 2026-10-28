@@ -1,6 +1,6 @@
 # GELU
 
-*class*torch.nn.modules.activation.GELU(*approximate='none'*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/nn/modules/activation.py#L778)
+*class*torch.nn.modules.activation.GELU(*approximate='none'*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/nn/modules/activation.py#L778)
 
 Applies the Gaussian Error Linear Units function.
 
@@ -17,7 +17,7 @@ GELU(x)=0.5∗x∗(1+Tanh(2/π∗(x+0.044715∗x3)))\text{GELU}(x) = 0.5 * x * (
 GELU(x)=0.5∗x∗(1+Tanh(2/π​∗(x+0.044715∗x3)))
 Parameters:
 
-**approximate** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**optional*) - the gelu approximation algorithm to use:
+**approximate** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**optional*) - the gelu approximation algorithm to use:
 `'none'` | `'tanh'`. Default: `'none'`
 
 Shape:
@@ -35,15 +35,15 @@ Examples:
 >>> output = m(input)
 ```
 
-extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/nn/modules/activation.py#L819)
+extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/nn/modules/activation.py#L819)
 
 Return the extra representation of the module.
 
 Return type:
 
-[str](https://docs.python.org/3/library/stdtypes.html#str)
+[str](https://docs.python.org/3/builtins/stdtypes.html#str)
 
-forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/nn/modules/activation.py#L813)
+forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/nn/modules/activation.py#L813)
 
 Runs the forward pass.
 

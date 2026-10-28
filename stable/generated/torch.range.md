@@ -17,9 +17,9 @@ Python's range builtin. Instead, use [`torch.arange()`](torch.arange.html#torch.
 
 Parameters:
 
-- **start** ([*float*](https://docs.python.org/3/library/functions.html#float)*,**optional*) - the starting value for the set of points. Default: `0`.
-- **end** ([*float*](https://docs.python.org/3/library/functions.html#float)) - the ending value for the set of points
-- **step** ([*float*](https://docs.python.org/3/library/functions.html#float)*,**optional*) - the gap between each pair of adjacent points. Default: `1`.
+- **start** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*,**optional*) - the starting value for the set of points. Default: `0`.
+- **end** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - the ending value for the set of points
+- **step** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*,**optional*) - the gap between each pair of adjacent points. Default: `1`.
 
 Keyword Arguments:
 
@@ -36,7 +36,7 @@ Default: `torch.strided`.
 Default: if `None`, uses the current device for the default tensor type
 (see [`torch.set_default_device()`](torch.set_default_device.html#torch.set_default_device)). [`device`](../tensor_attributes.html#torch.device) will be the CPU
 for CPU tensor types and the current CUDA device for CUDA tensor types.
-- **requires_grad** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If autograd should record operations on the
+- **requires_grad** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If autograd should record operations on the
 returned tensor. Default: `False`.
 
 Example:

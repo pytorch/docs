@@ -1,13 +1,13 @@
 # torch.use_deterministic_algorithms
 
-torch.use_deterministic_algorithms(*mode*, ***, *warn_only=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/__init__.py#L1756)
+torch.use_deterministic_algorithms(*mode*, ***, *warn_only=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/__init__.py#L1765)
 
 Sets whether PyTorch operations must use "deterministic"
 algorithms. That is, algorithms which, given the same input, and when
 run on the same software and hardware, always produce the same output.
 When enabled, operations will use deterministic algorithms when available,
 and if only nondeterministic algorithms are available they will throw a
-[`RuntimeError`](https://docs.python.org/3/library/exceptions.html#RuntimeError) when called.
+[`RuntimeError`](https://docs.python.org/3/builtins/exceptions.html#RuntimeError) when called.
 
 Note
 
@@ -52,7 +52,7 @@ deterministically when `mode=True`:
 > - [`torch.nn.Embedding`](torch.nn.Embedding.html#torch.nn.Embedding) when attempting to differentiate a CUDA tensor
 
 The following normally-nondeterministic operations will throw a
-[`RuntimeError`](https://docs.python.org/3/library/exceptions.html#RuntimeError) when `mode=True`:
+[`RuntimeError`](https://docs.python.org/3/builtins/exceptions.html#RuntimeError) when `mode=True`:
 
 > - [`torch.nn.AvgPool3d`](torch.nn.AvgPool3d.html#torch.nn.AvgPool3d) when attempting to differentiate a CUDA tensor
 > - [`torch.nn.AdaptiveAvgPool2d`](torch.nn.AdaptiveAvgPool2d.html#torch.nn.AdaptiveAvgPool2d) when attempting to differentiate a CUDA tensor
@@ -87,7 +87,19 @@ The following normally-nondeterministic operations will throw a
 > tensor is given
 > - [`torch.median()`](torch.median.html#torch.median) with indices output when called on a CUDA tensor
 > - [`torch.nn.functional.grid_sample()`](torch.nn.functional.grid_sample.html#torch.nn.functional.grid_sample) when attempting to differentiate a CUDA tensor
-> - [`torch.Tensor.scatter_reduce()`](torch.Tensor.scatter_reduce.html#torch.Tensor.scatter_reduce) when `reduce='prod'` and called on CUDA tensor
+> - [`torch.Tensor.scatter_reduce()`](torch.Tensor.scatter_reduce.html#torch.Tensor.scatter_reduce) when called on CUDA or MPS tensor
+> - [`torch.Tensor.index_put()`](torch.Tensor.index_put.html#torch.Tensor.index_put) with `accumulate=True` when called on
+> an MPS tensor with floating or complex dtype
+> - [`torch.Tensor.index_reduce()`](torch.Tensor.index_reduce.html#torch.Tensor.index_reduce) with `reduce='prod'\'mean'`
+> when called on an MPS tensor with floating or complex dtype
+> - [`torch.kthvalue()`](torch.kthvalue.html#torch.kthvalue) when called on an MPS tensor
+> - [`torch.nn.Embedding`](torch.nn.Embedding.html#torch.nn.Embedding) when attempting to differentiate an MPS tensor
+> - [`torch.nn.EmbeddingBag`](torch.nn.EmbeddingBag.html#torch.nn.EmbeddingBag) when attempting to differentiate an MPS tensor
+> - [`torch.nn.functional.grid_sample()`](torch.nn.functional.grid_sample.html#torch.nn.functional.grid_sample) when attempting to differentiate an MPS tensor
+> - [`torch.nn.MaxPool2d()`](torch.nn.MaxPool2d.html#torch.nn.MaxPool2d), [`torch.nn.MaxPool3d()`](torch.nn.MaxPool3d.html#torch.nn.MaxPool3d), and [`torch.nn.AvgPool3d()`](torch.nn.AvgPool3d.html#torch.nn.AvgPool3d)
+> when attempting to differentiate an MPS tensor
+> - [`torch.nn.functional.interpolate()`](torch.nn.functional.interpolate.html#torch.nn.functional.interpolate) when attempting to differentiate an MPS tensor
+> in some cases
 > - [`torch.Tensor.resize_()`](torch.Tensor.resize_.html#torch.Tensor.resize_) when called with a quantized tensor
 
 In addition, several operations fill uninitialized memory when this setting
@@ -127,13 +139,13 @@ a single memory location, and the order of writes is not guaranteed.
 
 Parameters:
 
-**mode** ([`bool`](https://docs.python.org/3/library/functions.html#bool)) - If True, makes potentially nondeterministic
+**mode** ([`bool`](https://docs.python.org/3/builtins/functions.html#bool)) - If True, makes potentially nondeterministic
 operations switch to a deterministic algorithm or throw a runtime
 error. If False, allows nondeterministic operations.
 
 Keyword Arguments:
 
-**warn_only** ([`bool`](https://docs.python.org/3/library/functions.html#bool), optional) - If True, operations that do not
+**warn_only** ([`bool`](https://docs.python.org/3/builtins/functions.html#bool), optional) - If True, operations that do not
 have a deterministic implementation will throw a warning instead of
 an error. Default: `False`
 

@@ -13,9 +13,9 @@ If the norm of a row is lower than maxnorm, the row is unchanged
 Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - the input tensor.
-- **p** ([*float*](https://docs.python.org/3/library/functions.html#float)) - the power for the norm computation
-- **dim** ([*int*](https://docs.python.org/3/library/functions.html#int)) - the dimension to slice over to get the sub-tensors
-- **maxnorm** ([*float*](https://docs.python.org/3/library/functions.html#float)) - the maximum norm to keep each sub-tensor under
+- **p** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - the power for the norm computation
+- **dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - the dimension to slice over to get the sub-tensors
+- **maxnorm** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - the maximum norm to keep each sub-tensor under
 
 Keyword Arguments:
 

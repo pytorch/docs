@@ -1,6 +1,6 @@
 # clamp
 
-*class*torch.ao.nn.quantized.functional.clamp(*input*, *min_*, *max_*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/ao/nn/quantized/functional.py#L663)
+*class*torch.ao.nn.quantized.functional.clamp(*input*, *min_*, *max_*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/ao/nn/quantized/functional.py#L663)
 
 float(input, min_, max_) -> Tensor
 

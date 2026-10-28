@@ -1,6 +1,6 @@
 # Threshold
 
-*class*torch.nn.Threshold(*threshold*, *value*, *inplace=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/nn/modules/activation.py#L47)
+*class*torch.nn.Threshold(*threshold*, *value*, *inplace=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/nn/modules/activation.py#L47)
 
 Thresholds each element of the input Tensor.
 
@@ -15,9 +15,9 @@ x, &\text{ if } x > \text{threshold} \\
 y={x,value,​ if x>threshold otherwise ​
 Parameters:
 
-- **threshold** ([*float*](https://docs.python.org/3/library/functions.html#float)) - The value to threshold at
-- **value** ([*float*](https://docs.python.org/3/library/functions.html#float)) - The value to replace with
-- **inplace** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - can optionally do the operation in-place. Default: `False`
+- **threshold** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - The value to threshold at
+- **value** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - The value to replace with
+- **inplace** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - can optionally do the operation in-place. Default: `False`
 
 Shape:
 
@@ -34,15 +34,15 @@ Examples:
 >>> output = m(input)
 ```
 
-extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/nn/modules/activation.py#L96)
+extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/nn/modules/activation.py#L96)
 
 Return the extra representation of the module.
 
 Return type:
 
-[str](https://docs.python.org/3/library/stdtypes.html#str)
+[str](https://docs.python.org/3/builtins/stdtypes.html#str)
 
-forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/nn/modules/activation.py#L90)
+forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/nn/modules/activation.py#L90)
 
 Runs the forward pass.
 

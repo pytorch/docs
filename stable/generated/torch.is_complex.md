@@ -1,6 +1,6 @@
 # torch.is_complex
 
-torch.is_complex(*input: [Tensor](../tensors.html#torch.Tensor)*) → [bool](https://docs.python.org/3/library/functions.html#bool)
+torch.is_complex(*input: [Tensor](../tensors.html#torch.Tensor)*) → [bool](https://docs.python.org/3/builtins/functions.html#bool)
 
 Returns True if the data type of `input` is a complex data type i.e.,
 one of `torch.complex64`, and `torch.complex128`.

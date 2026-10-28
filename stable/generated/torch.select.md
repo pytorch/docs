@@ -15,8 +15,8 @@ raised. In this is the case, consider using
 Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - the input tensor.
-- **dim** ([*int*](https://docs.python.org/3/library/functions.html#int)) - the dimension to slice
-- **index** ([*int*](https://docs.python.org/3/library/functions.html#int)) - the index to select with
+- **dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - the dimension to slice
+- **index** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - the index to select with
 
 Note
 

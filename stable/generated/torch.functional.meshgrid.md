@@ -1,6 +1,6 @@
 # torch.functional.meshgrid
 
-torch.functional.meshgrid(**tensors*, *indexing=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/functional.py#L395)
+torch.functional.meshgrid(**tensors*, *indexing=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/functional.py#L395)
 
 Creates grids of coordinates specified by the 1D inputs in attr:tensors.
 
@@ -37,9 +37,9 @@ collects the data in a tensor of vectors.
 
 Parameters:
 
-- **tensors** ([*list*](https://docs.python.org/3/library/stdtypes.html#list)*of*[*Tensor*](../tensors.html#torch.Tensor)) - list of scalars or 1 dimensional tensors. Scalars will be
+- **tensors** ([*list*](https://docs.python.org/3/builtins/stdtypes.html#list)*of*[*Tensor*](../tensors.html#torch.Tensor)) - list of scalars or 1 dimensional tensors. Scalars will be
 treated as tensors of size (1,)(1,)(1,) automatically
-- **indexing** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*|**None*) -
+- **indexing** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*|**None*) -
 
 (str, optional): the indexing mode, either "xy"
 or "ij", defaults to "ij". See warning for future changes.

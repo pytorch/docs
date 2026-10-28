@@ -73,7 +73,7 @@ specify the default values. All kinds of Python objects are accepted here.
 before the call, and their use will be registered in the graph. Note that this
 logic won't traverse lists/dicts/any other data structures and will only
 consider tensors that are direct arguments to the call. You can
-return either a single `Tensor` output, or a [`tuple`](https://docs.python.org/3/library/stdtypes.html#tuple) of
+return either a single `Tensor` output, or a [`tuple`](https://docs.python.org/3/builtins/stdtypes.html#tuple) of
 tensors if there are multiple outputs. Also, please refer to the
 docs of [`Function`](../autograd.html#torch.autograd.Function) to find descriptions of useful methods that can be
 called only from [`forward()`](../generated/torch.autograd.Function.forward.html#torch.autograd.Function.forward).
@@ -95,7 +95,7 @@ corresponding input. If your inputs didn't require gradient
 whether each input needs gradient computation), or were non-`Tensor`
 objects, you can return `python:None`. Also, if you have optional
 arguments to [`forward()`](../generated/torch.autograd.Function.forward.html#torch.autograd.Function.forward) you can return more gradients than there
-were inputs, as long as they're all [`None`](https://docs.python.org/3/library/constants.html#None).
+were inputs, as long as they're all [`None`](https://docs.python.org/3/builtins/constants.html#None).
 
 **Step 2:** It is your responsibility to use the functions in `ctx`
 properly in order to ensure that the new [`Function`](../autograd.html#torch.autograd.Function) works properly with
@@ -135,6 +135,18 @@ function. That is, if set to False, None object in Python or "undefined tensor" 
 which x.defined() is False) in C++ will not be converted to a tensor filled with zeros prior
 to calling backward, and so your code will need to handle such objects as if they were
 tensors filled with zeros. The default value of this setting is True.
+
+When a tensor has multiple forward uses, multiple backward nodes contribute to
+its gradient. Normally, each node returns a separate tensor that the engine adds
+into an `InputBuffer`. `ctx.input_grad_buffers`
+lets a custom backward fuse that accumulation into its backward kernel by writing
+directly into an existing partial sum and returning `None`. See
+[`input_grad_buffers`](../generated/torch.autograd.function.FunctionCtx.input_grad_buffers.html#torch.autograd.function.FunctionCtx.input_grad_buffers) for more details.
+
+If a leaf tensor has multiple forward uses, it will have an `InputBuffer`
+during backward in addition to its `.grad` field. To fuse accumulation for
+leaf nodes, it is recommended that you retain a reference to the leaf and mutate
+its `.grad` field instead of using `ctx.input_grad_buffers`.
 
 In addition to `ctx` methods, the [`Function`](../autograd.html#torch.autograd.Function) class supports the following
 class attributes:

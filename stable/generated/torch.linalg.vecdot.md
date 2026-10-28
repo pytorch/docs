@@ -1,6 +1,6 @@
 # torch.linalg.vecdot
 
-torch.linalg.vecdot(*x*, *y*, ***, *dim=-1*, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/linalg/__init__.py#L3091)
+torch.linalg.vecdot(*x*, *y*, ***, *dim=-1*, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/linalg/__init__.py#L3091)
 
 Computes the dot product of two batches of vectors along a dimension.
 
@@ -21,7 +21,7 @@ Parameters:
 
 Keyword Arguments:
 
-- **dim** ([*int*](https://docs.python.org/3/library/functions.html#int)) - Dimension along which to compute the dot product. Default: -1.
+- **dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Dimension along which to compute the dot product. Default: -1.
 - **out** ([*Tensor*](../tensors.html#torch.Tensor)*,**optional*) - output tensor. Ignored if None. Default: None.
 
 Examples:

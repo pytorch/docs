@@ -39,6 +39,7 @@ Python API
 - [torch.distributions](distributions.html)
 - [torch.compiler](torch.compiler_api.html)
 - [torch.fft](fft.html)
+- [torch.foreach](foreach.html)
 - [torch.func](func.html)
 - [torch.futures](futures.html)
 - [torch.fx](fx.html)

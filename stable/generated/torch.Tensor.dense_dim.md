@@ -1,6 +1,6 @@
 # torch.Tensor.dense_dim
 
-Tensor.dense_dim() → [int](https://docs.python.org/3/library/functions.html#int)
+Tensor.dense_dim() → [int](https://docs.python.org/3/builtins/functions.html#int)
 
 Return the number of dense dimensions in a [sparse tensor](../sparse.html#sparse-docs) `self`.
 

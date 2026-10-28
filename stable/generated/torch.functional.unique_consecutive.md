@@ -1,6 +1,6 @@
 # torch.functional.unique_consecutive
 
-torch.functional.unique_consecutive(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/_jit_internal.py#L627)
+torch.functional.unique_consecutive(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/_jit_internal.py#L627)
 
 Eliminates all but the first element from every consecutive group of equivalent elements.
 
@@ -13,11 +13,11 @@ in C++.
 Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - the input tensor
-- **return_inverse** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - Whether to also return the indices for where
+- **return_inverse** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Whether to also return the indices for where
 elements in the original input ended up in the returned unique list.
-- **return_counts** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - Whether to also return the counts for each unique
+- **return_counts** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Whether to also return the counts for each unique
 element.
-- **dim** ([*int*](https://docs.python.org/3/library/functions.html#int)) - the dimension to apply unique. If `None`, the unique of the
+- **dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - the dimension to apply unique. If `None`, the unique of the
 flattened input is returned. default: `None`
 
 Returns:

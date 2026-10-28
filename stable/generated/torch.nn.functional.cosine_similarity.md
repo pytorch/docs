@@ -1,6 +1,6 @@
 # torch.nn.functional.cosine_similarity
 
-torch.nn.functional.cosine_similarity(*x1*, *x2*, *dim=1*, *eps=1e-8*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/nn/functional.py#L5895)
+torch.nn.functional.cosine_similarity(*x1*, *x2*, *dim=1*, *eps=1e-8*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/nn/functional.py#L5942)
 
 Returns cosine similarity between `x1` and `x2`, computed along dim. `x1` and `x2` must be broadcastable
 to a common shape. `dim` refers to the dimension in this common shape. Dimension `dim` of the output is
@@ -17,8 +17,8 @@ Parameters:
 
 - **x1** ([*Tensor*](../tensors.html#torch.Tensor)) - First input.
 - **x2** ([*Tensor*](../tensors.html#torch.Tensor)) - Second input.
-- **dim** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - Dimension along which cosine similarity is computed. Default: 1
-- **eps** ([*float*](https://docs.python.org/3/library/functions.html#float)*,**optional*) - Small value to avoid division by zero.
+- **dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - Dimension along which cosine similarity is computed. Default: 1
+- **eps** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*,**optional*) - Small value to avoid division by zero.
 Default: 1e-8
 
 Example:

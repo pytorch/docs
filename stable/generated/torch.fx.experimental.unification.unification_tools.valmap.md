@@ -1,6 +1,6 @@
 # torch.fx.experimental.unification.unification_tools.valmap
 
-torch.fx.experimental.unification.unification_tools.valmap(*func*, *d*, *factory=<class 'dict'>*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/fx/experimental/unification/unification_tools.py#L101)
+torch.fx.experimental.unification.unification_tools.valmap(*func*, *d*, *factory=<class 'dict'>*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/fx/experimental/unification/unification_tools.py#L101)
 
 Apply function to values of dictionary
 
@@ -17,4 +17,4 @@ itemmap
 
 Return type:
 
-[dict](https://docs.python.org/3/library/stdtypes.html#dict)[_K, _V2]
+[dict](https://docs.python.org/3/builtins/stdtypes.html#dict)[_K, _V2]

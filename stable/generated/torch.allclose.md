@@ -1,6 +1,6 @@
 # torch.allclose
 
-torch.allclose(*input: [Tensor](../tensors.html#torch.Tensor)*, *other: [Tensor](../tensors.html#torch.Tensor)*, *rtol: [float](https://docs.python.org/3/library/functions.html#float) = 1e-05*, *atol: [float](https://docs.python.org/3/library/functions.html#float) = 1e-08*, *equal_nan: [bool](https://docs.python.org/3/library/functions.html#bool) = False*) → [bool](https://docs.python.org/3/library/functions.html#bool)
+torch.allclose(*input: [Tensor](../tensors.html#torch.Tensor)*, *other: [Tensor](../tensors.html#torch.Tensor)*, *rtol: [float](https://docs.python.org/3/builtins/functions.html#float) = 1e-05*, *atol: [float](https://docs.python.org/3/builtins/functions.html#float) = 1e-08*, *equal_nan: [bool](https://docs.python.org/3/builtins/functions.html#bool) = False*) → [bool](https://docs.python.org/3/builtins/functions.html#bool)
 
 This function checks if `input` and `other` satisfy the condition:
 
@@ -15,9 +15,9 @@ Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - first tensor to compare
 - **other** ([*Tensor*](../tensors.html#torch.Tensor)) - second tensor to compare
-- **atol** ([*float*](https://docs.python.org/3/library/functions.html#float)*,**optional*) - absolute tolerance. Default: 1e-08
-- **rtol** ([*float*](https://docs.python.org/3/library/functions.html#float)*,**optional*) - relative tolerance. Default: 1e-05
-- **equal_nan** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - if `True`, then two `NaN` s will be considered equal. Default: `False`
+- **atol** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*,**optional*) - absolute tolerance. Default: 1e-08
+- **rtol** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*,**optional*) - relative tolerance. Default: 1e-05
+- **equal_nan** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - if `True`, then two `NaN` s will be considered equal. Default: `False`
 
 Example:
 

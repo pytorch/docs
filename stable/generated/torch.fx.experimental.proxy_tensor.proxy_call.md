@@ -1,7 +1,7 @@
 # torch.fx.experimental.proxy_tensor.proxy_call
 
-torch.fx.experimental.proxy_tensor.proxy_call(*proxy_mode*, *func*, *pre_dispatch*, *args*, *kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/fx/experimental/proxy_tensor.py#L1301)
+torch.fx.experimental.proxy_tensor.proxy_call(*proxy_mode*, *func*, *pre_dispatch*, *args*, *kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/fx/experimental/proxy_tensor.py#L1359)
 
 Return type:
 
-[object](https://docs.python.org/3/library/functions.html#object)
+[object](https://docs.python.org/3/builtins/functions.html#object)

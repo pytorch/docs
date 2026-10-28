@@ -1,12 +1,12 @@
 # torch.is_tensor
 
-torch.is_tensor(*obj*, */*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/__init__.py#L1526)
+torch.is_tensor(*obj*, */*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/__init__.py#L1535)
 
 Returns True if obj is a PyTorch tensor.
 
 Parameters:
 
-**obj** ([*object*](https://docs.python.org/3/library/functions.html#object)) - Object to test
+**obj** ([*object*](https://docs.python.org/3/builtins/functions.html#object)) - Object to test
 
 Return type:
 

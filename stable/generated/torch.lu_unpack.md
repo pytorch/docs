@@ -13,16 +13,16 @@ Parameters:
 
 - **LU_data** ([*Tensor*](../tensors.html#torch.Tensor)) - the packed LU factorization data
 - **LU_pivots** ([*Tensor*](../tensors.html#torch.Tensor)) - the packed LU factorization pivots
-- **unpack_data** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - flag indicating if the data should be unpacked.
+- **unpack_data** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - flag indicating if the data should be unpacked.
 If `False`, then the returned `L` and `U` are empty tensors.
 Default: `True`
-- **unpack_pivots** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - flag indicating if the pivots should be unpacked into a permutation matrix `P`.
+- **unpack_pivots** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - flag indicating if the pivots should be unpacked into a permutation matrix `P`.
 If `False`, then the returned `P` is an empty tensor.
 Default: `True`
 
 Keyword Arguments:
 
-**out** ([*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*,**optional*) - output tuple of three tensors. Ignored if None.
+**out** ([*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*,**optional*) - output tuple of three tensors. Ignored if None.
 
 Returns:
 

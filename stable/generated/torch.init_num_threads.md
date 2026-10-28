@@ -1,6 +1,6 @@
 # torch.init_num_threads
 
-torch.init_num_threads() → [None](https://docs.python.org/3/library/constants.html#None)
+torch.init_num_threads() → [None](https://docs.python.org/3/builtins/constants.html#None)
 
 init_num_threads()
 

@@ -1,6 +1,6 @@
 # torch.fx.traceback.annotate_fn
 
-torch.fx.traceback.annotate_fn(*annotation_dict*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/fx/traceback.py#L386)
+torch.fx.traceback.annotate_fn(*annotation_dict*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/fx/traceback.py#L393)
 
 A decorator that wraps a function with the annotate context manager.
 Use this when you want to annotate an entire function instead of a specific code block.
@@ -16,7 +16,7 @@ to be used with PT2 family of tracers, e.g. torch.export and dynamo.
 
 Parameters:
 
-**annotation_dict** ([*dict*](https://docs.python.org/3/library/stdtypes.html#dict)) - A dictionary of custom key-value pairs to inject
+**annotation_dict** ([*dict*](https://docs.python.org/3/builtins/stdtypes.html#dict)) - A dictionary of custom key-value pairs to inject
 into the FX trace metadata for all operations in the function.
 
 Return type:

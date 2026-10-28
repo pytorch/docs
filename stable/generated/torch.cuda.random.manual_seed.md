@@ -1,6 +1,6 @@
 # torch.cuda.random.manual_seed
 
-torch.cuda.random.manual_seed(*seed*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/cuda/random.py#L89)
+torch.cuda.random.manual_seed(*seed*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/cuda/random.py#L89)
 
 Set the seed for generating random numbers for the current GPU.
 
@@ -9,7 +9,7 @@ case, it is silently ignored.
 
 Parameters:
 
-**seed** ([*int*](https://docs.python.org/3/library/functions.html#int)) - The desired seed.
+**seed** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - The desired seed.
 
 Warning
 

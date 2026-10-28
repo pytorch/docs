@@ -32,12 +32,23 @@ Note
 In some cases, the terms `torch.compile`, TorchDynamo, `torch.compiler`
 might be used interchangeably in this documentation.
 
-`torch.compiler` also includes an ahead-of-time API, `torch.compiler.precompile`. It
-captures a whole computation `fn(*example_inputs)` - with the model(s) passed among
-`example_inputs`, e.g. `precompile(lambda model, x: model(x), model, x)` - and lowers it
-to a self-contained, runnable Python source string plus an acceleration cache. Reload the
-artifact with `torch.compiler.precompile.load`; since no weights are baked in, you pass
-the model again at runtime. See the [API reference](../../torch.compiler_api.html#torch-compiler-api) for details.
+`torch.compiler` also includes a prototype ahead-of-time API, `torch.compiler.precompile`.
+It captures a whole computation - `fn(model, x)`, with the model(s) passed as arguments -
+from the caller's own calls and lowers it to a self-contained, runnable Python source
+artifact plus an acceleration cache that a fresh process reloads. No weights are baked in,
+so you pass the model again at runtime:
+
+```
+with torch.compiler.precompile.capture(
+ lambda model, x: model(x), artifact_path="m.py", cache_path="m.cache"
+) as cap:
+ y = cap(model, x)
+
+f = torch.compiler.precompile.load("m.py", "m.cache")
+y = f(model, x)
+```
+
+See the [API reference](../../torch.compiler_api.html#torch-compiler-api) for details.
 
 Warning
 

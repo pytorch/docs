@@ -14,9 +14,19 @@ nondeterministic behavior from using the data as an input to an operation.
 Floating point and complex tensors are filled with NaN, and integer tensors
 are filled with the maximum value.
 
+Warning
+
+For `dtype=torch.bool`, the uninitialized bytes may hold values other
+than `0` (`False`) and `1` (`True`), which are not valid booleans.
+The behavior of operations that read such values is undefined: they may be
+preserved as-is or normalized to `1` depending on the operation, device
+and memory layout. Write to the tensor (e.g. with [`fill_()`](torch.Tensor.fill_.html#torch.Tensor.fill_) or
+[`copy_()`](torch.Tensor.copy_.html#torch.Tensor.copy_)) before reading from it, or use [`torch.zeros()`](torch.zeros.html#torch.zeros)
+instead.
+
 Parameters:
 
-**size** ([*int*](https://docs.python.org/3/library/functions.html#int)*...*) - a sequence of integers defining the shape of the output tensor.
+**size** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*...*) - a sequence of integers defining the shape of the output tensor.
 Can be a variable number of arguments or a collection like a list or tuple.
 
 Keyword Arguments:
@@ -30,9 +40,9 @@ Default: `torch.strided`.
 Default: if `None`, uses the current device for the default tensor type
 (see [`torch.set_default_device()`](torch.set_default_device.html#torch.set_default_device)). [`device`](../tensor_attributes.html#torch.device) will be the CPU
 for CPU tensor types and the current CUDA device for CUDA tensor types.
-- **requires_grad** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If autograd should record operations on the
+- **requires_grad** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If autograd should record operations on the
 returned tensor. Default: `False`.
-- **pin_memory** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If set, returned tensor would be allocated in
+- **pin_memory** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If set, returned tensor would be allocated in
 the pinned memory. Works only for CPU tensors. Default: `False`.
 - **memory_format** ([`torch.memory_format`](../tensor_attributes.html#torch.memory_format), optional) - the desired memory format of
 returned Tensor. Default: `torch.contiguous_format`.

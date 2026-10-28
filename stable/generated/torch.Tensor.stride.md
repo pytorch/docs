@@ -11,7 +11,7 @@ the particular dimension [`dim`](torch.Tensor.dim.html#torch.Tensor.dim).
 
 Parameters:
 
-**dim** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - the desired dimension in which stride is required
+**dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - the desired dimension in which stride is required
 
 Example:
 

@@ -12,11 +12,11 @@ yi​=min(x1​,x2​,x3​,...,xi​)
 Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - the input tensor.
-- **dim** ([*int*](https://docs.python.org/3/library/functions.html#int)) - the dimension to do the operation over
+- **dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - the dimension to do the operation over
 
 Keyword Arguments:
 
-**out** ([*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*,**optional*) - the result tuple of two output tensors (values, indices)
+**out** ([*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*,**optional*) - the result tuple of two output tensors (values, indices)
 
 Example:
 
