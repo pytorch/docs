@@ -1,6 +1,6 @@
 # torch.sparse.mm
 
-torch.sparse.mm()[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/sparse/__init__.py#L77)
+torch.sparse.mm()[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/sparse/__init__.py#L77)
 
 > Performs a matrix multiplication of the sparse matrix `mat1`
 > and the (sparse or strided) matrix `mat2`. Similar to [`torch.mm()`](torch.mm.html#torch.mm), if `mat1` is a
@@ -38,7 +38,7 @@ Parameters:
 
 - **mat1** ([*Tensor*](../tensors.html#torch.Tensor)) - the first sparse matrix to be multiplied
 - **mat2** ([*Tensor*](../tensors.html#torch.Tensor)) - the second matrix to be multiplied, which could be sparse or dense
-- **reduce** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**optional*) - the reduction operation to apply for non-unique indices
+- **reduce** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**optional*) - the reduction operation to apply for non-unique indices
 (`"sum"`, `"mean"`, `"amax"`, `"amin"`). Default `"sum"`.
 
 Shape:

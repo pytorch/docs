@@ -1,6 +1,6 @@
 # torch.fx.experimental.unification.multipledispatch.utils.groupby
 
-torch.fx.experimental.unification.multipledispatch.utils.groupby(*func*, *seq*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/fx/experimental/unification/multipledispatch/utils.py#L103)
+torch.fx.experimental.unification.multipledispatch.utils.groupby(*func*, *seq*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/fx/experimental/unification/multipledispatch/utils.py#L103)
 
 Group a collection by a key function
 >>> names = ["Alice", "Bob", "Charlie", "Dan", "Edith", "Frank"]
@@ -13,4 +13,4 @@ Group a collection by a key function
 
 Return type:
 
-OrderedDict[[object](https://docs.python.org/3/library/functions.html#object), [list](https://docs.python.org/3/library/stdtypes.html#list)[_T]]
+OrderedDict[[object](https://docs.python.org/3/builtins/functions.html#object), [list](https://docs.python.org/3/builtins/stdtypes.html#list)[_T]]

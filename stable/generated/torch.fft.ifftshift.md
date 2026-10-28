@@ -1,13 +1,13 @@
 # torch.fft.ifftshift
 
-torch.fft.ifftshift(*input*, *dim=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/fft/__init__.py#L1414)
+torch.fft.ifftshift(*input*, *dim=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/fft/__init__.py#L1414)
 
 Inverse of [`fftshift()`](torch.fft.fftshift.html#torch.fft.fftshift).
 
 Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - the tensor in FFT order
-- **dim** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**Tuple**[*[*int*](https://docs.python.org/3/library/functions.html#int)*]**,**optional*) - The dimensions to rearrange.
+- **dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**Tuple**[*[*int*](https://docs.python.org/3/builtins/functions.html#int)*]**,**optional*) - The dimensions to rearrange.
 Only dimensions specified here will be rearranged, any other dimensions
 will be left in their original order.
 Default: All dimensions of `input`.

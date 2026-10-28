@@ -11,9 +11,9 @@ matrix with a geometric progression in each row is named for Alexandre-Theophile
 Parameters:
 
 - **x** ([*Tensor*](../tensors.html#torch.Tensor)) - 1-D input tensor.
-- **N** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - Number of columns in the output. If N is not specified,
+- **N** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - Number of columns in the output. If N is not specified,
 a square array is returned (N=len(x))(N = len(x))(N=len(x)).
-- **increasing** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - Order of the powers of the columns. If True,
+- **increasing** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - Order of the powers of the columns. If True,
 the powers increase from left to right, if False (the default) they are reversed.
 
 Returns:

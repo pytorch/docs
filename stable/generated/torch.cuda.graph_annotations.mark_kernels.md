@@ -1,6 +1,6 @@
 # torch.cuda.graph_annotations.mark_kernels
 
-torch.cuda.graph_annotations.mark_kernels(*annotation*, ***, *backward=True*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/cuda/_graph_annotations.py#L626)
+torch.cuda.graph_annotations.mark_kernels(*annotation*, ***, *backward=True*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/cuda/_graph_annotations.py#L929)
 
 Context manager that annotates GPU work captured within its scope.
 
@@ -40,11 +40,11 @@ roots when the scope is the first captured work).
 
 Parameters:
 
-- **annotation** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*or*[*dict*](https://docs.python.org/3/library/stdtypes.html#dict)) - Metadata to attach to each captured node.
+- **annotation** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*or*[*dict*](https://docs.python.org/3/builtins/stdtypes.html#dict)) - Metadata to attach to each captured node.
 A string `s` is recorded as `{"name": s}`. Dict values must
 be picklable. The key `"name"` names the region in trace
 tooling; `"stream"` is reserved for stream-lane assignment.
-- **backward** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - Whether to also annotate the backward kernels of
+- **backward** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Whether to also annotate the backward kernels of
 autograd nodes created inside the scope. Default: `True`.
 
 Note
@@ -58,14 +58,11 @@ Note
 
 Child-graph and conditional nodes have bodies in a separate
 `cudaGraph_t` that this walk does not descend into, so their work is
-left unannotated and a warning is issued. Descending is possible
-(`cudaGraphNodeGetParams` exposes the body graphs), but would not be
-enough on its own: a body's nodes are numbered in that graph's id space
-and are renumbered again when the exec graph inlines them, and nothing
-exposes that renumbering, so `remap_to_exec_graph()` could not key
-the annotations to what a profiler reports. For the same reason a scope
-*inside* a conditional body (`torch.cond` / `torch.while_loop`)
-records nothing at all.
+left unannotated and a warning is issued. A scope *inside* a conditional
+body (`torch.cond` / `torch.while_loop`) records nothing for the same
+reason: with the default `annotation_config["key_by"]` a body node's id
+is not rekeyed to the exec graph, so the annotation would match nothing in
+a trace.
 
 Warning
 

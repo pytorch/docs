@@ -1,6 +1,6 @@
 # torch.asarray
 
-torch.asarray(*obj: Any*, ***, *dtype: [dtype](../tensor_attributes.html#torch.dtype) | [None](https://docs.python.org/3/library/constants.html#None)*, *device: DeviceLikeType | [None](https://docs.python.org/3/library/constants.html#None)*, *copy: [bool](https://docs.python.org/3/library/functions.html#bool) | [None](https://docs.python.org/3/library/constants.html#None) = None*, *requires_grad: [bool](https://docs.python.org/3/library/functions.html#bool) | [None](https://docs.python.org/3/library/constants.html#None) = None*) → [Tensor](../tensors.html#torch.Tensor)
+torch.asarray(*obj: Any*, ***, *dtype: [dtype](../tensor_attributes.html#torch.dtype) | [None](https://docs.python.org/3/builtins/constants.html#None)*, *device: DeviceLikeType | [None](https://docs.python.org/3/builtins/constants.html#None)*, *copy: [bool](https://docs.python.org/3/builtins/functions.html#bool) | [None](https://docs.python.org/3/builtins/constants.html#None) = None*, *requires_grad: [bool](https://docs.python.org/3/builtins/functions.html#bool) | [None](https://docs.python.org/3/builtins/constants.html#None) = None*) → [Tensor](../tensors.html#torch.Tensor)
 
 Converts `obj` to a tensor.
 
@@ -26,10 +26,11 @@ returned tensor will have the same history.
 
 When `obj` is not a tensor, NumPy array, or DLPack capsule but implements Python's
 buffer protocol then the buffer is interpreted as an array of bytes grouped according to
-the size of the datatype passed to the [`dtype`](../tensor_attributes.html#torch.dtype) keyword argument. (If no datatype is
-passed then the default floating point datatype is used, instead.) The returned tensor
-will have the specified datatype (or default floating point datatype if none is specified)
-and, by default, be on the CPU device and share memory with the buffer.
+the size of the datatype passed to the [`dtype`](../tensor_attributes.html#torch.dtype) keyword argument. If no [`dtype`](../tensor_attributes.html#torch.dtype)
+is passed then it is inferred from the buffer's format, and an error is raised if the
+format cannot be mapped to a PyTorch datatype, in which case [`dtype`](../tensor_attributes.html#torch.dtype) must be passed
+explicitly. The returned tensor will have the specified (or inferred) datatype and, by
+default, be on the CPU device and share memory with the buffer.
 
 When `obj` is a NumPy scalar, the returned tensor will be a 0-dimensional tensor on
 the CPU and that doesn't share its memory (i.e. `copy=True`). By default datatype will
@@ -50,7 +51,7 @@ DLPack capsules.
 
 Parameters:
 
-**obj** ([*object*](https://docs.python.org/3/library/functions.html#object)) - a tensor, NumPy array, DLPack Capsule, object that implements Python's
+**obj** ([*object*](https://docs.python.org/3/builtins/functions.html#object)) - a tensor, NumPy array, DLPack Capsule, object that implements Python's
 buffer protocol, scalar, or sequence of scalars.
 
 Keyword Arguments:
@@ -58,7 +59,7 @@ Keyword Arguments:
 - **dtype** ([`torch.dtype`](../tensor_attributes.html#torch.dtype), optional) - the datatype of the returned tensor.
 Default: `None`, which causes the datatype of the returned tensor to be
 inferred from `obj`.
-- **copy** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - controls whether the returned tensor shares memory with `obj`.
+- **copy** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - controls whether the returned tensor shares memory with `obj`.
 Default: `None`, which causes the returned tensor to share memory with `obj`
 whenever possible. If `True` then the returned tensor does not share its memory.
 If `False` then the returned tensor shares its memory with `obj` and an
@@ -66,7 +67,7 @@ error is thrown if it cannot.
 - **device** ([`torch.device`](../tensor_attributes.html#torch.device), optional) - the device of the returned tensor.
 Default: `None`, which causes the device of `obj` to be used. Or, if
 `obj` is a Python sequence, the current default device will be used.
-- **requires_grad** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - whether the returned tensor requires grad.
+- **requires_grad** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - whether the returned tensor requires grad.
 Default: `None`, which causes requires_grad for the returned tensor to be
 inferred from `obj`. If `True`, then the returned tensor will require
 a gradient, and if `obj` is also a tensor with an autograd history then

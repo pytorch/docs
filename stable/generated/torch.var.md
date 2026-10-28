@@ -24,12 +24,12 @@ output tensor having 1 (or `len(dim)`) fewer dimension(s).
 Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - the input tensor.
-- **dim** ([*int*](https://docs.python.org/3/library/functions.html#int)*or*[*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*of**ints**,**optional*) - the dimension or dimensions to reduce.
+- **dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*or*[*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*of**ints**,**optional*) - the dimension or dimensions to reduce.
 If `None`, all dimensions are reduced.
 
 Keyword Arguments:
 
-- **correction** ([*int*](https://docs.python.org/3/library/functions.html#int)) -
+- **correction** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) -
 
 difference between the sample size and sample degrees of freedom.
 Defaults to [Bessel's correction](https://en.wikipedia.org/wiki/Bessel%27s_correction), `correction=1`.
@@ -37,7 +37,7 @@ Defaults to [Bessel's correction](https://en.wikipedia.org/wiki/Bessel%27s_corre
 Changed in version 2.0: Previously this argument was called `unbiased` and was a boolean
 with `True` corresponding to `correction=1` and `False` being
 `correction=0`.
-- **keepdim** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - whether the output tensor has `dim` retained or not. Default: `False`.
+- **keepdim** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - whether the output tensor has `dim` retained or not. Default: `False`.
 - **out** ([*Tensor*](../tensors.html#torch.Tensor)*,**optional*) - the output tensor.
 
 Example

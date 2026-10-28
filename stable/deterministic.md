@@ -2,7 +2,7 @@
 
 torch.utils.deterministic.fill_uninitialized_memory
 
-A [`bool`](https://docs.python.org/3/library/functions.html#bool) that, if True, causes uninitialized memory to be filled with
+A [`bool`](https://docs.python.org/3/builtins/functions.html#bool) that, if True, causes uninitialized memory to be filled with
 a known value when [`torch.use_deterministic_algorithms()`](generated/torch.use_deterministic_algorithms.html#torch.use_deterministic_algorithms) is set to
 `True`. Floating point and complex values are set to NaN, and integer
 values are set to the maximum value.

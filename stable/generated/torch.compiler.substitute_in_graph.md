@@ -1,6 +1,6 @@
 # torch.compiler.substitute_in_graph
 
-torch.compiler.substitute_in_graph(*original_fn*, ***, *can_constant_fold_through=False*, *skip_signature_check=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/compiler/__init__.py#L248)
+torch.compiler.substitute_in_graph(*original_fn*, ***, *can_constant_fold_through=False*, *skip_signature_check=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/compiler/__init__.py#L249)
 
 Register a polyfill handler for a function, usually a C function from the C extension, to be
 used in place of the original function when inlining the original function in the graph.
@@ -19,11 +19,11 @@ Parameters:
 
 - **original_fn** (*callable*) - The original function, usually a C function, to register a polyfill
 handler for.
-- **can_constant_fold_through** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - Whether the polyfill handler can be constant
+- **can_constant_fold_through** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - Whether the polyfill handler can be constant
 folded through. That is, if the polyfill handler is a pure function and its arguments
 are constant, the result of the polyfill handler can be constant folded during the
 compilation. Defaults to `False`.
-- **skip_signature_check** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - Whether to skip the signature check between the
+- **skip_signature_check** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - Whether to skip the signature check between the
 original function and the polyfill handler. Defaults to `False`.
 
 Returns:
@@ -37,22 +37,20 @@ Return type:
 Example:
 
 ```
->>> import operator
->>> operator.indexOf([1, 2, 3, 4, 5], 3)
-2
->>> torch.compile(operator.indexOf, fullgraph=True)([1, 2, 3, 4, 5], 3)
-... # xdoctest: +SKIP("Long tracebacks")
+>>> import binascii
+>>> binascii.crc32(b"abc")
+891568578
+>>> torch.compile(
+... binascii.crc32, fullgraph=True
+... )(b"abc") # xdoctest: +SKIP("Long tracebacks")
+...
 Traceback (most recent call last):
 ...
 torch._dynamo.exc.Unsupported: ...
-
->>> @torch.compiler.substitute_in_graph(operator.indexOf)
-... def indexOf(a, b, /):
-... for i, item in enumerate(a):
-... if item is b or item == b:
-... return i
-... raise ValueError("sequence.index(x): x not in sequence")
->>>
->>> torch.compile(operator.indexOf, fullgraph=True)([1, 2, 3, 4, 5], 3)
-2
+>>> @torch.compiler.substitute_in_graph(binascii.crc32)
+... def crc32(data, crc=0, /):
+... return 891568578
+...
+>>> torch.compile(binascii.crc32, fullgraph=True)(b"abc")
+891568578
 ```

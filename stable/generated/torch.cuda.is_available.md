@@ -1,6 +1,6 @@
 # torch.cuda.is_available
 
-torch.cuda.is_available()[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/cuda/__init__.py#L209)
+torch.cuda.is_available()[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/cuda/__init__.py#L222)
 
 Return a bool indicating if CUDA is currently available.
 
@@ -12,4 +12,4 @@ This function will NOT poison fork if the environment variable
 
 Return type:
 
-[bool](https://docs.python.org/3/library/functions.html#bool)
+[bool](https://docs.python.org/3/builtins/functions.html#bool)

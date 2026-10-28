@@ -9,7 +9,7 @@ Returns a tuple of all slices along a given dimension, already without it.
 Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - the tensor to unbind
-- **dim** ([*int*](https://docs.python.org/3/library/functions.html#int)) - dimension to remove
+- **dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - dimension to remove
 
 Example:
 

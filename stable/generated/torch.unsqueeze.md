@@ -14,7 +14,7 @@ applied at `dim` = `dim + input.dim() + 1`.
 Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - the input tensor.
-- **dim** ([*int*](https://docs.python.org/3/library/functions.html#int)) - the index at which to insert the singleton dimension
+- **dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - the index at which to insert the singleton dimension
 
 Example:
 

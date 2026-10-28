@@ -1,6 +1,6 @@
 # torch.Tensor.module_load
 
-Tensor.module_load(*other*, *assign=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/_tensor.py#L849)
+Tensor.module_load(*other*, *assign=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/_tensor.py#L851)
 
 Defines how to transform `other` when loading it into `self` in [`load_state_dict()`](torch.nn.Module.html#torch.nn.Module.load_state_dict).
 
@@ -20,4 +20,4 @@ if `assign` is `False` or `other.detach()` if `assign` is `True`.
 Parameters:
 
 - **other** ([*Tensor*](../tensors.html#torch.Tensor)) - value in state dict with key corresponding to `self`
-- **assign** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - the assign argument passed to [`nn.Module.load_state_dict()`](torch.nn.Module.html#torch.nn.Module.load_state_dict)
+- **assign** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - the assign argument passed to [`nn.Module.load_state_dict()`](torch.nn.Module.html#torch.nn.Module.load_state_dict)

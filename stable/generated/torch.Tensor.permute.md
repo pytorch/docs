@@ -6,7 +6,7 @@ Returns a view of the tensor with its dimensions permuted.
 
 Parameters:
 
-**dims** ([*torch.Size*](../size.html#torch.Size)*,*[*int*](https://docs.python.org/3/library/functions.html#int)*...**,*[*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*of*[*int*](https://docs.python.org/3/library/functions.html#int)*or*[*list*](https://docs.python.org/3/library/stdtypes.html#list)*of*[*int*](https://docs.python.org/3/library/functions.html#int)) - the desired ordering of dimensions.
+**dims** ([*torch.Size*](../size.html#torch.Size)*,*[*int*](https://docs.python.org/3/builtins/functions.html#int)*...**,*[*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*of*[*int*](https://docs.python.org/3/builtins/functions.html#int)*or*[*list*](https://docs.python.org/3/builtins/stdtypes.html#list)*of*[*int*](https://docs.python.org/3/builtins/functions.html#int)) - the desired ordering of dimensions.
 
 Example
 

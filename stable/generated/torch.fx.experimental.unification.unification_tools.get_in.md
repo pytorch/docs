@@ -1,6 +1,6 @@
 # torch.fx.experimental.unification.unification_tools.get_in
 
-torch.fx.experimental.unification.unification_tools.get_in(*keys*, *coll*, *default=None*, *no_default=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/fx/experimental/unification/unification_tools.py#L358)
+torch.fx.experimental.unification.unification_tools.get_in(*keys*, *coll*, *default=None*, *no_default=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/fx/experimental/unification/unification_tools.py#L358)
 
 Returns coll[i0][i1]...[iX] where [i0, i1, ..., iX]==keys.
 
@@ -38,4 +38,4 @@ operator.getitem
 
 Return type:
 
-[object](https://docs.python.org/3/library/functions.html#object)
+[object](https://docs.python.org/3/builtins/functions.html#object)

@@ -28,7 +28,7 @@ value.
 
 Parameters:
 
-- **sizes** ([*torch.Size*](../size.html#torch.Size)*or*[*int*](https://docs.python.org/3/library/functions.html#int)*...*) - the desired size
+- **sizes** ([*torch.Size*](../size.html#torch.Size)*or*[*int*](https://docs.python.org/3/builtins/functions.html#int)*...*) - the desired size
 - **memory_format** ([`torch.memory_format`](../tensor_attributes.html#torch.memory_format), optional) - the desired memory format of
 Tensor. Default: `torch.contiguous_format`. Note that memory format of
 `self` is going to be unaffected if `self.size()` matches `sizes`.

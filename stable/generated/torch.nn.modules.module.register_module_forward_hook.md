@@ -1,6 +1,6 @@
 # torch.nn.modules.module.register_module_forward_hook
 
-torch.nn.modules.module.register_module_forward_hook(*hook*, ***, *with_kwargs=False*, *always_call=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/nn/modules/module.py#L249)
+torch.nn.modules.module.register_module_forward_hook(*hook*, ***, *with_kwargs=False*, *always_call=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/nn/modules/module.py#L249)
 
 Register a global forward hook for all the modules.
 
@@ -24,7 +24,7 @@ that will replace the output from the `forward()` function.
 Parameters:
 
 - **hook** (*Callable*) - The user defined hook to be registered.
-- **always_call** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If `True` the `hook` will be run regardless of
+- **always_call** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - If `True` the `hook` will be run regardless of
 whether an exception is raised while calling the Module.
 Default: `False`
 

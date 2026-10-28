@@ -1,6 +1,6 @@
 # torch.optim.swa_utils.get_ema_avg_fn
 
-torch.optim.swa_utils.get_ema_avg_fn(*decay=0.999*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/optim/swa_utils.py#L119)
+torch.optim.swa_utils.get_ema_avg_fn(*decay=0.999*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/optim/swa_utils.py#L119)
 
 Get the function applying exponential moving average (EMA) across multiple params.
 
@@ -19,7 +19,7 @@ and decay\text{decay}decay is the decay rate (default: 0.999).
 
 Parameters:
 
-**decay** ([*float*](https://docs.python.org/3/library/functions.html#float)) - Decay rate for EMA. Must be in the range [0, 1]. Default: 0.999
+**decay** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - Decay rate for EMA. Must be in the range [0, 1]. Default: 0.999
 
 Returns:
 

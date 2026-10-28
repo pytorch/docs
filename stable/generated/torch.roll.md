@@ -10,11 +10,11 @@ restored to the original shape.
 Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - the input tensor.
-- **shifts** ([*int*](https://docs.python.org/3/library/functions.html#int)*or*[*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*of**ints*) - The number of places by which the elements
+- **shifts** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*or*[*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*of**ints*) - The number of places by which the elements
 of the tensor are shifted. If shifts is a tuple, dims must be a tuple of
 the same size, and each dimension will be rolled by the corresponding
 value
-- **dims** ([*int*](https://docs.python.org/3/library/functions.html#int)*or*[*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*of**ints*) - Axis along which to roll
+- **dims** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*or*[*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*of**ints*) - Axis along which to roll
 
 Example:
 

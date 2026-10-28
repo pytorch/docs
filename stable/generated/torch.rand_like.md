@@ -20,7 +20,7 @@ Default: if `None`, defaults to the dtype of `input`.
 Default: if `None`, defaults to the layout of `input`.
 - **device** ([`torch.device`](../tensor_attributes.html#torch.device), optional) - the desired device of returned tensor.
 Default: if `None`, defaults to the device of `input`.
-- **requires_grad** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If autograd should record operations on the
+- **requires_grad** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If autograd should record operations on the
 returned tensor. Default: `False`.
 - **memory_format** ([`torch.memory_format`](../tensor_attributes.html#torch.memory_format), optional) - the desired memory format of
 returned Tensor. Default: `torch.preserve_format`.

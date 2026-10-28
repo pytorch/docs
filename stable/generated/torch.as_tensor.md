@@ -1,6 +1,6 @@
 # torch.as_tensor
 
-torch.as_tensor(*data: Any*, ***, *dtype: [dtype](../tensor_attributes.html#torch.dtype) | [None](https://docs.python.org/3/library/constants.html#None) = None*, *device: DeviceLikeType | [None](https://docs.python.org/3/library/constants.html#None)*) → [Tensor](../tensors.html#torch.Tensor)
+torch.as_tensor(*data: Any*, ***, *dtype: [dtype](../tensor_attributes.html#torch.dtype) | [None](https://docs.python.org/3/builtins/constants.html#None) = None*, *device: DeviceLikeType | [None](https://docs.python.org/3/builtins/constants.html#None)*) → [Tensor](../tensors.html#torch.Tensor)
 
 Converts `data` into a tensor, sharing data and preserving autograd
 history if possible.

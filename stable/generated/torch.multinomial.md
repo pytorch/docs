@@ -36,8 +36,8 @@ elements in each row of `input` if it is a matrix).
 Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - the input tensor containing probabilities
-- **num_samples** ([*int*](https://docs.python.org/3/library/functions.html#int)) - number of samples to draw
-- **replacement** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - whether to draw with replacement or not
+- **num_samples** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - number of samples to draw
+- **replacement** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - whether to draw with replacement or not
 
 Keyword Arguments:
 

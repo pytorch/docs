@@ -39,14 +39,14 @@ Default: if None, infers data type from `values`.
 Default: if None, uses the current device for the default tensor type
 (see [`torch.set_default_device()`](torch.set_default_device.html#torch.set_default_device)). [`device`](../tensor_attributes.html#torch.device) will be the CPU
 for CPU tensor types and the current CUDA device for CUDA tensor types.
-- **pin_memory** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If set, returned tensor would be allocated in
+- **pin_memory** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If set, returned tensor would be allocated in
 the pinned memory. Works only for CPU tensors. Default: `False`.
-- **requires_grad** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If autograd should record operations on the
+- **requires_grad** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If autograd should record operations on the
 returned tensor. Default: `False`.
-- **check_invariants** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If sparse tensor invariants are checked.
+- **check_invariants** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If sparse tensor invariants are checked.
 Default: as returned by [`torch.sparse.check_sparse_tensor_invariants.is_enabled()`](torch.sparse.check_sparse_tensor_invariants.html#torch.sparse.check_sparse_tensor_invariants.is_enabled),
 initially False.
-- **is_coalesced** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - When``True``, the caller is
+- **is_coalesced** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - When``True``, the caller is
 responsible for providing tensor indices that correspond to a
 coalesced tensor. If the `check_invariants` flag is
 False, no error will be raised if the prerequisites are not

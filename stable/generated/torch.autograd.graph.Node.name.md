@@ -1,6 +1,6 @@
 # torch.autograd.graph.Node.name
 
-*abstract*Node.name()[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/autograd/graph.py#L59)
+*abstract*Node.name()[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/autograd/graph.py#L60)
 
 Return the name.
 
@@ -17,4 +17,4 @@ CloneBackward0
 
 Return type:
 
-[str](https://docs.python.org/3/library/stdtypes.html#str)
+[str](https://docs.python.org/3/builtins/stdtypes.html#str)

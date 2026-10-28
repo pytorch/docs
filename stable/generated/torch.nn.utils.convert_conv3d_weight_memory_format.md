@@ -1,10 +1,10 @@
 # torch.nn.utils.convert_conv3d_weight_memory_format
 
-torch.nn.utils.convert_conv3d_weight_memory_format(*module*, *memory_format*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/nn/utils/memory_format.py#L91)
+torch.nn.utils.convert_conv3d_weight_memory_format(*module*, *memory_format*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/nn/utils/memory_format.py#L91)
 
 Convert `memory_format` of `nn.Conv3d.weight` to `memory_format`
 The conversion recursively applies to nested `nn.Module`, including `module`.
-Note that it only changes the memory_format, but not the semantics of each dimensions.
+Note that it only changes the memory_format, but not the semantics of each dimension.
 This function is used to facilitate the computation to adopt NHWC kernels, which
 provides considerable speed up for fp16 data on CUDA devices with compute capability >= 7.0
 

@@ -1,6 +1,6 @@
 # PackedSequence
 
-*class*torch.nn.utils.rnn.PackedSequence(*data*, *batch_sizes=None*, *sorted_indices=None*, *unsorted_indices=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/nn/utils/rnn.py#L39)
+*class*torch.nn.utils.rnn.PackedSequence(*data*, *batch_sizes=None*, *sorted_indices=None*, *unsorted_indices=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/nn/utils/rnn.py#L39)
 
 Holds the data and list of `batch_sizes` of a packed sequence.
 
@@ -11,7 +11,7 @@ Note
 Instances of this class should never be created manually. They are meant
 to be instantiated by functions like [`pack_padded_sequence()`](torch.nn.utils.rnn.pack_padded_sequence.html#torch.nn.utils.rnn.pack_padded_sequence).
 
-Batch sizes represent the number elements at each sequence step in
+Batch sizes represent the number of elements at each sequence step in
 the batch, not the varying sequence lengths passed to
 [`pack_padded_sequence()`](torch.nn.utils.rnn.pack_padded_sequence.html#torch.nn.utils.rnn.pack_padded_sequence). For instance, given data `abc` and `x`
 the `PackedSequence` would contain data `axbc` with
@@ -29,7 +29,7 @@ to recover the original sequences with correct order.
 
 Return type:
 
-*Self*
+[*Self*](https://docs.python.org/3/library/typing.html#typing.Self)
 
 Note
 
@@ -61,23 +61,23 @@ Return first index of value.
 
 Raises ValueError if the value is not present.
 
-*property*is_cuda*: [bool](https://docs.python.org/3/library/functions.html#bool)*
+*property*is_cuda*: [bool](https://docs.python.org/3/builtins/functions.html#bool)*
 
 Return true if self.data stored on a gpu.
 
-is_pinned()[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/nn/utils/rnn.py#L188)
+is_pinned()[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/nn/utils/rnn.py#L188)
 
 Return true if self.data stored on in pinned memory.
 
 Return type:
 
-[bool](https://docs.python.org/3/library/functions.html#bool)
+[bool](https://docs.python.org/3/builtins/functions.html#bool)
 
-sorted_indices*: [Tensor](../tensors.html#torch.Tensor) | [None](https://docs.python.org/3/library/constants.html#None)*
+sorted_indices*: [Tensor](../tensors.html#torch.Tensor) | [None](https://docs.python.org/3/builtins/constants.html#None)*
 
 Alias for field number 2
 
-to(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/nn/utils/rnn.py#L103)
+to(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/nn/utils/rnn.py#L103)
 
 Perform dtype and/or device conversion on self.data.
 
@@ -91,8 +91,8 @@ Otherwise, returns a copy with the desired configuration.
 
 Return type:
 
-*Self*
+[*Self*](https://docs.python.org/3/library/typing.html#typing.Self)
 
-unsorted_indices*: [Tensor](../tensors.html#torch.Tensor) | [None](https://docs.python.org/3/library/constants.html#None)*
+unsorted_indices*: [Tensor](../tensors.html#torch.Tensor) | [None](https://docs.python.org/3/builtins/constants.html#None)*
 
 Alias for field number 3

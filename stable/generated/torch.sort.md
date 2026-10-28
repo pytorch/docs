@@ -20,14 +20,14 @@ input tensor.
 Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - the input tensor.
-- **dim** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - the dimension to sort along
-- **descending** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - controls the sorting order (ascending or descending)
+- **dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - the dimension to sort along
+- **descending** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - controls the sorting order (ascending or descending)
 
 Keyword Arguments:
 
-- **stable** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - makes the sorting routine stable, which guarantees that the order
+- **stable** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - makes the sorting routine stable, which guarantees that the order
 of equivalent elements is preserved.
-- **out** ([*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*,**optional*) - the output tuple of (Tensor, LongTensor) that can
+- **out** ([*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*,**optional*) - the output tuple of (Tensor, LongTensor) that can
 be optionally given to be used as output buffers
 
 Example:

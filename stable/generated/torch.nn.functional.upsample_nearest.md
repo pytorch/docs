@@ -1,6 +1,6 @@
 # torch.nn.functional.upsample_nearest
 
-torch.nn.functional.upsample_nearest(*input*, *size=None*, *scale_factor=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/nn/functional.py#L5379)
+torch.nn.functional.upsample_nearest(*input*, *size=None*, *scale_factor=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/nn/functional.py#L5425)
 
 Upsamples the input, using nearest neighbours' pixel values.
 
@@ -15,9 +15,9 @@ inputs are 4 or 5 dimensional).
 Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - input
-- **size** ([*int*](https://docs.python.org/3/library/functions.html#int)*or**Tuple**[*[*int*](https://docs.python.org/3/library/functions.html#int)*,*[*int*](https://docs.python.org/3/library/functions.html#int)*] or**Tuple**[*[*int*](https://docs.python.org/3/library/functions.html#int)*,*[*int*](https://docs.python.org/3/library/functions.html#int)*,*[*int*](https://docs.python.org/3/library/functions.html#int)*]*) - output spatial
+- **size** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*or**Tuple**[*[*int*](https://docs.python.org/3/builtins/functions.html#int)*,*[*int*](https://docs.python.org/3/builtins/functions.html#int)*] or**Tuple**[*[*int*](https://docs.python.org/3/builtins/functions.html#int)*,*[*int*](https://docs.python.org/3/builtins/functions.html#int)*,*[*int*](https://docs.python.org/3/builtins/functions.html#int)*]*) - output spatial
 size.
-- **scale_factor** ([*int*](https://docs.python.org/3/library/functions.html#int)) - multiplier for spatial size. Has to be an integer.
+- **scale_factor** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - multiplier for spatial size. Has to be an integer.
 
 Note
 

@@ -1,6 +1,6 @@
 # torch.equal
 
-torch.equal(*input*, *other*) → [bool](https://docs.python.org/3/library/functions.html#bool)
+torch.equal(*input*, *other*) → [bool](https://docs.python.org/3/builtins/functions.html#bool)
 
 `True` if two tensors have the same size and elements, `False` otherwise.
 

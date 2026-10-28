@@ -10,8 +10,8 @@ differences are calculated by using `torch.diff()` recursively.
 Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - the tensor to compute the differences on
-- **n** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - the number of times to recursively compute the difference
-- **dim** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - the dimension to compute the difference along.
+- **n** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - the number of times to recursively compute the difference
+- **dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - the dimension to compute the difference along.
 Default is the last dimension.
 - **prepend** ([*Tensor*](../tensors.html#torch.Tensor)*,**optional*) - values to prepend or append to
 `input` along `dim` before computing the difference.

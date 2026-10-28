@@ -1,6 +1,6 @@
 # torch.Tensor.is_coalesced
 
-Tensor.is_coalesced() → [bool](https://docs.python.org/3/library/functions.html#bool)
+Tensor.is_coalesced() → [bool](https://docs.python.org/3/builtins/functions.html#bool)
 
 Returns `True` if `self` is a [sparse COO tensor](../sparse.html#sparse-coo-docs) that is coalesced, `False` otherwise.
 

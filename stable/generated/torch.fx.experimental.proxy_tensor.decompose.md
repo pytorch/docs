@@ -1,6 +1,6 @@
 # torch.fx.experimental.proxy_tensor.decompose
 
-torch.fx.experimental.proxy_tensor.decompose(*decomposition_table*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/fx/experimental/proxy_tensor.py#L173)
+torch.fx.experimental.proxy_tensor.decompose(*decomposition_table*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/fx/experimental/proxy_tensor.py#L174)
 
 Return type:
 

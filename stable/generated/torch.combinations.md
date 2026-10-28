@@ -1,6 +1,6 @@
 # torch.combinations
 
-torch.combinations(*input: [Tensor](../tensors.html#torch.Tensor)*, *r: [int](https://docs.python.org/3/library/functions.html#int) = 2*, *with_replacement: [bool](https://docs.python.org/3/library/functions.html#bool) = False*) → seq
+torch.combinations(*input: [Tensor](../tensors.html#torch.Tensor)*, *r: [int](https://docs.python.org/3/builtins/functions.html#int) = 2*, *with_replacement: [bool](https://docs.python.org/3/builtins/functions.html#bool) = False*) → seq
 
 Compute combinations of length rrr of the given tensor. The behavior is similar to
 python's itertools.combinations when with_replacement is set to False, and
@@ -9,8 +9,8 @@ itertools.combinations_with_replacement when with_replacement is set to True.
 Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - 1D vector.
-- **r** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - number of elements to combine
-- **with_replacement** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - whether to allow duplication in combination
+- **r** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - number of elements to combine
+- **with_replacement** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - whether to allow duplication in combination
 
 Returns:
 

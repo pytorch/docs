@@ -10,10 +10,10 @@ Parameters:
 
 Keyword Arguments:
 
-- **dim** (*Optional**[*[*int*](https://docs.python.org/3/library/functions.html#int)*]*) - The dimension along which to compute the values. If None,
+- **dim** (*Optional**[*[*int*](https://docs.python.org/3/builtins/functions.html#int)*]*) - The dimension along which to compute the values. If None,
 computes the values over the entire `input` tensor.
 Default is None.
-- **keepdim** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - If True, the reduced dimensions will be kept in the output
+- **keepdim** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - If True, the reduced dimensions will be kept in the output
 tensor as dimensions with size 1 for broadcasting, otherwise
 they will be removed, as if calling ([`torch.squeeze()`](torch.squeeze.html#torch.squeeze)).
 Default is False.
@@ -27,7 +27,7 @@ A named tuple (min, max) containing the minimum and maximum values.
 
 Raises:
 
-[**RuntimeError**](https://docs.python.org/3/library/exceptions.html#RuntimeError) - If any of the dimensions to compute the values over has size 0.
+[**RuntimeError**](https://docs.python.org/3/builtins/exceptions.html#RuntimeError) - If any of the dimensions to compute the values over has size 0.
 
 Note
 

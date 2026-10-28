@@ -14,9 +14,9 @@ a tensor with dtype `torch.int64`.
 
 Parameters:
 
-- **low** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - Lowest integer to be drawn from the distribution. Default: 0.
-- **high** ([*int*](https://docs.python.org/3/library/functions.html#int)) - One above the highest integer to be drawn from the distribution.
-- **size** ([*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)) - a tuple defining the shape of the output tensor.
+- **low** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - Lowest integer to be drawn from the distribution. Default: 0.
+- **high** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - One above the highest integer to be drawn from the distribution.
+- **size** ([*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)) - a tuple defining the shape of the output tensor.
 
 Keyword Arguments:
 
@@ -30,7 +30,7 @@ Default: `torch.strided`.
 Default: if `None`, uses the current device for the default tensor type
 (see [`torch.set_default_device()`](torch.set_default_device.html#torch.set_default_device)). [`device`](../tensor_attributes.html#torch.device) will be the CPU
 for CPU tensor types and the current CUDA device for CUDA tensor types.
-- **requires_grad** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If autograd should record operations on the
+- **requires_grad** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If autograd should record operations on the
 returned tensor. Default: `False`.
 
 Example:

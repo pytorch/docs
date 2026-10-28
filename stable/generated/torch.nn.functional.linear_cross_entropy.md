@@ -1,19 +1,27 @@
 # torch.nn.functional.linear_cross_entropy
 
-torch.nn.functional.linear_cross_entropy(*input*, *linear_weight*, *target*, ***, *linear_bias=None*, *weight=None*, *reduction='mean'*, *ignore_index=None*, *label_smoothing=0.0*, *options=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/nn/functional.py#L3704)
+torch.nn.functional.linear_cross_entropy(*input*, *linear_weight*, *target*, ***, *linear_bias=None*, *weight=None*, *reduction='mean'*, *ignore_index=None*, *label_smoothing=0.0*, *options=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/nn/functional.py#L3761)
 
 Compute the cross entropy loss between inputs, transformed linearly, and target.
 
 The statement:
 
 ```
-loss = linear_cross_entropy(input, linear_weight, target, **kwargs)
+loss = linear_cross_entropy(
+ input, linear_weight, target, linear_bias=linear_bias, **kwargs
+)
 ```
 
 is equivalent to the following reference implementation of linear_cross_entropy:
 
 ```
-logits = linear(input, linear_weight)
+C, *out_features, in_features = linear_weight.shape
+logits = linear(
+ input,
+ linear_weight.reshape(-1, in_features),
+ None if linear_bias is None else linear_bias.reshape(-1),
+)
+logits = logits.reshape(*input.shape[:-1], C, *out_features)
 loss = cross_entropy(logits, target, **kwargs)
 ```
 
@@ -29,10 +37,10 @@ Parameters:
 - **linear_weight** ([*Tensor*](../tensors.html#torch.Tensor)) - linear weight.
 - **target** ([*Tensor*](../tensors.html#torch.Tensor)) - Ground truth class indices or class probabilities.
 With `options != None`, class probabilities use the chunked
-path for `reduction` `'mean'` / `'sum'` when the target
-dtype matches the `input` dtype and the target does not
-require grad; other probability-target configurations fall
-back to the reference implementation with a warning
+path when the target dtype matches the `input` dtype and the
+target does not require grad; other probability-target
+configurations fall back to the reference implementation with a
+warning
 (gradients w.r.t. the target are only available on the
 reference path).
 - **linear_bias** ([*Tensor*](../tensors.html#torch.Tensor)*,**optional*) - bias added to the linear
@@ -41,16 +49,17 @@ K-dimensional loss, matching `linear_weight`).
 With `options != None`, K-dimensional bias
 (`out_features != ()`) falls back to the reference
 implementation with a warning; the chunked path supports
-only `(C,)`-shaped bias. Default: `None`.
+`(C,)`-shaped bias with both class-index and probability
+targets. Default: `None`.
 - **weight** ([*Tensor*](../tensors.html#torch.Tensor)*,**optional*) - a manual rescaling weight given to each class.
-- **reduction** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**optional*) - Specifies the reduction to apply to
+- **reduction** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**optional*) - Specifies the reduction to apply to
 the output: `'none'` | `'mean'` |
 `'sum'`. `'none'`: no reduction will be applied,
 `'mean'`: the sum of the output will be divided by the
 number of elements in the output, `'sum'`: the output
 will be summed.
 Default: `'mean'`.
-- **ignore_index** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - Specifies a target value that is
+- **ignore_index** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - Specifies a target value that is
 ignored and does not contribute to the input
 gradient. Note that `ignore_index` is only
 applicable when the target contains class indices.
@@ -59,7 +68,7 @@ default value is mapped to -100. Note: the default
 `ignore_index` in
 [`cross_entropy`](torch.nn.functional.cross_entropy.html#torch.nn.functional.cross_entropy) is -100 for both
 target types.
-- **label_smoothing** ([*float*](https://docs.python.org/3/library/functions.html#float)*,**optional*) - A float in [0.0, 1.0].
+- **label_smoothing** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*,**optional*) - A float in [0.0, 1.0].
 Specifies the amount of smoothing when computing the
 loss, where 0.0 means no smoothing. The targets become a
 mixture of the original ground truth and a uniform
@@ -105,7 +114,9 @@ The reference path (`options=None`) supports all of the above.
 
 Shape:
 
-- Input: (infeatures)(in_features)(inf​eatures) or (N,in_features)(N, in\_features)(N,in_features).
+- Input: (infeatures)(in_features)(inf​eatures) or (N,in_features)(N, in\_features)(N,in_features). There is
+no (B,T,in_features)(B, T, in\_features)(B,T,in_features) form: flatten sequence inputs to
+(N,in_features)(N, in\_features)(N,in_features) with target (N)(N)(N).
 - Linear weight: (C,in_features)(C, in\_features)(C,in_features) or (C,d1,...,dK,in_features)(C, d_1,
 ..., d_K, in\_features)(C,d1​,...,dK​,in_features) with K≥1K \geq 1K≥1 in the case of
 K-dimensional loss. Note: multi-dimensional weights (K > 0)

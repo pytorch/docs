@@ -11,7 +11,7 @@ See [`ChannelShuffle`](torch.nn.ChannelShuffle.html#torch.nn.ChannelShuffle) for
 Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - the input tensor
-- **groups** ([*int*](https://docs.python.org/3/library/functions.html#int)) - number of groups to divide channels in and rearrange.
+- **groups** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - number of groups to divide channels in and rearrange.
 
 Examples:
 

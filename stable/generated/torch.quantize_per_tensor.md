@@ -7,8 +7,8 @@ Converts a float tensor to a quantized tensor with given scale and zero point.
 Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - float tensor or list of tensors to quantize
-- **scale** ([*float*](https://docs.python.org/3/library/functions.html#float)*or*[*Tensor*](../tensors.html#torch.Tensor)) - scale to apply in quantization formula
-- **zero_point** ([*int*](https://docs.python.org/3/library/functions.html#int)*or*[*Tensor*](../tensors.html#torch.Tensor)) - offset in integer value that maps to float zero
+- **scale** ([*float*](https://docs.python.org/3/builtins/functions.html#float)*or*[*Tensor*](../tensors.html#torch.Tensor)) - scale to apply in quantization formula
+- **zero_point** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*or*[*Tensor*](../tensors.html#torch.Tensor)) - offset in integer value that maps to float zero
 - **dtype** ([`torch.dtype`](../tensor_attributes.html#torch.dtype)) - the desired data type of returned tensor.
 Has to be one of the quantized dtypes: `torch.quint8`, `torch.qint8`, `torch.qint32`
 

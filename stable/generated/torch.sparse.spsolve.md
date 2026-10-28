@@ -1,6 +1,6 @@
 # torch.sparse.spsolve
 
-torch.sparse.spsolve(*input*, *other*, ***, *left=True*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/sparse/__init__.py#L318)
+torch.sparse.spsolve(*input*, *other*, ***, *left=True*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/sparse/__init__.py#L318)
 
 Computes the solution of a square system of linear equations with
 a unique solution. Its purpose is similar to [`torch.linalg.solve()`](torch.linalg.solve.html#torch.linalg.solve),
@@ -13,5 +13,5 @@ Parameters:
 coefficients of the linear system.
 - **other** ([*Tensor*](../tensors.html#torch.Tensor)) - a dense matrix of shape (n, ) representing the right-hand
 side of the linear system.
-- **left** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - whether to solve the system for input @ out = other
+- **left** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - whether to solve the system for input @ out = other
 (default) or out @ input = other. Only left=True is supported.

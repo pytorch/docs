@@ -1,6 +1,6 @@
 # torch.compiler.load_cache_artifacts
 
-torch.compiler.load_cache_artifacts(*serialized_artifacts*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/compiler/__init__.py#L773)
+torch.compiler.load_cache_artifacts(*serialized_artifacts*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/compiler/__init__.py#L773)
 
 Hot loads cache artifacts that were previously serialized via
 save_cache_artifacts

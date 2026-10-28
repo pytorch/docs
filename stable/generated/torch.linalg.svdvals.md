@@ -1,6 +1,6 @@
 # torch.linalg.svdvals
 
-torch.linalg.svdvals(*A*, ***, *driver=None*, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/linalg/__init__.py#L1888)
+torch.linalg.svdvals(*A*, ***, *driver=None*, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/linalg/__init__.py#L1888)
 
 Computes the singular values of a matrix.
 
@@ -28,7 +28,7 @@ Parameters:
 
 Keyword Arguments:
 
-- **driver** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**optional*) - name of the cuSOLVER method to be used. This keyword argument only works on CUDA inputs.
+- **driver** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**optional*) - name of the cuSOLVER method to be used. This keyword argument only works on CUDA inputs.
 Available options are: None, gesvd, gesvdj, and gesvda.
 Check [`torch.linalg.svd()`](torch.linalg.svd.html#torch.linalg.svd) for details.
 Default: None.

@@ -9,7 +9,7 @@ This function modifies the input tensor in-place, and returns the input tensor.
 Parameters:
 
 - **fill_value** (*Scalar*) - the fill value
-- **wrap** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - the diagonal 'wrapped' after N columns for tall matrices. Default: `False`
+- **wrap** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - the diagonal 'wrapped' after N columns for tall matrices. Default: `False`
 
 Example:
 

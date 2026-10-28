@@ -16,7 +16,7 @@ For the operator similar to numpy.repeat, see [`torch.repeat_interleave()`](torc
 
 Parameters:
 
-**repeat** ([*torch.Size*](../size.html#torch.Size)*,*[*int*](https://docs.python.org/3/library/functions.html#int)*...**,*[*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*of*[*int*](https://docs.python.org/3/library/functions.html#int)*or*[*list*](https://docs.python.org/3/library/stdtypes.html#list)*of*[*int*](https://docs.python.org/3/library/functions.html#int)) - The number of times to repeat this tensor along each dimension
+**repeat** ([*torch.Size*](../size.html#torch.Size)*,*[*int*](https://docs.python.org/3/builtins/functions.html#int)*...**,*[*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*of*[*int*](https://docs.python.org/3/builtins/functions.html#int)*or*[*list*](https://docs.python.org/3/builtins/stdtypes.html#list)*of*[*int*](https://docs.python.org/3/builtins/functions.html#int)) - The number of times to repeat this tensor along each dimension
 
 Example:
 

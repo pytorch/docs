@@ -58,7 +58,7 @@ dimension.
 
 Return type:
 
-LongTensor or [tuple](https://docs.python.org/3/library/stdtypes.html#tuple) of LongTensor
+LongTensor or [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple) of LongTensor
 
 Example:
 

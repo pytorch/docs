@@ -1,6 +1,6 @@
 # torch.func.linearize
 
-torch.func.linearize(*func*, **primals*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/_functorch/eager_transforms.py#L1819)
+torch.func.linearize(*func*, **primals*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/_functorch/eager_transforms.py#L1819)
 
 Returns the value of `func` at `primals` and linear approximation
 at `primals`.
@@ -19,7 +19,7 @@ applied to `primals` and a function that computes the jvp of
 
 Return type:
 
-[tuple](https://docs.python.org/3/library/stdtypes.html#tuple)[Any, Callable[..., Any]]
+[tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[Any, Callable[..., Any]]
 
 linearize is useful if jvp is to be computed multiple times at `primals`. However,
 to achieve this, linearize saves intermediate computation and has higher memory requirements

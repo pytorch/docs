@@ -34,7 +34,7 @@ The backward pass is implemented only for `src.shape == index.shape`.
 
 Parameters:
 
-- **dim** ([*int*](https://docs.python.org/3/library/functions.html#int)) - the axis along which to index
+- **dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - the axis along which to index
 - **index** (*LongTensor*) - the indices of elements to scatter and add, can be
 either empty or of the same dimensionality as `src`. When empty, the
 operation returns `self` unchanged.

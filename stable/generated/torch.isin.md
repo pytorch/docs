@@ -14,10 +14,10 @@ Parameters:
 
 - **elements** ([*Tensor*](../tensors.html#torch.Tensor)*or**Scalar*) - Input elements
 - **test_elements** ([*Tensor*](../tensors.html#torch.Tensor)*or**Scalar*) - Values against which to test for each input element
-- **assume_unique** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If True, assumes both `elements` and
+- **assume_unique** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If True, assumes both `elements` and
 `test_elements` contain unique elements, which can speed up the
 calculation. Default: False
-- **invert** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If True, inverts the boolean return tensor, resulting in True
+- **invert** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If True, inverts the boolean return tensor, resulting in True
 values for elements *not* in `test_elements`. Default: False
 
 Returns:

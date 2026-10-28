@@ -1,6 +1,6 @@
 # torch.linalg.vander
 
-torch.linalg.vander(*x*, *N=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/linalg/__init__.py#L3037)
+torch.linalg.vander(*x*, *N=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/linalg/__init__.py#L3037)
 
 Generates a Vandermonde matrix.
 
@@ -33,7 +33,7 @@ consisting of vectors.
 
 Keyword Arguments:
 
-**N** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - Number of columns in the output. Default: x.size(-1)
+**N** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - Number of columns in the output. Default: x.size(-1)
 
 Example:
 

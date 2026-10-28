@@ -8,8 +8,8 @@ Rotation direction is from the first towards the second axis if k > 0, and from 
 Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - the input tensor.
-- **k** ([*int*](https://docs.python.org/3/library/functions.html#int)) - number of times to rotate. Default value is 1
-- **dims** (*a list**or*[*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)) - axis to rotate. Default value is [0, 1]
+- **k** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - number of times to rotate. Default value is 1
+- **dims** (*a list**or*[*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)) - axis to rotate. Default value is [0, 1]
 
 Example:
 

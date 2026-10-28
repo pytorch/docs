@@ -38,16 +38,16 @@ This function is in beta and may change in the near future.
 
 Parameters:
 
-- **dim** ([*int*](https://docs.python.org/3/library/functions.html#int)) - dimension along which to index
+- **dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - dimension along which to index
 - **index** ([*Tensor*](../tensors.html#torch.Tensor)) - indices of `self` to accumulate into,
 should have dtype either torch.int64 or torch.int32
 - **source** (*FloatTensor*) - the tensor containing values to accumulate
-- **reduce** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - the reduction operation to apply
+- **reduce** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - the reduction operation to apply
 (`"prod"`, `"mean"`, `"amax"`, `"amin"`)
 
 Keyword Arguments:
 
-**include_self** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - whether the elements from the `self` tensor are
+**include_self** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - whether the elements from the `self` tensor are
 included in the reduction
 
 Example:

@@ -118,7 +118,7 @@ combine function becomes a sub-graph attribute of the top-level graph module.
 
 ## API Reference
 
-torch._higher_order_ops.associative_scan.associative_scan(*combine_fn*, *xs*, *dim*, *reverse=False*, *combine_mode='pointwise'*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/_higher_order_ops/associative_scan.py#L149)
+torch._higher_order_ops.associative_scan.associative_scan(*combine_fn*, *xs*, *dim*, *reverse=False*, *combine_mode='pointwise'*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/_higher_order_ops/associative_scan.py#L153)
 
 Performs an inclusive scan with an associative combine function.
 
@@ -138,12 +138,16 @@ Parameters:
 
 - **combine_fn** (*Callable*) - A binary callable with type `(Tensor, Tensor) -> Tensor`,
 or if input is a pytree `(pytree, pytree) -> pytree`.
-This function must be pure, i.e., no lifted arguments are supported at the moment,
-satisfy the associative property and have no side-effects.
+This function must be pure, satisfy the associative property and have no
+side-effects. It may close over lifted arguments (e.g. freevars). On the
+autograd path in eager mode, tensor freevars are permitted as long as they do
+not require gradients (gradients for lifted arguments are not supported). Under
+`torch.compile` with `backend="inductor"` tensor freevars are still rejected
+outright; only `int`/`SymInt` lifted arguments are supported there.
 - **xs** ([*torch.Tensor*](../tensors.html#torch.Tensor)) - The input tensor, or nested pytree of tensors.
-- **dim** ([*int*](https://docs.python.org/3/library/functions.html#int)) - the dimension to scan over
-- **reverse** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - A boolean stating if the scan should be reversed with respect to `dim`, default `False`.
-- **combine_mode** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)) - A string indicating whether the `combine_fn` is `pointwise` or `generic`, default `pointwise`.
+- **dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - the dimension to scan over
+- **reverse** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - A boolean stating if the scan should be reversed with respect to `dim`, default `False`.
+- **combine_mode** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - A string indicating whether the `combine_fn` is `pointwise` or `generic`, default `pointwise`.
 If `combine_mode=pointwise`, `combine_fn` must be pure and may only contain pointwise
 operations; under `torch.compile` `xs` must be on a backend with scan codegen support
 (CUDA or XPU), otherwise the generic fallback is used.

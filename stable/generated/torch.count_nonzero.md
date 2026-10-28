@@ -8,7 +8,7 @@ If no dim is specified then all non-zeros in the tensor are counted.
 Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - the input tensor.
-- **dim** ([*int*](https://docs.python.org/3/library/functions.html#int)*or*[*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*of**ints**,**optional*) - Dim or tuple of dims along which to count non-zeros.
+- **dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*or*[*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*of**ints**,**optional*) - Dim or tuple of dims along which to count non-zeros.
 
 Example:
 

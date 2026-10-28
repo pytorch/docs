@@ -10,7 +10,7 @@ dimensions and self.dim() - 2 - dense_dim batch dimension.
 
 Parameters:
 
-**dense_dim** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - Number of dense dimensions of the
+**dense_dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - Number of dense dimensions of the
 resulting CSC tensor. This argument should be used only if
 `self` is a strided tensor, and must be a value between 0
 and dimension of `self` tensor minus two.

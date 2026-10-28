@@ -7,4 +7,4 @@ Sum `this` tensor to [`size`](torch.Tensor.size.html#torch.Tensor.size).
 
 Parameters:
 
-**size** ([*int*](https://docs.python.org/3/library/functions.html#int)*...*) - a sequence of integers defining the shape of the output tensor.
+**size** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*...*) - a sequence of integers defining the shape of the output tensor.

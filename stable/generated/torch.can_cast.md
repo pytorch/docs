@@ -1,6 +1,6 @@
 # torch.can_cast
 
-torch.can_cast(*from_*, *to*) → [bool](https://docs.python.org/3/library/functions.html#bool)
+torch.can_cast(*from_*, *to*) → [bool](https://docs.python.org/3/builtins/functions.html#bool)
 
 Determines if a type conversion is allowed under PyTorch casting rules
 described in the type promotion [documentation](../tensor_attributes.html#type-promotion-doc).

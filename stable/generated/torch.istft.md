@@ -53,24 +53,24 @@ or 1 + (length - n_fft) // hop_length otherwise.
 
 Changed in version 2.0: Real datatype inputs are no longer supported. Input must now have a
 complex datatype, as returned by `stft(..., return_complex=True)`.
-- **n_fft** ([*int*](https://docs.python.org/3/library/functions.html#int)) - Size of Fourier transform
-- **hop_length** (*Optional**[*[*int*](https://docs.python.org/3/library/functions.html#int)*]*) - The distance between neighboring sliding window frames.
+- **n_fft** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Size of Fourier transform
+- **hop_length** (*Optional**[*[*int*](https://docs.python.org/3/builtins/functions.html#int)*]*) - The distance between neighboring sliding window frames.
 (Default: `n_fft // 4`)
-- **win_length** (*Optional**[*[*int*](https://docs.python.org/3/library/functions.html#int)*]*) - The size of window frame and STFT filter. (Default: `n_fft`)
+- **win_length** (*Optional**[*[*int*](https://docs.python.org/3/builtins/functions.html#int)*]*) - The size of window frame and STFT filter. (Default: `n_fft`)
 - **window** (*Optional**[*[*torch.Tensor*](../tensors.html#torch.Tensor)*]*) - The optional window function.
 Shape must be 1d and <= n_fft
 (Default: `torch.ones(win_length)`)
-- **center** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - Whether `input` was padded on both sides so that the ttt-th frame is
+- **center** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Whether `input` was padded on both sides so that the ttt-th frame is
 centered at time t×hop_lengtht \times \text{hop\_length}t×hop_length.
 (Default: `True`)
-- **normalized** ([*bool*](https://docs.python.org/3/library/functions.html#bool)) - Whether the STFT was normalized. (Default: `False`)
-- **onesided** (*Optional**[*[*bool*](https://docs.python.org/3/library/functions.html#bool)*]*) - Whether the STFT was onesided.
+- **normalized** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Whether the STFT was normalized. (Default: `False`)
+- **onesided** (*Optional**[*[*bool*](https://docs.python.org/3/builtins/functions.html#bool)*]*) - Whether the STFT was onesided.
 (Default: `True` if n_fft != fft_size in the input size)
-- **length** (*Optional**[*[*int*](https://docs.python.org/3/library/functions.html#int)*]*) - The amount to trim the signal by (i.e. the
+- **length** (*Optional**[*[*int*](https://docs.python.org/3/builtins/functions.html#int)*]*) - The amount to trim the signal by (i.e. the
 original signal length). Defaults to (T - 1) * hop_length for
 centered stft, or n_fft + (T - 1) * hop_length otherwise, where T
 is the number of input frames.
-- **return_complex** (*Optional**[*[*bool*](https://docs.python.org/3/library/functions.html#bool)*]*) - Whether the output should be complex, or if the input should be
+- **return_complex** (*Optional**[*[*bool*](https://docs.python.org/3/builtins/functions.html#bool)*]*) - Whether the output should be complex, or if the input should be
 assumed to derive from a real signal and window.
 Note that this is incompatible with `onesided=True`.
 (Default: `False`)

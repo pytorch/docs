@@ -1,6 +1,6 @@
 # torch.sym_sqrt
 
-torch.sym_sqrt(*a*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/__init__.py#L1354)
+torch.sym_sqrt(*a*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/__init__.py#L1363)
 
 Return type:
 

@@ -10,7 +10,7 @@ The second argument can be a number or a tensor whose shape is
 Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - the tensor to compare
-- **other** ([*Tensor*](../tensors.html#torch.Tensor)*or*[*float*](https://docs.python.org/3/library/functions.html#float)) - the tensor or value to compare
+- **other** ([*Tensor*](../tensors.html#torch.Tensor)*or*[*float*](https://docs.python.org/3/builtins/functions.html#float)) - the tensor or value to compare
 
 Keyword Arguments:
 

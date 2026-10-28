@@ -1,6 +1,6 @@
 # torch.fx.experimental.graph_gradual_typechecker.element_wise_eq
 
-torch.fx.experimental.graph_gradual_typechecker.element_wise_eq(*n*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/fx/experimental/graph_gradual_typechecker.py#L795)
+torch.fx.experimental.graph_gradual_typechecker.element_wise_eq(*n*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/fx/experimental/graph_gradual_typechecker.py#L795)
 
 For element-wise operations and handles broadcasting.
 Note that after applying broadcasting to the arguments
@@ -17,4 +17,4 @@ and the resulting type, requiring another round of constraint generation and uni
 
 Return type:
 
-[list](https://docs.python.org/3/library/stdtypes.html#list)[[*Any*](https://docs.python.org/3/library/typing.html#typing.Any)]
+[list](https://docs.python.org/3/builtins/stdtypes.html#list)[[*Any*](https://docs.python.org/3/library/typing.html#typing.Any)]

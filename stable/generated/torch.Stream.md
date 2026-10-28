@@ -14,7 +14,7 @@ Parameters:
 
 - **device** ([`torch.device`](../tensor_attributes.html#torch.device), optional) - the desired device for the Stream.
 If not given, the current [accelerator](../torch.html#accelerators) type will be used.
-- **priority** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - priority of the stream, should be 0 or negative, where negative
+- **priority** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - priority of the stream, should be 0 or negative, where negative
 numbers indicate higher priority. By default, streams have priority 0.
 
 Returns:
@@ -34,7 +34,7 @@ Example:
 >>> c = torch.mm(a, b)
 ```
 
-is_capturing() → [bool](https://docs.python.org/3/library/functions.html#bool)
+is_capturing() → [bool](https://docs.python.org/3/builtins/functions.html#bool)
 
 Return true if this stream is currently recording work for graph capture.
 
@@ -44,7 +44,7 @@ A boolean indicating if the stream is capturing.
 
 Return type:
 
-[bool](https://docs.python.org/3/library/functions.html#bool)
+[bool](https://docs.python.org/3/builtins/functions.html#bool)
 
 Example:
 
@@ -53,7 +53,7 @@ Example:
 >>> s_cuda.is_capturing()
 ```
 
-query() → [bool](https://docs.python.org/3/library/functions.html#bool)
+query() → [bool](https://docs.python.org/3/builtins/functions.html#bool)
 
 Check if all the work submitted has been completed.
 
@@ -63,7 +63,7 @@ A boolean indicating if all kernels in this stream are completed.
 
 Return type:
 
-[bool](https://docs.python.org/3/library/functions.html#bool)
+[bool](https://docs.python.org/3/builtins/functions.html#bool)
 
 Example:
 
@@ -96,7 +96,7 @@ Example:
 >>> e_cuda = s_cuda.record_event()
 ```
 
-synchronize() → [None](https://docs.python.org/3/library/constants.html#None)
+synchronize() → [None](https://docs.python.org/3/builtins/constants.html#None)
 
 Wait for all the kernels in this stream to complete.
 
@@ -107,7 +107,7 @@ Example:
 >>> s_cuda.synchronize()
 ```
 
-wait_event(*event*) → [None](https://docs.python.org/3/library/constants.html#None)
+wait_event(*event*) → [None](https://docs.python.org/3/builtins/constants.html#None)
 
 Make all future work submitted to the stream wait for an event.
 
@@ -124,7 +124,7 @@ Example:
 >>> s2_cuda.wait_event(e_cuda)
 ```
 
-wait_stream(*stream*) → [None](https://docs.python.org/3/library/constants.html#None)
+wait_stream(*stream*) → [None](https://docs.python.org/3/builtins/constants.html#None)
 
 Synchronize with another stream. All future work submitted to this stream will wait until all kernels
 already submitted to the given stream are completed.

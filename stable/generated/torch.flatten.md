@@ -18,8 +18,8 @@ Flattening a zero-dimensional tensor will return a one-dimensional view.
 Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - the input tensor.
-- **start_dim** ([*int*](https://docs.python.org/3/library/functions.html#int)) - the first dim to flatten
-- **end_dim** ([*int*](https://docs.python.org/3/library/functions.html#int)) - the last dim to flatten
+- **start_dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - the first dim to flatten
+- **end_dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - the last dim to flatten
 
 Example:
 

@@ -25,7 +25,7 @@ This function is similar to NumPy's tile function.
 Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - the tensor whose elements to repeat.
-- **dims** ([*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)) - the number of repetitions per dimension.
+- **dims** ([*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)) - the number of repetitions per dimension.
 
 Example:
 

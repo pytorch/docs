@@ -1,6 +1,6 @@
 # GLU
 
-*class*torch.nn.GLU(*dim=-1*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/nn/modules/activation.py#L737)
+*class*torch.nn.GLU(*dim=-1*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/nn/modules/activation.py#L737)
 
 Applies the gated linear unit function.
 
@@ -9,7 +9,7 @@ of the input matrices and bbb is the second half.
 
 Parameters:
 
-**dim** ([*int*](https://docs.python.org/3/library/functions.html#int)) - the dimension on which to split the input. Default: -1
+**dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - the dimension on which to split the input. Default: -1
 
 Shape:
 
@@ -25,15 +25,15 @@ Examples:
 >>> output = m(input)
 ```
 
-extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/nn/modules/activation.py#L771)
+extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/nn/modules/activation.py#L771)
 
 Return the extra representation of the module.
 
 Return type:
 
-[str](https://docs.python.org/3/library/stdtypes.html#str)
+[str](https://docs.python.org/3/builtins/stdtypes.html#str)
 
-forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/nn/modules/activation.py#L765)
+forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/nn/modules/activation.py#L765)
 
 Runs the forward pass.
 

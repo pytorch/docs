@@ -32,7 +32,7 @@ tensor on the CPU.
 Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - the tensor to split
-- **dim** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - dimension along which to split the tensor. Default: `0`
+- **dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - dimension along which to split the tensor. Default: `0`
 
 Example:
 

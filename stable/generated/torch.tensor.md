@@ -29,9 +29,9 @@ Default: if `None`, infers data type from `data`.
 - **device** ([`torch.device`](../tensor_attributes.html#torch.device), optional) - the device of the constructed tensor. If None and data is a tensor
 then the device of data is used. If None and data is not a tensor then
 the result tensor is constructed on the current device.
-- **requires_grad** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If autograd should record operations on the
+- **requires_grad** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If autograd should record operations on the
 returned tensor. Default: `False`.
-- **pin_memory** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If set, returned tensor would be allocated in
+- **pin_memory** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If set, returned tensor would be allocated in
 the pinned memory. Works only for CPU tensors. Default: `False`.
 
 Example:

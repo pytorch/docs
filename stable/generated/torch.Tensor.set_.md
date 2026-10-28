@@ -13,6 +13,6 @@ storage, offset, size, and stride.
 Parameters:
 
 - **source** ([*Tensor*](../tensors.html#torch.Tensor)*or**Storage*) - the tensor or storage to use
-- **storage_offset** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - the offset in the storage
+- **storage_offset** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - the offset in the storage
 - **size** ([*torch.Size*](../size.html#torch.Size)*,**optional*) - the desired size. Defaults to the size of the source.
-- **stride** ([*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*,**optional*) - the desired stride. Defaults to C-contiguous strides.
+- **stride** ([*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*,**optional*) - the desired stride. Defaults to C-contiguous strides.

@@ -1,6 +1,6 @@
 # torch.sparse.sum
 
-torch.sparse.sum(*input*, *dim=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/sparse/__init__.py#L217)
+torch.sparse.sum(*input*, *dim=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/sparse/__init__.py#L217)
 
 Return the sum of each row of the given sparse tensor.
 
@@ -18,7 +18,7 @@ will propagate back. Note that the gradients of `input` is coalesced.
 Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - the input sparse tensor
-- **dim** ([*int*](https://docs.python.org/3/library/functions.html#int)*or*[*tuple*](https://docs.python.org/3/library/stdtypes.html#tuple)*of**ints*) - a dimension or a list of dimensions to reduce. Default: reduce
+- **dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*or*[*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*of**ints*) - a dimension or a list of dimensions to reduce. Default: reduce
 over all dims.
 - **dtype** ([`torch.dtype`](../tensor_attributes.html#torch.dtype), optional) - the desired data type of returned Tensor.
 Default: dtype of `input`.

@@ -1,6 +1,6 @@
 # graph
 
-*class*torch.cuda.graph(*cuda_graph*, *pool=None*, *stream=None*, *capture_error_mode='global'*, *enable_annotations=False*, *check_input_liveness=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/cuda/graphs.py#L1081)
+*class*torch.cuda.graph(*cuda_graph*, *pool=None*, *stream=None*, *capture_error_mode='global'*, *enable_annotations=False*, *annotation_config=None*, *check_input_liveness=False*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/cuda/graphs.py#L1199)
 
 Context-manager that captures CUDA work into a [`torch.cuda.CUDAGraph`](torch.cuda.CUDAGraph.html#torch.cuda.CUDAGraph) object for later replay.
 
@@ -16,18 +16,53 @@ Parameters:
 from the specified pool. See [Graph memory management](../notes/cuda.html#graph-memory-management).
 - **stream** ([*torch.cuda.Stream*](torch.cuda.Stream_class.html#torch.cuda.Stream)*,**optional*) - If supplied, will be set as the current stream in the context.
 If not supplied, `graph` sets its own internal side stream as the current stream in the context.
-- **capture_error_mode** ([*str*](https://docs.python.org/3/library/stdtypes.html#str)*,**optional*) - specifies the cudaStreamCaptureMode for the graph capture stream.
+- **capture_error_mode** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**optional*) - specifies the cudaStreamCaptureMode for the graph capture stream.
 Can be "global", "thread_local" or "relaxed". During cuda graph capture, some actions, such as cudaMalloc,
 may be unsafe. "global" will error on actions in other threads, "thread_local" will only error for
 actions in the current thread, and "relaxed" will not error on actions. Do NOT change this setting
 unless you're familiar with [cudaStreamCaptureMode](https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__STREAM.html#group__CUDART__STREAM_1g9d0535d93a214cbf126835257b16ba85)
-- **enable_annotations** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) - If `True`, enables kernel annotation
+- **enable_annotations** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If `True`, enables kernel annotation
 recording on entry and automatically calls
 `resolve_pending_annotations()` before
 the capture ends. Annotations are **not** cleared on exit so that multiple
 graphs in the same workload can accumulate annotations.
 Requires `cuda.bindings` package and cuda-compat >= 13.1 or CUDA driver >= 13.1.
-- **check_input_liveness** ([*bool*](https://docs.python.org/3/library/functions.html#bool)*,**optional*) -
+Requires single-threaded autograd; wrap the capture in
+`torch.autograd.grad_mode.set_multithreading_enabled(False)`.
+- **annotation_config** ([*dict*](https://docs.python.org/3/builtins/stdtypes.html#dict)*,**optional*) - Options for annotation recording, used when
+`enable_annotations=True`. An unrecognized key or value raises. Currently
+supports `"backend"`, which selects how `mark_kernels` scopes discover their
+nodes: `"auto"` (default) uses CUPTI node-creation callbacks when Cuspy
+already holds a subscription and otherwise walks the capture graph's
+dependent edges; `"cupti"` requires the CUPTI path, bringing Cuspy up if
+needed - which prevents kineto from initializing, so a later
+[`torch.profiler.profile`](../profiler.html#torch.profiler.profile) records no GPU activity; `"edge_walk"` forces
+the walk, which cannot see nodes created while the current stream was not yet
+capturing.
+Also supports `"key_by"`, which selects the graph the annotations stay keyed
+to: `"exec"` (default) rekeys them to the executable graph at each
+`instantiate()`, matching the graph node id CUPTI reports for replayed work;
+`"source"` leaves them on the capture graph, for a consumer that reads CUPTI's
+`sourceGraphNodeId` instead (needs CUPTI >= 13.4 and a CUDA driver >= 13.4,
+else the capture raises); `"auto"` is `"source"` where the stack supports it
+and `"exec"` where it does not, so it never raises. `"exec"` remains the
+default because kineto reports only the exec node id, so a trace exported
+through it cannot resolve capture-keyed annotations.
+`"record_py_stacks"` (bool, default `False`) records user Python launch
+frames for kernel, memcpy, memset, batch-memory, event, and host nodes.
+It requires CUPTI and single-threaded autograd: `backend="auto"`
+acquires a CUPTI subscription as with `"cupti"`, and `"edge_walk"` is
+rejected. By default, framework and generated Inductor frames are omitted. Conditional
+and child-graph bodies require `key_by="source"`. Use `"exec"` keys for
+exported traces or `"source"` keys for CUPTI's `sourceGraphNodeId`. Save stacks
+separately with [`dump_kernel_py_stacks()`](torch.cuda.graph_annotations.dump_kernel_py_stacks.html#torch.cuda.graph_annotations.dump_kernel_py_stacks)
+or read them with [`get_kernel_py_stacks()`](torch.cuda.graph_annotations.get_kernel_py_stacks.html#torch.cuda.graph_annotations.get_kernel_py_stacks).
+`"py_stack_filter_paths"` (list or tuple of str, default `None`) replaces
+the default stack filters with directories whose frames should be omitted.
+Paths are matched on directory boundaries; relative paths are resolved when
+capture begins. `None` uses the defaults; an empty list disables filtering.
+Used only with `record_py_stacks=True`.
+- **check_input_liveness** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) -
 
 If `True`, tracks external tensor inputs during graph capture and
 raises an error if any are deallocated before replay. This helps debug "use after free" errors

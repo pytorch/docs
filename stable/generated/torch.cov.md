@@ -38,7 +38,7 @@ Scalar or 1D vector representing a single variable.
 
 Keyword Arguments:
 
-- **correction** ([*int*](https://docs.python.org/3/library/functions.html#int)*,**optional*) - difference between the sample size and sample degrees of freedom.
+- **correction** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - difference between the sample size and sample degrees of freedom.
 Defaults to Bessel's correction, `correction = 1` which returns the unbiased estimate,
 even if both `fweights` and `aweights` are specified. `correction = 0`
 will return the simple average. Defaults to `1`.

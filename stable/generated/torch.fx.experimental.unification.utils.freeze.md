@@ -1,6 +1,6 @@
 # torch.fx.experimental.unification.utils.freeze
 
-torch.fx.experimental.unification.utils.freeze(*d*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/fx/experimental/unification/utils.py#L113)
+torch.fx.experimental.unification.utils.freeze(*d*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/fx/experimental/unification/utils.py#L113)
 
 Freeze container to hashable form
 >>> freeze(1)
@@ -12,4 +12,4 @@ frozenset([(1, 2)])
 
 Return type:
 
-[object](https://docs.python.org/3/library/functions.html#object)
+[object](https://docs.python.org/3/builtins/functions.html#object)

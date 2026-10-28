@@ -1,6 +1,6 @@
 # torch.compiler.nonstrict_trace
 
-torch.compiler.nonstrict_trace(*traceable_fn*)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/compiler/__init__.py#L179)
+torch.compiler.nonstrict_trace(*traceable_fn*)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/compiler/__init__.py#L179)
 
 Decorator to mark a function as nonstrict-traceable for dynamo.
 
@@ -35,9 +35,10 @@ Restrictions:
 - Both inputs and outputs must use pytree-compatible types. User-defined classes
 must be registered via `torch.utils._pytree.register_pytree_node()`,
 `torch.utils._pytree.register_dataclass()`, or
-`torch.utils._pytree.register_constant()`. Tensors, Python primitives (int, float, bool, str),
-symbolic types (SymInt, SymFloat, SymBool), and built-in containers (list,
-tuple, dict) are already handled by default.
+`torch.utils._pytree.register_constant()`. Tensors, `None`,
+Python primitives (int, float, bool, str), symbolic types (SymInt,
+SymFloat, SymBool), and built-in containers (list, tuple, dict) are
+already handled by default.
 - Primitive values and container structure are specialized per call site:
 each call site expects the same primitives and structure on every execution.
 

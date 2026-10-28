@@ -1,6 +1,6 @@
 # torch.nn.functional.glu
 
-torch.nn.functional.glu(*input*, *dim=-1*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/v2.14.0/torch/nn/functional.py#L1791)
+torch.nn.functional.glu(*input*, *dim=-1*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/v2.15.0/torch/nn/functional.py#L1791)
 
 The gated linear unit. Computes:
 
@@ -16,7 +16,7 @@ See [Language Modeling with Gated Convolutional Networks](https://arxiv.org/abs/
 Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - input tensor
-- **dim** ([*int*](https://docs.python.org/3/library/functions.html#int)) - dimension on which to split the input. Default: -1
+- **dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - dimension on which to split the input. Default: -1
 
 Return type:
 

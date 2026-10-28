@@ -7,9 +7,9 @@ selecting the indices in the order given in `index`.
 
 Parameters:
 
-- **dim** ([*int*](https://docs.python.org/3/library/functions.html#int)) - dimension along which to index
+- **dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - dimension along which to index
 - **index** (*LongTensor*) - indices of `self` tensor to fill in
-- **value** ([*float*](https://docs.python.org/3/library/functions.html#float)) - the value to fill with
+- **value** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - the value to fill with
 
 Example:
 
