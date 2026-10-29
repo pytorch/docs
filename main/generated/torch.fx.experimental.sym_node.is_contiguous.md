@@ -1,6 +1,6 @@
 # torch.fx.experimental.sym_node.is_contiguous
 
-torch.fx.experimental.sym_node.is_contiguous(*sizes*, *strides*)[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/fx/experimental/sym_node.py#L1873)
+torch.fx.experimental.sym_node.is_contiguous(*sizes*, *strides*)[[source]](https://github.com/pytorch/pytorch/blob/f07af57fd559ef07889f363c74772ab28405da56/torch/fx/experimental/sym_node.py#L1873)
 
 Return type:
 

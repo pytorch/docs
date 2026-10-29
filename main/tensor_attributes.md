@@ -18,15 +18,16 @@ A `torch.dtype` is an object that represents the data type of a
 | `torch.float16` or `torch.half` | 16-bit floating point, as defined in [https://en.wikipedia.org/wiki/IEEE_754](https://en.wikipedia.org/wiki/IEEE_754), S-E-M 1-5-10 |
 | `torch.bfloat16` | 16-bit floating point, sometimes referred to as Brain floating point, S-E-M 1-8-7 |
 | `torch.complex32` or `torch.chalf` | 32-bit complex with two `float16` components |
-| `torch.bcomplex32` [4] | 32-bit complex with two `bfloat16` components |
+| `torch.bcomplex32` [5] | 32-bit complex with two `bfloat16` components |
 | `torch.complex64` or `torch.cfloat` | 64-bit complex with two `float32` components |
 | `torch.complex128` or `torch.cdouble` | 128-bit complex with two `float64` components |
-| `torch.float8_e4m3fn` [4] [1] | 8-bit floating point, S-E-M 1-4-3, from [https://arxiv.org/abs/2209.05433](https://arxiv.org/abs/2209.05433) |
-| `torch.float8_e5m2` [4] | 8-bit floating point, S-E-M 1-5-2, from [https://arxiv.org/abs/2209.05433](https://arxiv.org/abs/2209.05433) |
-| `torch.float8_e4m3fnuz` [4] [1] | 8-bit floating point, S-E-M 1-4-3, from [https://arxiv.org/pdf/2206.02915](https://arxiv.org/pdf/2206.02915) |
-| `torch.float8_e5m2fnuz` [4] [1] | 8-bit floating point, S-E-M 1-5-2, from [https://arxiv.org/pdf/2206.02915](https://arxiv.org/pdf/2206.02915) |
-| `torch.float8_e8m0fnu` [4] [1] | 8-bit floating point, S-E-M 0-8-0, from [https://www.opencompute.org/documents/ocp-microscaling-formats-mx-v1-0-spec-final-pdf](https://www.opencompute.org/documents/ocp-microscaling-formats-mx-v1-0-spec-final-pdf) |
-| `torch.float4_e2m1fn_x2` [4] [1] [3] | packed 4-bit floating point, S-E-M 1-2-1, from [https://www.opencompute.org/documents/ocp-microscaling-formats-mx-v1-0-spec-final-pdf](https://www.opencompute.org/documents/ocp-microscaling-formats-mx-v1-0-spec-final-pdf) |
+| `torch.float8_e4m3fn` [5] [1] | 8-bit floating point, S-E-M 1-4-3, from [https://arxiv.org/abs/2209.05433](https://arxiv.org/abs/2209.05433) |
+| `torch.float8_e5m2` [5] | 8-bit floating point, S-E-M 1-5-2, from [https://arxiv.org/abs/2209.05433](https://arxiv.org/abs/2209.05433) |
+| `torch.float8_e4m3fnuz` [5] [1] | 8-bit floating point, S-E-M 1-4-3, from [https://arxiv.org/pdf/2206.02915](https://arxiv.org/pdf/2206.02915) |
+| `torch.float8_e5m2fnuz` [5] [1] | 8-bit floating point, S-E-M 1-5-2, from [https://arxiv.org/pdf/2206.02915](https://arxiv.org/pdf/2206.02915) |
+| `torch.float8_e8m0fnu` [5] [1] | 8-bit floating point, S-E-M 0-8-0, from [https://www.opencompute.org/documents/ocp-microscaling-formats-mx-v1-0-spec-final-pdf](https://www.opencompute.org/documents/ocp-microscaling-formats-mx-v1-0-spec-final-pdf) |
+| `torch.float8_e5m3fnu` [5] [1] [4] | 8-bit unsigned floating point, S-E-M 0-5-3, block-scale format, from [https://docs.nvidia.com/cuda/parallel-thread-execution/index.html#alternate-floating-point-data-formats](https://docs.nvidia.com/cuda/parallel-thread-execution/index.html#alternate-floating-point-data-formats) (`ue5m3`) |
+| `torch.float4_e2m1fn_x2` [5] [1] [3] | packed 4-bit floating point, S-E-M 1-2-1, from [https://www.opencompute.org/documents/ocp-microscaling-formats-mx-v1-0-spec-final-pdf](https://www.opencompute.org/documents/ocp-microscaling-formats-mx-v1-0-spec-final-pdf) |
 
 **Integer dtypes**
 
@@ -34,11 +35,11 @@ A `torch.dtype` is an object that represents the data type of a
 | --- | --- |
 | `torch.uint8` | 8-bit integer (unsigned) |
 | `torch.int8` | 8-bit integer (signed) |
-| `torch.uint16` [4] [2] | 16-bit integer (unsigned) |
+| `torch.uint16` [5] [2] | 16-bit integer (unsigned) |
 | `torch.int16` or `torch.short` | 16-bit integer (signed) |
-| `torch.uint32` [4] [2] | 32-bit integer (unsigned) |
+| `torch.uint32` [5] [2] | 32-bit integer (unsigned) |
 | `torch.int32` or `torch.int` | 32-bit integer (signed) |
-| `torch.uint64` [4] [2] | 64-bit integer (unsigned) |
+| `torch.uint64` [5] [2] | 64-bit integer (unsigned) |
 | `torch.int64` or `torch.long` | 64-bit integer (signed) |
 | `torch.bool` | Boolean |
 

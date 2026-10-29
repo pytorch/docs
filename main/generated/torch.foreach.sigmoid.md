@@ -1,6 +1,6 @@
 # torch.foreach.sigmoid
 
-torch.foreach.sigmoid(*inputs: TensorList*, */*) → [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...][[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/foreach/__init__.py#L590)
+torch.foreach.sigmoid(*inputs: TensorList*, */*) → [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...][[source]](https://github.com/pytorch/pytorch/blob/f07af57fd559ef07889f363c74772ab28405da56/torch/foreach/__init__.py#L590)
 
 Applies [`torch.sigmoid()`](torch.sigmoid.html#torch.sigmoid) to each tensor in `inputs`.
 

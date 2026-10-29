@@ -1,6 +1,6 @@
 # torch.cuda.current_blas_handle
 
-torch.cuda.current_blas_handle()[[source]](https://github.com/pytorch/pytorch/blob/7b82415148a0089a719484208bcd61238ed19508/torch/cuda/__init__.py#L1449)
+torch.cuda.current_blas_handle()[[source]](https://github.com/pytorch/pytorch/blob/f07af57fd559ef07889f363c74772ab28405da56/torch/cuda/__init__.py#L1449)
 
 Return the `cublasHandle_t` pointer for the current device and stream.
 
