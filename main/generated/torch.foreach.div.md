@@ -1,6 +1,6 @@
 # torch.foreach.div
 
-torch.foreach.div(*inputs: TensorList*, *other: ScalarList*, */*) → [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...][[source]](https://github.com/pytorch/pytorch/blob/f07af57fd559ef07889f363c74772ab28405da56/torch/foreach/__init__.py#L942)
+torch.foreach.div(*inputs: TensorList*, *other: ScalarList*, */*) → [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...][[source]](https://github.com/pytorch/pytorch/blob/eeafed4de12b40ecc42bea4b9757d484a389d286/torch/foreach/__init__.py#L942)
 
 torch.foreach.div(*inputs: TensorList*, *other: [Tensor](../tensors.html#torch.Tensor)*, */*) → [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...]
 

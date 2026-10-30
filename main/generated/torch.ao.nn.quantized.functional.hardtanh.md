@@ -1,6 +1,6 @@
 # hardtanh
 
-*class*torch.ao.nn.quantized.functional.hardtanh(*input*, *min_val=-1.0*, *max_val=1.0*, *inplace=False*)[[source]](https://github.com/pytorch/pytorch/blob/f07af57fd559ef07889f363c74772ab28405da56/torch/ao/nn/quantized/functional.py#L596)
+*class*torch.ao.nn.quantized.functional.hardtanh(*input*, *min_val=-1.0*, *max_val=1.0*, *inplace=False*)[[source]](https://github.com/pytorch/pytorch/blob/eeafed4de12b40ecc42bea4b9757d484a389d286/torch/ao/nn/quantized/functional.py#L596)
 
 This is the quantized version of [`hardtanh()`](torch.nn.functional.hardtanh.html#torch.nn.functional.hardtanh).
 

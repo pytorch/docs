@@ -1,6 +1,6 @@
 # PerRow
 
-*class*torch.ao.quantization.observer.PerRow[[source]](https://github.com/pytorch/pytorch/blob/f07af57fd559ef07889f363c74772ab28405da56/torch/ao/quantization/observer.py#L1764)
+*class*torch.ao.quantization.observer.PerRow[[source]](https://github.com/pytorch/pytorch/blob/eeafed4de12b40ecc42bea4b9757d484a389d286/torch/ao/quantization/observer.py#L1764)
 
 Represents row-wise granularity in quantization.
 

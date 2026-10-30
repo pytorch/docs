@@ -130,7 +130,7 @@ for input, target in dataset:
 
 ## Base class
 
-*class*torch.optim.Optimizer(*params*, *defaults*)[[source]](https://github.com/pytorch/pytorch/blob/f07af57fd559ef07889f363c74772ab28405da56/torch/optim/optimizer.py#L368)
+*class*torch.optim.Optimizer(*params*, *defaults*)[[source]](https://github.com/pytorch/pytorch/blob/eeafed4de12b40ecc42bea4b9757d484a389d286/torch/optim/optimizer.py#L369)
 
 Base class for all optimizers.
 
@@ -411,7 +411,7 @@ Use `torch.optim.optimizer.register_optimizer_step_pre_hook()` and
 `torch.optim.optimizer.register_optimizer_step_post_hook()` to register
 hooks that apply to every optimizer instead of one optimizer instance.
 
-torch.optim.optimizer.register_optimizer_step_post_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/f07af57fd559ef07889f363c74772ab28405da56/torch/optim/optimizer.py#L338)
+torch.optim.optimizer.register_optimizer_step_post_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/eeafed4de12b40ecc42bea4b9757d484a389d286/torch/optim/optimizer.py#L339)
 
 Register a post hook common to all optimizers.
 
@@ -434,7 +434,7 @@ Return type:
 
 `torch.utils.hooks.RemovableHandle`
 
-torch.optim.optimizer.register_optimizer_step_pre_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/f07af57fd559ef07889f363c74772ab28405da56/torch/optim/optimizer.py#L318)
+torch.optim.optimizer.register_optimizer_step_pre_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/eeafed4de12b40ecc42bea4b9757d484a389d286/torch/optim/optimizer.py#L319)
 
 Register a pre hook common to all optimizers.
 
@@ -459,7 +459,64 @@ Return type:
 
 ## Utilities
 
-torch.optim.swap_in_optimizer_params_and_state(*optimizer*, *swapin_parameters*, *swapin_optim_state*)[[source]](https://github.com/pytorch/pytorch/blob/f07af57fd559ef07889f363c74772ab28405da56/torch/optim/_stateless.py#L192)
+torch.optim.preserve_state_dtype_on_load(*preserve_dtype=True*)[[source]](https://github.com/pytorch/pytorch/blob/eeafed4de12b40ecc42bea4b9757d484a389d286/torch/optim/_utils.py#L14)
+
+Control the dtype of state tensors loaded by
+[`load_state_dict()`](generated/torch.optim.Optimizer.load_state_dict.html#torch.optim.Optimizer.load_state_dict) within this context.
+
+Parameters:
+
+**preserve_dtype** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - If `True`, preserve the dtype of saved
+state tensors versus casting to the parameter's dtype. If `False`,
+cast these tensors to the parameter dtype for floating-point parameters.
+Note that the state will be moved to match the parameter's device in
+both cases. Default: `True`.
+
+Return type:
+
+[*Iterator*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterator)[None]
+
+The setting applies only to state processed by
+[`load_state_dict()`](generated/torch.optim.Optimizer.load_state_dict.html#torch.optim.Optimizer.load_state_dict) in the current thread or
+asynchronous task, including nested calls. Exiting the context restores the
+previous setting, including when an exception is raised. Using this context
+manager will suppress the warning about the planned change to the default
+loading behavior.
+
+Note
+
+Preserved state dtypes must be compatible with the selected optimizer
+implementation, for example fused bfloat16 AdamW. Otherwise,
+[`step()`](generated/torch.optim.Optimizer.step.html#torch.optim.Optimizer.step) may raise a dtype mismatch error
+or use unintended precision. Pass `preserve_dtype=False` to retain
+automatic casting to match parameter dtype, or explicitly convert state
+tensors before stepping, for example with
+[`register_load_state_dict_post_hook()`](generated/torch.optim.Optimizer.register_load_state_dict_post_hook.html#torch.optim.Optimizer.register_load_state_dict_post_hook).
+
+Note
+
+Subclasses that override `load_state_dict` control their own loading
+behavior. State loaded independently by an override is unaffected.
+Calls to [`load_state_dict()`](generated/torch.optim.Optimizer.load_state_dict.html#torch.optim.Optimizer.load_state_dict), through
+`super()` or a wrapped optimizer, use the context's dtype policy.
+
+Note
+
+The `step` tensor keeps its saved dtype and device unless the parameter
+group is fused or capturable, which moves it to the parameter's device as
+`torch.float32` for performance reasons. This behavior is independent of
+`preserve_dtype`.
+
+Examples:
+
+```
+>>> with torch.optim.preserve_state_dtype_on_load():
+... optimizer.load_state_dict(checkpoint)
+>>> with torch.optim.preserve_state_dtype_on_load(False):
+... optimizer.load_state_dict(checkpoint)
+```
+
+torch.optim.swap_in_optimizer_params_and_state(*optimizer*, *swapin_parameters*, *swapin_optim_state*)[[source]](https://github.com/pytorch/pytorch/blob/eeafed4de12b40ecc42bea4b9757d484a389d286/torch/optim/_stateless.py#L192)
 
 Temporarily replace an optimizer's parameters and state with the
 supplied params and optim states, then restore them on exit.
@@ -953,7 +1010,7 @@ We train the model for a total of 300 epochs and start to collect EMA averages i
 | [`swa_utils.get_swa_avg_fn`](generated/torch.optim.swa_utils.get_swa_avg_fn.html#torch.optim.swa_utils.get_swa_avg_fn) | Get the function applying stochastic weight average (SWA) across a single param. |
 | [`swa_utils.get_swa_multi_avg_fn`](generated/torch.optim.swa_utils.get_swa_multi_avg_fn.html#torch.optim.swa_utils.get_swa_multi_avg_fn) | Get the function applying stochastic weight average (SWA) across multiple params. |
 
-torch.optim.swa_utils.get_ema_multi_avg_fn(*decay=0.999*)[[source]](https://github.com/pytorch/pytorch/blob/f07af57fd559ef07889f363c74772ab28405da56/torch/optim/swa_utils.py#L42)
+torch.optim.swa_utils.get_ema_multi_avg_fn(*decay=0.999*)[[source]](https://github.com/pytorch/pytorch/blob/eeafed4de12b40ecc42bea4b9757d484a389d286/torch/optim/swa_utils.py#L42)
 
 Get the function applying exponential moving average (EMA) across multiple params.
 
@@ -982,7 +1039,7 @@ Return type:
 
 Callable
 
-torch.optim.swa_utils.update_bn(*loader*, *model*, *device=None*)[[source]](https://github.com/pytorch/pytorch/blob/f07af57fd559ef07889f363c74772ab28405da56/torch/optim/swa_utils.py#L371)
+torch.optim.swa_utils.update_bn(*loader*, *model*, *device=None*)[[source]](https://github.com/pytorch/pytorch/blob/eeafed4de12b40ecc42bea4b9757d484a389d286/torch/optim/swa_utils.py#L371)
 
 Update BatchNorm running_mean, running_var buffers in the model.
 

@@ -1,5 +1,5 @@
 # torch.utils.hipify.hipify_python.find_bracket_group
 
-torch.utils.hipify.hipify_python.find_bracket_group(*input_string*, *start*)[[source]](https://github.com/pytorch/pytorch/blob/f07af57fd559ef07889f363c74772ab28405da56/torch/utils/hipify/hipify_python.py#L473)
+torch.utils.hipify.hipify_python.find_bracket_group(*input_string*, *start*)[[source]](https://github.com/pytorch/pytorch/blob/eeafed4de12b40ecc42bea4b9757d484a389d286/torch/utils/hipify/hipify_python.py#L473)
 
 Finds the first balanced parentheses.

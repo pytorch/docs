@@ -1,3 +1,3 @@
 # StorageType
 
-*class*torch.serialization.StorageType(*name*)[[source]](https://github.com/pytorch/pytorch/blob/f07af57fd559ef07889f363c74772ab28405da56/torch/serialization.py#L1987)
+*class*torch.serialization.StorageType(*name*)[[source]](https://github.com/pytorch/pytorch/blob/eeafed4de12b40ecc42bea4b9757d484a389d286/torch/serialization.py#L1987)

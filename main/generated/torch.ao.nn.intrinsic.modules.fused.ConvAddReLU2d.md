@@ -1,10 +1,10 @@
 # ConvAddReLU2d
 
-*class*torch.ao.nn.intrinsic.modules.fused.ConvAddReLU2d(*conv*, *add*, *relu*)[[source]](https://github.com/pytorch/pytorch/blob/f07af57fd559ef07889f363c74772ab28405da56/torch/ao/nn/intrinsic/modules/fused.py#L308)
+*class*torch.ao.nn.intrinsic.modules.fused.ConvAddReLU2d(*conv*, *add*, *relu*)[[source]](https://github.com/pytorch/pytorch/blob/eeafed4de12b40ecc42bea4b9757d484a389d286/torch/ao/nn/intrinsic/modules/fused.py#L308)
 
 This is a sequential container which calls the Conv2d, add, Relu.
 During quantization this will be replaced with the corresponding fused module.
 
-forward(*x1*, *x2*)[[source]](https://github.com/pytorch/pytorch/blob/f07af57fd559ef07889f363c74772ab28405da56/torch/ao/nn/intrinsic/modules/fused.py#L317)
+forward(*x1*, *x2*)[[source]](https://github.com/pytorch/pytorch/blob/eeafed4de12b40ecc42bea4b9757d484a389d286/torch/ao/nn/intrinsic/modules/fused.py#L317)
 
 Applies convolution to x1, adds the result to x2, and applies ReLU.

@@ -1,6 +1,6 @@
 # torch.optim.Optimizer.load_state_dict
 
-Optimizer.load_state_dict(*state_dict*)[[source]](https://github.com/pytorch/pytorch/blob/f07af57fd559ef07889f363c74772ab28405da56/torch/optim/optimizer.py#L917)
+Optimizer.load_state_dict(*state_dict*)[[source]](https://github.com/pytorch/pytorch/blob/eeafed4de12b40ecc42bea4b9757d484a389d286/torch/optim/optimizer.py#L915)
 
 Load the optimizer state.
 
@@ -11,8 +11,36 @@ from a call to [`state_dict()`](torch.optim.Optimizer.state_dict.html#torch.opti
 
 Warning
 
+By default, state tensors other than `step` are currently cast to the
+parameter dtype for floating-point parameters. In a future release,
+the default will preserve their saved dtype in order to respect the
+dtype in the checkpoint. However, this behavior will break use cases
+that rely on the state being automatically cast to the parameter's
+dtype, as many optimizer [`step()`](torch.optim.Optimizer.step.html#torch.optim.Optimizer.step) implementations do not support
+mixed precision. We emit a `FutureWarning` when loading the checkpoint
+changes a state tensor's dtype. Use [`torch.optim.preserve_state_dtype_on_load()`](../optim.html#torch.optim.preserve_state_dtype_on_load)
+to select the desired behavior explicitly. In either case, state tensors
+are moved to the parameter's device.
+
+Note
+
+When preserving dtypes, state tensors must be compatible with the
+selected optimizer implementation for [`step()`](torch.optim.Optimizer.step.html#torch.optim.Optimizer.step). Use
+[`torch.optim.preserve_state_dtype_on_load()`](../optim.html#torch.optim.preserve_state_dtype_on_load) with `False` to
+retain automatic casting, or explicitly convert state tensors before
+stepping, for example with [`register_load_state_dict_post_hook()`](torch.optim.Optimizer.register_load_state_dict_post_hook.html#torch.optim.Optimizer.register_load_state_dict_post_hook).
+
+Warning
+
 Make sure this method is called after initializing [`torch.optim.lr_scheduler.LRScheduler`](torch.optim.lr_scheduler.LRScheduler.html#torch.optim.lr_scheduler.LRScheduler),
 as calling it beforehand will overwrite the loaded learning rates.
+
+Note
+
+The `step` tensor keeps its saved dtype and device unless the parameter
+group is fused or capturable, which moves it to the parameter's device as
+`torch.float32`. This behavior is independent of the dtype preservation
+setting.
 
 Note
 

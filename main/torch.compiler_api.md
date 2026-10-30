@@ -63,7 +63,7 @@ trace under the contract of Note [precompile programming model] in `torch/_preco
 `torch.compiler.precompile` is distinct from `torch._dynamo.config.caching_precompile`
 (a `torch.compile` caching mode).
 
-torch.compiler.precompile.capture(*fn*, */*, ***, *artifact_path*, *cache_path*, *tracer=DynamoTracer(guard_filter_fn=None, recompile_limit=256, dynamic=None, require_complete=True, require_no_risky_drops=True)*, *backend='inductor'*)[[source]](https://github.com/pytorch/pytorch/blob/f07af57fd559ef07889f363c74772ab28405da56/torch/_precompile.py#L3311)
+torch.compiler.precompile.capture(*fn*, */*, ***, *artifact_path*, *cache_path*, *tracer=DynamoTracer(guard_filter_fn=None, recompile_limit=256, dynamic=None, require_complete=True, require_no_risky_drops=True)*, *backend='inductor'*)[[source]](https://github.com/pytorch/pytorch/blob/eeafed4de12b40ecc42bea4b9757d484a389d286/torch/_precompile.py#L3562)
 
 Capture `fn` across the calls YOUR loop makes, writing the artifact on exit.
 
@@ -176,7 +176,7 @@ Return type:
 
 *Capture*[~_P, *_R*]
 
-torch.compiler.precompile.load(*artifact_path*, *cache_path*, ***, *allow_serve_time_compiles=False*)[[source]](https://github.com/pytorch/pytorch/blob/f07af57fd559ef07889f363c74772ab28405da56/torch/_precompile.py#L3474)
+torch.compiler.precompile.load(*artifact_path*, *cache_path*, ***, *allow_serve_time_compiles=False*)[[source]](https://github.com/pytorch/pytorch/blob/eeafed4de12b40ecc42bea4b9757d484a389d286/torch/_precompile.py#L3725)
 
 Reconstruct a runnable from the two files a precompile capture wrote.
 
@@ -241,11 +241,16 @@ nothing, so the rest of the call from that frame on, its callees included,
 runs as plain Python; whatever ran before it, such as the entry's variant
 up to a graph break whose continuation fell back, still ran compiled.
 
-Frozen C++ kernels are keyed by their full build command, which includes
-the producer's absolute PyTorch include and library paths, so they serve
-only a host whose PyTorch install and toolchain paths match the producer's.
-Any other host rebuilds them, which needs a C++ compiler there:
-`no_compilation()` does not gate C++ builds.
+Frozen C++ kernels are keyed by their build command with the PyTorch install
+taken out, so they serve a host that installed the same PyTorch build
+elsewhere. The Python, compiler, CUDA and other SDK paths must still match the
+producer's. The key also covers each kernel's source, so a kernel whose source
+or command names a path in the Inductor cache dir (a linked Halide runtime,
+CUTLASS or CK library, or a GPU `cpp_wrapper` wrapper's cubin path) keeps
+that path: a host whose cache dir is at the producer's path restores the frozen
+binary, which needs those files at the same path, and any other host rebuilds
+it. Rebuilding needs a C++ compiler on the serving host: `no_compilation()`
+does not gate C++ builds.
 
 `allow_serve_time_compiles=True` opts an installed artifact out of the
 refusal: a call no captured variant covers compiles with the artifact's
@@ -263,11 +268,25 @@ artifact has no compiler behind it, and an installed artifact captured
 before the flag existed cannot honor it, so passing the flag for either
 raises `PrecompileError`.
 
+Before anything else runs, a MakeFxTracer artifact imports the modules in its
+`CUSTOM_OP_MODULES` (the ones registering the custom ops its graphs call)
+and then checks that every op in `CUSTOM_OPS` is registered, with a kernel
+for each dispatch key `CUSTOM_OP_KERNELS` lists for it (the composite keys,
+and the backend keys of the graph's tensors, that it had a kernel for at
+capture). A module in `CUSTOM_OP_OVERRIDE_MODULES`, one whose kernel the
+graph ran at capture overrode another kernel for the same dispatch key, must
+import, and that kernel must still be the active one, registered from the same
+module's file: otherwise the replaced kernel would run in its place. Any other
+module only warns when it fails to import and the ops and kernels are
+registered anyway, e.g. by a module the server imported under another name.
+
 Raises `PrecompileError` if either file cannot be read, if `python_code` is
 not a `torch.compiler.precompile` artifact, or if the cache's `backend`,
 `tracer` or `code_hash` does not match `python_code` - the pair came from different
 captures - or if an installed artifact cannot install onto the serving process (for
-example, a captured source changed since capture). A cache whose `format`/`version` does not match (a foreign or
+example, a captured source changed since capture), or if a custom op the
+MakeFxTracer artifact calls, or one of its captured kernels, is not registered once its
+imports ran, or if a captured overriding kernel is no longer the active one. A cache whose `format`/`version` does not match (a foreign or
 different-build envelope) is NOT fatal: the cache is acceleration only, so
 `load` degrades to JIT'ing from `python_code` rather than crashing.
 
@@ -275,7 +294,7 @@ Return type:
 
 *PrecompiledRunnable*
 
-torch.compiler.precompile.no_compilation()[[source]](https://github.com/pytorch/pytorch/blob/f07af57fd559ef07889f363c74772ab28405da56/torch/_precompile.py#L3173)
+torch.compiler.precompile.no_compilation()[[source]](https://github.com/pytorch/pytorch/blob/eeafed4de12b40ecc42bea4b9757d484a389d286/torch/_precompile.py#L3424)
 
 Forbid graph/kernel compilation and autotuning on every thread of this process.
 
@@ -388,7 +407,7 @@ exits it cannot be entered again, so call `capture()` again to retry.
 That includes a failed write at exit: the spent capture does not keep its
 pair, so fix the path and capture again.
 
-save()[[source]](https://github.com/pytorch/pytorch/blob/f07af57fd559ef07889f363c74772ab28405da56/torch/_precompile.py#L518)
+save()[[source]](https://github.com/pytorch/pytorch/blob/eeafed4de12b40ecc42bea4b9757d484a389d286/torch/_precompile.py#L530)
 
 Write everything captured so far to the artifact files without ending the capture.
 
@@ -417,7 +436,7 @@ Variables:
 code objects (`SERVING_MODE = "installed"`); `False` for a
 standalone artifact.
 
-unload()[[source]](https://github.com/pytorch/pytorch/blob/f07af57fd559ef07889f363c74772ab28405da56/torch/_precompile.py#L460)
+unload()[[source]](https://github.com/pytorch/pytorch/blob/eeafed4de12b40ecc42bea4b9757d484a389d286/torch/_precompile.py#L472)
 
 Remove whatever this loaded artifact installed; currently a no-op in every mode.
 

@@ -1,6 +1,6 @@
 # torch.sym_not
 
-torch.sym_not(*a: BoolLikeType*) → BoolLikeType[[source]](https://github.com/pytorch/pytorch/blob/f07af57fd559ef07889f363c74772ab28405da56/torch/__init__.py#L1181)
+torch.sym_not(*a: BoolLikeType*) → BoolLikeType[[source]](https://github.com/pytorch/pytorch/blob/eeafed4de12b40ecc42bea4b9757d484a389d286/torch/__init__.py#L1181)
 
 torch.sym_not(*a: [object](https://docs.python.org/3/builtins/functions.html#object)*) → [object](https://docs.python.org/3/builtins/functions.html#object)
 
