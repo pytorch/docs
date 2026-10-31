@@ -1,6 +1,6 @@
 # no_observer_set
 
-*class*torch.ao.quantization.quantization_mappings.no_observer_set[[source]](https://github.com/pytorch/pytorch/blob/eeafed4de12b40ecc42bea4b9757d484a389d286/torch/ao/quantization/quantization_mappings.py#L209)
+*class*torch.ao.quantization.quantization_mappings.no_observer_set[[source]](https://github.com/pytorch/pytorch/blob/08c2d21eeac45d7bb2b95f497938e99c0250222d/torch/ao/quantization/quantization_mappings.py#L209)
 
 These modules cannot have observers inserted by default.
 

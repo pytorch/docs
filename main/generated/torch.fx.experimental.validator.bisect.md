@@ -1,3 +1,3 @@
 # torch.fx.experimental.validator.bisect
 
-torch.fx.experimental.validator.bisect(*shape_env*)[[source]](https://github.com/pytorch/pytorch/blob/eeafed4de12b40ecc42bea4b9757d484a389d286/torch/fx/experimental/validator.py#L765)
+torch.fx.experimental.validator.bisect(*shape_env*)[[source]](https://github.com/pytorch/pytorch/blob/08c2d21eeac45d7bb2b95f497938e99c0250222d/torch/fx/experimental/validator.py#L765)

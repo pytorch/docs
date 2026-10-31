@@ -1,6 +1,6 @@
 # torch.foreach.sinh
 
-torch.foreach.sinh(*inputs: TensorList*, */*) → [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...][[source]](https://github.com/pytorch/pytorch/blob/eeafed4de12b40ecc42bea4b9757d484a389d286/torch/foreach/__init__.py#L623)
+torch.foreach.sinh(*inputs: TensorList*, */*) → [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...][[source]](https://github.com/pytorch/pytorch/blob/08c2d21eeac45d7bb2b95f497938e99c0250222d/torch/foreach/__init__.py#L623)
 
 Applies [`torch.sinh()`](torch.sinh.html#torch.sinh) to each tensor in `inputs`.
 

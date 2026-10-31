@@ -1,6 +1,6 @@
 # torch.fx.experimental.unification.multipledispatch.dispatcher.warning_text
 
-torch.fx.experimental.unification.multipledispatch.dispatcher.warning_text(*name*, *amb*)[[source]](https://github.com/pytorch/pytorch/blob/eeafed4de12b40ecc42bea4b9757d484a389d286/torch/fx/experimental/unification/multipledispatch/dispatcher.py#L475)
+torch.fx.experimental.unification.multipledispatch.dispatcher.warning_text(*name*, *amb*)[[source]](https://github.com/pytorch/pytorch/blob/08c2d21eeac45d7bb2b95f497938e99c0250222d/torch/fx/experimental/unification/multipledispatch/dispatcher.py#L475)
 
 The text for ambiguity warnings
 

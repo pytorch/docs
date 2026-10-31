@@ -63,7 +63,7 @@ trace under the contract of Note [precompile programming model] in `torch/_preco
 `torch.compiler.precompile` is distinct from `torch._dynamo.config.caching_precompile`
 (a `torch.compile` caching mode).
 
-torch.compiler.precompile.capture(*fn*, */*, ***, *artifact_path*, *cache_path*, *tracer=DynamoTracer(guard_filter_fn=None, recompile_limit=256, dynamic=None, require_complete=True, require_no_risky_drops=True)*, *backend='inductor'*)[[source]](https://github.com/pytorch/pytorch/blob/eeafed4de12b40ecc42bea4b9757d484a389d286/torch/_precompile.py#L3562)
+torch.compiler.precompile.capture(*fn*, */*, ***, *artifact_path*, *cache_path*, *tracer=DynamoTracer(guard_filter_fn=None, recompile_limit=256, dynamic=None, require_complete=True, require_no_risky_drops=True)*, *backend='inductor'*, *mode=None*, *options=None*)[[source]](https://github.com/pytorch/pytorch/blob/08c2d21eeac45d7bb2b95f497938e99c0250222d/torch/_precompile.py#L3956)
 
 Capture `fn` across the calls YOUR loop makes, writing the artifact on exit.
 
@@ -165,6 +165,41 @@ re-runs at serve time through the live autograd engine, accumulating
 `.grad` like eager); serve the artifact under the grad mode it was
 captured in.
 
+An `"inductor"` capture tunes every kernel while its graph lowers, since
+the artifact replays each kernel with one frozen config: Inductor's
+kernels, forward included, are tuned on synthetic inputs at the size
+hints, not on the block's real calls. A `@triton.autotune` kernel traced
+into a captured graph is likewise tuned on random tensors, and the config
+it picks ships in the artifact. A nonzero `triton.multi_kernel` is turned
+off, with a warning, while each captured graph lowers (user code between
+captured calls keeps the ambient config): a multi-kernel picks its
+sub-kernel when the loaded module runs, by benchmarking at first launch or
+from the serving process's own `triton.multi_kernel`, which the artifact
+cannot record. A `DynamoTracer` capture with grad enabled lowers
+each backward while the forward's tensors are still live, so peak device
+memory during the capture grows by roughly the backward's working set.
+
+`mode` and `options` configure Inductor as they do for
+[`torch.compile()`](generated/torch.compile.html#torch.compile): at most one of them may be given, and only with
+`backend="inductor"`. They apply to every graph the capture compiles. A
+`mode` or `options` that turns on `triton.cudagraphs` (such as
+`mode="reduce-overhead"`) is refused: a loaded `DynamoTracer`
+artifact does not serve the capture's CUDA graph choice yet, and a
+`MakeFxTracer` capture's standalone module runs outside Inductor's
+CUDA graph wrapper. Either tracer refuses `triton.autotune_at_compile_time`
+off and a nonzero `triton.multi_kernel`, which the paragraph above turns
+off. A `DynamoTracer` capture refuses `freezing`
+and `force_disable_caches`, whose compiles file no AOTAutograd cache
+entry for the artifact to ship, `fx_wrapper`, whose graphs Inductor does
+not cache, and `bundled_autotune_remote_cache` on, which the capture
+turns off (its eager backward lowering fails on a remote autotune cache
+miss); its `cpp_wrapper` graphs capture on CPU only. A
+`MakeFxTracer` capture refuses options its standalone module pins:
+`size_asserts` or `scalar_asserts` off, `cpp_wrapper`,
+`fx_wrapper`, `benchmark_harness` or `freezing` on (freezing's
+compiler would rewrite the graph the module is built from). Other options
+pass through unchecked, as under [`torch.compile()`](generated/torch.compile.html#torch.compile).
+
 Note
 
 `torch.compiler.precompile` is NOT
@@ -176,7 +211,7 @@ Return type:
 
 *Capture*[~_P, *_R*]
 
-torch.compiler.precompile.load(*artifact_path*, *cache_path*, ***, *allow_serve_time_compiles=False*)[[source]](https://github.com/pytorch/pytorch/blob/eeafed4de12b40ecc42bea4b9757d484a389d286/torch/_precompile.py#L3725)
+torch.compiler.precompile.load(*artifact_path*, *cache_path*, ***, *allow_serve_time_compiles=False*)[[source]](https://github.com/pytorch/pytorch/blob/08c2d21eeac45d7bb2b95f497938e99c0250222d/torch/_precompile.py#L4197)
 
 Reconstruct a runnable from the two files a precompile capture wrote.
 
@@ -254,9 +289,12 @@ does not gate C++ builds.
 
 `allow_serve_time_compiles=True` opts an installed artifact out of the
 refusal: a call no captured variant covers compiles with the artifact's
-backend, as `torch.compile` would, under the process-wide stance like any
-other compile. The captured variants are still served first and do not
-count toward `torch._dynamo.config.recompile_limit`, so each frame gets
+backend and the capture's `mode` or `options` (recorded in the
+artifact's `INDUCTOR_OPTIONS`), as `torch.compile` would, under the
+process-wide stance like any other compile. An artifact whose options are
+not all Python literals (such as a custom pass) refuses the flag. The
+captured variants are still served first and do not count toward
+`torch._dynamo.config.recompile_limit`, so each frame gets
 that many serve-time compiles on top of them; a missed call past the limit
 runs eagerly instead of compiling.
 Serve-time compiles are recorded nowhere, but they are built under the
@@ -268,7 +306,7 @@ artifact has no compiler behind it, and an installed artifact captured
 before the flag existed cannot honor it, so passing the flag for either
 raises `PrecompileError`.
 
-Before anything else runs, a MakeFxTracer artifact imports the modules in its
+Before its graphs load, the artifact imports the modules in its
 `CUSTOM_OP_MODULES` (the ones registering the custom ops its graphs call)
 and then checks that every op in `CUSTOM_OPS` is registered, with a kernel
 for each dispatch key `CUSTOM_OP_KERNELS` lists for it (the composite keys,
@@ -276,16 +314,22 @@ and the backend keys of the graph's tensors, that it had a kernel for at
 capture). A module in `CUSTOM_OP_OVERRIDE_MODULES`, one whose kernel the
 graph ran at capture overrode another kernel for the same dispatch key, must
 import, and that kernel must still be the active one, registered from the same
-module's file: otherwise the replaced kernel would run in its place. Any other
-module only warns when it fails to import and the ops and kernels are
-registered anyway, e.g. by a module the server imported under another name.
+module's file: otherwise the replaced kernel would run in its place. The same
+holds for a module that called `register_kernel` on another module's custom
+op, whose kernel must still be the one that call registered. So such a module
+is refused, not warned about, when it raises on import (even after
+registering), when the server imported it under another name, or when
+another module registers the same kernel. Any other module not in
+`SERVED_MODULES` only warns when it fails to import and the ops and kernels
+are registered anyway, e.g. by a module the server imported under another
+name.
 
 Raises `PrecompileError` if either file cannot be read, if `python_code` is
 not a `torch.compiler.precompile` artifact, or if the cache's `backend`,
 `tracer` or `code_hash` does not match `python_code` - the pair came from different
 captures - or if an installed artifact cannot install onto the serving process (for
 example, a captured source changed since capture), or if a custom op the
-MakeFxTracer artifact calls, or one of its captured kernels, is not registered once its
+artifact calls, or one of its captured kernels, is not registered once its
 imports ran, or if a captured overriding kernel is no longer the active one. A cache whose `format`/`version` does not match (a foreign or
 different-build envelope) is NOT fatal: the cache is acceleration only, so
 `load` degrades to JIT'ing from `python_code` rather than crashing.
@@ -294,7 +338,7 @@ Return type:
 
 *PrecompiledRunnable*
 
-torch.compiler.precompile.no_compilation()[[source]](https://github.com/pytorch/pytorch/blob/eeafed4de12b40ecc42bea4b9757d484a389d286/torch/_precompile.py#L3424)
+torch.compiler.precompile.no_compilation()[[source]](https://github.com/pytorch/pytorch/blob/08c2d21eeac45d7bb2b95f497938e99c0250222d/torch/_precompile.py#L3811)
 
 Forbid graph/kernel compilation and autotuning on every thread of this process.
 
@@ -407,7 +451,7 @@ exits it cannot be entered again, so call `capture()` again to retry.
 That includes a failed write at exit: the spent capture does not keep its
 pair, so fix the path and capture again.
 
-save()[[source]](https://github.com/pytorch/pytorch/blob/eeafed4de12b40ecc42bea4b9757d484a389d286/torch/_precompile.py#L530)
+save()[[source]](https://github.com/pytorch/pytorch/blob/08c2d21eeac45d7bb2b95f497938e99c0250222d/torch/_precompile.py#L539)
 
 Write everything captured so far to the artifact files without ending the capture.
 
@@ -436,7 +480,7 @@ Variables:
 code objects (`SERVING_MODE = "installed"`); `False` for a
 standalone artifact.
 
-unload()[[source]](https://github.com/pytorch/pytorch/blob/eeafed4de12b40ecc42bea4b9757d484a389d286/torch/_precompile.py#L472)
+unload()[[source]](https://github.com/pytorch/pytorch/blob/08c2d21eeac45d7bb2b95f497938e99c0250222d/torch/_precompile.py#L481)
 
 Remove whatever this loaded artifact installed; currently a no-op in every mode.
 

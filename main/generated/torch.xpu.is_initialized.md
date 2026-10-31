@@ -1,5 +1,5 @@
 # torch.xpu.is_initialized
 
-torch.xpu.is_initialized()[[source]](https://github.com/pytorch/pytorch/blob/eeafed4de12b40ecc42bea4b9757d484a389d286/torch/xpu/__init__.py#L340)
+torch.xpu.is_initialized()[[source]](https://github.com/pytorch/pytorch/blob/08c2d21eeac45d7bb2b95f497938e99c0250222d/torch/xpu/__init__.py#L340)
 
 Return whether PyTorch's XPU state has been initialized.
