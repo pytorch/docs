@@ -1,5 +1,5 @@
 # torch.Tensor.split
 
-Tensor.split(*split_size*, *dim=0*)[[source]](https://github.com/pytorch/pytorch/blob/08c2d21eeac45d7bb2b95f497938e99c0250222d/torch/_tensor.py#L1056)
+Tensor.split(*split_size*, *dim=0*)[[source]](https://github.com/pytorch/pytorch/blob/6728ae647ab077842210f24d515b54df7709e144/torch/_tensor.py#L1056)
 
 See [`torch.split()`](torch.split.html#torch.split)

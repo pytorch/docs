@@ -1,6 +1,6 @@
 # torch.Tensor.dim_order
 
-Tensor.dim_order(*ambiguity_check=False*) → [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[source]](https://github.com/pytorch/pytorch/blob/08c2d21eeac45d7bb2b95f497938e99c0250222d/torch/_tensor.py#L1390)
+Tensor.dim_order(*ambiguity_check=False*) → [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[source]](https://github.com/pytorch/pytorch/blob/6728ae647ab077842210f24d515b54df7709e144/torch/_tensor.py#L1390)
 
 Returns the uniquely determined tuple of int describing the dim order or
 physical layout of `self`.

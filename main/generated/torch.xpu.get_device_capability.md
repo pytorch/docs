@@ -1,6 +1,6 @@
 # torch.xpu.get_device_capability
 
-torch.xpu.get_device_capability(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/08c2d21eeac45d7bb2b95f497938e99c0250222d/torch/xpu/__init__.py#L485)
+torch.xpu.get_device_capability(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/6728ae647ab077842210f24d515b54df7709e144/torch/xpu/__init__.py#L485)
 
 Get the xpu capability of a device.
 

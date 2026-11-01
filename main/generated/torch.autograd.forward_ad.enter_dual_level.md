@@ -1,6 +1,6 @@
 # torch.autograd.forward_ad.enter_dual_level
 
-torch.autograd.forward_ad.enter_dual_level()[[source]](https://github.com/pytorch/pytorch/blob/08c2d21eeac45d7bb2b95f497938e99c0250222d/torch/autograd/forward_ad.py#L23)
+torch.autograd.forward_ad.enter_dual_level()[[source]](https://github.com/pytorch/pytorch/blob/6728ae647ab077842210f24d515b54df7709e144/torch/autograd/forward_ad.py#L23)
 
 Enter a new forward grad level.
 

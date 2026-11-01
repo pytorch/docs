@@ -1,6 +1,6 @@
 # RNNBase
 
-*class*torch.nn.RNNBase(*mode*, *input_size*, *hidden_size*, *num_layers=1*, *bias=True*, *batch_first=False*, *dropout=0.0*, *bidirectional=False*, *proj_size=0*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/08c2d21eeac45d7bb2b95f497938e99c0250222d/torch/nn/modules/rnn.py#L48)
+*class*torch.nn.RNNBase(*mode*, *input_size*, *hidden_size*, *num_layers=1*, *bias=True*, *batch_first=False*, *dropout=0.0*, *bidirectional=False*, *proj_size=0*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/6728ae647ab077842210f24d515b54df7709e144/torch/nn/modules/rnn.py#L48)
 
 Base class for RNN modules (RNN, LSTM, GRU).
 
@@ -15,7 +15,7 @@ Note
 
 LSTM and GRU classes override some methods implemented by RNNBase.
 
-flatten_parameters()[[source]](https://github.com/pytorch/pytorch/blob/08c2d21eeac45d7bb2b95f497938e99c0250222d/torch/nn/modules/rnn.py#L237)
+flatten_parameters()[[source]](https://github.com/pytorch/pytorch/blob/6728ae647ab077842210f24d515b54df7709e144/torch/nn/modules/rnn.py#L237)
 
 Reset parameter data pointer so that they can use faster code paths.
 

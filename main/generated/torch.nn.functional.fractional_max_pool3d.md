@@ -1,6 +1,6 @@
 # torch.nn.functional.fractional_max_pool3d
 
-torch.nn.functional.fractional_max_pool3d(*input*, *kernel_size*, *output_size=None*, *output_ratio=None*, *return_indices=False*, *_random_samples=None*)[[source]](https://github.com/pytorch/pytorch/blob/08c2d21eeac45d7bb2b95f497938e99c0250222d/torch/_jit_internal.py#L627)
+torch.nn.functional.fractional_max_pool3d(*input*, *kernel_size*, *output_size=None*, *output_ratio=None*, *return_indices=False*, *_random_samples=None*)[[source]](https://github.com/pytorch/pytorch/blob/6728ae647ab077842210f24d515b54df7709e144/torch/_jit_internal.py#L627)
 
 Applies 3D fractional max pooling over an input signal composed of several input planes.
 

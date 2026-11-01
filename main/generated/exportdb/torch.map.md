@@ -4,7 +4,7 @@
 
 Note
 
-Tags: [torch.dynamic-shape](torch.dynamic-shape.html), torch.map
+Tags: torch.map, [torch.dynamic-shape](torch.dynamic-shape.html)
 
 Support Level: SUPPORTED
 
