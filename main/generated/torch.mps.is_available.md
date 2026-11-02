@@ -1,6 +1,6 @@
 # torch.mps.is_available
 
-torch.mps.is_available()[[source]](https://github.com/pytorch/pytorch/blob/6728ae647ab077842210f24d515b54df7709e144/torch/mps/__init__.py#L203)
+torch.mps.is_available()[[source]](https://github.com/pytorch/pytorch/blob/0f53a707a91af21a7b8f519b354bcf06268a941a/torch/mps/__init__.py#L203)
 
 Return type:
 

@@ -1,6 +1,6 @@
 # get_embedding_qat_module_mappings
 
-*class*torch.ao.quantization.quantization_mappings.get_embedding_qat_module_mappings[[source]](https://github.com/pytorch/pytorch/blob/6728ae647ab077842210f24d515b54df7709e144/torch/ao/quantization/quantization_mappings.py#L289)
+*class*torch.ao.quantization.quantization_mappings.get_embedding_qat_module_mappings[[source]](https://github.com/pytorch/pytorch/blob/0f53a707a91af21a7b8f519b354bcf06268a941a/torch/ao/quantization/quantization_mappings.py#L289)
 
 Get module mapping for quantization aware training
 This is includes default values in addition to

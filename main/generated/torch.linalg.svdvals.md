@@ -1,6 +1,6 @@
 # torch.linalg.svdvals
 
-torch.linalg.svdvals(*A*, ***, *driver=None*, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/6728ae647ab077842210f24d515b54df7709e144/torch/linalg/__init__.py#L1888)
+torch.linalg.svdvals(*A*, ***, *driver=None*, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/0f53a707a91af21a7b8f519b354bcf06268a941a/torch/linalg/__init__.py#L1894)
 
 Computes the singular values of a matrix.
 
@@ -28,8 +28,10 @@ Parameters:
 
 Keyword Arguments:
 
-- **driver** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**optional*) - name of the cuSOLVER method to be used. This keyword argument only works on CUDA inputs.
+- **driver** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**optional*) - name of the cuSOLVER method to be used on NVIDIA CUDA inputs.
 Available options are: None, gesvd, gesvdj, and gesvda.
+On ROCm, non-`None` values are ignored with a once-only warning.
+Non-`None` values require the cuSOLVER/hipSOLVER backend, even for empty inputs.
 Check [`torch.linalg.svd()`](torch.linalg.svd.html#torch.linalg.svd) for details.
 Default: None.
 - **out** ([*Tensor*](../tensors.html#torch.Tensor)*,**optional*) - output tensor. Ignored if None. Default: None.

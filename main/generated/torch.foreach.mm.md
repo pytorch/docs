@@ -1,6 +1,6 @@
 # torch.foreach.mm
 
-torch.foreach.mm(*inputs: TensorList*, *mat2: TensorList*, */*) → [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...][[source]](https://github.com/pytorch/pytorch/blob/6728ae647ab077842210f24d515b54df7709e144/torch/foreach/__init__.py#L1656)
+torch.foreach.mm(*inputs: TensorList*, *mat2: TensorList*, */*) → [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...][[source]](https://github.com/pytorch/pytorch/blob/0f53a707a91af21a7b8f519b354bcf06268a941a/torch/foreach/__init__.py#L1656)
 
 Multiplies corresponding matrices from `inputs` and `mat2` using
 [`torch.mm()`](torch.mm.html#torch.mm). This is semantically equivalent to applying

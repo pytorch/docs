@@ -1,6 +1,6 @@
 # torch.linalg.svd
 
-torch.linalg.svd(*A*, *full_matrices=True*, ***, *driver=None*, *out=None*)[[source]](https://github.com/pytorch/pytorch/blob/6728ae647ab077842210f24d515b54df7709e144/torch/linalg/__init__.py#L1734)
+torch.linalg.svd(*A*, *full_matrices=True*, ***, *driver=None*, *out=None*)[[source]](https://github.com/pytorch/pytorch/blob/0f53a707a91af21a7b8f519b354bcf06268a941a/torch/linalg/__init__.py#L1734)
 
 Computes the singular value decomposition (SVD) of a matrix.
 
@@ -34,7 +34,7 @@ The singular values are returned in descending order.
 
 The parameter `full_matrices` chooses between the full (default) and reduced SVD.
 
-The `driver` kwarg may be used in CUDA with a cuSOLVER backend to choose the algorithm used to compute the SVD.
+The `driver` kwarg may be used on NVIDIA CUDA with a cuSOLVER backend to choose the algorithm used to compute the SVD.
 The choice of a driver is a trade-off between accuracy and speed.
 
 - If `A` is well-conditioned (its [condition number](https://pytorch.org/docs/main/linalg.html#torch.linalg.cond) is not too large), or you do not mind some precision loss.
@@ -44,6 +44,10 @@ The choice of a driver is a trade-off between accuracy and speed.
 - If `A` is not well-conditioned or precision is relevant: 'gesvd' (QR based)
 
 By default (`driver`= None), we call 'gesvdj' and, if it fails, we fallback to 'gesvd'.
+
+On ROCm, valid non-`None` driver names are ignored with a once-only warning.
+They do not change the default algorithm or disable its fallback.
+Invalid driver names raise an error, including for empty inputs.
 
 Differences with numpy.linalg.svd:
 
@@ -113,8 +117,10 @@ U and Vh. Default: True.
 
 Keyword Arguments:
 
-- **driver** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**optional*) - name of the cuSOLVER method to be used. This keyword argument only works on CUDA inputs.
+- **driver** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**optional*) - name of the cuSOLVER method to be used on NVIDIA CUDA inputs.
 Available options are: None, gesvd, gesvdj, and gesvda.
+On ROCm, non-`None` values are ignored with a once-only warning.
+Non-`None` values require the cuSOLVER/hipSOLVER backend, even for empty inputs.
 Default: None.
 - **out** ([*tuple*](https://docs.python.org/3/builtins/stdtypes.html#tuple)*,**optional*) - output tuple of three tensors. Ignored if None.
 
