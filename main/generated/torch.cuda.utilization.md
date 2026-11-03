@@ -1,6 +1,6 @@
 # torch.cuda.utilization
 
-torch.cuda.utilization(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/0f53a707a91af21a7b8f519b354bcf06268a941a/torch/cuda/__init__.py#L1710)
+torch.cuda.utilization(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/fbab7cc90f5699714d5785aaa2f153c739435d6f/torch/cuda/__init__.py#L1710)
 
 Return the percent of time over the past sample period during which one or
 more kernels was executing on the GPU as given by nvidia-smi.

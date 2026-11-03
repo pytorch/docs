@@ -28,7 +28,7 @@ The built-in backends declare their fields in a versioned JSON envelope; binary
 metadata is base64-encoded. Unknown fields, versions, backends, and invalid field
 types are rejected. Tensor contents and native handles are never serialized.
 
-torch.distributed._transport.new_transport(*backend*, *device=None*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/0f53a707a91af21a7b8f519b354bcf06268a941a/torch/distributed/_transport/_registry.py#L72)
+torch.distributed._transport.new_transport(*backend*, *device=None*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/fbab7cc90f5699714d5785aaa2f153c739435d6f/torch/distributed/_transport/_registry.py#L72)
 
 Construct a one-sided transport, optionally restricting tensor devices.
 
@@ -81,7 +81,7 @@ async def push_weights(trainer, source, remote):
  await trainer.close_async(timeout=30.0)
 ```
 
-torch.distributed._transport.new_transport_rank(*backend*, *device=None*, ***, *store=None*, *peer_rank*, *rank=None*, *bootstrap_timeout=30.0*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/0f53a707a91af21a7b8f519b354bcf06268a941a/torch/distributed/_transport/_bootstrap.py#L22)
+torch.distributed._transport.new_transport_rank(*backend*, *device=None*, ***, *store=None*, *peer_rank*, *rank=None*, *bootstrap_timeout=30.0*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/fbab7cc90f5699714d5785aaa2f153c739435d6f/torch/distributed/_transport/_bootstrap.py#L22)
 
 Construct, bind, and connect a transport through a Store.
 
@@ -127,7 +127,7 @@ peer connects to the other's Nth call, including failed calls. One Store can
 therefore connect a rank to every other rank. Bootstrap failures attempt to
 close the partially created transport.
 
-*class*torch.distributed._transport.Transport(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/0f53a707a91af21a7b8f519b354bcf06268a941a/torch/distributed/_transport/_api.py#L104)
+*class*torch.distributed._transport.Transport(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/fbab7cc90f5699714d5785aaa2f153c739435d6f/torch/distributed/_transport/_api.py#L104)
 
 Base class for one-sided tensor transports.
 
@@ -168,7 +168,7 @@ while the transfer is in flight, and can be captured in CUDA graphs.
 Transfer failures terminate the process, since consumers may already be
 enqueued. Ordinary `read` and `write` do not interact with CUDA streams.
 
-*abstract*bind(***, *timeout=None*)[[source]](https://github.com/pytorch/pytorch/blob/0f53a707a91af21a7b8f519b354bcf06268a941a/torch/distributed/_transport/_api.py#L162)
+*abstract*bind(***, *timeout=None*)[[source]](https://github.com/pytorch/pytorch/blob/fbab7cc90f5699714d5785aaa2f153c739435d6f/torch/distributed/_transport/_api.py#L162)
 
 Bind the endpoint and return its opaque connection URL.
 
@@ -176,18 +176,18 @@ Return type:
 
 [bytes](https://docs.python.org/3/builtins/stdtypes.html#bytes)
 
-*abstract*close(***, *timeout=None*)[[source]](https://github.com/pytorch/pytorch/blob/0f53a707a91af21a7b8f519b354bcf06268a941a/torch/distributed/_transport/_api.py#L337)
+*abstract*close(***, *timeout=None*)[[source]](https://github.com/pytorch/pytorch/blob/fbab7cc90f5699714d5785aaa2f153c739435d6f/torch/distributed/_transport/_api.py#L337)
 
 Drain outstanding operations and release transport resources.
 
-*async*close_async(***, *timeout=None*)[[source]](https://github.com/pytorch/pytorch/blob/0f53a707a91af21a7b8f519b354bcf06268a941a/torch/distributed/_transport/_api.py#L341)
+*async*close_async(***, *timeout=None*)[[source]](https://github.com/pytorch/pytorch/blob/fbab7cc90f5699714d5785aaa2f153c739435d6f/torch/distributed/_transport/_api.py#L341)
 
 Await cleanup when supported by the backend.
 
 Unlike `close`, this must not block the event loop while waiting for
 transfers. Blocking prototype backends do not implement this method.
 
-*abstract*connect(*peer_url*, ***, *timeout=None*)[[source]](https://github.com/pytorch/pytorch/blob/0f53a707a91af21a7b8f519b354bcf06268a941a/torch/distributed/_transport/_api.py#L166)
+*abstract*connect(*peer_url*, ***, *timeout=None*)[[source]](https://github.com/pytorch/pytorch/blob/fbab7cc90f5699714d5785aaa2f153c739435d6f/torch/distributed/_transport/_api.py#L166)
 
 Connect to a bound peer and return zero on success.
 
@@ -203,7 +203,7 @@ Return type:
 
 [int](https://docs.python.org/3/builtins/functions.html#int)
 
-*abstract*connected()[[source]](https://github.com/pytorch/pytorch/blob/0f53a707a91af21a7b8f519b354bcf06268a941a/torch/distributed/_transport/_api.py#L179)
+*abstract*connected()[[source]](https://github.com/pytorch/pytorch/blob/fbab7cc90f5699714d5785aaa2f153c739435d6f/torch/distributed/_transport/_api.py#L179)
 
 Return whether the endpoint is connected to any peer.
 
@@ -211,7 +211,7 @@ Return type:
 
 [bool](https://docs.python.org/3/builtins/functions.html#bool)
 
-*abstract*read(*local_buffer*, *remote_buffer*, ***, *async_op=False*, *timeout=None*)[[source]](https://github.com/pytorch/pytorch/blob/0f53a707a91af21a7b8f519b354bcf06268a941a/torch/distributed/_transport/_api.py#L217)
+*abstract*read(*local_buffer*, *remote_buffer*, ***, *async_op=False*, *timeout=None*)[[source]](https://github.com/pytorch/pytorch/blob/fbab7cc90f5699714d5785aaa2f153c739435d6f/torch/distributed/_transport/_api.py#L217)
 
 Read into a local view; return Work for async_op=True, otherwise zero.
 
@@ -219,15 +219,15 @@ Return type:
 
 [int](https://docs.python.org/3/builtins/functions.html#int) | [*Work*](../distributed.html#torch.distributed.Work)
 
-*async*read_async(*local_buffer*, *remote_buffer*, ***, *timeout=None*)[[source]](https://github.com/pytorch/pytorch/blob/0f53a707a91af21a7b8f519b354bcf06268a941a/torch/distributed/_transport/_api.py#L315)
+*async*read_async(*local_buffer*, *remote_buffer*, ***, *timeout=None*)[[source]](https://github.com/pytorch/pytorch/blob/fbab7cc90f5699714d5785aaa2f153c739435d6f/torch/distributed/_transport/_api.py#L315)
 
 Read into a local view, yielding to asyncio until the transfer finishes.
 
-read_stream(*local_buffer*, *remote_buffer*, ***, *stream=None*, *timeout=None*)[[source]](https://github.com/pytorch/pytorch/blob/0f53a707a91af21a7b8f519b354bcf06268a941a/torch/distributed/_transport/_api.py#L249)
+read_stream(*local_buffer*, *remote_buffer*, ***, *stream=None*, *timeout=None*)[[source]](https://github.com/pytorch/pytorch/blob/fbab7cc90f5699714d5785aaa2f153c739435d6f/torch/distributed/_transport/_api.py#L249)
 
 Read into a local view in order on `stream` (default: current).
 
-*abstract*register_memory(*tensor*, ***, *timeout=None*)[[source]](https://github.com/pytorch/pytorch/blob/0f53a707a91af21a7b8f519b354bcf06268a941a/torch/distributed/_transport/_api.py#L183)
+*abstract*register_memory(*tensor*, ***, *timeout=None*)[[source]](https://github.com/pytorch/pytorch/blob/fbab7cc90f5699714d5785aaa2f153c739435d6f/torch/distributed/_transport/_api.py#L183)
 
 Register a contiguous tensor, including after bind/connect or transfers.
 
@@ -237,7 +237,7 @@ Return type:
 
 *Memory*
 
-*abstract static*supported()[[source]](https://github.com/pytorch/pytorch/blob/0f53a707a91af21a7b8f519b354bcf06268a941a/torch/distributed/_transport/_api.py#L157)
+*abstract static*supported()[[source]](https://github.com/pytorch/pytorch/blob/fbab7cc90f5699714d5785aaa2f153c739435d6f/torch/distributed/_transport/_api.py#L157)
 
 Return whether the transport can be used in this process.
 
@@ -245,7 +245,7 @@ Return type:
 
 [bool](https://docs.python.org/3/builtins/functions.html#bool)
 
-unregister_memory(*memory*, ***, *timeout=None*)[[source]](https://github.com/pytorch/pytorch/blob/0f53a707a91af21a7b8f519b354bcf06268a941a/torch/distributed/_transport/_api.py#L192)
+unregister_memory(*memory*, ***, *timeout=None*)[[source]](https://github.com/pytorch/pytorch/blob/fbab7cc90f5699714d5785aaa2f153c739435d6f/torch/distributed/_transport/_api.py#L192)
 
 Unregister memory after coordinating with peers to stop remote access.
 
@@ -256,7 +256,7 @@ Register the tensor again and exchange fresh descriptors before reuse.
 Repeating unregistration on the same handle is a no-op while open.
 Backends without this operation raise `NotImplementedError`.
 
-*abstract*write(*local_buffer*, *remote_buffer*, ***, *async_op=False*, *timeout=None*)[[source]](https://github.com/pytorch/pytorch/blob/0f53a707a91af21a7b8f519b354bcf06268a941a/torch/distributed/_transport/_api.py#L206)
+*abstract*write(*local_buffer*, *remote_buffer*, ***, *async_op=False*, *timeout=None*)[[source]](https://github.com/pytorch/pytorch/blob/fbab7cc90f5699714d5785aaa2f153c739435d6f/torch/distributed/_transport/_api.py#L206)
 
 Write a local view; return Work for async_op=True, otherwise zero.
 
@@ -264,25 +264,25 @@ Return type:
 
 [int](https://docs.python.org/3/builtins/functions.html#int) | [*Work*](../distributed.html#torch.distributed.Work)
 
-*async*write_async(*local_buffer*, *remote_buffer*, ***, *timeout=None*)[[source]](https://github.com/pytorch/pytorch/blob/0f53a707a91af21a7b8f519b354bcf06268a941a/torch/distributed/_transport/_api.py#L293)
+*async*write_async(*local_buffer*, *remote_buffer*, ***, *timeout=None*)[[source]](https://github.com/pytorch/pytorch/blob/fbab7cc90f5699714d5785aaa2f153c739435d6f/torch/distributed/_transport/_api.py#L293)
 
 Write a local view, yielding to asyncio until the transfer finishes.
 
-write_stream(*local_buffer*, *remote_buffer*, ***, *stream=None*, *timeout=None*)[[source]](https://github.com/pytorch/pytorch/blob/0f53a707a91af21a7b8f519b354bcf06268a941a/torch/distributed/_transport/_api.py#L228)
+write_stream(*local_buffer*, *remote_buffer*, ***, *stream=None*, *timeout=None*)[[source]](https://github.com/pytorch/pytorch/blob/fbab7cc90f5699714d5785aaa2f153c739435d6f/torch/distributed/_transport/_api.py#L228)
 
 Write a local view in order on `stream` (default: current).
 
 Returns once enqueued. Backends with native stream support may override this.
 
-*class*torch.distributed._transport.Memory(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/0f53a707a91af21a7b8f519b354bcf06268a941a/torch/distributed/_transport/_api.py#L89)
+*class*torch.distributed._transport.Memory(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/fbab7cc90f5699714d5785aaa2f153c739435d6f/torch/distributed/_transport/_api.py#L89)
 
 Memory registered with a transport.
 
-*class*torch.distributed._transport.MemoryView(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/0f53a707a91af21a7b8f519b354bcf06268a941a/torch/distributed/_transport/_api.py#L21)
+*class*torch.distributed._transport.MemoryView(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/fbab7cc90f5699714d5785aaa2f153c739435d6f/torch/distributed/_transport/_api.py#L21)
 
 A read-only view of registered memory.
 
-slice(*offset=None*, *length=None*)[[source]](https://github.com/pytorch/pytorch/blob/0f53a707a91af21a7b8f519b354bcf06268a941a/torch/distributed/_transport/_api.py#L27)
+slice(*offset=None*, *length=None*)[[source]](https://github.com/pytorch/pytorch/blob/fbab7cc90f5699714d5785aaa2f153c739435d6f/torch/distributed/_transport/_api.py#L27)
 
 Return a view of a byte range of this one.
 
@@ -294,11 +294,11 @@ Return type:
 
 [*Self*](https://docs.python.org/3/library/typing.html#typing.Self)
 
-*class*torch.distributed._transport.MutableMemoryView(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/0f53a707a91af21a7b8f519b354bcf06268a941a/torch/distributed/_transport/_api.py#L46)
+*class*torch.distributed._transport.MutableMemoryView(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/fbab7cc90f5699714d5785aaa2f153c739435d6f/torch/distributed/_transport/_api.py#L46)
 
 A view explicitly permitting writes to its registered memory.
 
-*class*torch.distributed._transport.RemoteBuffer(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/0f53a707a91af21a7b8f519b354bcf06268a941a/torch/distributed/_transport/_api.py#L54)
+*class*torch.distributed._transport.RemoteBuffer(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/fbab7cc90f5699714d5785aaa2f153c739435d6f/torch/distributed/_transport/_api.py#L54)
 
 A backend-defined wire descriptor, excluding tensor contents/native handles.
 
@@ -307,7 +307,7 @@ descriptor class's `deserialize()`. Decoders validate their schema and
 version without executing code or importing classes named by the payload.
 Descriptors grant memory access: exchange them only with authorized peers.
 
-slice(*offset=None*, *length=None*)[[source]](https://github.com/pytorch/pytorch/blob/0f53a707a91af21a7b8f519b354bcf06268a941a/torch/distributed/_transport/_api.py#L69)
+slice(*offset=None*, *length=None*)[[source]](https://github.com/pytorch/pytorch/blob/fbab7cc90f5699714d5785aaa2f153c739435d6f/torch/distributed/_transport/_api.py#L69)
 
 Return a descriptor for a byte range of this one.
 
@@ -320,7 +320,7 @@ Return type:
 
 [*Self*](https://docs.python.org/3/library/typing.html#typing.Self)
 
-*async*torch.distributed._transport.wait_all(*works*, ***, *timeout=None*)[[source]](https://github.com/pytorch/pytorch/blob/0f53a707a91af21a7b8f519b354bcf06268a941a/torch/distributed/_transport/_work.py#L64)
+*async*torch.distributed._transport.wait_all(*works*, ***, *timeout=None*)[[source]](https://github.com/pytorch/pytorch/blob/fbab7cc90f5699714d5785aaa2f153c739435d6f/torch/distributed/_transport/_work.py#L64)
 
 Await Work futures without blocking the asyncio loop.
 
@@ -331,7 +331,7 @@ is timed out or cancelled first. Each Work must support `get_future`.
 This adapter does not select CUDA streams or establish consumer-stream
 ordering; callers must follow their backend's CUDA synchronization contract.
 
-torch.distributed._transport.available_transports()[[source]](https://github.com/pytorch/pytorch/blob/0f53a707a91af21a7b8f519b354bcf06268a941a/torch/distributed/_transport/_registry.py#L65)
+torch.distributed._transport.available_transports()[[source]](https://github.com/pytorch/pytorch/blob/fbab7cc90f5699714d5785aaa2f153c739435d6f/torch/distributed/_transport/_registry.py#L65)
 
 Return registered and discoverable transport names.
 
@@ -339,7 +339,7 @@ Return type:
 
 [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[str](https://docs.python.org/3/builtins/stdtypes.html#str), ...]
 
-torch.distributed._transport.register_transport(*name*, *factory*, ***, *replace=False*)[[source]](https://github.com/pytorch/pytorch/blob/0f53a707a91af21a7b8f519b354bcf06268a941a/torch/distributed/_transport/_registry.py#L20)
+torch.distributed._transport.register_transport(*name*, *factory*, ***, *replace=False*)[[source]](https://github.com/pytorch/pytorch/blob/fbab7cc90f5699714d5785aaa2f153c739435d6f/torch/distributed/_transport/_registry.py#L20)
 
 Register a transport factory for this process.
 
@@ -436,7 +436,7 @@ calls execute synchronously on the calling thread. Their timeouts bound lock
 acquisition and transfer completion waits, not execution inside NIXL. Python
 cannot interrupt a blocked native call, even when it releases the GIL.
 
-*class*torch.distributed._transport.nixl.NIXLTransport(*device=None*, ***, *plugin='UCX'*, *agent_name=None*, *num_threads=0*, *enable_prog_thread=True*, *capture_telemetry=False*, *backend_options=None*, *timeout=30.0*)[[source]](https://github.com/pytorch/pytorch/blob/0f53a707a91af21a7b8f519b354bcf06268a941a/torch/distributed/_transport/nixl/_transport.py#L41)
+*class*torch.distributed._transport.nixl.NIXLTransport(*device=None*, ***, *plugin='UCX'*, *agent_name=None*, *num_threads=0*, *enable_prog_thread=True*, *capture_telemetry=False*, *backend_options=None*, *timeout=30.0*)[[source]](https://github.com/pytorch/pytorch/blob/fbab7cc90f5699714d5785aaa2f153c739435d6f/torch/distributed/_transport/nixl/_transport.py#L41)
 
 One-sided tensor transport backed by a NIXL plugin.
 
@@ -448,7 +448,7 @@ to NIXL's `create_backend`. NIXL is an optional dependency, imported only
 when selected. Transfers require registered views; raw tensors are rejected
 rather than allocated or registered implicitly.
 
-*async*close_async(***, *timeout=None*)[[source]](https://github.com/pytorch/pytorch/blob/0f53a707a91af21a7b8f519b354bcf06268a941a/torch/distributed/_transport/nixl/_transport.py#L472)
+*async*close_async(***, *timeout=None*)[[source]](https://github.com/pytorch/pytorch/blob/fbab7cc90f5699714d5785aaa2f153c739435d6f/torch/distributed/_transport/nixl/_transport.py#L472)
 
 Await outstanding DMA before synchronous native resource cleanup.
 

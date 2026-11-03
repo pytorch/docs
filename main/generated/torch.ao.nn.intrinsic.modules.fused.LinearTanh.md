@@ -1,6 +1,6 @@
 # LinearTanh
 
-*class*torch.ao.nn.intrinsic.modules.fused.LinearTanh(*linear*, *tanh*)[[source]](https://github.com/pytorch/pytorch/blob/0f53a707a91af21a7b8f519b354bcf06268a941a/torch/ao/nn/intrinsic/modules/fused.py#L282)
+*class*torch.ao.nn.intrinsic.modules.fused.LinearTanh(*linear*, *tanh*)[[source]](https://github.com/pytorch/pytorch/blob/fbab7cc90f5699714d5785aaa2f153c739435d6f/torch/ao/nn/intrinsic/modules/fused.py#L282)
 
 This is a sequential container which calls the Linear and Tanh modules.
 During quantization this will be replaced with the corresponding fused module.

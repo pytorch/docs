@@ -1,6 +1,6 @@
 # BatchNorm2d
 
-*class*torch.nn.modules.batchnorm.BatchNorm2d(*num_features*, *eps=1e-05*, *momentum=0.1*, *affine=True*, *track_running_stats=True*, *device=None*, *dtype=None*, ***, *bias=True*)[[source]](https://github.com/pytorch/pytorch/blob/0f53a707a91af21a7b8f519b354bcf06268a941a/torch/nn/modules/batchnorm.py#L420)
+*class*torch.nn.modules.batchnorm.BatchNorm2d(*num_features*, *eps=1e-05*, *momentum=0.1*, *affine=True*, *track_running_stats=True*, *device=None*, *dtype=None*, ***, *bias=True*)[[source]](https://github.com/pytorch/pytorch/blob/fbab7cc90f5699714d5785aaa2f153c739435d6f/torch/nn/modules/batchnorm.py#L420)
 
 Applies Batch Normalization over a 4D input.
 

@@ -1,6 +1,6 @@
 # torch.cuda.initial_seed
 
-torch.cuda.initial_seed()[[source]](https://github.com/pytorch/pytorch/blob/0f53a707a91af21a7b8f519b354bcf06268a941a/torch/cuda/random.py#L172)
+torch.cuda.initial_seed()[[source]](https://github.com/pytorch/pytorch/blob/fbab7cc90f5699714d5785aaa2f153c739435d6f/torch/cuda/random.py#L172)
 
 Return the current random seed of the current GPU.
 

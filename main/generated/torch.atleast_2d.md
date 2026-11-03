@@ -1,6 +1,6 @@
 # torch.atleast_2d
 
-torch.atleast_2d(**tensors*)[[source]](https://github.com/pytorch/pytorch/blob/0f53a707a91af21a7b8f519b354bcf06268a941a/torch/functional.py#L1582)
+torch.atleast_2d(**tensors*)[[source]](https://github.com/pytorch/pytorch/blob/fbab7cc90f5699714d5785aaa2f153c739435d6f/torch/functional.py#L1582)
 
 Returns a 2-dimensional view of each input tensor with zero dimensions.
 Input tensors with two or more dimensions are returned as-is.

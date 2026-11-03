@@ -1,6 +1,6 @@
 # SymbolicContext
 
-*class*torch.fx.experimental.symbolic_shapes.SymbolicContext[[source]](https://github.com/pytorch/pytorch/blob/0f53a707a91af21a7b8f519b354bcf06268a941a/torch/fx/experimental/symbolic_shapes.py#L2252)
+*class*torch.fx.experimental.symbolic_shapes.SymbolicContext[[source]](https://github.com/pytorch/pytorch/blob/fbab7cc90f5699714d5785aaa2f153c739435d6f/torch/fx/experimental/symbolic_shapes.py#L2252)
 
 Data structure specifying how we should create symbols in
 `_create_symbolic_sizes_strides_storage_offset`; e.g., should

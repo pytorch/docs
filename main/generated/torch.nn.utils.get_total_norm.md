@@ -1,6 +1,6 @@
 # torch.nn.utils.get_total_norm
 
-torch.nn.utils.get_total_norm(*tensors*, *norm_type=2.0*, *error_if_nonfinite=False*, *foreach=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/0f53a707a91af21a7b8f519b354bcf06268a941a/torch/nn/utils/clip_grad.py#L48)
+torch.nn.utils.get_total_norm(*tensors*, *norm_type=2.0*, *error_if_nonfinite=False*, *foreach=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/fbab7cc90f5699714d5785aaa2f153c739435d6f/torch/nn/utils/clip_grad.py#L48)
 
 Compute the norm of an iterable of tensors.
 

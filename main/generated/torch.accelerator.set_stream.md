@@ -1,6 +1,6 @@
 # torch.accelerator.set_stream
 
-torch.accelerator.set_stream(*stream*)[[source]](https://github.com/pytorch/pytorch/blob/0f53a707a91af21a7b8f519b354bcf06268a941a/torch/accelerator/__init__.py#L237)
+torch.accelerator.set_stream(*stream*)[[source]](https://github.com/pytorch/pytorch/blob/fbab7cc90f5699714d5785aaa2f153c739435d6f/torch/accelerator/__init__.py#L237)
 
 Set the current stream to a given stream.
 

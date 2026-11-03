@@ -1,6 +1,6 @@
 # torch.functional.atleast_3d
 
-torch.functional.atleast_3d(**tensors*)[[source]](https://github.com/pytorch/pytorch/blob/0f53a707a91af21a7b8f519b354bcf06268a941a/torch/functional.py#L1622)
+torch.functional.atleast_3d(**tensors*)[[source]](https://github.com/pytorch/pytorch/blob/fbab7cc90f5699714d5785aaa2f153c739435d6f/torch/functional.py#L1622)
 
 Returns a 3-dimensional view of each input tensor with zero dimensions.
 Input tensors with three or more dimensions are returned as-is.

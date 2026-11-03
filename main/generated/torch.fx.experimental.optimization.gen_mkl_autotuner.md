@@ -1,6 +1,6 @@
 # torch.fx.experimental.optimization.gen_mkl_autotuner
 
-torch.fx.experimental.optimization.gen_mkl_autotuner(*example_inputs*, *iters=10*, *warmup=1*)[[source]](https://github.com/pytorch/pytorch/blob/0f53a707a91af21a7b8f519b354bcf06268a941a/torch/fx/experimental/optimization.py#L239)
+torch.fx.experimental.optimization.gen_mkl_autotuner(*example_inputs*, *iters=10*, *warmup=1*)[[source]](https://github.com/pytorch/pytorch/blob/fbab7cc90f5699714d5785aaa2f153c739435d6f/torch/fx/experimental/optimization.py#L239)
 
 This generates a heuristic that can be passed into optimize_for_inference that
 determines whether a subgraph should be run in MKL by running it with the example_inputs.

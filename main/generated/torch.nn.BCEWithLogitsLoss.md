@@ -1,6 +1,6 @@
 # BCEWithLogitsLoss
 
-*class*torch.nn.BCEWithLogitsLoss(*weight=None*, *size_average=None*, *reduce=None*, *reduction='mean'*, *pos_weight=None*)[[source]](https://github.com/pytorch/pytorch/blob/0f53a707a91af21a7b8f519b354bcf06268a941a/torch/nn/modules/loss.py#L719)
+*class*torch.nn.BCEWithLogitsLoss(*weight=None*, *size_average=None*, *reduce=None*, *reduction='mean'*, *pos_weight=None*)[[source]](https://github.com/pytorch/pytorch/blob/fbab7cc90f5699714d5785aaa2f153c739435d6f/torch/nn/modules/loss.py#L719)
 
 This loss combines a Sigmoid layer and the BCELoss in one single
 class. This version is more numerically stable than using a plain Sigmoid
@@ -112,7 +112,7 @@ Examples
 >>> output.backward()
 ```
 
-forward(*input*, *target*)[[source]](https://github.com/pytorch/pytorch/blob/0f53a707a91af21a7b8f519b354bcf06268a941a/torch/nn/modules/loss.py#L836)
+forward(*input*, *target*)[[source]](https://github.com/pytorch/pytorch/blob/fbab7cc90f5699714d5785aaa2f153c739435d6f/torch/nn/modules/loss.py#L836)
 
 Runs the forward pass.
 

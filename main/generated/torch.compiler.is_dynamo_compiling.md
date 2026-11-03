@@ -1,6 +1,6 @@
 # torch.compiler.is_dynamo_compiling
 
-torch.compiler.is_dynamo_compiling()[[source]](https://github.com/pytorch/pytorch/blob/0f53a707a91af21a7b8f519b354bcf06268a941a/torch/compiler/__init__.py#L718)
+torch.compiler.is_dynamo_compiling()[[source]](https://github.com/pytorch/pytorch/blob/fbab7cc90f5699714d5785aaa2f153c739435d6f/torch/compiler/__init__.py#L718)
 
 Indicates whether a graph is traced via TorchDynamo.
 

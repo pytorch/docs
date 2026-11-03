@@ -1,6 +1,6 @@
 # Parameter
 
-*class*torch.nn.parameter.Parameter(*data=None*, *requires_grad=True*)[[source]](https://github.com/pytorch/pytorch/blob/0f53a707a91af21a7b8f519b354bcf06268a941a/torch/nn/parameter.py#L30)
+*class*torch.nn.parameter.Parameter(*data=None*, *requires_grad=True*)[[source]](https://github.com/pytorch/pytorch/blob/fbab7cc90f5699714d5785aaa2f153c739435d6f/torch/nn/parameter.py#L30)
 
 A kind of Tensor that is to be considered a module parameter.
 

@@ -1,6 +1,6 @@
 # torch.accelerator.current_stream
 
-torch.accelerator.current_stream(*device=None*, */*)[[source]](https://github.com/pytorch/pytorch/blob/0f53a707a91af21a7b8f519b354bcf06268a941a/torch/accelerator/__init__.py#L222)
+torch.accelerator.current_stream(*device=None*, */*)[[source]](https://github.com/pytorch/pytorch/blob/fbab7cc90f5699714d5785aaa2f153c739435d6f/torch/accelerator/__init__.py#L222)
 
 Return the currently selected stream for a given device.
 

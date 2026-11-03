@@ -1,6 +1,6 @@
 # torch.mps.compile_shader
 
-torch.mps.compile_shader(*source*)[[source]](https://github.com/pytorch/pytorch/blob/0f53a707a91af21a7b8f519b354bcf06268a941a/torch/mps/__init__.py#L140)
+torch.mps.compile_shader(*source*)[[source]](https://github.com/pytorch/pytorch/blob/fbab7cc90f5699714d5785aaa2f153c739435d6f/torch/mps/__init__.py#L140)
 
 Compiles compute shader from source and allows one to invoke kernels
 defined there from the comfort of Python runtime

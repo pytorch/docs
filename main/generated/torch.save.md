@@ -1,6 +1,6 @@
 # torch.save
 
-torch.save(*obj*, *f*, *pickle_module=pickle*, *pickle_protocol=2*, *_use_new_zipfile_serialization=True*)[[source]](https://github.com/pytorch/pytorch/blob/0f53a707a91af21a7b8f519b354bcf06268a941a/torch/serialization.py#L945)
+torch.save(*obj*, *f*, *pickle_module=pickle*, *pickle_protocol=2*, *_use_new_zipfile_serialization=True*)[[source]](https://github.com/pytorch/pytorch/blob/fbab7cc90f5699714d5785aaa2f153c739435d6f/torch/serialization.py#L945)
 
 Saves an object to a disk file.
 

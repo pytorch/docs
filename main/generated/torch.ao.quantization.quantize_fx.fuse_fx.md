@@ -1,6 +1,6 @@
 # fuse_fx
 
-*class*torch.ao.quantization.quantize_fx.fuse_fx(*model*, *fuse_custom_config=None*, *backend_config=None*)[[source]](https://github.com/pytorch/pytorch/blob/0f53a707a91af21a7b8f519b354bcf06268a941a/torch/ao/quantization/quantize_fx.py#L204)
+*class*torch.ao.quantization.quantize_fx.fuse_fx(*model*, *fuse_custom_config=None*, *backend_config=None*)[[source]](https://github.com/pytorch/pytorch/blob/fbab7cc90f5699714d5785aaa2f153c739435d6f/torch/ao/quantization/quantize_fx.py#L204)
 
 Fuse modules like conv+bn, conv+bn+relu etc, model must be in eval mode.
 Fusion rules are defined in torch.ao.quantization.fx.fusion_pattern.py

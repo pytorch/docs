@@ -1,6 +1,6 @@
 # torch.foreach.sin
 
-torch.foreach.sin(*inputs: TensorList*, */*) → [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...][[source]](https://github.com/pytorch/pytorch/blob/0f53a707a91af21a7b8f519b354bcf06268a941a/torch/foreach/__init__.py#L612)
+torch.foreach.sin(*inputs: TensorList*, */*) → [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...][[source]](https://github.com/pytorch/pytorch/blob/fbab7cc90f5699714d5785aaa2f153c739435d6f/torch/foreach/__init__.py#L612)
 
 Applies [`torch.sin()`](torch.sin.html#torch.sin) to each tensor in `inputs`.
 

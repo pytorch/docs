@@ -1,6 +1,6 @@
 # torch.cuda.nvtx.range_push
 
-torch.cuda.nvtx.range_push(*msg*)[[source]](https://github.com/pytorch/pytorch/blob/0f53a707a91af21a7b8f519b354bcf06268a941a/torch/cuda/nvtx.py#L27)
+torch.cuda.nvtx.range_push(*msg*)[[source]](https://github.com/pytorch/pytorch/blob/fbab7cc90f5699714d5785aaa2f153c739435d6f/torch/cuda/nvtx.py#L27)
 
 Push a range onto a stack of nested range span. Returns zero-based depth of the range that is started.
 

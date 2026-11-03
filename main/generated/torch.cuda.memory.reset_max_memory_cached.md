@@ -1,6 +1,6 @@
 # torch.cuda.memory.reset_max_memory_cached
 
-torch.cuda.memory.reset_max_memory_cached(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/0f53a707a91af21a7b8f519b354bcf06268a941a/torch/cuda/memory.py#L503)
+torch.cuda.memory.reset_max_memory_cached(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/fbab7cc90f5699714d5785aaa2f153c739435d6f/torch/cuda/memory.py#L503)
 
 Reset the starting point in tracking maximum GPU memory managed by the caching allocator for a given device.
 

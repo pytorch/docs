@@ -1,6 +1,6 @@
 # torch.xpu.memory_usage
 
-torch.xpu.memory_usage(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/0f53a707a91af21a7b8f519b354bcf06268a941a/torch/xpu/__init__.py#L1353)
+torch.xpu.memory_usage(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/fbab7cc90f5699714d5785aaa2f153c739435d6f/torch/xpu/__init__.py#L1353)
 
 Return the GPU memory bandwidth usage as a percentage.
 

@@ -1,6 +1,6 @@
 # torch.autograd.functional.hessian
 
-torch.autograd.functional.hessian(*func*, *inputs*, *create_graph=False*, *strict=False*, *vectorize=False*, *outer_jacobian_strategy='reverse-mode'*)[[source]](https://github.com/pytorch/pytorch/blob/0f53a707a91af21a7b8f519b354bcf06268a941a/torch/autograd/functional.py#L856)
+torch.autograd.functional.hessian(*func*, *inputs*, *create_graph=False*, *strict=False*, *vectorize=False*, *outer_jacobian_strategy='reverse-mode'*)[[source]](https://github.com/pytorch/pytorch/blob/fbab7cc90f5699714d5785aaa2f153c739435d6f/torch/autograd/functional.py#L856)
 
 Compute the Hessian of a given scalar function.
 

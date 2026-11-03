@@ -1,6 +1,6 @@
 # torch.nn.functional.glu
 
-torch.nn.functional.glu(*input*, *dim=-1*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/0f53a707a91af21a7b8f519b354bcf06268a941a/torch/nn/functional.py#L1821)
+torch.nn.functional.glu(*input*, *dim=-1*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/fbab7cc90f5699714d5785aaa2f153c739435d6f/torch/nn/functional.py#L1821)
 
 The gated linear unit. Computes:
 

@@ -1,6 +1,6 @@
 # torch.compiler.disable
 
-torch.compiler.disable(*fn=None*, *recursive=True*, ***, *reason=None*)[[source]](https://github.com/pytorch/pytorch/blob/0f53a707a91af21a7b8f519b354bcf06268a941a/torch/compiler/__init__.py#L342)
+torch.compiler.disable(*fn=None*, *recursive=True*, ***, *reason=None*)[[source]](https://github.com/pytorch/pytorch/blob/fbab7cc90f5699714d5785aaa2f153c739435d6f/torch/compiler/__init__.py#L342)
 
 This function provides a decorator to disable compilation on a function.
 It also provides the option of recursively disabling called functions.

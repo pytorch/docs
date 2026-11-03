@@ -1,6 +1,6 @@
 # torch.optim.functional.adamw
 
-torch.optim.functional.adamw(*params*, *grads*, *exp_avgs*, *exp_avg_sqs*, *max_exp_avg_sqs*, *state_steps*, *foreach=None*, *capturable=False*, *differentiable=False*, *fused=None*, *grad_scale=None*, *found_inf=None*, *has_complex=False*, ***, *amsgrad*, *beta1*, *beta2*, *lr*, *weight_decay*, *eps*, *maximize*)[[source]](https://github.com/pytorch/pytorch/blob/0f53a707a91af21a7b8f519b354bcf06268a941a/torch/optim/adamw.py#L130)
+torch.optim.functional.adamw(*params*, *grads*, *exp_avgs*, *exp_avg_sqs*, *max_exp_avg_sqs*, *state_steps*, *foreach=None*, *capturable=False*, *differentiable=False*, *fused=None*, *grad_scale=None*, *found_inf=None*, *has_complex=False*, ***, *amsgrad*, *beta1*, *beta2*, *lr*, *weight_decay*, *eps*, *maximize*)[[source]](https://github.com/pytorch/pytorch/blob/fbab7cc90f5699714d5785aaa2f153c739435d6f/torch/optim/adamw.py#L130)
 
 Functional API that performs AdamW algorithm computation.
 

@@ -1,6 +1,6 @@
 # RelaxedUnspecConstraint
 
-*class*torch.fx.experimental.symbolic_shapes.RelaxedUnspecConstraint(*warn_only*)[[source]](https://github.com/pytorch/pytorch/blob/0f53a707a91af21a7b8f519b354bcf06268a941a/torch/fx/experimental/symbolic_shapes.py#L2079)
+*class*torch.fx.experimental.symbolic_shapes.RelaxedUnspecConstraint(*warn_only*)[[source]](https://github.com/pytorch/pytorch/blob/fbab7cc90f5699714d5785aaa2f153c739435d6f/torch/fx/experimental/symbolic_shapes.py#L2079)
 
 For clients: no explicit constraint; constraint is whatever is implicitly
 inferred by guards from tracing.

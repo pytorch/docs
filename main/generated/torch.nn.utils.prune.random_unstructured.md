@@ -1,6 +1,6 @@
 # torch.nn.utils.prune.random_unstructured
 
-torch.nn.utils.prune.random_unstructured(*module*, *name*, *amount*)[[source]](https://github.com/pytorch/pytorch/blob/0f53a707a91af21a7b8f519b354bcf06268a941a/torch/nn/utils/prune.py#L871)
+torch.nn.utils.prune.random_unstructured(*module*, *name*, *amount*)[[source]](https://github.com/pytorch/pytorch/blob/fbab7cc90f5699714d5785aaa2f153c739435d6f/torch/nn/utils/prune.py#L871)
 
 Prune tensor by removing random (currently unpruned) units.
 

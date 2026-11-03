@@ -1,6 +1,6 @@
 # torch.nn.functional.one_hot
 
-torch.nn.functional.one_hot(*tensor*, *num_classes=-1*) → LongTensor[[source]](https://github.com/pytorch/pytorch/blob/0f53a707a91af21a7b8f519b354bcf06268a941a/torch/nn/functional.py#L6008)
+torch.nn.functional.one_hot(*tensor*, *num_classes=-1*) → LongTensor[[source]](https://github.com/pytorch/pytorch/blob/fbab7cc90f5699714d5785aaa2f153c739435d6f/torch/nn/functional.py#L6008)
 
 Takes LongTensor with index values of shape `(*)` and returns a tensor
 of shape `(*, num_classes)` that have zeros everywhere except where the

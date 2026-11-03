@@ -1,6 +1,6 @@
 # torch.xpu.memory.set_per_process_memory_fraction
 
-torch.xpu.memory.set_per_process_memory_fraction(*fraction*, *device=None*)[[source]](https://github.com/pytorch/pytorch/blob/0f53a707a91af21a7b8f519b354bcf06268a941a/torch/xpu/memory.py#L235)
+torch.xpu.memory.set_per_process_memory_fraction(*fraction*, *device=None*)[[source]](https://github.com/pytorch/pytorch/blob/fbab7cc90f5699714d5785aaa2f153c739435d6f/torch/xpu/memory.py#L235)
 
 Set the memory fraction for a single process on XPU device.
 This function limits the amount of memory that the caching allocator can allocate

@@ -1,6 +1,6 @@
 # torch.sparse.spdiags
 
-torch.sparse.spdiags(*diagonals*, *offsets*, *shape*, *layout=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/0f53a707a91af21a7b8f519b354bcf06268a941a/torch/sparse/__init__.py#L359)
+torch.sparse.spdiags(*diagonals*, *offsets*, *shape*, *layout=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/fbab7cc90f5699714d5785aaa2f153c739435d6f/torch/sparse/__init__.py#L359)
 
 Creates a sparse 2D tensor by placing the values from rows of
 `diagonals` along specified diagonals of the output

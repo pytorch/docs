@@ -1,6 +1,6 @@
 # torch.Tensor.backward
 
-Tensor.backward(*gradient=None*, *retain_graph=None*, *create_graph=False*, *inputs=None*)[[source]](https://github.com/pytorch/pytorch/blob/0f53a707a91af21a7b8f519b354bcf06268a941a/torch/_tensor.py#L566)
+Tensor.backward(*gradient=None*, *retain_graph=None*, *create_graph=False*, *inputs=None*)[[source]](https://github.com/pytorch/pytorch/blob/fbab7cc90f5699714d5785aaa2f153c739435d6f/torch/_tensor.py#L566)
 
 Computes the gradient of current tensor wrt graph leaves.
 

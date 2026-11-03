@@ -1,6 +1,6 @@
 # torch.func.functional_call
 
-torch.func.functional_call(*module*, *parameter_and_buffer_dicts*, *args=None*, *kwargs=None*, ***, *tie_weights=True*, *strict=False*)[[source]](https://github.com/pytorch/pytorch/blob/0f53a707a91af21a7b8f519b354bcf06268a941a/torch/_functorch/functional_call.py#L12)
+torch.func.functional_call(*module*, *parameter_and_buffer_dicts*, *args=None*, *kwargs=None*, ***, *tie_weights=True*, *strict=False*)[[source]](https://github.com/pytorch/pytorch/blob/fbab7cc90f5699714d5785aaa2f153c739435d6f/torch/_functorch/functional_call.py#L12)
 
 Performs a functional call on the module by replacing the module parameters
 and buffers with the provided ones.
