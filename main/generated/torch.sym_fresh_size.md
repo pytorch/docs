@@ -1,6 +1,6 @@
 # torch.sym_fresh_size
 
-torch.sym_fresh_size(*expr*)[[source]](https://github.com/pytorch/pytorch/blob/fbab7cc90f5699714d5785aaa2f153c739435d6f/torch/__init__.py#L1428)
+torch.sym_fresh_size(*expr*)[[source]](https://github.com/pytorch/pytorch/blob/e5fed85d1847df3bfad77cb48791e6b5d4957cee/torch/__init__.py#L1396)
 
 Return type:
 

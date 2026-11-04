@@ -1,6 +1,6 @@
 # device_of
 
-*class*torch.cuda.device_of(*obj*)[[source]](https://github.com/pytorch/pytorch/blob/fbab7cc90f5699714d5785aaa2f153c739435d6f/torch/cuda/__init__.py#L749)
+*class*torch.cuda.device_of(*obj*)[[source]](https://github.com/pytorch/pytorch/blob/e5fed85d1847df3bfad77cb48791e6b5d4957cee/torch/cuda/__init__.py#L749)
 
 Context-manager that changes the current device to that of given object.
 

@@ -1,3 +1,3 @@
 # torch.fx.experimental.symbolic_shapes.log_lru_cache_stats
 
-torch.fx.experimental.symbolic_shapes.log_lru_cache_stats(*wrapped_f*)[[source]](https://github.com/pytorch/pytorch/blob/fbab7cc90f5699714d5785aaa2f153c739435d6f/torch/fx/experimental/symbolic_shapes.py#L245)
+torch.fx.experimental.symbolic_shapes.log_lru_cache_stats(*wrapped_f*)[[source]](https://github.com/pytorch/pytorch/blob/e5fed85d1847df3bfad77cb48791e6b5d4957cee/torch/fx/experimental/symbolic_shapes.py#L245)

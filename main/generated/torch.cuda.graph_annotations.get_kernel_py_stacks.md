@@ -1,6 +1,6 @@
 # torch.cuda.graph_annotations.get_kernel_py_stacks
 
-torch.cuda.graph_annotations.get_kernel_py_stacks()[[source]](https://github.com/pytorch/pytorch/blob/fbab7cc90f5699714d5785aaa2f153c739435d6f/torch/cuda/_graph_annotations.py#L1295)
+torch.cuda.graph_annotations.get_kernel_py_stacks()[[source]](https://github.com/pytorch/pytorch/blob/e5fed85d1847df3bfad77cb48791e6b5d4957cee/torch/cuda/_graph_annotations.py#L1295)
 
 Return Python launch stacks recorded during CUDA graph capture.
 
