@@ -1,11 +1,12 @@
 # torch.compiler.is_exporting
 
-torch.compiler.is_exporting()[[source]](https://github.com/pytorch/pytorch/blob/e5fed85d1847df3bfad77cb48791e6b5d4957cee/torch/compiler/__init__.py#L736)
+torch.compiler.is_exporting()[[source]](https://github.com/pytorch/pytorch/blob/007b142ea0da19b2a8b4c33c2544b0c2f459e7fc/torch/compiler/__init__.py#L773)
 
 Indicates whether we're under exporting.
 
 It's stricter than is_compiling() flag, as it would only be set to True when
-torch.export is used.
+torch.export is used. See is_compiling() for the session visibility
+semantics of the session flags.
 
 Example:
 

@@ -1,6 +1,6 @@
 # node_arg_is_bias
 
-*class*torch.ao.quantization.fx.utils.node_arg_is_bias(*node*, *arg*)[[source]](https://github.com/pytorch/pytorch/blob/e5fed85d1847df3bfad77cb48791e6b5d4957cee/torch/ao/quantization/fx/utils.py#L104)
+*class*torch.ao.quantization.fx.utils.node_arg_is_bias(*node*, *arg*)[[source]](https://github.com/pytorch/pytorch/blob/007b142ea0da19b2a8b4c33c2544b0c2f459e7fc/torch/ao/quantization/fx/utils.py#L104)
 
 Returns if node arg is bias
 

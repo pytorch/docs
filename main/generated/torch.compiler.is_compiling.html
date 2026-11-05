@@ -80,7 +80,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.16.0a0+gite5fed85 )">
+<meta name="llm:version" content="main (2.16.0a0+git007b142 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -186,7 +186,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.16.0a0+gite5fed85 )');
+  document.documentElement.setAttribute('data-version', 'main (2.16.0a0+git007b142 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3237,8 +3237,11 @@ document.write(`
 <h1>torch.compiler.is_compiling<a class="headerlink" href="#torch-compiler-is-compiling" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.compiler.is_compiling">
-<span class="sig-prename descclassname"><span class="pre">torch.compiler.</span></span><span class="sig-name descname"><span class="pre">is_compiling</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/e5fed85d1847df3bfad77cb48791e6b5d4957cee/torch/compiler/__init__.py#L583"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.compiler.is_compiling" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.compiler.</span></span><span class="sig-name descname"><span class="pre">is_compiling</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/007b142ea0da19b2a8b4c33c2544b0c2f459e7fc/torch/compiler/__init__.py#L631"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.compiler.is_compiling" title="Link to this definition">#</a></dt>
 <dd><p>Indicates whether a graph is executed/traced as part of torch.compile() or torch.export().</p>
+<p>The flag is per session: it is True in the thread running a
+<code class="docutils literal notranslate"><span class="pre">torch.compile</span></code> / <code class="docutils literal notranslate"><span class="pre">torch.export</span></code> tracing session. Any other
+threads will see False.</p>
 <dl class="simple">
 <dt>Note that there are 2 other related flags that should deprecated eventually:</dt><dd><ul class="simple">
 <li><p>torch._dynamo.external_utils.is_compiling()</p></li>
@@ -3617,7 +3620,7 @@ document.write(`
        "headline": "torch.compiler.is_compiling",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/generated/torch.compiler.is_compiling.html",
-       "articleBody": "torch.compiler.is_compiling# torch.compiler.is_compiling()[source]# Indicates whether a graph is executed/traced as part of torch.compile() or torch.export(). Note that there are 2 other related flags that should deprecated eventually: torch._dynamo.external_utils.is_compiling() torch._utils.is_compiling() Example: \u003e\u003e\u003e def forward(self, x): \u003e\u003e\u003e if not torch.compiler.is_compiling(): \u003e\u003e\u003e pass # ...logic that is not needed in a compiled/traced graph... \u003e\u003e\u003e \u003e\u003e\u003e # ...rest of the function... Return type: bool",
+       "articleBody": "torch.compiler.is_compiling# torch.compiler.is_compiling()[source]# Indicates whether a graph is executed/traced as part of torch.compile() or torch.export(). The flag is per session: it is True in the thread running a torch.compile / torch.export tracing session. Any other threads will see False. Note that there are 2 other related flags that should deprecated eventually: torch._dynamo.external_utils.is_compiling() torch._utils.is_compiling() Example: \u003e\u003e\u003e def forward(self, x): \u003e\u003e\u003e if not torch.compiler.is_compiling(): \u003e\u003e\u003e pass # ...logic that is not needed in a compiled/traced graph... \u003e\u003e\u003e \u003e\u003e\u003e # ...rest of the function... Return type: bool",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",

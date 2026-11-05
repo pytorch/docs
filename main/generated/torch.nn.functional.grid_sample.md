@@ -1,6 +1,6 @@
 # torch.nn.functional.grid_sample
 
-torch.nn.functional.grid_sample(*input*, *grid*, *mode='bilinear'*, *padding_mode='zeros'*, *align_corners=None*)[[source]](https://github.com/pytorch/pytorch/blob/e5fed85d1847df3bfad77cb48791e6b5d4957cee/torch/nn/functional.py#L5577)
+torch.nn.functional.grid_sample(*input*, *grid*, *mode='bilinear'*, *padding_mode='zeros'*, *align_corners=None*)[[source]](https://github.com/pytorch/pytorch/blob/007b142ea0da19b2a8b4c33c2544b0c2f459e7fc/torch/nn/functional.py#L5577)
 
 Compute grid sample.
 
@@ -68,7 +68,7 @@ When `mode='bilinear'` and the input is 5-D, the interpolation mode
 used internally will actually be trilinear. However, when the input is 4-D,
 the interpolation mode will legitimately be bilinear. Likewise
 `mode='bicubic'` is tricubic on a 5-D input, the separable cubic kernel
-extended over the third axis; CPU and CUDA, ROCm included, implement the 5-D case.
+extended over the third axis; CPU, XPU and CUDA, ROCm included, implement the 5-D case.
 - **padding_mode** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - padding mode for outside grid values
 `'zeros'` | `'border'` | `'reflection'`. Default: `'zeros'`
 - **align_corners** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - Geometrically, we consider the pixels of the
