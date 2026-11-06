@@ -1,6 +1,6 @@
 # torch.fx.experimental.migrate_gradual_types.constraint_generator.add_layer_norm_constraints
 
-torch.fx.experimental.migrate_gradual_types.constraint_generator.add_layer_norm_constraints(*input_dim*, *normalized_dim*)[[source]](https://github.com/pytorch/pytorch/blob/007b142ea0da19b2a8b4c33c2544b0c2f459e7fc/torch/fx/experimental/migrate_gradual_types/constraint_generator.py#L1504)
+torch.fx.experimental.migrate_gradual_types.constraint_generator.add_layer_norm_constraints(*input_dim*, *normalized_dim*)[[source]](https://github.com/pytorch/pytorch/blob/cb6166381fcee1217527b26108d3aad518b946b1/torch/fx/experimental/migrate_gradual_types/constraint_generator.py#L1504)
 
 The constraints say that the type has the form: `[*, 1024, 1024]`
 while the normalized_dim have the form `[1024, 1024]`.

@@ -4,7 +4,7 @@
 
 Note
 
-Tags: python.control-flow, [torch.dynamic-shape](torch.dynamic-shape.html)
+Tags: [torch.dynamic-shape](torch.dynamic-shape.html), python.control-flow
 
 Support Level: SUPPORTED
 
@@ -57,7 +57,7 @@ Range constraints: {}
 
 Note
 
-Tags: python.control-flow, [python.data-structure](python.data-structure.html)
+Tags: [python.data-structure](python.data-structure.html), python.control-flow
 
 Support Level: SUPPORTED
 

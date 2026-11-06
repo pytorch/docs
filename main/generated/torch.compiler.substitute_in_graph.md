@@ -1,6 +1,6 @@
 # torch.compiler.substitute_in_graph
 
-torch.compiler.substitute_in_graph(*original_fn*, ***, *can_constant_fold_through=False*, *skip_signature_check=False*)[[source]](https://github.com/pytorch/pytorch/blob/007b142ea0da19b2a8b4c33c2544b0c2f459e7fc/torch/compiler/__init__.py#L250)
+torch.compiler.substitute_in_graph(*original_fn*, ***, *can_constant_fold_through=False*, *skip_signature_check=False*)[[source]](https://github.com/pytorch/pytorch/blob/cb6166381fcee1217527b26108d3aad518b946b1/torch/compiler/__init__.py#L250)
 
 Register a polyfill handler for a function, usually a C function from the C extension, to be
 used in place of the original function when inlining the original function in the graph.

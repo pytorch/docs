@@ -1,6 +1,6 @@
 # torch.fx.experimental.migrate_gradual_types.constraint_transformation.is_target_div_by_dim
 
-torch.fx.experimental.migrate_gradual_types.constraint_transformation.is_target_div_by_dim(*target*, *dim*)[[source]](https://github.com/pytorch/pytorch/blob/007b142ea0da19b2a8b4c33c2544b0c2f459e7fc/torch/fx/experimental/migrate_gradual_types/constraint_transformation.py#L993)
+torch.fx.experimental.migrate_gradual_types.constraint_transformation.is_target_div_by_dim(*target*, *dim*)[[source]](https://github.com/pytorch/pytorch/blob/cb6166381fcee1217527b26108d3aad518b946b1/torch/fx/experimental/migrate_gradual_types/constraint_transformation.py#L993)
 
 Generate constraints to check if the target dimensions are divisible by the input dimensions
 :param target: Target dimensions

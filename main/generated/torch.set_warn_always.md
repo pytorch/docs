@@ -1,6 +1,6 @@
 # torch.set_warn_always
 
-torch.set_warn_always(*b*, */*)[[source]](https://github.com/pytorch/pytorch/blob/007b142ea0da19b2a8b4c33c2544b0c2f459e7fc/torch/__init__.py#L2061)
+torch.set_warn_always(*b*, */*)[[source]](https://github.com/pytorch/pytorch/blob/cb6166381fcee1217527b26108d3aad518b946b1/torch/__init__.py#L2068)
 
 When this flag is False (default) then some PyTorch warnings may only
 appear once per process. This helps avoid excessive warning information.

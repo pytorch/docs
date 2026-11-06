@@ -1,6 +1,6 @@
 # UnpackedDualTensor
 
-*class*torch.autograd.forward_ad.UnpackedDualTensor(*primal*, *tangent*)[[source]](https://github.com/pytorch/pytorch/blob/007b142ea0da19b2a8b4c33c2544b0c2f459e7fc/torch/autograd/forward_ad.py#L141)
+*class*torch.autograd.forward_ad.UnpackedDualTensor(*primal*, *tangent*)[[source]](https://github.com/pytorch/pytorch/blob/cb6166381fcee1217527b26108d3aad518b946b1/torch/autograd/forward_ad.py#L141)
 
 Namedtuple returned by [`unpack_dual()`](torch.autograd.forward_ad.unpack_dual.html#torch.autograd.forward_ad.unpack_dual) containing the primal and tangent components of the dual tensor.
 

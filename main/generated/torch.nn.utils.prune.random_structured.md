@@ -1,6 +1,6 @@
 # torch.nn.utils.prune.random_structured
 
-torch.nn.utils.prune.random_structured(*module*, *name*, *amount*, *dim*)[[source]](https://github.com/pytorch/pytorch/blob/007b142ea0da19b2a8b4c33c2544b0c2f459e7fc/torch/nn/utils/prune.py#L952)
+torch.nn.utils.prune.random_structured(*module*, *name*, *amount*, *dim*)[[source]](https://github.com/pytorch/pytorch/blob/cb6166381fcee1217527b26108d3aad518b946b1/torch/nn/utils/prune.py#L952)
 
 Prune tensor by removing random channels along the specified dimension.
 

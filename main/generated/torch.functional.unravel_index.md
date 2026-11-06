@@ -1,6 +1,6 @@
 # torch.functional.unravel_index
 
-torch.functional.unravel_index(*indices*, *shape*)[[source]](https://github.com/pytorch/pytorch/blob/007b142ea0da19b2a8b4c33c2544b0c2f459e7fc/torch/functional.py#L1957)
+torch.functional.unravel_index(*indices*, *shape*)[[source]](https://github.com/pytorch/pytorch/blob/cb6166381fcee1217527b26108d3aad518b946b1/torch/functional.py#L1957)
 
 Converts a tensor of flat indices into a tuple of coordinate tensors that
 index into an arbitrary tensor of the specified shape.

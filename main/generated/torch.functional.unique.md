@@ -1,6 +1,6 @@
 # torch.functional.unique
 
-torch.functional.unique(*input*, *sorted=True*, *return_inverse=False*, *return_counts=False*, *dim=None*) → [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), [Tensor](../tensors.html#torch.Tensor), [Tensor](../tensors.html#torch.Tensor)][[source]](https://github.com/pytorch/pytorch/blob/007b142ea0da19b2a8b4c33c2544b0c2f459e7fc/torch/_jit_internal.py#L631)
+torch.functional.unique(*input*, *sorted=True*, *return_inverse=False*, *return_counts=False*, *dim=None*) → [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), [Tensor](../tensors.html#torch.Tensor), [Tensor](../tensors.html#torch.Tensor)][[source]](https://github.com/pytorch/pytorch/blob/cb6166381fcee1217527b26108d3aad518b946b1/torch/_jit_internal.py#L631)
 
 Returns the unique elements of the input tensor.
 

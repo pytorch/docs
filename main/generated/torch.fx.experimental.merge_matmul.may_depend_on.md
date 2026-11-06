@@ -1,6 +1,6 @@
 # torch.fx.experimental.merge_matmul.may_depend_on
 
-torch.fx.experimental.merge_matmul.may_depend_on(*a*, *b*, *search_depth=6*)[[source]](https://github.com/pytorch/pytorch/blob/007b142ea0da19b2a8b4c33c2544b0c2f459e7fc/torch/fx/experimental/merge_matmul.py#L35)
+torch.fx.experimental.merge_matmul.may_depend_on(*a*, *b*, *search_depth=6*)[[source]](https://github.com/pytorch/pytorch/blob/cb6166381fcee1217527b26108d3aad518b946b1/torch/fx/experimental/merge_matmul.py#L35)
 
 Determine if one node depends on another in a torch.fx.Graph.
 

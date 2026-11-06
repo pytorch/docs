@@ -1,6 +1,6 @@
 # torch.cuda.memory.caching_allocator_alloc
 
-torch.cuda.memory.caching_allocator_alloc(*size*, *device=None*, *stream=None*)[[source]](https://github.com/pytorch/pytorch/blob/007b142ea0da19b2a8b4c33c2544b0c2f459e7fc/torch/cuda/memory.py#L108)
+torch.cuda.memory.caching_allocator_alloc(*size*, *device=None*, *stream=None*)[[source]](https://github.com/pytorch/pytorch/blob/cb6166381fcee1217527b26108d3aad518b946b1/torch/cuda/memory.py#L108)
 
 Perform a memory allocation using the CUDA memory allocator.
 

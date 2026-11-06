@@ -1,6 +1,6 @@
 # torch.Tensor.stft
 
-Tensor.stft(*n_fft*, *hop_length=None*, *win_length=None*, *window=None*, *center=True*, *pad_mode='reflect'*, *normalized=False*, *onesided=None*, *return_complex=None*, *align_to_window=None*)[[source]](https://github.com/pytorch/pytorch/blob/007b142ea0da19b2a8b4c33c2544b0c2f459e7fc/torch/_tensor.py#L950)
+Tensor.stft(*n_fft*, *hop_length=None*, *win_length=None*, *window=None*, *center=True*, *pad_mode='reflect'*, *normalized=False*, *onesided=None*, *return_complex=None*, *align_to_window=None*)[[source]](https://github.com/pytorch/pytorch/blob/cb6166381fcee1217527b26108d3aad518b946b1/torch/_tensor.py#L950)
 
 See [`torch.stft()`](torch.stft.html#torch.stft)
 

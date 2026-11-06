@@ -1,6 +1,6 @@
 # torch.fx.traceback.annotate_fn
 
-torch.fx.traceback.annotate_fn(*annotation_dict*)[[source]](https://github.com/pytorch/pytorch/blob/007b142ea0da19b2a8b4c33c2544b0c2f459e7fc/torch/fx/traceback.py#L403)
+torch.fx.traceback.annotate_fn(*annotation_dict*)[[source]](https://github.com/pytorch/pytorch/blob/cb6166381fcee1217527b26108d3aad518b946b1/torch/fx/traceback.py#L403)
 
 A decorator that wraps a function with the annotate context manager.
 Use this when you want to annotate an entire function instead of a specific code block.

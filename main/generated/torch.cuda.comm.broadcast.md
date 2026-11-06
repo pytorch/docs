@@ -1,6 +1,6 @@
 # torch.cuda.comm.broadcast
 
-torch.cuda.comm.broadcast(*tensor*, *devices=None*, ***, *out=None*)[[source]](https://github.com/pytorch/pytorch/blob/007b142ea0da19b2a8b4c33c2544b0c2f459e7fc/torch/nn/parallel/comm.py#L16)
+torch.cuda.comm.broadcast(*tensor*, *devices=None*, ***, *out=None*)[[source]](https://github.com/pytorch/pytorch/blob/cb6166381fcee1217527b26108d3aad518b946b1/torch/nn/parallel/comm.py#L16)
 
 Broadcasts a tensor to specified GPU devices.
 

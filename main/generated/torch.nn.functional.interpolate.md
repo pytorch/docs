@@ -1,6 +1,6 @@
 # torch.nn.functional.interpolate
 
-torch.nn.functional.interpolate(*input*, *size=None*, *scale_factor=None*, *mode='nearest'*, *align_corners=None*, *recompute_scale_factor=None*, *antialias=False*)[[source]](https://github.com/pytorch/pytorch/blob/007b142ea0da19b2a8b4c33c2544b0c2f459e7fc/torch/nn/functional.py#L5065)
+torch.nn.functional.interpolate(*input*, *size=None*, *scale_factor=None*, *mode='nearest'*, *align_corners=None*, *recompute_scale_factor=None*, *antialias=False*)[[source]](https://github.com/pytorch/pytorch/blob/cb6166381fcee1217527b26108d3aad518b946b1/torch/nn/functional.py#L5065)
 
 Down/up samples the input.
 

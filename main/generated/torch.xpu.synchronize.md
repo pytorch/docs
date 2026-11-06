@@ -1,6 +1,6 @@
 # torch.xpu.synchronize
 
-torch.xpu.synchronize(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/007b142ea0da19b2a8b4c33c2544b0c2f459e7fc/torch/xpu/__init__.py#L719)
+torch.xpu.synchronize(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/cb6166381fcee1217527b26108d3aad518b946b1/torch/xpu/__init__.py#L719)
 
 Wait for all kernels in all streams on a XPU device to complete.
 

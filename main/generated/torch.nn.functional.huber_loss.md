@@ -1,6 +1,6 @@
 # torch.nn.functional.huber_loss
 
-torch.nn.functional.huber_loss(*input*, *target*, *reduction='mean'*, *delta=1.0*, *weight=None*)[[source]](https://github.com/pytorch/pytorch/blob/007b142ea0da19b2a8b4c33c2544b0c2f459e7fc/torch/nn/functional.py#L4169)
+torch.nn.functional.huber_loss(*input*, *target*, *reduction='mean'*, *delta=1.0*, *weight=None*)[[source]](https://github.com/pytorch/pytorch/blob/cb6166381fcee1217527b26108d3aad518b946b1/torch/nn/functional.py#L4169)
 
 Compute the Huber loss, with optional weighting.
 

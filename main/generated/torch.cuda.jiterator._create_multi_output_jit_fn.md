@@ -1,6 +1,6 @@
 # torch.cuda.jiterator._create_multi_output_jit_fn
 
-torch.cuda.jiterator._create_multi_output_jit_fn(*code_string*, *num_outputs*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/007b142ea0da19b2a8b4c33c2544b0c2f459e7fc/torch/cuda/jiterator.py#L164)
+torch.cuda.jiterator._create_multi_output_jit_fn(*code_string*, *num_outputs*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/cb6166381fcee1217527b26108d3aad518b946b1/torch/cuda/jiterator.py#L164)
 
 Create a jiterator-generated cuda kernel for an elementwise op that supports returning one or more outputs.
 

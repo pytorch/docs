@@ -1,6 +1,6 @@
 # torch.cuda.graph_annotations.is_available
 
-torch.cuda.graph_annotations.is_available() → [bool](https://docs.python.org/3/builtins/functions.html#bool)[[source]](https://github.com/pytorch/pytorch/blob/007b142ea0da19b2a8b4c33c2544b0c2f459e7fc/torch/cuda/_graph_annotations.py#L366)
+torch.cuda.graph_annotations.is_available() → [bool](https://docs.python.org/3/builtins/functions.html#bool)[[source]](https://github.com/pytorch/pytorch/blob/cb6166381fcee1217527b26108d3aad518b946b1/torch/cuda/_graph_annotations.py#L366)
 
 Return whether CUDA graph annotation recording is supported.
 

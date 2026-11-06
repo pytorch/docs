@@ -1,6 +1,6 @@
 # torch.nn.utils.rnn.pad_packed_sequence
 
-torch.nn.utils.rnn.pad_packed_sequence(*sequence*, *batch_first=False*, *padding_value=0.0*, *total_length=None*)[[source]](https://github.com/pytorch/pytorch/blob/007b142ea0da19b2a8b4c33c2544b0c2f459e7fc/torch/nn/utils/rnn.py#L326)
+torch.nn.utils.rnn.pad_packed_sequence(*sequence*, *batch_first=False*, *padding_value=0.0*, *total_length=None*)[[source]](https://github.com/pytorch/pytorch/blob/cb6166381fcee1217527b26108d3aad518b946b1/torch/nn/utils/rnn.py#L326)
 
 Pad a packed batch of variable length sequences.
 

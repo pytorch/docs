@@ -1,6 +1,6 @@
 # torch.cuda.green_contexts.get_num_locality_domains
 
-torch.cuda.green_contexts.get_num_locality_domains(*device_id=None*)[[source]](https://github.com/pytorch/pytorch/blob/007b142ea0da19b2a8b4c33c2544b0c2f459e7fc/torch/cuda/green_contexts.py#L115)
+torch.cuda.green_contexts.get_num_locality_domains(*device_id=None*)[[source]](https://github.com/pytorch/pytorch/blob/cb6166381fcee1217527b26108d3aad518b946b1/torch/cuda/green_contexts.py#L115)
 
 Return the device's locality-domain count reported by CUDA.
 

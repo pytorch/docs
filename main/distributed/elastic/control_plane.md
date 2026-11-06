@@ -3,7 +3,7 @@
 This module contains optional helpers that add extra debug and control handlers
 into your application.
 
-torch.distributed.elastic.control_plane.worker_main()[[source]](https://github.com/pytorch/pytorch/blob/007b142ea0da19b2a8b4c33c2544b0c2f459e7fc/torch/distributed/elastic/control_plane.py#L26)
+torch.distributed.elastic.control_plane.worker_main()[[source]](https://github.com/pytorch/pytorch/blob/cb6166381fcee1217527b26108d3aad518b946b1/torch/distributed/elastic/control_plane.py#L26)
 
 This is a context manager that wraps your main entry function. This combines
 the existing `errors.record` logic as well as a new `_WorkerServer` that

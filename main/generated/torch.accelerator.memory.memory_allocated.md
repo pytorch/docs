@@ -1,6 +1,6 @@
 # torch.accelerator.memory.memory_allocated
 
-torch.accelerator.memory.memory_allocated(*device_index=None*, */*)[[source]](https://github.com/pytorch/pytorch/blob/007b142ea0da19b2a8b4c33c2544b0c2f459e7fc/torch/accelerator/memory.py#L128)
+torch.accelerator.memory.memory_allocated(*device_index=None*, */*)[[source]](https://github.com/pytorch/pytorch/blob/cb6166381fcee1217527b26108d3aad518b946b1/torch/accelerator/memory.py#L128)
 
 Return the current [accelerator](../torch.html#accelerators) device memory occupied by tensors
 in bytes for a given device index.

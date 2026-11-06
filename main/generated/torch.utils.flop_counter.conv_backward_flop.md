@@ -1,6 +1,6 @@
 # torch.utils.flop_counter.conv_backward_flop
 
-torch.utils.flop_counter.conv_backward_flop(*grad_out_shape*, *x_shape*, *w_shape*, *_bias*, *_stride*, *_padding*, *_dilation*, *transposed*, *_output_padding*, *_groups*, *output_mask*, *out_shape*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/007b142ea0da19b2a8b4c33c2544b0c2f459e7fc/torch/utils/flop_counter.py#L315)
+torch.utils.flop_counter.conv_backward_flop(*grad_out_shape*, *x_shape*, *w_shape*, *_bias*, *_stride*, *_padding*, *_dilation*, *transposed*, *_output_padding*, *_groups*, *output_mask*, *out_shape*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/cb6166381fcee1217527b26108d3aad518b946b1/torch/utils/flop_counter.py#L315)
 
 Return type:
 

@@ -1,6 +1,6 @@
 # ConvTranspose1d
 
-*class*torch.ao.nn.quantized.dynamic.modules.conv.ConvTranspose1d(*in_channels*, *out_channels*, *kernel_size*, *stride=1*, *padding=0*, *output_padding=0*, *groups=1*, *bias=True*, *dilation=1*, *padding_mode='zeros'*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/007b142ea0da19b2a8b4c33c2544b0c2f459e7fc/torch/ao/nn/quantized/dynamic/modules/conv.py#L285)
+*class*torch.ao.nn.quantized.dynamic.modules.conv.ConvTranspose1d(*in_channels*, *out_channels*, *kernel_size*, *stride=1*, *padding=0*, *output_padding=0*, *groups=1*, *bias=True*, *dilation=1*, *padding_mode='zeros'*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/cb6166381fcee1217527b26108d3aad518b946b1/torch/ao/nn/quantized/dynamic/modules/conv.py#L285)
 
 A dynamically quantized transposed convolution module with floating point tensors as inputs and outputs.
 

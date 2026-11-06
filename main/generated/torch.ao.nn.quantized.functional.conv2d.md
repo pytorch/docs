@@ -1,6 +1,6 @@
 # conv2d
 
-*class*torch.ao.nn.quantized.functional.conv2d(*input*, *weight*, *bias*, *stride=1*, *padding=0*, *dilation=1*, *groups=1*, *padding_mode='zeros'*, *scale=1.0*, *zero_point=0*, *dtype=torch.quint8*)[[source]](https://github.com/pytorch/pytorch/blob/007b142ea0da19b2a8b4c33c2544b0c2f459e7fc/torch/ao/nn/quantized/functional.py#L246)
+*class*torch.ao.nn.quantized.functional.conv2d(*input*, *weight*, *bias*, *stride=1*, *padding=0*, *dilation=1*, *groups=1*, *padding_mode='zeros'*, *scale=1.0*, *zero_point=0*, *dtype=torch.quint8*)[[source]](https://github.com/pytorch/pytorch/blob/cb6166381fcee1217527b26108d3aad518b946b1/torch/ao/nn/quantized/functional.py#L246)
 
 Applies a 2D convolution over a quantized 2D input composed of several input
 planes.

@@ -1,6 +1,6 @@
 # torch.optim.adadelta.adadelta
 
-torch.optim.adadelta.adadelta(*params*, *grads*, *square_avgs*, *acc_deltas*, *state_steps*, *capturable=False*, *foreach=None*, *differentiable=False*, *has_complex=False*, ***, *lr*, *rho*, *eps*, *weight_decay*, *maximize*)[[source]](https://github.com/pytorch/pytorch/blob/007b142ea0da19b2a8b4c33c2544b0c2f459e7fc/torch/optim/adadelta.py#L412)
+torch.optim.adadelta.adadelta(*params*, *grads*, *square_avgs*, *acc_deltas*, *state_steps*, *capturable=False*, *foreach=None*, *differentiable=False*, *has_complex=False*, ***, *lr*, *rho*, *eps*, *weight_decay*, *maximize*)[[source]](https://github.com/pytorch/pytorch/blob/cb6166381fcee1217527b26108d3aad518b946b1/torch/optim/adadelta.py#L412)
 
 Functional API that performs Adadelta algorithm computation.
 

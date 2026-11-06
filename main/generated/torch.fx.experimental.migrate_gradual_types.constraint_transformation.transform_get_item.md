@@ -1,6 +1,6 @@
 # torch.fx.experimental.migrate_gradual_types.constraint_transformation.transform_get_item
 
-torch.fx.experimental.migrate_gradual_types.constraint_transformation.transform_get_item(*constraint*, *counter*)[[source]](https://github.com/pytorch/pytorch/blob/007b142ea0da19b2a8b4c33c2544b0c2f459e7fc/torch/fx/experimental/migrate_gradual_types/constraint_transformation.py#L181)
+torch.fx.experimental.migrate_gradual_types.constraint_transformation.transform_get_item(*constraint*, *counter*)[[source]](https://github.com/pytorch/pytorch/blob/cb6166381fcee1217527b26108d3aad518b946b1/torch/fx/experimental/migrate_gradual_types/constraint_transformation.py#L181)
 
 generate an equality of the form:
 t = [a1, ..., an]

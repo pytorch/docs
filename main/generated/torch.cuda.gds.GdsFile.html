@@ -80,7 +80,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.16.0a0+git007b142 )">
+<meta name="llm:version" content="main (2.16.0a0+gitcb61663 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -186,7 +186,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.16.0a0+git007b142 )');
+  document.documentElement.setAttribute('data-version', 'main (2.16.0a0+gitcb61663 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3390,7 +3390,7 @@ document.write(`
 <h1>GdsFile<a class="headerlink" href="#gdsfile" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.cuda.gds.GdsFile">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.cuda.gds.</span></span><span class="sig-name descname"><span class="pre">GdsFile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flags</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/007b142ea0da19b2a8b4c33c2544b0c2f459e7fc/torch/cuda/gds.py#L102"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.gds.GdsFile" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.cuda.gds.</span></span><span class="sig-name descname"><span class="pre">GdsFile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flags</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/cb6166381fcee1217527b26108d3aad518b946b1/torch/cuda/gds.py#L117"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.gds.GdsFile" title="Link to this definition">#</a></dt>
 <dd><p>Wrapper around a file registered with the GPUDirect Storage (GDS) driver.</p>
 <p>cuFile (CUDA) and hipFile (ROCm) are file-like interfaces to the GDS API.</p>
 <p>See the <a class="reference external" href="https://docs.nvidia.com/gpudirect-storage/api-reference-guide/index.html#cufile-io-api">cufile docs</a>
@@ -3410,11 +3410,15 @@ be added automatically.</p></li>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">src2</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1024</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s2">&quot;cuda&quot;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">file</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">gds</span><span class="o">.</span><span class="n">GdsFile</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">O_CREAT</span> <span class="o">|</span> <span class="n">os</span><span class="o">.</span><span class="n">O_RDWR</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">file</span><span class="o">.</span><span class="n">save_storage</span><span class="p">(</span><span class="n">src1</span><span class="o">.</span><span class="n">untyped_storage</span><span class="p">(),</span> <span class="n">offset</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="go">4096</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">file</span><span class="o">.</span><span class="n">save_storage</span><span class="p">(</span><span class="n">src2</span><span class="o">.</span><span class="n">untyped_storage</span><span class="p">(),</span> <span class="n">offset</span><span class="o">=</span><span class="n">src1</span><span class="o">.</span><span class="n">nbytes</span><span class="p">)</span>
+<span class="go">8192</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dest1</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="mi">1024</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s2">&quot;cuda&quot;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dest2</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1024</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s2">&quot;cuda&quot;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">file</span><span class="o">.</span><span class="n">load_storage</span><span class="p">(</span><span class="n">dest1</span><span class="o">.</span><span class="n">untyped_storage</span><span class="p">(),</span> <span class="n">offset</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="go">4096</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">file</span><span class="o">.</span><span class="n">load_storage</span><span class="p">(</span><span class="n">dest2</span><span class="o">.</span><span class="n">untyped_storage</span><span class="p">(),</span> <span class="n">offset</span><span class="o">=</span><span class="n">src1</span><span class="o">.</span><span class="n">nbytes</span><span class="p">)</span>
+<span class="go">8192</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">equal</span><span class="p">(</span><span class="n">src1</span><span class="p">,</span> <span class="n">dest1</span><span class="p">)</span>
 <span class="go">True</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">equal</span><span class="p">(</span><span class="n">src2</span><span class="p">,</span> <span class="n">dest2</span><span class="p">)</span>
@@ -3423,20 +3427,33 @@ be added automatically.</p></li>
 </div>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.cuda.gds.GdsFile.deregister_handle">
-<span class="sig-name descname"><span class="pre">deregister_handle</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/007b142ea0da19b2a8b4c33c2544b0c2f459e7fc/torch/cuda/gds.py#L158"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.gds.GdsFile.deregister_handle" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">deregister_handle</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/cb6166381fcee1217527b26108d3aad518b946b1/torch/cuda/gds.py#L183"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.gds.GdsFile.deregister_handle" title="Link to this definition">#</a></dt>
 <dd><p>Deregisters file descriptor from the GDS driver.</p>
-<p>This is a wrapper around <code class="docutils literal notranslate"><span class="pre">cuFileHandleDeregister</span></code> (CUDA) / <code class="docutils literal notranslate"><span class="pre">hipFileHandleDeregister</span></code> (ROCm).</p>
+<p>This is a wrapper around <code class="docutils literal notranslate"><span class="pre">cuFileHandleDeregister</span></code> (CUDA) / <code class="docutils literal notranslate"><span class="pre">hipFileHandleDeregister</span></code> (ROCm).
+It first blocks until every <a class="reference internal" href="#torch.cuda.gds.GdsFile.load_storage_async" title="torch.cuda.gds.GdsFile.load_storage_async"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_storage_async()</span></code></a> and
+<a class="reference internal" href="#torch.cuda.gds.GdsFile.save_storage_async" title="torch.cuda.gds.GdsFile.save_storage_async"><code class="xref py py-meth docutils literal notranslate"><span class="pre">save_storage_async()</span></code></a> issued through this file has run.</p>
 <dl class="field-list simple">
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.cuda.gds.GdsFile.load_storage">
-<span class="sig-name descname"><span class="pre">load_storage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">storage</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/007b142ea0da19b2a8b4c33c2544b0c2f459e7fc/torch/cuda/gds.py#L168"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.gds.GdsFile.load_storage" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">load_storage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">storage</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/cb6166381fcee1217527b26108d3aad518b946b1/torch/cuda/gds.py#L217"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.gds.GdsFile.load_storage" title="Link to this definition">#</a></dt>
 <dd><p>Loads data from the file into the storage.</p>
 <p>This is a wrapper around <code class="docutils literal notranslate"><span class="pre">cuFileRead</span></code> (CUDA) / <code class="docutils literal notranslate"><span class="pre">hipFileRead</span></code> (ROCm).
 <code class="docutils literal notranslate"><span class="pre">storage.nbytes()</span></code> of data will be loaded from the file at <code class="docutils literal notranslate"><span class="pre">offset</span></code>
-into the storage.</p>
+into the storage. On ROCm, a storage larger than <code class="docutils literal notranslate"><span class="pre">2**31</span></code> bytes minus
+the page size raises a <code class="docutils literal notranslate"><span class="pre">RuntimeError</span></code> (see <a class="reference internal" href="../notes/hip.html#rocm-gds"><span class="std std-ref">hipFile (GPUDirect Storage)</span></a>).</p>
+<p><code class="docutils literal notranslate"><span class="pre">cuFileRead</span></code> is not ordered with respect to any stream, so this first
+waits for the work already enqueued on the current stream of
+<code class="docutils literal notranslate"><span class="pre">storage</span></code>’s device, then blocks until the load completes. As with a
+blocking <a class="reference internal" href="torch.Tensor.copy_.html#torch.Tensor.copy_" title="torch.Tensor.copy_"><code class="xref py py-meth docutils literal notranslate"><span class="pre">copy_()</span></code></a>, the caller must synchronize work on
+other streams (see <a class="reference internal" href="../notes/cuda.html#cuda-stream-semantics"><span class="std std-ref">CUDA streams</span></a>), and making a
+dedicated stream current avoids waiting on unrelated work. Raises a
+<code class="docutils literal notranslate"><span class="pre">RuntimeError</span></code> during CUDA graph capture.</p>
+<p>For a load that returns without waiting, use <a class="reference internal" href="#torch.cuda.gds.GdsFile.load_storage_async" title="torch.cuda.gds.GdsFile.load_storage_async"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_storage_async()</span></code></a>.
+It is enqueued on the stream rather than waiting for it on the host,
+so it is fully stream ordered.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -3444,12 +3461,75 @@ into the storage.</p>
 <li><p><strong>offset</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a><em>, </em><em>optional</em>) – Offset into the file to start loading from. (Default: 0)</p></li>
 </ul>
 </dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The number of bytes read. A value less than <code class="docutils literal notranslate"><span class="pre">storage.nbytes()</span></code>
+means the end of the file was reached, and the bytes of the storage
+past that count were not written. A short read does not raise.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.cuda.gds.GdsFile.load_storage_async">
+<span class="sig-name descname"><span class="pre">load_storage_async</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">storage</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/cb6166381fcee1217527b26108d3aad518b946b1/torch/cuda/gds.py#L251"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.gds.GdsFile.load_storage_async" title="Link to this definition">#</a></dt>
+<dd><p>Loads data from the file into the storage, ordered on the current stream.</p>
+<p>This is a wrapper around <code class="docutils literal notranslate"><span class="pre">cuFileReadAsync</span></code> (CUDA) / <code class="docutils literal notranslate"><span class="pre">hipFileReadAsync</span></code> (ROCm).
+<code class="docutils literal notranslate"><span class="pre">storage.nbytes()</span></code> of data will be loaded from the file at <code class="docutils literal notranslate"><span class="pre">offset</span></code>
+into the storage. On ROCm, a storage larger than <code class="docutils literal notranslate"><span class="pre">2**31</span></code> bytes minus
+the page size raises a <code class="docutils literal notranslate"><span class="pre">RuntimeError</span></code> (see <a class="reference internal" href="../notes/hip.html#rocm-gds"><span class="std std-ref">hipFile (GPUDirect Storage)</span></a>).</p>
+<p>The load is enqueued on the current stream of <code class="docutils literal notranslate"><span class="pre">storage</span></code>’s device,
+and this function returns without waiting for it to run. It runs after
+work previously enqueued on that stream, and work enqueued on that
+stream afterwards sees the loaded data. As with a kernel launch, other
+streams and the host must synchronize with the stream before using the
+storage or the file (see <a class="reference internal" href="../notes/cuda.html#cuda-stream-semantics"><span class="std std-ref">CUDA streams</span></a>).
+<a class="reference internal" href="#torch.cuda.gds.GdsFile.deregister_handle" title="torch.cuda.gds.GdsFile.deregister_handle"><code class="xref py py-meth docutils literal notranslate"><span class="pre">deregister_handle()</span></code></a>, and therefore deleting this object, waits
+for the load to run.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">storage</span></code> was allocated on another stream, keep a reference to it
+until that stream has waited for the load (for example with
+<a class="reference internal" href="torch.cuda.Stream_class.html#torch.cuda.Stream.wait_stream" title="torch.cuda.Stream.wait_stream"><code class="xref py py-meth docutils literal notranslate"><span class="pre">wait_stream()</span></code></a>), or call
+<a class="reference internal" href="torch.Tensor.record_stream.html#torch.Tensor.record_stream" title="torch.Tensor.record_stream"><code class="xref py py-meth docutils literal notranslate"><span class="pre">record_stream()</span></code></a> with the current stream on a tensor
+that uses it. Otherwise the CUDA caching allocator can give its memory
+to a new allocation while the load is still pending.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>cuFile’s stream APIs do not support CUDA graphs, so this raises a
+<code class="docutils literal notranslate"><span class="pre">RuntimeError</span></code> if called during graph capture.</p>
+</div>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dest</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="mi">1024</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s2">&quot;cuda&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nbytes</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">load_storage_async</span><span class="p">(</span><span class="n">dest</span><span class="o">.</span><span class="n">untyped_storage</span><span class="p">())</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">current_stream</span><span class="p">()</span><span class="o">.</span><span class="n">synchronize</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">nbytes</span><span class="o">.</span><span class="n">item</span><span class="p">()</span> <span class="o">==</span> <span class="n">dest</span><span class="o">.</span><span class="n">nbytes</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>storage</strong> (<em>Storage</em>) – Storage to load data into.</p></li>
+<li><p><strong>offset</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a><em>, </em><em>optional</em>) – Offset into the file to start loading from. (Default: 0)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A 0-dim <code class="docutils literal notranslate"><span class="pre">torch.int64</span></code> CPU tensor that, once the load has
+run, holds the number of bytes read. A negative value means the
+read failed. A value less than <code class="docutils literal notranslate"><span class="pre">storage.nbytes()</span></code> means the end
+of the file was reached. The value is not meaningful until the
+stream has been synchronized. Errors detected before the load is
+enqueued raise instead.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor">Tensor</a></p>
+</dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.cuda.gds.GdsFile.register_handle">
-<span class="sig-name descname"><span class="pre">register_handle</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/007b142ea0da19b2a8b4c33c2544b0c2f459e7fc/torch/cuda/gds.py#L149"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.gds.GdsFile.register_handle" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">register_handle</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/cb6166381fcee1217527b26108d3aad518b946b1/torch/cuda/gds.py#L174"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.gds.GdsFile.register_handle" title="Link to this definition">#</a></dt>
 <dd><p>Registers file descriptor to the GDS driver.</p>
 <p>This is a wrapper around <code class="docutils literal notranslate"><span class="pre">cuFileHandleRegister</span></code> (CUDA) / <code class="docutils literal notranslate"><span class="pre">hipFileHandleRegister</span></code> (ROCm).</p>
 <dl class="field-list simple">
@@ -3458,16 +3538,92 @@ into the storage.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.cuda.gds.GdsFile.save_storage">
-<span class="sig-name descname"><span class="pre">save_storage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">storage</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/007b142ea0da19b2a8b4c33c2544b0c2f459e7fc/torch/cuda/gds.py#L183"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.gds.GdsFile.save_storage" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">save_storage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">storage</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/cb6166381fcee1217527b26108d3aad518b946b1/torch/cuda/gds.py#L308"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.gds.GdsFile.save_storage" title="Link to this definition">#</a></dt>
 <dd><p>Saves data from the storage into the file.</p>
 <p>This is a wrapper around <code class="docutils literal notranslate"><span class="pre">cuFileWrite</span></code> (CUDA) / <code class="docutils literal notranslate"><span class="pre">hipFileWrite</span></code> (ROCm).
-All bytes of the storage will be written to the file at <code class="docutils literal notranslate"><span class="pre">offset</span></code>.</p>
+The bytes of the storage are written to the file at <code class="docutils literal notranslate"><span class="pre">offset</span></code>; check
+the returned count to confirm all of them were. On ROCm, a storage
+larger than <code class="docutils literal notranslate"><span class="pre">2**31</span></code> bytes minus the page size raises a
+<code class="docutils literal notranslate"><span class="pre">RuntimeError</span></code> (see <a class="reference internal" href="../notes/hip.html#rocm-gds"><span class="std std-ref">hipFile (GPUDirect Storage)</span></a>).</p>
+<p><code class="docutils literal notranslate"><span class="pre">cuFileWrite</span></code> is not ordered with respect to any stream, so this first
+waits for the work already enqueued on the current stream of
+<code class="docutils literal notranslate"><span class="pre">storage</span></code>’s device, then blocks until the save completes. As with a
+blocking <a class="reference internal" href="torch.Tensor.copy_.html#torch.Tensor.copy_" title="torch.Tensor.copy_"><code class="xref py py-meth docutils literal notranslate"><span class="pre">copy_()</span></code></a>, the caller must synchronize work on
+other streams (see <a class="reference internal" href="../notes/cuda.html#cuda-stream-semantics"><span class="std std-ref">CUDA streams</span></a>), and making a
+dedicated stream current avoids waiting on unrelated work. Raises a
+<code class="docutils literal notranslate"><span class="pre">RuntimeError</span></code> during CUDA graph capture.</p>
+<p>For a save that returns without waiting, use <a class="reference internal" href="#torch.cuda.gds.GdsFile.save_storage_async" title="torch.cuda.gds.GdsFile.save_storage_async"><code class="xref py py-meth docutils literal notranslate"><span class="pre">save_storage_async()</span></code></a>.
+It is enqueued on the stream rather than waiting for it on the host,
+so it is fully stream ordered.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>storage</strong> (<em>Storage</em>) – Storage to save data from.</p></li>
 <li><p><strong>offset</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a><em>, </em><em>optional</em>) – Offset into the file to start saving to. (Default: 0)</p></li>
 </ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The number of bytes written. A value less than
+<code class="docutils literal notranslate"><span class="pre">storage.nbytes()</span></code> means the bytes of the storage past that count
+were not written. A short write does not raise.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torch.cuda.gds.GdsFile.save_storage_async">
+<span class="sig-name descname"><span class="pre">save_storage_async</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">storage</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/cb6166381fcee1217527b26108d3aad518b946b1/torch/cuda/gds.py#L343"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.gds.GdsFile.save_storage_async" title="Link to this definition">#</a></dt>
+<dd><p>Saves data from the storage into the file, ordered on the current stream.</p>
+<p>This is a wrapper around <code class="docutils literal notranslate"><span class="pre">cuFileWriteAsync</span></code> (CUDA) / <code class="docutils literal notranslate"><span class="pre">hipFileWriteAsync</span></code> (ROCm).
+The bytes of the storage are written to the file at <code class="docutils literal notranslate"><span class="pre">offset</span></code>; check
+the returned count to confirm all of them were. On ROCm, a storage
+larger than <code class="docutils literal notranslate"><span class="pre">2**31</span></code> bytes minus the page size raises a
+<code class="docutils literal notranslate"><span class="pre">RuntimeError</span></code> (see <a class="reference internal" href="../notes/hip.html#rocm-gds"><span class="std std-ref">hipFile (GPUDirect Storage)</span></a>).</p>
+<p>The save is enqueued on the current stream of <code class="docutils literal notranslate"><span class="pre">storage</span></code>’s device,
+and this function returns without waiting for it to run. It runs after
+work previously enqueued on that stream, so it writes the data that
+work produced. As with a kernel launch, other streams and the host must
+synchronize with the stream before modifying the storage or using the
+file (see <a class="reference internal" href="../notes/cuda.html#cuda-stream-semantics"><span class="std std-ref">CUDA streams</span></a>). <a class="reference internal" href="#torch.cuda.gds.GdsFile.deregister_handle" title="torch.cuda.gds.GdsFile.deregister_handle"><code class="xref py py-meth docutils literal notranslate"><span class="pre">deregister_handle()</span></code></a>,
+and therefore deleting this object, waits for the save to run.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">storage</span></code> was allocated on another stream, keep a reference to it
+until that stream has waited for the save (for example with
+<a class="reference internal" href="torch.cuda.Stream_class.html#torch.cuda.Stream.wait_stream" title="torch.cuda.Stream.wait_stream"><code class="xref py py-meth docutils literal notranslate"><span class="pre">wait_stream()</span></code></a>), or call
+<a class="reference internal" href="torch.Tensor.record_stream.html#torch.Tensor.record_stream" title="torch.Tensor.record_stream"><code class="xref py py-meth docutils literal notranslate"><span class="pre">record_stream()</span></code></a> with the current stream on a tensor
+that uses it. Otherwise the CUDA caching allocator can give its memory
+to a new allocation, and the save can write that allocation’s data.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>cuFile’s stream APIs do not support CUDA graphs, so this raises a
+<code class="docutils literal notranslate"><span class="pre">RuntimeError</span></code> if called during graph capture.</p>
+</div>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">src</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1024</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s2">&quot;cuda&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># No synchronize needed: the save runs after torch.randn.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nbytes</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">save_storage_async</span><span class="p">(</span><span class="n">src</span><span class="o">.</span><span class="n">untyped_storage</span><span class="p">())</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">current_stream</span><span class="p">()</span><span class="o">.</span><span class="n">synchronize</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">nbytes</span><span class="o">.</span><span class="n">item</span><span class="p">()</span> <span class="o">==</span> <span class="n">src</span><span class="o">.</span><span class="n">nbytes</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>storage</strong> (<em>Storage</em>) – Storage to save data from.</p></li>
+<li><p><strong>offset</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a><em>, </em><em>optional</em>) – Offset into the file to start saving to. (Default: 0)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A 0-dim <code class="docutils literal notranslate"><span class="pre">torch.int64</span></code> CPU tensor that, once the save has
+run, holds the number of bytes written. A negative value means the
+write failed. The value is not meaningful until the stream has
+been synchronized. Errors detected before the save is enqueued
+raise instead.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor">Tensor</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -3596,8 +3752,10 @@ All bytes of the storage will be written to the file at <code class="docutils li
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.cuda.gds.GdsFile"><code class="docutils literal notranslate"><span class="pre">GdsFile</span></code></a><ul class="visible nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.cuda.gds.GdsFile.deregister_handle"><code class="docutils literal notranslate"><span class="pre">GdsFile.deregister_handle()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.cuda.gds.GdsFile.load_storage"><code class="docutils literal notranslate"><span class="pre">GdsFile.load_storage()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.cuda.gds.GdsFile.load_storage_async"><code class="docutils literal notranslate"><span class="pre">GdsFile.load_storage_async()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.cuda.gds.GdsFile.register_handle"><code class="docutils literal notranslate"><span class="pre">GdsFile.register_handle()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.cuda.gds.GdsFile.save_storage"><code class="docutils literal notranslate"><span class="pre">GdsFile.save_storage()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.cuda.gds.GdsFile.save_storage_async"><code class="docutils literal notranslate"><span class="pre">GdsFile.save_storage_async()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -3836,7 +3994,7 @@ All bytes of the storage will be written to the file at <code class="docutils li
        "headline": "GdsFile",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/generated/torch.cuda.gds.GdsFile.html",
-       "articleBody": "GdsFile# class torch.cuda.gds.GdsFile(filename, flags)[source]# Wrapper around a file registered with the GPUDirect Storage (GDS) driver. cuFile (CUDA) and hipFile (ROCm) are file-like interfaces to the GDS API. See the cufile docs and the hipFile docs for more details, and hipFile (GPUDirect Storage) for ROCm specifics. Parameters: filename (str) \u2013 Name of the file to open. flags (int) \u2013 Flags to pass to os.open when opening the file. os.O_DIRECT will be added automatically. Example: \u003e\u003e\u003e src1 = torch.randn(1024, device=\"cuda\") \u003e\u003e\u003e src2 = torch.randn(2, 1024, device=\"cuda\") \u003e\u003e\u003e file = torch.cuda.gds.GdsFile(f, os.O_CREAT | os.O_RDWR) \u003e\u003e\u003e file.save_storage(src1.untyped_storage(), offset=0) \u003e\u003e\u003e file.save_storage(src2.untyped_storage(), offset=src1.nbytes) \u003e\u003e\u003e dest1 = torch.empty(1024, device=\"cuda\") \u003e\u003e\u003e dest2 = torch.empty(2, 1024, device=\"cuda\") \u003e\u003e\u003e file.load_storage(dest1.untyped_storage(), offset=0) \u003e\u003e\u003e file.load_storage(dest2.untyped_storage(), offset=src1.nbytes) \u003e\u003e\u003e torch.equal(src1, dest1) True \u003e\u003e\u003e torch.equal(src2, dest2) True deregister_handle()[source]# Deregisters file descriptor from the GDS driver. This is a wrapper around cuFileHandleDeregister (CUDA) / hipFileHandleDeregister (ROCm). load_storage(storage, offset=0)[source]# Loads data from the file into the storage. This is a wrapper around cuFileRead (CUDA) / hipFileRead (ROCm). storage.nbytes() of data will be loaded from the file at offset into the storage. Parameters: storage (Storage) \u2013 Storage to load data into. offset (int, optional) \u2013 Offset into the file to start loading from. (Default: 0) register_handle()[source]# Registers file descriptor to the GDS driver. This is a wrapper around cuFileHandleRegister (CUDA) / hipFileHandleRegister (ROCm). save_storage(storage, offset=0)[source]# Saves data from the storage into the file. This is a wrapper around cuFileWrite (CUDA) / hipFileWrite (ROCm). All bytes of the storage will be written to the file at offset. Parameters: storage (Storage) \u2013 Storage to save data from. offset (int, optional) \u2013 Offset into the file to start saving to. (Default: 0)",
+       "articleBody": "GdsFile# class torch.cuda.gds.GdsFile(filename, flags)[source]# Wrapper around a file registered with the GPUDirect Storage (GDS) driver. cuFile (CUDA) and hipFile (ROCm) are file-like interfaces to the GDS API. See the cufile docs and the hipFile docs for more details, and hipFile (GPUDirect Storage) for ROCm specifics. Parameters: filename (str) \u2013 Name of the file to open. flags (int) \u2013 Flags to pass to os.open when opening the file. os.O_DIRECT will be added automatically. Example: \u003e\u003e\u003e src1 = torch.randn(1024, device=\"cuda\") \u003e\u003e\u003e src2 = torch.randn(2, 1024, device=\"cuda\") \u003e\u003e\u003e file = torch.cuda.gds.GdsFile(f, os.O_CREAT | os.O_RDWR) \u003e\u003e\u003e file.save_storage(src1.untyped_storage(), offset=0) 4096 \u003e\u003e\u003e file.save_storage(src2.untyped_storage(), offset=src1.nbytes) 8192 \u003e\u003e\u003e dest1 = torch.empty(1024, device=\"cuda\") \u003e\u003e\u003e dest2 = torch.empty(2, 1024, device=\"cuda\") \u003e\u003e\u003e file.load_storage(dest1.untyped_storage(), offset=0) 4096 \u003e\u003e\u003e file.load_storage(dest2.untyped_storage(), offset=src1.nbytes) 8192 \u003e\u003e\u003e torch.equal(src1, dest1) True \u003e\u003e\u003e torch.equal(src2, dest2) True deregister_handle()[source]# Deregisters file descriptor from the GDS driver. This is a wrapper around cuFileHandleDeregister (CUDA) / hipFileHandleDeregister (ROCm). It first blocks until every load_storage_async() and save_storage_async() issued through this file has run. load_storage(storage, offset=0)[source]# Loads data from the file into the storage. This is a wrapper around cuFileRead (CUDA) / hipFileRead (ROCm). storage.nbytes() of data will be loaded from the file at offset into the storage. On ROCm, a storage larger than 2**31 bytes minus the page size raises a RuntimeError (see hipFile (GPUDirect Storage)). cuFileRead is not ordered with respect to any stream, so this first waits for the work already enqueued on the current stream of storage\u2019s device, then blocks until the load completes. As with a blocking copy_(), the caller must synchronize work on other streams (see CUDA streams), and making a dedicated stream current avoids waiting on unrelated work. Raises a RuntimeError during CUDA graph capture. For a load that returns without waiting, use load_storage_async(). It is enqueued on the stream rather than waiting for it on the host, so it is fully stream ordered. Parameters: storage (Storage) \u2013 Storage to load data into. offset (int, optional) \u2013 Offset into the file to start loading from. (Default: 0) Returns: The number of bytes read. A value less than storage.nbytes() means the end of the file was reached, and the bytes of the storage past that count were not written. A short read does not raise. Return type: int load_storage_async(storage, offset=0)[source]# Loads data from the file into the storage, ordered on the current stream. This is a wrapper around cuFileReadAsync (CUDA) / hipFileReadAsync (ROCm). storage.nbytes() of data will be loaded from the file at offset into the storage. On ROCm, a storage larger than 2**31 bytes minus the page size raises a RuntimeError (see hipFile (GPUDirect Storage)). The load is enqueued on the current stream of storage\u2019s device, and this function returns without waiting for it to run. It runs after work previously enqueued on that stream, and work enqueued on that stream afterwards sees the loaded data. As with a kernel launch, other streams and the host must synchronize with the stream before using the storage or the file (see CUDA streams). deregister_handle(), and therefore deleting this object, waits for the load to run. If storage was allocated on another stream, keep a reference to it until that stream has waited for the load (for example with wait_stream()), or call record_stream() with the current stream on a tensor that uses it. Otherwise the CUDA caching allocator can give its memory to a new allocation while the load is still pending. Note cuFile\u2019s stream APIs do not support CUDA graphs, so this raises a RuntimeError if called during graph capture. Example: \u003e\u003e\u003e dest = torch.empty(1024, device=\"cuda\") \u003e\u003e\u003e nbytes = file.load_storage_async(dest.untyped_storage()) \u003e\u003e\u003e torch.cuda.current_stream().synchronize() \u003e\u003e\u003e assert nbytes.item() == dest.nbytes Parameters: storage (Storage) \u2013 Storage to load data into. offset (int, optional) \u2013 Offset into the file to start loading from. (Default: 0) Returns: A 0-dim torch.int64 CPU tensor that, once the load has run, holds the number of bytes read. A negative value means the read failed. A value less than storage.nbytes() means the end of the file was reached. The value is not meaningful until the stream has been synchronized. Errors detected before the load is enqueued raise instead. Return type: Tensor register_handle()[source]# Registers file descriptor to the GDS driver. This is a wrapper around cuFileHandleRegister (CUDA) / hipFileHandleRegister (ROCm). save_storage(storage, offset=0)[source]# Saves data from the storage into the file. This is a wrapper around cuFileWrite (CUDA) / hipFileWrite (ROCm). The bytes of the storage are written to the file at offset; check the returned count to confirm all of them were. On ROCm, a storage larger than 2**31 bytes minus the page size raises a RuntimeError (see hipFile (GPUDirect Storage)). cuFileWrite is not ordered with respect to any stream, so this first waits for the work already enqueued on the current stream of storage\u2019s device, then blocks until the save completes. As with a blocking copy_(), the caller must synchronize work on other streams (see CUDA streams), and making a dedicated stream current avoids waiting on unrelated work. Raises a RuntimeError during CUDA graph capture. For a save that returns without waiting, use save_storage_async(). It is enqueued on the stream rather than waiting for it on the host, so it is fully stream ordered. Parameters: storage (Storage) \u2013 Storage to save data from. offset (int, optional) \u2013 Offset into the file to start saving to. (Default: 0) Returns: The number of bytes written. A value less than storage.nbytes() means the bytes of the storage past that count were not written. A short write does not raise. Return type: int save_storage_async(storage, offset=0)[source]# Saves data from the storage into the file, ordered on the current stream. This is a wrapper around cuFileWriteAsync (CUDA) / hipFileWriteAsync (ROCm). The bytes of the storage are written to the file at offset; check the returned count to confirm all of them were. On ROCm, a storage larger than 2**31 bytes minus the page size raises a RuntimeError (see hipFile (GPUDirect Storage)). The save is enqueued on the current stream of storage\u2019s device, and this function returns without waiting for it to run. It runs after work previously enqueued on that stream, so it writes the data that work produced. As with a kernel launch, other streams and the host must synchronize with the stream before modifying the storage or using the file (see CUDA streams). deregister_handle(), and therefore deleting this object, waits for the save to run. If storage was allocated on another stream, keep a reference to it until that stream has waited for the save (for example with wait_stream()), or call record_stream() with the current stream on a tensor that uses it. Otherwise the CUDA caching allocator can give its memory to a new allocation, and the save can write that allocation\u2019s data. Note cuFile\u2019s stream APIs do not support CUDA graphs, so this raises a RuntimeError if called during graph capture. Example: \u003e\u003e\u003e src = torch.randn(1024, device=\"cuda\") \u003e\u003e\u003e # No synchronize needed: the save runs after torch.randn. \u003e\u003e\u003e nbytes = file.save_storage_async(src.untyped_storage()) \u003e\u003e\u003e torch.cuda.current_stream().synchronize() \u003e\u003e\u003e assert nbytes.item() == src.nbytes Parameters: storage (Storage) \u2013 Storage to save data from. offset (int, optional) \u2013 Offset into the file to start saving to. (Default: 0) Returns: A 0-dim torch.int64 CPU tensor that, once the save has run, holds the number of bytes written. A negative value means the write failed. The value is not meaningful until the stream has been synchronized. Errors detected before the save is enqueued raise instead. Return type: Tensor",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",

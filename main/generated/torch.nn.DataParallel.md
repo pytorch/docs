@@ -1,6 +1,6 @@
 # DataParallel
 
-*class*torch.nn.DataParallel(*module*, *device_ids=None*, *output_device=None*, *dim=0*)[[source]](https://github.com/pytorch/pytorch/blob/007b142ea0da19b2a8b4c33c2544b0c2f459e7fc/torch/nn/parallel/data_parallel.py#L54)
+*class*torch.nn.DataParallel(*module*, *device_ids=None*, *output_device=None*, *dim=0*)[[source]](https://github.com/pytorch/pytorch/blob/cb6166381fcee1217527b26108d3aad518b946b1/torch/nn/parallel/data_parallel.py#L54)
 
 Implements data parallelism at the module level.
 

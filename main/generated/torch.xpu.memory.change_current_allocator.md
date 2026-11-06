@@ -1,6 +1,6 @@
 # torch.xpu.memory.change_current_allocator
 
-torch.xpu.memory.change_current_allocator(*allocator*)[[source]](https://github.com/pytorch/pytorch/blob/007b142ea0da19b2a8b4c33c2544b0c2f459e7fc/torch/xpu/memory.py#L532)
+torch.xpu.memory.change_current_allocator(*allocator*)[[source]](https://github.com/pytorch/pytorch/blob/cb6166381fcee1217527b26108d3aad518b946b1/torch/xpu/memory.py#L532)
 
 Change the currently used memory allocator to be the one provided.
 

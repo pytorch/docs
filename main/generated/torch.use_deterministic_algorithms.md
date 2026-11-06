@@ -1,6 +1,6 @@
 # torch.use_deterministic_algorithms
 
-torch.use_deterministic_algorithms(*mode*, ***, *warn_only=False*)[[source]](https://github.com/pytorch/pytorch/blob/007b142ea0da19b2a8b4c33c2544b0c2f459e7fc/torch/__init__.py#L1745)
+torch.use_deterministic_algorithms(*mode*, ***, *warn_only=False*)[[source]](https://github.com/pytorch/pytorch/blob/cb6166381fcee1217527b26108d3aad518b946b1/torch/__init__.py#L1751)
 
 Sets whether PyTorch operations must use "deterministic"
 algorithms. That is, algorithms which, given the same input, and when
@@ -49,6 +49,8 @@ deterministically when `mode=True`:
 > - [`torch.Tensor.scatter()`](torch.Tensor.scatter.html#torch.Tensor.scatter) when src type is Tensor and called on CUDA tensor
 > - [`torch.Tensor.scatter_reduce()`](torch.Tensor.scatter_reduce.html#torch.Tensor.scatter_reduce) when `reduce='sum'` or `reduce='mean'` and called on CUDA tensor
 > - [`torch.nn.MaxPool3d`](torch.nn.MaxPool3d.html#torch.nn.MaxPool3d) when attempting to differentiate a CUDA tensor
+> - [`torch.nn.functional.interpolate()`](torch.nn.functional.interpolate.html#torch.nn.functional.interpolate) with `mode='bilinear'` and `antialias=False`
+> when attempting to differentiate a CUDA tensor
 > - [`torch.nn.Embedding`](torch.nn.Embedding.html#torch.nn.Embedding) when attempting to differentiate a CUDA tensor
 > - [`torch.Tensor.scatter_reduce()`](torch.Tensor.scatter_reduce.html#torch.Tensor.scatter_reduce) when called on MPS tensor
 > - [`torch.Tensor.index_reduce()`](torch.Tensor.index_reduce.html#torch.Tensor.index_reduce) with `reduce='prod'\'mean'`
@@ -79,7 +81,6 @@ The following normally-nondeterministic operations will throw a
 > 
 > 
 > - `linear`
-> - `bilinear`
 > - `bicubic`
 > - `trilinear`
 > - [`torch.nn.ReflectionPad1d`](torch.nn.ReflectionPad1d.html#torch.nn.ReflectionPad1d) when attempting to differentiate a CUDA tensor

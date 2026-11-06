@@ -1,6 +1,6 @@
 # torch.nn.utils.rnn.pack_padded_sequence
 
-torch.nn.utils.rnn.pack_padded_sequence(*input*, *lengths*, *batch_first=False*, *enforce_sorted=True*)[[source]](https://github.com/pytorch/pytorch/blob/007b142ea0da19b2a8b4c33c2544b0c2f459e7fc/torch/nn/utils/rnn.py#L257)
+torch.nn.utils.rnn.pack_padded_sequence(*input*, *lengths*, *batch_first=False*, *enforce_sorted=True*)[[source]](https://github.com/pytorch/pytorch/blob/cb6166381fcee1217527b26108d3aad518b946b1/torch/nn/utils/rnn.py#L257)
 
 Packs a Tensor containing padded sequences of variable length.
 

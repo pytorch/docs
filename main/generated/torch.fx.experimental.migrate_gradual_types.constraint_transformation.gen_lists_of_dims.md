@@ -1,6 +1,6 @@
 # torch.fx.experimental.migrate_gradual_types.constraint_transformation.gen_lists_of_dims
 
-torch.fx.experimental.migrate_gradual_types.constraint_transformation.gen_lists_of_dims(*num_tensors*, *dim_size*, *counter*)[[source]](https://github.com/pytorch/pytorch/blob/007b142ea0da19b2a8b4c33c2544b0c2f459e7fc/torch/fx/experimental/migrate_gradual_types/constraint_transformation.py#L1225)
+torch.fx.experimental.migrate_gradual_types.constraint_transformation.gen_lists_of_dims(*num_tensors*, *dim_size*, *counter*)[[source]](https://github.com/pytorch/pytorch/blob/cb6166381fcee1217527b26108d3aad518b946b1/torch/fx/experimental/migrate_gradual_types/constraint_transformation.py#L1225)
 
 Generate lists of DVar to represent tensor dimensions
 :param num_tensors: the required number of tensors

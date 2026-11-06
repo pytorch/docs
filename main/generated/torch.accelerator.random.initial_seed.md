@@ -1,6 +1,6 @@
 # torch.accelerator.random.initial_seed
 
-torch.accelerator.random.initial_seed(*device=None*, */*)[[source]](https://github.com/pytorch/pytorch/blob/007b142ea0da19b2a8b4c33c2544b0c2f459e7fc/torch/accelerator/random.py#L8)
+torch.accelerator.random.initial_seed(*device=None*, */*)[[source]](https://github.com/pytorch/pytorch/blob/cb6166381fcee1217527b26108d3aad518b946b1/torch/accelerator/random.py#L8)
 
 Return the initial seed of the default [`torch.Generator`](torch.Generator.html#torch.Generator) for the current [accelerator](../torch.html#accelerators)
 on the specified device.

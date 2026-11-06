@@ -73,7 +73,7 @@ the top-level graph module.
 
 ## API Reference
 
-torch._higher_order_ops.while_loop.while_loop(*cond_fn*, *body_fn*, *carried_inputs*)[[source]](https://github.com/pytorch/pytorch/blob/007b142ea0da19b2a8b4c33c2544b0c2f459e7fc/torch/_higher_order_ops/while_loop.py#L137)
+torch._higher_order_ops.while_loop.while_loop(*cond_fn*, *body_fn*, *carried_inputs*)[[source]](https://github.com/pytorch/pytorch/blob/cb6166381fcee1217527b26108d3aad518b946b1/torch/_higher_order_ops/while_loop.py#L137)
 
 Run `body_fn(*carried_inputs)` while `cond_fn(*carried_inputs)` returns
 a True scalar tensor. Returns the output of body_fn or initial

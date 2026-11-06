@@ -1,6 +1,6 @@
 # torch.optim.functional.asgd
 
-torch.optim.functional.asgd(*params*, *grads*, *axs*, *mus*, *etas*, *state_steps*, *foreach=None*, *maximize=False*, *differentiable=False*, *capturable=False*, *has_complex=False*, ***, *lambd*, *lr*, *t0*, *alpha*, *weight_decay*)[[source]](https://github.com/pytorch/pytorch/blob/007b142ea0da19b2a8b4c33c2544b0c2f459e7fc/torch/optim/asgd.py#L428)
+torch.optim.functional.asgd(*params*, *grads*, *axs*, *mus*, *etas*, *state_steps*, *foreach=None*, *maximize=False*, *differentiable=False*, *capturable=False*, *has_complex=False*, ***, *lambd*, *lr*, *t0*, *alpha*, *weight_decay*)[[source]](https://github.com/pytorch/pytorch/blob/cb6166381fcee1217527b26108d3aad518b946b1/torch/optim/asgd.py#L428)
 
 Functional API that performs ASGD algorithm computation.
 

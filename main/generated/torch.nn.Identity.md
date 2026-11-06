@@ -1,6 +1,6 @@
 # Identity
 
-*class*torch.nn.Identity(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/007b142ea0da19b2a8b4c33c2544b0c2f459e7fc/torch/nn/modules/linear.py#L22)
+*class*torch.nn.Identity(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/cb6166381fcee1217527b26108d3aad518b946b1/torch/nn/modules/linear.py#L22)
 
 A placeholder identity operator that is argument-insensitive.
 
@@ -24,7 +24,7 @@ Examples:
 torch.Size([128, 20])
 ```
 
-forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/007b142ea0da19b2a8b4c33c2544b0c2f459e7fc/torch/nn/modules/linear.py#L46)
+forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/cb6166381fcee1217527b26108d3aad518b946b1/torch/nn/modules/linear.py#L46)
 
 Runs the forward pass.
 

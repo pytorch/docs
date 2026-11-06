@@ -1,6 +1,6 @@
 # torch.fx.experimental.migrate_gradual_types.constraint_generator.layer_norm_inference_rule
 
-torch.fx.experimental.migrate_gradual_types.constraint_generator.layer_norm_inference_rule(*n*, *module_instance*, *symbols*, *constraints*, *counter*)[[source]](https://github.com/pytorch/pytorch/blob/007b142ea0da19b2a8b4c33c2544b0c2f459e7fc/torch/fx/experimental/migrate_gradual_types/constraint_generator.py#L1331)
+torch.fx.experimental.migrate_gradual_types.constraint_generator.layer_norm_inference_rule(*n*, *module_instance*, *symbols*, *constraints*, *counter*)[[source]](https://github.com/pytorch/pytorch/blob/cb6166381fcee1217527b26108d3aad518b946b1/torch/fx/experimental/migrate_gradual_types/constraint_generator.py#L1331)
 
 Input and output shapes should be equal.
 Input should be consistent with the normalized_shape

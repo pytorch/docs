@@ -1,6 +1,6 @@
 # torch.cuda.memory.max_memory_reserved
 
-torch.cuda.memory.max_memory_reserved(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/007b142ea0da19b2a8b4c33c2544b0c2f459e7fc/torch/cuda/memory.py#L583)
+torch.cuda.memory.max_memory_reserved(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/cb6166381fcee1217527b26108d3aad518b946b1/torch/cuda/memory.py#L583)
 
 Return the maximum GPU memory managed by the caching allocator in bytes for a given device.
 

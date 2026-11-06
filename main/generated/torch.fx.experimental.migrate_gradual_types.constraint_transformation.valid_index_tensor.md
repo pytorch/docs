@@ -1,6 +1,6 @@
 # torch.fx.experimental.migrate_gradual_types.constraint_transformation.valid_index_tensor
 
-torch.fx.experimental.migrate_gradual_types.constraint_transformation.valid_index_tensor(*index*, *dims*)[[source]](https://github.com/pytorch/pytorch/blob/007b142ea0da19b2a8b4c33c2544b0c2f459e7fc/torch/fx/experimental/migrate_gradual_types/constraint_transformation.py#L220)
+torch.fx.experimental.migrate_gradual_types.constraint_transformation.valid_index_tensor(*index*, *dims*)[[source]](https://github.com/pytorch/pytorch/blob/cb6166381fcee1217527b26108d3aad518b946b1/torch/fx/experimental/migrate_gradual_types/constraint_transformation.py#L220)
 
 if the slice instances exceed the length of the dimensions
 then this is a type error so we return False

@@ -1,6 +1,6 @@
 # torch.lobpcg
 
-torch.lobpcg(*A*, *k=None*, *B=None*, *X=None*, *n=None*, *iK=None*, *niter=None*, *tol=None*, *largest=None*, *method=None*, *tracker=None*, *ortho_iparams=None*, *ortho_fparams=None*, *ortho_bparams=None*)[[source]](https://github.com/pytorch/pytorch/blob/007b142ea0da19b2a8b4c33c2544b0c2f459e7fc/torch/_lobpcg.py#L343)
+torch.lobpcg(*A*, *k=None*, *B=None*, *X=None*, *n=None*, *iK=None*, *niter=None*, *tol=None*, *largest=None*, *method=None*, *tracker=None*, *ortho_iparams=None*, *ortho_fparams=None*, *ortho_bparams=None*)[[source]](https://github.com/pytorch/pytorch/blob/cb6166381fcee1217527b26108d3aad518b946b1/torch/_lobpcg.py#L343)
 
 Find the k largest (or smallest) eigenvalues and the corresponding
 eigenvectors of a symmetric positive definite generalized
