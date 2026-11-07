@@ -85,7 +85,7 @@ window.addEventListener("load", () => mermaid.run());
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.16.0a0+gitcb61663 )">
+<meta name="llm:version" content="main (2.16.0a0+git7798c70 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -191,7 +191,7 @@ window.addEventListener("load", () => mermaid.run());
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.16.0a0+gitcb61663 )');
+  document.documentElement.setAttribute('data-version', 'main (2.16.0a0+git7798c70 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -6934,6 +6934,8 @@ document.write(`
 </li>
         <li><a href="generated/torch.cuda.current_stream.html#torch.cuda.current_stream">(in module torch.cuda)</a>
 </li>
+        <li><a href="generated/torch.mps.current_stream.html#torch.mps.current_stream">(in module torch.mps)</a>
+</li>
         <li><a href="generated/torch.mtia.current_stream.html#torch.mtia.current_stream">(in module torch.mtia)</a>
 </li>
         <li><a href="generated/torch.xpu.current_stream.html#torch.xpu.current_stream">(in module torch.xpu)</a>
@@ -7110,6 +7112,8 @@ document.write(`
       <li><a href="generated/torch.cuda.default_stream.html#torch.cuda.default_stream">default_stream() (in module torch.cuda)</a>
 
       <ul>
+        <li><a href="generated/torch.mps.default_stream.html#torch.mps.default_stream">(in module torch.mps)</a>
+</li>
         <li><a href="generated/torch.mtia.default_stream.html#torch.mtia.default_stream">(in module torch.mtia)</a>
 </li>
       </ul></li>
@@ -15810,6 +15814,8 @@ document.write(`
 </li>
         <li><a href="mps.html#module-torch.mps.profiler">torch.mps.profiler</a>
 </li>
+        <li><a href="mps.html#module-torch.mps.streams">torch.mps.streams</a>
+</li>
         <li><a href="mtia.html#module-torch.mtia">torch.mtia</a>
 </li>
         <li><a href="mtia/memory.html#module-torch.mtia.memory">torch.mtia.memory</a>
@@ -20800,6 +20806,8 @@ document.write(`
       <ul>
         <li><a href="generated/torch.cuda.set_stream.html#torch.cuda.set_stream">(in module torch.cuda)</a>
 </li>
+        <li><a href="generated/torch.mps.set_stream.html#torch.mps.set_stream">(in module torch.mps)</a>
+</li>
         <li><a href="generated/torch.mtia.set_stream.html#torch.mtia.set_stream">(in module torch.mtia)</a>
 </li>
         <li><a href="generated/torch.xpu.set_stream.html#torch.xpu.set_stream">(in module torch.xpu)</a>
@@ -20826,6 +20834,8 @@ document.write(`
       <li><a href="generated/torch.fx.experimental.debug.set_trace.html#torch.fx.experimental.debug.set_trace">set_trace() (in module torch.fx.experimental.debug)</a>
 </li>
       <li><a href="distributed/fsdp.fully_shard.html#torch.distributed.fsdp.FSDPModule.set_unshard_in_backward">set_unshard_in_backward() (torch.distributed.fsdp.FSDPModule method)</a>
+</li>
+      <li><a href="distributed/fsdp.fully_shard.html#torch.distributed.fsdp.FSDPModule.set_unshard_in_current_stream">set_unshard_in_current_stream() (torch.distributed.fsdp.FSDPModule method)</a>
 </li>
       <li><a href="distributed/checkpoint.html#torch.distributed.checkpoint.format_utils.DynamicMetaLoadPlanner.set_up_planner">set_up_planner() (torch.distributed.checkpoint.format_utils.DynamicMetaLoadPlanner method)</a>
 
@@ -21247,14 +21257,14 @@ document.write(`
       </ul></li>
       <li><a href="generated/torch.nn.functional.smooth_l1_loss.html#torch.nn.functional.smooth_l1_loss">smooth_l1_loss() (in module torch.nn.functional)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.nn.SmoothL1Loss.html#torch.nn.SmoothL1Loss">SmoothL1Loss (class in torch.nn)</a>
 
       <ul>
         <li><a href="generated/torch.nn.modules.loss.SmoothL1Loss.html#torch.nn.modules.loss.SmoothL1Loss">(class in torch.nn.modules.loss)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.cuda.green_contexts.SMPartition.html#torch.cuda.green_contexts.SMPartition">SMPartition (class in torch.cuda.green_contexts)</a>
 </li>
       <li><a href="generated/torch.mtia.snapshot.html#torch.mtia.snapshot">snapshot() (in module torch.mtia)</a>
@@ -21942,6 +21952,8 @@ document.write(`
 </li>
         <li><a href="generated/torch.cuda.streams.Stream.html#torch.cuda.streams.Stream">(class in torch.cuda.streams)</a>
 </li>
+        <li><a href="generated/torch.mps.Stream_class.html#torch.mps.Stream">(class in torch.mps)</a>
+</li>
         <li><a href="generated/torch.mtia.Stream_class.html#torch.mtia.Stream">(class in torch.mtia)</a>
 </li>
         <li><a href="generated/torch.xpu.Stream_class.html#torch.xpu.Stream">(class in torch.xpu)</a>
@@ -21953,6 +21965,8 @@ document.write(`
 
       <ul>
         <li><a href="generated/torch.cuda.stream_function.html#torch.cuda.stream">(in module torch.cuda)</a>
+</li>
+        <li><a href="generated/torch.mps.stream_function.html#torch.mps.stream">(in module torch.mps)</a>
 </li>
         <li><a href="generated/torch.mtia.stream_function.html#torch.mtia.stream">(in module torch.mtia)</a>
 </li>
@@ -22353,6 +22367,8 @@ document.write(`
         <li><a href="generated/torch.Event.html#torch.Event.synchronize">(torch.Event method)</a>
 </li>
         <li><a href="generated/torch.mps.event.Event.html#torch.mps.event.Event.synchronize">(torch.mps.event.Event method)</a>
+</li>
+        <li><a href="generated/torch.mps.Stream_class.html#torch.mps.Stream.synchronize">(torch.mps.Stream method)</a>
 </li>
         <li><a href="generated/torch.mtia.Event.html#torch.mtia.Event.synchronize">(torch.mtia.Event method)</a>
 </li>
@@ -25644,8 +25660,6 @@ document.write(`
         <li><a href="user_guide/torch_compiler/export/api_reference.html#module-torch.export.pt2_archive.constants">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     torch.export.unflatten
 
@@ -25653,6 +25667,8 @@ document.write(`
         <li><a href="user_guide/torch_compiler/export/api_reference.html#module-torch.export.unflatten">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     torch.fft
 
@@ -26418,6 +26434,13 @@ document.write(`
 
       <ul>
         <li><a href="mps.html#module-torch.mps.profiler">module</a>
+</li>
+      </ul></li>
+      <li>
+    torch.mps.streams
+
+      <ul>
+        <li><a href="mps.html#module-torch.mps.streams">module</a>
 </li>
       </ul></li>
       <li>

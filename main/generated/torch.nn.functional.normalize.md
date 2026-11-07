@@ -1,6 +1,6 @@
 # torch.nn.functional.normalize
 
-torch.nn.functional.normalize(*input*, *p=2.0*, *dim=1*, *eps=1e-12*, *out=None*)[[source]](https://github.com/pytorch/pytorch/blob/cb6166381fcee1217527b26108d3aad518b946b1/torch/nn/functional.py#L6182)
+torch.nn.functional.normalize(*input*, *p=2.0*, *dim=1*, *eps=1e-12*, *out=None*)[[source]](https://github.com/pytorch/pytorch/blob/7798c7075502848ec00766455ada537e02f55ee1/torch/nn/functional.py#L6182)
 
 Perform LpL_pLp​ normalization of inputs over specified dimension.
 

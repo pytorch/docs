@@ -1,6 +1,6 @@
 # PairwiseDistance
 
-*class*torch.nn.PairwiseDistance(*p=2.0*, *eps=1e-06*, *keepdim=False*)[[source]](https://github.com/pytorch/pytorch/blob/cb6166381fcee1217527b26108d3aad518b946b1/torch/nn/modules/distance.py#L10)
+*class*torch.nn.PairwiseDistance(*p=2.0*, *eps=1e-06*, *keepdim=False*)[[source]](https://github.com/pytorch/pytorch/blob/7798c7075502848ec00766455ada537e02f55ee1/torch/nn/modules/distance.py#L10)
 
 Computes the pairwise distance between input vectors, or between columns of input matrices.
 
@@ -40,7 +40,7 @@ Examples
 >>> output = pdist(input1, input2)
 ```
 
-forward(*x1*, *x2*)[[source]](https://github.com/pytorch/pytorch/blob/cb6166381fcee1217527b26108d3aad518b946b1/torch/nn/modules/distance.py#L57)
+forward(*x1*, *x2*)[[source]](https://github.com/pytorch/pytorch/blob/7798c7075502848ec00766455ada537e02f55ee1/torch/nn/modules/distance.py#L57)
 
 Runs the forward pass.
 

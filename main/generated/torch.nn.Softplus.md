@@ -1,6 +1,6 @@
 # Softplus
 
-*class*torch.nn.Softplus(*beta=1.0*, *threshold=20.0*)[[source]](https://github.com/pytorch/pytorch/blob/cb6166381fcee1217527b26108d3aad518b946b1/torch/nn/modules/activation.py#L959)
+*class*torch.nn.Softplus(*beta=1.0*, *threshold=20.0*)[[source]](https://github.com/pytorch/pytorch/blob/7798c7075502848ec00766455ada537e02f55ee1/torch/nn/modules/activation.py#L959)
 
 Applies the Softplus function element-wise.
 
@@ -34,7 +34,7 @@ Examples:
 >>> output = m(input)
 ```
 
-extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/cb6166381fcee1217527b26108d3aad518b946b1/torch/nn/modules/activation.py#L1003)
+extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/7798c7075502848ec00766455ada537e02f55ee1/torch/nn/modules/activation.py#L1003)
 
 Return the extra representation of the module.
 
@@ -42,7 +42,7 @@ Return type:
 
 [str](https://docs.python.org/3/builtins/stdtypes.html#str)
 
-forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/cb6166381fcee1217527b26108d3aad518b946b1/torch/nn/modules/activation.py#L997)
+forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/7798c7075502848ec00766455ada537e02f55ee1/torch/nn/modules/activation.py#L997)
 
 Run forward pass.
 

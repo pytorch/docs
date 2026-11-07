@@ -1,5 +1,10 @@
 # Distributed Autograd Design
 
+Warning
+
+`torch.distributed.rpc` is deprecated since 2.16 and will be removed in a future
+version. See [Distributed RPC Framework](../rpc.html#distributed-rpc-framework) for alternatives.
+
 This note will present the detailed design for distributed autograd and walk
 through the internals of the same. Make sure you're familiar with
 [Autograd mechanics](../../notes/autograd.html#autograd-mechanics) and the [Distributed RPC Framework](../rpc.html#distributed-rpc-framework) before

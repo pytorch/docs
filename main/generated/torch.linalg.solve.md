@@ -1,6 +1,6 @@
 # torch.linalg.solve
 
-torch.linalg.solve(*A*, *B*, ***, *left=True*, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/cb6166381fcee1217527b26108d3aad518b946b1/torch/linalg/__init__.py#L2268)
+torch.linalg.solve(*A*, *B*, ***, *left=True*, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/7798c7075502848ec00766455ada537e02f55ee1/torch/linalg/__init__.py#L2268)
 
 Computes the solution of a square system of linear equations with a unique solution.
 

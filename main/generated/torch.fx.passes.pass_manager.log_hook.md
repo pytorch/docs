@@ -1,6 +1,6 @@
 # torch.fx.passes.pass_manager.log_hook
 
-torch.fx.passes.pass_manager.log_hook(*fn*, *level=20*)[[source]](https://github.com/pytorch/pytorch/blob/cb6166381fcee1217527b26108d3aad518b946b1/torch/fx/passes/pass_manager.py#L49)
+torch.fx.passes.pass_manager.log_hook(*fn*, *level=20*)[[source]](https://github.com/pytorch/pytorch/blob/7798c7075502848ec00766455ada537e02f55ee1/torch/fx/passes/pass_manager.py#L49)
 
 Logs callable output.
 

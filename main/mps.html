@@ -80,7 +80,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.16.0a0+gitcb61663 )">
+<meta name="llm:version" content="main (2.16.0a0+git7798c70 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -186,7 +186,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.16.0a0+gitcb61663 )');
+  document.documentElement.setAttribute('data-version', 'main (2.16.0a0+git7798c70 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -5146,6 +5146,11 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mps.profiler.is_metal_capture_enabled.html">torch.mps.profiler.is_metal_capture_enabled</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mps.profiler.metal_capture.html">torch.mps.profiler.metal_capture</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.mps.event.Event.html">Event</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.mps.Stream_class.html">Stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.mps.stream_function.html">torch.mps.stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.mps.current_stream.html">torch.mps.current_stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.mps.default_stream.html">torch.mps.default_stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.mps.set_stream.html">torch.mps.set_stream</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="xpu.html">torch.xpu</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -6855,7 +6860,7 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="module-torch.mps">
 <span id="torch-mps"></span><h1>torch.mps<a class="headerlink" href="#module-torch.mps" title="Link to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Feb 10, 2023 | Last Updated On: Jul 07, 2026</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Feb 10, 2023 | Last Updated On: Nov 05, 2026</p>
 <p>This package enables an interface for accessing MPS (Metal Performance Shaders) backend in Python.
 Metal is Apple’s API for programming metal GPU (graphics processor unit). Using MPS means that increased
 performance can be achieved, by running work on the metal GPU(s).
@@ -6943,7 +6948,35 @@ See <a class="reference external" href="https://developer.apple.com/documentatio
 </tbody>
 </table>
 </div>
-<span class="target" id="module-torch.mps.profiler"><span id="module-torch.mps.event"></span></span></section>
+</section>
+<section id="mps-stream">
+<h2>MPS Stream<a class="headerlink" href="#mps-stream" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><p id="torch.mps.Stream"/><p id="torch.mps.Stream"/><a class="reference internal" href="generated/torch.mps.Stream_class.html#torch.mps.Stream" title="torch.mps.Stream"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Stream</span></code></a></p></td>
+<td><p>Wrapper around an MPS stream.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><p id="torch.mps.stream"/><p id="torch.mps.stream"/><a class="reference internal" href="generated/torch.mps.stream_function.html#torch.mps.stream" title="torch.mps.stream"><code class="xref py py-obj docutils literal notranslate"><span class="pre">stream</span></code></a></p></td>
+<td><p>Context manager that selects a given stream.</p></td>
+</tr>
+<tr class="row-even"><td><p><p id="torch.mps.current_stream"/><p id="torch.mps.current_stream"/><a class="reference internal" href="generated/torch.mps.current_stream.html#torch.mps.current_stream" title="torch.mps.current_stream"><code class="xref py py-obj docutils literal notranslate"><span class="pre">current_stream</span></code></a></p></td>
+<td><p>Return the currently selected <a class="reference internal" href="generated/torch.mps.Stream_class.html#torch.mps.Stream" title="torch.mps.Stream"><code class="xref py py-class docutils literal notranslate"><span class="pre">Stream</span></code></a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><p id="torch.mps.default_stream"/><p id="torch.mps.default_stream"/><a class="reference internal" href="generated/torch.mps.default_stream.html#torch.mps.default_stream" title="torch.mps.default_stream"><code class="xref py py-obj docutils literal notranslate"><span class="pre">default_stream</span></code></a></p></td>
+<td><p>Return the default <a class="reference internal" href="generated/torch.mps.Stream_class.html#torch.mps.Stream" title="torch.mps.Stream"><code class="xref py py-class docutils literal notranslate"><span class="pre">Stream</span></code></a>.</p></td>
+</tr>
+<tr class="row-even"><td><p><p id="torch.mps.set_stream"/><p id="torch.mps.set_stream"/><a class="reference internal" href="generated/torch.mps.set_stream.html#torch.mps.set_stream" title="torch.mps.set_stream"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_stream</span></code></a></p></td>
+<td><p>Set the current stream.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<span class="target" id="module-torch.mps.streams"><span id="module-torch.mps.profiler"></span><span id="module-torch.mps.event"></span></span></section>
 </section>
 
 
@@ -7065,6 +7098,9 @@ See <a class="reference external" href="https://developer.apple.com/documentatio
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mps-profiler">MPS Profiler</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mps-event">MPS Event</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mps-stream">MPS Stream</a><ul class="visible nav section-nav flex-column">
+</ul>
+</li>
 </ul>
   </nav></div>
     
@@ -7317,7 +7353,7 @@ See <a class="reference external" href="https://developer.apple.com/documentatio
        "headline": "torch.mps",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/mps.html",
-       "articleBody": "torch.mps# Created On: Feb 10, 2023 | Last Updated On: Jul 07, 2026 This package enables an interface for accessing MPS (Metal Performance Shaders) backend in Python. Metal is Apple\u2019s API for programming metal GPU (graphics processor unit). Using MPS means that increased performance can be achieved, by running work on the metal GPU(s). See https://developer.apple.com/documentation/metalperformanceshaders for more details. is_available device_count Returns the number of available MPS devices. synchronize Waits for all kernels in all streams on a MPS device to complete. get_rng_state Returns the random number generator state as a ByteTensor. set_rng_state Sets the random number generator state. manual_seed Sets the seed for generating random numbers. seed Sets the seed for generating random numbers to a random number. empty_cache Releases all unoccupied cached memory currently held by the caching allocator so that those can be used in other GPU applications. set_per_process_memory_fraction Set memory fraction for limiting process\u0027s memory allocation on MPS device. current_allocated_memory Returns the current GPU memory occupied by tensors in bytes. driver_allocated_memory Returns total GPU memory allocated by Metal driver for the process in bytes. recommended_max_memory Returns recommended max Working set size for GPU memory in bytes. compile_shader Compiles compute shader from source and allows one to invoke kernels defined there from the comfort of Python runtime Example. load_metallib Loads a precompiled Metal library (.metallib) and returns a shader library object that allows invoking kernels defined in it. MPS Profiler# profiler.start Start OS Signpost tracing from MPS backend. profiler.stop Stops generating OS Signpost tracing from MPS backend. profiler.profile Context Manager to enabling generating OS Signpost tracing from MPS backend. profiler.is_capturing_metal Checks if metal capture is in progress profiler.is_metal_capture_enabled Checks if metal_capture context manager is usable To enable metal capture, set MTL_CAPTURE_ENABLED envvar profiler.metal_capture Context manager that enables capturing of Metal calls into gputrace MPS Event# event.Event Wrapper around an MPS event.",
+       "articleBody": "torch.mps# Created On: Feb 10, 2023 | Last Updated On: Nov 05, 2026 This package enables an interface for accessing MPS (Metal Performance Shaders) backend in Python. Metal is Apple\u2019s API for programming metal GPU (graphics processor unit). Using MPS means that increased performance can be achieved, by running work on the metal GPU(s). See https://developer.apple.com/documentation/metalperformanceshaders for more details. is_available device_count Returns the number of available MPS devices. synchronize Waits for all kernels in all streams on a MPS device to complete. get_rng_state Returns the random number generator state as a ByteTensor. set_rng_state Sets the random number generator state. manual_seed Sets the seed for generating random numbers. seed Sets the seed for generating random numbers to a random number. empty_cache Releases all unoccupied cached memory currently held by the caching allocator so that those can be used in other GPU applications. set_per_process_memory_fraction Set memory fraction for limiting process\u0027s memory allocation on MPS device. current_allocated_memory Returns the current GPU memory occupied by tensors in bytes. driver_allocated_memory Returns total GPU memory allocated by Metal driver for the process in bytes. recommended_max_memory Returns recommended max Working set size for GPU memory in bytes. compile_shader Compiles compute shader from source and allows one to invoke kernels defined there from the comfort of Python runtime Example. load_metallib Loads a precompiled Metal library (.metallib) and returns a shader library object that allows invoking kernels defined in it. MPS Profiler# profiler.start Start OS Signpost tracing from MPS backend. profiler.stop Stops generating OS Signpost tracing from MPS backend. profiler.profile Context Manager to enabling generating OS Signpost tracing from MPS backend. profiler.is_capturing_metal Checks if metal capture is in progress profiler.is_metal_capture_enabled Checks if metal_capture context manager is usable To enable metal capture, set MTL_CAPTURE_ENABLED envvar profiler.metal_capture Context manager that enables capturing of Metal calls into gputrace MPS Event# event.Event Wrapper around an MPS event. MPS Stream# Stream Wrapper around an MPS stream. stream Context manager that selects a given stream. current_stream Return the currently selected Stream. default_stream Return the default Stream. set_stream Set the current stream.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -7329,7 +7365,7 @@ See <a class="reference external" href="https://developer.apple.com/documentatio
          "@id": "/mps.html"
        },
        "datePublished": "Feb 10, 2023T00:00:00Z",
-       "dateModified": "Jul 07, 2026T00:00:00Z"
+       "dateModified": "Nov 05, 2026T00:00:00Z"
      }
  </script>
   <script>

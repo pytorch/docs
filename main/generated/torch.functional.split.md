@@ -1,6 +1,6 @@
 # torch.functional.split
 
-torch.functional.split(*tensor*, *split_size_or_sections*, *dim=0*)[[source]](https://github.com/pytorch/pytorch/blob/cb6166381fcee1217527b26108d3aad518b946b1/torch/functional.py#L120)
+torch.functional.split(*tensor*, *split_size_or_sections*, *dim=0*)[[source]](https://github.com/pytorch/pytorch/blob/7798c7075502848ec00766455ada537e02f55ee1/torch/functional.py#L120)
 
 Splits the tensor into chunks. Each chunk is a view of the original tensor.
 

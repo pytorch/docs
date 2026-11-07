@@ -1,6 +1,6 @@
 # torch.fx.experimental.symbolic_shapes.is_symbol_binding_fx_node
 
-torch.fx.experimental.symbolic_shapes.is_symbol_binding_fx_node(*node*)[[source]](https://github.com/pytorch/pytorch/blob/cb6166381fcee1217527b26108d3aad518b946b1/torch/fx/experimental/symbolic_shapes.py#L1119)
+torch.fx.experimental.symbolic_shapes.is_symbol_binding_fx_node(*node*)[[source]](https://github.com/pytorch/pytorch/blob/7798c7075502848ec00766455ada537e02f55ee1/torch/fx/experimental/symbolic_shapes.py#L1119)
 
 Check if a given FX node is a symbol binding node.
 

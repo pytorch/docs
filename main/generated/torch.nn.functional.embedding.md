@@ -1,6 +1,6 @@
 # torch.nn.functional.embedding
 
-torch.nn.functional.embedding(*input*, *weight*, *padding_idx=None*, *max_norm=None*, *norm_type=2.0*, *scale_grad_by_freq=False*, *sparse=False*)[[source]](https://github.com/pytorch/pytorch/blob/cb6166381fcee1217527b26108d3aad518b946b1/torch/nn/functional.py#L2539)
+torch.nn.functional.embedding(*input*, *weight*, *padding_idx=None*, *max_norm=None*, *norm_type=2.0*, *scale_grad_by_freq=False*, *sparse=False*)[[source]](https://github.com/pytorch/pytorch/blob/7798c7075502848ec00766455ada537e02f55ee1/torch/nn/functional.py#L2539)
 
 Generate a simple lookup table that looks up embeddings in a fixed dictionary and size.
 

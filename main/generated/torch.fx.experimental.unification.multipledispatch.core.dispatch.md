@@ -1,6 +1,6 @@
 # torch.fx.experimental.unification.multipledispatch.core.dispatch
 
-torch.fx.experimental.unification.multipledispatch.core.dispatch(**types*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/cb6166381fcee1217527b26108d3aad518b946b1/torch/fx/experimental/unification/multipledispatch/core.py#L22)
+torch.fx.experimental.unification.multipledispatch.core.dispatch(**types*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/7798c7075502848ec00766455ada537e02f55ee1/torch/fx/experimental/unification/multipledispatch/core.py#L22)
 
 Dispatch function on the types of the inputs
 Supports dispatch on all non-keyword arguments.

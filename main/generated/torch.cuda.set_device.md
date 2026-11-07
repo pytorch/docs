@@ -1,6 +1,6 @@
 # torch.cuda.set_device
 
-torch.cuda.set_device(*device*)[[source]](https://github.com/pytorch/pytorch/blob/cb6166381fcee1217527b26108d3aad518b946b1/torch/cuda/__init__.py#L764)
+torch.cuda.set_device(*device*)[[source]](https://github.com/pytorch/pytorch/blob/7798c7075502848ec00766455ada537e02f55ee1/torch/cuda/__init__.py#L764)
 
 Set the current device.
 

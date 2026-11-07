@@ -1,6 +1,6 @@
 # torch.cuda.current_stream
 
-torch.cuda.current_stream(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/cb6166381fcee1217527b26108d3aad518b946b1/torch/cuda/__init__.py#L1397)
+torch.cuda.current_stream(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/7798c7075502848ec00766455ada537e02f55ee1/torch/cuda/__init__.py#L1397)
 
 Return the currently selected [`Stream`](torch.cuda.Stream_class.html#torch.cuda.Stream) for a given device.
 

@@ -1,6 +1,6 @@
 # torch.fx.experimental.unification.match.ordering
 
-torch.fx.experimental.unification.match.ordering(*signatures*)[[source]](https://github.com/pytorch/pytorch/blob/cb6166381fcee1217527b26108d3aad518b946b1/torch/fx/experimental/unification/match.py#L139)
+torch.fx.experimental.unification.match.ordering(*signatures*)[[source]](https://github.com/pytorch/pytorch/blob/7798c7075502848ec00766455ada537e02f55ee1/torch/fx/experimental/unification/match.py#L139)
 
 A sane ordering of signatures to check, first to last
 Topological sort of edges as given by `edge` and `supercedes`

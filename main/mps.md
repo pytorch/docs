@@ -35,3 +35,14 @@ See [https://developer.apple.com/documentation/metalperformanceshaders](https://
 
 | [`event.Event`](generated/torch.mps.event.Event.html#torch.mps.event.Event) | Wrapper around an MPS event. |
 | --- | --- |
+
+## MPS Stream
+
+| [`Stream`](generated/torch.mps.Stream_class.html#torch.mps.Stream) | Wrapper around an MPS stream. |
+| --- | --- |
+
+| [`stream`](generated/torch.mps.stream_function.html#torch.mps.stream) | Context manager that selects a given stream. |
+| --- | --- |
+| [`current_stream`](generated/torch.mps.current_stream.html#torch.mps.current_stream) | Return the currently selected [`Stream`](generated/torch.mps.Stream_class.html#torch.mps.Stream). |
+| [`default_stream`](generated/torch.mps.default_stream.html#torch.mps.default_stream) | Return the default [`Stream`](generated/torch.mps.Stream_class.html#torch.mps.Stream). |
+| [`set_stream`](generated/torch.mps.set_stream.html#torch.mps.set_stream) | Set the current stream. |

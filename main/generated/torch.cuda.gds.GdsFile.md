@@ -1,6 +1,6 @@
 # GdsFile
 
-*class*torch.cuda.gds.GdsFile(*filename*, *flags*)[[source]](https://github.com/pytorch/pytorch/blob/cb6166381fcee1217527b26108d3aad518b946b1/torch/cuda/gds.py#L117)
+*class*torch.cuda.gds.GdsFile(*filename*, *flags*)[[source]](https://github.com/pytorch/pytorch/blob/7798c7075502848ec00766455ada537e02f55ee1/torch/cuda/gds.py#L117)
 
 Wrapper around a file registered with the GPUDirect Storage (GDS) driver.
 
@@ -38,7 +38,7 @@ True
 True
 ```
 
-deregister_handle()[[source]](https://github.com/pytorch/pytorch/blob/cb6166381fcee1217527b26108d3aad518b946b1/torch/cuda/gds.py#L183)
+deregister_handle()[[source]](https://github.com/pytorch/pytorch/blob/7798c7075502848ec00766455ada537e02f55ee1/torch/cuda/gds.py#L183)
 
 Deregisters file descriptor from the GDS driver.
 
@@ -46,7 +46,7 @@ This is a wrapper around `cuFileHandleDeregister` (CUDA) / `hipFileHandleDeregis
 It first blocks until every `load_storage_async()` and
 `save_storage_async()` issued through this file has run.
 
-load_storage(*storage*, *offset=0*)[[source]](https://github.com/pytorch/pytorch/blob/cb6166381fcee1217527b26108d3aad518b946b1/torch/cuda/gds.py#L217)
+load_storage(*storage*, *offset=0*)[[source]](https://github.com/pytorch/pytorch/blob/7798c7075502848ec00766455ada537e02f55ee1/torch/cuda/gds.py#L217)
 
 Loads data from the file into the storage.
 
@@ -82,7 +82,7 @@ Return type:
 
 [int](https://docs.python.org/3/builtins/functions.html#int)
 
-load_storage_async(*storage*, *offset=0*)[[source]](https://github.com/pytorch/pytorch/blob/cb6166381fcee1217527b26108d3aad518b946b1/torch/cuda/gds.py#L251)
+load_storage_async(*storage*, *offset=0*)[[source]](https://github.com/pytorch/pytorch/blob/7798c7075502848ec00766455ada537e02f55ee1/torch/cuda/gds.py#L251)
 
 Loads data from the file into the storage, ordered on the current stream.
 
@@ -139,13 +139,13 @@ Return type:
 
 [Tensor](../tensors.html#torch.Tensor)
 
-register_handle()[[source]](https://github.com/pytorch/pytorch/blob/cb6166381fcee1217527b26108d3aad518b946b1/torch/cuda/gds.py#L174)
+register_handle()[[source]](https://github.com/pytorch/pytorch/blob/7798c7075502848ec00766455ada537e02f55ee1/torch/cuda/gds.py#L174)
 
 Registers file descriptor to the GDS driver.
 
 This is a wrapper around `cuFileHandleRegister` (CUDA) / `hipFileHandleRegister` (ROCm).
 
-save_storage(*storage*, *offset=0*)[[source]](https://github.com/pytorch/pytorch/blob/cb6166381fcee1217527b26108d3aad518b946b1/torch/cuda/gds.py#L308)
+save_storage(*storage*, *offset=0*)[[source]](https://github.com/pytorch/pytorch/blob/7798c7075502848ec00766455ada537e02f55ee1/torch/cuda/gds.py#L308)
 
 Saves data from the storage into the file.
 
@@ -182,7 +182,7 @@ Return type:
 
 [int](https://docs.python.org/3/builtins/functions.html#int)
 
-save_storage_async(*storage*, *offset=0*)[[source]](https://github.com/pytorch/pytorch/blob/cb6166381fcee1217527b26108d3aad518b946b1/torch/cuda/gds.py#L343)
+save_storage_async(*storage*, *offset=0*)[[source]](https://github.com/pytorch/pytorch/blob/7798c7075502848ec00766455ada537e02f55ee1/torch/cuda/gds.py#L343)
 
 Saves data from the storage into the file, ordered on the current stream.
 

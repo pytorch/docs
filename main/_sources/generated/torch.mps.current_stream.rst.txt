@@ -1,0 +1,6 @@
+﻿torch.mps.current\_stream
+=========================
+
+.. currentmodule:: torch.mps
+
+.. autofunction:: current_stream

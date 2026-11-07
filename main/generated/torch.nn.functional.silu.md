@@ -1,6 +1,6 @@
 # torch.nn.functional.silu
 
-torch.nn.functional.silu(*input*, *inplace=False*)[[source]](https://github.com/pytorch/pytorch/blob/cb6166381fcee1217527b26108d3aad518b946b1/torch/nn/functional.py#L2459)
+torch.nn.functional.silu(*input*, *inplace=False*)[[source]](https://github.com/pytorch/pytorch/blob/7798c7075502848ec00766455ada537e02f55ee1/torch/nn/functional.py#L2459)
 
 Apply the Sigmoid Linear Unit (SiLU) function, element-wise.
 

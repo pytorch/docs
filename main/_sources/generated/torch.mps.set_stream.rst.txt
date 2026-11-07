@@ -1,0 +1,6 @@
+﻿torch.mps.set\_stream
+=====================
+
+.. currentmodule:: torch.mps
+
+.. autofunction:: set_stream

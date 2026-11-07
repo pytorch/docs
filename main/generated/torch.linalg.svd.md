@@ -1,6 +1,6 @@
 # torch.linalg.svd
 
-torch.linalg.svd(*A*, *full_matrices=True*, ***, *driver=None*, *out=None*)[[source]](https://github.com/pytorch/pytorch/blob/cb6166381fcee1217527b26108d3aad518b946b1/torch/linalg/__init__.py#L1734)
+torch.linalg.svd(*A*, *full_matrices=True*, ***, *driver=None*, *out=None*)[[source]](https://github.com/pytorch/pytorch/blob/7798c7075502848ec00766455ada537e02f55ee1/torch/linalg/__init__.py#L1734)
 
 Computes the singular value decomposition (SVD) of a matrix.
 

@@ -1,5 +1,10 @@
 # Remote Reference Protocol
 
+Warning
+
+`torch.distributed.rpc` is deprecated since 2.16 and will be removed in a future
+version. See [Distributed RPC Framework](../rpc.html#distributed-rpc-framework) for alternatives.
+
 This note describes the design details of Remote Reference protocol and walks
 through message flows in different scenarios. Make sure you're familiar with the
 [Distributed RPC Framework](../rpc.html#distributed-rpc-framework) before proceeding.
