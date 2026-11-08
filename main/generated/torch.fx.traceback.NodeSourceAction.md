@@ -1,6 +1,6 @@
 # NodeSourceAction
 
-*class*torch.fx.traceback.NodeSourceAction(*value*, *names=None*, ***, *module=None*, *qualname=None*, *type=None*, *start=1*, *boundary=None*)[[source]](https://github.com/pytorch/pytorch/blob/7798c7075502848ec00766455ada537e02f55ee1/torch/fx/traceback.py#L80)
+*class*torch.fx.traceback.NodeSourceAction(*value*, *names=None*, ***, *module=None*, *qualname=None*, *type=None*, *start=1*, *boundary=None*)[[source]](https://github.com/pytorch/pytorch/blob/42ce6b4043d9279c8e3672392306dacc772c1b43/torch/fx/traceback.py#L80)
 
 Enum representing the action taken to produce a node in provenance tracking.
 

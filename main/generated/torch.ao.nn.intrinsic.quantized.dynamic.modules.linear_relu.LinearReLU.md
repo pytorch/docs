@@ -1,6 +1,6 @@
 # LinearReLU
 
-*class*torch.ao.nn.intrinsic.quantized.dynamic.modules.linear_relu.LinearReLU(*in_features*, *out_features*, *bias=True*, *dtype=torch.qint8*)[[source]](https://github.com/pytorch/pytorch/blob/7798c7075502848ec00766455ada537e02f55ee1/torch/ao/nn/intrinsic/quantized/dynamic/modules/linear_relu.py#L11)
+*class*torch.ao.nn.intrinsic.quantized.dynamic.modules.linear_relu.LinearReLU(*in_features*, *out_features*, *bias=True*, *dtype=torch.qint8*)[[source]](https://github.com/pytorch/pytorch/blob/42ce6b4043d9279c8e3672392306dacc772c1b43/torch/ao/nn/intrinsic/quantized/dynamic/modules/linear_relu.py#L11)
 
 A LinearReLU module fused from Linear and ReLU modules that can be used
 for dynamic quantization.

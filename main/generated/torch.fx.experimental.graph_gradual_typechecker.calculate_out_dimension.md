@@ -1,6 +1,6 @@
 # torch.fx.experimental.graph_gradual_typechecker.calculate_out_dimension
 
-torch.fx.experimental.graph_gradual_typechecker.calculate_out_dimension(*d_in*, *module_instance*, *index*)[[source]](https://github.com/pytorch/pytorch/blob/7798c7075502848ec00766455ada537e02f55ee1/torch/fx/experimental/graph_gradual_typechecker.py#L367)
+torch.fx.experimental.graph_gradual_typechecker.calculate_out_dimension(*d_in*, *module_instance*, *index*)[[source]](https://github.com/pytorch/pytorch/blob/42ce6b4043d9279c8e3672392306dacc772c1b43/torch/fx/experimental/graph_gradual_typechecker.py#L367)
 
 For calculating h_in and w_out according to the conv2D documentation
 
