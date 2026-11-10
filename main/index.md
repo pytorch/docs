@@ -92,7 +92,6 @@ The APIs and performance characteristics of these features may change.
 - [Automatic Mixed Precision examples](notes/amp_examples.html)
 - [Autograd mechanics](notes/autograd.html)
 - [Broadcasting semantics](notes/broadcasting.html)
-- [CPU threading and TorchScript inference](notes/cpu_threading_torchscript_inference.html)
 - [CUDA semantics](notes/cuda.html)
 - [PyTorch Custom Operators Landing Page](notes/custom_operators.html)
 - [Distributed Data Parallel](notes/ddp.html)

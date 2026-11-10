@@ -1,6 +1,6 @@
 # torch.linalg.ldl_factor
 
-torch.linalg.ldl_factor(*A*, ***, *hermitian=False*, *out=None*)[[source]](https://github.com/pytorch/pytorch/blob/50d50e722913b05a0762c886507c9be7ae43d2f3/torch/linalg/__init__.py#L914)
+torch.linalg.ldl_factor(*A*, ***, *hermitian=False*, *out=None*)[[source]](https://github.com/pytorch/pytorch/blob/45fe85941b3ecb8add365f049f7fbf455c5107ff/torch/linalg/__init__.py#L914)
 
 Computes a compact representation of the LDL factorization of a Hermitian or symmetric (possibly indefinite) matrix.
 
@@ -20,7 +20,9 @@ the output has the same batch dimensions.
 
 Note
 
-When inputs are on a CUDA device, this function synchronizes that device with the CPU. For a version of this function that does not synchronize, see [`torch.linalg.ldl_factor_ex()`](torch.linalg.ldl_factor_ex.html#torch.linalg.ldl_factor_ex).
+When inputs are on a CUDA device, this function synchronizes that device with the CPU.
+So does [`torch.linalg.ldl_factor_ex()`](torch.linalg.ldl_factor_ex.html#torch.linalg.ldl_factor_ex): it skips checking `info` by default, but the
+factorization itself synchronizes, as its Bunch-Kaufman pivoting is data-dependent.
 
 Parameters:
 

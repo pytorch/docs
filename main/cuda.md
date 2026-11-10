@@ -219,8 +219,8 @@ can equally be saved next to a trace and joined offline.
 To capture Python launch stacks as well, set
 `annotation_config={"record_py_stacks": True}` with `enable_annotations=True`.
 Recording uses Cuspy's CUPTI node-creation callbacks, even when no profiler
-session is running. It requires `cupti-python`, CUPTI >= 13.3, and a CUPTI
-subscription not already held by Kineto, Nsight Systems, or another profiler.
+session is running. It requires `cupti-python`, a CUDA >= 13.5 build, CUPTI >= 13.5,
+and a CUPTI subscription not already held by Kineto, Nsight Systems, or another profiler.
 Use Cuspy for subsequent GPU profiling in the same process. Disable autograd
 multithreading during both warmup and capture.
 
@@ -307,7 +307,7 @@ This package adds support for device memory management implemented in CUDA.
 | --- | --- |
 | [`caching_allocator_enable`](generated/torch.cuda.memory.caching_allocator_enable.html#torch.cuda.memory.caching_allocator_enable) | Enable or disable the CUDA memory allocator. |
 
-*class*torch.cuda.use_mem_pool(*pool*, *device=None*)[[source]](https://github.com/pytorch/pytorch/blob/50d50e722913b05a0762c886507c9be7ae43d2f3/torch/cuda/memory.py#L1848)
+*class*torch.cuda.use_mem_pool(*pool*, *device=None*)[[source]](https://github.com/pytorch/pytorch/blob/45fe85941b3ecb8add365f049f7fbf455c5107ff/torch/cuda/memory.py#L1848)
 
 A context manager that routes allocations to a given pool.
 
@@ -331,7 +331,7 @@ Note
 When used during [`CUDAGraph`](generated/torch.cuda.CUDAGraph.html#torch.cuda.CUDAGraph) capture, the graph
 retains the pool until the graph is reset or destroyed.
 
-torch.cuda.nccl.version()[[source]](https://github.com/pytorch/pytorch/blob/50d50e722913b05a0762c886507c9be7ae43d2f3/torch/cuda/nccl.py#L35)
+torch.cuda.nccl.version()[[source]](https://github.com/pytorch/pytorch/blob/45fe85941b3ecb8add365f049f7fbf455c5107ff/torch/cuda/nccl.py#L35)
 
 Returns the version of the NCCL.
 
@@ -628,6 +628,6 @@ Keep the contexts, pools, and tensors alive until their GPU work completes.
 | [`get_num_locality_domains`](generated/torch.cuda.green_contexts.get_num_locality_domains.html#torch.cuda.green_contexts.get_num_locality_domains) | Return the device's locality-domain count reported by CUDA. |
 | [`is_localization_supported`](generated/torch.cuda.green_contexts.is_localization_supported.html#torch.cuda.green_contexts.is_localization_supported) | Return whether the software supports localization on a multi-domain GPU. |
 
-torch.cuda.nccl.is_available(*tensors*)[[source]](https://github.com/pytorch/pytorch/blob/50d50e722913b05a0762c886507c9be7ae43d2f3/torch/cuda/nccl.py#L14)
+torch.cuda.nccl.is_available(*tensors*)[[source]](https://github.com/pytorch/pytorch/blob/45fe85941b3ecb8add365f049f7fbf455c5107ff/torch/cuda/nccl.py#L14)
 
 This package adds support for NVIDIA Tools Extension (NVTX) used in profiling.

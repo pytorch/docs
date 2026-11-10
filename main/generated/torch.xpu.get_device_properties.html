@@ -80,7 +80,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.16.0a0+git50d50e7 )">
+<meta name="llm:version" content="main (2.16.0a0+git45fe859 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -186,7 +186,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.16.0a0+git50d50e7 )');
+  document.documentElement.setAttribute('data-version', 'main (2.16.0a0+git45fe859 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -956,12 +956,6 @@ document.write(`
               <li class=" ">
                 <a class="nav-link dropdown-item nav-internal" href="../notes/broadcasting.html">
                   Broadcasting semantics
-                </a>
-              </li>
-            
-              <li class=" ">
-                <a class="nav-link dropdown-item nav-internal" href="../notes/cpu_threading_torchscript_inference.html">
-                  CPU threading and TorchScript inference
                 </a>
               </li>
             
@@ -2271,12 +2265,6 @@ document.write(`
               </li>
             
               <li class=" ">
-                <a class="nav-link dropdown-item nav-internal" href="../notes/cpu_threading_torchscript_inference.html">
-                  CPU threading and TorchScript inference
-                </a>
-              </li>
-            
-              <li class=" ">
                 <a class="nav-link dropdown-item nav-internal" href="../notes/cuda.html">
                   CUDA semantics
                 </a>
@@ -3322,7 +3310,7 @@ document.write(`
 <h1>torch.xpu.get_device_properties<a class="headerlink" href="#torch-xpu-get-device-properties" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.xpu.get_device_properties">
-<span class="sig-prename descclassname"><span class="pre">torch.xpu.</span></span><span class="sig-name descname"><span class="pre">get_device_properties</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/50d50e722913b05a0762c886507c9be7ae43d2f3/torch/xpu/__init__.py#L510"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.get_device_properties" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.xpu.</span></span><span class="sig-name descname"><span class="pre">get_device_properties</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/45fe85941b3ecb8add365f049f7fbf455c5107ff/torch/xpu/__init__.py#L510"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.xpu.get_device_properties" title="Link to this definition">#</a></dt>
 <dd><p>Get the properties of a device. Returns _XpuDeviceProperties containing the following device properties:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">name</span></code> (str): device name.</p></li>
@@ -3345,7 +3333,7 @@ document.write(`
 <li><p><code class="docutils literal notranslate"><span class="pre">has_atomic64</span></code> (bool): whether 64-bit atomic operations are supported.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">has_bfloat16_conversions</span></code> (bool): whether bfloat16 conversions are supported.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">has_subgroup_matrix_multiply_accumulate</span></code> (bool): whether DPAS (Dot Product Accumulate Systolic) is supported.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">has_subgroup_matrix_multiply_accumulate_tensor_float32</span></code> (bool): whether DPAS with tf32 inputs is supported.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">has_subgroup_matrix_multiply_accumulate_tf32</span></code> (bool): whether DPAS with tf32 inputs is supported.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">has_subgroup_2d_block_io</span></code> (bool): whether 2D block I/O for efficient matrix multiplication is supported.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">is_integrated_gpu</span></code> (bool): whether the device is an integrated GPU (iGPU).</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">total_memory</span></code> (int): device global memory in bytes.</p></li>
@@ -3724,7 +3712,7 @@ properties of the device.</p>
        "headline": "torch.xpu.get_device_properties",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/generated/torch.xpu.get_device_properties.html",
-       "articleBody": "torch.xpu.get_device_properties# torch.xpu.get_device_properties(device=None)[source]# Get the properties of a device. Returns _XpuDeviceProperties containing the following device properties: name (str): device name. platform_name (str): SYCL platform name. vendor (str): device vendor. device_id (int): device identifier (product ID). driver_version (str): driver version. version (str): runtime version. max_compute_units (int): number of parallel compute units. gpu_eu_count (int): number of EUs (Execution Unit). max_work_group_size: (int): maximum number of work-items permitted in a work-group. max_num_sub_groups (int): maximum number of sub-groups supported in a work-group. memory_clock_rate (int) maximum clock rate of device\u2019s global memory in MHz. memory_bus_width (int) maximum bus width between device and memory in bits. sub_group_sizes: (list[int]): a list of supported sub-group sizes. local_mem_size (int): device local memory capacity that can be allocated per work-group in bytes. last_level_cache_size (int): size in bytes of the device\u2019s last-level memory cache, shared across all Xe Cores (analogous to CUDA L2_cache_size). has_fp16 (bool): whether float16 dtype is supported. has_fp64 (bool): whether float64 dtype is supported. has_atomic64 (bool): whether 64-bit atomic operations are supported. has_bfloat16_conversions (bool): whether bfloat16 conversions are supported. has_subgroup_matrix_multiply_accumulate (bool): whether DPAS (Dot Product Accumulate Systolic) is supported. has_subgroup_matrix_multiply_accumulate_tensor_float32 (bool): whether DPAS with tf32 inputs is supported. has_subgroup_2d_block_io (bool): whether 2D block I/O for efficient matrix multiplication is supported. is_integrated_gpu (bool): whether the device is an integrated GPU (iGPU). total_memory (int): device global memory in bytes. gpu_subslice_count (int): number of subslice. architecture (int): device architecture identifier (experimental). type (str): device type, e.g. \u2018cpu\u2019, \u2018gpu\u2019, accelerator\u2019, \u2018host\u2019, \u2018unknown\u2019. uuid (Any): device UUID (Universal Unique ID), 16 bytes. Parameters: device (torch.device or int or str) \u2013 device for which to return the properties of the device. Returns: the properties of the device Return type: _XpuDeviceProperties",
+       "articleBody": "torch.xpu.get_device_properties# torch.xpu.get_device_properties(device=None)[source]# Get the properties of a device. Returns _XpuDeviceProperties containing the following device properties: name (str): device name. platform_name (str): SYCL platform name. vendor (str): device vendor. device_id (int): device identifier (product ID). driver_version (str): driver version. version (str): runtime version. max_compute_units (int): number of parallel compute units. gpu_eu_count (int): number of EUs (Execution Unit). max_work_group_size: (int): maximum number of work-items permitted in a work-group. max_num_sub_groups (int): maximum number of sub-groups supported in a work-group. memory_clock_rate (int) maximum clock rate of device\u2019s global memory in MHz. memory_bus_width (int) maximum bus width between device and memory in bits. sub_group_sizes: (list[int]): a list of supported sub-group sizes. local_mem_size (int): device local memory capacity that can be allocated per work-group in bytes. last_level_cache_size (int): size in bytes of the device\u2019s last-level memory cache, shared across all Xe Cores (analogous to CUDA L2_cache_size). has_fp16 (bool): whether float16 dtype is supported. has_fp64 (bool): whether float64 dtype is supported. has_atomic64 (bool): whether 64-bit atomic operations are supported. has_bfloat16_conversions (bool): whether bfloat16 conversions are supported. has_subgroup_matrix_multiply_accumulate (bool): whether DPAS (Dot Product Accumulate Systolic) is supported. has_subgroup_matrix_multiply_accumulate_tf32 (bool): whether DPAS with tf32 inputs is supported. has_subgroup_2d_block_io (bool): whether 2D block I/O for efficient matrix multiplication is supported. is_integrated_gpu (bool): whether the device is an integrated GPU (iGPU). total_memory (int): device global memory in bytes. gpu_subslice_count (int): number of subslice. architecture (int): device architecture identifier (experimental). type (str): device type, e.g. \u2018cpu\u2019, \u2018gpu\u2019, accelerator\u2019, \u2018host\u2019, \u2018unknown\u2019. uuid (Any): device UUID (Universal Unique ID), 16 bytes. Parameters: device (torch.device or int or str) \u2013 device for which to return the properties of the device. Returns: the properties of the device Return type: _XpuDeviceProperties",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",

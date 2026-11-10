@@ -1,6 +1,6 @@
 # torch.linalg.ldl_factor_ex
 
-torch.linalg.ldl_factor_ex(*A*, ***, *hermitian=False*, *check_errors=False*, *out=None*)[[source]](https://github.com/pytorch/pytorch/blob/50d50e722913b05a0762c886507c9be7ae43d2f3/torch/linalg/__init__.py#L974)
+torch.linalg.ldl_factor_ex(*A*, ***, *hermitian=False*, *check_errors=False*, *out=None*)[[source]](https://github.com/pytorch/pytorch/blob/45fe85941b3ecb8add365f049f7fbf455c5107ff/torch/linalg/__init__.py#L976)
 
 This is a version of [`ldl_factor()`](torch.linalg.ldl_factor.html#torch.linalg.ldl_factor) that does not perform error checks unless `check_errors`= True.
 It also returns the `info` tensor returned by [LAPACK's sytrf](https://www.netlib.org/lapack/explore-html/).
@@ -12,7 +12,10 @@ If `check_errors=True` and `info` contains positive integers, then a RuntimeErro
 
 Note
 
-When the inputs are on a CUDA device, this function synchronizes only when `check_errors`= True.
+When the inputs are on a CUDA device, this function synchronizes that device with the CPU
+even when `check_errors`= False, which only skips checking `info` (a check that
+always synchronizes). The factorization itself synchronizes, as its Bunch-Kaufman pivoting
+is data-dependent: whether a pivot block is 1x1 or 2x2 depends on the values of `A`.
 
 Warning
 

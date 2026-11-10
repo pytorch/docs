@@ -1,3 +1,3 @@
 # freeze_bn_stats
 
-*class*torch.ao.nn.intrinsic.qat.freeze_bn_stats(*mod*)[[source]](https://github.com/pytorch/pytorch/blob/50d50e722913b05a0762c886507c9be7ae43d2f3/torch/ao/nn/intrinsic/qat/modules/conv_fused.py#L962)
+*class*torch.ao.nn.intrinsic.qat.freeze_bn_stats(*mod*)[[source]](https://github.com/pytorch/pytorch/blob/45fe85941b3ecb8add365f049f7fbf455c5107ff/torch/ao/nn/intrinsic/qat/modules/conv_fused.py#L962)

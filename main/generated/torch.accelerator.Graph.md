@@ -1,6 +1,6 @@
 # Graph
 
-*class*torch.accelerator.Graph(*keep_graph=False*, ***, *pool=None*, *capture_error_mode='default'*)[[source]](https://github.com/pytorch/pytorch/blob/50d50e722913b05a0762c886507c9be7ae43d2f3/torch/accelerator/graphs.py#L8)
+*class*torch.accelerator.Graph(*keep_graph=False*, ***, *pool=None*, *capture_error_mode='default'*)[[source]](https://github.com/pytorch/pytorch/blob/45fe85941b3ecb8add365f049f7fbf455c5107ff/torch/accelerator/graphs.py#L8)
 
 Wrapper around an [accelerator](../torch.html#accelerators) graph that supports capture and replay.
 
@@ -46,20 +46,20 @@ Example:
 >>> graph.replay()
 ```
 
-capture_begin()[[source]](https://github.com/pytorch/pytorch/blob/50d50e722913b05a0762c886507c9be7ae43d2f3/torch/accelerator/graphs.py#L75)
+capture_begin()[[source]](https://github.com/pytorch/pytorch/blob/45fe85941b3ecb8add365f049f7fbf455c5107ff/torch/accelerator/graphs.py#L75)
 
 Begin graph capture on the current stream.
 
 All operations on the current stream after this call will be recorded into the graph until
 `capture_end` is called, using the memory pool and capture error mode provided at construction time.
 
-capture_end()[[source]](https://github.com/pytorch/pytorch/blob/50d50e722913b05a0762c886507c9be7ae43d2f3/torch/accelerator/graphs.py#L86)
+capture_end()[[source]](https://github.com/pytorch/pytorch/blob/45fe85941b3ecb8add365f049f7fbf455c5107ff/torch/accelerator/graphs.py#L86)
 
 End graph capture on the current stream of the current device.
 
 After this call, the graph can be replayed via `replay`.
 
-debug_dump(*path*)[[source]](https://github.com/pytorch/pytorch/blob/50d50e722913b05a0762c886507c9be7ae43d2f3/torch/accelerator/graphs.py#L139)
+debug_dump(*path*)[[source]](https://github.com/pytorch/pytorch/blob/45fe85941b3ecb8add365f049f7fbf455c5107ff/torch/accelerator/graphs.py#L139)
 
 Dump the captured graph to a file for debugging purposes if the debugging is
 enabled via `enable_debug_mode`.
@@ -86,17 +86,17 @@ Example::
 >>> g.debug_dump("graph_dump.dot")
 ```
 
-enable_debug_mode()[[source]](https://github.com/pytorch/pytorch/blob/50d50e722913b05a0762c886507c9be7ae43d2f3/torch/accelerator/graphs.py#L135)
+enable_debug_mode()[[source]](https://github.com/pytorch/pytorch/blob/45fe85941b3ecb8add365f049f7fbf455c5107ff/torch/accelerator/graphs.py#L135)
 
 Enable debugging mode for `debug_dump`.
 
-instantiate()[[source]](https://github.com/pytorch/pytorch/blob/50d50e722913b05a0762c886507c9be7ae43d2f3/torch/accelerator/graphs.py#L94)
+instantiate()[[source]](https://github.com/pytorch/pytorch/blob/45fe85941b3ecb8add365f049f7fbf455c5107ff/torch/accelerator/graphs.py#L94)
 
 Instantiate the underlying graph. Will be called by `capture_end`
 if `keep_graph=False`, or by `replay` if `keep_graph=True` and
 `instantiate` has not already been explicitly called.
 
-pool()[[source]](https://github.com/pytorch/pytorch/blob/50d50e722913b05a0762c886507c9be7ae43d2f3/torch/accelerator/graphs.py#L115)
+pool()[[source]](https://github.com/pytorch/pytorch/blob/45fe85941b3ecb8add365f049f7fbf455c5107ff/torch/accelerator/graphs.py#L115)
 
 Return an opaque token representing the id of this graph's memory pool.
 
@@ -122,11 +122,11 @@ Return type:
 
 [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[int](https://docs.python.org/3/builtins/functions.html#int), [int](https://docs.python.org/3/builtins/functions.html#int)]
 
-replay()[[source]](https://github.com/pytorch/pytorch/blob/50d50e722913b05a0762c886507c9be7ae43d2f3/torch/accelerator/graphs.py#L102)
+replay()[[source]](https://github.com/pytorch/pytorch/blob/45fe85941b3ecb8add365f049f7fbf455c5107ff/torch/accelerator/graphs.py#L102)
 
 Replay the work captured by this graph.
 
-reset()[[source]](https://github.com/pytorch/pytorch/blob/50d50e722913b05a0762c886507c9be7ae43d2f3/torch/accelerator/graphs.py#L106)
+reset()[[source]](https://github.com/pytorch/pytorch/blob/45fe85941b3ecb8add365f049f7fbf455c5107ff/torch/accelerator/graphs.py#L106)
 
 Delete the graph currently held by this instance.
 

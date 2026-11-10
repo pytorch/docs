@@ -1,6 +1,6 @@
 # GraphTransformObserver
 
-*class*torch.fx.passes.graph_transform_observer.GraphTransformObserver(*gm*, *passname*, *subsystem=None*, *log_url=None*)[[source]](https://github.com/pytorch/pytorch/blob/50d50e722913b05a0762c886507c9be7ae43d2f3/torch/fx/passes/graph_transform_observer.py#L21)
+*class*torch.fx.passes.graph_transform_observer.GraphTransformObserver(*gm*, *passname*, *subsystem=None*, *log_url=None*)[[source]](https://github.com/pytorch/pytorch/blob/45fe85941b3ecb8add365f049f7fbf455c5107ff/torch/fx/passes/graph_transform_observer.py#L21)
 
 Warning
 

@@ -64,7 +64,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="PyTorch Custom Operators Landing Page" href="custom_operators.html" />
-    <link rel="prev" title="CPU threading and TorchScript inference" href="cpu_threading_torchscript_inference.html" />
+    <link rel="prev" title="Broadcasting semantics" href="broadcasting.html" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -82,7 +82,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.16.0a0+git50d50e7 )">
+<meta name="llm:version" content="main (2.16.0a0+git45fe859 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -188,7 +188,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.16.0a0+git50d50e7 )');
+  document.documentElement.setAttribute('data-version', 'main (2.16.0a0+git45fe859 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -958,12 +958,6 @@ document.write(`
               <li class=" ">
                 <a class="nav-link dropdown-item nav-internal" href="broadcasting.html">
                   Broadcasting semantics
-                </a>
-              </li>
-            
-              <li class=" ">
-                <a class="nav-link dropdown-item nav-internal" href="cpu_threading_torchscript_inference.html">
-                  CPU threading and TorchScript inference
                 </a>
               </li>
             
@@ -2273,12 +2267,6 @@ document.write(`
               </li>
             
               <li class=" ">
-                <a class="nav-link dropdown-item nav-internal" href="cpu_threading_torchscript_inference.html">
-                  CPU threading and TorchScript inference
-                </a>
-              </li>
-            
-              <li class=" ">
                 <a class="nav-link dropdown-item nav-internal" href="#">
                   CUDA semantics
                 </a>
@@ -3196,8 +3184,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.cond.html">torch.cond</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -3248,7 +3236,6 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="amp_examples.html">Automatic Mixed Precision examples</a></li>
 <li class="toctree-l2"><a class="reference internal" href="autograd.html">Autograd mechanics</a></li>
 <li class="toctree-l2"><a class="reference internal" href="broadcasting.html">Broadcasting semantics</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cpu_threading_torchscript_inference.html">CPU threading and TorchScript inference</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">CUDA semantics</a></li>
 <li class="toctree-l2"><a class="reference internal" href="custom_operators.html">PyTorch Custom Operators Landing Page</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ddp.html">Distributed Data Parallel</a></li>
@@ -5285,12 +5272,12 @@ using torch.cond is demonstrated below:</p>
 
 <div class="prev-next-area">
     <a class="left-prev"
-       href="cpu_threading_torchscript_inference.html"
+       href="broadcasting.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">CPU threading and TorchScript inference</p>
+        <p class="prev-next-title">Broadcasting semantics</p>
       </div>
     </a>
     <a class="right-next"
@@ -5324,12 +5311,12 @@ using torch.cond is demonstrated below:</p>
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="cpu_threading_torchscript_inference.html"
+       href="broadcasting.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">CPU threading and TorchScript inference</p>
+        <p class="prev-next-title">Broadcasting semantics</p>
       </div>
     </a>
     <a class="right-next"

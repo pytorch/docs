@@ -1,6 +1,6 @@
 # torch.compiler.nested_compile_region
 
-torch.compiler.nested_compile_region(*fn=None*, ***, *options=None*, *max_reuse_entries=8*, *reuse_hash_fn=None*)[[source]](https://github.com/pytorch/pytorch/blob/50d50e722913b05a0762c886507c9be7ae43d2f3/torch/compiler/__init__.py#L957)
+torch.compiler.nested_compile_region(*fn=None*, ***, *options=None*, *max_reuse_entries=8*, *reuse_hash_fn=None*)[[source]](https://github.com/pytorch/pytorch/blob/45fe85941b3ecb8add365f049f7fbf455c5107ff/torch/compiler/__init__.py#L957)
 
 Tells **``torch.compile``** that the marked set of operations forms a nested
 compile region (which is often repeated in the full model) whose code can be
@@ -34,7 +34,7 @@ with `get_invoke_subgraph_compile_options` from
 `fw_inductor_config_patches` argument is stored as
 `inductor_config_patches`; its `bw_inductor_config_patches`
 argument retains the same name. Both mappings accept only the
-Inductor config keys `fallback_by_default`, `max_autotune`.
+Inductor config keys `combo_kernels`, `fallback_by_default`, `max_autotune`, `max_autotune_pointwise`.
 Warning: this is an experimental feature under development and
 not ready for use yet.
 - **max_reuse_entries** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Maximum number of reuse cache entries per function

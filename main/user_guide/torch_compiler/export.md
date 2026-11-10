@@ -79,13 +79,13 @@ programs, and produce lower-level graphs (at the `torch.ops.aten` operator
 level). Note that users can still use [`torch.fx.symbolic_trace()`](../../fx.html#torch.fx.symbolic_trace) as a
 preprocessing step before `torch.export`.
 
-Compared to `torch.jit.script()`, `torch.export` does not capture Python
+Compared to legacy TorchScript scripting, `torch.export` does not capture Python
 control flow or data structures, unless using explicit [control flow operators](../../higher_order_ops/index.html#higher-order-ops),
 but it supports more Python language features due to its comprehensive coverage
 over Python bytecodes. The resulting graphs are simpler and only have straight
 line control flow, except for explicit control flow operators.
 
-Compared to `torch.jit.trace()`, `torch.export` is sound:
+Compared to legacy TorchScript tracing, `torch.export` is sound:
 it can trace code that performs integer computation on sizes and records
 all of the side-conditions necessary to ensure that a particular
 trace is valid for other inputs.

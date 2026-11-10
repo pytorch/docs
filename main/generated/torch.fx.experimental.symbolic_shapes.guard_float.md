@@ -1,6 +1,6 @@
 # torch.fx.experimental.symbolic_shapes.guard_float
 
-torch.fx.experimental.symbolic_shapes.guard_float(*a*)[[source]](https://github.com/pytorch/pytorch/blob/50d50e722913b05a0762c886507c9be7ae43d2f3/torch/fx/experimental/symbolic_shapes.py#L1956)
+torch.fx.experimental.symbolic_shapes.guard_float(*a*)[[source]](https://github.com/pytorch/pytorch/blob/45fe85941b3ecb8add365f049f7fbf455c5107ff/torch/fx/experimental/symbolic_shapes.py#L1948)
 
 Return type:
 
