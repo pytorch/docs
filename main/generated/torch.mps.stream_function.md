@@ -1,6 +1,6 @@
 # torch.mps.stream
 
-torch.mps.stream(*stream*)[[source]](https://github.com/pytorch/pytorch/blob/45fe85941b3ecb8add365f049f7fbf455c5107ff/torch/mps/streams.py#L58)
+torch.mps.stream(*stream*)[[source]](https://github.com/pytorch/pytorch/blob/6ced8259c1c883abd806189dbf32b9707f69adeb/torch/mps/streams.py#L58)
 
 Context manager that selects a given stream.
 

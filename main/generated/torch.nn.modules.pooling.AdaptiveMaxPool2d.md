@@ -1,11 +1,35 @@
 # AdaptiveMaxPool2d
 
-*class*torch.nn.modules.pooling.AdaptiveMaxPool2d(*output_size*, *return_indices=False*)[[source]](https://github.com/pytorch/pytorch/blob/45fe85941b3ecb8add365f049f7fbf455c5107ff/torch/nn/modules/pooling.py#L1360)
+*class*torch.nn.modules.pooling.AdaptiveMaxPool2d(*output_size*, *return_indices=False*)[[source]](https://github.com/pytorch/pytorch/blob/6ced8259c1c883abd806189dbf32b9707f69adeb/torch/nn/modules/pooling.py#L1375)
 
 Applies a 2D adaptive max pooling over an input signal composed of several input planes.
 
 The output is of size Hout×WoutH_{out} \times W_{out}Hout​×Wout​, for any input size.
 The number of output features is equal to the number of input planes.
+
+Each output element is the maximum over a rectangular region of the input. The
+bounds are computed independently for each spatial dimension, from an output index
+kkk, an input size III and an output size OOO:
+
+start(k,I,O)=⌊k×IO⌋end(k,I,O)=⌈(k+1)×IO⌉\text{start}(k, I, O) = \left\lfloor \frac{k \times I}{O} \right\rfloor
+\qquad
+\text{end}(k, I, O) = \left\lceil \frac{(k + 1) \times I}{O} \right\rceil
+
+start(k,I,O)=⌊Ok×I​⌋end(k,I,O)=⌈O(k+1)×I​⌉
+
+Writing h0=start(h,Hin,Hout)h_0 = \text{start}(h, H_{in}, H_{out})h0​=start(h,Hin​,Hout​) and
+h1=end(h,Hin,Hout)h_1 = \text{end}(h, H_{in}, H_{out})h1​=end(h,Hin​,Hout​), and likewise w0w_0w0​ and
+w1w_1w1​ from (Win,Wout)(W_{in}, W_{out})(Win​,Wout​), the output is
+
+out(Ni,Cj,h,w)=max⁡h0≤m<h1max⁡w0≤n<w1input(Ni,Cj,m,n)out(N_i, C_j, h, w) = \max_{h_0 \le m < h_1} \max_{w_0 \le n < w_1}
+ input(N_i, C_j, m, n)
+
+out(Ni​,Cj​,h,w)=h0​≤m<h1​max​w0​≤n<w1​max​input(Ni​,Cj​,m,n)
+
+When an input size is not divisible by the corresponding output size, these regions
+may have different sizes and may overlap. For example, a 3×33 \times 33×3 input
+pooled to 2×22 \times 22×2 takes the maximum over four overlapping
+2×22 \times 22×2 regions.
 
 Parameters:
 
@@ -40,6 +64,6 @@ Examples
 >>> output = m(input)
 ```
 
-forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/45fe85941b3ecb8add365f049f7fbf455c5107ff/torch/nn/modules/pooling.py#L1398)
+forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/6ced8259c1c883abd806189dbf32b9707f69adeb/torch/nn/modules/pooling.py#L1435)
 
 Runs the forward pass.

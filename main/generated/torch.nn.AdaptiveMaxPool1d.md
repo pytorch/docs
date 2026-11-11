@@ -1,11 +1,27 @@
 # AdaptiveMaxPool1d
 
-*class*torch.nn.AdaptiveMaxPool1d(*output_size*, *return_indices=False*)[[source]](https://github.com/pytorch/pytorch/blob/45fe85941b3ecb8add365f049f7fbf455c5107ff/torch/nn/modules/pooling.py#L1329)
+*class*torch.nn.AdaptiveMaxPool1d(*output_size*, *return_indices=False*)[[source]](https://github.com/pytorch/pytorch/blob/6ced8259c1c883abd806189dbf32b9707f69adeb/torch/nn/modules/pooling.py#L1329)
 
 Applies a 1D adaptive max pooling over an input signal composed of several input planes.
 
 The output size is LoutL_{out}Lout​, for any input size.
 The number of output features is equal to the number of input planes.
+
+Each output element is the maximum over a region of the input whose bounds are
+derived from the input and output sizes:
+
+start(k)=⌊k×LinLout⌋end(k)=⌈(k+1)×LinLout⌉\text{start}(k) = \left\lfloor \frac{k \times L_{in}}{L_{out}} \right\rfloor
+\qquad
+\text{end}(k) = \left\lceil \frac{(k + 1) \times L_{in}}{L_{out}} \right\rceil
+
+start(k)=⌊Lout​k×Lin​​⌋end(k)=⌈Lout​(k+1)×Lin​​⌉
+out(Ni,Cj,k)=max⁡start(k)≤l<end(k)input(Ni,Cj,l)out(N_i, C_j, k) = \max_{\text{start}(k) \le l < \text{end}(k)} input(N_i, C_j, l)
+
+out(Ni​,Cj​,k)=start(k)≤l<end(k)max​input(Ni​,Cj​,l)
+
+When LinL_{in}Lin​ is not divisible by LoutL_{out}Lout​, these regions may have
+different sizes and may overlap. For example, an input of size 5 pooled to size 3
+uses the regions [0,2)[0, 2)[0,2), [1,4)[1, 4)[1,4) and [3,5)[3, 5)[3,5).
 
 Parameters:
 
@@ -28,6 +44,6 @@ Examples
 >>> output = m(input)
 ```
 
-forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/45fe85941b3ecb8add365f049f7fbf455c5107ff/torch/nn/modules/pooling.py#L1355)
+forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/6ced8259c1c883abd806189dbf32b9707f69adeb/torch/nn/modules/pooling.py#L1370)
 
 Runs the forward pass.

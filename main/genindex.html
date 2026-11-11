@@ -85,7 +85,7 @@ window.addEventListener("load", () => mermaid.run());
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.16.0a0+git45fe859 )">
+<meta name="llm:version" content="main (2.16.0a0+git6ced825 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -191,7 +191,7 @@ window.addEventListener("load", () => mermaid.run());
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.16.0a0+git45fe859 )');
+  document.documentElement.setAttribute('data-version', 'main (2.16.0a0+git6ced825 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -4779,8 +4779,6 @@ document.write(`
       </ul></li>
       <li><a href="generated/torch.nn.utils.prune.BasePruningMethod.html#torch.nn.utils.prune.BasePruningMethod">BasePruningMethod (class in torch.nn.utils.prune)</a>
 </li>
-      <li><a href="utils/data.html#torch.utils.data.datapipes.utils.decoder.basichandlers">basichandlers() (in module torch.utils.data.datapipes.utils.decoder)</a>
-</li>
       <li><a href="generated/torch.nn.LinearCrossEntropyOptions.html#torch.nn.LinearCrossEntropyOptions.batch_chunk_size">batch_chunk_size (torch.nn.LinearCrossEntropyOptions attribute)</a>
 </li>
       <li><a href="distributed.html#torch.distributed.batch_isend_irecv">batch_isend_irecv() (in module torch.distributed)</a>
@@ -7259,6 +7257,8 @@ document.write(`
         <li><a href="generated/torch.xpu.device.html#torch.xpu.device">(class in torch.xpu)</a>
 </li>
         <li><a href="generated/torch.autograd.profiler_util.Kernel.html#torch.autograd.profiler_util.Kernel.device">(torch.autograd.profiler_util.Kernel attribute)</a>
+</li>
+        <li><a href="distributed.html#torch.distributed.distributed_c10d.PreHookArgs.device">(torch.distributed.distributed_c10d.PreHookArgs property)</a>
 </li>
         <li><a href="generated/torch.Generator.html#torch.Generator.device">(torch.Generator attribute)</a>
 </li>
@@ -10488,10 +10488,10 @@ document.write(`
 </li>
       <li><a href="distributed/elastic/utils.html#torch.distributed.elastic.utils.log_level.get_log_level">get_log_level() (in module torch.distributed.elastic.utils.log_level)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="distributed/elastic/utils.html#torch.distributed.elastic.utils.logging.get_logger">get_logger() (in module torch.distributed.elastic.utils.logging)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="distributed/elastic/events.html#torch.distributed.elastic.events.get_logging_handler">get_logging_handler() (in module torch.distributed.elastic.events)</a>
 </li>
       <li><a href="generated/torch.optim.lr_scheduler.ChainedScheduler.html#torch.optim.lr_scheduler.ChainedScheduler.get_lr">get_lr() (torch.optim.lr_scheduler.ChainedScheduler method)</a>
@@ -10955,7 +10955,11 @@ document.write(`
       <li><a href="generated/torch.grid_sampler_3d.html#torch.grid_sampler_3d">grid_sampler_3d() (in module torch)</a>
 </li>
       <li><a href="distributed.html#torch.distributed.group">group (class in torch.distributed)</a>
+
+      <ul>
+        <li><a href="distributed.html#torch.distributed.distributed_c10d.PostHookArgs.group">(torch.distributed.distributed_c10d.PostHookArgs property)</a>
 </li>
+      </ul></li>
       <li><a href="generated/torch.group_norm.html#torch.group_norm">group_norm() (in module torch)</a>
 
       <ul>
@@ -11093,8 +11097,6 @@ document.write(`
       <li><a href="generated/torch.signal.windows.windows.hamming.html#torch.signal.windows.windows.hamming">hamming() (in module torch.signal.windows.windows)</a>
 </li>
       <li><a href="generated/torch.hamming_window.html#torch.hamming_window">hamming_window() (in module torch)</a>
-</li>
-      <li><a href="utils/data.html#torch.utils.data.datapipes.utils.decoder.handle_extension">handle_extension() (in module torch.utils.data.datapipes.utils.decoder)</a>
 </li>
       <li><a href="generated/torch.fx.experimental.proxy_tensor.handle_sym_dispatch.html#torch.fx.experimental.proxy_tensor.handle_sym_dispatch">handle_sym_dispatch() (in module torch.fx.experimental.proxy_tensor)</a>
 </li>
@@ -16318,8 +16320,6 @@ document.write(`
 </li>
         <li><a href="utils.html#module-torch.utils.data.datapipes.iter.grouping">torch.utils.data.datapipes.iter.grouping</a>
 </li>
-        <li><a href="utils.html#module-torch.utils.data.datapipes.iter.routeddecoder">torch.utils.data.datapipes.iter.routeddecoder</a>
-</li>
         <li><a href="utils.html#module-torch.utils.data.datapipes.iter.selecting">torch.utils.data.datapipes.iter.selecting</a>
 </li>
         <li><a href="utils.html#module-torch.utils.data.datapipes.iter.sharding">torch.utils.data.datapipes.iter.sharding</a>
@@ -16343,8 +16343,6 @@ document.write(`
         <li><a href="utils/data.html#module-torch.utils.data.datapipes.utils">torch.utils.data.datapipes.utils</a>
 </li>
         <li><a href="utils/data.html#module-torch.utils.data.datapipes.utils.common">torch.utils.data.datapipes.utils.common</a>
-</li>
-        <li><a href="utils.html#module-torch.utils.data.datapipes.utils.decoder">torch.utils.data.datapipes.utils.decoder</a>
 </li>
         <li><a href="utils.html#module-torch.utils.data.datapipes.utils.snapshot">torch.utils.data.datapipes.utils.snapshot</a>
 </li>
@@ -25648,6 +25646,8 @@ document.write(`
         <li><a href="user_guide/torch_compiler/export/api_reference.html#module-torch.export.pt2_archive.constants">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     torch.export.unflatten
 
@@ -25655,8 +25655,6 @@ document.write(`
         <li><a href="user_guide/torch_compiler/export/api_reference.html#module-torch.export.unflatten">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     torch.fft
 
@@ -28231,13 +28229,6 @@ document.write(`
 </li>
       </ul></li>
       <li>
-    torch.utils.data.datapipes.iter.routeddecoder
-
-      <ul>
-        <li><a href="utils.html#module-torch.utils.data.datapipes.iter.routeddecoder">module</a>
-</li>
-      </ul></li>
-      <li>
     torch.utils.data.datapipes.iter.selecting
 
       <ul>
@@ -28319,13 +28310,6 @@ document.write(`
 
       <ul>
         <li><a href="utils/data.html#module-torch.utils.data.datapipes.utils.common">module</a>
-</li>
-      </ul></li>
-      <li>
-    torch.utils.data.datapipes.utils.decoder
-
-      <ul>
-        <li><a href="utils.html#module-torch.utils.data.datapipes.utils.decoder">module</a>
 </li>
       </ul></li>
       <li>
@@ -29651,6 +29635,8 @@ document.write(`
       <li><a href="cuda.tunable.html#torch.cuda.tunable.wildcard_fallback_is_enabled">wildcard_fallback_is_enabled() (in module torch.cuda.tunable)</a>
 </li>
       <li><a href="distributed.html#torch.distributed.distributed_c10d.Window">Window (class in torch.distributed.distributed_c10d)</a>
+</li>
+      <li><a href="distributed.html#torch.distributed.distributed_c10d.PostHookArgs.window">window (torch.distributed.distributed_c10d.PostHookArgs property)</a>
 </li>
       <li><a href="distributed.html#torch.distributed.distributed_c10d.WindowAccessType">WindowAccessType (class in torch.distributed.distributed_c10d)</a>
 </li>

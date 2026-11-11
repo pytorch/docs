@@ -1,6 +1,6 @@
 # torch.mtia.stream
 
-torch.mtia.stream(*stream*)[[source]](https://github.com/pytorch/pytorch/blob/45fe85941b3ecb8add365f049f7fbf455c5107ff/torch/mtia/__init__.py#L387)
+torch.mtia.stream(*stream*)[[source]](https://github.com/pytorch/pytorch/blob/6ced8259c1c883abd806189dbf32b9707f69adeb/torch/mtia/__init__.py#L387)
 
 Wrap around the Context-manager StreamContext that selects a given stream.
 

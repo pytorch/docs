@@ -1,11 +1,29 @@
 # AdaptiveMaxPool3d
 
-*class*torch.nn.modules.pooling.AdaptiveMaxPool3d(*output_size*, *return_indices=False*)[[source]](https://github.com/pytorch/pytorch/blob/45fe85941b3ecb8add365f049f7fbf455c5107ff/torch/nn/modules/pooling.py#L1403)
+*class*torch.nn.modules.pooling.AdaptiveMaxPool3d(*output_size*, *return_indices=False*)[[source]](https://github.com/pytorch/pytorch/blob/6ced8259c1c883abd806189dbf32b9707f69adeb/torch/nn/modules/pooling.py#L1440)
 
 Applies a 3D adaptive max pooling over an input signal composed of several input planes.
 
 The output is of size Dout×Hout×WoutD_{out} \times H_{out} \times W_{out}Dout​×Hout​×Wout​, for any input size.
 The number of output features is equal to the number of input planes.
+
+Each output element is the maximum over a cuboidal region of the input. The bounds
+are computed independently for each spatial dimension, from an output index
+kkk, an input size III and an output size OOO:
+
+start(k,I,O)=⌊k×IO⌋end(k,I,O)=⌈(k+1)×IO⌉\text{start}(k, I, O) = \left\lfloor \frac{k \times I}{O} \right\rfloor
+\qquad
+\text{end}(k, I, O) = \left\lceil \frac{(k + 1) \times I}{O} \right\rceil
+
+start(k,I,O)=⌊Ok×I​⌋end(k,I,O)=⌈O(k+1)×I​⌉
+
+The region for output element (d,h,w)(d, h, w)(d,h,w) spans
+[start(d,Din,Dout),end(d,Din,Dout))[\text{start}(d, D_{in}, D_{out}), \text{end}(d, D_{in}, D_{out}))[start(d,Din​,Dout​),end(d,Din​,Dout​)) along the
+depth dimension, and likewise with (Hin,Hout)(H_{in}, H_{out})(Hin​,Hout​) and
+(Win,Wout)(W_{in}, W_{out})(Win​,Wout​) along height and width.
+
+When an input size is not divisible by the corresponding output size, these regions
+may have different sizes and may overlap.
 
 Parameters:
 
@@ -40,6 +58,6 @@ Examples
 >>> output = m(input)
 ```
 
-forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/45fe85941b3ecb8add365f049f7fbf455c5107ff/torch/nn/modules/pooling.py#L1442)
+forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/6ced8259c1c883abd806189dbf32b9707f69adeb/torch/nn/modules/pooling.py#L1496)
 
 Runs the forward pass.

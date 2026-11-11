@@ -1,6 +1,6 @@
 # torch.fx.experimental.sym_node.is_channels_last_strides_2d
 
-torch.fx.experimental.sym_node.is_channels_last_strides_2d(*sizes*, *strides*)[[source]](https://github.com/pytorch/pytorch/blob/45fe85941b3ecb8add365f049f7fbf455c5107ff/torch/fx/experimental/sym_node.py#L1873)
+torch.fx.experimental.sym_node.is_channels_last_strides_2d(*sizes*, *strides*)[[source]](https://github.com/pytorch/pytorch/blob/6ced8259c1c883abd806189dbf32b9707f69adeb/torch/fx/experimental/sym_node.py#L1873)
 
 Return type:
 

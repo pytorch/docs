@@ -1,6 +1,6 @@
 # torch.fx.experimental.unification.multipledispatch.utils.typename
 
-torch.fx.experimental.unification.multipledispatch.utils.typename(*type*)[[source]](https://github.com/pytorch/pytorch/blob/45fe85941b3ecb8add365f049f7fbf455c5107ff/torch/fx/experimental/unification/multipledispatch/utils.py#L126)
+torch.fx.experimental.unification.multipledispatch.utils.typename(*type*)[[source]](https://github.com/pytorch/pytorch/blob/6ced8259c1c883abd806189dbf32b9707f69adeb/torch/fx/experimental/unification/multipledispatch/utils.py#L126)
 
 Get the name of type.
 :param type:
