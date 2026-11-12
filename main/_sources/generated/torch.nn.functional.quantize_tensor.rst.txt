@@ -1,0 +1,6 @@
+﻿torch.nn.functional.quantize\_tensor
+====================================
+
+.. currentmodule:: torch.nn.functional
+
+.. autofunction:: quantize_tensor

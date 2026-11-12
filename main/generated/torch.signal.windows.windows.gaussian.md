@@ -1,6 +1,6 @@
 # torch.signal.windows.windows.gaussian
 
-torch.signal.windows.windows.gaussian(*M*, ***, *std=1.0*, *sym=True*, *dtype=None*, *layout=torch.strided*, *device=None*, *requires_grad=False*)[[source]](https://github.com/pytorch/pytorch/blob/6ced8259c1c883abd806189dbf32b9707f69adeb/torch/signal/windows/windows.py#L254)
+torch.signal.windows.windows.gaussian(*M*, ***, *std=1.0*, *sym=True*, *dtype=None*, *layout=torch.strided*, *device=None*, *requires_grad=False*)[[source]](https://github.com/pytorch/pytorch/blob/c5a2c86d66eda12ed122b796baae9cb0aaf5aefb/torch/signal/windows/windows.py#L254)
 
 Computes a window with a gaussian waveform.
 

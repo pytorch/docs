@@ -1,6 +1,6 @@
 # torch.cuda.gds.is_available
 
-torch.cuda.gds.is_available()[[source]](https://github.com/pytorch/pytorch/blob/6ced8259c1c883abd806189dbf32b9707f69adeb/torch/cuda/gds.py#L24)
+torch.cuda.gds.is_available()[[source]](https://github.com/pytorch/pytorch/blob/c5a2c86d66eda12ed122b796baae9cb0aaf5aefb/torch/cuda/gds.py#L24)
 
 Return `True` if GPUDirect Storage (GDS) support is built in.
 

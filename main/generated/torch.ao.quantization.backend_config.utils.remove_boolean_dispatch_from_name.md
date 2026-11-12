@@ -1,6 +1,6 @@
 # remove_boolean_dispatch_from_name
 
-*class*torch.ao.quantization.backend_config.utils.remove_boolean_dispatch_from_name(*p*)[[source]](https://github.com/pytorch/pytorch/blob/6ced8259c1c883abd806189dbf32b9707f69adeb/torch/ao/quantization/backend_config/utils.py#L149)
+*class*torch.ao.quantization.backend_config.utils.remove_boolean_dispatch_from_name(*p*)[[source]](https://github.com/pytorch/pytorch/blob/c5a2c86d66eda12ed122b796baae9cb0aaf5aefb/torch/ao/quantization/backend_config/utils.py#L149)
 
 Some ops have a default string representation such as
 '<function boolean_dispatch.<locals>.fn at 0x7ff1106bf280>',
