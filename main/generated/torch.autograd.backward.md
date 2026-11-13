@@ -1,6 +1,6 @@
 # torch.autograd.backward
 
-torch.autograd.backward(*tensors*, *grad_tensors=None*, *retain_graph=None*, *create_graph=False*, *grad_variables=None*, *inputs=None*)[[source]](https://github.com/pytorch/pytorch/blob/c5a2c86d66eda12ed122b796baae9cb0aaf5aefb/torch/autograd/__init__.py#L256)
+torch.autograd.backward(*tensors*, *grad_tensors=None*, *retain_graph=None*, *create_graph=False*, *grad_variables=None*, *inputs=None*, ***, *disallow_implicit_grad_accumulation=False*)[[source]](https://github.com/pytorch/pytorch/blob/b896199bee9ca0e125f6ec366a265418a8f3290e/torch/autograd/__init__.py#L256)
 
 Compute the sum of gradients of given tensors with respect to graph leaves.
 
@@ -61,3 +61,8 @@ accumulated into all the leaf Tensors that were used to compute the
 `tensors`. A mapping of tensors (e.g.
 `dict(model.named_parameters())`) is also accepted, in which case
 the values are used as the input tensors.
+- **disallow_implicit_grad_accumulation** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - When a tensor is used
+more than once in forward, backward accumulates the gradient
+contributions from each use. If `True`, raise an error instead of
+performing that accumulation. See
+[Disallowing implicit gradient accumulation](../notes/autograd.html#disallow-implicit-grad-accumulation). Defaults to `False`.

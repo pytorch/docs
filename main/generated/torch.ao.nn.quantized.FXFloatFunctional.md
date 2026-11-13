@@ -1,6 +1,6 @@
 # FXFloatFunctional
 
-*class*torch.ao.nn.quantized.FXFloatFunctional(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/c5a2c86d66eda12ed122b796baae9cb0aaf5aefb/torch/ao/nn/quantized/modules/functional_modules.py#L101)
+*class*torch.ao.nn.quantized.FXFloatFunctional(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/b896199bee9ca0e125f6ec366a265418a8f3290e/torch/ao/nn/quantized/modules/functional_modules.py#L101)
 
 module to replace FloatFunctional module before FX graph mode quantization,
 since activation_post_process will be inserted in top level module directly

@@ -1,6 +1,6 @@
 # get_default_static_quant_module_mappings
 
-*class*torch.ao.quantization.quantization_mappings.get_default_static_quant_module_mappings[[source]](https://github.com/pytorch/pytorch/blob/c5a2c86d66eda12ed122b796baae9cb0aaf5aefb/torch/ao/quantization/quantization_mappings.py#L215)
+*class*torch.ao.quantization.quantization_mappings.get_default_static_quant_module_mappings[[source]](https://github.com/pytorch/pytorch/blob/b896199bee9ca0e125f6ec366a265418a8f3290e/torch/ao/quantization/quantization_mappings.py#L215)
 
 Get module mapping for post training static quantization
 

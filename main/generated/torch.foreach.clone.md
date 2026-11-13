@@ -1,6 +1,6 @@
 # torch.foreach.clone
 
-torch.foreach.clone(*inputs: TensorList*, */*, ***, *memory_format: [memory_format](../tensor_attributes.html#torch.memory_format) | [None](https://docs.python.org/3/builtins/constants.html#None) = None*) → [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...][[source]](https://github.com/pytorch/pytorch/blob/c5a2c86d66eda12ed122b796baae9cb0aaf5aefb/torch/foreach/__init__.py#L1534)
+torch.foreach.clone(*inputs: TensorList*, */*, ***, *memory_format: [memory_format](../tensor_attributes.html#torch.memory_format) | [None](https://docs.python.org/3/builtins/constants.html#None) = None*) → [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...][[source]](https://github.com/pytorch/pytorch/blob/b896199bee9ca0e125f6ec366a265418a8f3290e/torch/foreach/__init__.py#L1534)
 
 Clones every tensor in `inputs`.
 

@@ -17,6 +17,11 @@ This module contains functions and classes that alter the behavior of torch.nn.f
 | [`current_flash_attention_impl`](generated/torch.nn.attention.current_flash_attention_impl.html#torch.nn.attention.current_flash_attention_impl) | Return the currently activated flash attention impl name, if any. |
 | [`restore_flash_attention_impl`](generated/torch.nn.attention.restore_flash_attention_impl.html#torch.nn.attention.restore_flash_attention_impl) | Restore the default FA2 implementation |
 
+| [`enable_cudnn_sdp_python`](generated/torch.nn.attention.enable_cudnn_sdp_python.html#torch.nn.attention.enable_cudnn_sdp_python) | Warning This API is beta and subject to change. |
+| --- | --- |
+| [`cudnn_sdp_python_enabled`](generated/torch.nn.attention.cudnn_sdp_python_enabled.html#torch.nn.attention.cudnn_sdp_python_enabled) | Warning This API is beta and subject to change. |
+| [`is_cudnn_sdp_python_available`](generated/torch.nn.attention.is_cudnn_sdp_python_available.html#torch.nn.attention.is_cudnn_sdp_python_available) | Warning This API is beta and subject to change. |
+
 ## Submodules
 
 | [`flex_attention`](nn.attention.flex_attention.html#module-torch.nn.attention.flex_attention) | This module implements the user facing API for flex_attention in PyTorch. |

@@ -80,7 +80,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.16.0a0+gitc5a2c86 )">
+<meta name="llm:version" content="main (2.16.0a0+gitb896199 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -186,7 +186,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.16.0a0+gitc5a2c86 )');
+  document.documentElement.setAttribute('data-version', 'main (2.16.0a0+gitb896199 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -5291,8 +5291,8 @@ document.write(`
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="generated/exportdb/index.html">ExportDB</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.escape-hatch.html">torch.escape-hatch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-shape.html">torch.dynamic-shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.cond.html">torch.cond</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.closure.html">python.closure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/torch.dynamic-value.html">torch.dynamic-value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/exportdb/python.data-structure.html">python.data-structure</a></li>
@@ -6036,6 +6036,9 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.attention.list_flash_attention_impls.html">torch.nn.attention.list_flash_attention_impls</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.attention.current_flash_attention_impl.html">torch.nn.attention.current_flash_attention_impl</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.attention.restore_flash_attention_impl.html">torch.nn.attention.restore_flash_attention_impl</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.attention.enable_cudnn_sdp_python.html">torch.nn.attention.enable_cudnn_sdp_python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.attention.cudnn_sdp_python_enabled.html">torch.nn.attention.cudnn_sdp_python_enabled</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/torch.nn.attention.is_cudnn_sdp_python_available.html">torch.nn.attention.is_cudnn_sdp_python_available</a></li>
 <li class="toctree-l2"><a class="reference internal" href="nn.attention.flex_attention.html">torch.nn.attention.flex_attention</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="nn.attention.bias.html">torch.nn.attention.bias</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/torch.nn.attention.bias.CausalBias.html">torch.nn.attention.bias.CausalBias</a></li>
@@ -6851,7 +6854,7 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="module-torch.nn.attention">
 <span id="torch-nn-attention"></span><h1>torch.nn.attention<a class="headerlink" href="#module-torch.nn.attention" title="Link to this heading">#</a></h1>
-<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jan 24, 2024 | Last Updated On: Oct 17, 2026</p>
+<p class="date-info-last-verified" style="color: #6c6c6d; font-size: small;">Created On: Jan 24, 2024 | Last Updated On: Nov 12, 2026</p>
 <p>This module contains functions and classes that alter the behavior of torch.nn.functional.scaled_dot_product_attention</p>
 <section id="utils">
 <h2>Utils<a class="headerlink" href="#utils" title="Link to this heading">#</a></h2>
@@ -6887,6 +6890,32 @@ document.write(`
 </tr>
 <tr class="row-odd"><td><p><p id="torch.nn.attention.restore_flash_attention_impl"/><p id="torch.nn.attention.restore_flash_attention_impl"/><a class="reference internal" href="generated/torch.nn.attention.restore_flash_attention_impl.html#torch.nn.attention.restore_flash_attention_impl" title="torch.nn.attention.restore_flash_attention_impl"><code class="xref py py-obj docutils literal notranslate"><span class="pre">restore_flash_attention_impl</span></code></a></p></td>
 <td><p>Restore the default FA2 implementation</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><p id="torch.nn.attention.enable_cudnn_sdp_python"/><p id="torch.nn.attention.enable_cudnn_sdp_python"/><a class="reference internal" href="generated/torch.nn.attention.enable_cudnn_sdp_python.html#torch.nn.attention.enable_cudnn_sdp_python" title="torch.nn.attention.enable_cudnn_sdp_python"><code class="xref py py-obj docutils literal notranslate"><span class="pre">enable_cudnn_sdp_python</span></code></a></p></td>
+<td><p><div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This API is beta and subject to change.</p>
+</div>
+</p></td>
+</tr>
+<tr class="row-even"><td><p><p id="torch.nn.attention.cudnn_sdp_python_enabled"/><p id="torch.nn.attention.cudnn_sdp_python_enabled"/><a class="reference internal" href="generated/torch.nn.attention.cudnn_sdp_python_enabled.html#torch.nn.attention.cudnn_sdp_python_enabled" title="torch.nn.attention.cudnn_sdp_python_enabled"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cudnn_sdp_python_enabled</span></code></a></p></td>
+<td><p><div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This API is beta and subject to change.</p>
+</div>
+</p></td>
+</tr>
+<tr class="row-odd"><td><p><p id="torch.nn.attention.is_cudnn_sdp_python_available"/><p id="torch.nn.attention.is_cudnn_sdp_python_available"/><a class="reference internal" href="generated/torch.nn.attention.is_cudnn_sdp_python_available.html#torch.nn.attention.is_cudnn_sdp_python_available" title="torch.nn.attention.is_cudnn_sdp_python_available"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_cudnn_sdp_python_available</span></code></a></p></td>
+<td><p><div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This API is beta and subject to change.</p>
+</div>
+</p></td>
 </tr>
 </tbody>
 </table>
@@ -7289,7 +7318,7 @@ document.write(`
        "headline": "torch.nn.attention",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/nn.attention.html",
-       "articleBody": "torch.nn.attention# Created On: Jan 24, 2024 | Last Updated On: Oct 17, 2026 This module contains functions and classes that alter the behavior of torch.nn.functional.scaled_dot_product_attention Utils# sdpa_kernel Context manager to select which backend to use for scaled dot product attention. SDPBackend An enum-like class that contains the different backends for scaled dot product attention. register_flash_attention_impl Register the callable that activates a flash attention impl. activate_flash_attention_impl Activate into the dispatcher a previously registered flash attention impl. list_flash_attention_impls Return the names of all available flash attention implementations. current_flash_attention_impl Return the currently activated flash attention impl name, if any. restore_flash_attention_impl Restore the default FA2 implementation Submodules# flex_attention This module implements the user facing API for flex_attention in PyTorch. bias Defines bias subclasses that work with scaled_dot_product_attention experimental varlen Variable-length attention implementation using Flash Attention.",
+       "articleBody": "torch.nn.attention# Created On: Jan 24, 2024 | Last Updated On: Nov 12, 2026 This module contains functions and classes that alter the behavior of torch.nn.functional.scaled_dot_product_attention Utils# sdpa_kernel Context manager to select which backend to use for scaled dot product attention. SDPBackend An enum-like class that contains the different backends for scaled dot product attention. register_flash_attention_impl Register the callable that activates a flash attention impl. activate_flash_attention_impl Activate into the dispatcher a previously registered flash attention impl. list_flash_attention_impls Return the names of all available flash attention implementations. current_flash_attention_impl Return the currently activated flash attention impl name, if any. restore_flash_attention_impl Restore the default FA2 implementation enable_cudnn_sdp_python Warning This API is beta and subject to change. cudnn_sdp_python_enabled Warning This API is beta and subject to change. is_cudnn_sdp_python_available Warning This API is beta and subject to change. Submodules# flex_attention This module implements the user facing API for flex_attention in PyTorch. bias Defines bias subclasses that work with scaled_dot_product_attention experimental varlen Variable-length attention implementation using Flash Attention.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",
@@ -7301,7 +7330,7 @@ document.write(`
          "@id": "/nn.attention.html"
        },
        "datePublished": "Jan 24, 2024T00:00:00Z",
-       "dateModified": "Oct 17, 2026T00:00:00Z"
+       "dateModified": "Nov 12, 2026T00:00:00Z"
      }
  </script>
   <script>

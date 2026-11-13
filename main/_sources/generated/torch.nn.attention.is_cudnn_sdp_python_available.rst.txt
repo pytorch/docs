@@ -1,0 +1,6 @@
+﻿torch.nn.attention.is\_cudnn\_sdp\_python\_available
+====================================================
+
+.. currentmodule:: torch.nn.attention
+
+.. autofunction:: is_cudnn_sdp_python_available
