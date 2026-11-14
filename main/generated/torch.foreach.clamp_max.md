@@ -1,6 +1,6 @@
 # torch.foreach.clamp_max
 
-torch.foreach.clamp_max(*inputs: TensorList*, *max: Scalar*, */*) → [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...][[source]](https://github.com/pytorch/pytorch/blob/b896199bee9ca0e125f6ec366a265418a8f3290e/torch/foreach/__init__.py#L1044)
+torch.foreach.clamp_max(*inputs: TensorList*, *max: Scalar*, */*) → [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...][[source]](https://github.com/pytorch/pytorch/blob/b5cf35aa75e0d5087ede9131ab2f970aa2de6509/torch/foreach/__init__.py#L1044)
 
 torch.foreach.clamp_max(*inputs: TensorList*, *max: ScalarList*, */*) → [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...]
 

@@ -2,7 +2,7 @@
 
 A set of tools to verify the correctness of ONNX models.
 
-torch.onnx.verification.verify_onnx_program(*onnx_program*, *args=None*, *kwargs=None*, *compare_intermediates=False*)[[source]](https://github.com/pytorch/pytorch/blob/b896199bee9ca0e125f6ec366a265418a8f3290e/torch/onnx/_internal/exporter/_verification.py#L148)
+torch.onnx.verification.verify_onnx_program(*onnx_program*, *args=None*, *kwargs=None*, *compare_intermediates=False*)[[source]](https://github.com/pytorch/pytorch/blob/b5cf35aa75e0d5087ede9131ab2f970aa2de6509/torch/onnx/_internal/exporter/_verification.py#L148)
 
 Verify the ONNX model by comparing the values with the expected values from ExportedProgram.
 
@@ -45,7 +45,7 @@ The first tensor is the histogram counts and the second tensor is the bin edges.
 - **expected_dtype** ([*torch.dtype*](tensor_attributes.html#torch.dtype)) - The data type of the expected value.
 - **actual_dtype** ([*torch.dtype*](tensor_attributes.html#torch.dtype)) - The data type of the actual value.
 
-asdict()[[source]](https://github.com/pytorch/pytorch/blob/b896199bee9ca0e125f6ec366a265418a8f3290e/torch/onnx/_internal/exporter/_verification.py#L100)
+asdict()[[source]](https://github.com/pytorch/pytorch/blob/b5cf35aa75e0d5087ede9131ab2f970aa2de6509/torch/onnx/_internal/exporter/_verification.py#L100)
 
 Convert the VerificationInfo object to a dictionary.
 
@@ -57,7 +57,7 @@ Return type:
 
 [dict](https://docs.python.org/3/builtins/stdtypes.html#dict)[[str](https://docs.python.org/3/builtins/stdtypes.html#str), [*Any*](https://docs.python.org/3/library/typing.html#typing.Any)]
 
-*classmethod*from_tensors(*name*, *expected*, *actual*)[[source]](https://github.com/pytorch/pytorch/blob/b896199bee9ca0e125f6ec366a265418a8f3290e/torch/onnx/_internal/exporter/_verification.py#L59)
+*classmethod*from_tensors(*name*, *expected*, *actual*)[[source]](https://github.com/pytorch/pytorch/blob/b5cf35aa75e0d5087ede9131ab2f970aa2de6509/torch/onnx/_internal/exporter/_verification.py#L59)
 
 Create a VerificationInfo object from two tensors.
 

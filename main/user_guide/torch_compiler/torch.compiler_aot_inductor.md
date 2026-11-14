@@ -188,6 +188,57 @@ Result from the second inference:
 [ CUDAFloatType{2,1} ]
 ```
 
+## Running as CUDA graphs
+
+A CUDA model compiled with `aot_inductor.cudagraphs=True` can run as CUDA graphs
+that the runtime captures lazily, while serving calls, and replays, which cuts
+the host overhead of launching kernels. The compile fails if the model can't be
+captured, e.g. because it runs ops on the CPU, syncs with the host, uses side
+streams or control flow (`torch.cond`, `while_loop`), mutates its inputs, or
+has data-dependent shapes. Models that use random numbers are
+rejected too, for now (attention without dropout is fine), and so is ROCm,
+where a capture can't yet run safely next to other GPU work in the process
+([ROCm/rocm-systems#12677](https://github.com/ROCm/rocm-systems/issues/12677)).
+
+```
+package_path = torch._inductor.aoti_compile_and_package(
+ torch.export.export(model, example_inputs),
+ inductor_configs={"aot_inductor.cudagraphs": True},
+)
+compiled = torch._inductor.aoti_load_package(package_path)
+out = compiled.run_with_lazy_cuda_graphs(*example_inputs)
+```
+
+In C++, `AOTIModelPackageLoader::run_with_lazy_cuda_graphs` takes the same
+arguments as `run`. Calling the model as usual still runs it eagerly, and
+doesn't count as a warm-up.
+
+- On each model instance (see `num_runners`), a new input layout (shapes and
+strides) runs eagerly on its first call, is captured on its next call and
+replayed after that. Only a thread that has already finished an eager call of
+that layout on that instance captures it, since some libraries set up per
+thread; any thread replays.
+- Each model instance keeps up to `AOTI_RUNTIME_CUDA_GRAPH_MAX_GRAPHS` graphs
+(an environment variable read when the model is loaded, default 8; a bad
+value makes every `run_with_lazy_cuda_graphs` call fail) in its own memory
+pool; past that, new layouts run eagerly.
+- Replayed outputs are copies: they don't alias the inputs, and views among
+outputs come back as separate tensors. Eager calls return the model's own
+outputs.
+- As with `torch.cuda.graph`, a failed capture raises the error; existing
+graphs keep replaying, and the layout is captured again on its next call.
+Compiling with `aot_inductor.cudagraphs=True` rejects models that can't be
+captured.
+- Capturing needs PyTorch's native CUDA caching allocator: under
+`PYTORCH_ALLOC_CONF=backend:cudaMallocAsync`, every capture fails, so
+`run_with_lazy_cuda_graphs` raises after each layout's first call; call the
+model as usual instead.
+- Once a graph is captured, the model's active constants can't change, so
+`load_constants` fails; in C++, the inactive buffer can still be updated, but
+not swapped in. Load the model again to use new weights.
+- Calls can't run inside an outer CUDA graph capture, or on a model loaded with
+`run_single_threaded=True`.
+
 ## Troubleshooting
 
 Below are some useful tools for debugging AOT Inductor.
@@ -204,7 +255,7 @@ On ROCm, a compiled model copies its constants to the GPU through two pinned sta
 
 ## API Reference
 
-torch._inductor.aoti_compile_and_package(*exported_program*, *_deprecated_unused_args=None*, *_deprecated_unused_kwargs=None*, ***, *package_path=None*, *inductor_configs=None*)[[source]](https://github.com/pytorch/pytorch/blob/b896199bee9ca0e125f6ec366a265418a8f3290e/torch/_inductor/__init__.py#L64)
+torch._inductor.aoti_compile_and_package(*exported_program*, *_deprecated_unused_args=None*, *_deprecated_unused_kwargs=None*, ***, *package_path=None*, *inductor_configs=None*)[[source]](https://github.com/pytorch/pytorch/blob/b5cf35aa75e0d5087ede9131ab2f970aa2de6509/torch/_inductor/__init__.py#L64)
 
 Compiles the exported program with AOTInductor, and packages it into a .pt2
 artifact specified by the input package_path. To load the package, you can
@@ -255,7 +306,7 @@ Return type:
 
 [str](https://docs.python.org/3/builtins/stdtypes.html#str)
 
-torch._inductor.aoti_load_package(*path*, *run_single_threaded=False*, *device_index=-1*, ***, *num_runners=1*, *use_stream_affinity=False*)[[source]](https://github.com/pytorch/pytorch/blob/b896199bee9ca0e125f6ec366a265418a8f3290e/torch/_inductor/__init__.py#L257)
+torch._inductor.aoti_load_package(*path*, *run_single_threaded=False*, *device_index=-1*, ***, *num_runners=1*, *use_stream_affinity=False*)[[source]](https://github.com/pytorch/pytorch/blob/b5cf35aa75e0d5087ede9131ab2f970aa2de6509/torch/_inductor/__init__.py#L257)
 
 Loads a model from a PT2 package or an extracted PT2 package directory.
 
@@ -273,8 +324,9 @@ Parameters:
 
 - **path** (*FileLike*) - Path to the .pt2 package or extracted package directory.
 - **run_single_threaded** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)) - Whether the model should be run without
-thread synchronization logic. This is useful to avoid conflicts with
-CUDAGraphs.
+thread synchronization logic. This is useful to avoid conflicts
+when capturing calls with torch.cuda.graph, and incompatible with
+run_with_lazy_cuda_graphs.
 - **device_index** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - The index of the device to which the PT2 package is
 to be loaded. By default, device_index=-1 is used, which corresponds
 to the device cuda when using CUDA. Passing device_index=1 would

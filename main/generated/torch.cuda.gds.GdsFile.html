@@ -80,7 +80,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.16.0a0+gitb896199 )">
+<meta name="llm:version" content="main (2.16.0a0+gitb5cf35a )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -186,7 +186,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.16.0a0+gitb896199 )');
+  document.documentElement.setAttribute('data-version', 'main (2.16.0a0+gitb5cf35a )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3378,7 +3378,7 @@ document.write(`
 <h1>GdsFile<a class="headerlink" href="#gdsfile" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.cuda.gds.GdsFile">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.cuda.gds.</span></span><span class="sig-name descname"><span class="pre">GdsFile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flags</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/b896199bee9ca0e125f6ec366a265418a8f3290e/torch/cuda/gds.py#L117"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.gds.GdsFile" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.cuda.gds.</span></span><span class="sig-name descname"><span class="pre">GdsFile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flags</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/b5cf35aa75e0d5087ede9131ab2f970aa2de6509/torch/cuda/gds.py#L117"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.gds.GdsFile" title="Link to this definition">#</a></dt>
 <dd><p>Wrapper around a file registered with the GPUDirect Storage (GDS) driver.</p>
 <p>cuFile (CUDA) and hipFile (ROCm) are file-like interfaces to the GDS API.</p>
 <p>See the <a class="reference external" href="https://docs.nvidia.com/gpudirect-storage/api-reference-guide/index.html#cufile-io-api">cufile docs</a>
@@ -3415,7 +3415,7 @@ be added automatically.</p></li>
 </div>
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.cuda.gds.GdsFile.deregister_handle">
-<span class="sig-name descname"><span class="pre">deregister_handle</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/b896199bee9ca0e125f6ec366a265418a8f3290e/torch/cuda/gds.py#L183"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.gds.GdsFile.deregister_handle" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">deregister_handle</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/b5cf35aa75e0d5087ede9131ab2f970aa2de6509/torch/cuda/gds.py#L183"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.gds.GdsFile.deregister_handle" title="Link to this definition">#</a></dt>
 <dd><p>Deregisters file descriptor from the GDS driver.</p>
 <p>This is a wrapper around <code class="docutils literal notranslate"><span class="pre">cuFileHandleDeregister</span></code> (CUDA) / <code class="docutils literal notranslate"><span class="pre">hipFileHandleDeregister</span></code> (ROCm).
 It first blocks until every <a class="reference internal" href="#torch.cuda.gds.GdsFile.load_storage_async" title="torch.cuda.gds.GdsFile.load_storage_async"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_storage_async()</span></code></a> and
@@ -3426,7 +3426,7 @@ It first blocks until every <a class="reference internal" href="#torch.cuda.gds.
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.cuda.gds.GdsFile.load_storage">
-<span class="sig-name descname"><span class="pre">load_storage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">storage</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/b896199bee9ca0e125f6ec366a265418a8f3290e/torch/cuda/gds.py#L217"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.gds.GdsFile.load_storage" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">load_storage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">storage</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/b5cf35aa75e0d5087ede9131ab2f970aa2de6509/torch/cuda/gds.py#L217"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.gds.GdsFile.load_storage" title="Link to this definition">#</a></dt>
 <dd><p>Loads data from the file into the storage.</p>
 <p>This is a wrapper around <code class="docutils literal notranslate"><span class="pre">cuFileRead</span></code> (CUDA) / <code class="docutils literal notranslate"><span class="pre">hipFileRead</span></code> (ROCm).
 <code class="docutils literal notranslate"><span class="pre">storage.nbytes()</span></code> of data will be loaded from the file at <code class="docutils literal notranslate"><span class="pre">offset</span></code>
@@ -3462,7 +3462,7 @@ past that count were not written. A short read does not raise.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.cuda.gds.GdsFile.load_storage_async">
-<span class="sig-name descname"><span class="pre">load_storage_async</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">storage</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/b896199bee9ca0e125f6ec366a265418a8f3290e/torch/cuda/gds.py#L251"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.gds.GdsFile.load_storage_async" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">load_storage_async</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">storage</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/b5cf35aa75e0d5087ede9131ab2f970aa2de6509/torch/cuda/gds.py#L251"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.gds.GdsFile.load_storage_async" title="Link to this definition">#</a></dt>
 <dd><p>Loads data from the file into the storage, ordered on the current stream.</p>
 <p>This is a wrapper around <code class="docutils literal notranslate"><span class="pre">cuFileReadAsync</span></code> (CUDA) / <code class="docutils literal notranslate"><span class="pre">hipFileReadAsync</span></code> (ROCm).
 <code class="docutils literal notranslate"><span class="pre">storage.nbytes()</span></code> of data will be loaded from the file at <code class="docutils literal notranslate"><span class="pre">offset</span></code>
@@ -3517,7 +3517,7 @@ enqueued raise instead.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.cuda.gds.GdsFile.register_handle">
-<span class="sig-name descname"><span class="pre">register_handle</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/b896199bee9ca0e125f6ec366a265418a8f3290e/torch/cuda/gds.py#L174"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.gds.GdsFile.register_handle" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">register_handle</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/b5cf35aa75e0d5087ede9131ab2f970aa2de6509/torch/cuda/gds.py#L174"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.gds.GdsFile.register_handle" title="Link to this definition">#</a></dt>
 <dd><p>Registers file descriptor to the GDS driver.</p>
 <p>This is a wrapper around <code class="docutils literal notranslate"><span class="pre">cuFileHandleRegister</span></code> (CUDA) / <code class="docutils literal notranslate"><span class="pre">hipFileHandleRegister</span></code> (ROCm).</p>
 <dl class="field-list simple">
@@ -3526,7 +3526,7 @@ enqueued raise instead.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.cuda.gds.GdsFile.save_storage">
-<span class="sig-name descname"><span class="pre">save_storage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">storage</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/b896199bee9ca0e125f6ec366a265418a8f3290e/torch/cuda/gds.py#L308"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.gds.GdsFile.save_storage" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">save_storage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">storage</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/b5cf35aa75e0d5087ede9131ab2f970aa2de6509/torch/cuda/gds.py#L308"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.gds.GdsFile.save_storage" title="Link to this definition">#</a></dt>
 <dd><p>Saves data from the storage into the file.</p>
 <p>This is a wrapper around <code class="docutils literal notranslate"><span class="pre">cuFileWrite</span></code> (CUDA) / <code class="docutils literal notranslate"><span class="pre">hipFileWrite</span></code> (ROCm).
 The bytes of the storage are written to the file at <code class="docutils literal notranslate"><span class="pre">offset</span></code>; check
@@ -3563,7 +3563,7 @@ were not written. A short write does not raise.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="torch.cuda.gds.GdsFile.save_storage_async">
-<span class="sig-name descname"><span class="pre">save_storage_async</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">storage</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/b896199bee9ca0e125f6ec366a265418a8f3290e/torch/cuda/gds.py#L343"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.gds.GdsFile.save_storage_async" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">save_storage_async</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">storage</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/b5cf35aa75e0d5087ede9131ab2f970aa2de6509/torch/cuda/gds.py#L343"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.gds.GdsFile.save_storage_async" title="Link to this definition">#</a></dt>
 <dd><p>Saves data from the storage into the file, ordered on the current stream.</p>
 <p>This is a wrapper around <code class="docutils literal notranslate"><span class="pre">cuFileWriteAsync</span></code> (CUDA) / <code class="docutils literal notranslate"><span class="pre">hipFileWriteAsync</span></code> (ROCm).
 The bytes of the storage are written to the file at <code class="docutils literal notranslate"><span class="pre">offset</span></code>; check

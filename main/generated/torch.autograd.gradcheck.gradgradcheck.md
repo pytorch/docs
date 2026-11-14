@@ -1,6 +1,6 @@
 # torch.autograd.gradcheck.gradgradcheck
 
-torch.autograd.gradcheck.gradgradcheck(*func*, *inputs*, *grad_outputs=None*, ***, *eps=1e-06*, *atol=1e-05*, *rtol=0.001*, *gen_non_contig_grad_outputs=False*, *raise_exception=True*, *nondet_tol=0.0*, *check_undefined_grad=True*, *check_grad_dtypes=False*, *check_batched_grad=False*, *check_fwd_over_rev=False*, *check_rev_over_rev=True*, *fast_mode=False*, *masked=False*)[[source]](https://github.com/pytorch/pytorch/blob/b896199bee9ca0e125f6ec366a265418a8f3290e/torch/autograd/gradcheck.py#L2182)
+torch.autograd.gradcheck.gradgradcheck(*func*, *inputs*, *grad_outputs=None*, ***, *eps=1e-06*, *atol=1e-05*, *rtol=0.001*, *gen_non_contig_grad_outputs=False*, *raise_exception=True*, *nondet_tol=0.0*, *check_undefined_grad=True*, *check_grad_dtypes=False*, *check_batched_grad=False*, *check_fwd_over_rev=False*, *check_rev_over_rev=True*, *fast_mode=False*, *masked=False*)[[source]](https://github.com/pytorch/pytorch/blob/b5cf35aa75e0d5087ede9131ab2f970aa2de6509/torch/autograd/gradcheck.py#L2182)
 
 Check gradients of gradients computed via small finite differences
 against analytical gradients wrt tensors in `inputs` and

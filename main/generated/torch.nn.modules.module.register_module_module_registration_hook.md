@@ -1,6 +1,6 @@
 # torch.nn.modules.module.register_module_module_registration_hook
 
-torch.nn.modules.module.register_module_module_registration_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/b896199bee9ca0e125f6ec366a265418a8f3290e/torch/nn/modules/module.py#L165)
+torch.nn.modules.module.register_module_module_registration_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/b5cf35aa75e0d5087ede9131ab2f970aa2de6509/torch/nn/modules/module.py#L165)
 
 Register a module registration hook common to all modules.
 
