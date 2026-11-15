@@ -1,6 +1,6 @@
 # ScalingAlgorithm
 
-*class*torch.nn.functional.ScalingAlgorithm(*value*, *names=None*, ***, *module=None*, *qualname=None*, *type=None*, *start=1*, *boundary=None*)[[source]](https://github.com/pytorch/pytorch/blob/b5cf35aa75e0d5087ede9131ab2f970aa2de6509/torch/nn/functional.py#L42)
+*class*torch.nn.functional.ScalingAlgorithm(*value*, *names=None*, ***, *module=None*, *qualname=None*, *type=None*, *start=1*, *boundary=None*)[[source]](https://github.com/pytorch/pytorch/blob/c79633996ebc2114482ae5a4ff3cb409d79a8a9c/torch/nn/functional.py#L42)
 
 Algorithm used to compute and encode block scales for [`quantize_tensor()`](torch.nn.functional.quantize_tensor.html#torch.nn.functional.quantize_tensor).
 

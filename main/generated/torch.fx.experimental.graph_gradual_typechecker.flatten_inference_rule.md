@@ -1,6 +1,6 @@
 # torch.fx.experimental.graph_gradual_typechecker.flatten_inference_rule
 
-torch.fx.experimental.graph_gradual_typechecker.flatten_inference_rule(*n*)[[source]](https://github.com/pytorch/pytorch/blob/b5cf35aa75e0d5087ede9131ab2f970aa2de6509/torch/fx/experimental/graph_gradual_typechecker.py#L616)
+torch.fx.experimental.graph_gradual_typechecker.flatten_inference_rule(*n*)[[source]](https://github.com/pytorch/pytorch/blob/c79633996ebc2114482ae5a4ff3cb409d79a8a9c/torch/fx/experimental/graph_gradual_typechecker.py#L616)
 
 Applies the flatten shape information to the input then gets the
 greatest upper bound of the resulting type and the existing type

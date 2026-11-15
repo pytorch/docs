@@ -1,5 +1,5 @@
 # torch.optim.swa_utils.get_swa_avg_fn
 
-torch.optim.swa_utils.get_swa_avg_fn()[[source]](https://github.com/pytorch/pytorch/blob/b5cf35aa75e0d5087ede9131ab2f970aa2de6509/torch/optim/swa_utils.py#L153)
+torch.optim.swa_utils.get_swa_avg_fn()[[source]](https://github.com/pytorch/pytorch/blob/c79633996ebc2114482ae5a4ff3cb409d79a8a9c/torch/optim/swa_utils.py#L153)
 
 Get the function applying stochastic weight average (SWA) across a single param.

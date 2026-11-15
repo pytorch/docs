@@ -1,5 +1,5 @@
 # torch.utils.hipify.hipify_python.fix_static_global_kernels
 
-torch.utils.hipify.hipify_python.fix_static_global_kernels(*in_txt*)[[source]](https://github.com/pytorch/pytorch/blob/b5cf35aa75e0d5087ede9131ab2f970aa2de6509/torch/utils/hipify/hipify_python.py#L1016)
+torch.utils.hipify.hipify_python.fix_static_global_kernels(*in_txt*)[[source]](https://github.com/pytorch/pytorch/blob/c79633996ebc2114482ae5a4ff3cb409d79a8a9c/torch/utils/hipify/hipify_python.py#L1016)
 
 Static global kernels in HIP results in a compilation error.
