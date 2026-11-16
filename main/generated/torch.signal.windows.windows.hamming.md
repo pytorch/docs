@@ -1,6 +1,6 @@
 # torch.signal.windows.windows.hamming
 
-torch.signal.windows.windows.hamming(*M*, ***, *sym=True*, *dtype=None*, *layout=torch.strided*, *device=None*, *requires_grad=False*)[[source]](https://github.com/pytorch/pytorch/blob/c79633996ebc2114482ae5a4ff3cb409d79a8a9c/torch/signal/windows/windows.py#L428)
+torch.signal.windows.windows.hamming(*M*, ***, *sym=True*, *dtype=None*, *layout=torch.strided*, *device=None*, *requires_grad=False*)[[source]](https://github.com/pytorch/pytorch/blob/11b971398ac96eefe8b5d8296dabcc43092d8b6e/torch/signal/windows/windows.py#L428)
 
 Computes the Hamming window.
 

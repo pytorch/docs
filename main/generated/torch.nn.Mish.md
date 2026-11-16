@@ -1,6 +1,6 @@
 # Mish
 
-*class*torch.nn.Mish(*inplace=False*)[[source]](https://github.com/pytorch/pytorch/blob/c79633996ebc2114482ae5a4ff3cb409d79a8a9c/torch/nn/modules/activation.py#L486)
+*class*torch.nn.Mish(*inplace=False*)[[source]](https://github.com/pytorch/pytorch/blob/11b971398ac96eefe8b5d8296dabcc43092d8b6e/torch/nn/modules/activation.py#L486)
 
 Applies the Mish function, element-wise.
 
@@ -29,7 +29,7 @@ Examples:
 >>> output = m(input)
 ```
 
-extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/c79633996ebc2114482ae5a4ff3cb409d79a8a9c/torch/nn/modules/activation.py#L523)
+extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/11b971398ac96eefe8b5d8296dabcc43092d8b6e/torch/nn/modules/activation.py#L523)
 
 Return the extra representation of the module.
 
@@ -37,7 +37,7 @@ Return type:
 
 [str](https://docs.python.org/3/builtins/stdtypes.html#str)
 
-forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/c79633996ebc2114482ae5a4ff3cb409d79a8a9c/torch/nn/modules/activation.py#L517)
+forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/11b971398ac96eefe8b5d8296dabcc43092d8b6e/torch/nn/modules/activation.py#L517)
 
 Runs the forward pass.
 

@@ -1,6 +1,6 @@
 # torch.fx.experimental.unification.multipledispatch.variadic.isvariadic
 
-torch.fx.experimental.unification.multipledispatch.variadic.isvariadic(*obj*)[[source]](https://github.com/pytorch/pytorch/blob/c79633996ebc2114482ae5a4ff3cb409d79a8a9c/torch/fx/experimental/unification/multipledispatch/variadic.py#L36)
+torch.fx.experimental.unification.multipledispatch.variadic.isvariadic(*obj*)[[source]](https://github.com/pytorch/pytorch/blob/11b971398ac96eefe8b5d8296dabcc43092d8b6e/torch/fx/experimental/unification/multipledispatch/variadic.py#L36)
 
 Check whether the type obj is variadic.
 :param obj: The type to check

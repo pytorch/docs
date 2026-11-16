@@ -1,6 +1,6 @@
 # FakeQuantize
 
-*class*torch.ao.quantization.fake_quantize.FakeQuantize(*observer=<class 'torch.ao.quantization.observer.MovingAverageMinMaxObserver'>*, *quant_min=None*, *quant_max=None*, *is_dynamic=False*, ***observer_kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/c79633996ebc2114482ae5a4ff3cb409d79a8a9c/torch/ao/quantization/fake_quantize.py#L128)
+*class*torch.ao.quantization.fake_quantize.FakeQuantize(*observer=<class 'torch.ao.quantization.observer.MovingAverageMinMaxObserver'>*, *quant_min=None*, *quant_max=None*, *is_dynamic=False*, ***observer_kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/11b971398ac96eefe8b5d8296dabcc43092d8b6e/torch/ao/quantization/fake_quantize.py#L128)
 
 Simulate the quantize and dequantize operations in training time.
 

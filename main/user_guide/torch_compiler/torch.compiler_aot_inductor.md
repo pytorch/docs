@@ -255,7 +255,7 @@ On ROCm, a compiled model copies its constants to the GPU through two pinned sta
 
 ## API Reference
 
-torch._inductor.aoti_compile_and_package(*exported_program*, *_deprecated_unused_args=None*, *_deprecated_unused_kwargs=None*, ***, *package_path=None*, *inductor_configs=None*)[[source]](https://github.com/pytorch/pytorch/blob/c79633996ebc2114482ae5a4ff3cb409d79a8a9c/torch/_inductor/__init__.py#L64)
+torch._inductor.aoti_compile_and_package(*exported_program*, *_deprecated_unused_args=None*, *_deprecated_unused_kwargs=None*, ***, *package_path=None*, *inductor_configs=None*)[[source]](https://github.com/pytorch/pytorch/blob/11b971398ac96eefe8b5d8296dabcc43092d8b6e/torch/_inductor/__init__.py#L64)
 
 Compiles the exported program with AOTInductor, and packages it into a .pt2
 artifact specified by the input package_path. To load the package, you can
@@ -306,7 +306,7 @@ Return type:
 
 [str](https://docs.python.org/3/builtins/stdtypes.html#str)
 
-torch._inductor.aoti_load_package(*path*, *run_single_threaded=False*, *device_index=-1*, ***, *num_runners=1*, *use_stream_affinity=False*)[[source]](https://github.com/pytorch/pytorch/blob/c79633996ebc2114482ae5a4ff3cb409d79a8a9c/torch/_inductor/__init__.py#L257)
+torch._inductor.aoti_load_package(*path*, *run_single_threaded=False*, *device_index=-1*, ***, *num_runners=1*, *use_stream_affinity=False*)[[source]](https://github.com/pytorch/pytorch/blob/11b971398ac96eefe8b5d8296dabcc43092d8b6e/torch/_inductor/__init__.py#L257)
 
 Loads a model from a PT2 package or an extracted PT2 package directory.
 

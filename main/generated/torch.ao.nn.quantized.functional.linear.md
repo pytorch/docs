@@ -1,6 +1,6 @@
 # linear
 
-*class*torch.ao.nn.quantized.functional.linear(*input*, *weight*, *bias=None*, *scale=None*, *zero_point=None*)[[source]](https://github.com/pytorch/pytorch/blob/c79633996ebc2114482ae5a4ff3cb409d79a8a9c/torch/ao/nn/quantized/functional.py#L441)
+*class*torch.ao.nn.quantized.functional.linear(*input*, *weight*, *bias=None*, *scale=None*, *zero_point=None*)[[source]](https://github.com/pytorch/pytorch/blob/11b971398ac96eefe8b5d8296dabcc43092d8b6e/torch/ao/nn/quantized/functional.py#L441)
 
 Applies a linear transformation to the incoming quantized data:
 y=xAT+by = xA^T + by=xAT+b.

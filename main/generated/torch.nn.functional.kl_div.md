@@ -1,6 +1,6 @@
 # torch.nn.functional.kl_div
 
-torch.nn.functional.kl_div(*input*, *target*, *size_average=None*, *reduce=None*, *reduction='mean'*, *log_target=False*)[[source]](https://github.com/pytorch/pytorch/blob/c79633996ebc2114482ae5a4ff3cb409d79a8a9c/torch/nn/functional.py#L3448)
+torch.nn.functional.kl_div(*input*, *target*, *size_average=None*, *reduce=None*, *reduction='mean'*, *log_target=False*)[[source]](https://github.com/pytorch/pytorch/blob/11b971398ac96eefe8b5d8296dabcc43092d8b6e/torch/nn/functional.py#L3448)
 
 Compute the KL Divergence loss.
 

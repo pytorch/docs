@@ -1,6 +1,6 @@
 # all_node_args_except_first
 
-*class*torch.ao.quantization.fx.utils.all_node_args_except_first(*node*)[[source]](https://github.com/pytorch/pytorch/blob/c79633996ebc2114482ae5a4ff3cb409d79a8a9c/torch/ao/quantization/fx/utils.py#L369)
+*class*torch.ao.quantization.fx.utils.all_node_args_except_first(*node*)[[source]](https://github.com/pytorch/pytorch/blob/11b971398ac96eefe8b5d8296dabcc43092d8b6e/torch/ao/quantization/fx/utils.py#L369)
 
 Returns all node arg indices after first
 

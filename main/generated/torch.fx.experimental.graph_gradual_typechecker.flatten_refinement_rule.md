@@ -1,6 +1,6 @@
 # torch.fx.experimental.graph_gradual_typechecker.flatten_refinement_rule
 
-torch.fx.experimental.graph_gradual_typechecker.flatten_refinement_rule(*n*)[[source]](https://github.com/pytorch/pytorch/blob/c79633996ebc2114482ae5a4ff3cb409d79a8a9c/torch/fx/experimental/graph_gradual_typechecker.py#L837)
+torch.fx.experimental.graph_gradual_typechecker.flatten_refinement_rule(*n*)[[source]](https://github.com/pytorch/pytorch/blob/11b971398ac96eefe8b5d8296dabcc43092d8b6e/torch/fx/experimental/graph_gradual_typechecker.py#L837)
 
 Generates equality constraints between the dimensions of the input and output
 that will not be involved in the flatten operation
