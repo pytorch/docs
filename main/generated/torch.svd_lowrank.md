@@ -1,6 +1,6 @@
 # torch.svd_lowrank
 
-torch.svd_lowrank(*A*, *q=6*, *niter=2*, *M=None*)[[source]](https://github.com/pytorch/pytorch/blob/11b971398ac96eefe8b5d8296dabcc43092d8b6e/torch/_lowrank.py#L85)
+torch.svd_lowrank(*A*, *q=6*, *niter=2*, *M=None*)[[source]](https://github.com/pytorch/pytorch/blob/bdfbe0c16b37fa7a4c09348321cabd906cb4019a/torch/_lowrank.py#L85)
 
 Return the singular value decomposition `(U, S, V)` of a matrix,
 batches of matrices, or a sparse matrix AAA such that
@@ -36,30 +36,25 @@ higher performance characteristics. The low-rank SVD
 will be useful for huge sparse matrices that
 [`torch.linalg.svd()`](torch.linalg.svd.html#torch.linalg.svd) cannot handle.
 
-Args::
+Parameters:
 
-A (Tensor): the input tensor of size (∗,m,n)(*, m, n)(∗,m,n)
-
-q (int, optional): a slightly overestimated rank of A.
-
-niter (int, optional): the number of subspace iterations to
-
+- **A** ([*Tensor*](../tensors.html#torch.Tensor)) - the input tensor of size (∗,m,n)(*, m, n)(∗,m,n)
+- **q** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - a slightly overestimated rank of A.
+- **niter** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - the number of subspace iterations to
 conduct; niter must be a nonnegative
 integer, and defaults to 2
-
-M (Tensor, optional): the input tensor's mean of size
-
+- **M** ([*Tensor*](../tensors.html#torch.Tensor)*,**optional*) - the input tensor's mean of size
 (∗,m,n)(*, m, n)(∗,m,n), which will be broadcasted
 to the size of A in this function.
 
-References::
+Return type:
+
+[tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[*Tensor*](../tensors.html#torch.Tensor), [*Tensor*](../tensors.html#torch.Tensor), [*Tensor*](../tensors.html#torch.Tensor)]
+
+References
 
 - Nathan Halko, Per-Gunnar Martinsson, and Joel Tropp, Finding
 structure with randomness: probabilistic algorithms for
 constructing approximate matrix decompositions,
 arXiv:0909.4061 [math.NA; math.PR], 2009 (available at
 [arXiv](https://arxiv.org/abs/0909.4061)).
-
-Return type:
-
-[tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[*Tensor*](../tensors.html#torch.Tensor), [*Tensor*](../tensors.html#torch.Tensor), [*Tensor*](../tensors.html#torch.Tensor)]

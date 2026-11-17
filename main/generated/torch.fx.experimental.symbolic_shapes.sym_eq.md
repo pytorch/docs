@@ -1,6 +1,6 @@
 # torch.fx.experimental.symbolic_shapes.sym_eq
 
-torch.fx.experimental.symbolic_shapes.sym_eq(*x*, *y*)[[source]](https://github.com/pytorch/pytorch/blob/11b971398ac96eefe8b5d8296dabcc43092d8b6e/torch/fx/experimental/symbolic_shapes.py#L1716)
+torch.fx.experimental.symbolic_shapes.sym_eq(*x*, *y*)[[source]](https://github.com/pytorch/pytorch/blob/bdfbe0c16b37fa7a4c09348321cabd906cb4019a/torch/fx/experimental/symbolic_shapes.py#L1716)
 
 Like ==, but when run on list/tuple, it will recursively test equality
 and use sym_and to join the results together, without guarding.

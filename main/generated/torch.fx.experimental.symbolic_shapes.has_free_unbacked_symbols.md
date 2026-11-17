@@ -1,6 +1,6 @@
 # torch.fx.experimental.symbolic_shapes.has_free_unbacked_symbols
 
-torch.fx.experimental.symbolic_shapes.has_free_unbacked_symbols(*x*)[[source]](https://github.com/pytorch/pytorch/blob/11b971398ac96eefe8b5d8296dabcc43092d8b6e/torch/fx/experimental/symbolic_shapes.py#L1103)
+torch.fx.experimental.symbolic_shapes.has_free_unbacked_symbols(*x*)[[source]](https://github.com/pytorch/pytorch/blob/bdfbe0c16b37fa7a4c09348321cabd906cb4019a/torch/fx/experimental/symbolic_shapes.py#L1103)
 
 Faster version of bool(free_unbacked_symbols(val))
 

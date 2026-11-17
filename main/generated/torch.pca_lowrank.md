@@ -1,6 +1,6 @@
 # torch.pca_lowrank
 
-torch.pca_lowrank(*A*, *q=None*, *center=True*, *niter=2*)[[source]](https://github.com/pytorch/pytorch/blob/11b971398ac96eefe8b5d8296dabcc43092d8b6e/torch/_lowrank.py#L183)
+torch.pca_lowrank(*A*, *q=None*, *center=True*, *niter=2*)[[source]](https://github.com/pytorch/pytorch/blob/bdfbe0c16b37fa7a4c09348321cabd906cb4019a/torch/_lowrank.py#L183)
 
 Performs linear Principal Component Analysis (PCA) on a low-rank
 matrix, batches of such matrices, or sparse matrix.
@@ -54,12 +54,10 @@ Return type:
 
 [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[*Tensor*](../tensors.html#torch.Tensor), [*Tensor*](../tensors.html#torch.Tensor), [*Tensor*](../tensors.html#torch.Tensor)]
 
-References:
+References
 
-```
 - Nathan Halko, Per-Gunnar Martinsson, and Joel Tropp, Finding
- structure with randomness: probabilistic algorithms for
- constructing approximate matrix decompositions,
- arXiv:0909.4061 [math.NA; math.PR], 2009 (available at
- `arXiv <http://arxiv.org/abs/0909.4061>`_).
-```
+structure with randomness: probabilistic algorithms for
+constructing approximate matrix decompositions,
+arXiv:0909.4061 [math.NA; math.PR], 2009 (available at
+[arXiv](http://arxiv.org/abs/0909.4061)).

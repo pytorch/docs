@@ -1,6 +1,6 @@
 # torch.Tensor.share_memory_
 
-Tensor.share_memory_()[[source]](https://github.com/pytorch/pytorch/blob/11b971398ac96eefe8b5d8296dabcc43092d8b6e/torch/_tensor.py#L866)
+Tensor.share_memory_()[[source]](https://github.com/pytorch/pytorch/blob/bdfbe0c16b37fa7a4c09348321cabd906cb4019a/torch/_tensor.py#L866)
 
 Moves the underlying storage to shared memory.
 
