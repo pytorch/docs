@@ -1,6 +1,6 @@
 # torch.nn.functional.prelu
 
-torch.nn.functional.prelu(*input*, *weight*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/bdfbe0c16b37fa7a4c09348321cabd906cb4019a/torch/nn/functional.py#L2036)
+torch.nn.functional.prelu(*input*, *weight*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/5b1433112eb30368cb8f63b3bf0145b391ec72a5/torch/nn/functional.py#L2036)
 
 Applies element-wise the function
 PReLU(x)=max⁡(0,x)+weight∗min⁡(0,x)\text{PReLU}(x) = \max(0,x) + \text{weight} * \min(0,x)PReLU(x)=max(0,x)+weight∗min(0,x) where weight is a

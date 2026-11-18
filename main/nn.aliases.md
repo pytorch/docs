@@ -226,7 +226,7 @@ The following are aliases to their counterparts in `torch.nn` in the `torch.nn.m
 
 ## torch.nn.modules.utils
 
-torch.nn.modules.utils.consume_prefix_in_state_dict_if_present(*state_dict*, *prefix*)[[source]](https://github.com/pytorch/pytorch/blob/bdfbe0c16b37fa7a4c09348321cabd906cb4019a/torch/nn/modules/utils.py#L48)
+torch.nn.modules.utils.consume_prefix_in_state_dict_if_present(*state_dict*, *prefix*)[[source]](https://github.com/pytorch/pytorch/blob/5b1433112eb30368cb8f63b3bf0145b391ec72a5/torch/nn/modules/utils.py#L48)
 
 Strip the prefix in state_dict in place, if any.
 

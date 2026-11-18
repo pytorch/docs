@@ -1,6 +1,6 @@
 # torch.nn.utils.rnn.pad_sequence
 
-torch.nn.utils.rnn.pad_sequence(*sequences*, *batch_first=False*, *padding_value=0.0*, *padding_side='right'*)[[source]](https://github.com/pytorch/pytorch/blob/bdfbe0c16b37fa7a4c09348321cabd906cb4019a/torch/nn/utils/rnn.py#L404)
+torch.nn.utils.rnn.pad_sequence(*sequences*, *batch_first=False*, *padding_value=0.0*, *padding_side='right'*)[[source]](https://github.com/pytorch/pytorch/blob/5b1433112eb30368cb8f63b3bf0145b391ec72a5/torch/nn/utils/rnn.py#L404)
 
 Pad a list of variable length Tensors with `padding_value`.
 

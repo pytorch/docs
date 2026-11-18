@@ -1,6 +1,6 @@
 # torch.use_deterministic_algorithms
 
-torch.use_deterministic_algorithms(*mode*, ***, *warn_only=False*)[[source]](https://github.com/pytorch/pytorch/blob/bdfbe0c16b37fa7a4c09348321cabd906cb4019a/torch/__init__.py#L1764)
+torch.use_deterministic_algorithms(*mode*, ***, *warn_only=False*)[[source]](https://github.com/pytorch/pytorch/blob/5b1433112eb30368cb8f63b3bf0145b391ec72a5/torch/__init__.py#L1764)
 
 Sets whether PyTorch operations must use "deterministic"
 algorithms. That is, algorithms which, given the same input, and when
@@ -61,6 +61,7 @@ deterministically when `mode=True`:
 > an MPS tensor
 > - [`torch.nn.functional.interpolate()`](torch.nn.functional.interpolate.html#torch.nn.functional.interpolate) when attempting to differentiate an MPS tensor
 > in some cases
+> - [`torch.nn.CTCLoss`](torch.nn.CTCLoss.html#torch.nn.CTCLoss) when attempting to differentiate a CUDA tensor
 
 The following normally-nondeterministic operations will throw a
 [`RuntimeError`](https://docs.python.org/3/builtins/exceptions.html#RuntimeError) when `mode=True`:
@@ -87,7 +88,6 @@ The following normally-nondeterministic operations will throw a
 > - [`torch.nn.ReflectionPad2d`](torch.nn.ReflectionPad2d.html#torch.nn.ReflectionPad2d) when attempting to differentiate a CUDA tensor
 > - [`torch.nn.ReflectionPad3d`](torch.nn.ReflectionPad3d.html#torch.nn.ReflectionPad3d) when attempting to differentiate a CUDA tensor
 > - [`torch.nn.NLLLoss`](torch.nn.NLLLoss.html#torch.nn.NLLLoss) when called on a CUDA tensor
-> - [`torch.nn.CTCLoss`](torch.nn.CTCLoss.html#torch.nn.CTCLoss) when attempting to differentiate a CUDA tensor
 > - [`torch.nn.EmbeddingBag`](torch.nn.EmbeddingBag.html#torch.nn.EmbeddingBag) when attempting to differentiate a CUDA tensor when
 > `mode='max'`
 > - [`torch.Tensor.put_()`](torch.Tensor.put_.html#torch.Tensor.put_) when `accumulate=False`

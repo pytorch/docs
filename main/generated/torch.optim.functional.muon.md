@@ -1,6 +1,6 @@
 # torch.optim.functional.muon
 
-torch.optim.functional.muon(*params*, *grads*, *muon_momentum_bufs*, ***, *foreach=None*, *lr*, *weight_decay*, *momentum*, *nesterov*, *ns_coefficients*, *ns_steps*, *eps*, *adjust_lr_fn*, *has_complex*)[[source]](https://github.com/pytorch/pytorch/blob/bdfbe0c16b37fa7a4c09348321cabd906cb4019a/torch/optim/_muon.py#L355)
+torch.optim.functional.muon(*params*, *grads*, *muon_momentum_bufs*, ***, *foreach=None*, *lr*, *weight_decay*, *momentum*, *nesterov*, *ns_coefficients*, *ns_steps*, *eps*, *adjust_lr_fn*, *has_complex*)[[source]](https://github.com/pytorch/pytorch/blob/5b1433112eb30368cb8f63b3bf0145b391ec72a5/torch/optim/_muon.py#L355)
 
 Functional API that performs Muon algorithm computation.
 

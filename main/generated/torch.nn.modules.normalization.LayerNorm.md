@@ -1,6 +1,6 @@
 # LayerNorm
 
-*class*torch.nn.modules.normalization.LayerNorm(*normalized_shape*, *eps=1e-05*, *elementwise_affine=True*, *bias=True*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/bdfbe0c16b37fa7a4c09348321cabd906cb4019a/torch/nn/modules/normalization.py#L105)
+*class*torch.nn.modules.normalization.LayerNorm(*normalized_shape*, *eps=1e-05*, *elementwise_affine=True*, *bias=True*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/5b1433112eb30368cb8f63b3bf0145b391ec72a5/torch/nn/modules/normalization.py#L105)
 
 Applies Layer Normalization over a mini-batch of inputs.
 

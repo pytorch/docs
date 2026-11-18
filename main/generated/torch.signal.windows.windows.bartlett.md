@@ -1,6 +1,6 @@
 # torch.signal.windows.windows.bartlett
 
-torch.signal.windows.windows.bartlett(*M*, ***, *sym=True*, *dtype=None*, *layout=torch.strided*, *device=None*, *requires_grad=False*)[[source]](https://github.com/pytorch/pytorch/blob/bdfbe0c16b37fa7a4c09348321cabd906cb4019a/torch/signal/windows/windows.py#L597)
+torch.signal.windows.windows.bartlett(*M*, ***, *sym=True*, *dtype=None*, *layout=torch.strided*, *device=None*, *requires_grad=False*)[[source]](https://github.com/pytorch/pytorch/blob/5b1433112eb30368cb8f63b3bf0145b391ec72a5/torch/signal/windows/windows.py#L597)
 
 Computes the Bartlett window.
 

@@ -323,7 +323,8 @@ either using `torch.manual_seed()` outside of vmap or by using generators.
 
 Note
 
-Finally, our randomness differs from JAX because we aren't using a stateless PRNG, in part because PyTorch
-doesn't have full support for a stateless PRNG. Instead, we've introduced a flag system to allow for the
+Finally, our randomness differs from JAX because vmap's randomness handling is built on PyTorch's stateful
+generators rather than a stateless PRNG. Instead, we've introduced a flag system to allow for the
 most common forms of randomness that we see. If your use case does not fit these forms of randomness, please
-file an issue.
+file an issue. For a prototype JAX-style stateless PRNG API, see [`torch.func._random`](func._random.html#module-torch.func._random). Note that it does
+not yet support vmap; it batches through a leading batch dimension on its keys instead.

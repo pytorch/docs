@@ -1,6 +1,6 @@
 # torch.nn.functional.scaled_mm
 
-torch.nn.functional.scaled_mm(*mat_a*, *mat_b*, *scale_a*, *scale_recipe_a*, *scale_b*, *scale_recipe_b*, *swizzle_a=None*, *swizzle_b=None*, *bias=None*, *output_dtype=torch.bfloat16*, *contraction_dim=()*, *use_fast_accum=False*)[[source]](https://github.com/pytorch/pytorch/blob/bdfbe0c16b37fa7a4c09348321cabd906cb4019a/torch/nn/functional.py#L7512)
+torch.nn.functional.scaled_mm(*mat_a*, *mat_b*, *scale_a*, *scale_recipe_a*, *scale_b*, *scale_recipe_b*, *swizzle_a=None*, *swizzle_b=None*, *bias=None*, *output_dtype=torch.bfloat16*, *contraction_dim=()*, *use_fast_accum=False*)[[source]](https://github.com/pytorch/pytorch/blob/5b1433112eb30368cb8f63b3bf0145b391ec72a5/torch/nn/functional.py#L7512)
 
 scaled_mm(mat_a, mat_b, scale_a, scale_recipe_a, scale_b, scale_recipe_b, swizzle_a, swizzle_b, bias, output_dtype,
 
@@ -43,3 +43,14 @@ MNxK4 forwards the flag to cuBLASLt.
 Return type:
 
 [*Tensor*](../tensors.html#torch.Tensor)
+
+Note
+
+`SwizzleType.SWIZZLE_128` is the gfx1250 layout for MX (block 32)
+and NVFP4 (block 16). Each block scale has
+`rows * round_up(K / block, 128 / block)` elements: K-groups of
+`128 / block` scales, stored group-major. When `K` is a multiple
+of 128 and `K > 128`, linear scales have that same count, so passing
+them with `SWIZZLE_128` is accepted and the result is wrong. Reorder
+the scales. `torch._scaled_mm` cannot name a swizzle; on gfx1250 use
+this function and pass `SWIZZLE_128`.

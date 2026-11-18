@@ -1,6 +1,6 @@
 # torch.nn.utils.prune.custom_from_mask
 
-torch.nn.utils.prune.custom_from_mask(*module*, *name*, *mask*)[[source]](https://github.com/pytorch/pytorch/blob/bdfbe0c16b37fa7a4c09348321cabd906cb4019a/torch/nn/utils/prune.py#L1164)
+torch.nn.utils.prune.custom_from_mask(*module*, *name*, *mask*)[[source]](https://github.com/pytorch/pytorch/blob/5b1433112eb30368cb8f63b3bf0145b391ec72a5/torch/nn/utils/prune.py#L1164)
 
 Prune tensor corresponding to parameter called `name` in `module` by applying the pre-computed mask in `mask`.
 

@@ -1,0 +1,6 @@
+﻿torch.func.\_random.fold\_in
+============================
+
+.. currentmodule:: torch.func._random
+
+.. autofunction:: fold_in

@@ -1,6 +1,6 @@
 # torch.manual_seed
 
-torch.manual_seed(*seed*)[[source]](https://github.com/pytorch/pytorch/blob/bdfbe0c16b37fa7a4c09348321cabd906cb4019a/torch/random.py#L49)
+torch.manual_seed(*seed*)[[source]](https://github.com/pytorch/pytorch/blob/5b1433112eb30368cb8f63b3bf0145b391ec72a5/torch/random.py#L49)
 
 Sets the seed for generating random numbers on all devices. Returns a
 torch.Generator object.
@@ -20,4 +20,4 @@ See also
 
 For a stateless, JAX-style PRNG API (explicit `key`, `split`,
 `fold_in`) that does not touch global generator state, see the
-experimental `torch.func._random` module.
+experimental [`torch.func._random`](../func._random.html#module-torch.func._random) module.

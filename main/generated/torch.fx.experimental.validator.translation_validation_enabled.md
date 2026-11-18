@@ -1,6 +1,6 @@
 # torch.fx.experimental.validator.translation_validation_enabled
 
-torch.fx.experimental.validator.translation_validation_enabled()[[source]](https://github.com/pytorch/pytorch/blob/bdfbe0c16b37fa7a4c09348321cabd906cb4019a/torch/fx/experimental/validator.py#L679)
+torch.fx.experimental.validator.translation_validation_enabled()[[source]](https://github.com/pytorch/pytorch/blob/5b1433112eb30368cb8f63b3bf0145b391ec72a5/torch/fx/experimental/validator.py#L679)
 
 Return type:
 

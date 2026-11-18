@@ -1,6 +1,6 @@
 # torch.fx.experimental.optimization.optimize_for_inference
 
-torch.fx.experimental.optimization.optimize_for_inference(*model*, *pass_config=None*, *tracer=<class 'torch.fx._symbolic_trace.Tracer'>*)[[source]](https://github.com/pytorch/pytorch/blob/bdfbe0c16b37fa7a4c09348321cabd906cb4019a/torch/fx/experimental/optimization.py#L331)
+torch.fx.experimental.optimization.optimize_for_inference(*model*, *pass_config=None*, *tracer=<class 'torch.fx._symbolic_trace.Tracer'>*)[[source]](https://github.com/pytorch/pytorch/blob/5b1433112eb30368cb8f63b3bf0145b391ec72a5/torch/fx/experimental/optimization.py#L331)
 
 Performs a set of optimization passes to optimize a model for the
 purposes of inference. Specifically, the passes that are run are:

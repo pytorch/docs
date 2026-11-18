@@ -1,6 +1,6 @@
 # torch.fx.experimental.unify_refinements.substitute_all_types
 
-torch.fx.experimental.unify_refinements.substitute_all_types(*graph*, *mapping*)[[source]](https://github.com/pytorch/pytorch/blob/bdfbe0c16b37fa7a4c09348321cabd906cb4019a/torch/fx/experimental/unify_refinements.py#L109)
+torch.fx.experimental.unify_refinements.substitute_all_types(*graph*, *mapping*)[[source]](https://github.com/pytorch/pytorch/blob/5b1433112eb30368cb8f63b3bf0145b391ec72a5/torch/fx/experimental/unify_refinements.py#L109)
 
 Apply the most general unifier to all types in a graph
 till reaching a fixed point. If the input and output graph

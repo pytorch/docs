@@ -1,0 +1,6 @@
+﻿torch.func.\_random.bits
+========================
+
+.. currentmodule:: torch.func._random
+
+.. autofunction:: bits

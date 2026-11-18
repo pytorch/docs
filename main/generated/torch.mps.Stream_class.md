@@ -14,6 +14,6 @@ Parameters:
 the stream. If `device` is `None` (default) or a negative
 integer, this will use the current device.
 
-synchronize()[[source]](https://github.com/pytorch/pytorch/blob/bdfbe0c16b37fa7a4c09348321cabd906cb4019a/torch/mps/streams.py#L46)
+synchronize()[[source]](https://github.com/pytorch/pytorch/blob/5b1433112eb30368cb8f63b3bf0145b391ec72a5/torch/mps/streams.py#L46)
 
 Wait for all the kernels in this stream to complete.

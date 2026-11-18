@@ -1,0 +1,6 @@
+﻿torch.func.\_random.split
+=========================
+
+.. currentmodule:: torch.func._random
+
+.. autofunction:: split

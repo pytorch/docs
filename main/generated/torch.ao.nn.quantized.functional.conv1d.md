@@ -1,6 +1,6 @@
 # conv1d
 
-*class*torch.ao.nn.quantized.functional.conv1d(*input*, *weight*, *bias*, *stride=1*, *padding=0*, *dilation=1*, *groups=1*, *padding_mode='zeros'*, *scale=1.0*, *zero_point=0*, *dtype=torch.quint8*)[[source]](https://github.com/pytorch/pytorch/blob/bdfbe0c16b37fa7a4c09348321cabd906cb4019a/torch/ao/nn/quantized/functional.py#L173)
+*class*torch.ao.nn.quantized.functional.conv1d(*input*, *weight*, *bias*, *stride=1*, *padding=0*, *dilation=1*, *groups=1*, *padding_mode='zeros'*, *scale=1.0*, *zero_point=0*, *dtype=torch.quint8*)[[source]](https://github.com/pytorch/pytorch/blob/5b1433112eb30368cb8f63b3bf0145b391ec72a5/torch/ao/nn/quantized/functional.py#L173)
 
 Applies a 1D convolution over a quantized 1D input composed of several input
 planes.

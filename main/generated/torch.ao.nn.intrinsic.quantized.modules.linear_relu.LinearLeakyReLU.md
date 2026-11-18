@@ -1,6 +1,6 @@
 # LinearLeakyReLU
 
-*class*torch.ao.nn.intrinsic.quantized.modules.linear_relu.LinearLeakyReLU(*in_features*, *out_features*, *negative_slope*, *bias=True*, *dtype=torch.qint8*)[[source]](https://github.com/pytorch/pytorch/blob/bdfbe0c16b37fa7a4c09348321cabd906cb4019a/torch/ao/nn/intrinsic/quantized/modules/linear_relu.py#L58)
+*class*torch.ao.nn.intrinsic.quantized.modules.linear_relu.LinearLeakyReLU(*in_features*, *out_features*, *negative_slope*, *bias=True*, *dtype=torch.qint8*)[[source]](https://github.com/pytorch/pytorch/blob/5b1433112eb30368cb8f63b3bf0145b391ec72a5/torch/ao/nn/intrinsic/quantized/modules/linear_relu.py#L58)
 
 For onednn backend only
 A LinearLeakyReLU module fused from Linear and LeakyReLU modules

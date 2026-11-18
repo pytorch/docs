@@ -1,6 +1,6 @@
 # AdaptiveMaxPool3d
 
-*class*torch.nn.modules.pooling.AdaptiveMaxPool3d(*output_size*, *return_indices=False*)[[source]](https://github.com/pytorch/pytorch/blob/bdfbe0c16b37fa7a4c09348321cabd906cb4019a/torch/nn/modules/pooling.py#L1440)
+*class*torch.nn.modules.pooling.AdaptiveMaxPool3d(*output_size*, *return_indices=False*)[[source]](https://github.com/pytorch/pytorch/blob/5b1433112eb30368cb8f63b3bf0145b391ec72a5/torch/nn/modules/pooling.py#L1440)
 
 Applies a 3D adaptive max pooling over an input signal composed of several input planes.
 
@@ -58,6 +58,6 @@ Examples
 >>> output = m(input)
 ```
 
-forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/bdfbe0c16b37fa7a4c09348321cabd906cb4019a/torch/nn/modules/pooling.py#L1496)
+forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/5b1433112eb30368cb8f63b3bf0145b391ec72a5/torch/nn/modules/pooling.py#L1496)
 
 Runs the forward pass.

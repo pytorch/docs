@@ -1,6 +1,6 @@
 # torch.distributions.utils.logits_to_probs
 
-torch.distributions.utils.logits_to_probs(*logits*, *is_binary=False*)[[source]](https://github.com/pytorch/pytorch/blob/bdfbe0c16b37fa7a4c09348321cabd906cb4019a/torch/distributions/utils.py#L90)
+torch.distributions.utils.logits_to_probs(*logits*, *is_binary=False*)[[source]](https://github.com/pytorch/pytorch/blob/5b1433112eb30368cb8f63b3bf0145b391ec72a5/torch/distributions/utils.py#L90)
 
 Converts a tensor of logits into probabilities. Note that for the
 binary case, each value denotes log odds, whereas for the

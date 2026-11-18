@@ -1,6 +1,6 @@
 # torch.nn.functional.grouped_mm
 
-torch.nn.functional.grouped_mm(*mat_a*, *mat_b*, ***, *offs=None*, *bias=None*, *out_dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/bdfbe0c16b37fa7a4c09348321cabd906cb4019a/torch/nn/functional.py#L7226)
+torch.nn.functional.grouped_mm(*mat_a*, *mat_b*, ***, *offs=None*, *bias=None*, *out_dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/5b1433112eb30368cb8f63b3bf0145b391ec72a5/torch/nn/functional.py#L7226)
 
 Computes a grouped matrix multiply that shares weight shapes across experts but
 allows jagged token counts per expert, which is common in Mixture-of-Experts

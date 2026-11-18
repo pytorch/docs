@@ -1,0 +1,6 @@
+﻿torch.func.\_random.uniform\_
+=============================
+
+.. currentmodule:: torch.func._random
+
+.. autofunction:: uniform_

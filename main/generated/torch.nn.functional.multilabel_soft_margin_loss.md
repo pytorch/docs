@@ -1,6 +1,6 @@
 # torch.nn.functional.multilabel_soft_margin_loss
 
-torch.nn.functional.multilabel_soft_margin_loss(*input*, *target*, *weight=None*, *size_average=None*, *reduce=None*, *reduction='mean'*)[[source]](https://github.com/pytorch/pytorch/blob/bdfbe0c16b37fa7a4c09348321cabd906cb4019a/torch/nn/functional.py#L4607)
+torch.nn.functional.multilabel_soft_margin_loss(*input*, *target*, *weight=None*, *size_average=None*, *reduce=None*, *reduction='mean'*)[[source]](https://github.com/pytorch/pytorch/blob/5b1433112eb30368cb8f63b3bf0145b391ec72a5/torch/nn/functional.py#L4607)
 
 Compute the multilabel soft margin loss.
 

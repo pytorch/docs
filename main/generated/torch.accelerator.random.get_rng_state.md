@@ -1,6 +1,6 @@
 # torch.accelerator.random.get_rng_state
 
-torch.accelerator.random.get_rng_state(*device=None*, */*)[[source]](https://github.com/pytorch/pytorch/blob/bdfbe0c16b37fa7a4c09348321cabd906cb4019a/torch/accelerator/random.py#L27)
+torch.accelerator.random.get_rng_state(*device=None*, */*)[[source]](https://github.com/pytorch/pytorch/blob/5b1433112eb30368cb8f63b3bf0145b391ec72a5/torch/accelerator/random.py#L27)
 
 Return the RNG state of the default [`torch.Generator`](torch.Generator.html#torch.Generator) for the current [accelerator](../torch.html#accelerators)
 as a torch.Tensor of dtype torch.uint8 for the specified accelerator device.

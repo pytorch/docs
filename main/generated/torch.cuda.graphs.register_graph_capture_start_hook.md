@@ -1,6 +1,6 @@
 # torch.cuda.graphs.register_graph_capture_start_hook
 
-torch.cuda.graphs.register_graph_capture_start_hook(*fn*)[[source]](https://github.com/pytorch/pytorch/blob/bdfbe0c16b37fa7a4c09348321cabd906cb4019a/torch/cuda/graphs.py#L206)
+torch.cuda.graphs.register_graph_capture_start_hook(*fn*)[[source]](https://github.com/pytorch/pytorch/blob/5b1433112eb30368cb8f63b3bf0145b391ec72a5/torch/cuda/graphs.py#L206)
 
 Register a hook run with each CUDA graph as its capture begins. Returns a
 RemovableHandle; call `.remove()` to unregister.

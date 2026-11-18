@@ -1,6 +1,6 @@
 # torch.fx.experimental.merge_matmul.are_nodes_independent
 
-torch.fx.experimental.merge_matmul.are_nodes_independent(*nodes*)[[source]](https://github.com/pytorch/pytorch/blob/bdfbe0c16b37fa7a4c09348321cabd906cb4019a/torch/fx/experimental/merge_matmul.py#L72)
+torch.fx.experimental.merge_matmul.are_nodes_independent(*nodes*)[[source]](https://github.com/pytorch/pytorch/blob/5b1433112eb30368cb8f63b3bf0145b391ec72a5/torch/fx/experimental/merge_matmul.py#L72)
 
 Check if all of the given nodes are pairwise-data independent.
 

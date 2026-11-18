@@ -61,7 +61,7 @@
     <link rel="canonical" href="https://docs.pytorch.org/docs/stable/generated/torch.func.debug_unwrap.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="UX Limitations" href="../func.ux_limitations.html" />
+    <link rel="next" title="torch.func._random" href="../func._random.html" />
     <link rel="prev" title="Patching Batch Norm" href="../func.batch_norm.html" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -80,7 +80,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.16.0a0+gitbdfbe0c )">
+<meta name="llm:version" content="main (2.16.0a0+git5b14331 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -186,7 +186,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.16.0a0+gitbdfbe0c )');
+  document.documentElement.setAttribute('data-version', 'main (2.16.0a0+git5b14331 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3096,6 +3096,7 @@ document.write(`
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="../func.html">torch.func</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../func.whirlwind_tour.html">torch.func Whirlwind Tour</a></li>
 <li class="toctree-l2 current active"><a class="reference internal" href="../func.api.html">torch.func API Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../func._random.html">torch.func._random</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../func.ux_limitations.html">UX Limitations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../func.migrating.html">Migrating from functorch to torch.func</a></li>
 </ul>
@@ -3263,7 +3264,7 @@ document.write(`
 <h1>torch.func.debug_unwrap<a class="headerlink" href="#torch-func-debug-unwrap" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.func.debug_unwrap">
-<span class="sig-prename descclassname"><span class="pre">torch.func.</span></span><span class="sig-name descname"><span class="pre">debug_unwrap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recurse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/bdfbe0c16b37fa7a4c09348321cabd906cb4019a/torch/_functorch/eager_transforms.py#L1947"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.func.debug_unwrap" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.func.</span></span><span class="sig-name descname"><span class="pre">debug_unwrap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recurse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/5b1433112eb30368cb8f63b3bf0145b391ec72a5/torch/_functorch/eager_transforms.py#L1947"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.func.debug_unwrap" title="Link to this definition">#</a></dt>
 <dd><p>Unwraps a functorch tensor (e.g. BatchedTensor, GradTrackingTensor) to its underlying tensor.</p>
 <p>This function should only be used in a debug setting (e.g. trying to print the
 value of a Tensor in a debugger). Otherwise, using the result of function
@@ -3329,11 +3330,11 @@ inside of a function being transformed will lead to undefined behavior.</p>
       </div>
     </a>
     <a class="right-next"
-       href="../func.ux_limitations.html"
+       href="../func._random.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">UX Limitations</p>
+        <p class="prev-next-title">torch.func._random</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -3368,11 +3369,11 @@ inside of a function being transformed will lead to undefined behavior.</p>
       </div>
     </a>
     <a class="right-next"
-       href="../func.ux_limitations.html"
+       href="../func._random.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">UX Limitations</p>
+        <p class="prev-next-title">torch.func._random</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

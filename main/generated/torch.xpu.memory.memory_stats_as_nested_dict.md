@@ -1,6 +1,6 @@
 # torch.xpu.memory.memory_stats_as_nested_dict
 
-torch.xpu.memory.memory_stats_as_nested_dict(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/bdfbe0c16b37fa7a4c09348321cabd906cb4019a/torch/xpu/memory.py#L69)
+torch.xpu.memory.memory_stats_as_nested_dict(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/5b1433112eb30368cb8f63b3bf0145b391ec72a5/torch/xpu/memory.py#L69)
 
 Return the result of `memory_stats()` as a nested dictionary.
 

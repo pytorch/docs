@@ -1,6 +1,6 @@
 # torch.fx.tensor_type.is_more_precise
 
-torch.fx.tensor_type.is_more_precise(*t1*, *t2*)[[source]](https://github.com/pytorch/pytorch/blob/bdfbe0c16b37fa7a4c09348321cabd906cb4019a/torch/fx/tensor_type.py#L101)
+torch.fx.tensor_type.is_more_precise(*t1*, *t2*)[[source]](https://github.com/pytorch/pytorch/blob/5b1433112eb30368cb8f63b3bf0145b391ec72a5/torch/fx/tensor_type.py#L101)
 
 A binary relation denoted by <= that determines if t1 is more precise than t2.
 The relation is reflexive and transitive.

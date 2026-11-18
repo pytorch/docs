@@ -1,6 +1,6 @@
 # torch.linalg.qr
 
-torch.linalg.qr(*A*, *mode='reduced'*, ***, *out=None*)[[source]](https://github.com/pytorch/pytorch/blob/bdfbe0c16b37fa7a4c09348321cabd906cb4019a/torch/linalg/__init__.py#L2878)
+torch.linalg.qr(*A*, *mode='reduced'*, ***, *out=None*)[[source]](https://github.com/pytorch/pytorch/blob/5b1433112eb30368cb8f63b3bf0145b391ec72a5/torch/linalg/__init__.py#L2878)
 
 Computes the QR decomposition of a matrix.
 

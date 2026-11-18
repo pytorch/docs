@@ -1,6 +1,6 @@
 # torch.foreach.minimum
 
-torch.foreach.minimum(*inputs: TensorList*, *other: Scalar*, */*) → [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...][[source]](https://github.com/pytorch/pytorch/blob/bdfbe0c16b37fa7a4c09348321cabd906cb4019a/torch/foreach/__init__.py#L1093)
+torch.foreach.minimum(*inputs: TensorList*, *other: Scalar*, */*) → [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...][[source]](https://github.com/pytorch/pytorch/blob/5b1433112eb30368cb8f63b3bf0145b391ec72a5/torch/foreach/__init__.py#L1093)
 
 torch.foreach.minimum(*inputs: TensorList*, *other: ScalarList*, */*) → [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...]
 

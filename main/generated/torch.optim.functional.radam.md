@@ -1,6 +1,6 @@
 # torch.optim.functional.radam
 
-torch.optim.functional.radam(*params*, *grads*, *exp_avgs*, *exp_avg_sqs*, *state_steps*, *decoupled_weight_decay=False*, *foreach=None*, *differentiable=False*, *capturable=False*, *has_complex=False*, *maximize=False*, ***, *beta1*, *beta2*, *lr*, *weight_decay*, *eps*)[[source]](https://github.com/pytorch/pytorch/blob/bdfbe0c16b37fa7a4c09348321cabd906cb4019a/torch/optim/radam.py#L567)
+torch.optim.functional.radam(*params*, *grads*, *exp_avgs*, *exp_avg_sqs*, *state_steps*, *decoupled_weight_decay=False*, *foreach=None*, *differentiable=False*, *capturable=False*, *has_complex=False*, *maximize=False*, ***, *beta1*, *beta2*, *lr*, *weight_decay*, *eps*)[[source]](https://github.com/pytorch/pytorch/blob/5b1433112eb30368cb8f63b3bf0145b391ec72a5/torch/optim/radam.py#L567)
 
 Functional API that performs RAdam algorithm computation.
 

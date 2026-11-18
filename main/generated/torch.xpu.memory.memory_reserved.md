@@ -1,6 +1,6 @@
 # torch.xpu.memory.memory_reserved
 
-torch.xpu.memory.memory_reserved(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/bdfbe0c16b37fa7a4c09348321cabd906cb4019a/torch/xpu/memory.py#L169)
+torch.xpu.memory.memory_reserved(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/5b1433112eb30368cb8f63b3bf0145b391ec72a5/torch/xpu/memory.py#L169)
 
 Return the current GPU memory managed by the caching allocator in bytes for a given device.
 

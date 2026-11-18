@@ -1,6 +1,6 @@
 # torch.utils.model_dump.get_inline_skeleton
 
-torch.utils.model_dump.get_inline_skeleton()[[source]](https://github.com/pytorch/pytorch/blob/bdfbe0c16b37fa7a4c09348321cabd906cb4019a/torch/utils/model_dump/__init__.py#L475)
+torch.utils.model_dump.get_inline_skeleton()[[source]](https://github.com/pytorch/pytorch/blob/5b1433112eb30368cb8f63b3bf0145b391ec72a5/torch/utils/model_dump/__init__.py#L475)
 
 Get a fully-inlined skeleton of the frontend.
 

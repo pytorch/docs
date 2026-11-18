@@ -85,7 +85,7 @@ window.addEventListener("load", () => mermaid.run());
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.16.0a0+gitbdfbe0c )">
+<meta name="llm:version" content="main (2.16.0a0+git5b14331 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="documentation">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -191,7 +191,7 @@ window.addEventListener("load", () => mermaid.run());
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.16.0a0+gitbdfbe0c )');
+  document.documentElement.setAttribute('data-version', 'main (2.16.0a0+git5b14331 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -4959,6 +4959,10 @@ document.write(`
         <li><a href="generated/torch.nn.functional.ScalingAlgorithm.html#torch.nn.functional.ScalingAlgorithm.bit_length">(torch.nn.functional.ScalingAlgorithm method)</a>
 </li>
       </ul></li>
+      <li><a href="generated/torch.func._random.bits.html#torch.func._random.bits">bits() (in module torch.func._random)</a>
+</li>
+      <li><a href="generated/torch.func._random.bits_.html#torch.func._random.bits_">bits_() (in module torch.func._random)</a>
+</li>
       <li><a href="generated/torch.bitwise_and.html#torch.bitwise_and">bitwise_and() (in module torch)</a>
 
       <ul>
@@ -9078,6 +9082,8 @@ document.write(`
       </ul></li>
       <li><a href="generated/torch.nn.functional.fold.html#torch.nn.functional.fold">fold() (in module torch.nn.functional)</a>
 </li>
+      <li><a href="generated/torch.func._random.fold_in.html#torch.func._random.fold_in">fold_in() (in module torch.func._random)</a>
+</li>
       <li><a href="user_guide/torch_compiler/torch.compiler.config.html#torch.compiler.config.force_disable_caches">force_disable_caches (in module torch.compiler.config)</a>
 </li>
       <li><a href="nn.attention.flex_attention.html#torch.nn.attention.flex_attention.FlexKernelOptions.FORCE_USE_FLEX_ATTENTION">FORCE_USE_FLEX_ATTENTION (torch.nn.attention.flex_attention.FlexKernelOptions attribute)</a>
@@ -12758,6 +12764,8 @@ document.write(`
 </li>
       <li><a href="generated/torch.autograd.profiler_util.Kernel.html#torch.autograd.profiler_util.Kernel">Kernel (class in torch.autograd.profiler_util)</a>
 </li>
+      <li><a href="generated/torch.func._random.key.html#torch.func._random.key">key() (in module torch.func._random)</a>
+</li>
       <li><a href="generated/torch.autograd.profiler.profile.key_averages.html#torch.autograd.profiler.profile.key_averages">key_averages() (torch.autograd.profiler.profile method)</a>
 
       <ul>
@@ -15616,6 +15624,8 @@ document.write(`
 </li>
         <li><a href="func.api.html#module-torch.func">torch.func</a>
 </li>
+        <li><a href="func._random.html#module-torch.func._random">torch.func._random</a>
+</li>
         <li><a href="torch.aliases.html#module-torch.functional">torch.functional</a>
 </li>
         <li><a href="futures.html#module-torch.futures">torch.futures</a>
@@ -17015,10 +17025,10 @@ document.write(`
 </li>
       <li><a href="generated/torch.autograd.function.NestedIOFunction.html#torch.autograd.function.NestedIOFunction">NestedIOFunction (class in torch.autograd.function)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="storage.html#torch.UntypedStorage.new">new() (torch.UntypedStorage method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.new_empty">new_empty() (torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
 
       <ul>
@@ -17202,10 +17212,16 @@ document.write(`
       <li><a href="distributions.html#torch.distributions.normal.Normal">Normal (class in torch.distributions.normal)</a>
 </li>
       <li><a href="generated/torch.normal.html#torch.normal">normal() (in module torch)</a>
-</li>
-      <li><a href="nn.init.html#torch.nn.init.normal_">normal_() (in module torch.nn.init)</a>
 
       <ul>
+        <li><a href="generated/torch.func._random.normal.html#torch.func._random.normal">(in module torch.func._random)</a>
+</li>
+      </ul></li>
+      <li><a href="generated/torch.func._random.normal_.html#torch.func._random.normal_">normal_() (in module torch.func._random)</a>
+
+      <ul>
+        <li><a href="nn.init.html#torch.nn.init.normal_">(in module torch.nn.init)</a>
+</li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.normal_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
 </li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.normal_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
@@ -18418,6 +18434,12 @@ document.write(`
       <li><a href="generated/torch.rand_like.html#torch.rand_like">rand_like() (in module torch)</a>
 </li>
       <li><a href="generated/torch.randint.html#torch.randint">randint() (in module torch)</a>
+
+      <ul>
+        <li><a href="generated/torch.func._random.randint.html#torch.func._random.randint">(in module torch.func._random)</a>
+</li>
+      </ul></li>
+      <li><a href="generated/torch.func._random.randint_.html#torch.func._random.randint_">randint_() (in module torch.func._random)</a>
 </li>
       <li><a href="generated/torch.randint_like.html#torch.randint_like">randint_like() (in module torch)</a>
 </li>
@@ -21488,6 +21510,8 @@ document.write(`
       <li><a href="generated/torch.split.html#torch.split">split() (in module torch)</a>
 
       <ul>
+        <li><a href="generated/torch.func._random.split.html#torch.func._random.split">(in module torch.func._random)</a>
+</li>
         <li><a href="generated/torch.functional.split.html#torch.functional.split">(in module torch.functional)</a>
 </li>
         <li><a href="generated/torch.cuda.green_contexts.GreenContext.html#torch.cuda.green_contexts.GreenContext.split">(torch.cuda.green_contexts.GreenContext static method)</a>
@@ -25719,6 +25743,13 @@ document.write(`
 </li>
       </ul></li>
       <li>
+    torch.func._random
+
+      <ul>
+        <li><a href="func._random.html#module-torch.func._random">module</a>
+</li>
+      </ul></li>
+      <li>
     torch.functional
 
       <ul>
@@ -29030,9 +29061,13 @@ document.write(`
 </li>
       <li><a href="distributions.html#torch.distributions.uniform.Uniform">Uniform (class in torch.distributions.uniform)</a>
 </li>
-      <li><a href="nn.init.html#torch.nn.init.uniform_">uniform_() (in module torch.nn.init)</a>
+      <li><a href="generated/torch.func._random.uniform.html#torch.func._random.uniform">uniform() (in module torch.func._random)</a>
+</li>
+      <li><a href="generated/torch.func._random.uniform_.html#torch.func._random.uniform_">uniform_() (in module torch.func._random)</a>
 
       <ul>
+        <li><a href="nn.init.html#torch.nn.init.uniform_">(in module torch.nn.init)</a>
+</li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT.uniform_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUSPARSELT method)</a>
 </li>
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.uniform_">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
@@ -29112,10 +29147,10 @@ document.write(`
         <li><a href="generated/torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.html#torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS.unsafe_split">(torch.sparse.semi_structured.SparseSemiStructuredTensorCUTLASS method)</a>
 </li>
       </ul></li>
-      <li><a href="distributed/fsdp.html#torch.distributed.fsdp.sharded_grad_scaler.ShardedGradScaler.unscale_">unscale_() (torch.distributed.fsdp.sharded_grad_scaler.ShardedGradScaler method)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="distributed/fsdp.html#torch.distributed.fsdp.sharded_grad_scaler.ShardedGradScaler.unscale_">unscale_() (torch.distributed.fsdp.sharded_grad_scaler.ShardedGradScaler method)</a>
+</li>
       <li><a href="utils.html#torch.utils.hooks.unserializable_hook">unserializable_hook() (in module torch.utils.hooks)</a>
 </li>
       <li><a href="distributed/fsdp.fully_shard.html#torch.distributed.fsdp.FSDPModule.unshard">unshard() (torch.distributed.fsdp.FSDPModule method)</a>
@@ -29714,6 +29749,8 @@ document.write(`
         <li><a href="fx.html#torch.fx.wrap">(in module torch.fx)</a>
 </li>
       </ul></li>
+      <li><a href="fx.html#torch.fx.Tracer.wrap_aliases">wrap_aliases (torch.fx.Tracer attribute)</a>
+</li>
       <li><a href="generated/torch.compiler.wrap_numpy.html#torch.compiler.wrap_numpy">wrap_numpy() (in module torch.compiler)</a>
 </li>
       <li><a href="user_guide/torch_compiler/torch.compiler.config.html#torch.compiler.config.wrap_top_frame">wrap_top_frame (in module torch.compiler.config)</a>
