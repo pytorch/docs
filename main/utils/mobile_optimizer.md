@@ -10,7 +10,7 @@ all-new on-device inference library. You can also review
 documentation on [XNNPACK](https://pytorch.org/executorch/stable/backends-xnnpack.html)
 and [Vulkan](https://pytorch.org/executorch/stable/native-delegates-executorch-vulkan-delegate.html) delegates.
 
-torch.utils.mobile_optimizer.optimize_for_mobile(*script_module*, *optimization_blocklist=None*, *preserved_methods=None*, *backend='CPU'*)[[source]](https://github.com/pytorch/pytorch/blob/5b1433112eb30368cb8f63b3bf0145b391ec72a5/torch/utils/mobile_optimizer.py#L15)
+torch.utils.mobile_optimizer.optimize_for_mobile(*script_module*, *optimization_blocklist=None*, *preserved_methods=None*, *backend='CPU'*)[[source]](https://github.com/pytorch/pytorch/blob/a4a15a72064ca010a723eae7c73835fe206f8de6/torch/utils/mobile_optimizer.py#L15)
 
 Optimize a torch script module for mobile deployment.
 
@@ -31,7 +31,7 @@ Return type:
 
 *RecursiveScriptModule*
 
-torch.utils.mobile_optimizer.generate_mobile_module_lints(*script_module*)[[source]](https://github.com/pytorch/pytorch/blob/5b1433112eb30368cb8f63b3bf0145b391ec72a5/torch/utils/mobile_optimizer.py#L76)
+torch.utils.mobile_optimizer.generate_mobile_module_lints(*script_module*)[[source]](https://github.com/pytorch/pytorch/blob/a4a15a72064ca010a723eae7c73835fe206f8de6/torch/utils/mobile_optimizer.py#L76)
 
 Generate a list of lints for a given torch script module.
 

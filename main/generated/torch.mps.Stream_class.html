@@ -80,7 +80,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.16.0a0+git5b14331 )">
+<meta name="llm:version" content="main (2.16.0a0+gita4a15a7 )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -186,7 +186,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.16.0a0+git5b14331 )');
+  document.documentElement.setAttribute('data-version', 'main (2.16.0a0+gita4a15a7 )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3287,8 +3287,22 @@ integer, this will use the current device.</p>
 </dd>
 </dl>
 <dl class="py method">
+<dt class="sig sig-object py" id="torch.mps.Stream.query">
+<span class="sig-name descname"><span class="pre">query</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a4a15a72064ca010a723eae7c73835fe206f8de6/torch/mps/streams.py#L50"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.mps.Stream.query" title="Link to this definition">#</a></dt>
+<dd><p>Check if all the work submitted has been completed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A boolean indicating if all kernels in this stream are completed.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="torch.mps.Stream.synchronize">
-<span class="sig-name descname"><span class="pre">synchronize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/5b1433112eb30368cb8f63b3bf0145b391ec72a5/torch/mps/streams.py#L46"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.mps.Stream.synchronize" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">synchronize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/a4a15a72064ca010a723eae7c73835fe206f8de6/torch/mps/streams.py#L46"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.mps.Stream.synchronize" title="Link to this definition">#</a></dt>
 <dd><p>Wait for all the kernels in this stream to complete.</p>
 <dl class="field-list simple">
 </dl>
@@ -3416,6 +3430,7 @@ integer, this will use the current device.</p>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.mps.Stream"><code class="docutils literal notranslate"><span class="pre">Stream</span></code></a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.mps.Stream.query"><code class="docutils literal notranslate"><span class="pre">Stream.query()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#torch.mps.Stream.synchronize"><code class="docutils literal notranslate"><span class="pre">Stream.synchronize()</span></code></a></li>
 </ul>
 </li>
@@ -3655,7 +3670,7 @@ integer, this will use the current device.</p>
        "headline": "Stream",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/generated/torch.mps.Stream_class.html",
-       "articleBody": "Stream# class torch.mps.Stream(device=None, **kwargs)# Wrapper around an MPS stream. An MPS stream is a linear sequence of execution that is independent from other streams. Use the stream() context manager to ensure operators run on the corresponding stream. Parameters: device (torch.device or int, optional) \u2013 a device on which to allocate the stream. If device is None (default) or a negative integer, this will use the current device. synchronize()[source]# Wait for all the kernels in this stream to complete.",
+       "articleBody": "Stream# class torch.mps.Stream(device=None, **kwargs)# Wrapper around an MPS stream. An MPS stream is a linear sequence of execution that is independent from other streams. Use the stream() context manager to ensure operators run on the corresponding stream. Parameters: device (torch.device or int, optional) \u2013 a device on which to allocate the stream. If device is None (default) or a negative integer, this will use the current device. query()[source]# Check if all the work submitted has been completed. Returns: A boolean indicating if all kernels in this stream are completed. Return type: bool synchronize()[source]# Wait for all the kernels in this stream to complete.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",

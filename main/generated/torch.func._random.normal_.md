@@ -1,6 +1,6 @@
 # torch.func._random.normal_
 
-torch.func._random.normal_(*key*, *result*, ***, *mean=0.0*, *std=1.0*)[[source]](https://github.com/pytorch/pytorch/blob/5b1433112eb30368cb8f63b3bf0145b391ec72a5/torch/func/_random.py#L147)
+torch.func._random.normal_(*key*, *result*, ***, *mean=0.0*, *std=1.0*)[[source]](https://github.com/pytorch/pytorch/blob/a4a15a72064ca010a723eae7c73835fe206f8de6/torch/func/_random.py#L147)
 
 Fill `result` in-place with normal random values from a PRNG key.
 
