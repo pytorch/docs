@@ -1,6 +1,6 @@
 # torch.fx.experimental.graph_gradual_typechecker.transpose_inference_rule
 
-torch.fx.experimental.graph_gradual_typechecker.transpose_inference_rule(*n*)[[source]](https://github.com/pytorch/pytorch/blob/a4a15a72064ca010a723eae7c73835fe206f8de6/torch/fx/experimental/graph_gradual_typechecker.py#L249)
+torch.fx.experimental.graph_gradual_typechecker.transpose_inference_rule(*n*)[[source]](https://github.com/pytorch/pytorch/blob/efbc87071fdf61bd50d5dc3b315b65bd452c401d/torch/fx/experimental/graph_gradual_typechecker.py#L249)
 
 We check that dimensions for the transpose operations
 are within range of the tensor type of the node

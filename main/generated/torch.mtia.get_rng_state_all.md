@@ -1,6 +1,6 @@
 # torch.mtia.get_rng_state_all
 
-torch.mtia.get_rng_state_all()[[source]](https://github.com/pytorch/pytorch/blob/a4a15a72064ca010a723eae7c73835fe206f8de6/torch/mtia/__init__.py#L416)
+torch.mtia.get_rng_state_all()[[source]](https://github.com/pytorch/pytorch/blob/efbc87071fdf61bd50d5dc3b315b65bd452c401d/torch/mtia/__init__.py#L416)
 
 Returns a list of ByteTensor representing the random number states of all devices.
 

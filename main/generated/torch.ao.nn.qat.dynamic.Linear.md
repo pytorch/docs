@@ -1,6 +1,6 @@
 # Linear
 
-*class*torch.ao.nn.qat.dynamic.Linear(*in_features*, *out_features*, *bias=True*, *qconfig=None*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/a4a15a72064ca010a723eae7c73835fe206f8de6/torch/ao/nn/qat/dynamic/modules/linear.py#L13)
+*class*torch.ao.nn.qat.dynamic.Linear(*in_features*, *out_features*, *bias=True*, *qconfig=None*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/efbc87071fdf61bd50d5dc3b315b65bd452c401d/torch/ao/nn/qat/dynamic/modules/linear.py#L13)
 
 A linear module attached with FakeQuantize modules for weight,
 used for dynamic quantization aware training.

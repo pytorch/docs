@@ -1,6 +1,6 @@
 # torch.cuda.graphs.register_graph_replay_end_hook
 
-torch.cuda.graphs.register_graph_replay_end_hook(*fn*)[[source]](https://github.com/pytorch/pytorch/blob/a4a15a72064ca010a723eae7c73835fe206f8de6/torch/cuda/graphs.py#L251)
+torch.cuda.graphs.register_graph_replay_end_hook(*fn*)[[source]](https://github.com/pytorch/pytorch/blob/efbc87071fdf61bd50d5dc3b315b65bd452c401d/torch/cuda/graphs.py#L251)
 
 Register a hook run with each CUDA graph at the end of every replay, once the replay is
 *enqueued* (the launch is asynchronous, so the GPU work has not completed). Fires even if

@@ -1,6 +1,6 @@
 # get_fusion_pattern_to_extra_inputs_getter
 
-*class*torch.ao.quantization.backend_config.utils.get_fusion_pattern_to_extra_inputs_getter(*backend_config*)[[source]](https://github.com/pytorch/pytorch/blob/a4a15a72064ca010a723eae7c73835fe206f8de6/torch/ao/quantization/backend_config/utils.py#L124)
+*class*torch.ao.quantization.backend_config.utils.get_fusion_pattern_to_extra_inputs_getter(*backend_config*)[[source]](https://github.com/pytorch/pytorch/blob/efbc87071fdf61bd50d5dc3b315b65bd452c401d/torch/ao/quantization/backend_config/utils.py#L124)
 
 Get a map from fusion pattern to a function that returns extra input nodes
 from the fusion pattern, in the order required by the root node. This is optional,

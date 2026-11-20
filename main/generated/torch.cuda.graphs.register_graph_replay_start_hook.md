@@ -1,6 +1,6 @@
 # torch.cuda.graphs.register_graph_replay_start_hook
 
-torch.cuda.graphs.register_graph_replay_start_hook(*fn*)[[source]](https://github.com/pytorch/pytorch/blob/a4a15a72064ca010a723eae7c73835fe206f8de6/torch/cuda/graphs.py#L238)
+torch.cuda.graphs.register_graph_replay_start_hook(*fn*)[[source]](https://github.com/pytorch/pytorch/blob/efbc87071fdf61bd50d5dc3b315b65bd452c401d/torch/cuda/graphs.py#L238)
 
 Register a hook run with each CUDA graph at the start of every replay, just before it
 is launched. Returns a RemovableHandle; call `.remove()` to unregister.

@@ -1,6 +1,6 @@
 # torch.is_deterministic_algorithms_warn_only_enabled
 
-torch.is_deterministic_algorithms_warn_only_enabled()[[source]](https://github.com/pytorch/pytorch/blob/a4a15a72064ca010a723eae7c73835fe206f8de6/torch/__init__.py#L1935)
+torch.is_deterministic_algorithms_warn_only_enabled()[[source]](https://github.com/pytorch/pytorch/blob/efbc87071fdf61bd50d5dc3b315b65bd452c401d/torch/__init__.py#L1935)
 
 Returns True if the global deterministic flag is set to warn only.
 Refer to [`torch.use_deterministic_algorithms()`](torch.use_deterministic_algorithms.html#torch.use_deterministic_algorithms) documentation for more

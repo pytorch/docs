@@ -1,6 +1,6 @@
 # GRU
 
-*class*torch.nn.modules.rnn.GRU(*input_size*, *hidden_size*, *num_layers=1*, *bias=True*, *batch_first=False*, *dropout=0.0*, *bidirectional=False*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/a4a15a72064ca010a723eae7c73835fe206f8de6/torch/nn/modules/rnn.py#L1207)
+*class*torch.nn.modules.rnn.GRU(*input_size*, *hidden_size*, *num_layers=1*, *bias=True*, *batch_first=False*, *dropout=0.0*, *bidirectional=False*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/efbc87071fdf61bd50d5dc3b315b65bd452c401d/torch/nn/modules/rnn.py#L1207)
 
 Apply a multi-layer gated recurrent unit (GRU) RNN to an input sequence.
 For each element in the input sequence, each layer computes the following

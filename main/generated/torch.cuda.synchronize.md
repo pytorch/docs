@@ -1,6 +1,6 @@
 # torch.cuda.synchronize
 
-torch.cuda.synchronize(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/a4a15a72064ca010a723eae7c73835fe206f8de6/torch/cuda/__init__.py#L1375)
+torch.cuda.synchronize(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/efbc87071fdf61bd50d5dc3b315b65bd452c401d/torch/cuda/__init__.py#L1375)
 
 Wait for all kernels in all streams on a CUDA device to complete.
 

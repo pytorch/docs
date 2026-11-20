@@ -1,6 +1,6 @@
 # maybe_get_next_module
 
-*class*torch.ao.quantization.fx.utils.maybe_get_next_module(*node*, *modules*, *target_module_type=None*, *target_functional_type=None*)[[source]](https://github.com/pytorch/pytorch/blob/a4a15a72064ca010a723eae7c73835fe206f8de6/torch/ao/quantization/fx/utils.py#L428)
+*class*torch.ao.quantization.fx.utils.maybe_get_next_module(*node*, *modules*, *target_module_type=None*, *target_functional_type=None*)[[source]](https://github.com/pytorch/pytorch/blob/efbc87071fdf61bd50d5dc3b315b65bd452c401d/torch/ao/quantization/fx/utils.py#L428)
 
 Gets the next module that matches what is needed in
 is_target_module_type if it exists

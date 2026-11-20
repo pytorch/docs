@@ -1,6 +1,6 @@
 # torch.fx.experimental.symbolic_shapes.eval_guards
 
-torch.fx.experimental.symbolic_shapes.eval_guards(*gm*, **args*, *ignore_static=True*)[[source]](https://github.com/pytorch/pytorch/blob/a4a15a72064ca010a723eae7c73835fe206f8de6/torch/fx/experimental/symbolic_shapes.py#L1997)
+torch.fx.experimental.symbolic_shapes.eval_guards(*gm*, **args*, *ignore_static=True*)[[source]](https://github.com/pytorch/pytorch/blob/efbc87071fdf61bd50d5dc3b315b65bd452c401d/torch/fx/experimental/symbolic_shapes.py#L1997)
 
 Return type:
 

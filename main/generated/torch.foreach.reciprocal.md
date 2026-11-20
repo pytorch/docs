@@ -1,6 +1,6 @@
 # torch.foreach.reciprocal
 
-torch.foreach.reciprocal(*inputs: TensorList*, */*) → [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...][[source]](https://github.com/pytorch/pytorch/blob/a4a15a72064ca010a723eae7c73835fe206f8de6/torch/foreach/__init__.py#L545)
+torch.foreach.reciprocal(*inputs: TensorList*, */*) → [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...][[source]](https://github.com/pytorch/pytorch/blob/efbc87071fdf61bd50d5dc3b315b65bd452c401d/torch/foreach/__init__.py#L545)
 
 Applies [`torch.reciprocal()`](torch.reciprocal.html#torch.reciprocal) to each tensor in `inputs`.
 

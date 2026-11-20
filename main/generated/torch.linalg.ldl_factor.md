@@ -1,6 +1,6 @@
 # torch.linalg.ldl_factor
 
-torch.linalg.ldl_factor(*A*, ***, *hermitian=False*, *out=None*)[[source]](https://github.com/pytorch/pytorch/blob/a4a15a72064ca010a723eae7c73835fe206f8de6/torch/linalg/__init__.py#L914)
+torch.linalg.ldl_factor(*A*, ***, *hermitian=False*, *out=None*)[[source]](https://github.com/pytorch/pytorch/blob/efbc87071fdf61bd50d5dc3b315b65bd452c401d/torch/linalg/__init__.py#L914)
 
 Computes a compact representation of the LDL factorization of a Hermitian or symmetric (possibly indefinite) matrix.
 

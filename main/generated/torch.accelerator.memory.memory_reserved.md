@@ -1,6 +1,6 @@
 # torch.accelerator.memory.memory_reserved
 
-torch.accelerator.memory.memory_reserved(*device_index=None*, */*)[[source]](https://github.com/pytorch/pytorch/blob/a4a15a72064ca010a723eae7c73835fe206f8de6/torch/accelerator/memory.py#L164)
+torch.accelerator.memory.memory_reserved(*device_index=None*, */*)[[source]](https://github.com/pytorch/pytorch/blob/efbc87071fdf61bd50d5dc3b315b65bd452c401d/torch/accelerator/memory.py#L164)
 
 Return the current [accelerator](../torch.html#accelerators) device memory managed by the caching allocator
 in bytes for a given device index.

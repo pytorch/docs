@@ -14,7 +14,7 @@ Parameters:
 the stream. If `device` is `None` (default) or a negative
 integer, this will use the current device.
 
-query()[[source]](https://github.com/pytorch/pytorch/blob/a4a15a72064ca010a723eae7c73835fe206f8de6/torch/mps/streams.py#L50)
+query()[[source]](https://github.com/pytorch/pytorch/blob/efbc87071fdf61bd50d5dc3b315b65bd452c401d/torch/mps/streams.py#L50)
 
 Check if all the work submitted has been completed.
 
@@ -26,6 +26,6 @@ Return type:
 
 [bool](https://docs.python.org/3/builtins/functions.html#bool)
 
-synchronize()[[source]](https://github.com/pytorch/pytorch/blob/a4a15a72064ca010a723eae7c73835fe206f8de6/torch/mps/streams.py#L46)
+synchronize()[[source]](https://github.com/pytorch/pytorch/blob/efbc87071fdf61bd50d5dc3b315b65bd452c401d/torch/mps/streams.py#L46)
 
 Wait for all the kernels in this stream to complete.

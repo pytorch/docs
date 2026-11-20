@@ -1,6 +1,6 @@
 # torch.cuda.device_memory_used
 
-torch.cuda.device_memory_used(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/a4a15a72064ca010a723eae7c73835fe206f8de6/torch/cuda/__init__.py#L1672)
+torch.cuda.device_memory_used(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/efbc87071fdf61bd50d5dc3b315b65bd452c401d/torch/cuda/__init__.py#L1672)
 
 Return used global (device) memory in bytes as given by nvidia-smi or amd-smi.
 

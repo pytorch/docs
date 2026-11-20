@@ -1,6 +1,6 @@
 # torch.xpu.is_bf16_supported
 
-torch.xpu.is_bf16_supported(*including_emulation=True*)[[source]](https://github.com/pytorch/pytorch/blob/a4a15a72064ca010a723eae7c73835fe206f8de6/torch/xpu/__init__.py#L332)
+torch.xpu.is_bf16_supported(*including_emulation=True*)[[source]](https://github.com/pytorch/pytorch/blob/efbc87071fdf61bd50d5dc3b315b65bd452c401d/torch/xpu/__init__.py#L332)
 
 Return a bool indicating if the current XPU device supports dtype bfloat16.
 

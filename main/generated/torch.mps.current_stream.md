@@ -1,6 +1,6 @@
 # torch.mps.current_stream
 
-torch.mps.current_stream()[[source]](https://github.com/pytorch/pytorch/blob/a4a15a72064ca010a723eae7c73835fe206f8de6/torch/mps/streams.py#L88)
+torch.mps.current_stream()[[source]](https://github.com/pytorch/pytorch/blob/efbc87071fdf61bd50d5dc3b315b65bd452c401d/torch/mps/streams.py#L88)
 
 Return the currently selected [`Stream`](torch.mps.Stream_class.html#torch.mps.Stream).
 

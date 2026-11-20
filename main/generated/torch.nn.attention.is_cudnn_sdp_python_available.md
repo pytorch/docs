@@ -1,6 +1,6 @@
 # torch.nn.attention.is_cudnn_sdp_python_available
 
-torch.nn.attention.is_cudnn_sdp_python_available()[[source]](https://github.com/pytorch/pytorch/blob/a4a15a72064ca010a723eae7c73835fe206f8de6/torch/nn/attention/__init__.py#L201)
+torch.nn.attention.is_cudnn_sdp_python_available()[[source]](https://github.com/pytorch/pytorch/blob/efbc87071fdf61bd50d5dc3b315b65bd452c401d/torch/nn/attention/__init__.py#L202)
 
 Warning
 
@@ -9,7 +9,9 @@ This API is beta and subject to change.
 Returns whether `nvidia-cudnn-frontend`'s `cudnn.torch` module can be
 found. It imports the `cudnn` package to look, but not `cudnn.torch`,
 and does not check the version: [`enable_cudnn_sdp_python()`](torch.nn.attention.enable_cudnn_sdp_python.html#torch.nn.attention.enable_cudnn_sdp_python) still
-raises if the installed package is older than it requires.
+raises if the installed package is older than it requires. An installed
+`cudnn` package that fails to import is reported as unavailable;
+[`enable_cudnn_sdp_python()`](torch.nn.attention.enable_cudnn_sdp_python.html#torch.nn.attention.enable_cudnn_sdp_python) raises the underlying error.
 
 Return type:
 
