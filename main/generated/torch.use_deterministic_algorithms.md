@@ -1,6 +1,6 @@
 # torch.use_deterministic_algorithms
 
-torch.use_deterministic_algorithms(*mode*, ***, *warn_only=False*)[[source]](https://github.com/pytorch/pytorch/blob/efbc87071fdf61bd50d5dc3b315b65bd452c401d/torch/__init__.py#L1764)
+torch.use_deterministic_algorithms(*mode*, ***, *warn_only=False*)[[source]](https://github.com/pytorch/pytorch/blob/80b58bb1ec917076395b2c2e7cfece090dfe30ab/torch/__init__.py#L1784)
 
 Sets whether PyTorch operations must use "deterministic"
 algorithms. That is, algorithms which, given the same input, and when
@@ -31,7 +31,15 @@ deterministically when `mode=True`:
 > - [`torch.nn.ReplicationPad1d`](torch.nn.ReplicationPad1d.html#torch.nn.ReplicationPad1d) when attempting to differentiate a CUDA tensor
 > - [`torch.nn.ReplicationPad2d`](torch.nn.ReplicationPad2d.html#torch.nn.ReplicationPad2d) when attempting to differentiate a CUDA tensor
 > - [`torch.nn.ReplicationPad3d`](torch.nn.ReplicationPad3d.html#torch.nn.ReplicationPad3d) when attempting to differentiate a CUDA tensor
-> - [`torch.bmm()`](torch.bmm.html#torch.bmm) when called on sparse-dense CUDA tensors
+> - [`torch.bmm()`](torch.bmm.html#torch.bmm) when called on sparse-dense CUDA tensors, except for a sparse
+> CSR tensor on ROCm
+> - [`torch.mm()`](torch.mm.html#torch.mm), [`torch.addmm()`](torch.addmm.html#torch.addmm), [`torch.sparse.mm()`](torch.sparse.mm.html#torch.sparse.mm) and
+> [`torch.sparse.addmm()`](torch.sparse.addmm.html#torch.sparse.addmm) when called on sparse-dense CUDA tensors with a
+> sparse COO, CSR or CSC operand, except on ROCm
+> - [`torch.mv()`](torch.mv.html#torch.mv) when called on a sparse COO, CSR or CSC CUDA tensor and
+> [`torch.addmv()`](torch.addmv.html#torch.addmv) when called on a sparse CSR or CSC CUDA tensor, except on ROCm
+> - [`torch.baddbmm()`](torch.baddbmm.html#torch.baddbmm) when called on a sparse CSR CUDA tensor, except on ROCm
+> - [`torch.hspmm()`](torch.hspmm.html#torch.hspmm) when called on a CUDA tensor, except on ROCm
 > - [`torch.cumsum()`](torch.cumsum.html#torch.cumsum) when called on a CUDA tensor when dtype is floating point or complex
 > - `torch.Tensor.__getitem__()` when attempting to differentiate a CPU tensor
 > and the index is a list of tensors
@@ -97,6 +105,10 @@ The following normally-nondeterministic operations will throw a
 > tensor is given
 > - [`torch.nn.functional.grid_sample()`](torch.nn.functional.grid_sample.html#torch.nn.functional.grid_sample) when attempting to differentiate a CUDA tensor
 > - [`torch.Tensor.scatter_reduce()`](torch.Tensor.scatter_reduce.html#torch.Tensor.scatter_reduce) when called on a CUDA tensor
+> - [`torch.mm()`](torch.mm.html#torch.mm), [`torch.addmm()`](torch.addmm.html#torch.addmm), [`torch.sparse.mm()`](torch.sparse.mm.html#torch.sparse.mm), [`torch.sparse.addmm()`](torch.sparse.addmm.html#torch.sparse.addmm),
+> [`torch.mv()`](torch.mv.html#torch.mv), [`torch.addmv()`](torch.addmv.html#torch.addmv), [`torch.baddbmm()`](torch.baddbmm.html#torch.baddbmm) and [`torch.hspmm()`](torch.hspmm.html#torch.hspmm)
+> when called on sparse-dense tensors on ROCm, with the sparse layouts listed above, and
+> [`torch.bmm()`](torch.bmm.html#torch.bmm) when called on a sparse CSR tensor on ROCm
 > - [`torch.Tensor.index_put()`](torch.Tensor.index_put.html#torch.Tensor.index_put) with `accumulate=True` when called on
 > an MPS tensor with floating or complex dtype
 > - [`torch.kthvalue()`](torch.kthvalue.html#torch.kthvalue) when called on an MPS tensor

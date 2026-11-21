@@ -1,6 +1,6 @@
 # torch.fx.experimental.proxy_tensor.extract_val
 
-torch.fx.experimental.proxy_tensor.extract_val(*val*, *include_real=False*)[[source]](https://github.com/pytorch/pytorch/blob/efbc87071fdf61bd50d5dc3b315b65bd452c401d/torch/fx/experimental/proxy_tensor.py#L775)
+torch.fx.experimental.proxy_tensor.extract_val(*val*, *include_real=False*)[[source]](https://github.com/pytorch/pytorch/blob/80b58bb1ec917076395b2c2e7cfece090dfe30ab/torch/fx/experimental/proxy_tensor.py#L775)
 
 Return type:
 

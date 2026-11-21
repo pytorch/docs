@@ -1,6 +1,6 @@
 # torch.nn.functional.multilabel_soft_margin_loss
 
-torch.nn.functional.multilabel_soft_margin_loss(*input*, *target*, *weight=None*, *size_average=None*, *reduce=None*, *reduction='mean'*)[[source]](https://github.com/pytorch/pytorch/blob/efbc87071fdf61bd50d5dc3b315b65bd452c401d/torch/nn/functional.py#L4607)
+torch.nn.functional.multilabel_soft_margin_loss(*input*, *target*, *weight=None*, *size_average=None*, *reduce=None*, *reduction='mean'*)[[source]](https://github.com/pytorch/pytorch/blob/80b58bb1ec917076395b2c2e7cfece090dfe30ab/torch/nn/functional.py#L4607)
 
 Compute the multilabel soft margin loss.
 
@@ -10,6 +10,9 @@ Parameters:
 
 - **input** ([*Tensor*](../tensors.html#torch.Tensor)) - Predicted values.
 - **target** ([*Tensor*](../tensors.html#torch.Tensor)) - Ground truth values.
+- **weight** ([*Tensor*](../tensors.html#torch.Tensor)*,**optional*) - a manual rescaling weight given to each
+class. If given, it has to be a Tensor of size C. Otherwise, it is
+treated as if having all ones.
 - **size_average** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - Deprecated (see `reduction`).
 - **reduce** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - Deprecated (see `reduction`).
 - **reduction** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)*,**optional*) - Specifies the reduction to apply to the output:
@@ -19,7 +22,7 @@ Default: 'mean'.
 
 Returns:
 
-Mutilabel soft margin loss.
+Multilabel soft margin loss.
 
 Return type:
 

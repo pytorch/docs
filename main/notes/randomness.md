@@ -115,9 +115,13 @@ RuntimeError: index_add_cuda_ does not have a deterministic implementation, but 
 'torch.use_deterministic_algorithms(True)'. ...
 ```
 
-When [`torch.bmm()`](../generated/torch.bmm.html#torch.bmm) is called with sparse-dense CUDA tensors it typically uses a
-nondeterministic algorithm, but when the deterministic flag is turned on, its alternate
-deterministic implementation will be used:
+When [`torch.bmm()`](../generated/torch.bmm.html#torch.bmm), [`torch.baddbmm()`](../generated/torch.baddbmm.html#torch.baddbmm), [`torch.mm()`](../generated/torch.mm.html#torch.mm), [`torch.addmm()`](../generated/torch.addmm.html#torch.addmm),
+[`torch.sparse.mm()`](../generated/torch.sparse.mm.html#torch.sparse.mm), [`torch.sparse.addmm()`](../generated/torch.sparse.addmm.html#torch.sparse.addmm), [`torch.hspmm()`](../generated/torch.hspmm.html#torch.hspmm), [`torch.mv()`](../generated/torch.mv.html#torch.mv) or
+[`torch.addmv()`](../generated/torch.addmv.html#torch.addmv) are called with sparse-dense CUDA tensors they typically use a
+nondeterministic algorithm, but when the deterministic flag is turned on, their alternate
+deterministic implementation will be used (see [`torch.use_deterministic_algorithms()`](../generated/torch.use_deterministic_algorithms.html#torch.use_deterministic_algorithms) for
+the supported sparse layouts). On ROCm these operations have no deterministic implementation
+and raise an error instead, except for [`torch.bmm()`](../generated/torch.bmm.html#torch.bmm) with a sparse COO tensor:
 
 ```
 >>> import torch

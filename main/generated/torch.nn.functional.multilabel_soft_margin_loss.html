@@ -80,7 +80,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.16.0a0+gitefbc870 )">
+<meta name="llm:version" content="main (2.16.0a0+git80b58bb )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -186,7 +186,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.16.0a0+gitefbc870 )');
+  document.documentElement.setAttribute('data-version', 'main (2.16.0a0+git80b58bb )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3374,7 +3374,7 @@ document.write(`
 <h1>torch.nn.functional.multilabel_soft_margin_loss<a class="headerlink" href="#torch-nn-functional-multilabel-soft-margin-loss" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="torch.nn.functional.multilabel_soft_margin_loss">
-<span class="sig-prename descclassname"><span class="pre">torch.nn.functional.</span></span><span class="sig-name descname"><span class="pre">multilabel_soft_margin_loss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size_average</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reduce</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reduction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mean'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/efbc87071fdf61bd50d5dc3b315b65bd452c401d/torch/nn/functional.py#L4607"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.functional.multilabel_soft_margin_loss" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">torch.nn.functional.</span></span><span class="sig-name descname"><span class="pre">multilabel_soft_margin_loss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size_average</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reduce</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reduction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mean'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/80b58bb1ec917076395b2c2e7cfece090dfe30ab/torch/nn/functional.py#L4607"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.nn.functional.multilabel_soft_margin_loss" title="Link to this definition">#</a></dt>
 <dd><p>Compute the multilabel soft margin loss.</p>
 <p>See <a class="reference internal" href="torch.nn.MultiLabelSoftMarginLoss.html#torch.nn.MultiLabelSoftMarginLoss" title="torch.nn.MultiLabelSoftMarginLoss"><code class="xref py py-class docutils literal notranslate"><span class="pre">MultiLabelSoftMarginLoss</span></code></a> for details.</p>
 <dl class="field-list simple">
@@ -3382,6 +3382,9 @@ document.write(`
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>input</strong> (<a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a>) – Predicted values.</p></li>
 <li><p><strong>target</strong> (<a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a>) – Ground truth values.</p></li>
+<li><p><strong>weight</strong> (<a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a><em>, </em><em>optional</em>) – a manual rescaling weight given to each
+class. If given, it has to be a Tensor of size <cite>C</cite>. Otherwise, it is
+treated as if having all ones.</p></li>
 <li><p><strong>size_average</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a><em>, </em><em>optional</em>) – Deprecated (see <code class="xref py py-attr docutils literal notranslate"><span class="pre">reduction</span></code>).</p></li>
 <li><p><strong>reduce</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a><em>, </em><em>optional</em>) – Deprecated (see <code class="xref py py-attr docutils literal notranslate"><span class="pre">reduction</span></code>).</p></li>
 <li><p><strong>reduction</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>, </em><em>optional</em>) – Specifies the reduction to apply to the output:
@@ -3391,7 +3394,7 @@ Default: ‘mean’.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Mutilabel soft margin loss.</p>
+<dd class="field-even"><p>Multilabel soft margin loss.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor">Tensor</a></p>
@@ -3755,7 +3758,7 @@ Default: ‘mean’.</p></li>
        "headline": "torch.nn.functional.multilabel_soft_margin_loss",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/generated/torch.nn.functional.multilabel_soft_margin_loss.html",
-       "articleBody": "torch.nn.functional.multilabel_soft_margin_loss# torch.nn.functional.multilabel_soft_margin_loss(input, target, weight=None, size_average=None, reduce=None, reduction=\u0027mean\u0027)[source]# Compute the multilabel soft margin loss. See MultiLabelSoftMarginLoss for details. Parameters: input (Tensor) \u2013 Predicted values. target (Tensor) \u2013 Ground truth values. size_average (bool, optional) \u2013 Deprecated (see reduction). reduce (bool, optional) \u2013 Deprecated (see reduction). reduction (str, optional) \u2013 Specifies the reduction to apply to the output: \u2018none\u2019 | \u2018mean\u2019 | \u2018sum\u2019. \u2018mean\u2019: the mean of the output is taken. \u2018sum\u2019: the output will be summed. \u2018none\u2019: no reduction will be applied. Default: \u2018mean\u2019. Returns: Mutilabel soft margin loss. Return type: Tensor",
+       "articleBody": "torch.nn.functional.multilabel_soft_margin_loss# torch.nn.functional.multilabel_soft_margin_loss(input, target, weight=None, size_average=None, reduce=None, reduction=\u0027mean\u0027)[source]# Compute the multilabel soft margin loss. See MultiLabelSoftMarginLoss for details. Parameters: input (Tensor) \u2013 Predicted values. target (Tensor) \u2013 Ground truth values. weight (Tensor, optional) \u2013 a manual rescaling weight given to each class. If given, it has to be a Tensor of size C. Otherwise, it is treated as if having all ones. size_average (bool, optional) \u2013 Deprecated (see reduction). reduce (bool, optional) \u2013 Deprecated (see reduction). reduction (str, optional) \u2013 Specifies the reduction to apply to the output: \u2018none\u2019 | \u2018mean\u2019 | \u2018sum\u2019. \u2018mean\u2019: the mean of the output is taken. \u2018sum\u2019: the output will be summed. \u2018none\u2019: no reduction will be applied. Default: \u2018mean\u2019. Returns: Multilabel soft margin loss. Return type: Tensor",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",

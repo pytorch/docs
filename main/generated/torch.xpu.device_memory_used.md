@@ -1,6 +1,6 @@
 # torch.xpu.device_memory_used
 
-torch.xpu.device_memory_used(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/efbc87071fdf61bd50d5dc3b315b65bd452c401d/torch/xpu/__init__.py#L1416)
+torch.xpu.device_memory_used(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/80b58bb1ec917076395b2c2e7cfece090dfe30ab/torch/xpu/__init__.py#L1416)
 
 Return the current GPU used global (device) memory in bytes.
 

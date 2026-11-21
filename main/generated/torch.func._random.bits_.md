@@ -1,6 +1,6 @@
 # torch.func._random.bits_
 
-torch.func._random.bits_(*key*, *result*)[[source]](https://github.com/pytorch/pytorch/blob/efbc87071fdf61bd50d5dc3b315b65bd452c401d/torch/func/_random.py#L582)
+torch.func._random.bits_(*key*, *result*)[[source]](https://github.com/pytorch/pytorch/blob/80b58bb1ec917076395b2c2e7cfece090dfe30ab/torch/func/_random.py#L582)
 
 Fill `result` in-place with raw random bits from a PRNG key.
 

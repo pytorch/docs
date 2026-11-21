@@ -1,6 +1,6 @@
 # torch.nn.functional.multilabel_margin_loss
 
-torch.nn.functional.multilabel_margin_loss(*input*, *target*, *size_average=None*, *reduce=None*, *reduction='mean'*)[[source]](https://github.com/pytorch/pytorch/blob/efbc87071fdf61bd50d5dc3b315b65bd452c401d/torch/nn/functional.py#L4523)
+torch.nn.functional.multilabel_margin_loss(*input*, *target*, *size_average=None*, *reduce=None*, *reduction='mean'*)[[source]](https://github.com/pytorch/pytorch/blob/80b58bb1ec917076395b2c2e7cfece090dfe30ab/torch/nn/functional.py#L4523)
 
 Compute the multilabel margin loss.
 
@@ -19,7 +19,7 @@ Default: 'mean'.
 
 Returns:
 
-Mutilabel margin loss.
+Multilabel margin loss.
 
 Return type:
 
