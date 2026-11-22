@@ -1,6 +1,6 @@
 # torch.fx.passes.operator_support.chain
 
-torch.fx.passes.operator_support.chain(**op_support*)[[source]](https://github.com/pytorch/pytorch/blob/80b58bb1ec917076395b2c2e7cfece090dfe30ab/torch/fx/passes/operator_support.py#L158)
+torch.fx.passes.operator_support.chain(**op_support*)[[source]](https://github.com/pytorch/pytorch/blob/65e101a3cc8242711ae1cb467ed6cde097135821/torch/fx/passes/operator_support.py#L158)
 
 Combines a sequence of OperatorSupportBase instances to form a single OperatorSupportBase
 

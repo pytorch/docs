@@ -118,7 +118,7 @@ combine function becomes a sub-graph attribute of the top-level graph module.
 
 ## API Reference
 
-torch._higher_order_ops.associative_scan.associative_scan(*combine_fn*, *xs*, *dim*, *reverse=False*, *combine_mode='pointwise'*)[[source]](https://github.com/pytorch/pytorch/blob/80b58bb1ec917076395b2c2e7cfece090dfe30ab/torch/_higher_order_ops/associative_scan.py#L153)
+torch._higher_order_ops.associative_scan.associative_scan(*combine_fn*, *xs*, *dim*, *reverse=False*, *combine_mode='pointwise'*)[[source]](https://github.com/pytorch/pytorch/blob/65e101a3cc8242711ae1cb467ed6cde097135821/torch/_higher_order_ops/associative_scan.py#L153)
 
 Performs an inclusive scan with an associative combine function.
 

@@ -1,6 +1,6 @@
 # torch.fx.experimental.unification.unification_tools.assoc
 
-torch.fx.experimental.unification.unification_tools.assoc(*d*, *key*, *value*, *factory=<class 'dict'>*)[[source]](https://github.com/pytorch/pytorch/blob/80b58bb1ec917076395b2c2e7cfece090dfe30ab/torch/fx/experimental/unification/unification_tools.py#L225)
+torch.fx.experimental.unification.unification_tools.assoc(*d*, *key*, *value*, *factory=<class 'dict'>*)[[source]](https://github.com/pytorch/pytorch/blob/65e101a3cc8242711ae1cb467ed6cde097135821/torch/fx/experimental/unification/unification_tools.py#L225)
 
 Return a new dict with new key value pair
 

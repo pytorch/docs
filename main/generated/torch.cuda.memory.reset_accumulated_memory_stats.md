@@ -1,6 +1,6 @@
 # torch.cuda.memory.reset_accumulated_memory_stats
 
-torch.cuda.memory.reset_accumulated_memory_stats(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/80b58bb1ec917076395b2c2e7cfece090dfe30ab/torch/cuda/memory.py#L366)
+torch.cuda.memory.reset_accumulated_memory_stats(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/65e101a3cc8242711ae1cb467ed6cde097135821/torch/cuda/memory.py#L366)
 
 Reset the "accumulated" (historical) stats tracked by the CUDA memory allocator.
 

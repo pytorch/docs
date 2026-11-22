@@ -1,6 +1,6 @@
 # torch.fx.experimental.symbolic_shapes.guard_bool
 
-torch.fx.experimental.symbolic_shapes.guard_bool(*a*)[[source]](https://github.com/pytorch/pytorch/blob/80b58bb1ec917076395b2c2e7cfece090dfe30ab/torch/fx/experimental/symbolic_shapes.py#L1961)
+torch.fx.experimental.symbolic_shapes.guard_bool(*a*)[[source]](https://github.com/pytorch/pytorch/blob/65e101a3cc8242711ae1cb467ed6cde097135821/torch/fx/experimental/symbolic_shapes.py#L1961)
 
 Return type:
 

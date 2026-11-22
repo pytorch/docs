@@ -1,6 +1,6 @@
 # torch.compiler.set_stance
 
-torch.compiler.set_stance(*stance='default'*, ***, *skip_guard_eval_unsafe=False*, *force_backend=None*)[[source]](https://github.com/pytorch/pytorch/blob/80b58bb1ec917076395b2c2e7cfece090dfe30ab/torch/compiler/__init__.py#L391)
+torch.compiler.set_stance(*stance='default'*, ***, *skip_guard_eval_unsafe=False*, *force_backend=None*)[[source]](https://github.com/pytorch/pytorch/blob/65e101a3cc8242711ae1cb467ed6cde097135821/torch/compiler/__init__.py#L391)
 
 Set the current stance of the compiler.
 Can be used as a function, context manager, or decorator.

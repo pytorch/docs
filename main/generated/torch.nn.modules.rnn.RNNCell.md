@@ -1,6 +1,6 @@
 # RNNCell
 
-*class*torch.nn.modules.rnn.RNNCell(*input_size*, *hidden_size*, *bias=True*, *nonlinearity='tanh'*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/80b58bb1ec917076395b2c2e7cfece090dfe30ab/torch/nn/modules/rnn.py#L1543)
+*class*torch.nn.modules.rnn.RNNCell(*input_size*, *hidden_size*, *bias=True*, *nonlinearity='tanh'*, *device=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/65e101a3cc8242711ae1cb467ed6cde097135821/torch/nn/modules/rnn.py#L1543)
 
 An Elman RNN cell with tanh or ReLU non-linearity.
 

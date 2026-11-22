@@ -1,6 +1,6 @@
 # torch.optim.functional.nadam
 
-torch.optim.functional.nadam(*params*, *grads*, *exp_avgs*, *exp_avg_sqs*, *mu_products*, *state_steps*, *decoupled_weight_decay=False*, *foreach=None*, *capturable=False*, *differentiable=False*, *has_complex=False*, *maximize=False*, ***, *beta1*, *beta2*, *lr*, *weight_decay*, *momentum_decay*, *eps*)[[source]](https://github.com/pytorch/pytorch/blob/80b58bb1ec917076395b2c2e7cfece090dfe30ab/torch/optim/nadam.py#L607)
+torch.optim.functional.nadam(*params*, *grads*, *exp_avgs*, *exp_avg_sqs*, *mu_products*, *state_steps*, *decoupled_weight_decay=False*, *foreach=None*, *capturable=False*, *differentiable=False*, *has_complex=False*, *maximize=False*, ***, *beta1*, *beta2*, *lr*, *weight_decay*, *momentum_decay*, *eps*)[[source]](https://github.com/pytorch/pytorch/blob/65e101a3cc8242711ae1cb467ed6cde097135821/torch/optim/nadam.py#L607)
 
 Functional API that performs NAdam algorithm computation.
 

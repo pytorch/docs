@@ -1,6 +1,6 @@
 # LocalizedAllocator
 
-*class*torch.cuda.memory.LocalizedAllocator(*locality_domain_id*, ***, *device=None*)[[source]](https://github.com/pytorch/pytorch/blob/80b58bb1ec917076395b2c2e7cfece090dfe30ab/torch/cuda/memory.py#L1785)
+*class*torch.cuda.memory.LocalizedAllocator(*locality_domain_id*, ***, *device=None*)[[source]](https://github.com/pytorch/pytorch/blob/65e101a3cc8242711ae1cb467ed6cde097135821/torch/cuda/memory.py#L1764)
 
 Allocate physical CUDA memory on one locality domain.
 
@@ -15,14 +15,6 @@ Parameters:
 - **device** ([*torch.device*](../tensor_attributes.html#torch.device)*or*[*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - Owning CUDA device.
 Defaults to the current device.
 
-Warning
-
-Concurrent allocator activity is unsupported. Allocation, freeing, and
-allocator-state queries (including `MemPool.use_count()`) from other
-threads must not overlap use of this allocator. Native allocator
-callbacks acquire the GIL while holding the allocator mutex, which can
-deadlock with a thread holding the GIL while waiting for that mutex.
-
 Note
 
 Use this allocator only on its owning device; access from other devices
@@ -31,6 +23,8 @@ so tensors may outlive the Python allocator and pool objects.
 One owner and primary-context reference per device/domain are deliberately
 retained, including during interpreter shutdown.
 Releasing physical memory waits for its allocation stream.
+Running out of device memory fails the allocation, so the caching
+allocator can free cached memory and retry; other CUDA errors raise.
 Freeing is best-effort: failures are logged, not raised. Memory that
 cannot safely be unmapped is left for the driver to reclaim at exit.
 

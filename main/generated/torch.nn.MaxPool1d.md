@@ -1,6 +1,6 @@
 # MaxPool1d
 
-*class*torch.nn.MaxPool1d(*kernel_size*, *stride=None*, *padding=0*, *dilation=1*, *return_indices=False*, *ceil_mode=False*)[[source]](https://github.com/pytorch/pytorch/blob/80b58bb1ec917076395b2c2e7cfece090dfe30ab/torch/nn/modules/pooling.py#L79)
+*class*torch.nn.MaxPool1d(*kernel_size*, *stride=None*, *padding=0*, *dilation=1*, *return_indices=False*, *ceil_mode=False*)[[source]](https://github.com/pytorch/pytorch/blob/65e101a3cc8242711ae1cb467ed6cde097135821/torch/nn/modules/pooling.py#L79)
 
 Applies a 1D max pooling over an input signal composed of several input planes.
 
@@ -62,6 +62,6 @@ Examples:
 >>> output = m(input)
 ```
 
-forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/80b58bb1ec917076395b2c2e7cfece090dfe30ab/torch/nn/modules/pooling.py#L142)
+forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/65e101a3cc8242711ae1cb467ed6cde097135821/torch/nn/modules/pooling.py#L142)
 
 Runs the forward pass.

@@ -1,6 +1,6 @@
 # torch.cuda.green_contexts.is_localization_supported
 
-torch.cuda.green_contexts.is_localization_supported(*device_id=None*)[[source]](https://github.com/pytorch/pytorch/blob/80b58bb1ec917076395b2c2e7cfece090dfe30ab/torch/cuda/green_contexts.py#L139)
+torch.cuda.green_contexts.is_localization_supported(*device_id=None*)[[source]](https://github.com/pytorch/pytorch/blob/65e101a3cc8242711ae1cb467ed6cde097135821/torch/cuda/green_contexts.py#L139)
 
 Return whether the software supports localization on a multi-domain GPU.
 

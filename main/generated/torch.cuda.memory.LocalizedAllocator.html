@@ -80,7 +80,7 @@
 
 <meta name="llm:navigation-file" content="https://docs.pytorch.org/docs/stable/llms.txt">
 <meta name="llm:sitemap" content="https://docs.pytorch.org/docs/stable/sitemap.xml">
-<meta name="llm:version" content="main (2.16.0a0+git80b58bb )">
+<meta name="llm:version" content="main (2.16.0a0+git65e101a )">
 <meta name="llm:project" content="PyTorch">
 <meta name="llm:page-type" content="api">
 <link rel="alternate" type="text/plain" href="https://docs.pytorch.org/docs/stable/llms.txt" title="LLM Navigation Guide">
@@ -186,7 +186,7 @@
   fbq('track', 'PageView');
 </script>
 <script>
-  document.documentElement.setAttribute('data-version', 'main (2.16.0a0+git80b58bb )');
+  document.documentElement.setAttribute('data-version', 'main (2.16.0a0+git65e101a )');
 </script>
 <noscript>
   <img height="1" width="1" src="https://www.facebook.com/tr?id=243028289693773&ev=PageView&noscript=1" />
@@ -3378,7 +3378,7 @@ document.write(`
 <h1>LocalizedAllocator<a class="headerlink" href="#localizedallocator" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="torch.cuda.memory.LocalizedAllocator">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.cuda.memory.</span></span><span class="sig-name descname"><span class="pre">LocalizedAllocator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">locality_domain_id</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/80b58bb1ec917076395b2c2e7cfece090dfe30ab/torch/cuda/memory.py#L1785"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.memory.LocalizedAllocator" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torch.cuda.memory.</span></span><span class="sig-name descname"><span class="pre">LocalizedAllocator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">locality_domain_id</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/pytorch/pytorch/blob/65e101a3cc8242711ae1cb467ed6cde097135821/torch/cuda/memory.py#L1764"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torch.cuda.memory.LocalizedAllocator" title="Link to this definition">#</a></dt>
 <dd><p>Allocate physical CUDA memory on one locality domain.</p>
 <p>Use <code class="docutils literal notranslate"><span class="pre">MemPool(allocator=allocator.allocator())</span></code> to cache and suballocate
 this memory. Requires CUDA driver and cuda.bindings 13.4+ and a multi-domain
@@ -3393,14 +3393,6 @@ Defaults to the current device.</p></li>
 </ul>
 </dd>
 </dl>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Concurrent allocator activity is unsupported. Allocation, freeing, and
-allocator-state queries (including <code class="docutils literal notranslate"><span class="pre">MemPool.use_count()</span></code>) from other
-threads must not overlap use of this allocator. Native allocator
-callbacks acquire the GIL while holding the allocator mutex, which can
-deadlock with a thread holding the GIL while waiting for that mutex.</p>
-</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Use this allocator only on its owning device; access from other devices
@@ -3409,6 +3401,8 @@ so tensors may outlive the Python allocator and pool objects.
 One owner and primary-context reference per device/domain are deliberately
 retained, including during interpreter shutdown.
 Releasing physical memory waits for its allocation stream.
+Running out of device memory fails the allocation, so the caching
+allocator can free cached memory and retry; other CUDA errors raise.
 Freeing is best-effort: failures are logged, not raised. Memory that
 cannot safely be unmapped is left for the driver to reclaim at exit.</p>
 </div>
@@ -3786,7 +3780,7 @@ cannot safely be unmapped is left for the driver to reclaim at exit.</p>
        "headline": "LocalizedAllocator",
        "description": "PyTorch Documentation. Explore PyTorch, an open-source machine learning library that accelerates the path from research prototyping to production deployment.",
        "url": "/generated/torch.cuda.memory.LocalizedAllocator.html",
-       "articleBody": "LocalizedAllocator# class torch.cuda.memory.LocalizedAllocator(locality_domain_id, *, device=None)[source]# Allocate physical CUDA memory on one locality domain. Use MemPool(allocator=allocator.allocator()) to cache and suballocate this memory. Requires CUDA driver and cuda.bindings 13.4+ and a multi-domain GPU. Construction initializes CUDA to validate the actual device topology. Kernel execution is not localized by this allocator. Parameters: locality_domain_id (int) \u2013 Locality domain to allocate from, excluding bool. device (torch.device or int, optional) \u2013 Owning CUDA device. Defaults to the current device. Warning Concurrent allocator activity is unsupported. Allocation, freeing, and allocator-state queries (including MemPool.use_count()) from other threads must not overlap use of this allocator. Native allocator callbacks acquire the GIL while holding the allocator mutex, which can deadlock with a thread holding the GIL while waiting for that mutex. Note Use this allocator only on its owning device; access from other devices is not supported. Callback owners are retained for the process lifetime, so tensors may outlive the Python allocator and pool objects. One owner and primary-context reference per device/domain are deliberately retained, including during interpreter shutdown. Releasing physical memory waits for its allocation stream. Freeing is best-effort: failures are logged, not raised. Memory that cannot safely be unmapped is left for the driver to reclaim at exit. property device_id: int# Return the CUDA device index associated with this allocator. property locality_domain_id: int# Return the locality domain ID associated with this allocator.",
+       "articleBody": "LocalizedAllocator# class torch.cuda.memory.LocalizedAllocator(locality_domain_id, *, device=None)[source]# Allocate physical CUDA memory on one locality domain. Use MemPool(allocator=allocator.allocator()) to cache and suballocate this memory. Requires CUDA driver and cuda.bindings 13.4+ and a multi-domain GPU. Construction initializes CUDA to validate the actual device topology. Kernel execution is not localized by this allocator. Parameters: locality_domain_id (int) \u2013 Locality domain to allocate from, excluding bool. device (torch.device or int, optional) \u2013 Owning CUDA device. Defaults to the current device. Note Use this allocator only on its owning device; access from other devices is not supported. Callback owners are retained for the process lifetime, so tensors may outlive the Python allocator and pool objects. One owner and primary-context reference per device/domain are deliberately retained, including during interpreter shutdown. Releasing physical memory waits for its allocation stream. Running out of device memory fails the allocation, so the caching allocator can free cached memory and retry; other CUDA errors raise. Freeing is best-effort: failures are logged, not raised. Memory that cannot safely be unmapped is left for the driver to reclaim at exit. property device_id: int# Return the CUDA device index associated with this allocator. property locality_domain_id: int# Return the locality domain ID associated with this allocator.",
        "author": {
          "@type": "Organization",
          "name": "PyTorch Contributors",

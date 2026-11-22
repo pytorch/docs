@@ -1,6 +1,6 @@
 # torch.foreach.norm
 
-torch.foreach.norm(*inputs: TensorList*, */*, ***, *ord: Scalar = 2*, *dtype: [dtype](../tensor_attributes.html#torch.dtype) | [None](https://docs.python.org/3/builtins/constants.html#None) = None*) → [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...][[source]](https://github.com/pytorch/pytorch/blob/80b58bb1ec917076395b2c2e7cfece090dfe30ab/torch/foreach/__init__.py#L1578)
+torch.foreach.norm(*inputs: TensorList*, */*, ***, *ord: Scalar = 2*, *dtype: [dtype](../tensor_attributes.html#torch.dtype) | [None](https://docs.python.org/3/builtins/constants.html#None) = None*) → [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), ...][[source]](https://github.com/pytorch/pytorch/blob/65e101a3cc8242711ae1cb467ed6cde097135821/torch/foreach/__init__.py#L1578)
 
 Returns the vector norm of each tensor in `inputs`.
 

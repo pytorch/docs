@@ -1,6 +1,6 @@
 # torch.nn.functional.cosine_embedding_loss
 
-torch.nn.functional.cosine_embedding_loss(*input1*, *input2*, *target*, *margin=0*, *size_average=None*, *reduce=None*, *reduction='mean'*)[[source]](https://github.com/pytorch/pytorch/blob/80b58bb1ec917076395b2c2e7cfece090dfe30ab/torch/nn/functional.py#L4670)
+torch.nn.functional.cosine_embedding_loss(*input1*, *input2*, *target*, *margin=0*, *size_average=None*, *reduce=None*, *reduction='mean'*)[[source]](https://github.com/pytorch/pytorch/blob/65e101a3cc8242711ae1cb467ed6cde097135821/torch/nn/functional.py#L4670)
 
 Compute the cosine embedding loss.
 

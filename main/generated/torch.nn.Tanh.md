@@ -1,6 +1,6 @@
 # Tanh
 
-*class*torch.nn.Tanh(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/80b58bb1ec917076395b2c2e7cfece090dfe30ab/torch/nn/modules/activation.py#L407)
+*class*torch.nn.Tanh(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/65e101a3cc8242711ae1cb467ed6cde097135821/torch/nn/modules/activation.py#L407)
 
 Applies the Hyperbolic Tangent (Tanh) function element-wise.
 
@@ -25,7 +25,7 @@ Examples:
 tensor([-0.9640, -0.4621, 0.0000, 0.4621, 0.9640])
 ```
 
-forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/80b58bb1ec917076395b2c2e7cfece090dfe30ab/torch/nn/modules/activation.py#L429)
+forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/65e101a3cc8242711ae1cb467ed6cde097135821/torch/nn/modules/activation.py#L429)
 
 Runs the forward pass.
 

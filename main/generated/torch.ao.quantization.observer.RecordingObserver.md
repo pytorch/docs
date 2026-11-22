@@ -1,6 +1,6 @@
 # RecordingObserver
 
-*class*torch.ao.quantization.observer.RecordingObserver(*dtype=torch.quint8*)[[source]](https://github.com/pytorch/pytorch/blob/80b58bb1ec917076395b2c2e7cfece090dfe30ab/torch/ao/quantization/observer.py#L1563)
+*class*torch.ao.quantization.observer.RecordingObserver(*dtype=torch.quint8*)[[source]](https://github.com/pytorch/pytorch/blob/65e101a3cc8242711ae1cb467ed6cde097135821/torch/ao/quantization/observer.py#L1563)
 
 The module is mainly for debug and records the tensor values during runtime.
 

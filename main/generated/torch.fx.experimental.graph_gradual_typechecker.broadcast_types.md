@@ -1,6 +1,6 @@
 # torch.fx.experimental.graph_gradual_typechecker.broadcast_types
 
-torch.fx.experimental.graph_gradual_typechecker.broadcast_types(*t1*, *t2*)[[source]](https://github.com/pytorch/pytorch/blob/80b58bb1ec917076395b2c2e7cfece090dfe30ab/torch/fx/experimental/graph_gradual_typechecker.py#L83)
+torch.fx.experimental.graph_gradual_typechecker.broadcast_types(*t1*, *t2*)[[source]](https://github.com/pytorch/pytorch/blob/65e101a3cc8242711ae1cb467ed6cde097135821/torch/fx/experimental/graph_gradual_typechecker.py#L83)
 
 Applies broadcasting to both given types such that they
 become consistent with each other and returns two new

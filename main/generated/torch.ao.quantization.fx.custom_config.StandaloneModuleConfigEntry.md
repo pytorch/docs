@@ -1,3 +1,3 @@
 # StandaloneModuleConfigEntry
 
-*class*torch.ao.quantization.fx.custom_config.StandaloneModuleConfigEntry(*qconfig_mapping: 'QConfigMapping | None'*, *example_inputs: 'tuple[Any, ...]'*, *prepare_custom_config: 'PrepareCustomConfig | None'*, *backend_config: 'BackendConfig | None'*)[[source]](https://github.com/pytorch/pytorch/blob/80b58bb1ec917076395b2c2e7cfece090dfe30ab/torch/ao/quantization/fx/custom_config.py#L36)
+*class*torch.ao.quantization.fx.custom_config.StandaloneModuleConfigEntry(*qconfig_mapping: 'QConfigMapping | None'*, *example_inputs: 'tuple[Any, ...]'*, *prepare_custom_config: 'PrepareCustomConfig | None'*, *backend_config: 'BackendConfig | None'*)[[source]](https://github.com/pytorch/pytorch/blob/65e101a3cc8242711ae1cb467ed6cde097135821/torch/ao/quantization/fx/custom_config.py#L36)

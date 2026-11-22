@@ -1,6 +1,6 @@
 # torch.utils.model_dump.get_model_info
 
-torch.utils.model_dump.get_model_info(*path_or_file*, *title=None*, *extra_file_size_limit=16384*)[[source]](https://github.com/pytorch/pytorch/blob/80b58bb1ec917076395b2c2e7cfece090dfe30ab/torch/utils/model_dump/__init__.py#L458)
+torch.utils.model_dump.get_model_info(*path_or_file*, *title=None*, *extra_file_size_limit=16384*)[[source]](https://github.com/pytorch/pytorch/blob/65e101a3cc8242711ae1cb467ed6cde097135821/torch/utils/model_dump/__init__.py#L458)
 
 Get JSON-friendly information about a model.
 

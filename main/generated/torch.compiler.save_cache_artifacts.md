@@ -1,6 +1,6 @@
 # torch.compiler.save_cache_artifacts
 
-torch.compiler.save_cache_artifacts()[[source]](https://github.com/pytorch/pytorch/blob/80b58bb1ec917076395b2c2e7cfece090dfe30ab/torch/compiler/__init__.py#L792)
+torch.compiler.save_cache_artifacts()[[source]](https://github.com/pytorch/pytorch/blob/65e101a3cc8242711ae1cb467ed6cde097135821/torch/compiler/__init__.py#L792)
 
 Serializes all the cache artifacts that were created during the compilation
 

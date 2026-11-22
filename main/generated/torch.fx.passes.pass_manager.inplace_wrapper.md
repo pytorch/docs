@@ -1,6 +1,6 @@
 # torch.fx.passes.pass_manager.inplace_wrapper
 
-torch.fx.passes.pass_manager.inplace_wrapper(*fn*)[[source]](https://github.com/pytorch/pytorch/blob/80b58bb1ec917076395b2c2e7cfece090dfe30ab/torch/fx/passes/pass_manager.py#L27)
+torch.fx.passes.pass_manager.inplace_wrapper(*fn*)[[source]](https://github.com/pytorch/pytorch/blob/65e101a3cc8242711ae1cb467ed6cde097135821/torch/fx/passes/pass_manager.py#L27)
 
 Convenience wrapper for passes which modify an object inplace. This
 wrapper makes them return the modified object instead.

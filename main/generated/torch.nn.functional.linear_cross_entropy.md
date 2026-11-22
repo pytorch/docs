@@ -1,6 +1,6 @@
 # torch.nn.functional.linear_cross_entropy
 
-torch.nn.functional.linear_cross_entropy(*input*, *linear_weight*, *target*, ***, *linear_bias=None*, *weight=None*, *reduction='mean'*, *ignore_index=None*, *label_smoothing=0.0*, *options=None*)[[source]](https://github.com/pytorch/pytorch/blob/80b58bb1ec917076395b2c2e7cfece090dfe30ab/torch/nn/functional.py#L3808)
+torch.nn.functional.linear_cross_entropy(*input*, *linear_weight*, *target*, ***, *linear_bias=None*, *weight=None*, *reduction='mean'*, *ignore_index=None*, *label_smoothing=0.0*, *options=None*)[[source]](https://github.com/pytorch/pytorch/blob/65e101a3cc8242711ae1cb467ed6cde097135821/torch/nn/functional.py#L3808)
 
 Compute the cross entropy loss between inputs, transformed linearly, and target.
 

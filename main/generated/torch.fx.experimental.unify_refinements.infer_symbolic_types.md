@@ -1,6 +1,6 @@
 # torch.fx.experimental.unify_refinements.infer_symbolic_types
 
-torch.fx.experimental.unify_refinements.infer_symbolic_types(*traced*)[[source]](https://github.com/pytorch/pytorch/blob/80b58bb1ec917076395b2c2e7cfece090dfe30ab/torch/fx/experimental/unify_refinements.py#L32)
+torch.fx.experimental.unify_refinements.infer_symbolic_types(*traced*)[[source]](https://github.com/pytorch/pytorch/blob/65e101a3cc8242711ae1cb467ed6cde097135821/torch/fx/experimental/unify_refinements.py#L32)
 
 Calls our symbolic inferencer twice.
 This is useful when one pass is not enough

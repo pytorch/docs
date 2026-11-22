@@ -1,6 +1,6 @@
 # upsample_nearest
 
-*class*torch.ao.nn.quantized.functional.upsample_nearest(*input*, *size=None*, *scale_factor=None*)[[source]](https://github.com/pytorch/pytorch/blob/80b58bb1ec917076395b2c2e7cfece090dfe30ab/torch/ao/nn/quantized/functional.py#L762)
+*class*torch.ao.nn.quantized.functional.upsample_nearest(*input*, *size=None*, *scale_factor=None*)[[source]](https://github.com/pytorch/pytorch/blob/65e101a3cc8242711ae1cb467ed6cde097135821/torch/ao/nn/quantized/functional.py#L762)
 
 Upsamples the input, using nearest neighbours' pixel values.
 

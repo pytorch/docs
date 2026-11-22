@@ -1,6 +1,6 @@
 # torch.get_rng_state
 
-torch.get_rng_state()[[source]](https://github.com/pytorch/pytorch/blob/80b58bb1ec917076395b2c2e7cfece090dfe30ab/torch/random.py#L39)
+torch.get_rng_state()[[source]](https://github.com/pytorch/pytorch/blob/65e101a3cc8242711ae1cb467ed6cde097135821/torch/random.py#L39)
 
 Returns the random number generator state as a torch.ByteTensor.
 

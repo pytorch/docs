@@ -1,6 +1,6 @@
 # get_non_observable_arg_indexes_and_types
 
-*class*torch.ao.quantization.fx.utils.get_non_observable_arg_indexes_and_types(*node*)[[source]](https://github.com/pytorch/pytorch/blob/80b58bb1ec917076395b2c2e7cfece090dfe30ab/torch/ao/quantization/fx/utils.py#L416)
+*class*torch.ao.quantization.fx.utils.get_non_observable_arg_indexes_and_types(*node*)[[source]](https://github.com/pytorch/pytorch/blob/65e101a3cc8242711ae1cb467ed6cde097135821/torch/ao/quantization/fx/utils.py#L416)
 
 Returns a dict with of non float tensor types as keys and values which correspond to a
 function to retrieve the list (which takes the node as an argument)

@@ -1,6 +1,6 @@
 # torch.linalg.cond
 
-torch.linalg.cond(*A*, *p=None*, ***, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/80b58bb1ec917076395b2c2e7cfece090dfe30ab/torch/linalg/__init__.py#L1951)
+torch.linalg.cond(*A*, *p=None*, ***, *out=None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/65e101a3cc8242711ae1cb467ed6cde097135821/torch/linalg/__init__.py#L1951)
 
 Computes the condition number of a matrix with respect to a matrix norm.
 
