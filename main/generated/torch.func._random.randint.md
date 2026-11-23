@@ -1,6 +1,6 @@
 # torch.func._random.randint
 
-torch.func._random.randint(*key*, **shape*, *low=0*, *high=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/65e101a3cc8242711ae1cb467ed6cde097135821/torch/func/_random.py#L450)
+torch.func._random.randint(*key*, **shape*, *low=0*, *high=None*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/e9565720ab4f59a0ed491b3f8440ae38c2455bab/torch/func/_random.py#L450)
 
 Generate uniform random integers in `[low, high)` from a PRNG key.
 

@@ -1,6 +1,6 @@
 # torch.func._random.randint_
 
-torch.func._random.randint_(*key*, *result*, ***, *low=0*, *high=None*)[[source]](https://github.com/pytorch/pytorch/blob/65e101a3cc8242711ae1cb467ed6cde097135821/torch/func/_random.py#L345)
+torch.func._random.randint_(*key*, *result*, ***, *low=0*, *high=None*)[[source]](https://github.com/pytorch/pytorch/blob/e9565720ab4f59a0ed491b3f8440ae38c2455bab/torch/func/_random.py#L345)
 
 Fill `result` in-place with uniform random integers in `[low, high)`.
 

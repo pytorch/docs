@@ -1,6 +1,6 @@
 # torch.func._random.uniform
 
-torch.func._random.uniform(*key*, **shape*, *low=0.0*, *high=1.0*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/65e101a3cc8242711ae1cb467ed6cde097135821/torch/func/_random.py#L294)
+torch.func._random.uniform(*key*, **shape*, *low=0.0*, *high=1.0*, *dtype=None*)[[source]](https://github.com/pytorch/pytorch/blob/e9565720ab4f59a0ed491b3f8440ae38c2455bab/torch/func/_random.py#L294)
 
 Generate uniformly distributed random values from a PRNG key.
 

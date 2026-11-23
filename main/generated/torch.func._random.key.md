@@ -1,6 +1,6 @@
 # torch.func._random.key
 
-torch.func._random.key(*seed*, ***, *device=None*, *impl='philox4x32-10'*)[[source]](https://github.com/pytorch/pytorch/blob/65e101a3cc8242711ae1cb467ed6cde097135821/torch/func/_random.py#L31)
+torch.func._random.key(*seed*, ***, *device=None*, *impl='philox4x32-10'*)[[source]](https://github.com/pytorch/pytorch/blob/e9565720ab4f59a0ed491b3f8440ae38c2455bab/torch/func/_random.py#L31)
 
 Create a PRNG key from a seed.
 

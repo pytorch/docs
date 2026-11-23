@@ -1,6 +1,6 @@
 # torch.use_deterministic_algorithms
 
-torch.use_deterministic_algorithms(*mode*, ***, *warn_only=False*)[[source]](https://github.com/pytorch/pytorch/blob/65e101a3cc8242711ae1cb467ed6cde097135821/torch/__init__.py#L1784)
+torch.use_deterministic_algorithms(*mode*, ***, *warn_only=False*)[[source]](https://github.com/pytorch/pytorch/blob/e9565720ab4f59a0ed491b3f8440ae38c2455bab/torch/__init__.py#L1784)
 
 Sets whether PyTorch operations must use "deterministic"
 algorithms. That is, algorithms which, given the same input, and when
@@ -65,8 +65,7 @@ deterministically when `mode=True`:
 > when called on an MPS tensor with floating or complex dtype
 > - [`torch.nn.functional.grid_sample()`](torch.nn.functional.grid_sample.html#torch.nn.functional.grid_sample) when attempting to differentiate an MPS tensor
 > - [`torch.nn.MaxPool2d()`](torch.nn.MaxPool2d.html#torch.nn.MaxPool2d), [`torch.nn.MaxPool3d()`](torch.nn.MaxPool3d.html#torch.nn.MaxPool3d), [`torch.nn.AdaptiveMaxPool2d()`](torch.nn.AdaptiveMaxPool2d.html#torch.nn.AdaptiveMaxPool2d),
-> [`torch.nn.AvgPool2d()`](torch.nn.AvgPool2d.html#torch.nn.AvgPool2d), and [`torch.nn.AvgPool3d()`](torch.nn.AvgPool3d.html#torch.nn.AvgPool3d) when attempting to differentiate
-> an MPS tensor
+> and [`torch.nn.AvgPool3d()`](torch.nn.AvgPool3d.html#torch.nn.AvgPool3d) when attempting to differentiate an MPS tensor
 > - [`torch.nn.functional.interpolate()`](torch.nn.functional.interpolate.html#torch.nn.functional.interpolate) when attempting to differentiate an MPS tensor
 > in some cases
 > - [`torch.nn.CTCLoss`](torch.nn.CTCLoss.html#torch.nn.CTCLoss) when attempting to differentiate a CUDA tensor

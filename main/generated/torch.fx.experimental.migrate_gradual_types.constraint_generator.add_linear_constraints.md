@@ -1,6 +1,6 @@
 # torch.fx.experimental.migrate_gradual_types.constraint_generator.add_linear_constraints
 
-torch.fx.experimental.migrate_gradual_types.constraint_generator.add_linear_constraints(*dims1*, *dims2*, *in_features*, *out_features*)[[source]](https://github.com/pytorch/pytorch/blob/65e101a3cc8242711ae1cb467ed6cde097135821/torch/fx/experimental/migrate_gradual_types/constraint_generator.py#L1527)
+torch.fx.experimental.migrate_gradual_types.constraint_generator.add_linear_constraints(*dims1*, *dims2*, *in_features*, *out_features*)[[source]](https://github.com/pytorch/pytorch/blob/e9565720ab4f59a0ed491b3f8440ae38c2455bab/torch/fx/experimental/migrate_gradual_types/constraint_generator.py#L1527)
 
 Return type:
 
