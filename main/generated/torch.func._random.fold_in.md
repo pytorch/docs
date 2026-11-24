@@ -1,6 +1,6 @@
 # torch.func._random.fold_in
 
-torch.func._random.fold_in(*key*, *data*)[[source]](https://github.com/pytorch/pytorch/blob/e9565720ab4f59a0ed491b3f8440ae38c2455bab/torch/func/_random.py#L109)
+torch.func._random.fold_in(*key*, *data*)[[source]](https://github.com/pytorch/pytorch/blob/990e1ce56708ce777f2294c04f77e4c28c7ea900/torch/func/_random.py#L109)
 
 Deterministically derive a new key by folding in an integer value.
 

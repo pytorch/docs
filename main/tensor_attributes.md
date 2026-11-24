@@ -25,7 +25,7 @@ A `torch.dtype` is an object that represents the data type of a
 | `torch.float8_e5m2` [5] | 8-bit floating point, S-E-M 1-5-2, from [https://arxiv.org/abs/2209.05433](https://arxiv.org/abs/2209.05433) |
 | `torch.float8_e4m3fnuz` [5] [1] | 8-bit floating point, S-E-M 1-4-3, from [https://arxiv.org/pdf/2206.02915](https://arxiv.org/pdf/2206.02915) |
 | `torch.float8_e5m2fnuz` [5] [1] | 8-bit floating point, S-E-M 1-5-2, from [https://arxiv.org/pdf/2206.02915](https://arxiv.org/pdf/2206.02915) |
-| `torch.float8_e8m0fnu` [5] [1] | 8-bit floating point, S-E-M 0-8-0, from [https://www.opencompute.org/documents/ocp-microscaling-formats-mx-v1-0-spec-final-pdf](https://www.opencompute.org/documents/ocp-microscaling-formats-mx-v1-0-spec-final-pdf) |
+| `torch.float8_e8m0fnu` [5] [1] [6] | 8-bit floating point, S-E-M 0-8-0, from [https://www.opencompute.org/documents/ocp-microscaling-formats-mx-v1-0-spec-final-pdf](https://www.opencompute.org/documents/ocp-microscaling-formats-mx-v1-0-spec-final-pdf) |
 | `torch.float8_e5m3fnu` [5] [1] [4] | 8-bit unsigned floating point, S-E-M 0-5-3, block-scale format, from [https://docs.nvidia.com/cuda/parallel-thread-execution/index.html#alternate-floating-point-data-formats](https://docs.nvidia.com/cuda/parallel-thread-execution/index.html#alternate-floating-point-data-formats) (`ue5m3`) |
 | `torch.float4_e2m1fn_x2` [5] [1] [3] | packed 4-bit floating point, S-E-M 1-2-1, from [https://www.opencompute.org/documents/ocp-microscaling-formats-mx-v1-0-spec-final-pdf](https://www.opencompute.org/documents/ocp-microscaling-formats-mx-v1-0-spec-final-pdf) |
 

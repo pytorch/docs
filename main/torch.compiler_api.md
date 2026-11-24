@@ -63,7 +63,43 @@ trace under the contract of Note [precompile programming model] in `torch/_preco
 `torch.compiler.precompile` is distinct from `torch._dynamo.config.caching_precompile`
 (a `torch.compile` caching mode).
 
-torch.compiler.precompile.capture(*fn*, */*, ***, *artifact_path*, *cache_path*, *tracer=DynamoTracer(guard_filter_fn=None, recompile_limit=256, dynamic=None, require_complete=True, require_no_risky_drops=True)*, *backend='inductor'*, *mode=None*, *options=None*)[[source]](https://github.com/pytorch/pytorch/blob/e9565720ab4f59a0ed491b3f8440ae38c2455bab/torch/_precompile.py#L3951)
+### Coverage, the capture gates, and serve-time misses
+
+A `DynamoTracer` capture records only what your calls executed: a branch, a shape or a
+configuration no call reached is absent from the artifact. A dimension the capture saw at
+one size compiles static, so feed at least two sizes of any dimension that varies in
+serving, or set `DynamoTracer(dynamic=True)`.
+
+At serve time the artifact dispatches among the captured variants by their serialized
+guards, and a call no variant covers is a miss:
+
+- By default a miss raises `PrecompileError`; nothing compiles at serve time.
+- In a frame Dynamo gave up on during capture (`PrecompileSummary.eager_fallbacks`), a
+miss runs eagerly, as that frame did during capture.
+- `load(..., allow_serve_time_compiles=True)` compiles a miss with the capture's backend
+and options, as `torch.compile` would. Only an *installed* artifact
+(`PrecompiledRunnable.installed`) has a compiler behind it; passing the flag for a
+standalone artifact raises.
+- The `"force_eager"` and `"eager_on_recompile"` stances of
+[`torch.compiler.set_stance()`](generated/torch.compiler.set_stance.html#torch.compiler.set_stance) also change serving; see
+`torch.compiler.precompile.load()`.
+
+Because a miss surfaces in the serving process, the capture refuses, when it writes the
+artifact, one it already knows has a gap or an ambiguity. Two `DynamoTracer` gates, both
+on by default, raise `PrecompileError` instead of writing:
+
+| Gate | Refuses to write when | Turning it off means |
+| --- | --- | --- |
+| `require_complete` | a capture call raised, nothing compiled to a graph, a frame ran but produced no guarded code, or a frame was bypassed because its guards could not be serialized | The partial artifact is written, and `PrecompileSummary` lists the gaps. A frame that only dispatches to compiled children is harmless; a call that needs a missing frame is a miss. |
+| `require_no_risky_drops` | a guard the serializer had to drop told captured variants apart, sits on a slot configuration chooses (an attribute, closure cell or aliased import holding a function), or was discarded by your `guard_filter_fn` | No load checks that slot, so a different value in the serving process silently selects the wrong variant instead of raising. Safe only when the capture and the serving process run the same code and configuration. |
+
+Turning a gate off does not make serving more forgiving: it moves the failure from the
+capture to a miss at serve time, or for a risky drop to a wrong result. Before turning
+one off, read the capture's `summary()`: `capture_errors`, `uncovered_frames` and
+`bypassed` explain a `require_complete` refusal, and `risky_dropped_guards` a
+`require_no_risky_drops` one.
+
+torch.compiler.precompile.capture(*fn*, */*, ***, *artifact_path*, *cache_path*, *tracer=DynamoTracer(guard_filter_fn=None, recompile_limit=256, dynamic=None, require_complete=True, require_no_risky_drops=True)*, *backend='inductor'*, *mode=None*, *options=None*)[[source]](https://github.com/pytorch/pytorch/blob/990e1ce56708ce777f2294c04f77e4c28c7ea900/torch/_precompile.py#L3951)
 
 Capture `fn` across the calls YOUR loop makes, writing the artifact on exit.
 
@@ -211,7 +247,7 @@ Return type:
 
 *Capture*[~_P, *_R*]
 
-torch.compiler.precompile.load(*artifact_path*, *cache_path*, ***, *allow_serve_time_compiles=False*)[[source]](https://github.com/pytorch/pytorch/blob/e9565720ab4f59a0ed491b3f8440ae38c2455bab/torch/_precompile.py#L4192)
+torch.compiler.precompile.load(*artifact_path*, *cache_path*, ***, *allow_serve_time_compiles=False*)[[source]](https://github.com/pytorch/pytorch/blob/990e1ce56708ce777f2294c04f77e4c28c7ea900/torch/_precompile.py#L4192)
 
 Reconstruct a runnable from the two files a precompile capture wrote.
 
@@ -338,7 +374,7 @@ Return type:
 
 *PrecompiledRunnable*
 
-torch.compiler.precompile.no_compilation()[[source]](https://github.com/pytorch/pytorch/blob/e9565720ab4f59a0ed491b3f8440ae38c2455bab/torch/_precompile.py#L3811)
+torch.compiler.precompile.no_compilation()[[source]](https://github.com/pytorch/pytorch/blob/990e1ce56708ce777f2294c04f77e4c28c7ea900/torch/_precompile.py#L3811)
 
 Forbid graph/kernel compilation and autotuning on every thread of this process.
 
@@ -451,7 +487,7 @@ exits it cannot be entered again, so call `capture()` again to retry.
 That includes a failed write at exit: the spent capture does not keep its
 pair, so fix the path and capture again.
 
-save()[[source]](https://github.com/pytorch/pytorch/blob/e9565720ab4f59a0ed491b3f8440ae38c2455bab/torch/_precompile.py#L539)
+save()[[source]](https://github.com/pytorch/pytorch/blob/990e1ce56708ce777f2294c04f77e4c28c7ea900/torch/_precompile.py#L539)
 
 Write everything captured so far to the artifact files without ending the capture.
 
@@ -480,7 +516,7 @@ Variables:
 code objects (`SERVING_MODE = "installed"`); `False` for a
 standalone artifact.
 
-unload()[[source]](https://github.com/pytorch/pytorch/blob/e9565720ab4f59a0ed491b3f8440ae38c2455bab/torch/_precompile.py#L481)
+unload()[[source]](https://github.com/pytorch/pytorch/blob/990e1ce56708ce777f2294c04f77e4c28c7ea900/torch/_precompile.py#L481)
 
 Remove whatever this loaded artifact installed; currently a no-op in every mode.
 

@@ -1,6 +1,6 @@
 # torch.nn.utils.clip_grad_value_
 
-torch.nn.utils.clip_grad_value_(*parameters*, *clip_value*, *foreach=None*)[[source]](https://github.com/pytorch/pytorch/blob/e9565720ab4f59a0ed491b3f8440ae38c2455bab/torch/nn/utils/clip_grad.py#L267)
+torch.nn.utils.clip_grad_value_(*parameters*, *clip_value*, *foreach=None*)[[source]](https://github.com/pytorch/pytorch/blob/990e1ce56708ce777f2294c04f77e4c28c7ea900/torch/nn/utils/clip_grad.py#L267)
 
 Clip the gradients of an iterable of parameters at specified value.
 

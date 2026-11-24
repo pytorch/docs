@@ -1,6 +1,6 @@
 # torch.nn.functional.quantize_tensor_dual
 
-torch.nn.functional.quantize_tensor_dual(*input*, ***, *dim*, *scaling_type*, *qdata_dtype*, *scaling_algorithm*, *swizzle_type*, *scaling_type_use_square_block_size=False*) → [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), [Tensor](../tensors.html#torch.Tensor), [Tensor](../tensors.html#torch.Tensor), [Tensor](../tensors.html#torch.Tensor)][[source]](https://github.com/pytorch/pytorch/blob/e9565720ab4f59a0ed491b3f8440ae38c2455bab/torch/nn/functional.py#L7428)
+torch.nn.functional.quantize_tensor_dual(*input*, ***, *dim*, *scaling_type*, *qdata_dtype*, *scaling_algorithm*, *swizzle_type*, *scaling_type_use_square_block_size=False*) → [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), [Tensor](../tensors.html#torch.Tensor), [Tensor](../tensors.html#torch.Tensor), [Tensor](../tensors.html#torch.Tensor)][[source]](https://github.com/pytorch/pytorch/blob/990e1ce56708ce777f2294c04f77e4c28c7ea900/torch/nn/functional.py#L7428)
 
 Subdivide `input` into 2D regions of `scaling_type` along the axes
 specified in `dim` as well as `dim[::-1]`, then quantize according to

@@ -1,6 +1,6 @@
 # torch.fx.experimental.symbolic_shapes.guarding_hint_or_throw
 
-torch.fx.experimental.symbolic_shapes.guarding_hint_or_throw(*a: [SymBool](../torch.html#torch.SymBool) | [bool](https://docs.python.org/3/builtins/functions.html#bool)*) → [bool](https://docs.python.org/3/builtins/functions.html#bool)[[source]](https://github.com/pytorch/pytorch/blob/e9565720ab4f59a0ed491b3f8440ae38c2455bab/torch/fx/experimental/symbolic_shapes.py#L148)
+torch.fx.experimental.symbolic_shapes.guarding_hint_or_throw(*a: [SymBool](../torch.html#torch.SymBool) | [bool](https://docs.python.org/3/builtins/functions.html#bool)*) → [bool](https://docs.python.org/3/builtins/functions.html#bool)[[source]](https://github.com/pytorch/pytorch/blob/990e1ce56708ce777f2294c04f77e4c28c7ea900/torch/fx/experimental/symbolic_shapes.py#L148)
 
 torch.fx.experimental.symbolic_shapes.guarding_hint_or_throw(*a: [SymInt](../torch.html#torch.SymInt) | [int](https://docs.python.org/3/builtins/functions.html#int)*) → [int](https://docs.python.org/3/builtins/functions.html#int)
 
