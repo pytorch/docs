@@ -1,6 +1,6 @@
 # torch.fx.experimental.meta_tracer.torch_where_override
 
-torch.fx.experimental.meta_tracer.torch_where_override(*condition*, *x*, *y*)[[source]](https://github.com/pytorch/pytorch/blob/990e1ce56708ce777f2294c04f77e4c28c7ea900/torch/fx/experimental/meta_tracer.py#L60)
+torch.fx.experimental.meta_tracer.torch_where_override(*condition*, *x*, *y*)[[source]](https://github.com/pytorch/pytorch/blob/7e752fbd7bf384857985d3e556423eaca714bbfe/torch/fx/experimental/meta_tracer.py#L60)
 
 Return type:
 

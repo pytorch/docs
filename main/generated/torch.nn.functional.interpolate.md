@@ -1,6 +1,6 @@
 # torch.nn.functional.interpolate
 
-torch.nn.functional.interpolate(*input*, *size=None*, *scale_factor=None*, *mode='nearest'*, *align_corners=None*, *recompute_scale_factor=None*, *antialias=False*)[[source]](https://github.com/pytorch/pytorch/blob/990e1ce56708ce777f2294c04f77e4c28c7ea900/torch/nn/functional.py#L5085)
+torch.nn.functional.interpolate(*input*, *size=None*, *scale_factor=None*, *mode='nearest'*, *align_corners=None*, *recompute_scale_factor=None*, *antialias=False*)[[source]](https://github.com/pytorch/pytorch/blob/7e752fbd7bf384857985d3e556423eaca714bbfe/torch/nn/functional.py#L5085)
 
 Down/up samples the input.
 
@@ -16,7 +16,8 @@ The input dimensions are interpreted in the form:
 mini-batch x channels x [optional depth] x [optional height] x width.
 
 The modes available for resizing are: nearest, linear (3D-only),
-bilinear, bicubic (4D-only), trilinear (5D-only), lanczos (4D-only, CPU only), area, nearest-exact
+bilinear, bicubic (4D-only), trilinear (5D-only), lanczos (4D-only, CPU only), area, nearest-exact,
+inter-area (4D-only, CPU only)
 
 Parameters:
 
@@ -26,7 +27,8 @@ Parameters:
 its length has to match the number of spatial dimensions; input.dim() - 2.
 - **mode** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - algorithm used for upsampling:
 `'nearest'` | `'linear'` | `'bilinear'` | `'bicubic'` |
-`'trilinear'` | `'lanczos'` | `'area'` | `'nearest-exact'`. Default: `'nearest'`
+`'trilinear'` | `'lanczos'` | `'area'` | `'nearest-exact'` | `'inter-area'`.
+Default: `'nearest'`
 - **align_corners** ([*bool*](https://docs.python.org/3/builtins/functions.html#bool)*,**optional*) - Geometrically, we consider the pixels of the
 input and output as squares rather than points.
 If set to `True`, the input and output tensors are aligned by the
@@ -67,6 +69,16 @@ Note
 Mode `mode='lanczos'` uses a Lanczos-3 windowed sinc filter (6 taps) and requires
 `antialias=True`. It only supports 4-D input (i.e. 2D spatial) and CPU. With `antialias=True`
 and `align_corners=False`, the result matches PIL's `Image.LANCZOS` resampling filter.
+
+Note
+
+Mode `mode='inter-area'` matches OpenCV's `cv2.resize` with `interpolation=cv2.INTER_AREA`.
+With `size`, it matches `cv2.resize(x, (w, h))`. With `scale_factor`, it is used like OpenCV's
+`fx` / `fy` (unless `recompute_scale_factor=True`), but the output size is
+`floor(input_size * scale_factor)` as for the other modes, where OpenCV rounds to the nearest.
+It only supports 4-D input and CPU, and doesn't support `align_corners`, `antialias`,
+or autograd (backward or forward-mode AD).
+For `uint8` inputs, rounding can cause differences from OpenCV.
 
 Note
 

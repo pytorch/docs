@@ -1,6 +1,6 @@
 # torch.nn.attention.register_flash_attention_impl
 
-torch.nn.attention.register_flash_attention_impl(*impl*, ***, *register_fn*)[[source]](https://github.com/pytorch/pytorch/blob/990e1ce56708ce777f2294c04f77e4c28c7ea900/torch/nn/attention/_registry.py#L28)
+torch.nn.attention.register_flash_attention_impl(*impl*, ***, *register_fn*)[[source]](https://github.com/pytorch/pytorch/blob/7e752fbd7bf384857985d3e556423eaca714bbfe/torch/nn/attention/_registry.py#L28)
 
 Register the callable that activates a flash attention impl.
 
@@ -18,6 +18,11 @@ This function will be invoked by [`activate_flash_attention_impl()`](torch.nn.at
 and should register custom kernels with the PyTorch dispatcher.
 It may optionally return a handle implementing
 `FlashAttentionHandle` to keep any necessary state alive.
+Overrides of `aten::_flash_attention_backward` receive the
+`grad_logsumexp` keyword argument only when it is set; declare it as
+`grad_logsumexp=None` and raise `NotImplementedError` when it is
+unsupported rather than ignore it. An override without the parameter fails
+with `TypeError` when a gradient is passed.
 
 Example
 

@@ -1,6 +1,6 @@
 # torch.fx.experimental.optimization.matches_module_pattern
 
-torch.fx.experimental.optimization.matches_module_pattern(*pattern*, *node*, *modules*)[[source]](https://github.com/pytorch/pytorch/blob/990e1ce56708ce777f2294c04f77e4c28c7ea900/torch/fx/experimental/optimization.py#L46)
+torch.fx.experimental.optimization.matches_module_pattern(*pattern*, *node*, *modules*)[[source]](https://github.com/pytorch/pytorch/blob/7e752fbd7bf384857985d3e556423eaca714bbfe/torch/fx/experimental/optimization.py#L46)
 
 Return type:
 
