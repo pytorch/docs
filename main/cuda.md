@@ -301,23 +301,27 @@ This package adds support for device memory management implemented in CUDA.
 | [`CUDAPluggableAllocator`](generated/torch.cuda.memory.CUDAPluggableAllocator.html#torch.cuda.memory.CUDAPluggableAllocator) | CUDA memory allocator loaded from a so file. |
 | [`change_current_allocator`](generated/torch.cuda.memory.change_current_allocator.html#torch.cuda.memory.change_current_allocator) | Change the currently used memory allocator to be the one provided. |
 | [`MemPool`](generated/torch.cuda.memory.MemPool.html#torch.cuda.memory.MemPool) | MemPool represents a pool of memory in a caching allocator. |
+| [`HostMemPool`](generated/torch.cuda.memory.HostMemPool.html#torch.cuda.memory.HostMemPool) | HostMemPool represents a pool of pinned (page-locked) host memory in the CUDA host caching allocator, with no device memory. |
 | [`LocalizedAllocator`](generated/torch.cuda.memory.LocalizedAllocator.html#torch.cuda.memory.LocalizedAllocator) | Allocate physical CUDA memory on one locality domain. |
 
 | [`caching_allocator_disabled`](generated/torch.cuda.memory.caching_allocator_disabled.html#torch.cuda.memory.caching_allocator_disabled) | Context manager that temporarily disables the CUDA caching allocator. |
 | --- | --- |
 | [`caching_allocator_enable`](generated/torch.cuda.memory.caching_allocator_enable.html#torch.cuda.memory.caching_allocator_enable) | Enable or disable the CUDA memory allocator. |
 
-*class*torch.cuda.use_mem_pool(*pool*, *device=None*)[[source]](https://github.com/pytorch/pytorch/blob/7e752fbd7bf384857985d3e556423eaca714bbfe/torch/cuda/memory.py#L1817)
+*class*torch.cuda.use_mem_pool(*pool*, *device=None*)[[source]](https://github.com/pytorch/pytorch/blob/f8a8dd25ad84298ffbd713e8dbdb5bba38ef907d/torch/cuda/memory.py#L1891)
 
 A context manager that routes allocations to a given pool.
 
 Parameters:
 
-- **pool** (*torch.cuda.MemPool*) - a MemPool object to be made active so that
-allocations route to this pool.
+- **pool** (*torch.cuda.MemPool**or**torch.cuda.HostMemPool*) - the pool that the
+current thread's allocations route to. A `MemPool` takes
+device allocations; a `HostMemPool` takes pinned host
+allocations, such as `torch.empty(n, pin_memory=True)`.
 - **device** ([*torch.device*](tensor_attributes.html#torch.device)*or*[*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - selected device. Uses MemPool on
 the current device, given by [`current_device()`](generated/torch.cuda.current_device.html#torch.cuda.current_device),
-if [`device`](generated/torch.cuda.device.html#torch.cuda.device) is `None` (default).
+if [`device`](generated/torch.cuda.device.html#torch.cuda.device) is `None` (default). Must be `None` for a
+HostMemPool.
 
 Note
 
@@ -329,9 +333,18 @@ route to the given pool.
 Note
 
 When used during [`CUDAGraph`](generated/torch.cuda.CUDAGraph.html#torch.cuda.CUDAGraph) capture, the graph
-retains the pool until the graph is reset or destroyed.
+retains the pool until the graph is reset or destroyed. The newest of
+the capture and the context wins: allocations on the capturing stream
+go to the pool when the context is entered inside the capture, and to
+the graph's pool when the capture is begun inside the context.
 
-torch.cuda.nccl.version()[[source]](https://github.com/pytorch/pytorch/blob/7e752fbd7bf384857985d3e556423eaca714bbfe/torch/cuda/nccl.py#L35)
+Note
+
+Contexts that route pinned memory must be exited in reverse order, on
+the thread that entered them; otherwise exiting raises an error and
+changes nothing.
+
+torch.cuda.nccl.version()[[source]](https://github.com/pytorch/pytorch/blob/f8a8dd25ad84298ffbd713e8dbdb5bba38ef907d/torch/cuda/nccl.py#L35)
 
 Returns the version of the NCCL.
 
@@ -620,6 +633,6 @@ Keep the contexts, pools, and tensors alive until their GPU work completes.
 | [`get_num_locality_domains`](generated/torch.cuda.green_contexts.get_num_locality_domains.html#torch.cuda.green_contexts.get_num_locality_domains) | Return the device's locality-domain count reported by CUDA. |
 | [`is_localization_supported`](generated/torch.cuda.green_contexts.is_localization_supported.html#torch.cuda.green_contexts.is_localization_supported) | Return whether the software supports localization on a multi-domain GPU. |
 
-torch.cuda.nccl.is_available(*tensors*)[[source]](https://github.com/pytorch/pytorch/blob/7e752fbd7bf384857985d3e556423eaca714bbfe/torch/cuda/nccl.py#L14)
+torch.cuda.nccl.is_available(*tensors*)[[source]](https://github.com/pytorch/pytorch/blob/f8a8dd25ad84298ffbd713e8dbdb5bba38ef907d/torch/cuda/nccl.py#L14)
 
 This package adds support for NVIDIA Tools Extension (NVTX) used in profiling.

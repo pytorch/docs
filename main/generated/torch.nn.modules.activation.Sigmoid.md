@@ -1,6 +1,6 @@
 # Sigmoid
 
-*class*torch.nn.modules.activation.Sigmoid(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/7e752fbd7bf384857985d3e556423eaca714bbfe/torch/nn/modules/activation.py#L337)
+*class*torch.nn.modules.activation.Sigmoid(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/f8a8dd25ad84298ffbd713e8dbdb5bba38ef907d/torch/nn/modules/activation.py#L337)
 
 Applies the Sigmoid function element-wise.
 
@@ -14,6 +14,9 @@ Shape:
 
 ![../_images/Sigmoid.png](../_images/Sigmoid.png)
 
+[`torch.sigmoid()`](torch.sigmoid.html#torch.sigmoid), [`torch.Tensor.sigmoid()`](torch.Tensor.sigmoid.html#torch.Tensor.sigmoid), [`torch.nn.functional.sigmoid()`](torch.nn.functional.sigmoid.html#torch.nn.functional.sigmoid),
+and [`torch.special.expit()`](../special.html#torch.special.expit) compute the same element-wise function.
+
 Examples:
 
 ```
@@ -22,7 +25,7 @@ Examples:
 >>> output = m(input)
 ```
 
-forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/7e752fbd7bf384857985d3e556423eaca714bbfe/torch/nn/modules/activation.py#L357)
+forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/f8a8dd25ad84298ffbd713e8dbdb5bba38ef907d/torch/nn/modules/activation.py#L360)
 
 Runs the forward pass.
 

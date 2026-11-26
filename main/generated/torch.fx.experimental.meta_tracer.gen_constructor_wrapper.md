@@ -1,6 +1,6 @@
 # torch.fx.experimental.meta_tracer.gen_constructor_wrapper
 
-torch.fx.experimental.meta_tracer.gen_constructor_wrapper(*target*)[[source]](https://github.com/pytorch/pytorch/blob/7e752fbd7bf384857985d3e556423eaca714bbfe/torch/fx/experimental/meta_tracer.py#L87)
+torch.fx.experimental.meta_tracer.gen_constructor_wrapper(*target*)[[source]](https://github.com/pytorch/pytorch/blob/f8a8dd25ad84298ffbd713e8dbdb5bba38ef907d/torch/fx/experimental/meta_tracer.py#L87)
 
 Return type:
 

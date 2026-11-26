@@ -1,6 +1,6 @@
 # torch.nn.utils.convert_parameters.vector_to_parameters
 
-torch.nn.utils.convert_parameters.vector_to_parameters(*vec*, *parameters*)[[source]](https://github.com/pytorch/pytorch/blob/7e752fbd7bf384857985d3e556423eaca714bbfe/torch/nn/utils/convert_parameters.py#L28)
+torch.nn.utils.convert_parameters.vector_to_parameters(*vec*, *parameters*)[[source]](https://github.com/pytorch/pytorch/blob/f8a8dd25ad84298ffbd713e8dbdb5bba38ef907d/torch/nn/utils/convert_parameters.py#L28)
 
 Copy slices of a vector into an iterable of parameters.
 

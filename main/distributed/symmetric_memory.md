@@ -27,7 +27,7 @@ should not be called directly.
 | --- | --- | --- | --- |
 | `empty`, `rendezvous`, `get`, and `get_mem_pool` | Alpha | General | Allocate, establish, access, and reuse symmetric memory. |
 | `fused_all_gather_matmul` and `fused_matmul_reduce_scatter` | Alpha | General | Overlap an unscaled matrix multiplication with a tensor-parallel collective. Ordinary accelerator tensors are accepted; the operators manage a symmetric workspace. These are also targets of the compiler's tensor-parallel fusion pass. |
-| `fused_all_gather_scaled_matmul` and `fused_scaled_matmul_reduce_scatter` | Experimental | Hardware-specific | FP8 or other scaled matrix multiplication when the accelerator supports `aten._scaled_mm`. Their interfaces closely follow compiler lowering requirements. |
+| `fused_all_gather_scaled_matmul` and `fused_scaled_matmul_reduce_scatter` | Experimental | Hardware-specific | FP8 or other scaled matrix multiplication when the accelerator supports `aten._scaled_mm_v2`. Their interfaces closely follow compiler lowering requirements. |
 | `one_shot_all_reduce`, `one_shot_all_reduce_out`, and `two_shot_all_reduce_` | Alpha | Hardware-specific | Low-latency, direct-access all-reduce on a symmetric tensor. |
 | `multimem_all_reduce_` and `multimem_all_gather_out` | Alpha | Hardware-specific | NVIDIA systems with multicast and multimem support, such as NVLink SHARP. |
 | `multimem_one_shot_all_reduce`, `multimem_one_shot_all_reduce_out`, and `multimem_one_shot_reduce_out` | Experimental | Hardware-specific | Compiler-oriented multimem variants. Their reduction order is not fixed, so all ranks are not guaranteed to receive bitwise-identical results. |
@@ -679,7 +679,7 @@ communicator for the process group if it doesn't already exist.
 
 ## API Reference
 
-torch.distributed._symmetric_memory.empty(**size: _int*, *dtype: _dtype | [None](https://docs.python.org/3/builtins/constants.html#None) = None*, *device: _device | [None](https://docs.python.org/3/builtins/constants.html#None) = None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/7e752fbd7bf384857985d3e556423eaca714bbfe/torch/distributed/_symmetric_memory/__init__.py#L2276)
+torch.distributed._symmetric_memory.empty(**size: _int*, *dtype: _dtype | [None](https://docs.python.org/3/builtins/constants.html#None) = None*, *device: _device | [None](https://docs.python.org/3/builtins/constants.html#None) = None*) → [Tensor](../tensors.html#torch.Tensor)[[source]](https://github.com/pytorch/pytorch/blob/f8a8dd25ad84298ffbd713e8dbdb5bba38ef907d/torch/distributed/_symmetric_memory/__init__.py#L2447)
 
 torch.distributed._symmetric_memory.empty(*size: Sequence[_int]*, ***, *dtype: _dtype | [None](https://docs.python.org/3/builtins/constants.html#None) = None*, *device: _device | [None](https://docs.python.org/3/builtins/constants.html#None) = None*) → [Tensor](../tensors.html#torch.Tensor)
 
@@ -711,7 +711,7 @@ Default: if `None`, uses the current device for the default tensor type
 for CPU tensor types, the current CUDA device for CUDA tensor types,
 and the current XPU device for XPU tensor types.
 
-torch.distributed._symmetric_memory.rendezvous(*tensor*, *group*) → _SymmetricMemory[[source]](https://github.com/pytorch/pytorch/blob/7e752fbd7bf384857985d3e556423eaca714bbfe/torch/distributed/_symmetric_memory/__init__.py#L2341)
+torch.distributed._symmetric_memory.rendezvous(*tensor*, *group*) → _SymmetricMemory[[source]](https://github.com/pytorch/pytorch/blob/f8a8dd25ad84298ffbd713e8dbdb5bba38ef907d/torch/distributed/_symmetric_memory/__init__.py#L2514)
 
 Establish a symmetric memory tensor among participating processes. This is
 a collective operation.
@@ -743,7 +743,7 @@ Return type:
 
 _SymmetricMemory
 
-torch.distributed._symmetric_memory.get(*dst*, *hdl*, *peer*, *offset=0*)[[source]](https://github.com/pytorch/pytorch/blob/7e752fbd7bf384857985d3e556423eaca714bbfe/torch/distributed/_symmetric_memory/__init__.py#L2537)
+torch.distributed._symmetric_memory.get(*dst*, *hdl*, *peer*, *offset=0*)[[source]](https://github.com/pytorch/pytorch/blob/f8a8dd25ad84298ffbd713e8dbdb5bba38ef907d/torch/distributed/_symmetric_memory/__init__.py#L2717)
 
 Copy `dst.numel()` elements starting at `offset` from `peer`'s
 symmetric allocation into local `dst` using one-sided symmetric memory
@@ -767,7 +767,7 @@ source.
 - **offset** ([*int*](https://docs.python.org/3/builtins/functions.html#int)*,**optional*) - element offset into the peer allocation to
 start reading from. Defaults to `0`.
 
-torch.distributed._symmetric_memory.put_signal(*src*, *hdl*, *peer*) → [None](https://docs.python.org/3/builtins/constants.html#None)[[source]](https://github.com/pytorch/pytorch/blob/7e752fbd7bf384857985d3e556423eaca714bbfe/torch/distributed/_symmetric_memory/__init__.py#L2601)
+torch.distributed._symmetric_memory.put_signal(*src*, *hdl*, *peer*) → [None](https://docs.python.org/3/builtins/constants.html#None)[[source]](https://github.com/pytorch/pytorch/blob/f8a8dd25ad84298ffbd713e8dbdb5bba38ef907d/torch/distributed/_symmetric_memory/__init__.py#L2781)
 
 Put data to a peer's symmetric memory and signal the peer.
 
@@ -777,7 +777,7 @@ Parameters:
 - **hdl** (*SymmetricMemory*) - the symmetric memory to put data to.
 - **peer** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - the peer to put data to.
 
-torch.distributed._symmetric_memory.wait_signal(*hdl*, *peer*) → [None](https://docs.python.org/3/builtins/constants.html#None)[[source]](https://github.com/pytorch/pytorch/blob/7e752fbd7bf384857985d3e556423eaca714bbfe/torch/distributed/_symmetric_memory/__init__.py#L2624)
+torch.distributed._symmetric_memory.wait_signal(*hdl*, *peer*) → [None](https://docs.python.org/3/builtins/constants.html#None)[[source]](https://github.com/pytorch/pytorch/blob/f8a8dd25ad84298ffbd713e8dbdb5bba38ef907d/torch/distributed/_symmetric_memory/__init__.py#L2804)
 
 Wait for a signal from a peer.
 
@@ -786,7 +786,7 @@ Parameters:
 - **hdl** (*SymmetricMemory*) - the symmetric memory handle on which to wait for a signal.
 - **peer** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - the peer to wait for a signal from.
 
-torch.distributed._symmetric_memory.is_nvshmem_available() → [bool](https://docs.python.org/3/builtins/functions.html#bool)[[source]](https://github.com/pytorch/pytorch/blob/7e752fbd7bf384857985d3e556423eaca714bbfe/torch/distributed/_symmetric_memory/__init__.py#L2375)
+torch.distributed._symmetric_memory.is_nvshmem_available() → [bool](https://docs.python.org/3/builtins/functions.html#bool)[[source]](https://github.com/pytorch/pytorch/blob/f8a8dd25ad84298ffbd713e8dbdb5bba38ef907d/torch/distributed/_symmetric_memory/__init__.py#L2548)
 
 Check if NVSHMEM (CUDA) or rocSHMEM (ROCm) is available in the current
 build and usable at runtime. On ROCm, rocSHMEM `VERSION` must be at
@@ -796,7 +796,7 @@ Return type:
 
 [bool](https://docs.python.org/3/builtins/functions.html#bool)
 
-torch.distributed._symmetric_memory.set_backend(*name*)[[source]](https://github.com/pytorch/pytorch/blob/7e752fbd7bf384857985d3e556423eaca714bbfe/torch/distributed/_symmetric_memory/__init__.py#L2393)
+torch.distributed._symmetric_memory.set_backend(*name*)[[source]](https://github.com/pytorch/pytorch/blob/f8a8dd25ad84298ffbd713e8dbdb5bba38ef907d/torch/distributed/_symmetric_memory/__init__.py#L2566)
 
 Set the backend for symmetric memory allocation. This is a global setting
 and affects all subsequent calls to
@@ -808,7 +808,7 @@ Parameters:
 **name** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - the backend for symmetric memory allocation. Currently,
 only "NVSHMEM", "CUDA", "NCCL" are supported.
 
-torch.distributed._symmetric_memory.get_backend(*device*)[[source]](https://github.com/pytorch/pytorch/blob/7e752fbd7bf384857985d3e556423eaca714bbfe/torch/distributed/_symmetric_memory/__init__.py#L2407)
+torch.distributed._symmetric_memory.get_backend(*device*)[[source]](https://github.com/pytorch/pytorch/blob/f8a8dd25ad84298ffbd713e8dbdb5bba38ef907d/torch/distributed/_symmetric_memory/__init__.py#L2580)
 
 Get the backend for symmetric memory allocation for a given device. If not
 found, return None.
@@ -821,7 +821,7 @@ Return type:
 
 [str](https://docs.python.org/3/builtins/stdtypes.html#str) | None
 
-torch.distributed._symmetric_memory.get_mem_pool(*device*)[[source]](https://github.com/pytorch/pytorch/blob/7e752fbd7bf384857985d3e556423eaca714bbfe/torch/distributed/_symmetric_memory/__init__.py#L2477)
+torch.distributed._symmetric_memory.get_mem_pool(*device*)[[source]](https://github.com/pytorch/pytorch/blob/f8a8dd25ad84298ffbd713e8dbdb5bba38ef907d/torch/distributed/_symmetric_memory/__init__.py#L2650)
 
 Get the symmetric memory pool for a given device. If not found, create a new
 pool.
@@ -850,12 +850,12 @@ Example:
 
 ```
 >>> pool = torch.distributed._symmetric_memory.get_mem_pool("cuda:0")
->>> with torch.cuda.use_mem_pool(pool):
+>>> with torch.cuda.use_mem_pool(pool, device="cuda:0"):
 >>> tensor = torch.randn(1000, device="cuda:0")
 >>> tensor = torch.ops.symm_mem.one_shot_all_reduce(tensor, "sum", group_name)
 ```
 
-torch.distributed._symmetric_memory.is_symm_mem_tensor(*tensor*) → [bool](https://docs.python.org/3/builtins/functions.html#bool)[[source]](https://github.com/pytorch/pytorch/blob/7e752fbd7bf384857985d3e556423eaca714bbfe/torch/distributed/_symmetric_memory/__init__.py#L2719)
+torch.distributed._symmetric_memory.is_symm_mem_tensor(*tensor*) → [bool](https://docs.python.org/3/builtins/functions.html#bool)[[source]](https://github.com/pytorch/pytorch/blob/f8a8dd25ad84298ffbd713e8dbdb5bba38ef907d/torch/distributed/_symmetric_memory/__init__.py#L2899)
 
 Returns `True` if `tensor` was allocated via symmetric memory
 (i.e. via `torch.distributed._symmetric_memory.empty()` or
@@ -871,7 +871,7 @@ Return type:
 
 [bool](https://docs.python.org/3/builtins/functions.html#bool)
 
-torch.distributed._symmetric_memory.set_signal_pad_size(*size*)[[source]](https://github.com/pytorch/pytorch/blob/7e752fbd7bf384857985d3e556423eaca714bbfe/torch/distributed/_symmetric_memory/__init__.py#L2429)
+torch.distributed._symmetric_memory.set_signal_pad_size(*size*)[[source]](https://github.com/pytorch/pytorch/blob/f8a8dd25ad84298ffbd713e8dbdb5bba38ef907d/torch/distributed/_symmetric_memory/__init__.py#L2602)
 
 Set the signal pad size for future symmetric memory allocations.
 
@@ -896,7 +896,7 @@ Example:
 >>> torch.distributed._symmetric_memory.set_signal_pad_size(1024 * 1024) # 1MB
 ```
 
-torch.distributed._symmetric_memory.get_signal_pad_size()[[source]](https://github.com/pytorch/pytorch/blob/7e752fbd7bf384857985d3e556423eaca714bbfe/torch/distributed/_symmetric_memory/__init__.py#L2454)
+torch.distributed._symmetric_memory.get_signal_pad_size()[[source]](https://github.com/pytorch/pytorch/blob/f8a8dd25ad84298ffbd713e8dbdb5bba38ef907d/torch/distributed/_symmetric_memory/__init__.py#L2627)
 
 Get the current signal pad size for symmetric memory allocations.
 
@@ -918,7 +918,7 @@ Example:
 >>> print(f"Signal pad size: {size} bytes")
 ```
 
-torch.distributed._symmetric_memory.all_to_all_nd(*input*, *out*, *scatter_dim*, *gather_dim*, ***, *group*) → [None](https://docs.python.org/3/builtins/constants.html#None)[[source]](https://github.com/pytorch/pytorch/blob/7e752fbd7bf384857985d3e556423eaca714bbfe/torch/distributed/_symmetric_memory/__init__.py#L2735)
+torch.distributed._symmetric_memory.all_to_all_nd(*input*, *out*, *scatter_dim*, *gather_dim*, ***, *group*) → [None](https://docs.python.org/3/builtins/constants.html#None)[[source]](https://github.com/pytorch/pytorch/blob/f8a8dd25ad84298ffbd713e8dbdb5bba38ef907d/torch/distributed/_symmetric_memory/__init__.py#L2915)
 
 Permute-free all-to-all: shards along `scatter_dim` of `input` are exchanged
 so each rank receives one shard per peer; results are laid out along `gather_dim`
@@ -956,7 +956,7 @@ Note
 The following ops are hosted in the `torch.ops.symm_mem` namespace. You can call
 them directly via `torch.ops.symm_mem.<op_name>`.
 
-torch.distributed._symmetric_memory.reduce_scatter_offset(*input*, *out*, *group*, ***, *dim*, *offsets*, *dst_ranks*, *red_op='sum'*) → [None](https://docs.python.org/3/builtins/constants.html#None)[[source]](https://github.com/pytorch/pytorch/blob/7e752fbd7bf384857985d3e556423eaca714bbfe/torch/distributed/_symmetric_memory/__init__.py#L2644)
+torch.distributed._symmetric_memory.reduce_scatter_offset(*input*, *out*, *group*, ***, *dim*, *offsets*, *dst_ranks*, *red_op='sum'*) → [None](https://docs.python.org/3/builtins/constants.html#None)[[source]](https://github.com/pytorch/pytorch/blob/f8a8dd25ad84298ffbd713e8dbdb5bba38ef907d/torch/distributed/_symmetric_memory/__init__.py#L2824)
 
 Simultaneously reduce N blocks of a 2-D `input` tensor from a symmetric
 memory buffer, routing each block to a specific destination rank. Only
@@ -1047,20 +1047,37 @@ Returns:
 The gathered tensor (or `None`) and the list of matrix-
 multiplication results.
 
-torch.ops.symm_mem.fused_all_gather_scaled_matmul(*A_shard: [Tensor](../tensors.html#torch.Tensor)*, *Bs: [list](https://docs.python.org/3/builtins/stdtypes.html#list)[[Tensor](../tensors.html#torch.Tensor)]*, *A_scale: [Tensor](../tensors.html#torch.Tensor)*, *B_scales: [list](https://docs.python.org/3/builtins/stdtypes.html#list)[[Tensor](../tensors.html#torch.Tensor)]*, *gather_dim: [int](https://docs.python.org/3/builtins/functions.html#int)*, *group_name: [str](https://docs.python.org/3/builtins/stdtypes.html#str)*, *biases: [list](https://docs.python.org/3/builtins/stdtypes.html#list)[[Tensor](../tensors.html#torch.Tensor) | [None](https://docs.python.org/3/builtins/constants.html#None)]*, *result_scales: [list](https://docs.python.org/3/builtins/stdtypes.html#list)[[Tensor](../tensors.html#torch.Tensor) | [None](https://docs.python.org/3/builtins/constants.html#None)]*, *out_dtypes: [list](https://docs.python.org/3/builtins/stdtypes.html#list)[[dtype](../tensor_attributes.html#torch.dtype) | [None](https://docs.python.org/3/builtins/constants.html#None)]*, *use_fast_accum: [list](https://docs.python.org/3/builtins/stdtypes.html#list)[[bool](https://docs.python.org/3/builtins/functions.html#bool)]*) → [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), [list](https://docs.python.org/3/builtins/stdtypes.html#list)[[Tensor](../tensors.html#torch.Tensor)]]
+torch.ops.symm_mem.fused_all_gather_scaled_matmul(*A_shard: [Tensor](../tensors.html#torch.Tensor)*, *Bs: [list](https://docs.python.org/3/builtins/stdtypes.html#list)[[Tensor](../tensors.html#torch.Tensor)]*, *A_scale: [Tensor](../tensors.html#torch.Tensor)*, *scaling_type_a: [int](https://docs.python.org/3/builtins/functions.html#int)*, *swizzle_type_a: [int](https://docs.python.org/3/builtins/functions.html#int)*, *B_scales: [list](https://docs.python.org/3/builtins/stdtypes.html#list)[[Tensor](../tensors.html#torch.Tensor)]*, *scaling_type_b: [int](https://docs.python.org/3/builtins/functions.html#int)*, *swizzle_type_b: [int](https://docs.python.org/3/builtins/functions.html#int)*, *gather_dim: [int](https://docs.python.org/3/builtins/functions.html#int)*, *group_name: [str](https://docs.python.org/3/builtins/stdtypes.html#str)*, *biases: [list](https://docs.python.org/3/builtins/stdtypes.html#list)[[Tensor](../tensors.html#torch.Tensor) | [None](https://docs.python.org/3/builtins/constants.html#None)]*, *out_dtypes: [list](https://docs.python.org/3/builtins/stdtypes.html#list)[[dtype](../tensor_attributes.html#torch.dtype) | [None](https://docs.python.org/3/builtins/constants.html#None)]*, *use_fast_accum: [list](https://docs.python.org/3/builtins/stdtypes.html#list)[[bool](https://docs.python.org/3/builtins/functions.html#bool)]*) → [tuple](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[Tensor](../tensors.html#torch.Tensor), [list](https://docs.python.org/3/builtins/stdtypes.html#list)[[Tensor](../tensors.html#torch.Tensor)]]
 
 Scaled-matrix-multiplication variant of
 `fused_all_gather_matmul()`. Each entry of `B_scales`, `biases`,
-`result_scales`, `out_dtypes`, and `use_fast_accum` corresponds to
-the entry at the same position in `Bs` and is forwarded to
-`aten._scaled_mm`.
+`out_dtypes`, and `use_fast_accum` corresponds to the entry at the
+same position in `Bs` and is forwarded to `aten._scaled_mm_v2`.
 
-`A_scale` may be a tensor-wise scalar, a row-wise scale sharded like
-`A_shard`, or a row-wise scale for the fully gathered tensor. The exact
-dtype, scale-layout, and accelerator requirements are those of
-`aten._scaled_mm`. This is a specialized compiler fusion target; support
-for a particular FP8 format or shape must be checked on the target
-accelerator.
+`scaling_type_a`/`scaling_type_b` are the integer values of
+`torch.nn.functional.ScalingType` members and `swizzle_type_a`/`swizzle_type_b`
+those of `torch.nn.functional.SwizzleType` members (e.g.
+`ScalingType.RowWise.value`), as in `aten._scaled_mm_v2`. `scaling_type_b`
+applies to every entry of `Bs`. The scaling types must be both `TensorWise`,
+both `RowWise`, or both `BlockWise1x32` (MXFP8). With `RowWise`,
+`A_scale` may be sharded like `A_shard` or cover the fully gathered
+tensor.
+
+MXFP8 is supported on NVIDIA CUDA devices only, with `float8_e4m3fn` or
+`float8_e5m2` data. `A_scale` holds this rank's `float8_e8m0fnu`
+scales for `A_shard.flatten(0, -2)` in the swizzled 32x4x4 layout, as
+returned by `torch.nn.functional.quantize_tensor` with
+`swizzle_type=SwizzleType.SWIZZLE_32_4_4`, and both swizzles must be
+`SWIZZLE_32_4_4`. `A_scale` is gathered alongside `A_shard`, which
+requires `gather_dim=0` and the number of rows of `A_shard` (the
+product of all but its last dimension) to be a multiple of 128. With
+MXFP8, `None` entries of `out_dtypes` mean `torch.bfloat16` rather
+than the operand dtype.
+
+The exact dtype, scale-layout, and accelerator requirements are otherwise
+those of `aten._scaled_mm_v2`. This is a specialized compiler fusion
+target; support for a particular FP8 format or shape must be checked on the
+target accelerator.
 
 Returns:
 
@@ -1094,7 +1111,7 @@ Parameters:
 - **scatter_dim** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - Result dimension to scatter.
 - **group_name** ([*str*](https://docs.python.org/3/builtins/stdtypes.html#str)) - Name of the process group.
 
-torch.ops.symm_mem.fused_scaled_matmul_reduce_scatter(*A: [Tensor](../tensors.html#torch.Tensor)*, *B: [Tensor](../tensors.html#torch.Tensor)*, *A_scale: [Tensor](../tensors.html#torch.Tensor)*, *B_scale: [Tensor](../tensors.html#torch.Tensor)*, *reduce_op: [str](https://docs.python.org/3/builtins/stdtypes.html#str)*, *orig_scatter_dim: [int](https://docs.python.org/3/builtins/functions.html#int)*, *scatter_dim_after_maybe_reshape: [int](https://docs.python.org/3/builtins/functions.html#int)*, *group_name: [str](https://docs.python.org/3/builtins/stdtypes.html#str)*, *output_shape: [list](https://docs.python.org/3/builtins/stdtypes.html#list)[[int](https://docs.python.org/3/builtins/functions.html#int)]*, *bias: [Tensor](../tensors.html#torch.Tensor) | [None](https://docs.python.org/3/builtins/constants.html#None) = None*, *result_scale: [Tensor](../tensors.html#torch.Tensor) | [None](https://docs.python.org/3/builtins/constants.html#None) = None*, *out_dtype: [dtype](../tensor_attributes.html#torch.dtype) | [None](https://docs.python.org/3/builtins/constants.html#None) = None*, *use_fast_accum: [bool](https://docs.python.org/3/builtins/functions.html#bool) = False*) → [Tensor](../tensors.html#torch.Tensor)
+torch.ops.symm_mem.fused_scaled_matmul_reduce_scatter(*A: [Tensor](../tensors.html#torch.Tensor)*, *B: [Tensor](../tensors.html#torch.Tensor)*, *A_scale: [Tensor](../tensors.html#torch.Tensor)*, *scaling_type_a: [int](https://docs.python.org/3/builtins/functions.html#int)*, *swizzle_type_a: [int](https://docs.python.org/3/builtins/functions.html#int)*, *B_scale: [Tensor](../tensors.html#torch.Tensor)*, *scaling_type_b: [int](https://docs.python.org/3/builtins/functions.html#int)*, *swizzle_type_b: [int](https://docs.python.org/3/builtins/functions.html#int)*, *reduce_op: [str](https://docs.python.org/3/builtins/stdtypes.html#str)*, *orig_scatter_dim: [int](https://docs.python.org/3/builtins/functions.html#int)*, *scatter_dim_after_maybe_reshape: [int](https://docs.python.org/3/builtins/functions.html#int)*, *group_name: [str](https://docs.python.org/3/builtins/stdtypes.html#str)*, *output_shape: [list](https://docs.python.org/3/builtins/stdtypes.html#list)[[int](https://docs.python.org/3/builtins/functions.html#int)]*, *bias: [Tensor](../tensors.html#torch.Tensor) | [None](https://docs.python.org/3/builtins/constants.html#None) = None*, *out_dtype: [dtype](../tensor_attributes.html#torch.dtype) | [None](https://docs.python.org/3/builtins/constants.html#None) = None*, *use_fast_accum: [bool](https://docs.python.org/3/builtins/functions.html#bool) = False*) → [Tensor](../tensors.html#torch.Tensor)
 
 Scaled-matrix-multiplication variant of
 `fused_matmul_reduce_scatter()`. The two scatter dimensions and
@@ -1103,9 +1120,16 @@ Scaled-matrix-multiplication variant of
 call without those reshapes, pass the same value for both scatter
 dimensions and pass `[*A.shape[:-1], B.shape[1]]` as `output_shape`.
 
+The scaling type and swizzle type arguments are as in
+`fused_all_gather_scaled_matmul()`. For MXFP8, `A_scale` is the
+swizzled scale of the whole `A.flatten(0, -2)`, which is sliced per rank;
+this requires `scatter_dim_after_maybe_reshape=0` and the rows of `A`
+divided by the process-group size to be a multiple of 128. With MXFP8,
+`out_dtype=None` means `torch.bfloat16` rather than the operand dtype.
+
 This operator is primarily a compiler target. Its supported dtypes, scale
-layouts, and hardware follow `aten._scaled_mm` and are narrower than the
-unscaled operator.
+layouts, and hardware follow `aten._scaled_mm_v2` and are narrower than
+the unscaled operator.
 
 torch.ops.symm_mem.get_remote_tensors(*x: [Tensor](../tensors.html#torch.Tensor)*, *group_name: [str](https://docs.python.org/3/builtins/stdtypes.html#str)*) → [list](https://docs.python.org/3/builtins/stdtypes.html#list)[[Tensor](../tensors.html#torch.Tensor)]
 

@@ -1,13 +1,13 @@
 # torch.fx.experimental.symbolic_shapes.guard_size_oblivious
 
-torch.fx.experimental.symbolic_shapes.guard_size_oblivious(*expr*)[[source]](https://github.com/pytorch/pytorch/blob/7e752fbd7bf384857985d3e556423eaca714bbfe/torch/fx/experimental/symbolic_shapes.py#L563)
+torch.fx.experimental.symbolic_shapes.guard_size_oblivious(*expr*)[[source]](https://github.com/pytorch/pytorch/blob/f8a8dd25ad84298ffbd713e8dbdb5bba38ef907d/torch/fx/experimental/symbolic_shapes.py#L564)
 
-Perform a guard on a symbolic boolean expression in a size oblivious way.
-This is typically used when a non-oblivious test would result in a guard
-on a data dependent value of which we don't know the value of at compile time.
-When a guard is tested this way, we may diverge in behavior from how regular
-PyTorch semantics would treat it. For more information, see
-[pytorch/pytorch#118579](https://github.com/pytorch/pytorch/pull/118579)
+Kept for existing callers; size-oblivious reasoning has been removed.
+
+Emptiness checks on a value statically known to be >= 0 keep the old
+answer ("assume non-empty"): `x == 0` uses `guard_or_false` and
+`x != 0` / `x > 0` / `x >= 1` use `guard_or_true`. Every other
+predicate uses `guard_bool`.
 
 Return type:
 

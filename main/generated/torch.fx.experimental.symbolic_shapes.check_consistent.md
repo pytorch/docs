@@ -1,6 +1,6 @@
 # torch.fx.experimental.symbolic_shapes.check_consistent
 
-torch.fx.experimental.symbolic_shapes.check_consistent(*new*, *old*)[[source]](https://github.com/pytorch/pytorch/blob/7e752fbd7bf384857985d3e556423eaca714bbfe/torch/fx/experimental/symbolic_shapes.py#L585)
+torch.fx.experimental.symbolic_shapes.check_consistent(*new*, *old*)[[source]](https://github.com/pytorch/pytorch/blob/f8a8dd25ad84298ffbd713e8dbdb5bba38ef907d/torch/fx/experimental/symbolic_shapes.py#L601)
 
 Test that two "meta" values (typically either Tensor or SymInt) have
 the same values, e.g., after retracing. If we don't understand the

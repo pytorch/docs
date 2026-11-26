@@ -4,7 +4,7 @@ Warning
 
 These APIs are experimental and subject to change without notice.
 
-*class*torch.fx.experimental.sym_node.DynamicInt(*val*)[[source]](https://github.com/pytorch/pytorch/blob/7e752fbd7bf384857985d3e556423eaca714bbfe/torch/fx/experimental/sym_node.py#L701)
+*class*torch.fx.experimental.sym_node.DynamicInt(*val*)[[source]](https://github.com/pytorch/pytorch/blob/f8a8dd25ad84298ffbd713e8dbdb5bba38ef907d/torch/fx/experimental/sym_node.py#L681)
 
 User API for marking dynamic integers in torch.compile.
 Intended to be compatible with both compile and eager mode.
@@ -71,7 +71,7 @@ Self
 | [`has_free_unbacked_symbols`](generated/torch.fx.experimental.symbolic_shapes.has_free_unbacked_symbols.html#torch.fx.experimental.symbolic_shapes.has_free_unbacked_symbols) | Faster version of bool(free_unbacked_symbols(val)) |
 | [`guard_or_true`](generated/torch.fx.experimental.symbolic_shapes.guard_or_true.html#torch.fx.experimental.symbolic_shapes.guard_or_true) | Try to guard a, if data dependent error encountered just return true. |
 | [`guard_or_false`](generated/torch.fx.experimental.symbolic_shapes.guard_or_false.html#torch.fx.experimental.symbolic_shapes.guard_or_false) | Try to guard a, if data dependent error encountered just return false. |
-| [`guard_size_oblivious`](generated/torch.fx.experimental.symbolic_shapes.guard_size_oblivious.html#torch.fx.experimental.symbolic_shapes.guard_size_oblivious) | Perform a guard on a symbolic boolean expression in a size oblivious way. |
+| [`guard_size_oblivious`](generated/torch.fx.experimental.symbolic_shapes.guard_size_oblivious.html#torch.fx.experimental.symbolic_shapes.guard_size_oblivious) | Kept for existing callers; size-oblivious reasoning has been removed. |
 | [`sym_and`](generated/torch.fx.experimental.symbolic_shapes.sym_and.html#torch.fx.experimental.symbolic_shapes.sym_and) | and, but for symbolic expressions, without bool casting. |
 | [`sym_eq`](generated/torch.fx.experimental.symbolic_shapes.sym_eq.html#torch.fx.experimental.symbolic_shapes.sym_eq) | Like ==, but when run on list/tuple, it will recursively test equality and use sym_and to join the results together, without guarding. |
 | [`sym_or`](generated/torch.fx.experimental.symbolic_shapes.sym_or.html#torch.fx.experimental.symbolic_shapes.sym_or) | or, but for symbolic expressions, without bool casting. |

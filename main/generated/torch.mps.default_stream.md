@@ -1,6 +1,6 @@
 # torch.mps.default_stream
 
-torch.mps.default_stream()[[source]](https://github.com/pytorch/pytorch/blob/7e752fbd7bf384857985d3e556423eaca714bbfe/torch/mps/streams.py#L94)
+torch.mps.default_stream()[[source]](https://github.com/pytorch/pytorch/blob/f8a8dd25ad84298ffbd713e8dbdb5bba38ef907d/torch/mps/streams.py#L94)
 
 Return the default [`Stream`](torch.mps.Stream_class.html#torch.mps.Stream).
 

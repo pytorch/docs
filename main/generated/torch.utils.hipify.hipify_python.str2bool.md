@@ -1,6 +1,6 @@
 # torch.utils.hipify.hipify_python.str2bool
 
-torch.utils.hipify.hipify_python.str2bool(*v*)[[source]](https://github.com/pytorch/pytorch/blob/7e752fbd7bf384857985d3e556423eaca714bbfe/torch/utils/hipify/hipify_python.py#L1069)
+torch.utils.hipify.hipify_python.str2bool(*v*)[[source]](https://github.com/pytorch/pytorch/blob/f8a8dd25ad84298ffbd713e8dbdb5bba38ef907d/torch/utils/hipify/hipify_python.py#L1069)
 
 ArgumentParser doesn't support type=bool. Thus, this helper method will convert
 from possible string types to True / False.

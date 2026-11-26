@@ -1,6 +1,6 @@
 # torch.fx.experimental.unification.multipledispatch.utils.raises
 
-torch.fx.experimental.unification.multipledispatch.utils.raises(*err*, *lamda*)[[source]](https://github.com/pytorch/pytorch/blob/7e752fbd7bf384857985d3e556423eaca714bbfe/torch/fx/experimental/unification/multipledispatch/utils.py#L16)
+torch.fx.experimental.unification.multipledispatch.utils.raises(*err*, *lamda*)[[source]](https://github.com/pytorch/pytorch/blob/f8a8dd25ad84298ffbd713e8dbdb5bba38ef907d/torch/fx/experimental/unification/multipledispatch/utils.py#L16)
 
 Return type:
 

@@ -1,6 +1,6 @@
 # torch.fx.node.has_side_effect
 
-torch.fx.node.has_side_effect(*fn*)[[source]](https://github.com/pytorch/pytorch/blob/7e752fbd7bf384857985d3e556423eaca714bbfe/torch/fx/node.py#L144)
+torch.fx.node.has_side_effect(*fn*)[[source]](https://github.com/pytorch/pytorch/blob/f8a8dd25ad84298ffbd713e8dbdb5bba38ef907d/torch/fx/node.py#L144)
 
 Registers a function to not be dead code eliminated by
 fx.graph.eliminate_dead_code

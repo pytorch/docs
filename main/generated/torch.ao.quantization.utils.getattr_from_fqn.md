@@ -1,6 +1,6 @@
 # getattr_from_fqn
 
-*class*torch.ao.quantization.utils.getattr_from_fqn(*obj*, *fqn*)[[source]](https://github.com/pytorch/pytorch/blob/7e752fbd7bf384857985d3e556423eaca714bbfe/torch/ao/quantization/utils.py#L177)
+*class*torch.ao.quantization.utils.getattr_from_fqn(*obj*, *fqn*)[[source]](https://github.com/pytorch/pytorch/blob/f8a8dd25ad84298ffbd713e8dbdb5bba38ef907d/torch/ao/quantization/utils.py#L177)
 
 Given an obj and a fqn such as "foo.bar.baz", returns gm.foo.bar.baz.
 
