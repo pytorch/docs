@@ -1,6 +1,6 @@
 # torch.mtia.seed
 
-torch.mtia.seed()[[source]](https://github.com/pytorch/pytorch/blob/f8a8dd25ad84298ffbd713e8dbdb5bba38ef907d/torch/mtia/__init__.py#L495)
+torch.mtia.seed()[[source]](https://github.com/pytorch/pytorch/blob/5f228673c58f6d36691c0cbc5c677fdf0c349372/torch/mtia/__init__.py#L495)
 
 Sets the seed for generating random numbers to a random number for the current MTIA device.
 It's safe to call this function if MTIA is not available; in that case, it is silently ignored.

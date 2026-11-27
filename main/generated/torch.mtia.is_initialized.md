@@ -1,5 +1,5 @@
 # torch.mtia.is_initialized
 
-torch.mtia.is_initialized()[[source]](https://github.com/pytorch/pytorch/blob/f8a8dd25ad84298ffbd713e8dbdb5bba38ef907d/torch/mtia/__init__.py#L61)
+torch.mtia.is_initialized()[[source]](https://github.com/pytorch/pytorch/blob/5f228673c58f6d36691c0cbc5c677fdf0c349372/torch/mtia/__init__.py#L61)
 
 Return whether PyTorch's MTIA state has been initialized.

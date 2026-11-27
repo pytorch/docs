@@ -1,6 +1,6 @@
 # torch.fx.experimental.unification.multipledispatch.conflict.consistent
 
-torch.fx.experimental.unification.multipledispatch.conflict.consistent(*a*, *b*)[[source]](https://github.com/pytorch/pytorch/blob/f8a8dd25ad84298ffbd713e8dbdb5bba38ef907d/torch/fx/experimental/unification/multipledispatch/conflict.py#L66)
+torch.fx.experimental.unification.multipledispatch.conflict.consistent(*a*, *b*)[[source]](https://github.com/pytorch/pytorch/blob/5f228673c58f6d36691c0cbc5c677fdf0c349372/torch/fx/experimental/unification/multipledispatch/conflict.py#L66)
 
 It is possible for an argument list to satisfy both A and B
 

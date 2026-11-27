@@ -1,6 +1,6 @@
 # Softmin
 
-*class*torch.nn.Softmin(*dim=None*)[[source]](https://github.com/pytorch/pytorch/blob/f8a8dd25ad84298ffbd713e8dbdb5bba38ef907d/torch/nn/modules/activation.py#L1713)
+*class*torch.nn.Softmin(*dim=None*)[[source]](https://github.com/pytorch/pytorch/blob/5f228673c58f6d36691c0cbc5c677fdf0c349372/torch/nn/modules/activation.py#L1713)
 
 Applies the Softmin function to an n-dimensional input Tensor.
 
@@ -40,7 +40,7 @@ Examples:
 >>> output = m(input)
 ```
 
-extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/f8a8dd25ad84298ffbd713e8dbdb5bba38ef907d/torch/nn/modules/activation.py#L1762)
+extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/5f228673c58f6d36691c0cbc5c677fdf0c349372/torch/nn/modules/activation.py#L1762)
 
 Return the extra representation of the module.
 
@@ -48,7 +48,7 @@ Return type:
 
 [str](https://docs.python.org/3/builtins/stdtypes.html#str)
 
-forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/f8a8dd25ad84298ffbd713e8dbdb5bba38ef907d/torch/nn/modules/activation.py#L1756)
+forward(*input*)[[source]](https://github.com/pytorch/pytorch/blob/5f228673c58f6d36691c0cbc5c677fdf0c349372/torch/nn/modules/activation.py#L1756)
 
 Runs the forward pass.
 

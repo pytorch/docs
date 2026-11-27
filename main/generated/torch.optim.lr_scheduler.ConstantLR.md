@@ -1,6 +1,6 @@
 # ConstantLR
 
-*class*torch.optim.lr_scheduler.ConstantLR(*optimizer*, *factor=0.3333333333333333*, *total_iters=5*, *last_epoch=-1*)[[source]](https://github.com/pytorch/pytorch/blob/f8a8dd25ad84298ffbd713e8dbdb5bba38ef907d/torch/optim/lr_scheduler.py#L773)
+*class*torch.optim.lr_scheduler.ConstantLR(*optimizer*, *factor=0.3333333333333333*, *total_iters=5*, *last_epoch=-1*)[[source]](https://github.com/pytorch/pytorch/blob/5f228673c58f6d36691c0cbc5c677fdf0c349372/torch/optim/lr_scheduler.py#L778)
 
 Multiply the learning rate of each parameter group by a small constant factor.
 
@@ -12,7 +12,8 @@ When last_epoch=-1, sets initial lr as lr.
 Parameters:
 
 - **optimizer** ([*Optimizer*](../optim.html#torch.optim.Optimizer)) - Wrapped optimizer.
-- **factor** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - The number we multiply learning rate until the milestone. Default: 1./3.
+- **factor** ([*float*](https://docs.python.org/3/builtins/functions.html#float)) - Multiplicative factor in the range [0, 1], applied until
+the milestone. Default: 1./3.
 - **total_iters** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - The number of steps that the scheduler multiplies the learning rate by the factor.
 Default: 5.
 - **last_epoch** ([*int*](https://docs.python.org/3/builtins/functions.html#int)) - The index of the last epoch. Default: -1.
@@ -36,7 +37,7 @@ Example
 
 ![../_images/ConstantLR.png](../_images/ConstantLR.png)
 
-get_last_lr()[[source]](https://github.com/pytorch/pytorch/blob/f8a8dd25ad84298ffbd713e8dbdb5bba38ef907d/torch/optim/lr_scheduler.py#L201)
+get_last_lr()[[source]](https://github.com/pytorch/pytorch/blob/5f228673c58f6d36691c0cbc5c677fdf0c349372/torch/optim/lr_scheduler.py#L201)
 
 Get the most recent learning rates computed by this scheduler.
 
@@ -56,7 +57,7 @@ Note
 The returned [`Tensor`](../tensors.html#torch.Tensor)s are copies, and never alias
 the optimizer's `group["lr"]`s.
 
-get_lr()[[source]](https://github.com/pytorch/pytorch/blob/f8a8dd25ad84298ffbd713e8dbdb5bba38ef907d/torch/optim/lr_scheduler.py#L822)
+get_lr()[[source]](https://github.com/pytorch/pytorch/blob/5f228673c58f6d36691c0cbc5c677fdf0c349372/torch/optim/lr_scheduler.py#L828)
 
 Compute the next learning rate for each of the optimizer's
 `param_groups`.
@@ -64,7 +65,8 @@ Compute the next learning rate for each of the optimizer's
 When `last_epoch` is 0, this method scales the `group["lr"]`s
 in each of the optimizer's `param_groups`
 by `factor`. Once `total_iters` is reached, it undoes this,
-scaling by `1 / factor`.
+scaling by `1 / factor`. Undoing a zero factor is undefined and raises
+[`ValueError`](https://docs.python.org/3/builtins/exceptions.html#ValueError).
 
 Returns:
 
@@ -86,7 +88,7 @@ Note
 The returned [`Tensor`](../tensors.html#torch.Tensor)s are copies, and never alias
 the optimizer's `group["lr"]`s.
 
-load_state_dict(*state_dict*)[[source]](https://github.com/pytorch/pytorch/blob/f8a8dd25ad84298ffbd713e8dbdb5bba38ef907d/torch/optim/lr_scheduler.py#L192)
+load_state_dict(*state_dict*)[[source]](https://github.com/pytorch/pytorch/blob/5f228673c58f6d36691c0cbc5c677fdf0c349372/torch/optim/lr_scheduler.py#L192)
 
 Load the scheduler's state.
 
@@ -95,7 +97,7 @@ Parameters:
 **state_dict** ([*dict*](https://docs.python.org/3/builtins/stdtypes.html#dict)) - scheduler state. Should be an object returned
 from a call to `state_dict()`.
 
-state_dict()[[source]](https://github.com/pytorch/pytorch/blob/f8a8dd25ad84298ffbd713e8dbdb5bba38ef907d/torch/optim/lr_scheduler.py#L182)
+state_dict()[[source]](https://github.com/pytorch/pytorch/blob/5f228673c58f6d36691c0cbc5c677fdf0c349372/torch/optim/lr_scheduler.py#L182)
 
 Return the state of the scheduler as a [`dict`](https://docs.python.org/3/builtins/stdtypes.html#dict).
 
@@ -106,7 +108,7 @@ Return type:
 
 [dict](https://docs.python.org/3/builtins/stdtypes.html#dict)[[str](https://docs.python.org/3/builtins/stdtypes.html#str), [*Any*](https://docs.python.org/3/library/typing.html#typing.Any)]
 
-step(*epoch=None*)[[source]](https://github.com/pytorch/pytorch/blob/f8a8dd25ad84298ffbd713e8dbdb5bba38ef907d/torch/optim/lr_scheduler.py#L238)
+step(*epoch=None*)[[source]](https://github.com/pytorch/pytorch/blob/5f228673c58f6d36691c0cbc5c677fdf0c349372/torch/optim/lr_scheduler.py#L238)
 
 Step the scheduler.
 

@@ -1,6 +1,6 @@
 # torch.nn.functional.adaptive_avg_pool3d
 
-torch.nn.functional.adaptive_avg_pool3d(*input*, *output_size*)[[source]](https://github.com/pytorch/pytorch/blob/f8a8dd25ad84298ffbd713e8dbdb5bba38ef907d/torch/nn/functional.py#L1503)
+torch.nn.functional.adaptive_avg_pool3d(*input*, *output_size*)[[source]](https://github.com/pytorch/pytorch/blob/5f228673c58f6d36691c0cbc5c677fdf0c349372/torch/nn/functional.py#L1503)
 
 Apply a 3D adaptive average pooling over an input signal composed of several input planes.
 

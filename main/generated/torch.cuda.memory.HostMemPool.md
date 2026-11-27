@@ -1,6 +1,6 @@
 # HostMemPool
 
-*class*torch.cuda.memory.HostMemPool(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/f8a8dd25ad84298ffbd713e8dbdb5bba38ef907d/torch/cuda/memory.py#L1842)
+*class*torch.cuda.memory.HostMemPool(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/5f228673c58f6d36691c0cbc5c677fdf0c349372/torch/cuda/memory.py#L1842)
 
 HostMemPool represents a pool of pinned (page-locked) host memory in the
 CUDA host caching allocator, with no device memory.
@@ -22,7 +22,7 @@ the reset of the last such graph does; what remains is freed by a later
 
 Returns the ID of this pool as a tuple of two ints.
 
-use_count()[[source]](https://github.com/pytorch/pytorch/blob/f8a8dd25ad84298ffbd713e8dbdb5bba38ef907d/torch/cuda/memory.py#L1865)
+use_count()[[source]](https://github.com/pytorch/pytorch/blob/5f228673c58f6d36691c0cbc5c677fdf0c349372/torch/cuda/memory.py#L1865)
 
 Returns the reference count of this pool: 1 for the pool object, plus
 one for each open `use_mem_pool` context and each graph that keeps it.

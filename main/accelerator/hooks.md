@@ -34,10 +34,11 @@ The tables below list the hooks accelerator vendors should implement when integr
 | `getCurrentDevice()` | Returns the currently active device index | Query which accelerator device is active in the current thread |
 | `exchangeDevice(DeviceIndex)` | Atomically exchanges the current device and returns the previous one | Temporarily switch devices and restore the previous device afterward |
 | `maybeExchangeDevice(DeviceIndex)` | Conditionally exchanges device only if the index is valid | Safely attempt device switching with validation |
+| `getDLDeviceType()` | Overrides the PrivateUse1 DLPack device type (defaults to `kDLExtDev`) | DLPack import/export with unchanged device indices |
 
 ## Implementation
 
-For illustration, OpenReg (Open Registration) is a PyTorch integration example that fills the gap for out‑of‑tree accelerator backend integration. It demonstrates how vendors can register custom device backends--without modifying PyTorch core--by implementing the hooks interface (see [`at::PrivateUse1HooksInterface`](https://github.com/pytorch/pytorch/tree/main/aten/src/ATen/detail/PrivateUse1HooksInterface.h#L15-L72)).
+For illustration, OpenReg (Open Registration) is a PyTorch integration example that fills the gap for out‑of‑tree accelerator backend integration. It demonstrates how vendors can register custom device backends--without modifying PyTorch core--by implementing the hooks interface (see [`at::PrivateUse1HooksInterface`](https://github.com/pytorch/pytorch/tree/main/aten/src/ATen/detail/PrivateUse1HooksInterface.h)).
 
 We use `getDefaultGenerator` as an example:
 
@@ -49,7 +50,7 @@ We use `getDefaultGenerator` as an example:
 
 In this implementation:
 
-1. **Override the base interface**: The `getDefaultGenerator` method overrides the virtual method from [`at::PrivateUse1HooksInterface`](https://github.com/pytorch/pytorch/tree/main/aten/src/ATen/detail/PrivateUse1HooksInterface.h#L15-L72).
+1. **Override the base interface**: The `getDefaultGenerator` method overrides the virtual method from [`at::PrivateUse1HooksInterface`](https://github.com/pytorch/pytorch/tree/main/aten/src/ATen/detail/PrivateUse1HooksInterface.h).
 2. **Delegate to the device‑specific implementation**: Call `getDefaultOpenRegGenerator(device_index)`, which manages a per‑device generator instance.
 3. **Return a device‑specific generator**: The returned `at::Generator` wraps an `OpenRegGeneratorImpl` that implements device‑specific random number generation.
 

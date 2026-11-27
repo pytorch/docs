@@ -1,5 +1,5 @@
 # torch.Tensor.lu
 
-Tensor.lu(*pivot=True*, *get_infos=False*)[[source]](https://github.com/pytorch/pytorch/blob/f8a8dd25ad84298ffbd713e8dbdb5bba38ef907d/torch/_tensor.py#L963)
+Tensor.lu(*pivot=True*, *get_infos=False*)[[source]](https://github.com/pytorch/pytorch/blob/5f228673c58f6d36691c0cbc5c677fdf0c349372/torch/_tensor.py#L963)
 
 See [`torch.lu()`](torch.lu.html#torch.lu)

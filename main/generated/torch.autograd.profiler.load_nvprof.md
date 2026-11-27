@@ -1,6 +1,6 @@
 # torch.autograd.profiler.load_nvprof
 
-torch.autograd.profiler.load_nvprof(*path*)[[source]](https://github.com/pytorch/pytorch/blob/f8a8dd25ad84298ffbd713e8dbdb5bba38ef907d/torch/autograd/profiler.py#L1218)
+torch.autograd.profiler.load_nvprof(*path*)[[source]](https://github.com/pytorch/pytorch/blob/5f228673c58f6d36691c0cbc5c677fdf0c349372/torch/autograd/profiler.py#L1218)
 
 Open an nvprof trace file and parse autograd annotations.
 
