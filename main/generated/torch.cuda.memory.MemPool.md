@@ -1,6 +1,6 @@
 # MemPool
 
-*class*torch.cuda.memory.MemPool(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/5f228673c58f6d36691c0cbc5c677fdf0c349372/torch/cuda/memory.py#L1685)
+*class*torch.cuda.memory.MemPool(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/83e3e8add0ddb03f2c26481b528c463acdc7fb00/torch/cuda/memory.py#L1685)
 
 MemPool represents a pool of memory in a caching allocator. Currently,
 it's just the ID of the pool object maintained in the CUDACachingAllocator.
@@ -27,7 +27,7 @@ This is False by default.
 Returns the device of the custom allocator of this pool, or `None`
 if the pool has no custom allocator.
 
-*classmethod*from_py_allocator(*alloc_fn*, *free_fn*, ***, *use_on_oom=False*, *no_split=False*)[[source]](https://github.com/pytorch/pytorch/blob/5f228673c58f6d36691c0cbc5c677fdf0c349372/torch/cuda/memory.py#L1715)
+*classmethod*from_py_allocator(*alloc_fn*, *free_fn*, ***, *use_on_oom=False*, *no_split=False*)[[source]](https://github.com/pytorch/pytorch/blob/83e3e8add0ddb03f2c26481b528c463acdc7fb00/torch/cuda/memory.py#L1715)
 
 Create a MemPool backed by Python allocation callbacks.
 
@@ -61,7 +61,7 @@ examples.
 
 Returns the ID of this pool as a tuple of two ints.
 
-snapshot(*include_traces=True*)[[source]](https://github.com/pytorch/pytorch/blob/5f228673c58f6d36691c0cbc5c677fdf0c349372/torch/cuda/memory.py#L1765)
+snapshot(*include_traces=True*)[[source]](https://github.com/pytorch/pytorch/blob/83e3e8add0ddb03f2c26481b528c463acdc7fb00/torch/cuda/memory.py#L1765)
 
 Return a snapshot of the CUDA memory allocator pool state across all
 devices.
@@ -80,7 +80,7 @@ Note
 See [Memory management](../notes/cuda.html#cuda-memory-management) for more details about GPU memory
 management.
 
-use_count()[[source]](https://github.com/pytorch/pytorch/blob/5f228673c58f6d36691c0cbc5c677fdf0c349372/torch/cuda/memory.py#L1761)
+use_count()[[source]](https://github.com/pytorch/pytorch/blob/83e3e8add0ddb03f2c26481b528c463acdc7fb00/torch/cuda/memory.py#L1761)
 
 Returns the reference count of this pool.
 

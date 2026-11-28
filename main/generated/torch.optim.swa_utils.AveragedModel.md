@@ -1,6 +1,6 @@
 # AveragedModel
 
-*class*torch.optim.swa_utils.AveragedModel(*model*, *device=None*, *avg_fn=None*, *multi_avg_fn=None*, *use_buffers=False*)[[source]](https://github.com/pytorch/pytorch/blob/5f228673c58f6d36691c0cbc5c677fdf0c349372/torch/optim/swa_utils.py#L165)
+*class*torch.optim.swa_utils.AveragedModel(*model*, *device=None*, *avg_fn=None*, *multi_avg_fn=None*, *use_buffers=False*)[[source]](https://github.com/pytorch/pytorch/blob/83e3e8add0ddb03f2c26481b528c463acdc7fb00/torch/optim/swa_utils.py#L165)
 
 Implements averaged model for Stochastic Weight Averaging (SWA) and Exponential Moving Average (EMA).
 
@@ -94,7 +94,7 @@ to the parameters of `AveragedModel`. For every subsequent
 call of `update_parameters()` the function avg_fn is used
 to update the parameters.
 
-add_module(*name*, *module*)[[source]](https://github.com/pytorch/pytorch/blob/5f228673c58f6d36691c0cbc5c677fdf0c349372/torch/nn/modules/module.py#L642)
+add_module(*name*, *module*)[[source]](https://github.com/pytorch/pytorch/blob/83e3e8add0ddb03f2c26481b528c463acdc7fb00/torch/nn/modules/module.py#L642)
 
 Add a child module to the current module.
 
@@ -106,7 +106,7 @@ Parameters:
 accessed from this module using the given name
 - **module** ([*Module*](torch.nn.Module.html#torch.nn.Module)) - child module to be added to the module.
 
-apply(*fn*)[[source]](https://github.com/pytorch/pytorch/blob/5f228673c58f6d36691c0cbc5c677fdf0c349372/torch/nn/modules/module.py#L1041)
+apply(*fn*)[[source]](https://github.com/pytorch/pytorch/blob/83e3e8add0ddb03f2c26481b528c463acdc7fb00/torch/nn/modules/module.py#L1041)
 
 Apply `fn` recursively to every submodule (as returned by `.children()`) as well as self.
 
@@ -150,7 +150,7 @@ Sequential(
 )
 ```
 
-bfloat16()[[source]](https://github.com/pytorch/pytorch/blob/5f228673c58f6d36691c0cbc5c677fdf0c349372/torch/nn/modules/module.py#L1216)
+bfloat16()[[source]](https://github.com/pytorch/pytorch/blob/83e3e8add0ddb03f2c26481b528c463acdc7fb00/torch/nn/modules/module.py#L1216)
 
 Casts all floating point parameters and buffers to `bfloat16` datatype.
 
@@ -166,7 +166,7 @@ Return type:
 
 [Module](torch.nn.Module.html#torch.nn.Module)
 
-buffers(*recurse=True*)[[source]](https://github.com/pytorch/pytorch/blob/5f228673c58f6d36691c0cbc5c677fdf0c349372/torch/nn/modules/module.py#L2736)
+buffers(*recurse=True*)[[source]](https://github.com/pytorch/pytorch/blob/83e3e8add0ddb03f2c26481b528c463acdc7fb00/torch/nn/modules/module.py#L2736)
 
 Return an iterator over module buffers.
 
@@ -193,7 +193,7 @@ Example:
 <class 'torch.Tensor'> (20L, 1L, 5L, 5L)
 ```
 
-children()[[source]](https://github.com/pytorch/pytorch/blob/5f228673c58f6d36691c0cbc5c677fdf0c349372/torch/nn/modules/module.py#L2790)
+children()[[source]](https://github.com/pytorch/pytorch/blob/83e3e8add0ddb03f2c26481b528c463acdc7fb00/torch/nn/modules/module.py#L2790)
 
 Return an iterator over immediate children modules.
 
@@ -205,7 +205,7 @@ Return type:
 
 [*Iterator*](https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterator)[[*Module*](torch.nn.Module.html#torch.nn.Module)]
 
-compile(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/5f228673c58f6d36691c0cbc5c677fdf0c349372/torch/nn/modules/module.py#L3058)
+compile(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/83e3e8add0ddb03f2c26481b528c463acdc7fb00/torch/nn/modules/module.py#L3058)
 
 Compile this Module's forward using [`torch.compile()`](torch.compile.html#torch.compile).
 
@@ -214,7 +214,7 @@ to [`torch.compile()`](torch.compile.html#torch.compile).
 
 See [`torch.compile()`](torch.compile.html#torch.compile) for details on the arguments for this function.
 
-cpu()[[source]](https://github.com/pytorch/pytorch/blob/5f228673c58f6d36691c0cbc5c677fdf0c349372/torch/nn/modules/module.py#L1158)
+cpu()[[source]](https://github.com/pytorch/pytorch/blob/83e3e8add0ddb03f2c26481b528c463acdc7fb00/torch/nn/modules/module.py#L1158)
 
 Move all model parameters and buffers to the CPU.
 
@@ -230,7 +230,7 @@ Return type:
 
 [Module](torch.nn.Module.html#torch.nn.Module)
 
-cuda(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/5f228673c58f6d36691c0cbc5c677fdf0c349372/torch/nn/modules/module.py#L1082)
+cuda(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/83e3e8add0ddb03f2c26481b528c463acdc7fb00/torch/nn/modules/module.py#L1082)
 
 Move all model parameters and buffers to the GPU.
 
@@ -255,7 +255,7 @@ Return type:
 
 [Module](torch.nn.Module.html#torch.nn.Module)
 
-double()[[source]](https://github.com/pytorch/pytorch/blob/5f228673c58f6d36691c0cbc5c677fdf0c349372/torch/nn/modules/module.py#L1194)
+double()[[source]](https://github.com/pytorch/pytorch/blob/83e3e8add0ddb03f2c26481b528c463acdc7fb00/torch/nn/modules/module.py#L1194)
 
 Casts all floating point parameters and buffers to `double` datatype.
 
@@ -271,7 +271,7 @@ Return type:
 
 [Module](torch.nn.Module.html#torch.nn.Module)
 
-eval()[[source]](https://github.com/pytorch/pytorch/blob/5f228673c58f6d36691c0cbc5c677fdf0c349372/torch/nn/modules/module.py#L2921)
+eval()[[source]](https://github.com/pytorch/pytorch/blob/83e3e8add0ddb03f2c26481b528c463acdc7fb00/torch/nn/modules/module.py#L2921)
 
 Set the module in evaluation mode.
 
@@ -293,7 +293,7 @@ Return type:
 
 [Module](torch.nn.Module.html#torch.nn.Module)
 
-extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/5f228673c58f6d36691c0cbc5c677fdf0c349372/torch/nn/modules/module.py#L2998)
+extra_repr()[[source]](https://github.com/pytorch/pytorch/blob/83e3e8add0ddb03f2c26481b528c463acdc7fb00/torch/nn/modules/module.py#L2998)
 
 Return the extra representation of the module.
 
@@ -305,7 +305,7 @@ Return type:
 
 [str](https://docs.python.org/3/builtins/stdtypes.html#str)
 
-float()[[source]](https://github.com/pytorch/pytorch/blob/5f228673c58f6d36691c0cbc5c677fdf0c349372/torch/nn/modules/module.py#L1183)
+float()[[source]](https://github.com/pytorch/pytorch/blob/83e3e8add0ddb03f2c26481b528c463acdc7fb00/torch/nn/modules/module.py#L1183)
 
 Casts all floating point parameters and buffers to `float` datatype.
 
@@ -321,11 +321,11 @@ Return type:
 
 [Module](torch.nn.Module.html#torch.nn.Module)
 
-forward(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/5f228673c58f6d36691c0cbc5c677fdf0c349372/torch/optim/swa_utils.py#L290)
+forward(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/83e3e8add0ddb03f2c26481b528c463acdc7fb00/torch/optim/swa_utils.py#L290)
 
 Forward pass.
 
-get_buffer(*target*)[[source]](https://github.com/pytorch/pytorch/blob/5f228673c58f6d36691c0cbc5c677fdf0c349372/torch/nn/modules/module.py#L856)
+get_buffer(*target*)[[source]](https://github.com/pytorch/pytorch/blob/83e3e8add0ddb03f2c26481b528c463acdc7fb00/torch/nn/modules/module.py#L856)
 
 Return the buffer given by `target` if it exists, otherwise throw an error.
 
@@ -353,7 +353,7 @@ Raises:
  path or resolves to something that is not a
  buffer
 
-get_extra_state()[[source]](https://github.com/pytorch/pytorch/blob/5f228673c58f6d36691c0cbc5c677fdf0c349372/torch/nn/modules/module.py#L892)
+get_extra_state()[[source]](https://github.com/pytorch/pytorch/blob/83e3e8add0ddb03f2c26481b528c463acdc7fb00/torch/nn/modules/module.py#L892)
 
 Return any extra state to include in the module's state_dict.
 
@@ -374,7 +374,7 @@ Return type:
 
 [object](https://docs.python.org/3/builtins/functions.html#object)
 
-get_parameter(*target*)[[source]](https://github.com/pytorch/pytorch/blob/5f228673c58f6d36691c0cbc5c677fdf0c349372/torch/nn/modules/module.py#L820)
+get_parameter(*target*)[[source]](https://github.com/pytorch/pytorch/blob/83e3e8add0ddb03f2c26481b528c463acdc7fb00/torch/nn/modules/module.py#L820)
 
 Return the parameter given by `target` if it exists, otherwise throw an error.
 
@@ -402,7 +402,7 @@ Raises:
  path or resolves to something that is not an
  `nn.Parameter`
 
-get_submodule(*target*)[[source]](https://github.com/pytorch/pytorch/blob/5f228673c58f6d36691c0cbc5c677fdf0c349372/torch/nn/modules/module.py#L674)
+get_submodule(*target*)[[source]](https://github.com/pytorch/pytorch/blob/83e3e8add0ddb03f2c26481b528c463acdc7fb00/torch/nn/modules/module.py#L674)
 
 Return the submodule given by `target` if it exists, otherwise throw an error.
 
@@ -456,7 +456,7 @@ Raises:
  the target string the (sub)path resolves to a non-existent
  attribute name or an object that is not an instance of `nn.Module`.
 
-half()[[source]](https://github.com/pytorch/pytorch/blob/5f228673c58f6d36691c0cbc5c677fdf0c349372/torch/nn/modules/module.py#L1205)
+half()[[source]](https://github.com/pytorch/pytorch/blob/83e3e8add0ddb03f2c26481b528c463acdc7fb00/torch/nn/modules/module.py#L1205)
 
 Casts all floating point parameters and buffers to `half` datatype.
 
@@ -472,7 +472,7 @@ Return type:
 
 [Module](torch.nn.Module.html#torch.nn.Module)
 
-ipu(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/5f228673c58f6d36691c0cbc5c677fdf0c349372/torch/nn/modules/module.py#L1101)
+ipu(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/83e3e8add0ddb03f2c26481b528c463acdc7fb00/torch/nn/modules/module.py#L1101)
 
 Move all model parameters and buffers to the IPU.
 
@@ -497,7 +497,7 @@ Return type:
 
 [Module](torch.nn.Module.html#torch.nn.Module)
 
-load_state_dict(*state_dict*, *strict=True*, *assign=False*)[[source]](https://github.com/pytorch/pytorch/blob/5f228673c58f6d36691c0cbc5c677fdf0c349372/torch/nn/modules/module.py#L2540)
+load_state_dict(*state_dict*, *strict=True*, *assign=False*)[[source]](https://github.com/pytorch/pytorch/blob/83e3e8add0ddb03f2c26481b528c463acdc7fb00/torch/nn/modules/module.py#L2540)
 
 Copy parameters and buffers from `state_dict` into this module and its descendants.
 
@@ -543,7 +543,7 @@ If a parameter or buffer is registered as `None` and its corresponding key
 exists in `state_dict`, `load_state_dict()` will raise a
 `RuntimeError`.
 
-modules(*remove_duplicate=True*)[[source]](https://github.com/pytorch/pytorch/blob/5f228673c58f6d36691c0cbc5c677fdf0c349372/torch/nn/modules/module.py#L2819)
+modules(*remove_duplicate=True*)[[source]](https://github.com/pytorch/pytorch/blob/83e3e8add0ddb03f2c26481b528c463acdc7fb00/torch/nn/modules/module.py#L2819)
 
 Return an iterator over all modules in the network.
 
@@ -580,7 +580,7 @@ Example:
 1 -> Linear(in_features=2, out_features=2, bias=True)
 ```
 
-mtia(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/5f228673c58f6d36691c0cbc5c677fdf0c349372/torch/nn/modules/module.py#L1139)
+mtia(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/83e3e8add0ddb03f2c26481b528c463acdc7fb00/torch/nn/modules/module.py#L1139)
 
 Move all model parameters and buffers to the MTIA.
 
@@ -605,7 +605,7 @@ Return type:
 
 [Module](torch.nn.Module.html#torch.nn.Module)
 
-named_buffers(*prefix=''*, *recurse=True*, *remove_duplicate=True*)[[source]](https://github.com/pytorch/pytorch/blob/5f228673c58f6d36691c0cbc5c677fdf0c349372/torch/nn/modules/module.py#L2759)
+named_buffers(*prefix=''*, *recurse=True*, *remove_duplicate=True*)[[source]](https://github.com/pytorch/pytorch/blob/83e3e8add0ddb03f2c26481b528c463acdc7fb00/torch/nn/modules/module.py#L2759)
 
 Return an iterator over module buffers, yielding both the name of the buffer as well as the buffer itself.
 
@@ -633,7 +633,7 @@ Example:
 >>> print(buf.size())
 ```
 
-named_children()[[source]](https://github.com/pytorch/pytorch/blob/5f228673c58f6d36691c0cbc5c677fdf0c349372/torch/nn/modules/module.py#L2799)
+named_children()[[source]](https://github.com/pytorch/pytorch/blob/83e3e8add0ddb03f2c26481b528c463acdc7fb00/torch/nn/modules/module.py#L2799)
 
 Return an iterator over immediate children modules, yielding both the name of the module as well as the module itself.
 
@@ -653,7 +653,7 @@ Example:
 >>> print(module)
 ```
 
-named_modules(*memo=None*, *prefix=''*, *remove_duplicate=True*)[[source]](https://github.com/pytorch/pytorch/blob/5f228673c58f6d36691c0cbc5c677fdf0c349372/torch/nn/modules/module.py#L2850)
+named_modules(*memo=None*, *prefix=''*, *remove_duplicate=True*)[[source]](https://github.com/pytorch/pytorch/blob/83e3e8add0ddb03f2c26481b528c463acdc7fb00/torch/nn/modules/module.py#L2850)
 
 Return an iterator over all modules in the network, yielding both the name of the module as well as the module itself.
 
@@ -688,7 +688,7 @@ Example:
 1 -> ('0', Linear(in_features=2, out_features=2, bias=True))
 ```
 
-named_parameters(*prefix=''*, *recurse=True*, *remove_duplicate=True*)[[source]](https://github.com/pytorch/pytorch/blob/5f228673c58f6d36691c0cbc5c677fdf0c349372/torch/nn/modules/module.py#L2704)
+named_parameters(*prefix=''*, *recurse=True*, *remove_duplicate=True*)[[source]](https://github.com/pytorch/pytorch/blob/83e3e8add0ddb03f2c26481b528c463acdc7fb00/torch/nn/modules/module.py#L2704)
 
 Return an iterator over module parameters, yielding both the name of the parameter as well as the parameter itself.
 
@@ -717,7 +717,7 @@ Example:
 >>> print(param.size())
 ```
 
-parameters(*recurse=True*)[[source]](https://github.com/pytorch/pytorch/blob/5f228673c58f6d36691c0cbc5c677fdf0c349372/torch/nn/modules/module.py#L2675)
+parameters(*recurse=True*)[[source]](https://github.com/pytorch/pytorch/blob/83e3e8add0ddb03f2c26481b528c463acdc7fb00/torch/nn/modules/module.py#L2675)
 
 Return an iterator over module parameters.
 
@@ -750,7 +750,7 @@ Example:
 <class 'torch.Tensor'> (20L, 1L, 5L, 5L)
 ```
 
-register_backward_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/5f228673c58f6d36691c0cbc5c677fdf0c349372/torch/nn/modules/module.py#L1444)
+register_backward_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/83e3e8add0ddb03f2c26481b528c463acdc7fb00/torch/nn/modules/module.py#L1444)
 
 Register a backward hook on the module.
 
@@ -766,7 +766,7 @@ Return type:
 
 `torch.utils.hooks.RemovableHandle`
 
-register_buffer(*name*, *tensor*, *persistent=True*)[[source]](https://github.com/pytorch/pytorch/blob/5f228673c58f6d36691c0cbc5c677fdf0c349372/torch/nn/modules/module.py#L528)
+register_buffer(*name*, *tensor*, *persistent=True*)[[source]](https://github.com/pytorch/pytorch/blob/83e3e8add0ddb03f2c26481b528c463acdc7fb00/torch/nn/modules/module.py#L528)
 
 Add a buffer to the module.
 
@@ -797,7 +797,7 @@ Example:
 >>> self.register_buffer('running_mean', torch.zeros(num_features))
 ```
 
-register_forward_hook(*hook*, ***, *prepend=False*, *with_kwargs=False*, *always_call=False*)[[source]](https://github.com/pytorch/pytorch/blob/5f228673c58f6d36691c0cbc5c677fdf0c349372/torch/nn/modules/module.py#L1697)
+register_forward_hook(*hook*, ***, *prepend=False*, *with_kwargs=False*, *always_call=False*)[[source]](https://github.com/pytorch/pytorch/blob/83e3e8add0ddb03f2c26481b528c463acdc7fb00/torch/nn/modules/module.py#L1697)
 
 Register a forward hook on the module.
 
@@ -850,7 +850,7 @@ Return type:
 
 `torch.utils.hooks.RemovableHandle`
 
-register_forward_pre_hook(*hook*, ***, *prepend=False*, *with_kwargs=False*)[[source]](https://github.com/pytorch/pytorch/blob/5f228673c58f6d36691c0cbc5c677fdf0c349372/torch/nn/modules/module.py#L1634)
+register_forward_pre_hook(*hook*, ***, *prepend=False*, *with_kwargs=False*)[[source]](https://github.com/pytorch/pytorch/blob/83e3e8add0ddb03f2c26481b528c463acdc7fb00/torch/nn/modules/module.py#L1634)
 
 Register a forward pre-hook on the module.
 
@@ -902,7 +902,7 @@ Return type:
 
 `torch.utils.hooks.RemovableHandle`
 
-register_full_backward_hook(*hook*, *prepend=False*)[[source]](https://github.com/pytorch/pytorch/blob/5f228673c58f6d36691c0cbc5c677fdf0c349372/torch/nn/modules/module.py#L1470)
+register_full_backward_hook(*hook*, *prepend=False*)[[source]](https://github.com/pytorch/pytorch/blob/83e3e8add0ddb03f2c26481b528c463acdc7fb00/torch/nn/modules/module.py#L1470)
 
 Register a backward hook on the module.
 
@@ -958,7 +958,7 @@ Return type:
 
 `torch.utils.hooks.RemovableHandle`
 
-register_full_backward_pre_hook(*hook*, *prepend=False*)[[source]](https://github.com/pytorch/pytorch/blob/5f228673c58f6d36691c0cbc5c677fdf0c349372/torch/nn/modules/module.py#L1395)
+register_full_backward_pre_hook(*hook*, *prepend=False*)[[source]](https://github.com/pytorch/pytorch/blob/83e3e8add0ddb03f2c26481b528c463acdc7fb00/torch/nn/modules/module.py#L1395)
 
 Register a backward pre-hook on the module.
 
@@ -1005,7 +1005,7 @@ Return type:
 
 `torch.utils.hooks.RemovableHandle`
 
-register_load_state_dict_post_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/5f228673c58f6d36691c0cbc5c677fdf0c349372/torch/nn/modules/module.py#L2326)
+register_load_state_dict_post_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/83e3e8add0ddb03f2c26481b528c463acdc7fb00/torch/nn/modules/module.py#L2326)
 
 Register a post-hook to be run after module's `load_state_dict()` is called.
 
@@ -1036,7 +1036,7 @@ Return type:
 
 `torch.utils.hooks.RemovableHandle`
 
-register_load_state_dict_pre_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/5f228673c58f6d36691c0cbc5c677fdf0c349372/torch/nn/modules/module.py#L2314)
+register_load_state_dict_pre_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/83e3e8add0ddb03f2c26481b528c463acdc7fb00/torch/nn/modules/module.py#L2314)
 
 Register a pre-hook to be run before module's `load_state_dict()` is called.
 
@@ -1049,11 +1049,11 @@ Parameters:
 **hook** (*Callable*) - Callable hook that will be invoked before
 loading the state dict.
 
-register_module(*name*, *module*)[[source]](https://github.com/pytorch/pytorch/blob/5f228673c58f6d36691c0cbc5c677fdf0c349372/torch/nn/modules/module.py#L670)
+register_module(*name*, *module*)[[source]](https://github.com/pytorch/pytorch/blob/83e3e8add0ddb03f2c26481b528c463acdc7fb00/torch/nn/modules/module.py#L670)
 
 Alias for `add_module()`.
 
-register_parameter(*name*, *param*)[[source]](https://github.com/pytorch/pytorch/blob/5f228673c58f6d36691c0cbc5c677fdf0c349372/torch/nn/modules/module.py#L592)
+register_parameter(*name*, *param*)[[source]](https://github.com/pytorch/pytorch/blob/83e3e8add0ddb03f2c26481b528c463acdc7fb00/torch/nn/modules/module.py#L592)
 
 Add a parameter to the module.
 
@@ -1068,7 +1068,7 @@ from this module using the given name
 are ignored. If `None`, the parameter is **not** included in the
 module's `state_dict`.
 
-register_state_dict_post_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/5f228673c58f6d36691c0cbc5c677fdf0c349372/torch/nn/modules/module.py#L2116)
+register_state_dict_post_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/83e3e8add0ddb03f2c26481b528c463acdc7fb00/torch/nn/modules/module.py#L2116)
 
 Register a post-hook for the [`state_dict()`](torch.nn.Module.html#torch.nn.Module.state_dict) method.
 
@@ -1078,7 +1078,7 @@ hook(module, state_dict, prefix, local_metadata) -> None
 
 The registered hooks can modify the `state_dict` inplace.
 
-register_state_dict_pre_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/5f228673c58f6d36691c0cbc5c677fdf0c349372/torch/nn/modules/module.py#L2140)
+register_state_dict_pre_hook(*hook*)[[source]](https://github.com/pytorch/pytorch/blob/83e3e8add0ddb03f2c26481b528c463acdc7fb00/torch/nn/modules/module.py#L2140)
 
 Register a pre-hook for the [`state_dict()`](torch.nn.Module.html#torch.nn.Module.state_dict) method.
 
@@ -1089,7 +1089,7 @@ hook(module, prefix, keep_vars) -> None
 The registered hooks can be used to perform pre-processing before the `state_dict`
 call is made.
 
-requires_grad_(*requires_grad=True*)[[source]](https://github.com/pytorch/pytorch/blob/5f228673c58f6d36691c0cbc5c677fdf0c349372/torch/nn/modules/module.py#L2939)
+requires_grad_(*requires_grad=True*)[[source]](https://github.com/pytorch/pytorch/blob/83e3e8add0ddb03f2c26481b528c463acdc7fb00/torch/nn/modules/module.py#L2939)
 
 Change if autograd should record operations on parameters in this module.
 
@@ -1115,7 +1115,7 @@ Return type:
 
 [Module](torch.nn.Module.html#torch.nn.Module)
 
-set_extra_state(*state*)[[source]](https://github.com/pytorch/pytorch/blob/5f228673c58f6d36691c0cbc5c677fdf0c349372/torch/nn/modules/module.py#L913)
+set_extra_state(*state*)[[source]](https://github.com/pytorch/pytorch/blob/83e3e8add0ddb03f2c26481b528c463acdc7fb00/torch/nn/modules/module.py#L913)
 
 Set extra state contained in the loaded state_dict.
 
@@ -1128,7 +1128,7 @@ Parameters:
 
 **state** ([*dict*](https://docs.python.org/3/builtins/stdtypes.html#dict)) - Extra state from the state_dict
 
-set_submodule(*target*, *module*, *strict=False*)[[source]](https://github.com/pytorch/pytorch/blob/5f228673c58f6d36691c0cbc5c677fdf0c349372/torch/nn/modules/module.py#L739)
+set_submodule(*target*, *module*, *strict=False*)[[source]](https://github.com/pytorch/pytorch/blob/83e3e8add0ddb03f2c26481b528c463acdc7fb00/torch/nn/modules/module.py#L739)
 
 Set the submodule given by `target` if it exists, otherwise throw an error.
 
@@ -1186,7 +1186,7 @@ Raises:
  the `target` string the (sub)path resolves to a non-existent
  attribute name or an object that is not an instance of `nn.Module`.
 
-share_memory()[[source]](https://github.com/pytorch/pytorch/blob/5f228673c58f6d36691c0cbc5c677fdf0c349372/torch/nn/modules/module.py#L2991)
+share_memory()[[source]](https://github.com/pytorch/pytorch/blob/83e3e8add0ddb03f2c26481b528c463acdc7fb00/torch/nn/modules/module.py#L2991)
 
 See [`torch.Tensor.share_memory_()`](torch.Tensor.share_memory_.html#torch.Tensor.share_memory_).
 
@@ -1194,7 +1194,7 @@ Return type:
 
 [*Self*](https://docs.python.org/3/library/typing.html#typing.Self)
 
-state_dict(**args*, *destination=None*, *prefix=''*, *keep_vars=False*)[[source]](https://github.com/pytorch/pytorch/blob/5f228673c58f6d36691c0cbc5c677fdf0c349372/torch/nn/modules/module.py#L2204)
+state_dict(**args*, *destination=None*, *prefix=''*, *keep_vars=False*)[[source]](https://github.com/pytorch/pytorch/blob/83e3e8add0ddb03f2c26481b528c463acdc7fb00/torch/nn/modules/module.py#L2204)
 
 Return a dictionary containing references to the whole state of the module.
 
@@ -1247,19 +1247,19 @@ Example:
 ['bias', 'weight']
 ```
 
-to(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/5f228673c58f6d36691c0cbc5c677fdf0c349372/torch/nn/modules/module.py#L1260)
+to(**args*, ***kwargs*)[[source]](https://github.com/pytorch/pytorch/blob/83e3e8add0ddb03f2c26481b528c463acdc7fb00/torch/nn/modules/module.py#L1260)
 
 Move and/or cast the parameters and buffers.
 
 This can be called as
 
-to(*device=None*, *dtype=None*, *non_blocking=False*)[[source]](https://github.com/pytorch/pytorch/blob/5f228673c58f6d36691c0cbc5c677fdf0c349372/torch/nn/modules/module.py#L1260)
+to(*device=None*, *dtype=None*, *non_blocking=False*)[[source]](https://github.com/pytorch/pytorch/blob/83e3e8add0ddb03f2c26481b528c463acdc7fb00/torch/nn/modules/module.py#L1260)
 
-to(*dtype*, *non_blocking=False*)[[source]](https://github.com/pytorch/pytorch/blob/5f228673c58f6d36691c0cbc5c677fdf0c349372/torch/nn/modules/module.py#L1260)
+to(*dtype*, *non_blocking=False*)[[source]](https://github.com/pytorch/pytorch/blob/83e3e8add0ddb03f2c26481b528c463acdc7fb00/torch/nn/modules/module.py#L1260)
 
-to(*tensor*, *non_blocking=False*)[[source]](https://github.com/pytorch/pytorch/blob/5f228673c58f6d36691c0cbc5c677fdf0c349372/torch/nn/modules/module.py#L1260)
+to(*tensor*, *non_blocking=False*)[[source]](https://github.com/pytorch/pytorch/blob/83e3e8add0ddb03f2c26481b528c463acdc7fb00/torch/nn/modules/module.py#L1260)
 
-to(*memory_format=torch.channels_last*)[[source]](https://github.com/pytorch/pytorch/blob/5f228673c58f6d36691c0cbc5c677fdf0c349372/torch/nn/modules/module.py#L1260)
+to(*memory_format=torch.channels_last*)[[source]](https://github.com/pytorch/pytorch/blob/83e3e8add0ddb03f2c26481b528c463acdc7fb00/torch/nn/modules/module.py#L1260)
 
 Its signature is similar to [`torch.Tensor.to()`](torch.Tensor.to.html#torch.Tensor.to), but only accepts
 floating point or complex `dtype`s. In addition, this method will
@@ -1336,7 +1336,7 @@ tensor([[0.6122+0.j, 0.1150+0.j],
  [0.6122+0.j, 0.1150+0.j]], dtype=torch.complex128)
 ```
 
-to_empty(***, *device*, *recurse=True*)[[source]](https://github.com/pytorch/pytorch/blob/5f228673c58f6d36691c0cbc5c677fdf0c349372/torch/nn/modules/module.py#L1227)
+to_empty(***, *device*, *recurse=True*)[[source]](https://github.com/pytorch/pytorch/blob/83e3e8add0ddb03f2c26481b528c463acdc7fb00/torch/nn/modules/module.py#L1227)
 
 Move the parameters and buffers to the specified device without copying storage.
 
@@ -1355,7 +1355,7 @@ Return type:
 
 [Module](torch.nn.Module.html#torch.nn.Module)
 
-train(*mode=True*)[[source]](https://github.com/pytorch/pytorch/blob/5f228673c58f6d36691c0cbc5c677fdf0c349372/torch/nn/modules/module.py#L2899)
+train(*mode=True*)[[source]](https://github.com/pytorch/pytorch/blob/83e3e8add0ddb03f2c26481b528c463acdc7fb00/torch/nn/modules/module.py#L2899)
 
 Set the module in training mode.
 
@@ -1377,7 +1377,7 @@ Return type:
 
 [Module](torch.nn.Module.html#torch.nn.Module)
 
-type(*dst_type*)[[source]](https://github.com/pytorch/pytorch/blob/5f228673c58f6d36691c0cbc5c677fdf0c349372/torch/nn/modules/module.py#L1169)
+type(*dst_type*)[[source]](https://github.com/pytorch/pytorch/blob/83e3e8add0ddb03f2c26481b528c463acdc7fb00/torch/nn/modules/module.py#L1169)
 
 Casts all parameters and buffers to `dst_type`.
 
@@ -1397,11 +1397,11 @@ Return type:
 
 [Module](torch.nn.Module.html#torch.nn.Module)
 
-update_parameters(*model*)[[source]](https://github.com/pytorch/pytorch/blob/5f228673c58f6d36691c0cbc5c677fdf0c349372/torch/optim/swa_utils.py#L294)
+update_parameters(*model*)[[source]](https://github.com/pytorch/pytorch/blob/83e3e8add0ddb03f2c26481b528c463acdc7fb00/torch/optim/swa_utils.py#L294)
 
 Update model parameters.
 
-xpu(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/5f228673c58f6d36691c0cbc5c677fdf0c349372/torch/nn/modules/module.py#L1120)
+xpu(*device=None*)[[source]](https://github.com/pytorch/pytorch/blob/83e3e8add0ddb03f2c26481b528c463acdc7fb00/torch/nn/modules/module.py#L1120)
 
 Move all model parameters and buffers to the XPU.
 
@@ -1426,7 +1426,7 @@ Return type:
 
 [Module](torch.nn.Module.html#torch.nn.Module)
 
-zero_grad(*set_to_none=True*)[[source]](https://github.com/pytorch/pytorch/blob/5f228673c58f6d36691c0cbc5c677fdf0c349372/torch/nn/modules/module.py#L2962)
+zero_grad(*set_to_none=True*)[[source]](https://github.com/pytorch/pytorch/blob/83e3e8add0ddb03f2c26481b528c463acdc7fb00/torch/nn/modules/module.py#L2962)
 
 Reset gradients of all model parameters.
 

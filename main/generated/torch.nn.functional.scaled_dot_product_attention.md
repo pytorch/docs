@@ -1,6 +1,6 @@
 # torch.nn.functional.scaled_dot_product_attention
 
-torch.nn.functional.scaled_dot_product_attention()[[source]](https://github.com/pytorch/pytorch/blob/5f228673c58f6d36691c0cbc5c677fdf0c349372/torch/nn/functional.py#L6499)
+torch.nn.functional.scaled_dot_product_attention()[[source]](https://github.com/pytorch/pytorch/blob/83e3e8add0ddb03f2c26481b528c463acdc7fb00/torch/nn/functional.py#L6499)
 
 scaled_dot_product_attention(query, key, value, attn_mask=None, dropout_p=0.0,
 
@@ -84,8 +84,8 @@ There are currently three supported implementations of scaled dot product attent
 > - [Memory-Efficient Attention](https://github.com/facebookresearch/xformers)
 > - A PyTorch implementation defined in C++ matching the above formulation
 
-The function may call optimized kernels for improved performance when using the CUDA backend.
-For all other backends, the PyTorch implementation will be used.
+The function may call optimized kernels for improved performance when using the CUDA, XPU, CPU or MPS backends,
+and falls back to the PyTorch implementation otherwise.
 
 All implementations are enabled by default. Scaled dot product attention attempts to automatically select the
 most optimal implementation based on the inputs. In order to provide more fine-grained control over what implementation
@@ -96,6 +96,11 @@ The context manager is the preferred mechanism:
 > - [`torch.backends.cuda.enable_flash_sdp()`](../backends.html#torch.backends.cuda.enable_flash_sdp): Globally enables or disables FlashAttention.
 > - [`torch.backends.cuda.enable_mem_efficient_sdp()`](../backends.html#torch.backends.cuda.enable_mem_efficient_sdp): Globally enables or disables Memory-Efficient Attention.
 > - [`torch.backends.cuda.enable_math_sdp()`](../backends.html#torch.backends.cuda.enable_math_sdp): Globally enables or disables the PyTorch C++ implementation.
+
+Despite their `torch.backends.cuda` namespace, these global toggles also affect CPU, XPU and MPS.
+CPU only implements FlashAttention and the C++ implementation, and MPS only Memory-Efficient Attention
+(which also serves FlashAttention requests) and the C++ implementation, so the other toggles have no
+effect there.
 
 Each of the fused kernels has specific input limitations. If the user requires the use of a specific fused implementation,
 disable the PyTorch C++ implementation using [`torch.nn.attention.sdpa_kernel()`](torch.nn.attention.sdpa_kernel.html#torch.nn.attention.sdpa_kernel).

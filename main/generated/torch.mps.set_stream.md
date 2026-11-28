@@ -1,6 +1,6 @@
 # torch.mps.set_stream
 
-torch.mps.set_stream(*stream*)[[source]](https://github.com/pytorch/pytorch/blob/5f228673c58f6d36691c0cbc5c677fdf0c349372/torch/mps/streams.py#L99)
+torch.mps.set_stream(*stream*)[[source]](https://github.com/pytorch/pytorch/blob/83e3e8add0ddb03f2c26481b528c463acdc7fb00/torch/mps/streams.py#L99)
 
 Set the current stream. Usage of this function is discouraged in favor
 of the [`stream()`](torch.mps.stream_function.html#torch.mps.stream) context manager.
